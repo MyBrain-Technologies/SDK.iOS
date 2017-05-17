@@ -12,10 +12,17 @@ struct MBTBluetoothA2DP {
     /**
      * The UIID of Audio Sink.
      */
-    let audioSingServiceUUID = CBUUID(string: "0x110B")
+    static let audioSingServiceUUID = CBUUID(string: "0x110B")
     
     /**
      * The UIID of the A/V Remote Control.
      */
-    let remoteControlServiceUUID = CBUUID(string: "0x110C")
+    static let remoteControlServiceUUID = CBUUID(string: "0x110C")
+    
+    /**
+     * Getter of Bluetooth A2DP Services UUIDs.
+     */
+    static func getUUIDs() -> [CBUUID] {
+        return [audioSingServiceUUID, remoteControlServiceUUID]
+    }
 }

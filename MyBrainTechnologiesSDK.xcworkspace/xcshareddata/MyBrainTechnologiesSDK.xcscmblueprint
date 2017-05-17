@@ -1,15 +1,18 @@
 {
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "20ADA8B340179109302472BFF4D61654A41BF999",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : 9223372036854775807,
+    "20ADA8B340179109302472BFF4D61654A41BF999" : 9223372036854775807,
     "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : 9223372036854775807,
     "E084C86B03F81D63323C9E7510697EA528A758C7" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CAB668DF-7A05-4A6C-839A-7704B5C121F0",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : "MyBrainTechnologiesSDK\/Carthage\/Checkouts\/Quick\/Externals\/Nimble\/",
+    "20ADA8B340179109302472BFF4D61654A41BF999" : "MyBrainTechnologiesSDK\/",
     "D0725CAC6FF2D66F2C83C2C48DC12106D42DAA64" : "MyBrainTechnologiesSDK\/Carthage\/Checkouts\/Quick\/",
     "E084C86B03F81D63323C9E7510697EA528A758C7" : "MyBrainTechnologiesSDK\/Carthage\/Checkouts\/xcconfigs\/"
   },
@@ -17,6 +20,11 @@
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MyBrainTechnologiesSDK.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "gitlab.com:B_Rass\/MyBrainTechnologiesSDK.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "20ADA8B340179109302472BFF4D61654A41BF999"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Quick\/Nimble.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

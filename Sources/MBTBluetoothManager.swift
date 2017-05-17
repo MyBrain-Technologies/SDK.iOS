@@ -32,7 +32,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     /**
      * A boolean indicating the connection status. Sends a notification when changed.
      */
-    var status = false {
+    var isConnected = false {
         willSet {
             eventDelegate.onBluetoothStatusUpdate(newValue)
         }
@@ -40,17 +40,20 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     var deviceName: NSString!
     var eventDelegate: MBTBluetoothEventDelegate!
-    
-    
+    var servicesUUID: [CBUUID]!
     
     
     
     
     public func connectTo(_ deviceName:String,
-                          eventDelegate: MBTBluetoothEventDelegate) {
+                          with eventDelegate: MBTBluetoothEventDelegate,
+                          and servicesUUID:[CBUUID]) {
+        
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        
         self.deviceName = NSString(string: deviceName)
         self.eventDelegate = eventDelegate
+        self.servicesUUID = servicesUUID
     }
     
     public func disconnect() {
@@ -70,7 +73,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             central.scanForPeripherals(withServices: nil, options: nil)
         }
         else {
-            status = false
+            isConnected = false
         }
     }
     
@@ -104,7 +107,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func centralManager(_ central: CBCentralManager,
                                     didConnect peripheral: CBPeripheral)
     {
-        status = true
+        isConnected = true
         peripheral.discoverServices(nil)
     }
     
@@ -116,16 +119,33 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         didDisconnectPeripheral peripheral: CBPeripheral,
         error: Error?)
     {
-        status = false
+        isConnected = false
         central.scanForPeripherals(withServices: nil, options: nil)
     }
+    
+    /**
+     * Called if connection failed.
+     */
+    func centralManager(_ central: CBCentralManager,
+                        didFailToConnect peripheral: CBPeripheral,
+                        error: Error?)
+    {
+        print("connection Fail")
+    }
+    
     
     /**
      * Check if the service discovered is a valid Service.
      */
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        print("Did discover services")
-        
+        // Check all the services of the connecting peripheral.
+        for service in peripheral.services! {
+            let currentService = service as CBService
+            // Check if manager should look at this service characteristics
+            if servicesUUID.contains(CBUUID(data: service.uuid.data)) {
+                peripheral.discoverCharacteristics(nil, for: currentService)
+            }
+        }
     }
     
     /**

@@ -12,10 +12,17 @@ struct MBTBluetoothLE {
     /**
      * The UIID of the MyBrainServices.
      */
-    let myBrainServiceUUID = CBUUID(string: "0xB2A0")
+    static let myBrainServiceUUID = CBUUID(string: "0xB2A0")
     
     /**
      * The UIID of the DeviceInformation service.
      */
-    let deviceInfoServiceUUID = CBUUID(string: "0x180A")
+    static let deviceInfoServiceUUID = CBUUID(string: "0x180A")
+    
+    /**
+     * Getter of Bluetooth LE Services UUIDs.
+     */
+    static func getUUIDs() -> [CBUUID] {
+        return [myBrainServiceUUID, deviceInfoServiceUUID]
+    }
 }

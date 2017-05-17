@@ -721,7 +721,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = MyBrainTechnologies;
 				TargetAttributes = {
 					3549BB201DA389CD00C63030 = {
@@ -1191,7 +1191,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 6672ETQ9F2;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1206,7 +1206,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1234,7 +1234,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;

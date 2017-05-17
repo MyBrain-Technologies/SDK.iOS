@@ -11,13 +11,30 @@ import Foundation
 public class MBTBluetooth {
     
     internal var manager: MBTBluetoothManager
-    internal var bluetoothLEData: MBTBluetoothLE
-    internal var bluetoothA2DPData: MBTBluetoothA2DP
     
     public func connectTo(_ deviceName:String,
+                          with eventDelegate: MBTBluetoothEventDelegate,
+                          and shouldConnectToAudio: Bool) {
+        var servicesUUID = MBTBluetoothLE.getUUIDs()
+        
+        if shouldConnectToAudio {
+            servicesUUID += MBTBluetoothA2DP.getUUIDs()
+        }
+        
+        manager.connectTo(deviceName,
+                          with: eventDelegate,
+                          and: servicesUUID)
+    }
+    
+    public func connectToEEG(_ deviceName:String,
                           with eventDelegate: MBTBluetoothEventDelegate) {
         
-        manager.connectTo(deviceName, eventDelegate: eventDelegate)
+        self.connectTo(deviceName, with: eventDelegate, and: false)
+    }
+    
+    public func connectToA2DPAndEEG(_ deviceName:String,
+                                    with eventDelegate: MBTBluetoothEventDelegate) {
+        self.connectTo(deviceName, with: eventDelegate, and: true)
     }
     
     public func disconnect() {
@@ -26,7 +43,5 @@ public class MBTBluetooth {
     
     public init() {
         manager = MBTBluetoothManager()
-        bluetoothLEData = MBTBluetoothLE()
-        bluetoothA2DPData = MBTBluetoothA2DP()
     }
 }
