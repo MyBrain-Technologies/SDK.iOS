@@ -13,9 +13,15 @@ public protocol MBTBluetoothEventDelegate {
     /**
      * Called when the connection has been established.
      */
+    func onConnectionEstablished()
+    
     func onBluetoothStatusUpdate(_ isConnected:Bool)
     
     func onReceivingPackage(_ notification: Notification)
     
     func onReceivingBatteryLevel(_ notification: Notification)
+    
+    func onConnectionFailed(_ error: Error?)
+    
+    func onConnectionOff()
 }

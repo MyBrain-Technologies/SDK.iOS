@@ -25,4 +25,13 @@ struct MBTBluetoothA2DP {
     static func getUUIDs() -> [CBUUID] {
         return [audioSingServiceUUID, remoteControlServiceUUID]
     }
+
+    static var uid: String! = nil
+}
+
+
+public protocol MBTBluetoothA2DPDelegate {
+    func audioA2DPDidConnect()
+    
+    func audioA2DPDidDisconnect()
 }

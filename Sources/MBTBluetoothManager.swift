@@ -40,20 +40,16 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     var deviceName: NSString!
     var eventDelegate: MBTBluetoothEventDelegate!
-    var servicesUUID: [CBUUID]!
-    
     
     
     
     public func connectTo(_ deviceName:String,
-                          with eventDelegate: MBTBluetoothEventDelegate,
-                          and servicesUUID:[CBUUID]) {
+                          with eventDelegate: MBTBluetoothEventDelegate) {
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
         
         self.deviceName = NSString(string: deviceName)
         self.eventDelegate = eventDelegate
-        self.servicesUUID = servicesUUID
     }
     
     public func disconnect() {
@@ -109,10 +105,15 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     {
         isConnected = true
         peripheral.discoverServices(nil)
+        
+        // Tell the event delegate that the connection is established
+        eventDelegate.onConnectionEstablished()
     }
     
     /**
-     * If disconnected by error, start searching again.
+     * If disconnected by error, start searching again,
+     * else let event delegate know that headphones
+     * are disconnected
      */
     func centralManager(
         _ central: CBCentralManager,
@@ -120,17 +121,23 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         error: Error?)
     {
         isConnected = false
-        central.scanForPeripherals(withServices: nil, options: nil)
+        
+        if error != nil {
+            central.scanForPeripherals(withServices: nil, options: nil)
+        } else {
+            eventDelegate.onConnectionOff()
+        }
     }
     
     /**
-     * Called if connection failed.
+     * If connection failed, call the event delegate
+     * with the error.
      */
     func centralManager(_ central: CBCentralManager,
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?)
     {
-        print("connection Fail")
+        eventDelegate.onConnectionFailed(error)
     }
     
     
@@ -141,6 +148,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Check all the services of the connecting peripheral.
         for service in peripheral.services! {
             let currentService = service as CBService
+            let servicesUUID = MBTBluetoothLE.getUUIDs()
+            
             // Check if manager should look at this service characteristics
             if servicesUUID.contains(CBUUID(data: service.uuid.data)) {
                 peripheral.discoverCharacteristics(nil, for: currentService)
