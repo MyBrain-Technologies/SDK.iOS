@@ -24,7 +24,7 @@ public class MBTBluetooth {
     
     
     ///////
-    //MARK: - Connect and Disconnect MBT Headset Methods/
+    //MARK: - Connect and Disconnect MBT Headset Methods
     ///////
     func connectTo(_ deviceName:String,
                    with eventDelegate: MBTBluetoothEventDelegate,
@@ -44,7 +44,7 @@ public class MBTBluetooth {
                 audioA2DPDelegate?.audioA2DPDidConnect()
             } else {
                 // Try to set Category to help device to connect 
-                // to the Melomind A2DP profile
+                // to the MBT A2DP profile
                 do {
                     if #available(iOS 10.0, *) {
                         try session.setCategory(AVAudioSessionCategoryPlayback,
