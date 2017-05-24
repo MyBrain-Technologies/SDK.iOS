@@ -32,6 +32,5 @@ struct MBTBluetoothA2DP {
 
 public protocol MBTBluetoothA2DPDelegate {
     func audioA2DPDidConnect()
-    
     func audioA2DPDidDisconnect()
 }
