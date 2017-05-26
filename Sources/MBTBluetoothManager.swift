@@ -10,14 +10,6 @@ import Foundation
 import CoreBluetooth
 import AVFoundation
 
-/**
- * Notification Keys
- */
-let BLEConnectionStatusChanged = "MBT.BLEConnectionStatusChangedNotificationKey"
-let BLEDataSampleReceived = "MBT.BLEDataSampleReceivedNotificationKey"
-let BLELeadOffChanged = "MBT.BLELeadOffChangedNotificationKey"
-let BLEBatteryLevel = "MBT.BLEBatteryLevelNotificationKey"
-
 
 internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate  {
     /**
@@ -180,7 +172,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         if error != nil {
             central.scanForPeripherals(withServices: nil, options: nil)
         } else {
-            eventDelegate.onConnectionOff()
+            eventDelegate.onConnectionOff(error)
         }
     }
     
@@ -190,8 +182,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
      */
     func centralManager(_ central: CBCentralManager,
                         didFailToConnect peripheral: CBPeripheral,
-                        error: Error?)
-    {
+                        error: Error?) {
+        
         eventDelegate.onConnectionFailed(error)
     }
     
@@ -217,9 +209,44 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
      */
     func peripheral(_ peripheral: CBPeripheral,
                                 didDiscoverCharacteristicsFor service: CBService,
-                                error: Error?)
-    {
-        print("Did discover characteristics")
+                                error: Error?) {
+        
+        // check the uuid of each characteristic to find config and data characteristics
+        for characteristic in service.characteristics! {
+            let thisCharacteristic = characteristic as CBCharacteristic
+            
+            // check for data characteristic
+            // For the MVP, only interested in the brain measurement notifications and mailbox notifications.
+            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLE.myBrainServiceUUID {
+                // Enable Sensor Notification and read the current value
+                self.blePeripheral.readValue(for: thisCharacteristic)
+                MBTBluetoothLE.brainActivityMeasurementCharacteristic = thisCharacteristic
+            }
+            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLE.deviceInfoServiceUUID {
+                self.blePeripheral.readValue(for: thisCharacteristic)
+            }
+        }
+    }
+
+    
+    /**
+     * Get data values when they are updated
+     */
+    func peripheral(_ peripheral: CBPeripheral,
+                    didUpdateValueFor characteristic: CBCharacteristic,
+                    error: Error?) {
+        
+        let notifiedData = characteristic.value!
+        
+        switch CBUUID(data: characteristic.uuid.data) {
+        case MBTBluetoothLE.myBrainServiceUUID:
+            let dataArray = MBTBluetoothLE.processBrainActivityData(notifiedData)
+            eventDelegate?.onReceivingPackage(dataArray)
+        case MBTBluetoothLE.deviceInfoServiceUUID:
+            MBTBluetoothLE.processDeviceInformations(notifiedData)
+        default:
+            break
+        }
     }
     
     /**
@@ -228,19 +255,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func peripheral(
         _ peripheral: CBPeripheral,
         didUpdateNotificationStateFor characteristic: CBCharacteristic,
-        error: Error?)
-    {
+        error: Error?) {
         
+        print("Did update notification for characteristic: \(characteristic.uuid.data)")
     }
-    
-    // Get data values when they are updated
-    func peripheral(_ peripheral: CBPeripheral,
-                                didUpdateValueFor characteristic: CBCharacteristic,
-                                error: Error?)
-    {
-        
-    }
-    
     
     
     

@@ -17,11 +17,11 @@ public protocol MBTBluetoothEventDelegate {
     
     func onBluetoothStatusUpdate(_ isConnected:Bool)
     
-    func onReceivingPackage(_ notification: Notification)
+    func onReceivingPackage(_ dataArray : [String: Any])
     
     func onReceivingBatteryLevel(_ notification: Notification)
     
     func onConnectionFailed(_ error: Error?)
     
-    func onConnectionOff()
+    func onConnectionOff(_ error: Error?)
 }
