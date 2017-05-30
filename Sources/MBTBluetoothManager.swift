@@ -31,6 +31,18 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
+    /**
+     * A boolean indicating if SDK is listening to EEG Headset notifications.
+     */
+    var isListeningToEEG = false {
+        didSet {
+            self.blePeripheral.setNotifyValue(
+                isListeningToEEG,
+                for: MBTBluetoothLE.brainActivityMeasurementCharacteristic
+            )
+        }
+    }
+    
     var deviceName: NSString!
     var eventDelegate: MBTBluetoothEventDelegate!
     var audioA2DPDelegate: MBTBluetoothA2DPDelegate? {
@@ -195,7 +207,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Check all the services of the connecting peripheral.
         for service in peripheral.services! {
             let currentService = service as CBService
-            let servicesUUID = MBTBluetoothLE.getUUIDs()
+            // Get the MyBrainService and Device info UUID
+            let servicesUUID = MBTBluetoothLE.getServicesUUIDs()
             
             // Check if manager should look at this service characteristics
             if servicesUUID.contains(CBUUID(data: service.uuid.data)) {
@@ -215,13 +228,12 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         for characteristic in service.characteristics! {
             let thisCharacteristic = characteristic as CBCharacteristic
             
-            // check for data characteristic
-            // For the MVP, only interested in the brain measurement notifications and mailbox notifications.
-            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLE.myBrainServiceUUID {
+            // MyBrainService's Characteristics
+            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLE.brainActivityMeasurementUUID {
                 // Enable Sensor Notification and read the current value
-                self.blePeripheral.readValue(for: thisCharacteristic)
                 MBTBluetoothLE.brainActivityMeasurementCharacteristic = thisCharacteristic
             }
+            // Device info's Characteristics
             if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLE.deviceInfoServiceUUID {
                 self.blePeripheral.readValue(for: thisCharacteristic)
             }
@@ -239,9 +251,13 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         let notifiedData = characteristic.value!
         
         switch CBUUID(data: characteristic.uuid.data) {
-        case MBTBluetoothLE.myBrainServiceUUID:
+        case MBTBluetoothLE.brainActivityMeasurementUUID:
             let dataArray = MBTBluetoothLE.processBrainActivityData(notifiedData)
             eventDelegate?.onReceivingPackage(dataArray)
+            self.blePeripheral.setNotifyValue(
+                true,
+                for: MBTBluetoothLE.brainActivityMeasurementCharacteristic
+            )
         case MBTBluetoothLE.deviceInfoServiceUUID:
             MBTBluetoothLE.processDeviceInformations(notifiedData)
         default:

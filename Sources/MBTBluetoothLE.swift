@@ -21,12 +21,17 @@ struct MBTBluetoothLE {
     /**
      * The UIID of the MyBrainServices.
      */
-    static let myBrainServiceUUID = CBUUID(string: "0xB2A0")
+    private static let myBrainServiceUUID = CBUUID(string: "0xB2A0")
     
     /**
      * The UIID of the DeviceInformation service.
      */
     static let deviceInfoServiceUUID = CBUUID(string: "0x180A")
+    
+    /**
+     * The UUID of the brainActivityMeasurement characteristic of the Measurement service.
+     */
+    static let brainActivityMeasurementUUID = CBUUID(string: "0xB2A5")
     
     /**
      * The brainActivityMeasurement characteristic of the Measurement service.
@@ -48,7 +53,7 @@ struct MBTBluetoothLE {
     /**
      * Getter of Bluetooth LE Services UUIDs.
      */
-    static func getUUIDs() -> [CBUUID] {
+    static func getServicesUUIDs() -> [CBUUID] {
         return [myBrainServiceUUID, deviceInfoServiceUUID]
     }
     

@@ -42,4 +42,18 @@ public class MBTBluetooth {
     public func disconnect() {
         manager.disconnect()
     }
+    
+    
+    ///////////////////////////////////////////////////////
+    //                                                   //
+    //MARK: - Start / stop listening to EEG              //
+    //                                                   //
+    ///////////////////////////////////////////////////////
+    public func startListeningToEEG() {
+        manager.isListeningToEEG = true
+    }
+    
+    public func stopListeningToEEG() {
+        manager.isListeningToEEG = false
+    }
 }
