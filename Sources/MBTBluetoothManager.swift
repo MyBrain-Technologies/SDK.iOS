@@ -86,7 +86,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     
     
-    
     ///////////////////////////////////////////////////////
     //                                                   //
     //MARK: - Connect and Disconnect MBT Headset Methods //
@@ -118,6 +117,11 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     
+    ///////////////////////////////////////////////////////
+    //                                                   //
+    //MARK: Central Manager Delegate Methods             //
+    //                                                   //
+    ///////////////////////////////////////////////////////
     
     /**
      * Check status of BLE hardware.
@@ -199,6 +203,12 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         eventDelegate.onConnectionFailed(error)
     }
     
+    
+    ///////////////////////////////////////////////////////
+    //                                                   //
+    //MARK: CBPeripheral Delegate Methods                //
+    //                                                   //
+    ///////////////////////////////////////////////////////
     
     /**
      * Check if the service discovered is a valid Service.
@@ -285,7 +295,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     //                                                 //
     /////////////////////////////////////////////////////
     
-    @objc func audioChangedRoute(_ notif:Notification) {
+    func audioChangedRoute(_ notif:Notification) {
         // Get the Reason why the audio route change
         guard let userInfo = notif.userInfo,
             let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
