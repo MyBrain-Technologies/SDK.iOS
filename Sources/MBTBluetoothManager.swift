@@ -264,10 +264,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         case MBTBluetoothLE.brainActivityMeasurementUUID:
             let dataArray = MBTBluetoothLE.processBrainActivityData(notifiedData)
             eventDelegate?.onReceivingPackage(dataArray)
-            self.blePeripheral.setNotifyValue(
-                true,
-                for: MBTBluetoothLE.brainActivityMeasurementCharacteristic
-            )
         case MBTBluetoothLE.deviceInfoServiceUUID:
             MBTBluetoothLE.processDeviceInformations(notifiedData)
         default:
