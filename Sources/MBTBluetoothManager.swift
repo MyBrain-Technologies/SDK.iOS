@@ -11,29 +11,24 @@ import CoreBluetooth
 import AVFoundation
 
 
+
+// Manager for the SDK of the Bluetooth Part of the MBT Headset.
 internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate  {
-    /**
-     * The BLE central manager.
-     */
+
+    //The BLE central manager.
     var centralManager : CBCentralManager!
     
-    /**
-     * The BLE peripheral with which a connection has been established.
-     */
+    // The BLE peripheral with which a connection has been established.
     var blePeripheral : CBPeripheral!
     
-    /**
-     * A boolean indicating the connection status. Sends a notification when changed.
-     */
+    // A boolean indicating the connection status. Sends a notification when changed.
     var isConnected = false {
         willSet {
             eventDelegate.onBluetoothStatusUpdate(newValue)
         }
     }
     
-    /**
-     * A boolean indicating if SDK is listening to EEG Headset notifications.
-     */
+    // A boolean indicating if SDK is listening to EEG Headset notifications.
     var isListeningToEEG = false {
         didSet {
             self.blePeripheral.setNotifyValue(
@@ -43,8 +38,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
+    // The headset bluetooth profile name to connect to.
     var deviceName: NSString!
+    
+    // The MBTBluetooth Event Delegate.
     var eventDelegate: MBTBluetoothEventDelegate!
+    
+    // The MBT Audio A2DP Delegate.
+    // Tell developers when audio connect / disconnect
     var audioA2DPDelegate: MBTBluetoothA2DPDelegate? {
         didSet {
             if audioA2DPDelegate != nil {
@@ -97,7 +98,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                           and audioA2DPDelegate: MBTBluetoothA2DPDelegate?) {
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        
         self.deviceName = NSString(string: deviceName)
         self.eventDelegate = eventDelegate
         
@@ -123,9 +123,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     //                                                   //
     ///////////////////////////////////////////////////////
     
-    /**
-     * Check status of BLE hardware.
-     */
+    // Check status of BLE hardware.
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state.hashValue == CBCentralManagerState.poweredOn.hashValue {
             // Scan for peripherals if BLE is turned on
@@ -136,9 +134,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    /**
-     * Check out the discovered peripherals to find the right device.
-     */
+    // Check out the discovered peripherals to find the right device.
     func centralManager(
         _ central: CBCentralManager,
         didDiscover peripheral: CBPeripheral,
@@ -160,9 +156,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    /**
-     * Discover services of the peripheral.
-     */
+    // Discover services of the peripheral.
     func centralManager(_ central: CBCentralManager,
                                     didConnect peripheral: CBPeripheral)
     {
@@ -173,11 +167,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         eventDelegate.onConnectionEstablished()
     }
     
-    /**
-     * If disconnected by error, start searching again,
-     * else let event delegate know that headphones
-     * are disconnected
-     */
+    // If disconnected by error, start searching again,
+    // else let event delegate know that headphones
+    // are disconnected
     func centralManager(
         _ central: CBCentralManager,
         didDisconnectPeripheral peripheral: CBPeripheral,
@@ -192,10 +184,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    /**
-     * If connection failed, call the event delegate
-     * with the error.
-     */
+    // If connection failed, call the event delegate
+    // with the error.
     func centralManager(_ central: CBCentralManager,
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
@@ -210,9 +200,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     //                                                   //
     ///////////////////////////////////////////////////////
     
-    /**
-     * Check if the service discovered is a valid Service.
-     */
+    // Check if the service discovered is a valid Service.
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         // Check all the services of the connecting peripheral.
         for service in peripheral.services! {
@@ -227,9 +215,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    /**
-     * Enable notification and sensor for desired characteristic of valid service.
-     */
+    // Enable notification and sensor for desired characteristic of valid service.
     func peripheral(_ peripheral: CBPeripheral,
                                 didDiscoverCharacteristicsFor service: CBService,
                                 error: Error?) {
@@ -251,9 +237,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
 
     
-    /**
-     * Get data values when they are updated
-     */
+    // Get data values when they are updated
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
@@ -271,9 +255,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    /**
-     * Check if the notification status changed. -Absence of this function causes the notifications not to register anymore.-
-     */
+    // Check if the notification status changed. 
+    // NB: Absence of this function causes the notifications not to register anymore.
     func peripheral(
         _ peripheral: CBPeripheral,
         didUpdateNotificationStateFor characteristic: CBCharacteristic,

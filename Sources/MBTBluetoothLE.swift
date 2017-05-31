@@ -8,58 +8,45 @@
 
 import CoreBluetooth
 
-/**
- * Notification Keys
- */
-let BLEConnectionStatusChanged = "MBT.BLEConnectionStatusChangedNotificationKey"
+// Notification Keys
 let BLEDataSampleReceived = "MBT.BLEDataSampleReceivedNotificationKey"
 let BLELeadOffChanged = "MBT.BLELeadOffChangedNotificationKey"
 let BLEBatteryLevel = "MBT.BLEBatteryLevelNotificationKey"
 
 
+
+
+// Specifics methods and variables to help MBTBluetoothManager
+// to manage Bluetooth Low Energy ( BLE ).
+
 struct MBTBluetoothLE {
-    /**
-     * The UIID of the MyBrainServices.
-     */
+    // The UUID of the MyBrainServices.
     private static let myBrainServiceUUID = CBUUID(string: "0xB2A0")
     
-    /**
-     * The UIID of the DeviceInformation service.
-     */
+    // The UUID of the DeviceInformation service.
     static let deviceInfoServiceUUID = CBUUID(string: "0x180A")
     
-    /**
-     * The UUID of the brainActivityMeasurement characteristic of the Measurement service.
-     */
+    // The UUID of the brainActivityMeasurement 
+    // characteristic of the Measurement service.
     static let brainActivityMeasurementUUID = CBUUID(string: "0xB2A5")
     
-    /**
-     * The brainActivityMeasurement characteristic of the Measurement service.
-     */
+    // The characteristic of the Measurement service.
     static var brainActivityMeasurementCharacteristic: CBCharacteristic!
     
-    /**
-     * The multiplicative constant.
-     */
+    // The multiplicative constant.
     internal static let const = 4.5 * 1000000 / (pow(2.0, 23.0) - 1) / 24
     
-    /**
-     *
-     */
+    //TODO: ADD COMMENT HERE
     internal static let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 12
     
     
     
-    /**
-     * Getter of Bluetooth LE Services UUIDs.
-     */
+    // Getter of Bluetooth LE Services UUIDs.
     static func getServicesUUIDs() -> [CBUUID] {
         return [myBrainServiceUUID, deviceInfoServiceUUID]
     }
     
-    /**
-     * Process the brain activty measurement received and broadcast the processed data.
-     */
+    // Process the brain activty measurement received and return the processed data.
     static func processBrainActivityData(_ data: Data) -> [String: Any] {
         //Get the bytes as unsigned shorts
         let count = 18
@@ -89,7 +76,8 @@ struct MBTBluetoothLE {
         let P4Sample4 = values[7] * voltageADS1299
         
     
-        // Return the EEG data. The data is in a matrix where the first dimension is the channels and the second one the times samples.
+        // Return the EEG data. The data is in a matrix where the first dimension 
+        // is the channels and the second one the times samples.
         return [
             "packetIndex": packetIndex,
             "packet":[
@@ -99,9 +87,7 @@ struct MBTBluetoothLE {
         ]
     }
     
-    /**
-     * Process the Device Information data
-     */
+    // Process the Device Information data
     static func processDeviceInformations(_ data:Data) {
         let count = 8
         var bytesArray = [UInt8](repeating: 0, count: count)

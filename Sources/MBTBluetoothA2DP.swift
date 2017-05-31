@@ -8,29 +8,28 @@
 
 import CoreBluetooth
 
-struct MBTBluetoothA2DP {
-    /**
-     * The UIID of Audio Sink.
-     */
-    static let audioSingServiceUUID = CBUUID(string: "0x110B")
-    
-    /**
-     * The UIID of the A/V Remote Control.
-     */
-    static let remoteControlServiceUUID = CBUUID(string: "0x110C")
-    
-    /**
-     * Getter of Bluetooth A2DP Services UUIDs.
-     */
-    static func getUUIDs() -> [CBUUID] {
-        return [audioSingServiceUUID, remoteControlServiceUUID]
-    }
 
-    static var uid: String! = nil
-}
-
-
+// A2DPDelegate declaration
 public protocol MBTBluetoothA2DPDelegate {
     func audioA2DPDidConnect()
     func audioA2DPDidDisconnect()
+}
+
+
+// Specifics methods and variables to help MBTBluetoothManager
+// to manage Bluetooth A2DP ( audio ).
+struct MBTBluetoothA2DP {
+    // The UUID of Audio Sink.
+    static let audioSingServiceUUID = CBUUID(string: "0x110B")
+    
+    // The UIID of the A/V Remote Control.
+    static let remoteControlServiceUUID = CBUUID(string: "0x110C")
+    
+    // Getter of Bluetooth A2DP Services UUIDs.
+    static func getUUIDs() -> [CBUUID] {
+        return [audioSingServiceUUID, remoteControlServiceUUID]
+    }
+    
+    // Specific MBT Headset A2DP UID
+    static var uid: String! = nil
 }
