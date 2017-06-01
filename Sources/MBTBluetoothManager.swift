@@ -231,6 +231,12 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 self.blePeripheral.readValue(for: thisCharacteristic)
             }
         }
+        
+        // Check if characteristics have been discovered and set
+        if MBTBluetoothLE.brainActivityMeasurementCharacteristic != nil {
+            // Tell the event delegate that the connection is established
+            eventDelegate.onConnectionEstablished()
+        }
     }
 
     
