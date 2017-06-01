@@ -162,9 +162,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     {
         isConnected = true
         peripheral.discoverServices(nil)
-        
-        // Tell the event delegate that the connection is established
-        eventDelegate.onConnectionEstablished()
     }
     
     // If disconnected by error, start searching again,
@@ -178,9 +175,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         isConnected = false
         
         if error != nil {
-            central.scanForPeripherals(withServices: nil, options: nil)
-        } else {
             eventDelegate.onConnectionOff(error)
+        } else {
+            central.scanForPeripherals(withServices: nil, options: nil)
         }
     }
     

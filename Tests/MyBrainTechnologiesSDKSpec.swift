@@ -18,6 +18,7 @@ class MyBrainTechnologiesSDKSpec: QuickSpec {
             it("works") {
                 expect("MyBrainTechnologiesSDK") == "MyBrainTechnologiesSDK"
             }
+            
         }
 
     }
