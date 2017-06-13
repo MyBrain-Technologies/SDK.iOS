@@ -12,23 +12,24 @@ import AVFoundation
 
 
 
-// Manager for the SDK of the Bluetooth Part of the MBT Headset.
+/// Manage the SDK of the Bluetooth Part of the MBT Headset.
 internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate  {
 
-    //The BLE central manager.
+    /// The BLE central manager.
     var centralManager : CBCentralManager!
     
-    // The BLE peripheral with which a connection has been established.
+    /// The BLE peripheral with which a connection has been established.
     var blePeripheral : CBPeripheral!
     
-    // A boolean indicating the connection status. Sends a notification when changed.
+    /// A *Bool* indicating the connection status.
+    /// - Remark: Sends a notification when changed ( on *willSet* ).
     var isConnected = false {
         willSet {
             eventDelegate.onBluetoothStatusUpdate(newValue)
         }
     }
     
-    // A boolean indicating if SDK is listening to EEG Headset notifications.
+    /// A *Bool* indicating if SDK is listening to EEG Headset notifications.
     var isListeningToEEG = false {
         didSet {
             self.blePeripheral.setNotifyValue(
@@ -38,14 +39,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    // The headset bluetooth profile name to connect to.
+    /// The headset bluetooth profile name to connect to.
     var deviceName: NSString!
     
-    // The MBTBluetooth Event Delegate.
+    /// The MBTBluetooth Event Delegate.
     var eventDelegate: MBTBluetoothEventDelegate!
     
-    // The MBT Audio A2DP Delegate.
-    // Tell developers when audio connect / disconnect
+    /// The MBT Audio A2DP Delegate.
+    /// Tell developers when audio connect / disconnect
     var audioA2DPDelegate: MBTBluetoothA2DPDelegate? {
         didSet {
             if audioA2DPDelegate != nil {
@@ -86,13 +87,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     
     
+
+    //MARK: - Connect and Disconnect MBT Headset Methods
     
-    ///////////////////////////////////////////////////////
-    //                                                   //
-    //MARK: - Connect and Disconnect MBT Headset Methods //
-    //                                                   //
-    ///////////////////////////////////////////////////////
-    
+    /// Intialize *centralManager*, *deviceName* and *eventDelegate*.
+    /// - Parameters:
+    ///     - deviceName : The name of the device to connect ( Bluetooth profile ).
+    ///     - eventDelegate: The delegate which whill handle Bluetooth events.
+    ///     - audioA2DPDelegate: The audio A2DP protocol delegate to monitor A2DP connection state. Can be nil.
     public func connectTo(_ deviceName:String,
                           with eventDelegate: MBTBluetoothEventDelegate,
                           and audioA2DPDelegate: MBTBluetoothA2DPDelegate?) {
@@ -108,6 +110,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         self.audioA2DPDelegate = audioDelegate
     }
     
+    /// Disconnect centralManager, and remove session's values.
     public func disconnect() {
         centralManager.cancelPeripheralConnection(blePeripheral)
         centralManager = nil
@@ -117,11 +120,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     
-    ///////////////////////////////////////////////////////
-    //                                                   //
-    //MARK: Central Manager Delegate Methods             //
-    //                                                   //
-    ///////////////////////////////////////////////////////
+    //MARK: Central Manager Delegate Methods
     
     // Check status of BLE hardware.
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -191,11 +190,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     
-    ///////////////////////////////////////////////////////
-    //                                                   //
-    //MARK: CBPeripheral Delegate Methods                //
-    //                                                   //
-    ///////////////////////////////////////////////////////
+    //MARK: CBPeripheral Delegate Methods
     
     // Check if the service discovered is a valid Service.
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
@@ -259,7 +254,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     // Check if the notification status changed. 
-    // NB: Absence of this function causes the notifications not to register anymore.
+    // Remark : Absence of this function causes the notifications not to register anymore.
     func peripheral(
         _ peripheral: CBPeripheral,
         didUpdateNotificationStateFor characteristic: CBCharacteristic,
@@ -271,12 +266,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     
     
-    /////////////////////////////////////////////////////
-    //                                                 //
-    //MARK: - Audio A2DP changing route output handler //
-    //                                                 //
-    /////////////////////////////////////////////////////
+    //MARK: - Audio A2DP method
     
+    /// Audio A2DP changing route output handler.
+    /// - Parameter notif : The *notification* received when audio route output changed.
     func audioChangedRoute(_ notif:Notification) {
         // Get the Reason why the audio route change
         guard let userInfo = notif.userInfo,
