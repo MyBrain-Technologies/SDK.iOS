@@ -5,9 +5,6 @@
       location = "group:MyBrainTechnologiesSDK.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:MyBrainTechnologiesSDK.playground">
-   </FileRef>
-   <FileRef
       location = "group:scripts">
    </FileRef>
    <FileRef
