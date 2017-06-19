@@ -100,22 +100,22 @@
 
 <span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">MBTBluetoothEventDelegate</span><span class="p">,</span> <span class="kt">MBTBluetoothA2DPDelegate</span> <span class="p">{</span>
 
-    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+    <span class="o">...</span>
 
-        <span class="kt">MBTBluetooth</span><span class="o">.</span><span class="nf">connectToEEGAndA2DP</span><span class="p">(</span><span class="s">"melomind"</span><span class="p">,</span> <span class="nv">with</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">and</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
-    <span class="p">}</span>
+    <span class="kt">MBTBluetooth</span><span class="o">.</span><span class="nf">connectToEEGAndA2DP</span><span class="p">(</span><span class="s">"melomind"</span><span class="p">,</span> <span class="nv">with</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">and</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+
+    <span class="o">...</span>
 </code></pre>
 <h4 id='only-connect-bluetooth-le-eeg' class='heading'>Only Connect Bluetooth LE (EEG)</h4>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">MyBrainTechnologiesSDK</span>
 
 <span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="kt">MBTBluetoothEventDelegate</span><span class="p">,</span> <span class="kt">MBTBluetoothA2DPDelegate</span> <span class="p">{</span>
 
-    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+    <span class="o">...</span>
 
-        <span class="kt">MBTBluetooth</span><span class="o">.</span><span class="nf">connectToEEG</span><span class="p">(</span><span class="s">"melomind"</span><span class="p">,</span> <span class="nv">with</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
-    <span class="p">}</span>
+    <span class="kt">MBTBluetooth</span><span class="o">.</span><span class="nf">connectToEEG</span><span class="p">(</span><span class="s">"melomind"</span><span class="p">,</span> <span class="nv">with</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+
+    <span class="o">...</span>
 </code></pre>
 <h4 id='disconnection-of-the-headset' class='heading'>Disconnection of the headset</h4>
 <pre class="highlight swift"><code><span class="kt">MBTBluetooth</span><span class="o">.</span><span class="nf">disconnect</span><span class="p">()</span>

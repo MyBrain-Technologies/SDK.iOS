@@ -51,11 +51,11 @@ import MyBrainTechnologiesSDK
 
 class ViewController: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    ...
 
-        MBTBluetooth.connectToEEGAndA2DP("melomind", with: self, and: self)
-    }
+    MBTBluetooth.connectToEEGAndA2DP("melomind", with: self, and: self)
+
+    ...
 ````
 
 #### Only Connect Bluetooth LE (EEG)
@@ -65,11 +65,11 @@ import MyBrainTechnologiesSDK
 
 class ViewController: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    ...
 
-        MBTBluetooth.connectToEEG("melomind", with: self)
-    }
+    MBTBluetooth.connectToEEG("melomind", with: self)
+
+    ...
 ````
 
 #### Disconnection of the headset
