@@ -13,15 +13,7 @@ public class MBTBluetooth {
     //MARK: Variables
     /// Init a MBTBluetoothManager, which deals with
     /// the MBT headset bluetooth
-    internal var manager: MBTBluetoothManager
-    
-    //MARK: - Init Method
-    /// Intialize a new MBTBluetooth with an instance of 
-    /// a MBTBluetoothManager.
-    public init() {
-        manager = MBTBluetoothManager()
-    }
-    
+    internal static var manager = MBTBluetoothManager()
     
     //MARK: - Connect and Disconnect MBT Headset Methods
 
@@ -29,23 +21,23 @@ public class MBTBluetooth {
     /// BLE deals with EEG, but also OAD, device information,
     /// battery, etc.
     /// - Parameters:
-    ///     - deviceName: The name of the device to connect to ( Bluetooth profile ).
+    ///     - deviceName: The name of the device to connect to (Bluetooth profile).
     ///     - eventDelegate : The delegate which will handle Bluetooth events.
-    public func connectToEEG(_ deviceName:String,
+    public static func connectToEEG(_ deviceName:String,
                           with eventDelegate: MBTBluetoothEventDelegate) {
         
         manager.connectTo(deviceName, with: eventDelegate, and: nil)
     }
     
-    /// Connect to the audio part of the MBT Headset ( using the A2DP
-    /// bluetooth protocol )/
+    /// Connect to the audio part of the MBT Headset (using the A2DP
+    /// bluetooth protocol)
     /// - Remark: Audio can't be connect from code. User has to connect to it through
     /// settings, on the first time is using it.
     /// - Parameters:
-    ///     - deviceName: The name of the device to connect to ( Bluetooth profile ).
+    ///     - deviceName: The name of the device to connect to (Bluetooth profile).
     ///     - eventDelegate: The delegate which whill handle Bluetooth events.
     ///     - audioA2DPDelegate: The audio A2DP protocol delegate to monitor A2DP connection state. Can be nil.
-    public func connectToEEGAndA2DP(_ deviceName:String,
+    public static func connectToEEGAndA2DP(_ deviceName:String,
                                     with eventDelegate: MBTBluetoothEventDelegate,
                                     and audioA2DPDelegate: MBTBluetoothA2DPDelegate) {
         manager.connectTo(deviceName, with: eventDelegate, and: audioA2DPDelegate)
@@ -53,22 +45,21 @@ public class MBTBluetooth {
     
     /// Disconnect the iDevice from the headset
     /// - Remark: The audio can't be disconnect from code.
-    public func disconnect() {
+    public static func disconnect() {
         manager.disconnect()
     }
-    
     
     
     //MARK: - Start / stop listening to EEG
     
     /// Start readValue on MyBrainActivity Characteristic.
     /// - Remark: Data will be provided through the MBTBluetoothEventDelegate.
-    public func startListeningToEEG() {
+    public static func startListeningToEEG() {
         manager.isListeningToEEG = true
     }
     
     /// Stop readValue on MyBrainActivity Characteristic.
-    public func stopListeningToEEG() {
+    public static func stopListeningToEEG() {
         manager.isListeningToEEG = false
     }
 }

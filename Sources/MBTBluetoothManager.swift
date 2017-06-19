@@ -22,7 +22,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     var blePeripheral : CBPeripheral!
     
     /// A *Bool* indicating the connection status.
-    /// - Remark: Sends a notification when changed ( on *willSet* ).
+    /// - Remark: Sends a notification when changed (on *willSet*).
     var isConnected = false {
         willSet {
             eventDelegate.onBluetoothStatusUpdate(newValue)
@@ -92,7 +92,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     /// Intialize *centralManager*, *deviceName* and *eventDelegate*.
     /// - Parameters:
-    ///     - deviceName : The name of the device to connect ( Bluetooth profile ).
+    ///     - deviceName : The name of the device to connect (Bluetooth profile).
     ///     - eventDelegate: The delegate which whill handle Bluetooth events.
     ///     - audioA2DPDelegate: The audio A2DP protocol delegate to monitor A2DP connection state. Can be nil.
     public func connectTo(_ deviceName:String,

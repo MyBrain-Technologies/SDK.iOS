@@ -18,7 +18,7 @@ public protocol MBTBluetoothA2DPDelegate {
 }
 
 
-/// Help MBTBluetoothManager to manage Bluetooth A2DP ( audio ).
+/// Help MBTBluetoothManager to manage Bluetooth A2DP (audio).
 struct MBTBluetoothA2DP {
     /// The *UUID* of Audio Sink.
     static let audioSingServiceUUID = CBUUID(string: "0x110B")

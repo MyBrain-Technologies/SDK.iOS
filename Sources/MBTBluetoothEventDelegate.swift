@@ -30,10 +30,10 @@ public protocol MBTBluetoothEventDelegate {
     
     /// Called if the SDK can't connect to the MBT Headset,
     /// with the error.
-    /// - Parameter error : The cause of the failure ( Core Bluetooth error ).
+    /// - Parameter error : The cause of the failure (Core Bluetooth error).
     func onConnectionFailed(_ error: Error?)
     
     /// Called when the headset lost connection.
-    /// - Parameter error : If failure, the cause of the failure ( Core Bluetooth error ).
+    /// - Parameter error : If failure, the cause of the failure (Core Bluetooth error).
     func onConnectionOff(_ error: Error?)
 }

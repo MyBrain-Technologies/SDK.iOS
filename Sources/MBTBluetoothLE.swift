@@ -48,7 +48,7 @@ struct MBTBluetoothLE {
     /// Process the brain activty measurement received and return the processed data.
     /// - Parameters:
     ///     - data : *Data* received from MBT Headset EEGs.
-    /// - Returns: *Dictionnary* with the packet Index ( key : "packetIndex" ) and array of
+    /// - Returns: *Dictionnary* with the packet Index (key : "packetIndex") and array of
     ///     P3 and P4 samples arrays ( key : "packet" )
     static func processBrainActivityData(_ data: Data) -> [String: Any] {
         //Get the bytes as unsigned shorts
