@@ -11,21 +11,21 @@
 [![Travis](https://img.shields.io/travis/MyBrainTechnologies/MyBrainTechnologiesSDK/master.svg)](https://travis-ci.org/MyBrainTechnologies/MyBrainTechnologiesSDK/branches)
 [![JetpackSwift](https://img.shields.io/badge/JetpackSwift-framework-red.svg)](http://github.com/JetpackSwift/Framework)
 
-Swift iOS SDK for MyBrainTechnologies Headphones
+Swift iOS SDK for MyBrainTechnologies Headset
 
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
 
-## Requirements
+## <a name="requirements"></a> Requirements
 
 - iOS 8.0+
 - Xcode 8.0+
 - Swift 3.0, 3.1, 3.2, and 4.0
 
 
-## Installation
+## <a name="installation"></a> Installation
 
 ### Manually
 
@@ -33,14 +33,15 @@ If you prefer not to use either of the aforementioned dependency managers, you c
 
 #### Embeded Binaries
 
-- Download the latest release from https://github.com/MyBrainTechnologies/MyBrainTechnologiesSDK/releases
+- Download the latest release from `http://www.melomind.com/en/`
 - Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the `+` button under the "Embedded Binaries" section.
 - Add the downloaded `MyBrainTechnologiesSDK.framework`.
 - And that's it!
 
-## Usage
+<br />
+## <a name="usage"></a> Usage
 
 ### Headset connection / disconnection
 
@@ -56,7 +57,7 @@ class ViewController: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA
     MBTBluetooth.connectToEEGAndA2DP("melomind", with: self, and: self)
 
     ...
-````
+```
 
 #### Only Connect Bluetooth LE (EEG)
 
@@ -70,28 +71,29 @@ class ViewController: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA
     MBTBluetooth.connectToEEG("melomind", with: self)
 
     ...
-````
+```
 
 #### Disconnection of the headset
 
 ```swift
 MBTBluetooth.disconnect()
-````
+```
 
 <br />
 ### Getting EEG data
 
 #### Start listening to EEG stream
 
-````swift
+```swift
 MBTBluetooth.startListeningToEEG()
-````
+```
 
 #### Stop listening to EEG stream
-````swift
+```swift
 MBTBluetooth.stopListeningToEEG()
-````
+```
 
-## License
+<br />
+## <a name="license"></a> License
 
 MyBrainTechnologiesSDK is released under the MIT license. See [LICENSE](https://github.com/MyBrainTechnologies/MyBrainTechnologiesSDK/blob/master/LICENSE) for details.
