@@ -8,8 +8,8 @@
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/MyBrainTechnologiesSDK.svg)](https://cocoapods.org/pods/MyBrainTechnologiesSDK) -->
 
 
-[![Travis](https://img.shields.io/travis/MyBrainTechnologies/MyBrainTechnologiesSDK/master.svg)](https://travis-ci.org/MyBrainTechnologies/MyBrainTechnologiesSDK/branches)
-[![JetpackSwift](https://img.shields.io/badge/JetpackSwift-framework-red.svg)](http://github.com/JetpackSwift/Framework)
+<!--[![Travis](https://img.shields.io/travis/MyBrainTechnologies/MyBrainTechnologiesSDK/master.svg)](https://travis-ci.org/MyBrainTechnologies/MyBrainTechnologiesSDK/branches)
+[![JetpackSwift](https://img.shields.io/badge/JetpackSwift-framework-red.svg)](http://github.com/JetpackSwift/Framework)-->
 
 Swift iOS SDK for MyBrainTechnologies Headset
 
@@ -50,7 +50,7 @@ If you prefer not to use either of the aforementioned dependency managers, you c
 ```swift
 import MyBrainTechnologiesSDK
 
-class ViewController: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
+class VC: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
 
     ...
 
@@ -64,7 +64,7 @@ class ViewController: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA
 ```swift
 import MyBrainTechnologiesSDK
 
-class ViewController: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
+class VC: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
 
     ...
 
