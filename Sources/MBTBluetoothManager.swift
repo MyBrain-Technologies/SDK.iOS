@@ -122,7 +122,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     //MARK: Central Manager Delegate Methods
     
-    // Check status of BLE hardware.
+    /// Check status of BLE hardware. Invoked when the central 
+    /// manager's state is update.
+    /// - Parameters:
+    ///     - central: The central manager whose state has changed.
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state.hashValue == CBCentralManagerState.poweredOn.hashValue {
             // Scan for peripherals if BLE is turned on
@@ -133,7 +136,13 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    // Check out the discovered peripherals to find the right device.
+    /// Check out the discovered peripherals to find the right device.
+    /// Invoked when the central manager discovers a peripheral while scanning.
+    /// - Parameters:
+    ///     - central: The central manager providing the update.
+    ///     - peripheral: The discovered peripheral.
+    ///     - advertisementData: A dictionary containing any advertisement data.
+    ///     - RSSI: The current received signal strength indicator (RSSI) of the peripheral, in decibels.
     func centralManager(
         _ central: CBCentralManager,
         didDiscover peripheral: CBPeripheral,
@@ -155,7 +164,11 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    // Discover services of the peripheral.
+    /// Discover services of the peripheral.
+    /// Invoked when a connection is successfully created with a peripheral.
+    /// - Parameters:
+    ///     - central: The central manager providing this information.
+    ///     - peripheral: The peripheral that has been connected to the system.
     func centralManager(_ central: CBCentralManager,
                                     didConnect peripheral: CBPeripheral)
     {
@@ -163,9 +176,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         peripheral.discoverServices(nil)
     }
     
-    // If disconnected by error, start searching again,
-    // else let event delegate know that headphones
-    // are disconnected
+    /// If disconnected by error, start searching again,
+    /// else let event delegate know that headphones
+    /// are disconnected.
+    /// Invoked when an existing connection with a peripheral is torn down.
+    /// - Parameters:
+    ///     - central: The central manager providing this information.
+    ///     - peripheral: The peripheral that has been disconnected.
+    ///     - error: If an error occurred, the cause of the failure.
     func centralManager(
         _ central: CBCentralManager,
         didDisconnectPeripheral peripheral: CBPeripheral,
@@ -180,8 +198,13 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    // If connection failed, call the event delegate
-    // with the error.
+    /// If connection failed, call the event delegate
+    /// with the error.
+    /// Invoked when the central manager fails to create a connection with a peripheral.
+    /// - Parameters:
+    ///     - central: The central manager providing this information.
+    ///     - peripheral: The peripheral that failed to connect.
+    ///     - error: The cause of the failure.
     func centralManager(_ central: CBCentralManager,
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
@@ -192,7 +215,11 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     //MARK: CBPeripheral Delegate Methods
     
-    // Check if the service discovered is a valid Service.
+    /// Check if the service discovered is a valid Service.
+    /// Invoked when you discover the peripheral’s available services.
+    /// - Parameters:
+    ///     - peripheral: The peripheral that the services belong to.
+    ///     - error: If an error occurred, the cause of the failure.
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         // Check all the services of the connecting peripheral.
         for service in peripheral.services! {
@@ -207,11 +234,15 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    // Enable notification and sensor for desired characteristic of valid service.
+    /// Enable notification and sensor for desired characteristic of valid service.
+    /// Invoked when you discover the characteristics of a specified service.
+    /// - Parameters:
+    ///     - peripheral: The peripheral that the services belong to.
+    ///     - service: The service that the characteristics belong to.
+    ///     - error: If an error occurred, the cause of the failure.
     func peripheral(_ peripheral: CBPeripheral,
                                 didDiscoverCharacteristicsFor service: CBService,
                                 error: Error?) {
-        
         // check the uuid of each characteristic to find config and data characteristics
         for characteristic in service.characteristics! {
             let thisCharacteristic = characteristic as CBCharacteristic
@@ -235,7 +266,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
 
     
-    // Get data values when they are updated
+    /// Get data values when they are updated
+    /// Invoked when you retrieve a specified characteristic’s value, 
+    /// or when the peripheral device notifies your app that
+    /// the characteristic’s value has changed.
+    /// - Parameters:
+    ///     - peripheral: The peripheral that the services belong to.
+    ///     - service: The characteristic whose value has been retrieved.
+    ///     - error: If an error occurred, the cause of the failure.
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
@@ -253,8 +291,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    // Check if the notification status changed. 
-    // Remark : Absence of this function causes the notifications not to register anymore.
+    /// Check if the notification status changed.
+    /// Invoked when the peripheral receives a request to start 
+    /// or stop providing notifications for a specified characteristic’s value.
+    /// - Parameters:
+    ///     - peripheral: The peripheral that the services belong to.
+    ///     - service: The characteristic whose value has been retrieved.
+    ///     - error: If an error occurred, the cause of the failure.
+    /// Remark : Absence of this function causes the notifications not to register anymore.
     func peripheral(
         _ peripheral: CBPeripheral,
         didUpdateNotificationStateFor characteristic: CBCharacteristic,

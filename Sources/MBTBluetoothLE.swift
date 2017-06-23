@@ -34,7 +34,7 @@ struct MBTBluetoothLE {
     /// The multiplicative constant.
     internal static let const = 4.5 * 1000000 / (pow(2.0, 23.0) - 1) / 24
     
-    //TODO: ADD COMMENT HERE
+    /// Constant to decod EEG data
     internal static let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 12
     
     //MARK: - Bluetooth LE Methods
