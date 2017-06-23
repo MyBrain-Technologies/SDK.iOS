@@ -1,6 +1,75 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothLE.swift",
+      "line": 38,
+      "symbol": "MBTBluetoothLE.voltageADS1299",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 126,
+      "symbol": "MBTBluetoothManager.centralManagerDidUpdateState(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 137,
+      "symbol": "MBTBluetoothManager.centralManager(_:didDiscover:advertisementData:rssi:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 159,
+      "symbol": "MBTBluetoothManager.centralManager(_:didConnect:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 169,
+      "symbol": "MBTBluetoothManager.centralManager(_:didDisconnectPeripheral:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 185,
+      "symbol": "MBTBluetoothManager.centralManager(_:didFailToConnect:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 196,
+      "symbol": "MBTBluetoothManager.peripheral(_:didDiscoverServices:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 211,
+      "symbol": "MBTBluetoothManager.peripheral(_:didDiscoverCharacteristicsFor:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 239,
+      "symbol": "MBTBluetoothManager.peripheral(_:didUpdateValueFor:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/MBTBluetoothManager.swift",
+      "line": 258,
+      "symbol": "MBTBluetoothManager.peripheral(_:didUpdateNotificationStateFor:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK"
 }
