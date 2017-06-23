@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MBTBluetoothA2DPDelegate Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/MBTBluetoothA2DPDelegate" class="dashAnchor"></a>
+    <a title="MBTBluetoothA2DPDelegate Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">MyBrainTechnologiesSDK Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">MyBrainTechnologiesSDK Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        MBTBluetoothA2DPDelegate Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/MBTBluetooth.html">MBTBluetooth</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MBTBluetoothManager.html">MBTBluetoothManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/MBTBluetoothA2DPDelegate.html">MBTBluetoothA2DPDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MBTBluetoothEventDelegate.html">MBTBluetoothEventDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/MBTBluetoothA2DP.html">MBTBluetoothA2DP</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MBTBluetoothLE.html">MBTBluetoothLE</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>MBTBluetoothA2DPDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">MBTBluetoothA2DPDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>Delegate to know if audio A2DP just connected or disconnected.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP22MyBrainTechnologiesSDK24MBTBluetoothA2DPDelegate19audioA2DPDidConnectFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/audioA2DPDidConnect()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK24MBTBluetoothA2DPDelegate19audioA2DPDidConnectFT_T_">audioA2DPDidConnect()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the MBT Headset audio A2DP get connected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">audioA2DPDidConnect</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP22MyBrainTechnologiesSDK24MBTBluetoothA2DPDelegate22audioA2DPDidDisconnectFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/audioA2DPDidDisconnect()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK24MBTBluetoothA2DPDelegate22audioA2DPDidDisconnectFT_T_">audioA2DPDidDisconnect()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the MBT Headset audio A2DP lost connection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">audioA2DPDidDisconnect</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="http://www.melomind.com" target="_blank" rel="external">Baptiste Rasschaert</a>. All rights reserved. (Last updated: 2017-06-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
