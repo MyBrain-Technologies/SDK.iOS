@@ -12,7 +12,7 @@ import AVFoundation
 
 
 
-/// Manage the SDK of the Bluetooth Part of the MBT Headset.
+/// Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).
 internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate  {
 
     /// The BLE central manager.
@@ -25,7 +25,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     /// - Remark: Sends a notification when changed (on *willSet*).
     var isConnected = false {
         willSet {
-            eventDelegate.onBluetoothStatusUpdate(newValue)
+            eventDelegate.onBluetoothStatusUpdate?(newValue)
         }
     }
     
@@ -57,7 +57,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                     // Save the UUID of the concerned headset
                     MBTBluetoothA2DP.uid = output?.uid
                     // A2DP Audio is connected
-                    audioA2DPDelegate?.audioA2DPDidConnect()
+                    audioA2DPDelegate?.audioA2DPDidConnect?()
                 } else {
                     // Try to set Category to help device to connect
                     // to the MBT A2DP profile
@@ -84,8 +84,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             }
         }
     }
-    
-    
     
 
     //MARK: - Connect and Disconnect MBT Headset Methods
@@ -192,7 +190,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         isConnected = false
         
         if error != nil {
-            eventDelegate.onConnectionOff(error)
+            eventDelegate.onConnectionOff?(error)
         } else {
             central.scanForPeripherals(withServices: nil, options: nil)
         }
@@ -209,7 +207,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
         
-        eventDelegate.onConnectionFailed(error)
+        eventDelegate.onConnectionFailed?(error)
     }
     
     
@@ -261,15 +259,16 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Check if characteristics have been discovered and set
         if MBTBluetoothLE.brainActivityMeasurementCharacteristic != nil {
             // Tell the event delegate that the connection is established
-            eventDelegate.onConnectionEstablished()
+            eventDelegate.onConnectionEstablished?()
         }
     }
 
     
-    /// Get data values when they are updated
+    /// Get data values when they are updated.
     /// Invoked when you retrieve a specified characteristic’s value, 
     /// or when the peripheral device notifies your app that
     /// the characteristic’s value has changed.
+    /// Send them to AcquisitionManager.
     /// - Parameters:
     ///     - peripheral: The peripheral that the services belong to.
     ///     - service: The characteristic whose value has been retrieved.
@@ -282,10 +281,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         switch CBUUID(data: characteristic.uuid.data) {
         case MBTBluetoothLE.brainActivityMeasurementUUID:
-            let dataArray = MBTBluetoothLE.processBrainActivityData(notifiedData)
-            eventDelegate?.onReceivingPackage(dataArray)
+            MelomindEngine.acqusitionManager.processBrainActivityData(notifiedData)
         case MBTBluetoothLE.deviceInfoServiceUUID:
-            MBTBluetoothLE.processDeviceInformations(notifiedData)
+            MelomindEngine.acqusitionManager.processDeviceInformations(notifiedData)
         default:
             break
         }
@@ -338,7 +336,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 // Save the UUID of the concerned headset
                 MBTBluetoothA2DP.uid = output?.uid
                 // A2DP Audio is connected
-                audioA2DPDelegate?.audioA2DPDidConnect()
+                audioA2DPDelegate?.audioA2DPDidConnect?()
             }
         case .oldDeviceUnavailable:
             // if the old device is the MBT headset
@@ -346,7 +344,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 // Erase the A2DP audio uid saved
                 MBTBluetoothA2DP.uid = nil
                 // MBT A2DP audio is disconnected
-                audioA2DPDelegate?.audioA2DPDidDisconnect()
+                audioA2DPDelegate?.audioA2DPDidDisconnect?()
             }
         default: ()
         }

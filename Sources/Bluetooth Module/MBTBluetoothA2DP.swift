@@ -8,16 +8,6 @@
 
 import CoreBluetooth
 
-
-/// Delegate to know if audio A2DP just connected or disconnected.
-public protocol MBTBluetoothA2DPDelegate {
-    /// Called when the MBT Headset audio A2DP get connected.
-    func audioA2DPDidConnect()
-    /// Called when the MBT Headset audio A2DP lost connection.
-    func audioA2DPDidDisconnect()
-}
-
-
 /// Help MBTBluetoothManager to manage Bluetooth A2DP (audio).
 struct MBTBluetoothA2DP {
     /// The *UUID* of Audio Sink.
