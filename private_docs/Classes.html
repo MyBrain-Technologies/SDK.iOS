@@ -30,10 +30,13 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/MBTBluetooth.html">MBTBluetooth</a>
+                <a href="Classes/MBTAcquisitionManager.html">MBTAcquisitionManager</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/MBTBluetoothManager.html">MBTBluetoothManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MelomindEngine.html">MelomindEngine</a>
               </li>
             </ul>
           </li>
@@ -41,10 +44,16 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Protocols/MBTAcquisitionDelegate.html">MBTAcquisitionDelegate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/MBTBluetoothA2DPDelegate.html">MBTBluetoothA2DPDelegate</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/MBTBluetoothEventDelegate.html">MBTBluetoothEventDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols.html#/s:P22MyBrainTechnologiesSDK22MelomindEngineDelegate">MelomindEngineDelegate</a>
               </li>
             </ul>
           </li>
@@ -84,7 +93,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Manage the SDK of the Bluetooth Part of the MBT Headset.</p>
+                        <p>Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).</p>
 
                         <a href="Classes/MBTBluetoothManager.html" class="slightly-smaller">See more</a>
                       </div>
@@ -106,9 +115,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:C22MyBrainTechnologiesSDK12MBTBluetooth"></a>
-                    <a name="//apple_ref/swift/Class/MBTBluetooth" class="dashAnchor"></a>
-                    <a class="token" href="#/s:C22MyBrainTechnologiesSDK12MBTBluetooth">MBTBluetooth</a>
+                    <a name="/s:C22MyBrainTechnologiesSDK21MBTAcquisitionManager"></a>
+                    <a name="//apple_ref/swift/Class/MBTAcquisitionManager" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C22MyBrainTechnologiesSDK21MBTAcquisitionManager">MBTAcquisitionManager</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -116,15 +125,48 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Manage the Bluetooth connection to the headset.</p>
+                        <p>Manage Acquisition data MBT Headset part. Such as EEG,
+device info, battery level &hellip;</p>
 
-                        <a href="Classes/MBTBluetooth.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/MBTAcquisitionManager.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MBTBluetooth</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">internal</span> <span class="kd">class</span> <span class="kt">MBTAcquisitionManager</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:C22MyBrainTechnologiesSDK14MelomindEngine"></a>
+                    <a name="//apple_ref/swift/Class/MelomindEngine" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C22MyBrainTechnologiesSDK14MelomindEngine">MelomindEngine</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>MBT engine to implement to work with the headset.</p>
+
+                        <a href="Classes/MelomindEngine.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MelomindEngine</span></code></pre>
 
                         </div>
                       </div>
@@ -136,7 +178,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="http://www.melomind.com" target="_blank" rel="external">Baptiste Rasschaert</a>. All rights reserved. (Last updated: 2017-06-23)</p>
+          <p>&copy; 2017 <a class="link" href="http://www.melomind.com" target="_blank" rel="external">Baptiste Rasschaert</a>. All rights reserved. (Last updated: 2017-06-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MBTBluetoothLE Struct Reference</title>
+    <title>MBTAcquisitionManager Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/MBTBluetoothLE" class="dashAnchor"></a>
-    <a title="MBTBluetoothLE Struct Reference"></a>
+    <a name="//apple_ref/swift/Class/MBTAcquisitionManager" class="dashAnchor"></a>
+    <a title="MBTAcquisitionManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">MyBrainTechnologiesSDK Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">MyBrainTechnologiesSDK Reference</a>
         <img id="carat" src="../img/carat.png" />
-        MBTBluetoothLE Struct Reference
+        MBTAcquisitionManager Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -74,14 +74,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>MBTBluetoothLE</h1>
+            <h1>MBTAcquisitionManager</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">MBTBluetoothLE</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">internal</span> <span class="kd">class</span> <span class="kt">MBTAcquisitionManager</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
-            <p>Help MBTBluetoothManager to manage Bluetooth Low Energy ( BLE ).</p>
+            <p>Manage Acquisition data MBT Headset part. Such as EEG,
+device info, battery level &hellip;</p>
 
           </section>
           <section class="section task-group-section">
@@ -90,9 +91,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLEP33_781446DBBBB4513EE6E6E675CC7D272518myBrainServiceUUIDCSo6CBUUID"></a>
-                    <a name="//apple_ref/swift/Variable/myBrainServiceUUID" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLEP33_781446DBBBB4513EE6E6E675CC7D272518myBrainServiceUUIDCSo6CBUUID">myBrainServiceUUID</a>
+                    <a name="/s:vC22MyBrainTechnologiesSDK21MBTAcquisitionManager8delegateGSQPS_22MBTAcquisitionDelegate__"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC22MyBrainTechnologiesSDK21MBTAcquisitionManager8delegateGSQPS_22MBTAcquisitionDelegate__">delegate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -100,14 +101,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>UUID</em> of the MyBrainServices.</p>
+                        <p>The MBTBluetooth Event Delegate.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">myBrainServiceUUID</span> <span class="o">=</span> <span class="kt">CBUUID</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"0xB2A0"</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/MBTAcquisitionDelegate.html">MBTAcquisitionDelegate</a></span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -117,9 +118,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLE21deviceInfoServiceUUIDCSo6CBUUID"></a>
-                    <a name="//apple_ref/swift/Variable/deviceInfoServiceUUID" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLE21deviceInfoServiceUUIDCSo6CBUUID">deviceInfoServiceUUID</a>
+                    <a name="/s:vC22MyBrainTechnologiesSDK21MBTAcquisitionManager5constSd"></a>
+                    <a name="//apple_ref/swift/Property/const" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC22MyBrainTechnologiesSDK21MBTAcquisitionManager5constSd">const</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -127,14 +128,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>UUID</em> of the DeviceInformation service.</p>
+                        <p>The multiplicative constant.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">deviceInfoServiceUUID</span> <span class="o">=</span> <span class="kt">CBUUID</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"0x180A"</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">const</span> <span class="o">=</span> <span class="mf">4.5</span> <span class="o">*</span> <span class="mi">1000000</span> <span class="o">/</span> <span class="p">(</span><span class="nf">pow</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">24</span></code></pre>
 
                         </div>
                       </div>
@@ -144,9 +145,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLE28brainActivityMeasurementUUIDCSo6CBUUID"></a>
-                    <a name="//apple_ref/swift/Variable/brainActivityMeasurementUUID" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLE28brainActivityMeasurementUUIDCSo6CBUUID">brainActivityMeasurementUUID</a>
+                    <a name="/s:vC22MyBrainTechnologiesSDK21MBTAcquisitionManager14voltageADS1299Sf"></a>
+                    <a name="//apple_ref/swift/Property/voltageADS1299" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC22MyBrainTechnologiesSDK21MBTAcquisitionManager14voltageADS1299Sf">voltageADS1299</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -154,42 +155,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>UUID</em> of the brainActivityMeasurement
-characteristic of the Measurement service.</p>
+                        <p>Constant to decod EEG data</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">brainActivityMeasurementUUID</span> <span class="o">=</span> <span class="kt">CBUUID</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"0xB2A5"</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLE38brainActivityMeasurementCharacteristicGSQCSo16CBCharacteristic_"></a>
-                    <a name="//apple_ref/swift/Variable/brainActivityMeasurementCharacteristic" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZvV22MyBrainTechnologiesSDK14MBTBluetoothLE38brainActivityMeasurementCharacteristicGSQCSo16CBCharacteristic_">brainActivityMeasurementCharacteristic</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <em>characteristic</em> of the Measurement service.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">brainActivityMeasurementCharacteristic</span><span class="p">:</span> <span class="kt">CBCharacteristic</span><span class="o">!</span></code></pre>
+                          <pre class="highlight"><code><span class="k">let</span> <span class="nv">voltageADS1299</span><span class="p">:</span><span class="kt">Float</span> <span class="o">=</span> <span class="p">(</span> <span class="mf">0.286</span> <span class="o">*</span> <span class="nf">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">))</span> <span class="o">/</span> <span class="mi">12</span></code></pre>
 
                         </div>
                       </div>
@@ -200,19 +173,19 @@ characteristic of the Measurement service.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Bluetooth%20LE%20Methods"></a>
-                <a name="//apple_ref/swift/Section/Bluetooth LE Methods" class="dashAnchor"></a>
-                <a href="#/Bluetooth%20LE%20Methods">
-                  <h3 class="section-name">Bluetooth LE Methods</h3>
+                <a name="/Process%20Received%20data%20Methods."></a>
+                <a name="//apple_ref/swift/Section/Process Received data Methods." class="dashAnchor"></a>
+                <a href="#/Process%20Received%20data%20Methods.">
+                  <h3 class="section-name">Process Received data Methods.</h3>
                 </a>
               </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZFV22MyBrainTechnologiesSDK14MBTBluetoothLE16getServicesUUIDsFT_GSaCSo6CBUUID_"></a>
-                    <a name="//apple_ref/swift/Method/getServicesUUIDs()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFV22MyBrainTechnologiesSDK14MBTBluetoothLE16getServicesUUIDsFT_GSaCSo6CBUUID_">getServicesUUIDs()</a>
+                    <a name="/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager24processBrainActivityDataFV10Foundation4DataT_"></a>
+                    <a name="//apple_ref/swift/Method/processBrainActivityData(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager24processBrainActivityDataFV10Foundation4DataT_">processBrainActivityData(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -220,16 +193,86 @@ characteristic of the Measurement service.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Getter of Bluetooth LE Services UUIDs.</p>
+                        <p>Process the brain activty measurement received and return the processed data.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">getServicesUUIDs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">CBUUID</span><span class="p">]</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">processBrainActivityData</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Data</em> received from MBT Headset EEGs.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><em>Dictionnary</em> with the packet Index (key : <q>packetIndex</q>) and array of
+P3 and P4 samples arrays ( key : <q>packet</q> )</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager25processDeviceInformationsFV10Foundation4DataT_"></a>
+                    <a name="//apple_ref/swift/Method/processDeviceInformations(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager25processDeviceInformationsFV10Foundation4DataT_">processDeviceInformations(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Process the Device Information data</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">processDeviceInformations</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span><span class="kt">Data</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><em>Data</em> received from Device info MBT Headset.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
