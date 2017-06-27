@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MBTBluetoothEventDelegate Protocol Reference</title>
+    <title>MBTAcquisitionDelegate Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Protocol/MBTBluetoothEventDelegate" class="dashAnchor"></a>
-    <a title="MBTBluetoothEventDelegate Protocol Reference"></a>
+    <a name="//apple_ref/swift/Protocol/MBTAcquisitionDelegate" class="dashAnchor"></a>
+    <a title="MBTAcquisitionDelegate Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">MyBrainTechnologiesSDK Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">MyBrainTechnologiesSDK Reference</a>
         <img id="carat" src="../img/carat.png" />
-        MBTBluetoothEventDelegate Protocol Reference
+        MBTAcquisitionDelegate Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -57,14 +57,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>MBTBluetoothEventDelegate</h1>
+            <h1>MBTAcquisitionDelegate</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">MBTBluetoothEventDelegate</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">MBTAcquisitionDelegate</span></code></pre>
 
                 </div>
               </div>
-            <p>Event handler of the MBT Headset.</p>
+            <p>Manage the acquisition data communication outside the SDK.</p>
 
           </section>
           <section class="section task-group-section">
@@ -73,9 +73,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate23onConnectionEstablishedFT_T_"></a>
-                    <a name="//apple_ref/swift/Method/onConnectionEstablished()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate23onConnectionEstablishedFT_T_">onConnectionEstablished()</a>
+                    <a name="/s:FP22MyBrainTechnologiesSDK22MBTAcquisitionDelegate18onReceivingPackageFGVs10DictionarySSP__T_"></a>
+                    <a name="//apple_ref/swift/Method/onReceivingPackage(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK22MBTAcquisitionDelegate18onReceivingPackageFGVs10DictionarySSP__T_">onReceivingPackage(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -83,44 +83,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Called when the headset has been connected
-before the services and characteristics exploration.</p>
+                        <p>Called to each EEG package sent by the BLE.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">onConnectionEstablished</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate23onBluetoothStatusUpdateFSbT_"></a>
-                    <a name="//apple_ref/swift/Method/onBluetoothStatusUpdate(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate23onBluetoothStatusUpdateFSbT_">onBluetoothStatusUpdate(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Called each time the BLE status change.
-With a <em>Bool</em> informing if headset is connected or not
-to the iDevice.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">onBluetoothStatusUpdate</span><span class="p">(</span><span class="n">_</span> <span class="nv">isConnected</span><span class="p">:</span><span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">onReceivingPackage</span><span class="p">(</span><span class="n">_</span> <span class="nv">dataArray</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span></code></pre>
 
                         </div>
                       </div>
@@ -131,12 +101,12 @@ to the iDevice.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>isConnected</em>
+                                <em>dataArray</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p><em>Bool</em> to know if BLE isConnected or not.</p>
+                                  <p><em>Dictionnary</em> of EEG data array.</p>
                                 </div>
                               </td>
                             </tr>
@@ -149,9 +119,9 @@ to the iDevice.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate18onConnectionFailedFGSqPs5Error__T_"></a>
-                    <a name="//apple_ref/swift/Method/onConnectionFailed(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate18onConnectionFailedFGSqPs5Error__T_">onConnectionFailed(_:)</a>
+                    <a name="/s:FP22MyBrainTechnologiesSDK22MBTAcquisitionDelegate23onReceivingBatteryLevelFV10Foundation12NotificationT_"></a>
+                    <a name="//apple_ref/swift/Method/onReceivingBatteryLevel(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK22MBTAcquisitionDelegate23onReceivingBatteryLevelFV10Foundation12NotificationT_">onReceivingBatteryLevel(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -159,15 +129,14 @@ to the iDevice.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Called if the SDK can&rsquo;t connect to the MBT Headset,
-with the error.</p>
+                        <p>Called when getting the battery level.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">onConnectionFailed</span><span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">onReceivingBatteryLevel</span><span class="p">(</span><span class="n">_</span> <span class="nv">notification</span><span class="p">:</span> <span class="kt">Notification</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -178,12 +147,12 @@ with the error.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>error</em>
+                                <em>notification</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The cause of the failure (Core Bluetooth error).</p>
+                                  <p><em>Notification</em> received.</p>
                                 </div>
                               </td>
                             </tr>
@@ -196,9 +165,9 @@ with the error.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate15onConnectionOffFGSqPs5Error__T_"></a>
-                    <a name="//apple_ref/swift/Method/onConnectionOff(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK25MBTBluetoothEventDelegate15onConnectionOffFGSqPs5Error__T_">onConnectionOff(_:)</a>
+                    <a name="/s:FP22MyBrainTechnologiesSDK22MBTAcquisitionDelegate28onReceivingDeviceInformationFV10Foundation4DataT_"></a>
+                    <a name="//apple_ref/swift/Method/onReceivingDeviceInformation(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP22MyBrainTechnologiesSDK22MBTAcquisitionDelegate28onReceivingDeviceInformationFV10Foundation4DataT_">onReceivingDeviceInformation(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -206,14 +175,14 @@ with the error.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Called when the headset lost connection.</p>
+                        <p>Called when getting Device Information.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">onConnectionOff</span><span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">optional</span> <span class="kd">func</span> <span class="nf">onReceivingDeviceInformation</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -224,12 +193,12 @@ with the error.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>error</em>
+                                <em>data</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>If failure, the cause of the failure (Core Bluetooth error).</p>
+                                  <p><em>Data</em> received.</p>
                                 </div>
                               </td>
                             </tr>
