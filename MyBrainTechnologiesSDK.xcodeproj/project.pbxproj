@@ -275,6 +275,8 @@
 		F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTAcquisitionManager.swift; path = "Acquisition Module/MBTAcquisitionManager.swift"; sourceTree = "<group>"; };
 		F45837381EC5C21000C5D596 /* MelomindEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngine.swift; sourceTree = "<group>"; };
 		F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPDelegate.swift; path = "Bluetooth Module/MBTBluetoothA2DPDelegate.swift"; sourceTree = "<group>"; };
+		F495BD311F040CB400755BD1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		F495BD401F040CB700755BD1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngineDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -417,6 +419,8 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F495BD401F040CB700755BD1 /* Realm.framework */,
+				F495BD311F040CB400755BD1 /* RealmSwift.framework */,
 				35CA2A861E12920400147290 /* Quick.xcodeproj */,
 				35CA2A891E12920400147290 /* Nimble.xcodeproj */,
 			);
@@ -1243,6 +1247,7 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1271,6 +1276,7 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

@@ -1,3 +1,4 @@
 github "jspahrsummers/xcconfigs" "master"
-github "Quick/Quick"
-github "Quick/Nimble"
+#github "Quick/Quick"
+#github "Quick/Nimble"
+github "realm/realm-cocoa"
