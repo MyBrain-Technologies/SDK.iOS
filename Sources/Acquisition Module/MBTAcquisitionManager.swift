@@ -12,6 +12,9 @@ import Foundation
 /// device info, battery level ...
 internal class MBTAcquisitionManager: NSObject  {
     
+    /// Singleton declaration
+    static let shared = MBTAcquisitionManager()
+    
     /// The MBTBluetooth Event Delegate.
     var delegate: MBTAcquisitionDelegate!
     

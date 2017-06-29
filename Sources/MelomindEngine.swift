@@ -12,12 +12,12 @@ import Foundation
 public class MelomindEngine {
     //MARK: - Variables
     /// Init a MBTBluetoothManager, which deals with
-    /// the MBT headset bluetooth
-    internal static var bluetoothManager = MBTBluetoothManager()
+    /// the MBT headset bluetooth.
+    internal static let bluetoothManager = MBTBluetoothManager.shared
     
     /// Init a MBTAcquisitionManager, which deals with
-    /// the MBT headset bluetooth
-    internal static var acqusitionManager = MBTAcquisitionManager()
+    /// data from the MBT Headset.
+    internal static let acqusitionManager = MBTAcquisitionManager.shared
     
     
     //MARK: - Connect and Disconnect MBT Headset Methods
@@ -29,6 +29,9 @@ public class MelomindEngine {
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
     public static func connectEEG(withDelegate delegate: MelomindEngineDelegate) {
         bluetoothManager.connectTo("melomind", with: delegate, and: nil)
+        
+        // Add the Acquisition delegate to the Acquisition manager
+        MelomindEngine.initAcquisitionManager(with: delegate)
     }
     
     /// Connect to the audio part of the MBT Headset (using the A2DP
@@ -39,6 +42,18 @@ public class MelomindEngine {
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
     public static func connectEEGAndA2DP(withDelegate delegate: MelomindEngineDelegate) {
         bluetoothManager.connectTo("melomind", with: delegate, and: delegate)
+        
+        // Add the Acquisition delegate to the Acquisition manager
+        MelomindEngine.initAcquisitionManager(with: delegate)
+    }
+    
+    /// Add delegate to Acquisition Manager
+    /// - Parameters:
+    ///     - delegate : The Melomind Engine Delegate to get Headset datas.
+    internal static func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
+        if acqusitionManager.delegate == nil {
+            acqusitionManager.delegate = delegate
+        }
     }
     
     

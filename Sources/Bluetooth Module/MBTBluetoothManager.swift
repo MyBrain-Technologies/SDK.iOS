@@ -14,6 +14,9 @@ import AVFoundation
 
 /// Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).
 internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate  {
+    
+    /// Singleton declaration
+    static let shared = MBTBluetoothManager()
 
     /// The BLE central manager.
     var centralManager : CBCentralManager!
