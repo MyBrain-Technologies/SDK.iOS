@@ -88,5 +88,5 @@ fastlane/screenshots
 fastlane/test_output
 
 # Jazzy docs
-docs/
-private_docs/
+docs
+private_docs
