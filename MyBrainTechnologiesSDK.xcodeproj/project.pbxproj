@@ -23,6 +23,8 @@
 		35CA2AC91E12927100147290 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CA2AAB1E12920400147290 /* Quick.framework */; };
 		35CA2AD21E12928C00147290 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CA2A9B1E12920400147290 /* Nimble.framework */; };
 		35CA2AD31E12928C00147290 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35CA2ABB1E12920400147290 /* Quick.framework */; };
+		F41A6D581F053FC100092027 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD401F040CB700755BD1 /* Realm.framework */; };
+		F41A6D591F053FC100092027 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD311F040CB400755BD1 /* RealmSwift.framework */; };
 		F41D0C141F02A7650081AA7B /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */; };
 		F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DP.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DP.swift */; };
 		F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */; };
@@ -285,6 +287,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F41A6D581F053FC100092027 /* Realm.framework in Frameworks */,
+				F41A6D591F053FC100092027 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +634,7 @@
 				3549BB1D1DA389CD00C63030 /* Frameworks */,
 				3549BB1E1DA389CD00C63030 /* Headers */,
 				3549BB1F1DA389CD00C63030 /* Resources */,
+				F41A6D671F05401100092027 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1013,6 +1018,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F41A6D671F05401100092027 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3549BB1C1DA389CD00C63030 /* Sources */ = {
