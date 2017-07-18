@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 /// Manage Acquisition data MBT Headset part. Such as EEG,
 /// device info, battery level ...
@@ -75,11 +76,33 @@ internal class MBTAcquisitionManager: NSObject  {
     
     /// Process the Device Information data
     /// - Parameter data : *Data* received from Device info MBT Headset.
-    func processDeviceInformations(_ data:Data) {
+    func processDeviceInformations(_ characteristic: CBCharacteristic) {
+        let data = characteristic.value!
         let count = 8
         var bytesArray = [UInt8](repeating: 0, count: count)
         (data as NSData).getBytes(&bytesArray, length: count * MemoryLayout<UInt8>.size)
         
-        delegate.onReceivingDeviceInformation?(data)
+        guard let dataString = String(data: data, encoding: .ascii) else {
+            return
+        }
+        
+        // Init a MBTDevice instance with the connected headset
+        let device = DeviceManager.getDevice()
+        
+        switch CBUUID(data: characteristic.uuid.data) {
+        case MBTBluetoothLE.productNameUUID:
+            device.productName = dataString
+        case MBTBluetoothLE.serialNumberUUID:
+            device.serialNumber = dataString
+        case MBTBluetoothLE.hardwareRevisionUUID:
+            device.hardwareVersion = dataString
+        case MBTBluetoothLE.firmwareRevisionUUID:
+            device.firmwareVersion = dataString 
+        default:
+            return
+        }
+        
+        // Saving the new connected device in the DB.
+        DeviceManager.updateConnectedDevice(device)
     }
 }

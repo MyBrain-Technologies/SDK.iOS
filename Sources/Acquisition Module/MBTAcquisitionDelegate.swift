@@ -21,5 +21,5 @@ import Foundation
     
     /// Called when getting Device Information.
     /// - Parameter data : *Data* received.
-    @objc optional func onReceivingDeviceInformation(_ data: Data)
+    @objc optional func onReceivingDeviceInformation(_ data: String)
 }
