@@ -73,7 +73,7 @@ public class MelomindEngine {
     }
     
     /// Stop streaming EEG Data to MelomineEngineDelegate.
-    public static func stropStream() {
+    public static func stopStream() {
         bluetoothManager.isListeningToEEG = false
     }
 }
