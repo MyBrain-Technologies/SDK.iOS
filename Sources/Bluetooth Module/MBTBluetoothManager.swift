@@ -244,6 +244,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func peripheral(_ peripheral: CBPeripheral,
                                 didDiscoverCharacteristicsFor service: CBService,
                                 error: Error?) {
+        // Get the device information characteristics UUIDs.
+        let characsUUIDS = MBTBluetoothLE.getDeviceInfoCharacteristicsUUIDS()
+        
         // check the uuid of each characteristic to find config and data characteristics
         for characteristic in service.characteristics! {
             let thisCharacteristic = characteristic as CBCharacteristic
@@ -253,8 +256,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 // Enable Sensor Notification and read the current value
                 MBTBluetoothLE.brainActivityMeasurementCharacteristic = thisCharacteristic
             }
+            
             // Device info's Characteristics
-            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLE.deviceInfoServiceUUID {
+            if characsUUIDS.contains(CBUUID(data: thisCharacteristic.uuid.data)) {
                 self.blePeripheral.readValue(for: thisCharacteristic)
             }
         }
@@ -279,14 +283,15 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
-        
         let notifiedData = characteristic.value!
+        // Get the device information characteristics UUIDs.
+        let characsUUIDS = MBTBluetoothLE.getDeviceInfoCharacteristicsUUIDS()
         
         switch CBUUID(data: characteristic.uuid.data) {
         case MBTBluetoothLE.brainActivityMeasurementUUID:
             MelomindEngine.acqusitionManager.processBrainActivityData(notifiedData)
-        case MBTBluetoothLE.deviceInfoServiceUUID:
-            MelomindEngine.acqusitionManager.processDeviceInformations(notifiedData)
+        case let uuid where characsUUIDS.contains(uuid) :
+            MelomindEngine.acqusitionManager.processDeviceInformations(characteristic)
         default:
             break
         }
