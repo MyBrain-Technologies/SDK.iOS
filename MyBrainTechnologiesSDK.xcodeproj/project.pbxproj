@@ -17,8 +17,7 @@
 		3549BB8B1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
 		3549BB8C1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
 		3549BB8D1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
-		F41A6D581F053FC100092027 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD401F040CB700755BD1 /* Realm.framework */; };
-		F41A6D591F053FC100092027 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD311F040CB400755BD1 /* RealmSwift.framework */; };
+		F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
 		F41D0C141F02A7650081AA7B /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */; };
@@ -95,6 +94,7 @@
 		35CD65161E60192300AF060B /* watchOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Base.xcconfig"; sourceTree = "<group>"; };
 		35CD65171E60192300AF060B /* watchOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		35CD65181E60192300AF060B /* watchOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmEntityManager.swift; path = Models/RealmEntityManager.swift; sourceTree = "<group>"; };
 		F41A6D6D1F05588100092027 /* MBTDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTDevice.swift; path = Models/MBTDevice.swift; sourceTree = "<group>"; };
 		F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTEEGPacket.swift; path = Models/MBTEEGPacket.swift; sourceTree = "<group>"; };
 		F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTAcquisitionDelegate.swift; path = "Acquisition Module/MBTAcquisitionDelegate.swift"; sourceTree = "<group>"; };
@@ -115,8 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F41A6D581F053FC100092027 /* Realm.framework in Frameworks */,
-				F41A6D591F053FC100092027 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,11 +232,11 @@
 		3549BB5C1DA38AA500C63030 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				F41A6D6C1F0557E700092027 /* Models */,
 				F420E9A71EFD601D008C0B08 /* Acquisition Module */,
 				F420E9911EFD5F2C008C0B08 /* Bluetooth Module */,
 				F45837381EC5C21000C5D596 /* MelomindEngine.swift */,
 				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
+				F41A6D6C1F0557E700092027 /* Models */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -354,6 +352,7 @@
 			children = (
 				F41A6D6D1F05588100092027 /* MBTDevice.swift */,
 				F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */,
+				F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -679,14 +678,13 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -699,6 +697,7 @@
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
 				F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */,
+				F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */,
 				F420E9A51EFD5F68008C0B08 /* MBTBluetoothLE.swift in Sources */,
