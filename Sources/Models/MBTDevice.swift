@@ -14,22 +14,22 @@ class MBTDevice: Object {
     //MARK: - Properties
     
     /// The commercial name of the device.
-    dynamic var productName:String = ""
+    dynamic var productName:String? = nil
     
     /// The product serial number.
-    dynamic var serialNumber:String = ""
+    dynamic var serialNumber:String? = nil
     
     /// The product hardware version.
-    dynamic var hardwareVersion:String = ""
+    dynamic var hardwareVersion:String? = nil
     
     /// The product firmware version.
-    dynamic var firmwareVersion:String = ""
+    dynamic var firmwareVersion:String? = nil
     
     /// The id of the product.
-    dynamic var productID:String = ""
+    dynamic var productID:String? = nil
     
     /// The device unique id.
-    dynamic var deviceUUID:String = ""
+    dynamic var deviceUUID:String? = nil
     
     /// The number of active channels in the device.
     dynamic var nbChannels:Int = 0
@@ -47,10 +47,10 @@ class DeviceManager: RealmEntityManager {
         let device = getDevice()
         
         try! RealmManager.realm.write {
-            device.productName = updatedDevice.productName
-            device.serialNumber = updatedDevice.serialNumber
-            device.hardwareVersion = updatedDevice.hardwareVersion
-            device.firmwareVersion = updatedDevice.firmwareVersion
+            device.productName = updatedDevice.productName ?? device.productName
+            device.serialNumber = updatedDevice.serialNumber ?? device.serialNumber
+            device.hardwareVersion = updatedDevice.hardwareVersion ?? device.hardwareVersion
+            device.firmwareVersion = updatedDevice.firmwareVersion ?? device.firmwareVersion
         }
         
         print(device)

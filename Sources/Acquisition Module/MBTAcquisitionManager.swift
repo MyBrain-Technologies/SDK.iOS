@@ -87,7 +87,7 @@ internal class MBTAcquisitionManager: NSObject  {
         }
         
         // Init a MBTDevice instance with the connected headset
-        let device = DeviceManager.getDevice()
+        let device = MBTDevice()
         
         switch CBUUID(data: characteristic.uuid.data) {
         case MBTBluetoothLE.productNameUUID:
