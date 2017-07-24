@@ -18,8 +18,4 @@ import Foundation
     /// Called when getting the battery level.
     /// - Parameter notification : *Notification* received.
     @objc optional func onReceivingBatteryLevel(_ notification: Notification)
-    
-    /// Called when getting Device Information.
-    /// - Parameter data : *Data* received.
-    @objc optional func onReceivingDeviceInformation(_ data: String)
 }

@@ -52,14 +52,14 @@ internal class MBTAcquisitionManager: NSObject  {
             values.append(Float(value))
         }
         
-        let P3Sample1 = values[0] * voltageADS1299
-        let P4Sample1 = values[1] * voltageADS1299
-        let P3Sample2 = values[2] * voltageADS1299
-        let P4Sample2 = values[3] * voltageADS1299
-        let P3Sample3 = values[4] * voltageADS1299
-        let P4Sample3 = values[5] * voltageADS1299
-        let P3Sample4 = values[6] * voltageADS1299
-        let P4Sample4 = values[7] * voltageADS1299
+        let P3Sample1 = ChannelData(data: values[0] * voltageADS1299)
+        let P4Sample1 = ChannelData(data: values[1] * voltageADS1299)
+        let P3Sample2 = ChannelData(data: values[2] * voltageADS1299)
+        let P4Sample2 = ChannelData(data: values[3] * voltageADS1299)
+        let P3Sample3 = ChannelData(data: values[4] * voltageADS1299)
+        let P4Sample3 = ChannelData(data: values[5] * voltageADS1299)
+        let P3Sample4 = ChannelData(data: values[6] * voltageADS1299)
+        let P4Sample4 = ChannelData(data: values[7] * voltageADS1299)
         
         
         // Sending the EEG data to the delegate. The data is in a matrix where the first dimension
@@ -67,10 +67,36 @@ internal class MBTAcquisitionManager: NSObject  {
         delegate.onReceivingPackage?([
             "packetIndex": packetIndex,
             "packet":[
-                [P3Sample1, P3Sample2, P3Sample3, P3Sample4],
-                [P4Sample1, P4Sample2, P4Sample3, P4Sample4]
+                [P3Sample1.value, P3Sample2.value, P3Sample3.value, P3Sample4.value],
+                [P4Sample1.value, P4Sample2.value, P4Sample3.value, P4Sample4.value]
             ]
         ])
+        
+        
+        // Saving EEG datas in the local DB.
+        let P3DatasArray = Array(arrayLiteral: P3Sample1, P3Sample2, P3Sample3, P3Sample4)
+        let P4DatasArray = Array(arrayLiteral: P4Sample1, P4Sample2, P4Sample3, P4Sample4)
+        
+        // Create the P3 channel data array.
+        let P3Datas = ChannelDatas()
+        for P3Sample in P3DatasArray {
+            P3Datas.value.append(P3Sample)
+        }
+        
+        // Create the P4 channel data array.
+        let P4Datas = ChannelDatas()
+        for P4Sample in P4DatasArray {
+            P4Datas.value.append(P4Sample)
+        }
+        
+        // Create a *MBTEEGPacket* entity.
+        let eegPacket = MBTEEGPacket()
+        eegPacket.channelsData.append(P3Datas)
+        eegPacket.channelsData.append(P4Datas)
+        eegPacket.packetIndex = packetIndex
+        
+        // Save it in the Realm DB.
+        EEGPacketManager.saveEEGPacket(eegPacket)
     }
     
     
@@ -93,7 +119,7 @@ internal class MBTAcquisitionManager: NSObject  {
         case MBTBluetoothLE.productNameUUID:
             device.productName = dataString
         case MBTBluetoothLE.serialNumberUUID:
-            device.serialNumber = dataString
+            device.deviceId = dataString
         case MBTBluetoothLE.hardwareRevisionUUID:
             device.hardwareVersion = dataString
         case MBTBluetoothLE.firmwareRevisionUUID:
