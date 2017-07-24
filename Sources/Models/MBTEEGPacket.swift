@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 /// Model to store processed data of an EEG Packet.
-class MBTEEGPacket: Object {
+public class MBTEEGPacket: Object {
     
     /// The qualities stored in a list. The list size
     /// should be equal to the number of channels if there is
@@ -22,8 +22,12 @@ class MBTEEGPacket: Object {
     
     /// The values from all channels.
     let channelsData = List<ChannelDatas>()
+    
+    /// The packet index of the recording session.
+    var packetIndex: Int = 0
 }
 
+//MARK: -
 /// One quality value for one channel.
 class Quality: Object {
     dynamic var value: Float = 0
@@ -32,9 +36,28 @@ class Quality: Object {
 /// One value from one channel.
 class ChannelData: Object {
     dynamic var value: Float = 0
+    
+    convenience init(data: Float) {
+        self.init()
+        self.value = data
+    }
 }
 
 /// All values from one channel.
 class ChannelDatas: Object {
     let value = List<ChannelData>()
+}
+
+
+//MARK: -
+/// *MBTEEGPacket* model DB Manager.
+class EEGPacketManager: RealmEntityManager {
+    class func saveEEGPacket(_ eegPacket: MBTEEGPacket) {
+        try! RealmManager.realm.write {
+            eegPacket.timestamp = Int(NSDate().timeIntervalSince1970)
+            RealmManager.realm.add(eegPacket)
+        }
+        
+        print(eegPacket)
+    }
 }
