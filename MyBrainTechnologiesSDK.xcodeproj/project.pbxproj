@@ -103,6 +103,7 @@
 		F420E9A11EFD5F68008C0B08 /* MBTBluetoothLE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothLE.swift; path = "Bluetooth Module/MBTBluetoothLE.swift"; sourceTree = "<group>"; };
 		F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothManager.swift; path = "Bluetooth Module/MBTBluetoothManager.swift"; sourceTree = "<group>"; };
 		F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTAcquisitionManager.swift; path = "Acquisition Module/MBTAcquisitionManager.swift"; sourceTree = "<group>"; };
+		F44849CE1F2B3EC200006A04 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		F45837381EC5C21000C5D596 /* MelomindEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngine.swift; sourceTree = "<group>"; };
 		F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPDelegate.swift; path = "Bluetooth Module/MBTBluetoothA2DPDelegate.swift"; sourceTree = "<group>"; };
 		F495BD311F040CB400755BD1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -244,6 +245,7 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F44849CE1F2B3EC200006A04 /* Alamofire.framework */,
 				F495BD401F040CB700755BD1 /* Realm.framework */,
 				F495BD311F040CB400755BD1 /* RealmSwift.framework */,
 			);
@@ -904,6 +906,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -932,6 +935,7 @@
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -594,41 +594,6 @@
       "symbol": "ElectrodeLocation.NULL3",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/Models/MBTEEGPacket.swift",
-      "line": 33,
-      "symbol": "Quality.value",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/Models/MBTEEGPacket.swift",
-      "line": 38,
-      "symbol": "ChannelData.value",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/Models/MBTEEGPacket.swift",
-      "line": 40,
-      "symbol": "ChannelData.init(data:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/Models/MBTEEGPacket.swift",
-      "line": 48,
-      "symbol": "ChannelDatas.value",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK/Sources/Models/MBTEEGPacket.swift",
-      "line": 55,
-      "symbol": "EEGPacketManager.saveEEGPacket(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.class",
-      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/Baptiste/Sites/MyBrainTechnologiesSDK"
