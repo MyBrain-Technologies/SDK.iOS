@@ -61,28 +61,15 @@ internal class MBTAcquisitionManager: NSObject  {
         let P3Sample4 = ChannelData(data: values[6] * voltageADS1299)
         let P4Sample4 = ChannelData(data: values[7] * voltageADS1299)
         
-        
-        // Sending the EEG data to the delegate. The data is in a matrix where the first dimension
-        // is the channels and the second one the times samples.
-        delegate.onReceivingPackage?([
-            "packetIndex": packetIndex,
-            "packet":[
-                [P3Sample1.value, P3Sample2.value, P3Sample3.value, P3Sample4.value],
-                [P4Sample1.value, P4Sample2.value, P4Sample3.value, P4Sample4.value]
-            ]
-        ])
-        
-        
+
         // Saving EEG datas in the local DB.
         let P3DatasArray = Array(arrayLiteral: P3Sample1, P3Sample2, P3Sample3, P3Sample4)
         let P4DatasArray = Array(arrayLiteral: P4Sample1, P4Sample2, P4Sample3, P4Sample4)
-        
         // Create the P3 channel data array.
         let P3Datas = ChannelDatas()
         for P3Sample in P3DatasArray {
             P3Datas.value.append(P3Sample)
         }
-        
         // Create the P4 channel data array.
         let P4Datas = ChannelDatas()
         for P4Sample in P4DatasArray {
@@ -94,6 +81,10 @@ internal class MBTAcquisitionManager: NSObject  {
         eegPacket.channelsData.append(P3Datas)
         eegPacket.channelsData.append(P4Datas)
         eegPacket.packetIndex = packetIndex
+        
+        // Sending the EEG data to the delegate. The data is in a matrix where the first dimension
+        // is the channels and the second one the times samples.
+        delegate.onReceivingPackage?(eegPacket)
         
         // Save it in the Realm DB.
         EEGPacketManager.saveEEGPacket(eegPacket)

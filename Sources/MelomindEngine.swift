@@ -32,6 +32,9 @@ public class MelomindEngine {
         
         // Add the Acquisition delegate to the Acquisition manager
         MelomindEngine.initAcquisitionManager(with: delegate)
+        
+        // Add Melomind Device properties to MBTDevice
+        DeviceManager.updateDeviceToMelomind()
     }
     
     /// Connect to the audio part of the MBT Headset (using the A2DP
@@ -45,6 +48,9 @@ public class MelomindEngine {
         
         // Add the Acquisition delegate to the Acquisition manager
         MelomindEngine.initAcquisitionManager(with: delegate)
+        
+        // Add Melomind Device properties to MBTDevice
+        DeviceManager.updateDeviceToMelomind()
     }
     
     /// Add delegate to Acquisition Manager
@@ -73,14 +79,21 @@ public class MelomindEngine {
     }
     
     /// Stop streaming EEG Data to MelomineEngineDelegate.
+    /// - Remark: a JSON will be created with all the MBTEEGPacket.
     public static func stopStream() {
         bluetoothManager.isListeningToEEG = false
     }
     
     //MARK: - Getters 
     /// Getter for device informations of the MBT headset.
-    /// Returns: - A *MBTDevice* instance of the connected headset.
+    /// - Returns: A *MBTDevice* instance of the connected headset.
     public static func getDeviceInformation() -> MBTDevice {
-        return DeviceManager.getDevice()
+        return DeviceManager.getCurrentDevice()
+    }
+    
+    /// Getter for the session JSON.
+    /// - Returns: A *Data* JSON, based on *kwak* scheme.
+    public static func getExerciceJSON() -> Data? {
+        return EEGPacketManager.getJSONFromEEGSession()
     }
 }

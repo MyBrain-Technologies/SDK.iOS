@@ -45,106 +45,6 @@ public class MBTDevice: Object {
 
 //MARK: -
 
-/// *MBTDevice* model DB Manager.
-class DeviceManager: RealmEntityManager {
-    
-    /// Update the newly connected device record in the DB.
-    /// - Parameters:
-    ///     - updatedDevice: *MBTDevice* to record.
-    class func updateConnectedDevice(_ updatedDevice:MBTDevice) {
-        // Save the new device to Realm Database
-        let device = getDevice()
-        
-        try! RealmManager.realm.write {
-            device.productName = updatedDevice.productName ?? device.productName
-            device.deviceId = updatedDevice.deviceId ?? device.deviceId
-            device.hardwareVersion = updatedDevice.hardwareVersion ?? device.hardwareVersion
-            device.firmwareVersion = updatedDevice.firmwareVersion ?? device.firmwareVersion
-            
-            device.nbChannels = updatedDevice.nbChannels != 0 ?
-                updatedDevice.nbChannels: device.nbChannels
-            device.sampRate = updatedDevice.sampRate != 0 ?
-                updatedDevice.sampRate: device.sampRate
-            device.eegPacketLength = updatedDevice.eegPacketLength != 0 ?
-                updatedDevice.eegPacketLength: device.eegPacketLength
-            
-            if updatedDevice.acquisitionLocations.count != 0 {
-                device.acquisitionLocations.removeAll()
-                device.acquisitionLocations.append(objectsIn: updatedDevice.acquisitionLocations)
-            }
-            
-            if updatedDevice.referencesLocations.count != 0 {
-                device.referencesLocations.removeAll()
-                device.referencesLocations.append(objectsIn: updatedDevice.referencesLocations)
-            }
-            
-            if updatedDevice.groundsLocations.count != 0 {
-                device.groundsLocations.removeAll()
-                device.groundsLocations.append(objectsIn: updatedDevice.groundsLocations)
-            }
-        }
-    }
-    
-    /// Get the DB-saved device or create one if any.
-    /// - Returns: The DB-saved *MBTDevice* instance.
-    class func getDevice() -> MBTDevice {
-        // If no device saved in DB, then create it.
-        guard let device = RealmManager.realm.objects(MBTDevice.self).first else {
-            let newDevice = MBTDevice()
-            
-            try! RealmManager.realm.write {
-                RealmManager.realm.add(newDevice)
-            }
-            
-            return newDevice
-        }
-        
-        return device
-    }
-    
-    
-//    class func formatJSONAsUser(_ json:JSON) -> User {
-//        let metadata = Metadata()
-//        
-//        if let username = json["username"].string {
-//            metadata.pseudo = username
-//        }
-//        if let age = json["age"].int {
-//            metadata.age = age
-//        }
-//        if let sexe = json["gender"].string {
-//            metadata.sexe = sexe
-//        }
-//        if let job = json["job"].string {
-//            metadata.job = job
-//        }
-//        if let country = json["country"].string {
-//            metadata.country = country
-//        }
-//        if let city = json["city"].string {
-//            metadata.city = city
-//        }
-//        if let language = json["language"].string {
-//            metadata.language = language
-//        }
-//        
-//        let user = User()
-//        if let email = json["email"].string {
-//            user.email = email
-//        }
-//        if let password = json["password"].string {
-//            user.password = password
-//        }
-//        user.metaData = metadata
-//        
-//        return user
-//    }
-    
-}
-
-
-//MARK: -
-
 /// Electrode location model.
 public class MBTAcquistionLocation: Object {
     // Index of the exercice type
@@ -263,4 +163,94 @@ public enum ElectrodeLocation: Int {
     case NULL2
     case NULL3
 }
+
+
+//MARK: -
+
+/// *MBTDevice* model DB Manager.
+class DeviceManager: RealmEntityManager {
+    
+    /// Update the newly connected device record in the DB.
+    /// - Parameters:
+    ///     - updatedDevice: *MBTDevice* to record.
+    class func updateConnectedDevice(_ updatedDevice:MBTDevice) {
+        // Save the new device to Realm Database
+        let device = getCurrentDevice()
+        
+        try! RealmManager.realm.write {
+            device.productName = updatedDevice.productName ?? device.productName
+            device.deviceId = updatedDevice.deviceId ?? device.deviceId
+            device.hardwareVersion = updatedDevice.hardwareVersion ?? device.hardwareVersion
+            device.firmwareVersion = updatedDevice.firmwareVersion ?? device.firmwareVersion
+            
+            device.nbChannels = updatedDevice.nbChannels != 0 ?
+                updatedDevice.nbChannels: device.nbChannels
+            device.sampRate = updatedDevice.sampRate != 0 ?
+                updatedDevice.sampRate: device.sampRate
+            device.eegPacketLength = updatedDevice.eegPacketLength != 0 ?
+                updatedDevice.eegPacketLength: device.eegPacketLength
+            
+            if updatedDevice.acquisitionLocations.count != 0 {
+                device.acquisitionLocations.removeAll()
+                device.acquisitionLocations.append(objectsIn: updatedDevice.acquisitionLocations)
+            }
+            
+            if updatedDevice.referencesLocations.count != 0 {
+                device.referencesLocations.removeAll()
+                device.referencesLocations.append(objectsIn: updatedDevice.referencesLocations)
+            }
+            
+            if updatedDevice.groundsLocations.count != 0 {
+                device.groundsLocations.removeAll()
+                device.groundsLocations.append(objectsIn: updatedDevice.groundsLocations)
+            }
+        }
+    }
+    
+    /// Get the DB-saved device or create one if any.
+    /// - Returns: The DB-saved *MBTDevice* instance.
+    class func getCurrentDevice() -> MBTDevice {
+        // If no device saved in DB, then create it.
+        guard let device = RealmManager.realm.objects(MBTDevice.self).first else {
+            let newDevice = MBTDevice()
+            
+            try! RealmManager.realm.write {
+                RealmManager.realm.add(newDevice)
+            }
+            return newDevice
+        }
+        return device
+    }
+    
+    /// Init device with Melomind specifications.
+    class func updateDeviceToMelomind() {
+        // Create Melomind MBTDevice
+        let device = MBTDevice()
+        device.sampRate = 250
+        device.nbChannels = 2
+        device.eegPacketLength = 250
+        
+        // Acquisition Electrodes
+        let acquisition1 = MBTAcquistionLocation()
+        acquisition1.type = .P3
+        device.acquisitionLocations.append(acquisition1)
+        let acquisition2 = MBTAcquistionLocation()
+        acquisition2.type = .P4
+        device.acquisitionLocations.append(acquisition2)
+        
+        // Reference Electrode
+        let reference = MBTAcquistionLocation()
+        reference.type = .M1
+        device.referencesLocations.append(reference)
+        
+        // Ground Electrode
+        let ground = MBTAcquistionLocation()
+        ground.type = .M2
+        device.groundsLocations.append(ground)
+        
+        // Save it in DB
+        DeviceManager.updateConnectedDevice(device)
+    }
+}
+
 

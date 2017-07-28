@@ -13,7 +13,7 @@ import Foundation
     
     /// Called to each EEG package sent by the BLE.
     /// - Parameter dataArray : *Dictionnary* of EEG data array.
-    @objc optional func onReceivingPackage(_ dataArray : [String: Any])
+    @objc optional func onReceivingPackage(_ eegPacket : MBTEEGPacket)
     
     /// Called when getting the battery level.
     /// - Parameter notification : *Notification* received.

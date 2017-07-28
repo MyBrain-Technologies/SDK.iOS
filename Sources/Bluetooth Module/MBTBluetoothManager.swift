@@ -102,7 +102,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
         self.deviceName = NSString(string: deviceName)
-        self.eventDelegate = eventDelegate
+        self.eventDelegate = eventDelegate        
         
         // Check if should launch audio process to help the A2DP connection
         guard let audioDelegate = audioA2DPDelegate else {
@@ -194,6 +194,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         if error != nil {
             eventDelegate.onConnectionOff?(error)
+            let convertedString = String(data: EEGPacketManager.getJSONFromEEGSession()!, encoding: .utf8)
+            print(convertedString!)
         } else {
             central.scanForPeripherals(withServices: nil, options: nil)
         }
@@ -309,8 +311,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         _ peripheral: CBPeripheral,
         didUpdateNotificationStateFor characteristic: CBCharacteristic,
         error: Error?) {
-        
-        print("Did update notification for characteristic: \(characteristic.uuid.data)")
+        //
+//        print("Did update notification for characteristic: \(characteristic.uuid.data)")
     }
     
     
