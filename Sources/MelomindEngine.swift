@@ -76,12 +76,14 @@ public class MelomindEngine {
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
     public static func startStream() {
         bluetoothManager.isListeningToEEG = true
+        acqusitionManager.streamHasStarted()
     }
     
     /// Stop streaming EEG Data to MelomineEngineDelegate.
     /// - Remark: a JSON will be created with all the MBTEEGPacket.
     public static func stopStream() {
         bluetoothManager.isListeningToEEG = false
+        acqusitionManager.streamHasStopped()
     }
     
     //MARK: - Getters 
@@ -92,8 +94,8 @@ public class MelomindEngine {
     }
     
     /// Getter for the session JSON.
-    /// - Returns: A *Data* JSON, based on *kwak* scheme.
-    public static func getExerciceJSON() -> Data? {
-        return EEGPacketManager.getJSONFromEEGSession()
+    /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
+    public static func getSessionJSON() -> Data? {
+        return MBTJSONHelper.getSessionData()
     }
 }

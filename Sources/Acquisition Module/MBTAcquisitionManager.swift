@@ -25,7 +25,6 @@ internal class MBTAcquisitionManager: NSObject  {
     /// Constant to decod EEG data
     let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 12
     
-    
     //MARK: - Process Received data Methods.
     
     /// Process the brain activty measurement received and return the processed data.
@@ -121,5 +120,106 @@ internal class MBTAcquisitionManager: NSObject  {
         
         // Saving the new connected device in the DB.
         DeviceManager.updateConnectedDevice(device)
+    }
+    
+    
+    
+    //MARK: -
+    
+    /// Method called by MelomindEngine when a new EEG streaming
+    /// session has began. Method will make everything ready, acquisition side
+    /// for the new session.
+    func streamHasStarted() {
+        // Add a new UUID for a new streaming session.
+        MBTJSONHelper.uuid = UUID()
+        
+        // Deleting the previous session JSON.
+//        MBTJSONHelper.deleteJSONFromDevice()
+    }
+    
+    /// Method called by MelomindEngine when the current EEG streaming
+    /// session has finished. Method will create and save on the iDevice
+    /// the JSON.
+    func streamHasStopped() {
+        // Collect data for the JSON.
+        let jsonObject = self.createJSON()
+        
+        // Save JSON with EEG data received.
+        MBTJSONHelper.saveJSON(jsonObject) { fileURL in
+            // Then delete all MBTEEGPacket saved.
+            EEGPacketManager.removeAllEEGPackets()
+            
+            // Send JSON to BrainWeb.
+            MBTBrainWebHelper.sendJSONToBrainWeb(fileURL)
+        }
+    }
+    
+    /// Collecting the session datas to create the JSON.
+    func createJSON() -> [String: Any] {
+        let eegPackets = EEGPacketManager.getEEGPackets()
+        
+        let device = DeviceManager.getCurrentDevice()
+        var acquisitions: [String] = Array()
+        for acquisition in device.acquisitionLocations {
+            acquisitions.append("\(acquisition.type)")
+        }
+        
+        // Get datas per channel.
+        var channel1: [Float] = Array()
+        var channel2: [Float] = Array()
+        for eegPacket in eegPackets {
+            for channelData in eegPacket.channelsData.first!.value {
+                channel1.append(channelData.value)
+            }
+            
+            for channelData in eegPacket.channelsData.last!.value {
+                channel2.append(channelData.value)
+            }
+        }
+        
+        // Create the session JSON.
+        let jsonObject: [String: Any] = [
+            "uuidJsonFile": MBTJSONHelper.uuid,
+            "header": [
+                "deviceInfo": [
+                    "productName": device.productName!,
+                    "hardwareVersion": device.hardwareVersion!,
+                    "firmwareVersion": device.firmwareVersion!,
+                    "uniqueDeviceIdentifier": device.deviceId!
+                ],
+                "recordingNB": "0x14",
+                "comments": [],
+                "eegPacketLength": device.eegPacketLength,
+                "sampRate": device.sampRate,
+                "nbChannels": device.nbChannels,
+                "acquisitionLocation": acquisitions,
+                "referencesLocation": [
+                    "\(device.referencesLocations.first!.type)"
+                ],
+                "groundsLocation": [
+                    "\(device.groundsLocations.first!.type)"
+                ]
+            ],
+            "recording": [
+                "recordID": 123,
+                "recordingType": [
+                    "recordType": "RAWDATA",
+                    "spVersion": "0.0.0",
+                    "source": "DEFAULT",
+                    "dataType": "DEFAULT"
+                ],
+                "recordingTime": eegPackets.first!.timestamp,
+                "nbPackets": eegPackets.count,
+                "firstPacketId": eegPackets.first!.packetIndex,
+                "qualities": [[],[]],
+                "channelData": [
+                    channel1,
+                    channel2
+                ],
+                "statusData": []
+            ]
+        ]
+        
+        return jsonObject
     }
 }
