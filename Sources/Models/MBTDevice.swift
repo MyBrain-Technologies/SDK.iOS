@@ -47,8 +47,10 @@ public class MBTDevice: Object {
 
 /// Electrode location model.
 public class MBTAcquistionLocation: Object {
-    // Index of the exercice type
+    /// Value (in the enum) of the electrode, for Realm.
     fileprivate dynamic var rawType = -1
+    
+    /// Readable value.
     var type: ElectrodeLocation {
         get {
             return ElectrodeLocation(rawValue: rawType)!
@@ -58,7 +60,7 @@ public class MBTAcquistionLocation: Object {
         }
     }
     
-    // Specify properties to ignore (Realm won't persist these)
+    /// Properties to ignore (Realm won't persist these).
     override public static func ignoredProperties() -> [String] {
         return ["type"]
     }
