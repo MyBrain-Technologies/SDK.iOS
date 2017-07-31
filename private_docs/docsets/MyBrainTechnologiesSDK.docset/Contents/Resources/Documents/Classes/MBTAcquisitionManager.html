@@ -14,7 +14,7 @@
     <a title="MBTAcquisitionManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">MyBrainTechnologiesSDK Docs</a> (55% documented)</p>
+        <p><a href="../index.html">MyBrainTechnologiesSDK Docs</a> (59% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -100,10 +100,16 @@
             <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/MBTBluetoothA2DP.html">MBTBluetoothA2DP</a>
+                <a href="../Structs/MBTBluetoothA2DPHelper.html">MBTBluetoothA2DPHelper</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/MBTBluetoothLE.html">MBTBluetoothLE</a>
+                <a href="../Structs/MBTBluetoothLEHelper.html">MBTBluetoothLEHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MBTBrainWebHelper.html">MBTBrainWebHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MBTJSONHelper.html">MBTJSONHelper</a>
               </li>
             </ul>
           </li>
@@ -344,10 +350,99 @@ P3 and P4 samples arrays ( key : <q>packet</q> )</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager16streamHasStartedFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/streamHasStarted()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager16streamHasStartedFT_T_">streamHasStarted()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Method called by MelomindEngine when a new EEG streaming
+session has began. Method will make everything ready, acquisition side
+for the new session.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">streamHasStarted</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager16streamHasStoppedFT_T_"></a>
+                    <a name="//apple_ref/swift/Method/streamHasStopped()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager16streamHasStoppedFT_T_">streamHasStopped()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Method called by MelomindEngine when the current EEG streaming
+session has finished. Method will create and save on the iDevice
+the JSON.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">streamHasStopped</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager18collectSessionDataFT_GVs10DictionarySSP__"></a>
+                    <a name="//apple_ref/swift/Method/collectSessionData()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC22MyBrainTechnologiesSDK21MBTAcquisitionManager18collectSessionDataFT_GVs10DictionarySSP__">collectSessionData()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Collecting the session datas to create the JSON.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">collectSessionData</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="http://www.melomind.com" target="_blank" rel="external">Baptiste Rasschaert</a>. All rights reserved. (Last updated: 2017-07-26)</p>
+          <p>&copy; 2017 <a class="link" href="http://www.melomind.com" target="_blank" rel="external">Baptiste Rasschaert</a>. All rights reserved. (Last updated: 2017-07-31)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
