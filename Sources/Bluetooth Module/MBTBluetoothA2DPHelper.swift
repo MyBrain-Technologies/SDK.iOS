@@ -9,7 +9,7 @@
 import CoreBluetooth
 
 /// Help MBTBluetoothManager to manage Bluetooth A2DP (audio).
-struct MBTBluetoothA2DP {
+struct MBTBluetoothA2DPHelper {
     /// The *UUID* of Audio Sink.
     static let audioSingServiceUUID = CBUUID(string: "0x110B")
     

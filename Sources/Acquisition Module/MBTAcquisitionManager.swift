@@ -107,13 +107,13 @@ internal class MBTAcquisitionManager: NSObject  {
         let device = MBTDevice()
         
         switch CBUUID(data: characteristic.uuid.data) {
-        case MBTBluetoothLE.productNameUUID:
+        case MBTBluetoothLEHelper.productNameUUID:
             device.productName = dataString
-        case MBTBluetoothLE.serialNumberUUID:
+        case MBTBluetoothLEHelper.serialNumberUUID:
             device.deviceId = dataString
-        case MBTBluetoothLE.hardwareRevisionUUID:
+        case MBTBluetoothLEHelper.hardwareRevisionUUID:
             device.hardwareVersion = dataString
-        case MBTBluetoothLE.firmwareRevisionUUID:
+        case MBTBluetoothLEHelper.firmwareRevisionUUID:
             device.firmwareVersion = dataString 
         default:
             return

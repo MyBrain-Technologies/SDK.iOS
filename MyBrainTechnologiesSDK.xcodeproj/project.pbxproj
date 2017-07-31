@@ -17,13 +17,14 @@
 		3549BB8B1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
 		3549BB8C1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
 		3549BB8D1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
+		F40CDF271F2F6B4B00515A91 /* MBTJSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40CDF261F2F6B4B00515A91 /* MBTJSONHelper.swift */; };
 		F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
 		F41D0C141F02A7650081AA7B /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */; };
-		F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DP.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DP.swift */; };
+		F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift */; };
 		F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */; };
-		F420E9A51EFD5F68008C0B08 /* MBTBluetoothLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A11EFD5F68008C0B08 /* MBTBluetoothLE.swift */; };
+		F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A11EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift */; };
 		F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */; };
 		F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */; };
 		F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45837381EC5C21000C5D596 /* MelomindEngine.swift */; };
@@ -94,13 +95,14 @@
 		35CD65161E60192300AF060B /* watchOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Base.xcconfig"; sourceTree = "<group>"; };
 		35CD65171E60192300AF060B /* watchOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		35CD65181E60192300AF060B /* watchOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		F40CDF261F2F6B4B00515A91 /* MBTJSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTJSONHelper.swift; path = "Acquisition Module/MBTJSONHelper.swift"; sourceTree = "<group>"; };
 		F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmEntityManager.swift; path = Models/RealmEntityManager.swift; sourceTree = "<group>"; };
 		F41A6D6D1F05588100092027 /* MBTDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTDevice.swift; path = Models/MBTDevice.swift; sourceTree = "<group>"; };
 		F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTEEGPacket.swift; path = Models/MBTEEGPacket.swift; sourceTree = "<group>"; };
 		F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTAcquisitionDelegate.swift; path = "Acquisition Module/MBTAcquisitionDelegate.swift"; sourceTree = "<group>"; };
-		F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DP.swift; path = "Bluetooth Module/MBTBluetoothA2DP.swift"; sourceTree = "<group>"; };
+		F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPHelper.swift; path = "Bluetooth Module/MBTBluetoothA2DPHelper.swift"; sourceTree = "<group>"; };
 		F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothEventDelegate.swift; path = "Bluetooth Module/MBTBluetoothEventDelegate.swift"; sourceTree = "<group>"; };
-		F420E9A11EFD5F68008C0B08 /* MBTBluetoothLE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothLE.swift; path = "Bluetooth Module/MBTBluetoothLE.swift"; sourceTree = "<group>"; };
+		F420E9A11EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothLEHelper.swift; path = "Bluetooth Module/MBTBluetoothLEHelper.swift"; sourceTree = "<group>"; };
 		F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothManager.swift; path = "Bluetooth Module/MBTBluetoothManager.swift"; sourceTree = "<group>"; };
 		F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTAcquisitionManager.swift; path = "Acquisition Module/MBTAcquisitionManager.swift"; sourceTree = "<group>"; };
 		F44849CE1F2B3EC200006A04 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -362,9 +364,9 @@
 		F420E9911EFD5F2C008C0B08 /* Bluetooth Module */ = {
 			isa = PBXGroup;
 			children = (
-				F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DP.swift */,
+				F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift */,
 				F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */,
-				F420E9A11EFD5F68008C0B08 /* MBTBluetoothLE.swift */,
+				F420E9A11EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift */,
 				F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */,
 				F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */,
 			);
@@ -376,6 +378,7 @@
 			children = (
 				F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */,
 				F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */,
+				F40CDF261F2F6B4B00515A91 /* MBTJSONHelper.swift */,
 			);
 			name = "Acquisition Module";
 			sourceTree = "<group>";
@@ -697,16 +700,17 @@
 			files = (
 				F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
+				F40CDF271F2F6B4B00515A91 /* MBTJSONHelper.swift in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
 				F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */,
-				F420E9A51EFD5F68008C0B08 /* MBTBluetoothLE.swift in Sources */,
+				F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */,
 				F41D0C141F02A7650081AA7B /* MBTAcquisitionDelegate.swift in Sources */,
 				F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */,
 				F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */,
-				F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DP.swift in Sources */,
+				F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

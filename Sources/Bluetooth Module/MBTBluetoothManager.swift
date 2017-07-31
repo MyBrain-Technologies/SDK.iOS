@@ -37,7 +37,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         didSet {
             self.blePeripheral.setNotifyValue(
                 isListeningToEEG,
-                for: MBTBluetoothLE.brainActivityMeasurementCharacteristic
+                for: MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic
             )
         }
     }
@@ -58,7 +58,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 if output?.portName == String(deviceName)
                     && output?.portType == AVAudioSessionPortBluetoothA2DP {
                     // Save the UUID of the concerned headset
-                    MBTBluetoothA2DP.uid = output?.uid
+                    MBTBluetoothA2DPHelper.uid = output?.uid
                     // A2DP Audio is connected
                     audioA2DPDelegate?.audioA2DPDidConnect?()
                 } else {
@@ -228,7 +228,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         for service in peripheral.services! {
             let currentService = service as CBService
             // Get the MyBrainService and Device info UUID
-            let servicesUUID = MBTBluetoothLE.getServicesUUIDs()
+            let servicesUUID = MBTBluetoothLEHelper.getServicesUUIDs()
             
             // Check if manager should look at this service characteristics
             if servicesUUID.contains(CBUUID(data: service.uuid.data)) {
@@ -247,16 +247,16 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                                 didDiscoverCharacteristicsFor service: CBService,
                                 error: Error?) {
         // Get the device information characteristics UUIDs.
-        let characsUUIDS = MBTBluetoothLE.getDeviceInfoCharacteristicsUUIDS()
+        let characsUUIDS = MBTBluetoothLEHelper.getDeviceInfoCharacteristicsUUIDS()
         
         // check the uuid of each characteristic to find config and data characteristics
         for characteristic in service.characteristics! {
             let thisCharacteristic = characteristic as CBCharacteristic
             
             // MyBrainService's Characteristics
-            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLE.brainActivityMeasurementUUID {
+            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLEHelper.brainActivityMeasurementUUID {
                 // Enable Sensor Notification and read the current value
-                MBTBluetoothLE.brainActivityMeasurementCharacteristic = thisCharacteristic
+                MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = thisCharacteristic
             }
             
             // Device info's Characteristics
@@ -266,7 +266,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
         
         // Check if characteristics have been discovered and set
-        if MBTBluetoothLE.brainActivityMeasurementCharacteristic != nil {
+        if MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic != nil {
             // Tell the event delegate that the connection is established
             eventDelegate.onConnectionEstablished?()
         }
@@ -287,10 +287,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                     error: Error?) {
         let notifiedData = characteristic.value!
         // Get the device information characteristics UUIDs.
-        let characsUUIDS = MBTBluetoothLE.getDeviceInfoCharacteristicsUUIDS()
+        let characsUUIDS = MBTBluetoothLEHelper.getDeviceInfoCharacteristicsUUIDS()
         
         switch CBUUID(data: characteristic.uuid.data) {
-        case MBTBluetoothLE.brainActivityMeasurementUUID:
+        case MBTBluetoothLEHelper.brainActivityMeasurementUUID:
             MelomindEngine.acqusitionManager.processBrainActivityData(notifiedData)
         case let uuid where characsUUIDS.contains(uuid) :
             MelomindEngine.acqusitionManager.processDeviceInformations(characteristic)
@@ -344,15 +344,15 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             if output?.portName == String(deviceName)
                 && output?.portType == AVAudioSessionPortBluetoothA2DP {
                 // Save the UUID of the concerned headset
-                MBTBluetoothA2DP.uid = output?.uid
+                MBTBluetoothA2DPHelper.uid = output?.uid
                 // A2DP Audio is connected
                 audioA2DPDelegate?.audioA2DPDidConnect?()
             }
         case .oldDeviceUnavailable:
             // if the old device is the MBT headset
-            if lastOutput?.uid == MBTBluetoothA2DP.uid {
+            if lastOutput?.uid == MBTBluetoothA2DPHelper.uid {
                 // Erase the A2DP audio uid saved
-                MBTBluetoothA2DP.uid = nil
+                MBTBluetoothA2DPHelper.uid = nil
                 // MBT A2DP audio is disconnected
                 audioA2DPDelegate?.audioA2DPDidDisconnect?()
             }
