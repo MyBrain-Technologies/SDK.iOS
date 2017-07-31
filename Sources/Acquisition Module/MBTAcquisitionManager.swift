@@ -142,7 +142,7 @@ internal class MBTAcquisitionManager: NSObject  {
     /// the JSON.
     func streamHasStopped() {
         // Collect data for the JSON.
-        let jsonObject = self.createJSON()
+        let jsonObject = self.collectSessionData()
         
         // Save JSON with EEG data received.
         MBTJSONHelper.saveJSON(jsonObject) { fileURL in
@@ -155,7 +155,7 @@ internal class MBTAcquisitionManager: NSObject  {
     }
     
     /// Collecting the session datas to create the JSON.
-    func createJSON() -> [String: Any] {
+    func collectSessionData() -> [String: Any] {
         let eegPackets = EEGPacketManager.getEEGPackets()
         
         let device = DeviceManager.getCurrentDevice()
