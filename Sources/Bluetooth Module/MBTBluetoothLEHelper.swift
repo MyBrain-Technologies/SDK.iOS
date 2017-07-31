@@ -12,7 +12,7 @@ import CoreBluetooth
 /// Help MBTBluetoothManager to manage Bluetooth Low Energy ( BLE ).
 struct MBTBluetoothLEHelper {
     /// The *UUID* of the MyBrainServices.
-    private static let myBrainServiceUUID = CBUUID(string: "0xB2A0")
+    static let myBrainServiceUUID = CBUUID(string: "0xB2A0")
     
     /// The *UUID* of the brainActivityMeasurement characteristic of the Measurement service.
     static let brainActivityMeasurementUUID = CBUUID(string: "0xB2A5")

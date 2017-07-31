@@ -194,8 +194,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         if error != nil {
             eventDelegate.onConnectionOff?(error)
-            let convertedString = String(data: EEGPacketManager.getJSONFromEEGSession()!, encoding: .utf8)
-            print(convertedString!)
         } else {
             central.scanForPeripherals(withServices: nil, options: nil)
         }
