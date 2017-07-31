@@ -86,7 +86,7 @@ class EEGPacketManager: RealmEntityManager {
         
         var acquisitions: [String] = Array()
         for acquisition in device.acquisitionLocations {
-            acquisitions.append("\(acquisition.type.rawValue)")
+            acquisitions.append("\(acquisition.type)")
         }
         
         // Get datas per channel.
@@ -119,10 +119,10 @@ class EEGPacketManager: RealmEntityManager {
                 "nbChannels": device.nbChannels,
                 "acquisitionLocation": acquisitions,
                 "referencesLocation": [
-                    "\(device.referencesLocations.first!.type.rawValue)"
+                    "\(device.referencesLocations.first!.type)"
                 ],
                 "groundsLocation": [
-                    "\(device.groundsLocations.first!.type.rawValue)"
+                    "\(device.groundsLocations.first!.type)"
                 ]
             ],
             "recording": [
