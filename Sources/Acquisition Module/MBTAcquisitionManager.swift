@@ -179,7 +179,7 @@ internal class MBTAcquisitionManager: NSObject  {
         
         // Create the session JSON.
         let jsonObject: [String: Any] = [
-            "uuidJsonFile": MBTJSONHelper.uuid,
+            "uuidJsonFile": MBTJSONHelper.uuid.uuidString,
             "header": [
                 "deviceInfo": [
                     "productName": device.productName!,
