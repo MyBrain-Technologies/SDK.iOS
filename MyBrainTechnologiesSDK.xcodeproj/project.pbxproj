@@ -18,6 +18,7 @@
 		3549BB8C1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
 		3549BB8D1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
 		F40CDF271F2F6B4B00515A91 /* MBTJSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40CDF261F2F6B4B00515A91 /* MBTJSONHelper.swift */; };
+		F40CDF291F2F818F00515A91 /* MBTBrainWebHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40CDF281F2F818F00515A91 /* MBTBrainWebHelper.swift */; };
 		F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
@@ -96,6 +97,7 @@
 		35CD65171E60192300AF060B /* watchOS-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-Framework.xcconfig"; sourceTree = "<group>"; };
 		35CD65181E60192300AF060B /* watchOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "watchOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		F40CDF261F2F6B4B00515A91 /* MBTJSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTJSONHelper.swift; path = "Acquisition Module/MBTJSONHelper.swift"; sourceTree = "<group>"; };
+		F40CDF281F2F818F00515A91 /* MBTBrainWebHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBrainWebHelper.swift; path = "Acquisition Module/MBTBrainWebHelper.swift"; sourceTree = "<group>"; };
 		F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmEntityManager.swift; path = Models/RealmEntityManager.swift; sourceTree = "<group>"; };
 		F41A6D6D1F05588100092027 /* MBTDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTDevice.swift; path = Models/MBTDevice.swift; sourceTree = "<group>"; };
 		F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTEEGPacket.swift; path = Models/MBTEEGPacket.swift; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */,
 				F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */,
 				F40CDF261F2F6B4B00515A91 /* MBTJSONHelper.swift */,
+				F40CDF281F2F818F00515A91 /* MBTBrainWebHelper.swift */,
 			);
 			name = "Acquisition Module";
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				F40CDF271F2F6B4B00515A91 /* MBTJSONHelper.swift in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
 				F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */,
+				F40CDF291F2F818F00515A91 /* MBTBrainWebHelper.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */,
