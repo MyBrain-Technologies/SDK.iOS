@@ -50,13 +50,14 @@ If you prefer not to use either of the aforementioned dependency managers, you c
 ```swift
 import MyBrainTechnologiesSDK
 
-class VC: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
+class VC: UIViewController, MelomindEngineDelegate {
 
     ...
-
-    MBTBluetooth.connectToEEGAndA2DP("melomind", with: self, and: self)
-
+ 
+    MelomindEngine.connectEEGAndA2DP(withDelegate: self)
+ 
     ...
+}
 ```
 
 #### Only Connect Bluetooth LE (EEG)
@@ -64,19 +65,20 @@ class VC: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate 
 ```swift
 import MyBrainTechnologiesSDK
 
-class VC: UIViewController, MBTBluetoothEventDelegate, MBTBluetoothA2DPDelegate {
+class VC: UIViewController, MBTBluetoothEventDelegate {
 
     ...
 
-    MBTBluetooth.connectToEEG("melomind", with: self)
+    MelomindEngine.connectEEG(withDelegate: self)
 
     ...
+}
 ```
 
 #### Disconnection of the headset
 
 ```swift
-MBTBluetooth.disconnect()
+MelomindEngine.disconnect()
 ```
 
 <br />
@@ -85,12 +87,25 @@ MBTBluetooth.disconnect()
 #### Start listening to EEG stream
 
 ```swift
-MBTBluetooth.startListeningToEEG()
+MelomindEngine.startStream()
 ```
 
 #### Stop listening to EEG stream
 ```swift
-MBTBluetooth.stopListeningToEEG()
+MelomindEngine.stopStream()
+```
+
+<br />
+### Getters
+
+#### Device Informations getter (as MBTDevice instance)
+```swift
+MelomindEngine.getDeviceInformations()
+```
+ 
+#### Session results getter (as JSON in *kwak* scheme)
+```swift
+MelomindEngine.getSessionJSON()
 ```
 
 <br />
