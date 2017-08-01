@@ -15,41 +15,41 @@ public class MBTEEGPacket: Object {
     /// The qualities stored in a list. The list size
     /// should be equal to the number of channels if there is
     /// a status channel.
-    let qualities = List<Quality>()
+    public let qualities = List<Quality>()
     
     /// The timestamp in milliseconds when this packet is created.
-    dynamic var timestamp: Int = Int(NSDate().timeIntervalSince1970)
+    public  dynamic var timestamp: Int = Int(NSDate().timeIntervalSince1970)
     
     /// The values from all channels.
-    let channelsData = List<ChannelDatas>()
+    public let channelsData = List<ChannelDatas>()
     
     /// The packet index of the recording session.
-    var packetIndex: Int = 0
+    public var packetIndex: Int = 0
 }
 
 //MARK: -
 /// One quality value for one channel.
-class Quality: Object {
+public class Quality: Object {
     /// Value property of the *Quality*.
-    dynamic var value: Float = 0
+    public dynamic var value: Float = 0
 }
 
-/// One value from one channel.
-class ChannelData: Object {
+/// One EEG value from one channel.
+public class ChannelData: Object {
     /// Value property of a *Channel*.
-    dynamic var value: Float = 0
+    public dynamic var value: Float = 0
     
     /// Special init with the value of *ChannelData*.
-    convenience init(data: Float) {
+    public convenience init(data: Float) {
         self.init()
         self.value = data
     }
 }
 
 /// All values from one channel.
-class ChannelDatas: Object {
+public class ChannelDatas: Object {
     /// *RLMArray* of *ChannelData*.
-    let value = List<ChannelData>()
+    public let value = List<ChannelData>()
 }
 
 

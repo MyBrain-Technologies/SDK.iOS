@@ -13,34 +13,34 @@ import RealmSwift
 public class MBTDevice: Object {
     
     /// The commercial name of the device.
-    dynamic var productName:String? = nil
+    public dynamic var productName:String? = nil
     
     /// The product specific serial number.
-    dynamic var deviceId:String? = nil
+    public dynamic var deviceId:String? = nil
     
     /// The product hardware version.
-    dynamic var hardwareVersion:String? = nil
+    public dynamic var hardwareVersion:String? = nil
     
     /// The product firmware version.
-    dynamic var firmwareVersion:String? = nil
+    public dynamic var firmwareVersion:String? = nil
     
     /// The number of active channels in the device.
-    dynamic var nbChannels:Int = 0
+    public dynamic var nbChannels:Int = 0
 
     /// The rate at which EEG data is being sent by the headset.
-    dynamic var sampRate:Int = 0
+    public dynamic var sampRate:Int = 0
     
     /// An EEG Packet length.
-    dynamic var eegPacketLength: Int = 0
+    public dynamic var eegPacketLength: Int = 0
     
     /// Locations of the acquisition electrodes.
-    let acquisitionLocations = List<MBTAcquistionLocation>()
+    public let acquisitionLocations = List<MBTAcquistionLocation>()
     
     /// Locations of the references for an electrode.
-    let referencesLocations = List<MBTAcquistionLocation>()
+    public let referencesLocations = List<MBTAcquistionLocation>()
     
     /// Locations of the ground electrodes.
-    let groundsLocations = List<MBTAcquistionLocation>()
+    public let groundsLocations = List<MBTAcquistionLocation>()
 }
 
 //MARK: -
@@ -50,7 +50,7 @@ public class MBTAcquistionLocation: Object {
     /// Value (in the enum) of the electrode, for Realm.
     fileprivate dynamic var rawType = -1
     
-    /// Readable value.
+    /// Human Readable value of an electrode location.
     var type: ElectrodeLocation {
         get {
             return ElectrodeLocation(rawValue: rawType)!
@@ -67,7 +67,7 @@ public class MBTAcquistionLocation: Object {
 }
 
 /// Enum of differents electrodes possible locations.
-public enum ElectrodeLocation: Int {
+internal enum ElectrodeLocation: Int {
     case Fpz
     case Fp1
     case Fp2

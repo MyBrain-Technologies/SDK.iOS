@@ -124,7 +124,7 @@ internal class MBTAcquisitionManager: NSObject  {
     
     
     
-    //MARK: -
+    //MARK: - 
     
     /// Method called by MelomindEngine when a new EEG streaming
     /// session has began. Method will make everything ready, acquisition side
