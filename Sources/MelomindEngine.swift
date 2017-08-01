@@ -39,7 +39,7 @@ public class MelomindEngine {
     
     /// Connect to the audio part of the MBT Headset (using the A2DP
     /// bluetooth protocol).
-    /// - Remark: Audio can't be connect from code. User has to connect to it through
+    /// - Remark: Audio can't be connected from code. User has to connect to it through
     /// settings, on the first time is using it.
     /// - Parameters:
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
