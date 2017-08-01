@@ -89,7 +89,7 @@ public class MelomindEngine {
     //MARK: - Getters 
     /// Getter for device informations of the MBT headset.
     /// - Returns: A *MBTDevice* instance of the connected headset.
-    public static func getDeviceInformation() -> MBTDevice {
+    public static func getDeviceInformations() -> MBTDevice {
         return DeviceManager.getCurrentDevice()
     }
     
