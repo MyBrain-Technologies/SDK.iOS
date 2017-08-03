@@ -29,8 +29,6 @@ Swift iOS SDK for MyBrainTechnologies Headset
 
 ### Manually
 
-If you prefer not to use either of the aforementioned dependency managers, you can integrate MyBrainTechnologiesSDK into your project manually.
-
 #### Embeded Binaries
 
 - Download the latest release from `http://www.melomind.com/en/`
@@ -38,6 +36,7 @@ If you prefer not to use either of the aforementioned dependency managers, you c
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the `+` button under the "Embedded Binaries" section.
 - Add the downloaded `MyBrainTechnologiesSDK.framework`.
+- **Add dependencies** : <a href="https://github.com/Alamofire/Alamofire" target="_blank">Alamofire</a> & <a href="https://realm.io/docs/swift/latest/" target="_blank">Realm Swift</a> 
 - And that's it!
 
 <br />
@@ -98,7 +97,7 @@ MelomindEngine.stopStream()
 <br />
 ### Getters
 
-#### Device Informations getter (as MBTDevice instance)
+#### Device Informations getter (as *MBTDeviceInformations* instance)
 ```swift
 MelomindEngine.getDeviceInformations()
 ```

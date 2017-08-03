@@ -10,7 +10,33 @@ import Foundation
 import RealmSwift
 
 /// Model to store data about the Headset connected.
-public class MBTDevice: Object {
+class MBTDevice: Object {
+    
+    /// Device informations from MBT Headset Bluetooth LE.
+    public var deviceInfos = MBTDeviceInformations()
+    
+    /// The number of active channels in the device.
+    dynamic var nbChannels:Int = 0
+
+    /// The rate at which EEG data is being sent by the headset.
+    dynamic var sampRate:Int = 0
+    
+    /// An EEG Packet length.
+    dynamic var eegPacketLength: Int = 0
+    
+    /// Locations of the acquisition electrodes.
+    let acquisitionLocations = List<MBTAcquistionLocation>()
+    
+    /// Locations of the references for an electrode.
+    let referencesLocations = List<MBTAcquistionLocation>()
+    
+    /// Locations of the ground electrodes.
+    let groundsLocations = List<MBTAcquistionLocation>()
+}
+
+//MARK: -
+/// Device Informations model.
+public class MBTDeviceInformations: Object {
     
     /// The commercial name of the device.
     public dynamic var productName:String? = nil
@@ -23,30 +49,12 @@ public class MBTDevice: Object {
     
     /// The product firmware version.
     public dynamic var firmwareVersion:String? = nil
-    
-    /// The number of active channels in the device.
-    public dynamic var nbChannels:Int = 0
-
-    /// The rate at which EEG data is being sent by the headset.
-    public dynamic var sampRate:Int = 0
-    
-    /// An EEG Packet length.
-    public dynamic var eegPacketLength: Int = 0
-    
-    /// Locations of the acquisition electrodes.
-    public let acquisitionLocations = List<MBTAcquistionLocation>()
-    
-    /// Locations of the references for an electrode.
-    public let referencesLocations = List<MBTAcquistionLocation>()
-    
-    /// Locations of the ground electrodes.
-    public let groundsLocations = List<MBTAcquistionLocation>()
 }
 
 //MARK: -
 
 /// Electrode location model.
-public class MBTAcquistionLocation: Object {
+class MBTAcquistionLocation: Object {
     /// Value (in the enum) of the electrode, for Realm.
     fileprivate dynamic var rawType = -1
     
@@ -67,7 +75,7 @@ public class MBTAcquistionLocation: Object {
 }
 
 /// Enum of differents electrodes possible locations.
-internal enum ElectrodeLocation: Int {
+enum ElectrodeLocation: Int {
     case Fpz
     case Fp1
     case Fp2
@@ -172,40 +180,50 @@ internal enum ElectrodeLocation: Int {
 /// *MBTDevice* model DB Manager.
 class DeviceManager: RealmEntityManager {
     
-    /// Update the newly connected device record in the DB.
+    /// Update *deviceInformations* of the newly connected device record in the DB.
     /// - Parameters:
-    ///     - updatedDevice: *MBTDevice* to record.
-    class func updateConnectedDevice(_ updatedDevice:MBTDevice) {
-        // Save the new device to Realm Database
+    ///     - deviceInfos: *MBTDeviceInformations* from BLE to record.
+    class func updateDeviceInformations(_ deviceInfos:MBTDeviceInformations) {
+        // Save the new device infos to Realm Database
         let device = getCurrentDevice()
         
         try! RealmManager.realm.write {
-            device.productName = updatedDevice.productName ?? device.productName
-            device.deviceId = updatedDevice.deviceId ?? device.deviceId
-            device.hardwareVersion = updatedDevice.hardwareVersion ?? device.hardwareVersion
-            device.firmwareVersion = updatedDevice.firmwareVersion ?? device.firmwareVersion
+            device.deviceInfos.productName = deviceInfos.productName ?? device.deviceInfos.productName
+            device.deviceInfos.deviceId = deviceInfos.deviceId ?? device.deviceInfos.deviceId
+            device.deviceInfos.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos.hardwareVersion
+            device.deviceInfos.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos.firmwareVersion
+        }
+    }
+    
+    /// Init device with Melomind specifications.
+    class func updateDeviceToMelomind() {
+        
+        // Acquisition Electrodes
+        let acquisition1 = MBTAcquistionLocation()
+        acquisition1.type = .P3
+        let acquisition2 = MBTAcquistionLocation()
+        acquisition2.type = .P4
+        
+        // Reference Electrode
+        let reference = MBTAcquistionLocation()
+        reference.type = .M1
+        
+        // Ground Electrode
+        let ground = MBTAcquistionLocation()
+        ground.type = .M2
+        
+        // Save Melomind info to DB
+        let device = getCurrentDevice()
+        try! RealmManager.realm.write {
+            device.sampRate = 250
+            device.nbChannels = 2
+            device.eegPacketLength = 250
             
-            device.nbChannels = updatedDevice.nbChannels != 0 ?
-                updatedDevice.nbChannels: device.nbChannels
-            device.sampRate = updatedDevice.sampRate != 0 ?
-                updatedDevice.sampRate: device.sampRate
-            device.eegPacketLength = updatedDevice.eegPacketLength != 0 ?
-                updatedDevice.eegPacketLength: device.eegPacketLength
-            
-            if updatedDevice.acquisitionLocations.count != 0 {
-                device.acquisitionLocations.removeAll()
-                device.acquisitionLocations.append(objectsIn: updatedDevice.acquisitionLocations)
-            }
-            
-            if updatedDevice.referencesLocations.count != 0 {
-                device.referencesLocations.removeAll()
-                device.referencesLocations.append(objectsIn: updatedDevice.referencesLocations)
-            }
-            
-            if updatedDevice.groundsLocations.count != 0 {
-                device.groundsLocations.removeAll()
-                device.groundsLocations.append(objectsIn: updatedDevice.groundsLocations)
-            }
+            // Add electrodes locations value.
+            device.acquisitionLocations.append(acquisition1)
+            device.acquisitionLocations.append(acquisition2)
+            device.acquisitionLocations.append(reference)
+            device.acquisitionLocations.append(ground)
         }
     }
     
@@ -224,34 +242,13 @@ class DeviceManager: RealmEntityManager {
         return device
     }
     
-    /// Init device with Melomind specifications.
-    class func updateDeviceToMelomind() {
-        // Create Melomind MBTDevice
-        let device = MBTDevice()
-        device.sampRate = 250
-        device.nbChannels = 2
-        device.eegPacketLength = 250
+    /// Get BLE device informations of the connected MBT device.
+    /// - Returns: The DB-saved *MBTDeviceInformations* instance.
+    class func getDeviceInfos() -> MBTDeviceInformations {
+        // Get current device.
+        let device = getCurrentDevice()
         
-        // Acquisition Electrodes
-        let acquisition1 = MBTAcquistionLocation()
-        acquisition1.type = .P3
-        device.acquisitionLocations.append(acquisition1)
-        let acquisition2 = MBTAcquistionLocation()
-        acquisition2.type = .P4
-        device.acquisitionLocations.append(acquisition2)
-        
-        // Reference Electrode
-        let reference = MBTAcquistionLocation()
-        reference.type = .M1
-        device.referencesLocations.append(reference)
-        
-        // Ground Electrode
-        let ground = MBTAcquistionLocation()
-        ground.type = .M2
-        device.groundsLocations.append(ground)
-        
-        // Save it in DB
-        DeviceManager.updateConnectedDevice(device)
+        return device.deviceInfos
     }
 }
 

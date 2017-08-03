@@ -103,23 +103,23 @@ internal class MBTAcquisitionManager: NSObject  {
         }
         
         // Init a MBTDevice instance with the connected headset
-        let device = MBTDevice()
+        let deviceInfos = MBTDeviceInformations()
         
         switch CBUUID(data: characteristic.uuid.data) {
         case MBTBluetoothLEHelper.productNameUUID:
-            device.productName = dataString
+            deviceInfos.productName = dataString
         case MBTBluetoothLEHelper.serialNumberUUID:
-            device.deviceId = dataString
+            deviceInfos.deviceId = dataString
         case MBTBluetoothLEHelper.hardwareRevisionUUID:
-            device.hardwareVersion = dataString
+            deviceInfos.hardwareVersion = dataString
         case MBTBluetoothLEHelper.firmwareRevisionUUID:
-            device.firmwareVersion = dataString 
+            deviceInfos.firmwareVersion = dataString
         default:
             return
         }
         
         // Saving the new connected device in the DB.
-        DeviceManager.updateConnectedDevice(device)
+        DeviceManager.updateDeviceInformations(deviceInfos)
     }
     
     
@@ -182,10 +182,10 @@ internal class MBTAcquisitionManager: NSObject  {
             "uuidJsonFile": MBTJSONHelper.uuid.uuidString,
             "header": [
                 "deviceInfo": [
-                    "productName": device.productName!,
-                    "hardwareVersion": device.hardwareVersion!,
-                    "firmwareVersion": device.firmwareVersion!,
-                    "uniqueDeviceIdentifier": device.deviceId!
+                    "productName": device.deviceInfos.productName!,
+                    "hardwareVersion": device.deviceInfos.hardwareVersion!,
+                    "firmwareVersion": device.deviceInfos.firmwareVersion!,
+                    "uniqueDeviceIdentifier": device.deviceInfos.deviceId!
                 ],
                 "recordingNB": "0x14",
                 "comments": [],
