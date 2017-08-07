@@ -13,7 +13,7 @@ import RealmSwift
 class MBTDevice: Object {
     
     /// Device informations from MBT Headset Bluetooth LE.
-    public var deviceInfos = MBTDeviceInformations()
+    public private(set) var deviceInfos = MBTDeviceInformations()
     
     /// The number of active channels in the device.
     dynamic var nbChannels:Int = 0
@@ -35,6 +35,7 @@ class MBTDevice: Object {
 }
 
 //MARK: -
+
 /// Device Informations model.
 public class MBTDeviceInformations: Object {
     
@@ -49,6 +50,83 @@ public class MBTDeviceInformations: Object {
     
     /// The product firmware version.
     public dynamic var firmwareVersion:String? = nil
+}
+
+//MARK: -
+
+/// *MBTDevice* model DB Manager.
+class DeviceManager: RealmEntityManager {
+    
+    /// Update *deviceInformations* of the newly connected device record in the DB.
+    /// - Parameters:
+    ///     - deviceInfos: *MBTDeviceInformations* from BLE to record.
+    class func updateDeviceInformations(_ deviceInfos:MBTDeviceInformations) {
+        // Save the new device infos to Realm Database
+        let device = getCurrentDevice()
+        
+        try! RealmManager.realm.write {
+            device.deviceInfos.productName = deviceInfos.productName ?? device.deviceInfos.productName
+            device.deviceInfos.deviceId = deviceInfos.deviceId ?? device.deviceInfos.deviceId
+            device.deviceInfos.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos.hardwareVersion
+            device.deviceInfos.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos.firmwareVersion
+        }
+    }
+    
+    /// Init device with Melomind specifications.
+    class func updateDeviceToMelomind() {
+        
+        // Acquisition Electrodes
+        let acquisition1 = MBTAcquistionLocation()
+        acquisition1.type = .P3
+        let acquisition2 = MBTAcquistionLocation()
+        acquisition2.type = .P4
+        
+        // Reference Electrode
+        let reference = MBTAcquistionLocation()
+        reference.type = .M1
+        
+        // Ground Electrode
+        let ground = MBTAcquistionLocation()
+        ground.type = .M2
+        
+        // Save Melomind info to DB
+        let device = getCurrentDevice()
+        try! RealmManager.realm.write {
+            device.sampRate = 250
+            device.nbChannels = 2
+            device.eegPacketLength = 250
+            
+            // Add electrodes locations value.
+            device.acquisitionLocations.append(acquisition1)
+            device.acquisitionLocations.append(acquisition2)
+            device.acquisitionLocations.append(reference)
+            device.acquisitionLocations.append(ground)
+        }
+    }
+    
+    /// Get the DB-saved device or create one if any.
+    /// - Returns: The DB-saved *MBTDevice* instance.
+    class func getCurrentDevice() -> MBTDevice {
+        // If no device saved in DB, then create it.
+        guard let device = RealmManager.realm.objects(MBTDevice.self).first else {
+            let newDevice = MBTDevice()
+            
+            try! RealmManager.realm.write {
+                RealmManager.realm.add(newDevice)
+            }
+            return newDevice
+        }
+        return device
+    }
+    
+    /// Get BLE device informations of the connected MBT device.
+    /// - Returns: The DB-saved *MBTDeviceInformations* instance.
+    class func getDeviceInfos() -> MBTDeviceInformations {
+        // Get current device.
+        let device = getCurrentDevice()
+        
+        return device.deviceInfos
+    }
 }
 
 //MARK: -
@@ -172,84 +250,6 @@ enum ElectrodeLocation: Int {
     case NULL1
     case NULL2
     case NULL3
-}
-
-
-//MARK: -
-
-/// *MBTDevice* model DB Manager.
-class DeviceManager: RealmEntityManager {
-    
-    /// Update *deviceInformations* of the newly connected device record in the DB.
-    /// - Parameters:
-    ///     - deviceInfos: *MBTDeviceInformations* from BLE to record.
-    class func updateDeviceInformations(_ deviceInfos:MBTDeviceInformations) {
-        // Save the new device infos to Realm Database
-        let device = getCurrentDevice()
-        
-        try! RealmManager.realm.write {
-            device.deviceInfos.productName = deviceInfos.productName ?? device.deviceInfos.productName
-            device.deviceInfos.deviceId = deviceInfos.deviceId ?? device.deviceInfos.deviceId
-            device.deviceInfos.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos.hardwareVersion
-            device.deviceInfos.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos.firmwareVersion
-        }
-    }
-    
-    /// Init device with Melomind specifications.
-    class func updateDeviceToMelomind() {
-        
-        // Acquisition Electrodes
-        let acquisition1 = MBTAcquistionLocation()
-        acquisition1.type = .P3
-        let acquisition2 = MBTAcquistionLocation()
-        acquisition2.type = .P4
-        
-        // Reference Electrode
-        let reference = MBTAcquistionLocation()
-        reference.type = .M1
-        
-        // Ground Electrode
-        let ground = MBTAcquistionLocation()
-        ground.type = .M2
-        
-        // Save Melomind info to DB
-        let device = getCurrentDevice()
-        try! RealmManager.realm.write {
-            device.sampRate = 250
-            device.nbChannels = 2
-            device.eegPacketLength = 250
-            
-            // Add electrodes locations value.
-            device.acquisitionLocations.append(acquisition1)
-            device.acquisitionLocations.append(acquisition2)
-            device.acquisitionLocations.append(reference)
-            device.acquisitionLocations.append(ground)
-        }
-    }
-    
-    /// Get the DB-saved device or create one if any.
-    /// - Returns: The DB-saved *MBTDevice* instance.
-    class func getCurrentDevice() -> MBTDevice {
-        // If no device saved in DB, then create it.
-        guard let device = RealmManager.realm.objects(MBTDevice.self).first else {
-            let newDevice = MBTDevice()
-            
-            try! RealmManager.realm.write {
-                RealmManager.realm.add(newDevice)
-            }
-            return newDevice
-        }
-        return device
-    }
-    
-    /// Get BLE device informations of the connected MBT device.
-    /// - Returns: The DB-saved *MBTDeviceInformations* instance.
-    class func getDeviceInfos() -> MBTDeviceInformations {
-        // Get current device.
-        let device = getCurrentDevice()
-        
-        return device.deviceInfos
-    }
 }
 
 
