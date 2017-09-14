@@ -73,7 +73,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                                                     with: AVAudioSessionCategoryOptions.allowBluetooth)
                         }
                     } catch {
-                        debugPrint("[MyBrainTechnologiesSDK] Error while setting category for bluetooth or ( if over iOS 10 ) A2DP Bluetooth with error : \(error)")
+                        debugPrint("[MyBrainTechnologiesSDK] Error while setting category for bluetooth or (if over iOS 10) A2DP Bluetooth : \(error)")
                     }
                 }
                 

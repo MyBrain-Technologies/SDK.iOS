@@ -31,6 +31,363 @@
 		F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45837381EC5C21000C5D596 /* MelomindEngine.swift */; };
 		F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */; };
 		F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */; };
+		F4F35F851F6AD53B00F3BDA9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35DEE1F6AD53B00F3BDA9 /* main.cpp */; };
+		F4F35F861F6AD53B00F3BDA9 /* MBT_ComputeCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35DEF1F6AD53B00F3BDA9 /* MBT_ComputeCalibration.cpp */; };
+		F4F35F871F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35DF01F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.cpp */; };
+		F4F35F881F6AD53B00F3BDA9 /* MBT_ComputeSNR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35DF11F6AD53B00F3BDA9 /* MBT_ComputeSNR.cpp */; };
+		F4F35F891F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35DF21F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.cpp */; };
+		F4F35F8A1F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35DF31F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.cpp */; };
+		F4F35F8B1F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35DF41F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.cpp */; };
+		F4F35F8C1F6AD53B00F3BDA9 /* Calib_4s.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DF71F6AD53B00F3BDA9 /* Calib_4s.txt */; };
+		F4F35F8D1F6AD53B00F3BDA9 /* calibPb.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DF81F6AD53B00F3BDA9 /* calibPb.txt */; };
+		F4F35F8E1F6AD53B00F3BDA9 /* calibPbQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DF91F6AD53B00F3BDA9 /* calibPbQuality.txt */; };
+		F4F35F8F1F6AD53B00F3BDA9 /* calibPbtest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DFA1F6AD53B00F3BDA9 /* calibPbtest.txt */; };
+		F4F35F901F6AD53B00F3BDA9 /* calibPbtestQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DFB1F6AD53B00F3BDA9 /* calibPbtestQuality.txt */; };
+		F4F35F911F6AD53B00F3BDA9 /* calibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DFC1F6AD53B00F3BDA9 /* calibrationRecordings.txt */; };
+		F4F35F921F6AD53B00F3BDA9 /* calibrationRecordings5s.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DFD1F6AD53B00F3BDA9 /* calibrationRecordings5s.txt */; };
+		F4F35F931F6AD53B00F3BDA9 /* calibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DFE1F6AD53B00F3BDA9 /* calibrationRecordingsQuality.txt */; };
+		F4F35F941F6AD53B00F3BDA9 /* calibrationRecordingsQuality_1stGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35DFF1F6AD53B00F3BDA9 /* calibrationRecordingsQuality_1stGood.txt */; };
+		F4F35F951F6AD53B00F3BDA9 /* calibrationRecordingsQuality_2ndGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E001F6AD53B00F3BDA9 /* calibrationRecordingsQuality_2ndGood.txt */; };
+		F4F35F961F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E011F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt */; };
+		F4F35F971F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E021F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBest.txt */; };
+		F4F35F981F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E031F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt */; };
+		F4F35F991F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E041F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt */; };
+		F4F35F9A1F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E051F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt */; };
+		F4F35F9B1F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E061F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt */; };
+		F4F35F9C1F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E071F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt */; };
+		F4F35F9D1F6AD53B00F3BDA9 /* InputBandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E081F6AD53B00F3BDA9 /* InputBandpass.txt */; };
+		F4F35F9E1F6AD53B00F3BDA9 /* inputData.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E091F6AD53B00F3BDA9 /* inputData.txt */; };
+		F4F35F9F1F6AD53B00F3BDA9 /* inputData2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E0A1F6AD53B00F3BDA9 /* inputData2.txt */; };
+		F4F35FA01F6AD53B00F3BDA9 /* inputData3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E0B1F6AD53B00F3BDA9 /* inputData3.txt */; };
+		F4F35FA11F6AD53B00F3BDA9 /* inputForPwelch.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E0C1F6AD53B00F3BDA9 /* inputForPwelch.txt */; };
+		F4F35FA21F6AD53B00F3BDA9 /* inputNAN.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E0D1F6AD53B00F3BDA9 /* inputNAN.txt */; };
+		F4F35FA31F6AD53B00F3BDA9 /* sessionPb.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E0E1F6AD53B00F3BDA9 /* sessionPb.txt */; };
+		F4F35FA41F6AD53B00F3BDA9 /* testDCremoval.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E0F1F6AD53B00F3BDA9 /* testDCremoval.txt */; };
+		F4F35FA51F6AD53B00F3BDA9 /* testDCremoval2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E101F6AD53B00F3BDA9 /* testDCremoval2.txt */; };
+		F4F35FA61F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E111F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */; };
+		F4F35FA71F6AD53B00F3BDA9 /* trueCalibrationRecordingsBugEtienne.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E121F6AD53B00F3BDA9 /* trueCalibrationRecordingsBugEtienne.txt */; };
+		F4F35FA81F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E131F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */; };
+		F4F35FA91F6AD53B00F3BDA9 /* trueCalibrationRecordingsQualityBugEtienne.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E141F6AD53B00F3BDA9 /* trueCalibrationRecordingsQualityBugEtienne.txt */; };
+		F4F35FAA1F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E151F6AD53B00F3BDA9 /* trueSessionRecordings.txt */; };
+		F4F35FAB1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E171F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */; };
+		F4F35FAC1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E181F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */; };
+		F4F35FAD1F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E191F6AD53B00F3BDA9 /* trueSessionRecordings.txt */; };
+		F4F35FAE1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E1B1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */; };
+		F4F35FAF1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E1C1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */; };
+		F4F35FB01F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E1D1F6AD53B00F3BDA9 /* trueSessionRecordings.txt */; };
+		F4F35FB11F6AD53B00F3BDA9 /* MBT_ComputeCalibration.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35E1F1F6AD53B00F3BDA9 /* MBT_ComputeCalibration.h */; };
+		F4F35FB21F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35E201F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.h */; };
+		F4F35FB31F6AD53B00F3BDA9 /* MBT_ComputeSNR.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35E211F6AD53B00F3BDA9 /* MBT_ComputeSNR.h */; };
+		F4F35FB41F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35E221F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.h */; };
+		F4F35FB51F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35E231F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.h */; };
+		F4F35FB61F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35E241F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.h */; };
+		F4F35FB71F6AD53B00F3BDA9 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E291F6AD53B00F3BDA9 /* README.txt.txt */; };
+		F4F35FB81F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E2A1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */; };
+		F4F35FB91F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E2B1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */; };
+		F4F35FBA1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E2D1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt */; };
+		F4F35FBB1F6AD53B00F3BDA9 /* correctedSignalch0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E2E1F6AD53B00F3BDA9 /* correctedSignalch0.txt */; };
+		F4F35FBC1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E2F1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt */; };
+		F4F35FBD1F6AD53B00F3BDA9 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E311F6AD53B00F3BDA9 /* bestChannel.txt */; };
+		F4F35FBE1F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E321F6AD53B00F3BDA9 /* BoundsCalib.txt */; };
+		F4F35FBF1F6AD53B00F3BDA9 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E331F6AD53B00F3BDA9 /* README.txt.txt */; };
+		F4F35FC01F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E341F6AD53B00F3BDA9 /* SNRCalib.txt */; };
+		F4F35FC11F6AD53B00F3BDA9 /* calibrationRecordings5s.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E371F6AD53B00F3BDA9 /* calibrationRecordings5s.txt */; };
+		F4F35FC21F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E381F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt */; };
+		F4F35FC31F6AD53B00F3BDA9 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E391F6AD53B00F3BDA9 /* README.txt.txt */; };
+		F4F35FC41F6AD53B00F3BDA9 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E3B1F6AD53B00F3BDA9 /* bestChannel.txt */; };
+		F4F35FC51F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E3C1F6AD53B00F3BDA9 /* BoundsCalib.txt */; };
+		F4F35FC61F6AD53B00F3BDA9 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E3D1F6AD53B00F3BDA9 /* README.txt.txt */; };
+		F4F35FC71F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E3E1F6AD53B00F3BDA9 /* SNRCalib.txt */; };
+		F4F35FC81F6AD53B00F3BDA9 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E411F6AD53B00F3BDA9 /* README.txt.txt */; };
+		F4F35FC91F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E421F6AD53B00F3BDA9 /* trueSessionRecordings.txt */; };
+		F4F35FCA1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E441F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */; };
+		F4F35FCB1F6AD53B00F3BDA9 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E451F6AD53B00F3BDA9 /* README.txt.txt */; };
+		F4F35FCC1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E461F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */; };
+		F4F35FCD1F6AD53B00F3BDA9 /* SNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E471F6AD53B00F3BDA9 /* SNRSession.txt */; };
+		F4F35FCE1F6AD53B00F3BDA9 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E491F6AD53B00F3BDA9 /* README.txt.txt */; };
+		F4F35FCF1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E4A1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */; };
+		F4F35FD01F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E4D1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt */; };
+		F4F35FD11F6AD53B00F3BDA9 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E4E1F6AD53B00F3BDA9 /* bestChannel.txt */; };
+		F4F35FD21F6AD53B00F3BDA9 /* bestChannel_1stGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E4F1F6AD53B00F3BDA9 /* bestChannel_1stGood.txt */; };
+		F4F35FD31F6AD53B00F3BDA9 /* bestChannel_2ndGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E501F6AD53B00F3BDA9 /* bestChannel_2ndGood.txt */; };
+		F4F35FD41F6AD53B00F3BDA9 /* bestChannel_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E511F6AD53B00F3BDA9 /* bestChannel_BOTHBad.txt */; };
+		F4F35FD51F6AD53B00F3BDA9 /* bestChannel_BOTHBest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E521F6AD53B00F3BDA9 /* bestChannel_BOTHBest.txt */; };
+		F4F35FD61F6AD53B00F3BDA9 /* Bounds.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E531F6AD53B00F3BDA9 /* Bounds.txt */; };
+		F4F35FD71F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E541F6AD53B00F3BDA9 /* BoundsCalib.txt */; };
+		F4F35FD81F6AD53B00F3BDA9 /* channelPSD1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E551F6AD53B00F3BDA9 /* channelPSD1.txt */; };
+		F4F35FD91F6AD53B00F3BDA9 /* channelPSD2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E561F6AD53B00F3BDA9 /* channelPSD2.txt */; };
+		F4F35FDA1F6AD53B00F3BDA9 /* comp_signal_ch.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E571F6AD53B00F3BDA9 /* comp_signal_ch.txt */; };
+		F4F35FDB1F6AD53B00F3BDA9 /* comp_tmp_correctedSignal.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E581F6AD53B00F3BDA9 /* comp_tmp_correctedSignal.txt */; };
+		F4F35FDC1F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E591F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.docx */; };
+		F4F35FDD1F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E5A1F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf */; };
+		F4F35FDE1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E5B1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.docx */; };
+		F4F35FDF1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E5C1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf */; };
+		F4F35FE01F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E5D1F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.docx */; };
+		F4F35FE11F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E5E1F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf */; };
+		F4F35FE21F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E5F1F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.docx */; };
+		F4F35FE31F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E601F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf */; };
+		F4F35FE41F6AD53B00F3BDA9 /* correctedSignalch0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E611F6AD53B00F3BDA9 /* correctedSignalch0.txt */; };
+		F4F35FE51F6AD53B00F3BDA9 /* dataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E621F6AD53B00F3BDA9 /* dataWithoutOutliers.txt */; };
+		F4F35FE61F6AD53B00F3BDA9 /* fftTransformed.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E631F6AD53B00F3BDA9 /* fftTransformed.txt */; };
+		F4F35FE71F6AD53B00F3BDA9 /* frequenciesPSD.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E641F6AD53B00F3BDA9 /* frequenciesPSD.txt */; };
+		F4F35FE81F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E651F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt */; };
+		F4F35FE91F6AD53B00F3BDA9 /* ifftTransformed.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E661F6AD53B00F3BDA9 /* ifftTransformed.txt */; };
+		F4F35FEA1F6AD53B00F3BDA9 /* MBT_Fouriercpp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E671F6AD53B00F3BDA9 /* MBT_Fouriercpp.txt */; };
+		F4F35FEB1F6AD53B00F3BDA9 /* MBT_Fourierh.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E681F6AD53B00F3BDA9 /* MBT_Fourierh.txt */; };
+		F4F35FEC1F6AD53B00F3BDA9 /* MBT_PWelchComputerV2cpp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E691F6AD53B00F3BDA9 /* MBT_PWelchComputerV2cpp.txt */; };
+		F4F35FED1F6AD53B00F3BDA9 /* MBT_PWelchComputerV2h.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E6A1F6AD53B00F3BDA9 /* MBT_PWelchComputerV2h.txt */; };
+		F4F35FEE1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E6B1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */; };
+		F4F35FEF1F6AD53B00F3BDA9 /* outputBandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E6C1F6AD53B00F3BDA9 /* outputBandpass.txt */; };
+		F4F35FF01F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E6D1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt */; };
+		F4F35FF11F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E6E1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P0.txt */; };
+		F4F35FF21F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E6F1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P1.txt */; };
+		F4F35FF31F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E701F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P2.txt */; };
+		F4F35FF41F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E711F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P3.txt */; };
+		F4F35FF51F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E721F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P4.txt */; };
+		F4F35FF61F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E731F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P0.txt */; };
+		F4F35FF71F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E741F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P1.txt */; };
+		F4F35FF81F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E751F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P2.txt */; };
+		F4F35FF91F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E761F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P3.txt */; };
+		F4F35FFA1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E771F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P4.txt */; };
+		F4F35FFB1F6AD53B00F3BDA9 /* Pxx_testComputeSNR.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E781F6AD53B00F3BDA9 /* Pxx_testComputeSNR.txt */; };
+		F4F35FFC1F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E791F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx */; };
+		F4F35FFD1F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E7A1F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf */; };
+		F4F35FFE1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E7B1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx */; };
+		F4F35FFF1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E7C1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf */; };
+		F4F360001F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E7D1F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf */; };
+		F4F360011F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E7E1F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx */; };
+		F4F360021F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E7F1F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf */; };
+		F4F360031F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E801F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx */; };
+		F4F360041F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E811F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf */; };
+		F4F360051F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E821F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx */; };
+		F4F360061F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E831F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf */; };
+		F4F360071F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E841F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx */; };
+		F4F360081F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E851F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf */; };
+		F4F360091F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E861F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx */; };
+		F4F3600A1F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E871F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf */; };
+		F4F3600B1F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E881F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx */; };
+		F4F3600C1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E891F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */; };
+		F4F3600D1F6AD53B00F3BDA9 /* SNR.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E8A1F6AD53B00F3BDA9 /* SNR.txt */; };
+		F4F3600E1F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E8B1F6AD53B00F3BDA9 /* SNRCalib.txt */; };
+		F4F3600F1F6AD53B00F3BDA9 /* SNRCalib_1stGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E8C1F6AD53B00F3BDA9 /* SNRCalib_1stGood.txt */; };
+		F4F360101F6AD53B00F3BDA9 /* SNRCalib_2ndGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E8D1F6AD53B00F3BDA9 /* SNRCalib_2ndGood.txt */; };
+		F4F360111F6AD53B00F3BDA9 /* SNRCalib_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E8E1F6AD53B00F3BDA9 /* SNRCalib_BOTHBad.txt */; };
+		F4F360121F6AD53B00F3BDA9 /* SNRCalib_BOTHBest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E8F1F6AD53B00F3BDA9 /* SNRCalib_BOTHBest.txt */; };
+		F4F360131F6AD53B00F3BDA9 /* SNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E901F6AD53B00F3BDA9 /* SNRSession.txt */; };
+		F4F360141F6AD53B00F3BDA9 /* spectreCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E911F6AD53B00F3BDA9 /* spectreCalib.txt */; };
+		F4F360151F6AD53B00F3BDA9 /* tmp1_dataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E921F6AD53B00F3BDA9 /* tmp1_dataWithoutOutliers.txt */; };
+		F4F360161F6AD53B00F3BDA9 /* tmp_channelPSD.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E931F6AD53B00F3BDA9 /* tmp_channelPSD.txt */; };
+		F4F360171F6AD53B00F3BDA9 /* tmp_correctedSignal.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E941F6AD53B00F3BDA9 /* tmp_correctedSignal.txt */; };
+		F4F360181F6AD53B00F3BDA9 /* tmp_dataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E951F6AD53B00F3BDA9 /* tmp_dataWithoutOutliers.txt */; };
+		F4F360191F6AD53B00F3BDA9 /* tmp_frequencies.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E961F6AD53B00F3BDA9 /* tmp_frequencies.txt */; };
+		F4F3601A1F6AD53B00F3BDA9 /* tmp_outputBandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E971F6AD53B00F3BDA9 /* tmp_outputBandpass.txt */; };
+		F4F3601B1F6AD53B00F3BDA9 /* tmp_outputBandpass_test_interp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E981F6AD53B00F3BDA9 /* tmp_outputBandpass_test_interp.txt */; };
+		F4F3601C1F6AD53B00F3BDA9 /* tmp_signal_ch_withoutDC.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E991F6AD53B00F3BDA9 /* tmp_signal_ch_withoutDC.txt */; };
+		F4F3601D1F6AD53B00F3BDA9 /* tmp_sortiebandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E9A1F6AD53B00F3BDA9 /* tmp_sortiebandpass.txt */; };
+		F4F3601E1F6AD53B00F3BDA9 /* Volum_avec_bandpass.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E9B1F6AD53B00F3BDA9 /* Volum_avec_bandpass.png */; };
+		F4F3601F1F6AD53B00F3BDA9 /* Volum_sans_bandpass.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E9C1F6AD53B00F3BDA9 /* Volum_sans_bandpass.png */; };
+		F4F360201F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E9D1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */; };
+		F4F360211F6AD53B00F3BDA9 /* writechpsd.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35E9E1F6AD53B00F3BDA9 /* writechpsd.txt */; };
+		F4F360221F6AD53B00F3BDA9 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA01F6AD53B00F3BDA9 /* bestChannel.txt */; };
+		F4F360231F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA11F6AD53B00F3BDA9 /* BoundsCalib.txt */; };
+		F4F360241F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA21F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */; };
+		F4F360251F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA31F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */; };
+		F4F360261F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA41F6AD53B00F3BDA9 /* SNRCalib.txt */; };
+		F4F360271F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA51F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */; };
+		F4F360281F6AD53B00F3BDA9 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA71F6AD53B00F3BDA9 /* bestChannel.txt */; };
+		F4F360291F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA81F6AD53B00F3BDA9 /* BoundsCalib.txt */; };
+		F4F3602A1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EA91F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */; };
+		F4F3602B1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EAA1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */; };
+		F4F3602C1F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EAB1F6AD53B00F3BDA9 /* SNRCalib.txt */; };
+		F4F3602D1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EAC1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */; };
+		F4F3602E1F6AD53B00F3BDA9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35EAF1F6AD53B00F3BDA9 /* main.cpp */; };
+		F4F3602F1F6AD53B00F3BDA9 /* MBT_MainQC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35EB01F6AD53B00F3BDA9 /* MBT_MainQC.cpp */; };
+		F4F360301F6AD53B00F3BDA9 /* afterDCRemoval0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB21F6AD53B00F3BDA9 /* afterDCRemoval0.txt */; };
+		F4F360311F6AD53B00F3BDA9 /* afterDCRemoval1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB31F6AD53B00F3BDA9 /* afterDCRemoval1.txt */; };
+		F4F360321F6AD53B00F3BDA9 /* afterDCRemoval2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB41F6AD53B00F3BDA9 /* afterDCRemoval2.txt */; };
+		F4F360331F6AD53B00F3BDA9 /* afterInterp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB51F6AD53B00F3BDA9 /* afterInterp.txt */; };
+		F4F360341F6AD53B00F3BDA9 /* BuildComputationFeatures_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB61F6AD53B00F3BDA9 /* BuildComputationFeatures_Cplusplus.txt */; };
+		F4F360351F6AD53B00F3BDA9 /* cleanItakuraDistance.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB71F6AD53B00F3BDA9 /* cleanItakuraDistance.txt */; };
+		F4F360361F6AD53B00F3BDA9 /* Copy_testFeatures.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB81F6AD53B00F3BDA9 /* Copy_testFeatures.txt */; };
+		F4F360371F6AD53B00F3BDA9 /* DebugSignal.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EB91F6AD53B00F3BDA9 /* DebugSignal.txt */; };
+		F4F360381F6AD53B00F3BDA9 /* deriv_X_save.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EBA1F6AD53B00F3BDA9 /* deriv_X_save.txt */; };
+		F4F360391F6AD53B00F3BDA9 /* deriv_X_two_save.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EBB1F6AD53B00F3BDA9 /* deriv_X_two_save.txt */; };
+		F4F3603A1F6AD53B00F3BDA9 /* derivAeiocha.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EBC1F6AD53B00F3BDA9 /* derivAeiocha.txt */; };
+		F4F3603B1F6AD53B00F3BDA9 /* fft0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EBD1F6AD53B00F3BDA9 /* fft0.txt */; };
+		F4F3603C1F6AD53B00F3BDA9 /* fft1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EBE1F6AD53B00F3BDA9 /* fft1.txt */; };
+		F4F3603D1F6AD53B00F3BDA9 /* fft2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EBF1F6AD53B00F3BDA9 /* fft2.txt */; };
+		F4F3603E1F6AD53B00F3BDA9 /* freqV0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC01F6AD53B00F3BDA9 /* freqV0.txt */; };
+		F4F3603F1F6AD53B00F3BDA9 /* inputData2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC11F6AD53B00F3BDA9 /* inputData2.txt */; };
+		F4F360401F6AD53B00F3BDA9 /* inputData3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC21F6AD53B00F3BDA9 /* inputData3.txt */; };
+		F4F360411F6AD53B00F3BDA9 /* inputData4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC31F6AD53B00F3BDA9 /* inputData4.txt */; };
+		F4F360421F6AD53B00F3BDA9 /* inputData4bis.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC41F6AD53B00F3BDA9 /* inputData4bis.txt */; };
+		F4F360431F6AD53B00F3BDA9 /* inputData5.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC51F6AD53B00F3BDA9 /* inputData5.txt */; };
+		F4F360441F6AD53B00F3BDA9 /* inputData6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC61F6AD53B00F3BDA9 /* inputData6.txt */; };
+		F4F360451F6AD53B00F3BDA9 /* inputData7.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC71F6AD53B00F3BDA9 /* inputData7.txt */; };
+		F4F360461F6AD53B00F3BDA9 /* inputDataNewTest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC81F6AD53B00F3BDA9 /* inputDataNewTest.txt */; };
+		F4F360471F6AD53B00F3BDA9 /* m_inputData_after_interpolation.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EC91F6AD53B00F3BDA9 /* m_inputData_after_interpolation.txt */; };
+		F4F360481F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ECA1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData4.txt */; };
+		F4F360491F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData5.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ECB1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData5.txt */; };
+		F4F3604A1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ECC1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData6.txt */; };
+		F4F3604B1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData7.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ECD1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData7.txt */; };
+		F4F3604C1F6AD53B00F3BDA9 /* mu.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ECE1F6AD53B00F3BDA9 /* mu.txt */; };
+		F4F3604D1F6AD53B00F3BDA9 /* mu2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ECF1F6AD53B00F3BDA9 /* mu2.txt */; };
+		F4F3604E1F6AD53B00F3BDA9 /* mu4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED01F6AD53B00F3BDA9 /* mu4.txt */; };
+		F4F3604F1F6AD53B00F3BDA9 /* rawInterpData1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED11F6AD53B00F3BDA9 /* rawInterpData1.txt */; };
+		F4F360501F6AD53B00F3BDA9 /* rawInterpData2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED21F6AD53B00F3BDA9 /* rawInterpData2.txt */; };
+		F4F360511F6AD53B00F3BDA9 /* rawInterpData3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED31F6AD53B00F3BDA9 /* rawInterpData3.txt */; };
+		F4F360521F6AD53B00F3BDA9 /* rawInterpData_after_interpolation.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED41F6AD53B00F3BDA9 /* rawInterpData_after_interpolation.txt */; };
+		F4F360531F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED51F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData4.txt */; };
+		F4F360541F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData5.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED61F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData5.txt */; };
+		F4F360551F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED71F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData6.txt */; };
+		F4F360561F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData7.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED81F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData7.txt */; };
+		F4F360571F6AD53B00F3BDA9 /* sigma.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35ED91F6AD53B00F3BDA9 /* sigma.txt */; };
+		F4F360581F6AD53B00F3BDA9 /* sigma2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EDA1F6AD53B00F3BDA9 /* sigma2.txt */; };
+		F4F360591F6AD53B00F3BDA9 /* sigma4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EDB1F6AD53B00F3BDA9 /* sigma4.txt */; };
+		F4F3605A1F6AD53B00F3BDA9 /* signalAeiocha.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EDC1F6AD53B00F3BDA9 /* signalAeiocha.txt */; };
+		F4F3605B1F6AD53B00F3BDA9 /* spectrumClean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EDD1F6AD53B00F3BDA9 /* spectrumClean.txt */; };
+		F4F3605C1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EDE1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P3.txt */; };
+		F4F3605D1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EDF1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P4.txt */; };
+		F4F3605E1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE01F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P3.txt */; };
+		F4F3605F1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE11F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P4.txt */; };
+		F4F360601F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE21F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P3.txt */; };
+		F4F360611F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE31F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P4.txt */; };
+		F4F360621F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE41F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P3.txt */; };
+		F4F360631F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE51F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P4.txt */; };
+		F4F360641F6AD53B00F3BDA9 /* testFeatures2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE61F6AD53B00F3BDA9 /* testFeatures2.txt */; };
+		F4F360651F6AD53B00F3BDA9 /* testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE71F6AD53B00F3BDA9 /* testGood_MM.txt */; };
+		F4F360661F6AD53B00F3BDA9 /* trainingClasses.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE81F6AD53B00F3BDA9 /* trainingClasses.txt */; };
+		F4F360671F6AD53B00F3BDA9 /* trainingClasses_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EE91F6AD53B00F3BDA9 /* trainingClasses_BrainAmp.txt */; };
+		F4F360681F6AD53B00F3BDA9 /* trainingEEG.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EEA1F6AD53B00F3BDA9 /* trainingEEG.txt */; };
+		F4F360691F6AD53B00F3BDA9 /* trainingEEGMoinsMean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EEB1F6AD53B00F3BDA9 /* trainingEEGMoinsMean.txt */; };
+		F4F3606A1F6AD53B00F3BDA9 /* trainingFeatures.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EEC1F6AD53B00F3BDA9 /* trainingFeatures.txt */; };
+		F4F3606B1F6AD53B00F3BDA9 /* trainingFeatures2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EED1F6AD53B00F3BDA9 /* trainingFeatures2.txt */; };
+		F4F3606C1F6AD53B00F3BDA9 /* trainingFeatures3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EEE1F6AD53B00F3BDA9 /* trainingFeatures3.txt */; };
+		F4F3606D1F6AD53B00F3BDA9 /* trainingFeatures4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EEF1F6AD53B00F3BDA9 /* trainingFeatures4.txt */; };
+		F4F3606E1F6AD53B00F3BDA9 /* trainingFeatures4bis.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF01F6AD53B00F3BDA9 /* trainingFeatures4bis.txt */; };
+		F4F3606F1F6AD53B00F3BDA9 /* trainingFeatures_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF11F6AD53B00F3BDA9 /* trainingFeatures_BrainAmp.txt */; };
+		F4F360701F6AD53B00F3BDA9 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF21F6AD53B00F3BDA9 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt */; };
+		F4F360711F6AD53B00F3BDA9 /* trainingInputData_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF31F6AD53B00F3BDA9 /* trainingInputData_BrainAmp.txt */; };
+		F4F360721F6AD53B00F3BDA9 /* trainingInputData_BrainAmpVolt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF41F6AD53B00F3BDA9 /* trainingInputData_BrainAmpVolt.txt */; };
+		F4F360731F6AD53B00F3BDA9 /* trainingMu_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF51F6AD53B00F3BDA9 /* trainingMu_BrainAmp.txt */; };
+		F4F360741F6AD53B00F3BDA9 /* trainingSigma_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF61F6AD53B00F3BDA9 /* trainingSigma_BrainAmp.txt */; };
+		F4F360751F6AD53B00F3BDA9 /* trainingW_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF71F6AD53B00F3BDA9 /* trainingW_BrainAmp.txt */; };
+		F4F360761F6AD53B00F3BDA9 /* variance.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF81F6AD53B00F3BDA9 /* variance.txt */; };
+		F4F360771F6AD53B00F3BDA9 /* w.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EF91F6AD53B00F3BDA9 /* w.txt */; };
+		F4F360781F6AD53B00F3BDA9 /* write_rawInterpData_row_ch0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EFA1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch0.txt */; };
+		F4F360791F6AD53B00F3BDA9 /* write_rawInterpData_row_ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EFB1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch1.txt */; };
+		F4F3607A1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35EFC1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch2.txt */; };
+		F4F3607B1F6AD53B00F3BDA9 /* MBT_MainQC.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35EFE1F6AD53B00F3BDA9 /* MBT_MainQC.h */; };
+		F4F3607C1F6AD53B00F3BDA9 /* Copy_testFeatures.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F001F6AD53B00F3BDA9 /* Copy_testFeatures.txt */; };
+		F4F3607D1F6AD53B00F3BDA9 /* outputData2_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F011F6AD53B00F3BDA9 /* outputData2_Cplusplus.txt */; };
+		F4F3607E1F6AD53B00F3BDA9 /* outputData3_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F021F6AD53B00F3BDA9 /* outputData3_Cplusplus.txt */; };
+		F4F3607F1F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F031F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P3.txt */; };
+		F4F360801F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F041F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P4.txt */; };
+		F4F360811F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F051F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P3.txt */; };
+		F4F360821F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F061F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P4.txt */; };
+		F4F360831F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F071F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P3.txt */; };
+		F4F360841F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F081F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P4.txt */; };
+		F4F360851F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F091F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P3.txt */; };
+		F4F360861F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F0A1F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P4.txt */; };
+		F4F360871F6AD53B00F3BDA9 /* outputData_testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F0B1F6AD53B00F3BDA9 /* outputData_testGood_MM.txt */; };
+		F4F360881F6AD53B00F3BDA9 /* pasted_image_at_2017_03_03_10_11_am_720.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F0C1F6AD53B00F3BDA9 /* pasted_image_at_2017_03_03_10_11_am_720.png */; };
+		F4F360891F6AD53B00F3BDA9 /* print_signalDelta1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F0D1F6AD53B00F3BDA9 /* print_signalDelta1.txt */; };
+		F4F3608A1F6AD53B00F3BDA9 /* print_signalDelta2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F0E1F6AD53B00F3BDA9 /* print_signalDelta2.txt */; };
+		F4F3608B1F6AD53B00F3BDA9 /* print_signalTheta1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F0F1F6AD53B00F3BDA9 /* print_signalTheta1.txt */; };
+		F4F3608C1F6AD53B00F3BDA9 /* print_signalTheta2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F101F6AD53B00F3BDA9 /* print_signalTheta2.txt */; };
+		F4F3608D1F6AD53B00F3BDA9 /* probaClass2_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F111F6AD53B00F3BDA9 /* probaClass2_Cplusplus.txt */; };
+		F4F3608E1F6AD53B00F3BDA9 /* probaClass3_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F121F6AD53B00F3BDA9 /* probaClass3_Cplusplus.txt */; };
+		F4F3608F1F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F131F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P3.txt */; };
+		F4F360901F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F141F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P4.txt */; };
+		F4F360911F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F151F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P3.txt */; };
+		F4F360921F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F161F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P4.txt */; };
+		F4F360931F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F171F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P3.txt */; };
+		F4F360941F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F181F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P4.txt */; };
+		F4F360951F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F191F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P3.txt */; };
+		F4F360961F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F1A1F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P4.txt */; };
+		F4F360971F6AD53B00F3BDA9 /* probaClass_testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F1B1F6AD53B00F3BDA9 /* probaClass_testGood_MM.txt */; };
+		F4F360981F6AD53B00F3BDA9 /* quality2_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F1C1F6AD53B00F3BDA9 /* quality2_Cplusplus.txt */; };
+		F4F360991F6AD53B00F3BDA9 /* quality3_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F1D1F6AD53B00F3BDA9 /* quality3_Cplusplus.txt */; };
+		F4F3609A1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F1E1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P3.txt */; };
+		F4F3609B1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F1F1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P4.txt */; };
+		F4F3609C1F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F201F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P3.txt */; };
+		F4F3609D1F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F211F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P4.txt */; };
+		F4F3609E1F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F221F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P3.txt */; };
+		F4F3609F1F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F231F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P4.txt */; };
+		F4F360A01F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F241F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P3.txt */; };
+		F4F360A11F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F251F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P4.txt */; };
+		F4F360A21F6AD53B00F3BDA9 /* quality_testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F261F6AD53B00F3BDA9 /* quality_testGood_MM.txt */; };
+		F4F360A31F6AD53B00F3BDA9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F2A1F6AD53B00F3BDA9 /* main.cpp */; };
+		F4F360A41F6AD53B00F3BDA9 /* MBT_FindClosest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F2B1F6AD53B00F3BDA9 /* MBT_FindClosest.cpp */; };
+		F4F360A51F6AD53B00F3BDA9 /* MBT_Interpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F2C1F6AD53B00F3BDA9 /* MBT_Interpolation.cpp */; };
+		F4F360A61F6AD53B00F3BDA9 /* MBT_kmeans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F2D1F6AD53B00F3BDA9 /* MBT_kmeans.cpp */; };
+		F4F360A71F6AD53B00F3BDA9 /* MBT_Operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F2E1F6AD53B00F3BDA9 /* MBT_Operations.cpp */; };
+		F4F360A81F6AD53B00F3BDA9 /* MBT_FindClosest.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F301F6AD53B00F3BDA9 /* MBT_FindClosest.h */; };
+		F4F360A91F6AD53B00F3BDA9 /* MBT_Interpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F311F6AD53B00F3BDA9 /* MBT_Interpolation.h */; };
+		F4F360AA1F6AD53B00F3BDA9 /* MBT_kmeans.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F321F6AD53B00F3BDA9 /* MBT_kmeans.h */; };
+		F4F360AB1F6AD53B00F3BDA9 /* MBT_Operations.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F331F6AD53B00F3BDA9 /* MBT_Operations.h */; };
+		F4F360AC1F6AD53B00F3BDA9 /* MBT_Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F361F6AD53B00F3BDA9 /* MBT_Matrix.cpp */; };
+		F4F360AD1F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F371F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.cpp */; };
+		F4F360AE1F6AD53B00F3BDA9 /* MBT_Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F391F6AD53B00F3BDA9 /* MBT_Matrix.h */; };
+		F4F360AF1F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F3A1F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.h */; };
+		F4F360B01F6AD53B00F3BDA9 /* Biquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F3D1F6AD53B00F3BDA9 /* Biquad.cpp */; };
+		F4F360B11F6AD53B00F3BDA9 /* MBT_BandPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F3E1F6AD53B00F3BDA9 /* MBT_BandPass.cpp */; };
+		F4F360B21F6AD53B00F3BDA9 /* MBT_BandPass_Arma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F3F1F6AD53B00F3BDA9 /* MBT_BandPass_Arma.cpp */; };
+		F4F360B31F6AD53B00F3BDA9 /* MBT_BandPass_Arma_double.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F401F6AD53B00F3BDA9 /* MBT_BandPass_Arma_double.cpp */; };
+		F4F360B41F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F411F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.cpp */; };
+		F4F360B51F6AD53B00F3BDA9 /* MBT_PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F421F6AD53B00F3BDA9 /* MBT_PreProcessing.cpp */; };
+		F4F360B61F6AD53B00F3BDA9 /* Biquad.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F441F6AD53B00F3BDA9 /* Biquad.h */; };
+		F4F360B71F6AD53B00F3BDA9 /* MBT_BandPass.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F451F6AD53B00F3BDA9 /* MBT_BandPass.h */; };
+		F4F360B81F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F461F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.h */; };
+		F4F360B91F6AD53B00F3BDA9 /* MBT_PreProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F471F6AD53B00F3BDA9 /* MBT_PreProcessing.h */; };
+		F4F360BA1F6AD53B00F3BDA9 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F481F6AD53B00F3BDA9 /* readme.txt */; };
+		F4F360BB1F6AD53B00F3BDA9 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F491F6AD53B00F3BDA9 /* README.md */; };
+		F4F360BC1F6AD53B00F3BDA9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F4C1F6AD53B00F3BDA9 /* main.cpp */; };
+		F4F360BD1F6AD53B00F3BDA9 /* MBT_FFTReal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F4D1F6AD53B00F3BDA9 /* MBT_FFTReal.cpp */; };
+		F4F360BE1F6AD53B00F3BDA9 /* MBT_FindPeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F4E1F6AD53B00F3BDA9 /* MBT_FindPeak.cpp */; };
+		F4F360BF1F6AD53B00F3BDA9 /* MBT_Fourier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F4F1F6AD53B00F3BDA9 /* MBT_Fourier.cpp */; };
+		F4F360C01F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F501F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.cpp */; };
+		F4F360C11F6AD53B00F3BDA9 /* MBT_PWelchComputer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F511F6AD53B00F3BDA9 /* MBT_PWelchComputer.cpp */; };
+		F4F360C21F6AD53B00F3BDA9 /* MBT_FFTReal.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F531F6AD53B00F3BDA9 /* MBT_FFTReal.h */; };
+		F4F360C31F6AD53B00F3BDA9 /* MBT_FindPeak.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F541F6AD53B00F3BDA9 /* MBT_FindPeak.h */; };
+		F4F360C41F6AD53B00F3BDA9 /* MBT_Fourier.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F551F6AD53B00F3BDA9 /* MBT_Fourier.h */; };
+		F4F360C51F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F561F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.h */; };
+		F4F360C61F6AD53B00F3BDA9 /* MBT_PWelchComputer.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F571F6AD53B00F3BDA9 /* MBT_PWelchComputer.h */; };
+		F4F360C71F6AD53B00F3BDA9 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F581F6AD53B00F3BDA9 /* readme.txt */; };
+		F4F360C81F6AD53B00F3BDA9 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F591F6AD53B00F3BDA9 /* version.h */; };
+		F4F360C91F6AD53B00F3BDA9 /* MBT_SNR_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F5D1F6AD53B00F3BDA9 /* MBT_SNR_Stats.cpp */; };
+		F4F360CA1F6AD53B00F3BDA9 /* SNRTest1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F5F1F6AD53B00F3BDA9 /* SNRTest1.txt */; };
+		F4F360CB1F6AD53B00F3BDA9 /* SNRTest2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F601F6AD53B00F3BDA9 /* SNRTest2.txt */; };
+		F4F360CC1F6AD53B00F3BDA9 /* SNRTest4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F611F6AD53B00F3BDA9 /* SNRTest4.txt */; };
+		F4F360CD1F6AD53B00F3BDA9 /* SNRTest6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F621F6AD53B00F3BDA9 /* SNRTest6.txt */; };
+		F4F360CE1F6AD53B00F3BDA9 /* SNRTest8.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F631F6AD53B00F3BDA9 /* SNRTest8.txt */; };
+		F4F360CF1F6AD53B00F3BDA9 /* SNRTest9.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F641F6AD53B00F3BDA9 /* SNRTest9.txt */; };
+		F4F360D01F6AD53B00F3BDA9 /* MBT_SNR_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F661F6AD53B00F3BDA9 /* MBT_SNR_Stats.h */; };
+		F4F360D11F6AD53B00F3BDA9 /* compile.sh in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F691F6AD53B00F3BDA9 /* compile.sh */; };
+		F4F360D21F6AD53B00F3BDA9 /* exec in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F6A1F6AD53B00F3BDA9 /* exec */; };
+		F4F360D31F6AD53B00F3BDA9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F6B1F6AD53B00F3BDA9 /* main.cpp */; };
+		F4F360D41F6AD53B00F3BDA9 /* MBT_Contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F6C1F6AD53B00F3BDA9 /* MBT_Contour.cpp */; };
+		F4F360D51F6AD53B00F3BDA9 /* MBT_FinalClustering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F6D1F6AD53B00F3BDA9 /* MBT_FinalClustering.cpp */; };
+		F4F360D61F6AD53B00F3BDA9 /* MBT_TF_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F6E1F6AD53B00F3BDA9 /* MBT_TF_map.cpp */; };
+		F4F360D71F6AD53B00F3BDA9 /* MBT_TF_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F35F6F1F6AD53B00F3BDA9 /* MBT_TF_Stats.cpp */; };
+		F4F360D81F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F711F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch1.txt */; };
+		F4F360D91F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F721F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch2.txt */; };
+		F4F360DA1F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F731F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch1.txt */; };
+		F4F360DB1F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F741F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch2.txt */; };
+		F4F360DC1F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F751F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch1.txt */; };
+		F4F360DD1F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F761F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch2.txt */; };
+		F4F360DE1F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F771F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch1.txt */; };
+		F4F360DF1F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F781F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2.txt */; };
+		F4F360E01F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F791F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt */; };
+		F4F360E11F6AD53B00F3BDA9 /* Etienne.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F7A1F6AD53B00F3BDA9 /* Etienne.txt */; };
+		F4F360E21F6AD53B00F3BDA9 /* NP2Ch1FiltCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F7B1F6AD53B00F3BDA9 /* NP2Ch1FiltCalib.txt */; };
+		F4F360E31F6AD53B00F3BDA9 /* NP2Ch1FiltSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F7C1F6AD53B00F3BDA9 /* NP2Ch1FiltSession.txt */; };
+		F4F360E41F6AD53B00F3BDA9 /* MBT_Contour.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F7E1F6AD53B00F3BDA9 /* MBT_Contour.h */; };
+		F4F360E51F6AD53B00F3BDA9 /* MBT_FinalClustering.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F7F1F6AD53B00F3BDA9 /* MBT_FinalClustering.h */; };
+		F4F360E61F6AD53B00F3BDA9 /* MBT_TF_map.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F801F6AD53B00F3BDA9 /* MBT_TF_map.h */; };
+		F4F360E71F6AD53B00F3BDA9 /* MBT_TF_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = F4F35F811F6AD53B00F3BDA9 /* MBT_TF_Stats.h */; };
+		F4F360E81F6AD53B00F3BDA9 /* Results_Arma in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F831F6AD53B00F3BDA9 /* Results_Arma */; };
+		F4F360E91F6AD53B00F3BDA9 /* Results_Emma in Resources */ = {isa = PBXBuildFile; fileRef = F4F35F841F6AD53B00F3BDA9 /* Results_Emma */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +470,363 @@
 		F495BD311F040CB400755BD1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		F495BD401F040CB700755BD1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngineDelegate.swift; sourceTree = "<group>"; };
+		F4F35DEE1F6AD53B00F3BDA9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F4F35DEF1F6AD53B00F3BDA9 /* MBT_ComputeCalibration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeCalibration.cpp; sourceTree = "<group>"; };
+		F4F35DF01F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeRelaxIndex.cpp; sourceTree = "<group>"; };
+		F4F35DF11F6AD53B00F3BDA9 /* MBT_ComputeSNR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeSNR.cpp; sourceTree = "<group>"; };
+		F4F35DF21F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_NormalizeRelaxIndex.cpp; sourceTree = "<group>"; };
+		F4F35DF31F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_RelaxIndexToVolum.cpp; sourceTree = "<group>"; };
+		F4F35DF41F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_SmoothRelaxIndex.cpp; sourceTree = "<group>"; };
+		F4F35DF71F6AD53B00F3BDA9 /* Calib_4s.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Calib_4s.txt; sourceTree = "<group>"; };
+		F4F35DF81F6AD53B00F3BDA9 /* calibPb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibPb.txt; sourceTree = "<group>"; };
+		F4F35DF91F6AD53B00F3BDA9 /* calibPbQuality.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibPbQuality.txt; sourceTree = "<group>"; };
+		F4F35DFA1F6AD53B00F3BDA9 /* calibPbtest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibPbtest.txt; sourceTree = "<group>"; };
+		F4F35DFB1F6AD53B00F3BDA9 /* calibPbtestQuality.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibPbtestQuality.txt; sourceTree = "<group>"; };
+		F4F35DFC1F6AD53B00F3BDA9 /* calibrationRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordings.txt; sourceTree = "<group>"; };
+		F4F35DFD1F6AD53B00F3BDA9 /* calibrationRecordings5s.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordings5s.txt; sourceTree = "<group>"; };
+		F4F35DFE1F6AD53B00F3BDA9 /* calibrationRecordingsQuality.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordingsQuality.txt; sourceTree = "<group>"; };
+		F4F35DFF1F6AD53B00F3BDA9 /* calibrationRecordingsQuality_1stGood.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordingsQuality_1stGood.txt; sourceTree = "<group>"; };
+		F4F35E001F6AD53B00F3BDA9 /* calibrationRecordingsQuality_2ndGood.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordingsQuality_2ndGood.txt; sourceTree = "<group>"; };
+		F4F35E011F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordingsQuality_BOTHBad.txt; sourceTree = "<group>"; };
+		F4F35E021F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordingsQuality_BOTHBest.txt; sourceTree = "<group>"; };
+		F4F35E031F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt; sourceTree = "<group>"; };
+		F4F35E041F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt; sourceTree = "<group>"; };
+		F4F35E051F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt; sourceTree = "<group>"; };
+		F4F35E061F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt; sourceTree = "<group>"; };
+		F4F35E071F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = goodCalibrationRecordings.txt; sourceTree = "<group>"; };
+		F4F35E081F6AD53B00F3BDA9 /* InputBandpass.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InputBandpass.txt; sourceTree = "<group>"; };
+		F4F35E091F6AD53B00F3BDA9 /* inputData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData.txt; sourceTree = "<group>"; };
+		F4F35E0A1F6AD53B00F3BDA9 /* inputData2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData2.txt; sourceTree = "<group>"; };
+		F4F35E0B1F6AD53B00F3BDA9 /* inputData3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData3.txt; sourceTree = "<group>"; };
+		F4F35E0C1F6AD53B00F3BDA9 /* inputForPwelch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputForPwelch.txt; sourceTree = "<group>"; };
+		F4F35E0D1F6AD53B00F3BDA9 /* inputNAN.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputNAN.txt; sourceTree = "<group>"; };
+		F4F35E0E1F6AD53B00F3BDA9 /* sessionPb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sessionPb.txt; sourceTree = "<group>"; };
+		F4F35E0F1F6AD53B00F3BDA9 /* testDCremoval.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testDCremoval.txt; sourceTree = "<group>"; };
+		F4F35E101F6AD53B00F3BDA9 /* testDCremoval2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testDCremoval2.txt; sourceTree = "<group>"; };
+		F4F35E111F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordings.txt; sourceTree = "<group>"; };
+		F4F35E121F6AD53B00F3BDA9 /* trueCalibrationRecordingsBugEtienne.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordingsBugEtienne.txt; sourceTree = "<group>"; };
+		F4F35E131F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordingsQuality.txt; sourceTree = "<group>"; };
+		F4F35E141F6AD53B00F3BDA9 /* trueCalibrationRecordingsQualityBugEtienne.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordingsQualityBugEtienne.txt; sourceTree = "<group>"; };
+		F4F35E151F6AD53B00F3BDA9 /* trueSessionRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueSessionRecordings.txt; sourceTree = "<group>"; };
+		F4F35E171F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordings.txt; sourceTree = "<group>"; };
+		F4F35E181F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordingsQuality.txt; sourceTree = "<group>"; };
+		F4F35E191F6AD53B00F3BDA9 /* trueSessionRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueSessionRecordings.txt; sourceTree = "<group>"; };
+		F4F35E1B1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordings.txt; sourceTree = "<group>"; };
+		F4F35E1C1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordingsQuality.txt; sourceTree = "<group>"; };
+		F4F35E1D1F6AD53B00F3BDA9 /* trueSessionRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueSessionRecordings.txt; sourceTree = "<group>"; };
+		F4F35E1F1F6AD53B00F3BDA9 /* MBT_ComputeCalibration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeCalibration.h; sourceTree = "<group>"; };
+		F4F35E201F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeRelaxIndex.h; sourceTree = "<group>"; };
+		F4F35E211F6AD53B00F3BDA9 /* MBT_ComputeSNR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeSNR.h; sourceTree = "<group>"; };
+		F4F35E221F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_NormalizeRelaxIndex.h; sourceTree = "<group>"; };
+		F4F35E231F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_RelaxIndexToVolum.h; sourceTree = "<group>"; };
+		F4F35E241F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_SmoothRelaxIndex.h; sourceTree = "<group>"; };
+		F4F35E291F6AD53B00F3BDA9 /* README.txt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt.txt; sourceTree = "<group>"; };
+		F4F35E2A1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordings.txt; sourceTree = "<group>"; };
+		F4F35E2B1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueCalibrationRecordingsQuality.txt; sourceTree = "<group>"; };
+		F4F35E2D1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BeforeSmoothingSNRCalib.txt; sourceTree = "<group>"; };
+		F4F35E2E1F6AD53B00F3BDA9 /* correctedSignalch0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = correctedSignalch0.txt; sourceTree = "<group>"; };
+		F4F35E2F1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plotdataWithoutOutliers.txt; sourceTree = "<group>"; };
+		F4F35E311F6AD53B00F3BDA9 /* bestChannel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel.txt; sourceTree = "<group>"; };
+		F4F35E321F6AD53B00F3BDA9 /* BoundsCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BoundsCalib.txt; sourceTree = "<group>"; };
+		F4F35E331F6AD53B00F3BDA9 /* README.txt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt.txt; sourceTree = "<group>"; };
+		F4F35E341F6AD53B00F3BDA9 /* SNRCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib.txt; sourceTree = "<group>"; };
+		F4F35E371F6AD53B00F3BDA9 /* calibrationRecordings5s.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordings5s.txt; sourceTree = "<group>"; };
+		F4F35E381F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = calibrationRecordingsQuality_BOTHBad.txt; sourceTree = "<group>"; };
+		F4F35E391F6AD53B00F3BDA9 /* README.txt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt.txt; sourceTree = "<group>"; };
+		F4F35E3B1F6AD53B00F3BDA9 /* bestChannel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel.txt; sourceTree = "<group>"; };
+		F4F35E3C1F6AD53B00F3BDA9 /* BoundsCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BoundsCalib.txt; sourceTree = "<group>"; };
+		F4F35E3D1F6AD53B00F3BDA9 /* README.txt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt.txt; sourceTree = "<group>"; };
+		F4F35E3E1F6AD53B00F3BDA9 /* SNRCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib.txt; sourceTree = "<group>"; };
+		F4F35E411F6AD53B00F3BDA9 /* README.txt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt.txt; sourceTree = "<group>"; };
+		F4F35E421F6AD53B00F3BDA9 /* trueSessionRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trueSessionRecordings.txt; sourceTree = "<group>"; };
+		F4F35E441F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35E451F6AD53B00F3BDA9 /* README.txt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt.txt; sourceTree = "<group>"; };
+		F4F35E461F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35E471F6AD53B00F3BDA9 /* SNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRSession.txt; sourceTree = "<group>"; };
+		F4F35E491F6AD53B00F3BDA9 /* README.txt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt.txt; sourceTree = "<group>"; };
+		F4F35E4A1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VolumNormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35E4D1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BeforeSmoothingSNRCalib.txt; sourceTree = "<group>"; };
+		F4F35E4E1F6AD53B00F3BDA9 /* bestChannel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel.txt; sourceTree = "<group>"; };
+		F4F35E4F1F6AD53B00F3BDA9 /* bestChannel_1stGood.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel_1stGood.txt; sourceTree = "<group>"; };
+		F4F35E501F6AD53B00F3BDA9 /* bestChannel_2ndGood.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel_2ndGood.txt; sourceTree = "<group>"; };
+		F4F35E511F6AD53B00F3BDA9 /* bestChannel_BOTHBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel_BOTHBad.txt; sourceTree = "<group>"; };
+		F4F35E521F6AD53B00F3BDA9 /* bestChannel_BOTHBest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel_BOTHBest.txt; sourceTree = "<group>"; };
+		F4F35E531F6AD53B00F3BDA9 /* Bounds.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bounds.txt; sourceTree = "<group>"; };
+		F4F35E541F6AD53B00F3BDA9 /* BoundsCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BoundsCalib.txt; sourceTree = "<group>"; };
+		F4F35E551F6AD53B00F3BDA9 /* channelPSD1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = channelPSD1.txt; sourceTree = "<group>"; };
+		F4F35E561F6AD53B00F3BDA9 /* channelPSD2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = channelPSD2.txt; sourceTree = "<group>"; };
+		F4F35E571F6AD53B00F3BDA9 /* comp_signal_ch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = comp_signal_ch.txt; sourceTree = "<group>"; };
+		F4F35E581F6AD53B00F3BDA9 /* comp_tmp_correctedSignal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = comp_tmp_correctedSignal.txt; sourceTree = "<group>"; };
+		F4F35E591F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = ComputeSNR_v1.0_2017_01_23_FAG.docx; sourceTree = "<group>"; };
+		F4F35E5A1F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ComputeSNR_v1.0_2017_01_23_FAG.pdf; sourceTree = "<group>"; };
+		F4F35E5B1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = ComputeSNR_v2.0_2017_01_30_FAG.docx; sourceTree = "<group>"; };
+		F4F35E5C1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ComputeSNR_v2.0_2017_01_30_FAG.pdf; sourceTree = "<group>"; };
+		F4F35E5D1F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = ComputeSNR_v3.0_2017_02_02_FAG.docx; sourceTree = "<group>"; };
+		F4F35E5E1F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ComputeSNR_v3.0_2017_02_02_FAG.pdf; sourceTree = "<group>"; };
+		F4F35E5F1F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = ComputeSNR_v4.0_2017_02_27_FAG.docx; sourceTree = "<group>"; };
+		F4F35E601F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ComputeSNR_v4.0_2017_02_27_FAG.pdf; sourceTree = "<group>"; };
+		F4F35E611F6AD53B00F3BDA9 /* correctedSignalch0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = correctedSignalch0.txt; sourceTree = "<group>"; };
+		F4F35E621F6AD53B00F3BDA9 /* dataWithoutOutliers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dataWithoutOutliers.txt; sourceTree = "<group>"; };
+		F4F35E631F6AD53B00F3BDA9 /* fftTransformed.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fftTransformed.txt; sourceTree = "<group>"; };
+		F4F35E641F6AD53B00F3BDA9 /* frequenciesPSD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = frequenciesPSD.txt; sourceTree = "<group>"; };
+		F4F35E651F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = goodCalibrationRecordings.txt; sourceTree = "<group>"; };
+		F4F35E661F6AD53B00F3BDA9 /* ifftTransformed.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ifftTransformed.txt; sourceTree = "<group>"; };
+		F4F35E671F6AD53B00F3BDA9 /* MBT_Fouriercpp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MBT_Fouriercpp.txt; sourceTree = "<group>"; };
+		F4F35E681F6AD53B00F3BDA9 /* MBT_Fourierh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MBT_Fourierh.txt; sourceTree = "<group>"; };
+		F4F35E691F6AD53B00F3BDA9 /* MBT_PWelchComputerV2cpp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MBT_PWelchComputerV2cpp.txt; sourceTree = "<group>"; };
+		F4F35E6A1F6AD53B00F3BDA9 /* MBT_PWelchComputerV2h.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MBT_PWelchComputerV2h.txt; sourceTree = "<group>"; };
+		F4F35E6B1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35E6C1F6AD53B00F3BDA9 /* outputBandpass.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputBandpass.txt; sourceTree = "<group>"; };
+		F4F35E6D1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plotdataWithoutOutliers.txt; sourceTree = "<group>"; };
+		F4F35E6E1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch0P0.txt; sourceTree = "<group>"; };
+		F4F35E6F1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch0P1.txt; sourceTree = "<group>"; };
+		F4F35E701F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch0P2.txt; sourceTree = "<group>"; };
+		F4F35E711F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch0P3.txt; sourceTree = "<group>"; };
+		F4F35E721F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch0P4.txt; sourceTree = "<group>"; };
+		F4F35E731F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch1P0.txt; sourceTree = "<group>"; };
+		F4F35E741F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch1P1.txt; sourceTree = "<group>"; };
+		F4F35E751F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch1P2.txt; sourceTree = "<group>"; };
+		F4F35E761F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch1P3.txt; sourceTree = "<group>"; };
+		F4F35E771F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeCalibration_Ch1P4.txt; sourceTree = "<group>"; };
+		F4F35E781F6AD53B00F3BDA9 /* Pxx_testComputeSNR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Pxx_testComputeSNR.txt; sourceTree = "<group>"; };
+		F4F35E791F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = ReportAboutPwelch_v1.0_2017_01_20_FAG.docx; sourceTree = "<group>"; };
+		F4F35E7A1F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf; sourceTree = "<group>"; };
+		F4F35E7B1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = ReportAboutPwelch_v2.0_2017_02_03_FAG.docx; sourceTree = "<group>"; };
+		F4F35E7C1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf; sourceTree = "<group>"; };
+		F4F35E7D1F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf; sourceTree = "<group>"; };
+		F4F35E7E1F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx */ = {isa = PBXFileReference; lastKnownFileType = file; path = SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx; sourceTree = "<group>"; };
+		F4F35E7F1F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf"; sourceTree = "<group>"; };
+		F4F35E801F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx"; sourceTree = "<group>"; };
+		F4F35E811F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf"; sourceTree = "<group>"; };
+		F4F35E821F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx"; sourceTree = "<group>"; };
+		F4F35E831F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf"; sourceTree = "<group>"; };
+		F4F35E841F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx"; sourceTree = "<group>"; };
+		F4F35E851F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf"; sourceTree = "<group>"; };
+		F4F35E861F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx"; sourceTree = "<group>"; };
+		F4F35E871F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf"; sourceTree = "<group>"; };
+		F4F35E881F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx"; sourceTree = "<group>"; };
+		F4F35E891F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35E8A1F6AD53B00F3BDA9 /* SNR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNR.txt; sourceTree = "<group>"; };
+		F4F35E8B1F6AD53B00F3BDA9 /* SNRCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib.txt; sourceTree = "<group>"; };
+		F4F35E8C1F6AD53B00F3BDA9 /* SNRCalib_1stGood.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib_1stGood.txt; sourceTree = "<group>"; };
+		F4F35E8D1F6AD53B00F3BDA9 /* SNRCalib_2ndGood.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib_2ndGood.txt; sourceTree = "<group>"; };
+		F4F35E8E1F6AD53B00F3BDA9 /* SNRCalib_BOTHBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib_BOTHBad.txt; sourceTree = "<group>"; };
+		F4F35E8F1F6AD53B00F3BDA9 /* SNRCalib_BOTHBest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib_BOTHBest.txt; sourceTree = "<group>"; };
+		F4F35E901F6AD53B00F3BDA9 /* SNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRSession.txt; sourceTree = "<group>"; };
+		F4F35E911F6AD53B00F3BDA9 /* spectreCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spectreCalib.txt; sourceTree = "<group>"; };
+		F4F35E921F6AD53B00F3BDA9 /* tmp1_dataWithoutOutliers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp1_dataWithoutOutliers.txt; sourceTree = "<group>"; };
+		F4F35E931F6AD53B00F3BDA9 /* tmp_channelPSD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_channelPSD.txt; sourceTree = "<group>"; };
+		F4F35E941F6AD53B00F3BDA9 /* tmp_correctedSignal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_correctedSignal.txt; sourceTree = "<group>"; };
+		F4F35E951F6AD53B00F3BDA9 /* tmp_dataWithoutOutliers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_dataWithoutOutliers.txt; sourceTree = "<group>"; };
+		F4F35E961F6AD53B00F3BDA9 /* tmp_frequencies.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_frequencies.txt; sourceTree = "<group>"; };
+		F4F35E971F6AD53B00F3BDA9 /* tmp_outputBandpass.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_outputBandpass.txt; sourceTree = "<group>"; };
+		F4F35E981F6AD53B00F3BDA9 /* tmp_outputBandpass_test_interp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_outputBandpass_test_interp.txt; sourceTree = "<group>"; };
+		F4F35E991F6AD53B00F3BDA9 /* tmp_signal_ch_withoutDC.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_signal_ch_withoutDC.txt; sourceTree = "<group>"; };
+		F4F35E9A1F6AD53B00F3BDA9 /* tmp_sortiebandpass.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmp_sortiebandpass.txt; sourceTree = "<group>"; };
+		F4F35E9B1F6AD53B00F3BDA9 /* Volum_avec_bandpass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Volum_avec_bandpass.png; sourceTree = "<group>"; };
+		F4F35E9C1F6AD53B00F3BDA9 /* Volum_sans_bandpass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Volum_sans_bandpass.png; sourceTree = "<group>"; };
+		F4F35E9D1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VolumNormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35E9E1F6AD53B00F3BDA9 /* writechpsd.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = writechpsd.txt; sourceTree = "<group>"; };
+		F4F35EA01F6AD53B00F3BDA9 /* bestChannel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel.txt; sourceTree = "<group>"; };
+		F4F35EA11F6AD53B00F3BDA9 /* BoundsCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BoundsCalib.txt; sourceTree = "<group>"; };
+		F4F35EA21F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35EA31F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35EA41F6AD53B00F3BDA9 /* SNRCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib.txt; sourceTree = "<group>"; };
+		F4F35EA51F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VolumNormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35EA71F6AD53B00F3BDA9 /* bestChannel.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bestChannel.txt; sourceTree = "<group>"; };
+		F4F35EA81F6AD53B00F3BDA9 /* BoundsCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BoundsCalib.txt; sourceTree = "<group>"; };
+		F4F35EA91F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35EAA1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35EAB1F6AD53B00F3BDA9 /* SNRCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRCalib.txt; sourceTree = "<group>"; };
+		F4F35EAC1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VolumNormalizedSmoothedSNRSession.txt; sourceTree = "<group>"; };
+		F4F35EAF1F6AD53B00F3BDA9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F4F35EB01F6AD53B00F3BDA9 /* MBT_MainQC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_MainQC.cpp; sourceTree = "<group>"; };
+		F4F35EB21F6AD53B00F3BDA9 /* afterDCRemoval0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = afterDCRemoval0.txt; sourceTree = "<group>"; };
+		F4F35EB31F6AD53B00F3BDA9 /* afterDCRemoval1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = afterDCRemoval1.txt; sourceTree = "<group>"; };
+		F4F35EB41F6AD53B00F3BDA9 /* afterDCRemoval2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = afterDCRemoval2.txt; sourceTree = "<group>"; };
+		F4F35EB51F6AD53B00F3BDA9 /* afterInterp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = afterInterp.txt; sourceTree = "<group>"; };
+		F4F35EB61F6AD53B00F3BDA9 /* BuildComputationFeatures_Cplusplus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BuildComputationFeatures_Cplusplus.txt; sourceTree = "<group>"; };
+		F4F35EB71F6AD53B00F3BDA9 /* cleanItakuraDistance.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cleanItakuraDistance.txt; sourceTree = "<group>"; };
+		F4F35EB81F6AD53B00F3BDA9 /* Copy_testFeatures.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Copy_testFeatures.txt; sourceTree = "<group>"; };
+		F4F35EB91F6AD53B00F3BDA9 /* DebugSignal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DebugSignal.txt; sourceTree = "<group>"; };
+		F4F35EBA1F6AD53B00F3BDA9 /* deriv_X_save.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deriv_X_save.txt; sourceTree = "<group>"; };
+		F4F35EBB1F6AD53B00F3BDA9 /* deriv_X_two_save.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deriv_X_two_save.txt; sourceTree = "<group>"; };
+		F4F35EBC1F6AD53B00F3BDA9 /* derivAeiocha.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = derivAeiocha.txt; sourceTree = "<group>"; };
+		F4F35EBD1F6AD53B00F3BDA9 /* fft0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft0.txt; sourceTree = "<group>"; };
+		F4F35EBE1F6AD53B00F3BDA9 /* fft1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft1.txt; sourceTree = "<group>"; };
+		F4F35EBF1F6AD53B00F3BDA9 /* fft2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft2.txt; sourceTree = "<group>"; };
+		F4F35EC01F6AD53B00F3BDA9 /* freqV0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = freqV0.txt; sourceTree = "<group>"; };
+		F4F35EC11F6AD53B00F3BDA9 /* inputData2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData2.txt; sourceTree = "<group>"; };
+		F4F35EC21F6AD53B00F3BDA9 /* inputData3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData3.txt; sourceTree = "<group>"; };
+		F4F35EC31F6AD53B00F3BDA9 /* inputData4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData4.txt; sourceTree = "<group>"; };
+		F4F35EC41F6AD53B00F3BDA9 /* inputData4bis.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData4bis.txt; sourceTree = "<group>"; };
+		F4F35EC51F6AD53B00F3BDA9 /* inputData5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData5.txt; sourceTree = "<group>"; };
+		F4F35EC61F6AD53B00F3BDA9 /* inputData6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData6.txt; sourceTree = "<group>"; };
+		F4F35EC71F6AD53B00F3BDA9 /* inputData7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputData7.txt; sourceTree = "<group>"; };
+		F4F35EC81F6AD53B00F3BDA9 /* inputDataNewTest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = inputDataNewTest.txt; sourceTree = "<group>"; };
+		F4F35EC91F6AD53B00F3BDA9 /* m_inputData_after_interpolation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m_inputData_after_interpolation.txt; sourceTree = "<group>"; };
+		F4F35ECA1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m_inputData_after_interpolation_inputData4.txt; sourceTree = "<group>"; };
+		F4F35ECB1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m_inputData_after_interpolation_inputData5.txt; sourceTree = "<group>"; };
+		F4F35ECC1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m_inputData_after_interpolation_inputData6.txt; sourceTree = "<group>"; };
+		F4F35ECD1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = m_inputData_after_interpolation_inputData7.txt; sourceTree = "<group>"; };
+		F4F35ECE1F6AD53B00F3BDA9 /* mu.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mu.txt; sourceTree = "<group>"; };
+		F4F35ECF1F6AD53B00F3BDA9 /* mu2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mu2.txt; sourceTree = "<group>"; };
+		F4F35ED01F6AD53B00F3BDA9 /* mu4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mu4.txt; sourceTree = "<group>"; };
+		F4F35ED11F6AD53B00F3BDA9 /* rawInterpData1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData1.txt; sourceTree = "<group>"; };
+		F4F35ED21F6AD53B00F3BDA9 /* rawInterpData2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData2.txt; sourceTree = "<group>"; };
+		F4F35ED31F6AD53B00F3BDA9 /* rawInterpData3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData3.txt; sourceTree = "<group>"; };
+		F4F35ED41F6AD53B00F3BDA9 /* rawInterpData_after_interpolation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData_after_interpolation.txt; sourceTree = "<group>"; };
+		F4F35ED51F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData_after_interpolation_inputData4.txt; sourceTree = "<group>"; };
+		F4F35ED61F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData_after_interpolation_inputData5.txt; sourceTree = "<group>"; };
+		F4F35ED71F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData_after_interpolation_inputData6.txt; sourceTree = "<group>"; };
+		F4F35ED81F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rawInterpData_after_interpolation_inputData7.txt; sourceTree = "<group>"; };
+		F4F35ED91F6AD53B00F3BDA9 /* sigma.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sigma.txt; sourceTree = "<group>"; };
+		F4F35EDA1F6AD53B00F3BDA9 /* sigma2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sigma2.txt; sourceTree = "<group>"; };
+		F4F35EDB1F6AD53B00F3BDA9 /* sigma4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sigma4.txt; sourceTree = "<group>"; };
+		F4F35EDC1F6AD53B00F3BDA9 /* signalAeiocha.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = signalAeiocha.txt; sourceTree = "<group>"; };
+		F4F35EDD1F6AD53B00F3BDA9 /* spectrumClean.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spectrumClean.txt; sourceTree = "<group>"; };
+		F4F35EDE1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_KEV2_P3.txt; sourceTree = "<group>"; };
+		F4F35EDF1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_KEV2_P4.txt; sourceTree = "<group>"; };
+		F4F35EE01F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_KIN2_P3.txt; sourceTree = "<group>"; };
+		F4F35EE11F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_KIN2_P4.txt; sourceTree = "<group>"; };
+		F4F35EE21F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_MAR4_P3.txt; sourceTree = "<group>"; };
+		F4F35EE31F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_MAR4_P4.txt; sourceTree = "<group>"; };
+		F4F35EE41F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_VIN_P3.txt; sourceTree = "<group>"; };
+		F4F35EE51F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testBad_MM_NOEL_VIN_P4.txt; sourceTree = "<group>"; };
+		F4F35EE61F6AD53B00F3BDA9 /* testFeatures2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testFeatures2.txt; sourceTree = "<group>"; };
+		F4F35EE71F6AD53B00F3BDA9 /* testGood_MM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testGood_MM.txt; sourceTree = "<group>"; };
+		F4F35EE81F6AD53B00F3BDA9 /* trainingClasses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingClasses.txt; sourceTree = "<group>"; };
+		F4F35EE91F6AD53B00F3BDA9 /* trainingClasses_BrainAmp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingClasses_BrainAmp.txt; sourceTree = "<group>"; };
+		F4F35EEA1F6AD53B00F3BDA9 /* trainingEEG.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingEEG.txt; sourceTree = "<group>"; };
+		F4F35EEB1F6AD53B00F3BDA9 /* trainingEEGMoinsMean.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingEEGMoinsMean.txt; sourceTree = "<group>"; };
+		F4F35EEC1F6AD53B00F3BDA9 /* trainingFeatures.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures.txt; sourceTree = "<group>"; };
+		F4F35EED1F6AD53B00F3BDA9 /* trainingFeatures2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures2.txt; sourceTree = "<group>"; };
+		F4F35EEE1F6AD53B00F3BDA9 /* trainingFeatures3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures3.txt; sourceTree = "<group>"; };
+		F4F35EEF1F6AD53B00F3BDA9 /* trainingFeatures4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures4.txt; sourceTree = "<group>"; };
+		F4F35EF01F6AD53B00F3BDA9 /* trainingFeatures4bis.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures4bis.txt; sourceTree = "<group>"; };
+		F4F35EF11F6AD53B00F3BDA9 /* trainingFeatures_BrainAmp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures_BrainAmp.txt; sourceTree = "<group>"; };
+		F4F35EF21F6AD53B00F3BDA9 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeaturesQuandTrainingEEGMoinsMean.txt; sourceTree = "<group>"; };
+		F4F35EF31F6AD53B00F3BDA9 /* trainingInputData_BrainAmp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingInputData_BrainAmp.txt; sourceTree = "<group>"; };
+		F4F35EF41F6AD53B00F3BDA9 /* trainingInputData_BrainAmpVolt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingInputData_BrainAmpVolt.txt; sourceTree = "<group>"; };
+		F4F35EF51F6AD53B00F3BDA9 /* trainingMu_BrainAmp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingMu_BrainAmp.txt; sourceTree = "<group>"; };
+		F4F35EF61F6AD53B00F3BDA9 /* trainingSigma_BrainAmp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingSigma_BrainAmp.txt; sourceTree = "<group>"; };
+		F4F35EF71F6AD53B00F3BDA9 /* trainingW_BrainAmp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingW_BrainAmp.txt; sourceTree = "<group>"; };
+		F4F35EF81F6AD53B00F3BDA9 /* variance.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = variance.txt; sourceTree = "<group>"; };
+		F4F35EF91F6AD53B00F3BDA9 /* w.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = w.txt; sourceTree = "<group>"; };
+		F4F35EFA1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = write_rawInterpData_row_ch0.txt; sourceTree = "<group>"; };
+		F4F35EFB1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = write_rawInterpData_row_ch1.txt; sourceTree = "<group>"; };
+		F4F35EFC1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = write_rawInterpData_row_ch2.txt; sourceTree = "<group>"; };
+		F4F35EFE1F6AD53B00F3BDA9 /* MBT_MainQC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_MainQC.h; sourceTree = "<group>"; };
+		F4F35F001F6AD53B00F3BDA9 /* Copy_testFeatures.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Copy_testFeatures.txt; sourceTree = "<group>"; };
+		F4F35F011F6AD53B00F3BDA9 /* outputData2_Cplusplus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData2_Cplusplus.txt; sourceTree = "<group>"; };
+		F4F35F021F6AD53B00F3BDA9 /* outputData3_Cplusplus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData3_Cplusplus.txt; sourceTree = "<group>"; };
+		F4F35F031F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_KEV2_P3.txt; sourceTree = "<group>"; };
+		F4F35F041F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_KEV2_P4.txt; sourceTree = "<group>"; };
+		F4F35F051F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_KIN2_P3.txt; sourceTree = "<group>"; };
+		F4F35F061F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_KIN2_P4.txt; sourceTree = "<group>"; };
+		F4F35F071F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_MAR4_P3.txt; sourceTree = "<group>"; };
+		F4F35F081F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_MAR4_P4.txt; sourceTree = "<group>"; };
+		F4F35F091F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_VIN_P3.txt; sourceTree = "<group>"; };
+		F4F35F0A1F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_MM_NOEL_VIN_P4.txt; sourceTree = "<group>"; };
+		F4F35F0B1F6AD53B00F3BDA9 /* outputData_testGood_MM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outputData_testGood_MM.txt; sourceTree = "<group>"; };
+		F4F35F0C1F6AD53B00F3BDA9 /* pasted_image_at_2017_03_03_10_11_am_720.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pasted_image_at_2017_03_03_10_11_am_720.png; sourceTree = "<group>"; };
+		F4F35F0D1F6AD53B00F3BDA9 /* print_signalDelta1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = print_signalDelta1.txt; sourceTree = "<group>"; };
+		F4F35F0E1F6AD53B00F3BDA9 /* print_signalDelta2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = print_signalDelta2.txt; sourceTree = "<group>"; };
+		F4F35F0F1F6AD53B00F3BDA9 /* print_signalTheta1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = print_signalTheta1.txt; sourceTree = "<group>"; };
+		F4F35F101F6AD53B00F3BDA9 /* print_signalTheta2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = print_signalTheta2.txt; sourceTree = "<group>"; };
+		F4F35F111F6AD53B00F3BDA9 /* probaClass2_Cplusplus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass2_Cplusplus.txt; sourceTree = "<group>"; };
+		F4F35F121F6AD53B00F3BDA9 /* probaClass3_Cplusplus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass3_Cplusplus.txt; sourceTree = "<group>"; };
+		F4F35F131F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_KEV2_P3.txt; sourceTree = "<group>"; };
+		F4F35F141F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_KEV2_P4.txt; sourceTree = "<group>"; };
+		F4F35F151F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_KIN2_P3.txt; sourceTree = "<group>"; };
+		F4F35F161F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_KIN2_P4.txt; sourceTree = "<group>"; };
+		F4F35F171F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_MAR4_P3.txt; sourceTree = "<group>"; };
+		F4F35F181F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_MAR4_P4.txt; sourceTree = "<group>"; };
+		F4F35F191F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_VIN_P3.txt; sourceTree = "<group>"; };
+		F4F35F1A1F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_MM_NOEL_VIN_P4.txt; sourceTree = "<group>"; };
+		F4F35F1B1F6AD53B00F3BDA9 /* probaClass_testGood_MM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = probaClass_testGood_MM.txt; sourceTree = "<group>"; };
+		F4F35F1C1F6AD53B00F3BDA9 /* quality2_Cplusplus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality2_Cplusplus.txt; sourceTree = "<group>"; };
+		F4F35F1D1F6AD53B00F3BDA9 /* quality3_Cplusplus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality3_Cplusplus.txt; sourceTree = "<group>"; };
+		F4F35F1E1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_KEV2_P3.txt; sourceTree = "<group>"; };
+		F4F35F1F1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_KEV2_P4.txt; sourceTree = "<group>"; };
+		F4F35F201F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_KIN2_P3.txt; sourceTree = "<group>"; };
+		F4F35F211F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_KIN2_P4.txt; sourceTree = "<group>"; };
+		F4F35F221F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_MAR4_P3.txt; sourceTree = "<group>"; };
+		F4F35F231F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_MAR4_P4.txt; sourceTree = "<group>"; };
+		F4F35F241F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_VIN_P3.txt; sourceTree = "<group>"; };
+		F4F35F251F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_VIN_P4.txt; sourceTree = "<group>"; };
+		F4F35F261F6AD53B00F3BDA9 /* quality_testGood_MM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_testGood_MM.txt; sourceTree = "<group>"; };
+		F4F35F2A1F6AD53B00F3BDA9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F4F35F2B1F6AD53B00F3BDA9 /* MBT_FindClosest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindClosest.cpp; sourceTree = "<group>"; };
+		F4F35F2C1F6AD53B00F3BDA9 /* MBT_Interpolation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Interpolation.cpp; sourceTree = "<group>"; };
+		F4F35F2D1F6AD53B00F3BDA9 /* MBT_kmeans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_kmeans.cpp; sourceTree = "<group>"; };
+		F4F35F2E1F6AD53B00F3BDA9 /* MBT_Operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Operations.cpp; sourceTree = "<group>"; };
+		F4F35F301F6AD53B00F3BDA9 /* MBT_FindClosest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindClosest.h; sourceTree = "<group>"; };
+		F4F35F311F6AD53B00F3BDA9 /* MBT_Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Interpolation.h; sourceTree = "<group>"; };
+		F4F35F321F6AD53B00F3BDA9 /* MBT_kmeans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_kmeans.h; sourceTree = "<group>"; };
+		F4F35F331F6AD53B00F3BDA9 /* MBT_Operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Operations.h; sourceTree = "<group>"; };
+		F4F35F361F6AD53B00F3BDA9 /* MBT_Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Matrix.cpp; sourceTree = "<group>"; };
+		F4F35F371F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ReadInputOrWriteOutput.cpp; sourceTree = "<group>"; };
+		F4F35F391F6AD53B00F3BDA9 /* MBT_Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Matrix.h; sourceTree = "<group>"; };
+		F4F35F3A1F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ReadInputOrWriteOutput.h; sourceTree = "<group>"; };
+		F4F35F3D1F6AD53B00F3BDA9 /* Biquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Biquad.cpp; sourceTree = "<group>"; };
+		F4F35F3E1F6AD53B00F3BDA9 /* MBT_BandPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass.cpp; sourceTree = "<group>"; };
+		F4F35F3F1F6AD53B00F3BDA9 /* MBT_BandPass_Arma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma.cpp; sourceTree = "<group>"; };
+		F4F35F401F6AD53B00F3BDA9 /* MBT_BandPass_Arma_double.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma_double.cpp; sourceTree = "<group>"; };
+		F4F35F411F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_fftw3.cpp; sourceTree = "<group>"; };
+		F4F35F421F6AD53B00F3BDA9 /* MBT_PreProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PreProcessing.cpp; sourceTree = "<group>"; };
+		F4F35F441F6AD53B00F3BDA9 /* Biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Biquad.h; sourceTree = "<group>"; };
+		F4F35F451F6AD53B00F3BDA9 /* MBT_BandPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass.h; sourceTree = "<group>"; };
+		F4F35F461F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass_fftw3.h; sourceTree = "<group>"; };
+		F4F35F471F6AD53B00F3BDA9 /* MBT_PreProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PreProcessing.h; sourceTree = "<group>"; };
+		F4F35F481F6AD53B00F3BDA9 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		F4F35F491F6AD53B00F3BDA9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F4F35F4C1F6AD53B00F3BDA9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F4F35F4D1F6AD53B00F3BDA9 /* MBT_FFTReal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FFTReal.cpp; sourceTree = "<group>"; };
+		F4F35F4E1F6AD53B00F3BDA9 /* MBT_FindPeak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindPeak.cpp; sourceTree = "<group>"; };
+		F4F35F4F1F6AD53B00F3BDA9 /* MBT_Fourier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier.cpp; sourceTree = "<group>"; };
+		F4F35F501F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier_fftw3.cpp; sourceTree = "<group>"; };
+		F4F35F511F6AD53B00F3BDA9 /* MBT_PWelchComputer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PWelchComputer.cpp; sourceTree = "<group>"; };
+		F4F35F531F6AD53B00F3BDA9 /* MBT_FFTReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FFTReal.h; sourceTree = "<group>"; };
+		F4F35F541F6AD53B00F3BDA9 /* MBT_FindPeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindPeak.h; sourceTree = "<group>"; };
+		F4F35F551F6AD53B00F3BDA9 /* MBT_Fourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier.h; sourceTree = "<group>"; };
+		F4F35F561F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier_fftw3.h; sourceTree = "<group>"; };
+		F4F35F571F6AD53B00F3BDA9 /* MBT_PWelchComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PWelchComputer.h; sourceTree = "<group>"; };
+		F4F35F581F6AD53B00F3BDA9 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		F4F35F591F6AD53B00F3BDA9 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		F4F35F5D1F6AD53B00F3BDA9 /* MBT_SNR_Stats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_SNR_Stats.cpp; sourceTree = "<group>"; };
+		F4F35F5F1F6AD53B00F3BDA9 /* SNRTest1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRTest1.txt; sourceTree = "<group>"; };
+		F4F35F601F6AD53B00F3BDA9 /* SNRTest2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRTest2.txt; sourceTree = "<group>"; };
+		F4F35F611F6AD53B00F3BDA9 /* SNRTest4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRTest4.txt; sourceTree = "<group>"; };
+		F4F35F621F6AD53B00F3BDA9 /* SNRTest6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRTest6.txt; sourceTree = "<group>"; };
+		F4F35F631F6AD53B00F3BDA9 /* SNRTest8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRTest8.txt; sourceTree = "<group>"; };
+		F4F35F641F6AD53B00F3BDA9 /* SNRTest9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRTest9.txt; sourceTree = "<group>"; };
+		F4F35F661F6AD53B00F3BDA9 /* MBT_SNR_Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_SNR_Stats.h; sourceTree = "<group>"; };
+		F4F35F691F6AD53B00F3BDA9 /* compile.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = compile.sh; sourceTree = "<group>"; };
+		F4F35F6A1F6AD53B00F3BDA9 /* exec */ = {isa = PBXFileReference; lastKnownFileType = file; path = exec; sourceTree = "<group>"; };
+		F4F35F6B1F6AD53B00F3BDA9 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F4F35F6C1F6AD53B00F3BDA9 /* MBT_Contour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Contour.cpp; sourceTree = "<group>"; };
+		F4F35F6D1F6AD53B00F3BDA9 /* MBT_FinalClustering.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FinalClustering.cpp; sourceTree = "<group>"; };
+		F4F35F6E1F6AD53B00F3BDA9 /* MBT_TF_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_TF_map.cpp; sourceTree = "<group>"; };
+		F4F35F6F1F6AD53B00F3BDA9 /* MBT_TF_Stats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_TF_Stats.cpp; sourceTree = "<group>"; };
+		F4F35F711F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecNP2_Ch1.txt; sourceTree = "<group>"; };
+		F4F35F721F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecNP2_Ch2.txt; sourceTree = "<group>"; };
+		F4F35F731F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecNP_Ch1.txt; sourceTree = "<group>"; };
+		F4F35F741F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecNP_Ch2.txt; sourceTree = "<group>"; };
+		F4F35F751F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecVR6_Ch1.txt; sourceTree = "<group>"; };
+		F4F35F761F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecVR6_Ch2.txt; sourceTree = "<group>"; };
+		F4F35F771F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecVR7_Ch1.txt; sourceTree = "<group>"; };
+		F4F35F781F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecVR7_Ch2.txt; sourceTree = "<group>"; };
+		F4F35F791F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ArduinoData1606ecVR7_Ch2_with_NaN.txt; sourceTree = "<group>"; };
+		F4F35F7A1F6AD53B00F3BDA9 /* Etienne.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Etienne.txt; sourceTree = "<group>"; };
+		F4F35F7B1F6AD53B00F3BDA9 /* NP2Ch1FiltCalib.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NP2Ch1FiltCalib.txt; sourceTree = "<group>"; };
+		F4F35F7C1F6AD53B00F3BDA9 /* NP2Ch1FiltSession.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NP2Ch1FiltSession.txt; sourceTree = "<group>"; };
+		F4F35F7E1F6AD53B00F3BDA9 /* MBT_Contour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Contour.h; sourceTree = "<group>"; };
+		F4F35F7F1F6AD53B00F3BDA9 /* MBT_FinalClustering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FinalClustering.h; sourceTree = "<group>"; };
+		F4F35F801F6AD53B00F3BDA9 /* MBT_TF_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_TF_map.h; sourceTree = "<group>"; };
+		F4F35F811F6AD53B00F3BDA9 /* MBT_TF_Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_TF_Stats.h; sourceTree = "<group>"; };
+		F4F35F831F6AD53B00F3BDA9 /* Results_Arma */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Results_Arma; sourceTree = "<group>"; };
+		F4F35F841F6AD53B00F3BDA9 /* Results_Emma */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Results_Emma; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +892,7 @@
 				3549BB191DA3890B00C63030 /* Tests */,
 				3549BB061DA387DB00C63030 /* Products */,
 				35CA2AD51E12933000147290 /* Configuration */,
+				F4F35DE21F6AD3B400F3BDA9 /* Libraries */,
 				357D954B1DA3F2B400AEC55F /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -393,6 +1108,786 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		F4F35DE21F6AD3B400F3BDA9 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35DEC1F6AD53B00F3BDA9 /* NF_Melomind */,
+				F4F35EAD1F6AD53B00F3BDA9 /* QualityChecker */,
+				F4F35F271F6AD53B00F3BDA9 /* SignalProcessing.Cpp */,
+				F4F35F5A1F6AD53B00F3BDA9 /* Statistics */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		F4F35DEC1F6AD53B00F3BDA9 /* NF_Melomind */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35DED1F6AD53B00F3BDA9 /* Cpp */,
+				F4F35DF51F6AD53B00F3BDA9 /* Files */,
+				F4F35E1E1F6AD53B00F3BDA9 /* Headers */,
+				F4F35E251F6AD53B00F3BDA9 /* PourAeiocha */,
+				F4F35E4B1F6AD53B00F3BDA9 /* Results */,
+			);
+			path = NF_Melomind;
+			sourceTree = "<group>";
+		};
+		F4F35DED1F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35DEE1F6AD53B00F3BDA9 /* main.cpp */,
+				F4F35DEF1F6AD53B00F3BDA9 /* MBT_ComputeCalibration.cpp */,
+				F4F35DF01F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.cpp */,
+				F4F35DF11F6AD53B00F3BDA9 /* MBT_ComputeSNR.cpp */,
+				F4F35DF21F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.cpp */,
+				F4F35DF31F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.cpp */,
+				F4F35DF41F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35DF51F6AD53B00F3BDA9 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35DF61F6AD53B00F3BDA9 /* TestFiles */,
+				F4F35E161F6AD53B00F3BDA9 /* TestFiles_after_fftw3 */,
+				F4F35E1A1F6AD53B00F3BDA9 /* TestFiles_before_fftw3 */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		F4F35DF61F6AD53B00F3BDA9 /* TestFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35DF71F6AD53B00F3BDA9 /* Calib_4s.txt */,
+				F4F35DF81F6AD53B00F3BDA9 /* calibPb.txt */,
+				F4F35DF91F6AD53B00F3BDA9 /* calibPbQuality.txt */,
+				F4F35DFA1F6AD53B00F3BDA9 /* calibPbtest.txt */,
+				F4F35DFB1F6AD53B00F3BDA9 /* calibPbtestQuality.txt */,
+				F4F35DFC1F6AD53B00F3BDA9 /* calibrationRecordings.txt */,
+				F4F35DFD1F6AD53B00F3BDA9 /* calibrationRecordings5s.txt */,
+				F4F35DFE1F6AD53B00F3BDA9 /* calibrationRecordingsQuality.txt */,
+				F4F35DFF1F6AD53B00F3BDA9 /* calibrationRecordingsQuality_1stGood.txt */,
+				F4F35E001F6AD53B00F3BDA9 /* calibrationRecordingsQuality_2ndGood.txt */,
+				F4F35E011F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt */,
+				F4F35E021F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBest.txt */,
+				F4F35E031F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt */,
+				F4F35E041F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt */,
+				F4F35E051F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt */,
+				F4F35E061F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt */,
+				F4F35E071F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt */,
+				F4F35E081F6AD53B00F3BDA9 /* InputBandpass.txt */,
+				F4F35E091F6AD53B00F3BDA9 /* inputData.txt */,
+				F4F35E0A1F6AD53B00F3BDA9 /* inputData2.txt */,
+				F4F35E0B1F6AD53B00F3BDA9 /* inputData3.txt */,
+				F4F35E0C1F6AD53B00F3BDA9 /* inputForPwelch.txt */,
+				F4F35E0D1F6AD53B00F3BDA9 /* inputNAN.txt */,
+				F4F35E0E1F6AD53B00F3BDA9 /* sessionPb.txt */,
+				F4F35E0F1F6AD53B00F3BDA9 /* testDCremoval.txt */,
+				F4F35E101F6AD53B00F3BDA9 /* testDCremoval2.txt */,
+				F4F35E111F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */,
+				F4F35E121F6AD53B00F3BDA9 /* trueCalibrationRecordingsBugEtienne.txt */,
+				F4F35E131F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */,
+				F4F35E141F6AD53B00F3BDA9 /* trueCalibrationRecordingsQualityBugEtienne.txt */,
+				F4F35E151F6AD53B00F3BDA9 /* trueSessionRecordings.txt */,
+			);
+			path = TestFiles;
+			sourceTree = "<group>";
+		};
+		F4F35E161F6AD53B00F3BDA9 /* TestFiles_after_fftw3 */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E171F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */,
+				F4F35E181F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */,
+				F4F35E191F6AD53B00F3BDA9 /* trueSessionRecordings.txt */,
+			);
+			path = TestFiles_after_fftw3;
+			sourceTree = "<group>";
+		};
+		F4F35E1A1F6AD53B00F3BDA9 /* TestFiles_before_fftw3 */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E1B1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */,
+				F4F35E1C1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */,
+				F4F35E1D1F6AD53B00F3BDA9 /* trueSessionRecordings.txt */,
+			);
+			path = TestFiles_before_fftw3;
+			sourceTree = "<group>";
+		};
+		F4F35E1E1F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E1F1F6AD53B00F3BDA9 /* MBT_ComputeCalibration.h */,
+				F4F35E201F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.h */,
+				F4F35E211F6AD53B00F3BDA9 /* MBT_ComputeSNR.h */,
+				F4F35E221F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.h */,
+				F4F35E231F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.h */,
+				F4F35E241F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35E251F6AD53B00F3BDA9 /* PourAeiocha */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E261F6AD53B00F3BDA9 /* Calibration */,
+				F4F35E3F1F6AD53B00F3BDA9 /* Session */,
+			);
+			path = PourAeiocha;
+			sourceTree = "<group>";
+		};
+		F4F35E261F6AD53B00F3BDA9 /* Calibration */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E271F6AD53B00F3BDA9 /* 1erTest */,
+				F4F35E351F6AD53B00F3BDA9 /* 2emeTest */,
+			);
+			path = Calibration;
+			sourceTree = "<group>";
+		};
+		F4F35E271F6AD53B00F3BDA9 /* 1erTest */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E281F6AD53B00F3BDA9 /* Inputs */,
+				F4F35E2C1F6AD53B00F3BDA9 /* IntermediateResults */,
+				F4F35E301F6AD53B00F3BDA9 /* Outputs */,
+			);
+			path = 1erTest;
+			sourceTree = "<group>";
+		};
+		F4F35E281F6AD53B00F3BDA9 /* Inputs */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E291F6AD53B00F3BDA9 /* README.txt.txt */,
+				F4F35E2A1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt */,
+				F4F35E2B1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt */,
+			);
+			path = Inputs;
+			sourceTree = "<group>";
+		};
+		F4F35E2C1F6AD53B00F3BDA9 /* IntermediateResults */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E2D1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt */,
+				F4F35E2E1F6AD53B00F3BDA9 /* correctedSignalch0.txt */,
+				F4F35E2F1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt */,
+			);
+			path = IntermediateResults;
+			sourceTree = "<group>";
+		};
+		F4F35E301F6AD53B00F3BDA9 /* Outputs */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E311F6AD53B00F3BDA9 /* bestChannel.txt */,
+				F4F35E321F6AD53B00F3BDA9 /* BoundsCalib.txt */,
+				F4F35E331F6AD53B00F3BDA9 /* README.txt.txt */,
+				F4F35E341F6AD53B00F3BDA9 /* SNRCalib.txt */,
+			);
+			path = Outputs;
+			sourceTree = "<group>";
+		};
+		F4F35E351F6AD53B00F3BDA9 /* 2emeTest */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E361F6AD53B00F3BDA9 /* Inputs */,
+				F4F35E3A1F6AD53B00F3BDA9 /* Outputs */,
+			);
+			path = 2emeTest;
+			sourceTree = "<group>";
+		};
+		F4F35E361F6AD53B00F3BDA9 /* Inputs */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E371F6AD53B00F3BDA9 /* calibrationRecordings5s.txt */,
+				F4F35E381F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt */,
+				F4F35E391F6AD53B00F3BDA9 /* README.txt.txt */,
+			);
+			path = Inputs;
+			sourceTree = "<group>";
+		};
+		F4F35E3A1F6AD53B00F3BDA9 /* Outputs */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E3B1F6AD53B00F3BDA9 /* bestChannel.txt */,
+				F4F35E3C1F6AD53B00F3BDA9 /* BoundsCalib.txt */,
+				F4F35E3D1F6AD53B00F3BDA9 /* README.txt.txt */,
+				F4F35E3E1F6AD53B00F3BDA9 /* SNRCalib.txt */,
+			);
+			path = Outputs;
+			sourceTree = "<group>";
+		};
+		F4F35E3F1F6AD53B00F3BDA9 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E401F6AD53B00F3BDA9 /* Inputs */,
+				F4F35E431F6AD53B00F3BDA9 /* IntermediateResults */,
+				F4F35E481F6AD53B00F3BDA9 /* Outputs */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		F4F35E401F6AD53B00F3BDA9 /* Inputs */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E411F6AD53B00F3BDA9 /* README.txt.txt */,
+				F4F35E421F6AD53B00F3BDA9 /* trueSessionRecordings.txt */,
+			);
+			path = Inputs;
+			sourceTree = "<group>";
+		};
+		F4F35E431F6AD53B00F3BDA9 /* IntermediateResults */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E441F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */,
+				F4F35E451F6AD53B00F3BDA9 /* README.txt.txt */,
+				F4F35E461F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */,
+				F4F35E471F6AD53B00F3BDA9 /* SNRSession.txt */,
+			);
+			path = IntermediateResults;
+			sourceTree = "<group>";
+		};
+		F4F35E481F6AD53B00F3BDA9 /* Outputs */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E491F6AD53B00F3BDA9 /* README.txt.txt */,
+				F4F35E4A1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */,
+			);
+			path = Outputs;
+			sourceTree = "<group>";
+		};
+		F4F35E4B1F6AD53B00F3BDA9 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E4C1F6AD53B00F3BDA9 /* TestFiles */,
+				F4F35E9F1F6AD53B00F3BDA9 /* TestFiles_after_fftw3 */,
+				F4F35EA61F6AD53B00F3BDA9 /* TestFiles_before_fftw3 */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		F4F35E4C1F6AD53B00F3BDA9 /* TestFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35E4D1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt */,
+				F4F35E4E1F6AD53B00F3BDA9 /* bestChannel.txt */,
+				F4F35E4F1F6AD53B00F3BDA9 /* bestChannel_1stGood.txt */,
+				F4F35E501F6AD53B00F3BDA9 /* bestChannel_2ndGood.txt */,
+				F4F35E511F6AD53B00F3BDA9 /* bestChannel_BOTHBad.txt */,
+				F4F35E521F6AD53B00F3BDA9 /* bestChannel_BOTHBest.txt */,
+				F4F35E531F6AD53B00F3BDA9 /* Bounds.txt */,
+				F4F35E541F6AD53B00F3BDA9 /* BoundsCalib.txt */,
+				F4F35E551F6AD53B00F3BDA9 /* channelPSD1.txt */,
+				F4F35E561F6AD53B00F3BDA9 /* channelPSD2.txt */,
+				F4F35E571F6AD53B00F3BDA9 /* comp_signal_ch.txt */,
+				F4F35E581F6AD53B00F3BDA9 /* comp_tmp_correctedSignal.txt */,
+				F4F35E591F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.docx */,
+				F4F35E5A1F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf */,
+				F4F35E5B1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.docx */,
+				F4F35E5C1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf */,
+				F4F35E5D1F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.docx */,
+				F4F35E5E1F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf */,
+				F4F35E5F1F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.docx */,
+				F4F35E601F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf */,
+				F4F35E611F6AD53B00F3BDA9 /* correctedSignalch0.txt */,
+				F4F35E621F6AD53B00F3BDA9 /* dataWithoutOutliers.txt */,
+				F4F35E631F6AD53B00F3BDA9 /* fftTransformed.txt */,
+				F4F35E641F6AD53B00F3BDA9 /* frequenciesPSD.txt */,
+				F4F35E651F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt */,
+				F4F35E661F6AD53B00F3BDA9 /* ifftTransformed.txt */,
+				F4F35E671F6AD53B00F3BDA9 /* MBT_Fouriercpp.txt */,
+				F4F35E681F6AD53B00F3BDA9 /* MBT_Fourierh.txt */,
+				F4F35E691F6AD53B00F3BDA9 /* MBT_PWelchComputerV2cpp.txt */,
+				F4F35E6A1F6AD53B00F3BDA9 /* MBT_PWelchComputerV2h.txt */,
+				F4F35E6B1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */,
+				F4F35E6C1F6AD53B00F3BDA9 /* outputBandpass.txt */,
+				F4F35E6D1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt */,
+				F4F35E6E1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P0.txt */,
+				F4F35E6F1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P1.txt */,
+				F4F35E701F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P2.txt */,
+				F4F35E711F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P3.txt */,
+				F4F35E721F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P4.txt */,
+				F4F35E731F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P0.txt */,
+				F4F35E741F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P1.txt */,
+				F4F35E751F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P2.txt */,
+				F4F35E761F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P3.txt */,
+				F4F35E771F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P4.txt */,
+				F4F35E781F6AD53B00F3BDA9 /* Pxx_testComputeSNR.txt */,
+				F4F35E791F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx */,
+				F4F35E7A1F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf */,
+				F4F35E7B1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx */,
+				F4F35E7C1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf */,
+				F4F35E7D1F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf */,
+				F4F35E7E1F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx */,
+				F4F35E7F1F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf */,
+				F4F35E801F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx */,
+				F4F35E811F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf */,
+				F4F35E821F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx */,
+				F4F35E831F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf */,
+				F4F35E841F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx */,
+				F4F35E851F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf */,
+				F4F35E861F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx */,
+				F4F35E871F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf */,
+				F4F35E881F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx */,
+				F4F35E891F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */,
+				F4F35E8A1F6AD53B00F3BDA9 /* SNR.txt */,
+				F4F35E8B1F6AD53B00F3BDA9 /* SNRCalib.txt */,
+				F4F35E8C1F6AD53B00F3BDA9 /* SNRCalib_1stGood.txt */,
+				F4F35E8D1F6AD53B00F3BDA9 /* SNRCalib_2ndGood.txt */,
+				F4F35E8E1F6AD53B00F3BDA9 /* SNRCalib_BOTHBad.txt */,
+				F4F35E8F1F6AD53B00F3BDA9 /* SNRCalib_BOTHBest.txt */,
+				F4F35E901F6AD53B00F3BDA9 /* SNRSession.txt */,
+				F4F35E911F6AD53B00F3BDA9 /* spectreCalib.txt */,
+				F4F35E921F6AD53B00F3BDA9 /* tmp1_dataWithoutOutliers.txt */,
+				F4F35E931F6AD53B00F3BDA9 /* tmp_channelPSD.txt */,
+				F4F35E941F6AD53B00F3BDA9 /* tmp_correctedSignal.txt */,
+				F4F35E951F6AD53B00F3BDA9 /* tmp_dataWithoutOutliers.txt */,
+				F4F35E961F6AD53B00F3BDA9 /* tmp_frequencies.txt */,
+				F4F35E971F6AD53B00F3BDA9 /* tmp_outputBandpass.txt */,
+				F4F35E981F6AD53B00F3BDA9 /* tmp_outputBandpass_test_interp.txt */,
+				F4F35E991F6AD53B00F3BDA9 /* tmp_signal_ch_withoutDC.txt */,
+				F4F35E9A1F6AD53B00F3BDA9 /* tmp_sortiebandpass.txt */,
+				F4F35E9B1F6AD53B00F3BDA9 /* Volum_avec_bandpass.png */,
+				F4F35E9C1F6AD53B00F3BDA9 /* Volum_sans_bandpass.png */,
+				F4F35E9D1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */,
+				F4F35E9E1F6AD53B00F3BDA9 /* writechpsd.txt */,
+			);
+			path = TestFiles;
+			sourceTree = "<group>";
+		};
+		F4F35E9F1F6AD53B00F3BDA9 /* TestFiles_after_fftw3 */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35EA01F6AD53B00F3BDA9 /* bestChannel.txt */,
+				F4F35EA11F6AD53B00F3BDA9 /* BoundsCalib.txt */,
+				F4F35EA21F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */,
+				F4F35EA31F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */,
+				F4F35EA41F6AD53B00F3BDA9 /* SNRCalib.txt */,
+				F4F35EA51F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */,
+			);
+			path = TestFiles_after_fftw3;
+			sourceTree = "<group>";
+		};
+		F4F35EA61F6AD53B00F3BDA9 /* TestFiles_before_fftw3 */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35EA71F6AD53B00F3BDA9 /* bestChannel.txt */,
+				F4F35EA81F6AD53B00F3BDA9 /* BoundsCalib.txt */,
+				F4F35EA91F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt */,
+				F4F35EAA1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt */,
+				F4F35EAB1F6AD53B00F3BDA9 /* SNRCalib.txt */,
+				F4F35EAC1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt */,
+			);
+			path = TestFiles_before_fftw3;
+			sourceTree = "<group>";
+		};
+		F4F35EAD1F6AD53B00F3BDA9 /* QualityChecker */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35EAE1F6AD53B00F3BDA9 /* Cpp */,
+				F4F35EB11F6AD53B00F3BDA9 /* Files */,
+				F4F35EFD1F6AD53B00F3BDA9 /* Headers */,
+				F4F35EFF1F6AD53B00F3BDA9 /* Results */,
+			);
+			path = QualityChecker;
+			sourceTree = "<group>";
+		};
+		F4F35EAE1F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35EAF1F6AD53B00F3BDA9 /* main.cpp */,
+				F4F35EB01F6AD53B00F3BDA9 /* MBT_MainQC.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35EB11F6AD53B00F3BDA9 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35EB21F6AD53B00F3BDA9 /* afterDCRemoval0.txt */,
+				F4F35EB31F6AD53B00F3BDA9 /* afterDCRemoval1.txt */,
+				F4F35EB41F6AD53B00F3BDA9 /* afterDCRemoval2.txt */,
+				F4F35EB51F6AD53B00F3BDA9 /* afterInterp.txt */,
+				F4F35EB61F6AD53B00F3BDA9 /* BuildComputationFeatures_Cplusplus.txt */,
+				F4F35EB71F6AD53B00F3BDA9 /* cleanItakuraDistance.txt */,
+				F4F35EB81F6AD53B00F3BDA9 /* Copy_testFeatures.txt */,
+				F4F35EB91F6AD53B00F3BDA9 /* DebugSignal.txt */,
+				F4F35EBA1F6AD53B00F3BDA9 /* deriv_X_save.txt */,
+				F4F35EBB1F6AD53B00F3BDA9 /* deriv_X_two_save.txt */,
+				F4F35EBC1F6AD53B00F3BDA9 /* derivAeiocha.txt */,
+				F4F35EBD1F6AD53B00F3BDA9 /* fft0.txt */,
+				F4F35EBE1F6AD53B00F3BDA9 /* fft1.txt */,
+				F4F35EBF1F6AD53B00F3BDA9 /* fft2.txt */,
+				F4F35EC01F6AD53B00F3BDA9 /* freqV0.txt */,
+				F4F35EC11F6AD53B00F3BDA9 /* inputData2.txt */,
+				F4F35EC21F6AD53B00F3BDA9 /* inputData3.txt */,
+				F4F35EC31F6AD53B00F3BDA9 /* inputData4.txt */,
+				F4F35EC41F6AD53B00F3BDA9 /* inputData4bis.txt */,
+				F4F35EC51F6AD53B00F3BDA9 /* inputData5.txt */,
+				F4F35EC61F6AD53B00F3BDA9 /* inputData6.txt */,
+				F4F35EC71F6AD53B00F3BDA9 /* inputData7.txt */,
+				F4F35EC81F6AD53B00F3BDA9 /* inputDataNewTest.txt */,
+				F4F35EC91F6AD53B00F3BDA9 /* m_inputData_after_interpolation.txt */,
+				F4F35ECA1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData4.txt */,
+				F4F35ECB1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData5.txt */,
+				F4F35ECC1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData6.txt */,
+				F4F35ECD1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData7.txt */,
+				F4F35ECE1F6AD53B00F3BDA9 /* mu.txt */,
+				F4F35ECF1F6AD53B00F3BDA9 /* mu2.txt */,
+				F4F35ED01F6AD53B00F3BDA9 /* mu4.txt */,
+				F4F35ED11F6AD53B00F3BDA9 /* rawInterpData1.txt */,
+				F4F35ED21F6AD53B00F3BDA9 /* rawInterpData2.txt */,
+				F4F35ED31F6AD53B00F3BDA9 /* rawInterpData3.txt */,
+				F4F35ED41F6AD53B00F3BDA9 /* rawInterpData_after_interpolation.txt */,
+				F4F35ED51F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData4.txt */,
+				F4F35ED61F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData5.txt */,
+				F4F35ED71F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData6.txt */,
+				F4F35ED81F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData7.txt */,
+				F4F35ED91F6AD53B00F3BDA9 /* sigma.txt */,
+				F4F35EDA1F6AD53B00F3BDA9 /* sigma2.txt */,
+				F4F35EDB1F6AD53B00F3BDA9 /* sigma4.txt */,
+				F4F35EDC1F6AD53B00F3BDA9 /* signalAeiocha.txt */,
+				F4F35EDD1F6AD53B00F3BDA9 /* spectrumClean.txt */,
+				F4F35EDE1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P3.txt */,
+				F4F35EDF1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P4.txt */,
+				F4F35EE01F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P3.txt */,
+				F4F35EE11F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P4.txt */,
+				F4F35EE21F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P3.txt */,
+				F4F35EE31F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P4.txt */,
+				F4F35EE41F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P3.txt */,
+				F4F35EE51F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P4.txt */,
+				F4F35EE61F6AD53B00F3BDA9 /* testFeatures2.txt */,
+				F4F35EE71F6AD53B00F3BDA9 /* testGood_MM.txt */,
+				F4F35EE81F6AD53B00F3BDA9 /* trainingClasses.txt */,
+				F4F35EE91F6AD53B00F3BDA9 /* trainingClasses_BrainAmp.txt */,
+				F4F35EEA1F6AD53B00F3BDA9 /* trainingEEG.txt */,
+				F4F35EEB1F6AD53B00F3BDA9 /* trainingEEGMoinsMean.txt */,
+				F4F35EEC1F6AD53B00F3BDA9 /* trainingFeatures.txt */,
+				F4F35EED1F6AD53B00F3BDA9 /* trainingFeatures2.txt */,
+				F4F35EEE1F6AD53B00F3BDA9 /* trainingFeatures3.txt */,
+				F4F35EEF1F6AD53B00F3BDA9 /* trainingFeatures4.txt */,
+				F4F35EF01F6AD53B00F3BDA9 /* trainingFeatures4bis.txt */,
+				F4F35EF11F6AD53B00F3BDA9 /* trainingFeatures_BrainAmp.txt */,
+				F4F35EF21F6AD53B00F3BDA9 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt */,
+				F4F35EF31F6AD53B00F3BDA9 /* trainingInputData_BrainAmp.txt */,
+				F4F35EF41F6AD53B00F3BDA9 /* trainingInputData_BrainAmpVolt.txt */,
+				F4F35EF51F6AD53B00F3BDA9 /* trainingMu_BrainAmp.txt */,
+				F4F35EF61F6AD53B00F3BDA9 /* trainingSigma_BrainAmp.txt */,
+				F4F35EF71F6AD53B00F3BDA9 /* trainingW_BrainAmp.txt */,
+				F4F35EF81F6AD53B00F3BDA9 /* variance.txt */,
+				F4F35EF91F6AD53B00F3BDA9 /* w.txt */,
+				F4F35EFA1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch0.txt */,
+				F4F35EFB1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch1.txt */,
+				F4F35EFC1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch2.txt */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		F4F35EFD1F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35EFE1F6AD53B00F3BDA9 /* MBT_MainQC.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35EFF1F6AD53B00F3BDA9 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F001F6AD53B00F3BDA9 /* Copy_testFeatures.txt */,
+				F4F35F011F6AD53B00F3BDA9 /* outputData2_Cplusplus.txt */,
+				F4F35F021F6AD53B00F3BDA9 /* outputData3_Cplusplus.txt */,
+				F4F35F031F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P3.txt */,
+				F4F35F041F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P4.txt */,
+				F4F35F051F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P3.txt */,
+				F4F35F061F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P4.txt */,
+				F4F35F071F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P3.txt */,
+				F4F35F081F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P4.txt */,
+				F4F35F091F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P3.txt */,
+				F4F35F0A1F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P4.txt */,
+				F4F35F0B1F6AD53B00F3BDA9 /* outputData_testGood_MM.txt */,
+				F4F35F0C1F6AD53B00F3BDA9 /* pasted_image_at_2017_03_03_10_11_am_720.png */,
+				F4F35F0D1F6AD53B00F3BDA9 /* print_signalDelta1.txt */,
+				F4F35F0E1F6AD53B00F3BDA9 /* print_signalDelta2.txt */,
+				F4F35F0F1F6AD53B00F3BDA9 /* print_signalTheta1.txt */,
+				F4F35F101F6AD53B00F3BDA9 /* print_signalTheta2.txt */,
+				F4F35F111F6AD53B00F3BDA9 /* probaClass2_Cplusplus.txt */,
+				F4F35F121F6AD53B00F3BDA9 /* probaClass3_Cplusplus.txt */,
+				F4F35F131F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P3.txt */,
+				F4F35F141F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P4.txt */,
+				F4F35F151F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P3.txt */,
+				F4F35F161F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P4.txt */,
+				F4F35F171F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P3.txt */,
+				F4F35F181F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P4.txt */,
+				F4F35F191F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P3.txt */,
+				F4F35F1A1F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P4.txt */,
+				F4F35F1B1F6AD53B00F3BDA9 /* probaClass_testGood_MM.txt */,
+				F4F35F1C1F6AD53B00F3BDA9 /* quality2_Cplusplus.txt */,
+				F4F35F1D1F6AD53B00F3BDA9 /* quality3_Cplusplus.txt */,
+				F4F35F1E1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P3.txt */,
+				F4F35F1F1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P4.txt */,
+				F4F35F201F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P3.txt */,
+				F4F35F211F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P4.txt */,
+				F4F35F221F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P3.txt */,
+				F4F35F231F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P4.txt */,
+				F4F35F241F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P3.txt */,
+				F4F35F251F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P4.txt */,
+				F4F35F261F6AD53B00F3BDA9 /* quality_testGood_MM.txt */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		F4F35F271F6AD53B00F3BDA9 /* SignalProcessing.Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F281F6AD53B00F3BDA9 /* Algebra */,
+				F4F35F341F6AD53B00F3BDA9 /* DataManipulation */,
+				F4F35F3B1F6AD53B00F3BDA9 /* PreProcessing */,
+				F4F35F491F6AD53B00F3BDA9 /* README.md */,
+				F4F35F4A1F6AD53B00F3BDA9 /* Transformations */,
+				F4F35F591F6AD53B00F3BDA9 /* version.h */,
+			);
+			path = SignalProcessing.Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35F281F6AD53B00F3BDA9 /* Algebra */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F291F6AD53B00F3BDA9 /* Cpp */,
+				F4F35F2F1F6AD53B00F3BDA9 /* Headers */,
+			);
+			path = Algebra;
+			sourceTree = "<group>";
+		};
+		F4F35F291F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F2A1F6AD53B00F3BDA9 /* main.cpp */,
+				F4F35F2B1F6AD53B00F3BDA9 /* MBT_FindClosest.cpp */,
+				F4F35F2C1F6AD53B00F3BDA9 /* MBT_Interpolation.cpp */,
+				F4F35F2D1F6AD53B00F3BDA9 /* MBT_kmeans.cpp */,
+				F4F35F2E1F6AD53B00F3BDA9 /* MBT_Operations.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35F2F1F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F301F6AD53B00F3BDA9 /* MBT_FindClosest.h */,
+				F4F35F311F6AD53B00F3BDA9 /* MBT_Interpolation.h */,
+				F4F35F321F6AD53B00F3BDA9 /* MBT_kmeans.h */,
+				F4F35F331F6AD53B00F3BDA9 /* MBT_Operations.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35F341F6AD53B00F3BDA9 /* DataManipulation */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F351F6AD53B00F3BDA9 /* Cpp */,
+				F4F35F381F6AD53B00F3BDA9 /* Headers */,
+			);
+			path = DataManipulation;
+			sourceTree = "<group>";
+		};
+		F4F35F351F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F361F6AD53B00F3BDA9 /* MBT_Matrix.cpp */,
+				F4F35F371F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35F381F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F391F6AD53B00F3BDA9 /* MBT_Matrix.h */,
+				F4F35F3A1F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35F3B1F6AD53B00F3BDA9 /* PreProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F3C1F6AD53B00F3BDA9 /* Cpp */,
+				F4F35F431F6AD53B00F3BDA9 /* Headers */,
+				F4F35F481F6AD53B00F3BDA9 /* readme.txt */,
+			);
+			path = PreProcessing;
+			sourceTree = "<group>";
+		};
+		F4F35F3C1F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F3D1F6AD53B00F3BDA9 /* Biquad.cpp */,
+				F4F35F3E1F6AD53B00F3BDA9 /* MBT_BandPass.cpp */,
+				F4F35F3F1F6AD53B00F3BDA9 /* MBT_BandPass_Arma.cpp */,
+				F4F35F401F6AD53B00F3BDA9 /* MBT_BandPass_Arma_double.cpp */,
+				F4F35F411F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.cpp */,
+				F4F35F421F6AD53B00F3BDA9 /* MBT_PreProcessing.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35F431F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F441F6AD53B00F3BDA9 /* Biquad.h */,
+				F4F35F451F6AD53B00F3BDA9 /* MBT_BandPass.h */,
+				F4F35F461F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.h */,
+				F4F35F471F6AD53B00F3BDA9 /* MBT_PreProcessing.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35F4A1F6AD53B00F3BDA9 /* Transformations */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F4B1F6AD53B00F3BDA9 /* Cpp */,
+				F4F35F521F6AD53B00F3BDA9 /* Headers */,
+				F4F35F581F6AD53B00F3BDA9 /* readme.txt */,
+			);
+			path = Transformations;
+			sourceTree = "<group>";
+		};
+		F4F35F4B1F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F4C1F6AD53B00F3BDA9 /* main.cpp */,
+				F4F35F4D1F6AD53B00F3BDA9 /* MBT_FFTReal.cpp */,
+				F4F35F4E1F6AD53B00F3BDA9 /* MBT_FindPeak.cpp */,
+				F4F35F4F1F6AD53B00F3BDA9 /* MBT_Fourier.cpp */,
+				F4F35F501F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.cpp */,
+				F4F35F511F6AD53B00F3BDA9 /* MBT_PWelchComputer.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35F521F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F531F6AD53B00F3BDA9 /* MBT_FFTReal.h */,
+				F4F35F541F6AD53B00F3BDA9 /* MBT_FindPeak.h */,
+				F4F35F551F6AD53B00F3BDA9 /* MBT_Fourier.h */,
+				F4F35F561F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.h */,
+				F4F35F571F6AD53B00F3BDA9 /* MBT_PWelchComputer.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35F5A1F6AD53B00F3BDA9 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F5B1F6AD53B00F3BDA9 /* SNR */,
+				F4F35F671F6AD53B00F3BDA9 /* TimeFrequency */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		F4F35F5B1F6AD53B00F3BDA9 /* SNR */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F5C1F6AD53B00F3BDA9 /* Cpp */,
+				F4F35F5E1F6AD53B00F3BDA9 /* Files */,
+				F4F35F651F6AD53B00F3BDA9 /* Headers */,
+			);
+			path = SNR;
+			sourceTree = "<group>";
+		};
+		F4F35F5C1F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F5D1F6AD53B00F3BDA9 /* MBT_SNR_Stats.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35F5E1F6AD53B00F3BDA9 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F5F1F6AD53B00F3BDA9 /* SNRTest1.txt */,
+				F4F35F601F6AD53B00F3BDA9 /* SNRTest2.txt */,
+				F4F35F611F6AD53B00F3BDA9 /* SNRTest4.txt */,
+				F4F35F621F6AD53B00F3BDA9 /* SNRTest6.txt */,
+				F4F35F631F6AD53B00F3BDA9 /* SNRTest8.txt */,
+				F4F35F641F6AD53B00F3BDA9 /* SNRTest9.txt */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		F4F35F651F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F661F6AD53B00F3BDA9 /* MBT_SNR_Stats.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35F671F6AD53B00F3BDA9 /* TimeFrequency */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F681F6AD53B00F3BDA9 /* Cpp */,
+				F4F35F701F6AD53B00F3BDA9 /* Files */,
+				F4F35F7D1F6AD53B00F3BDA9 /* Headers */,
+				F4F35F821F6AD53B00F3BDA9 /* Results */,
+			);
+			path = TimeFrequency;
+			sourceTree = "<group>";
+		};
+		F4F35F681F6AD53B00F3BDA9 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F691F6AD53B00F3BDA9 /* compile.sh */,
+				F4F35F6A1F6AD53B00F3BDA9 /* exec */,
+				F4F35F6B1F6AD53B00F3BDA9 /* main.cpp */,
+				F4F35F6C1F6AD53B00F3BDA9 /* MBT_Contour.cpp */,
+				F4F35F6D1F6AD53B00F3BDA9 /* MBT_FinalClustering.cpp */,
+				F4F35F6E1F6AD53B00F3BDA9 /* MBT_TF_map.cpp */,
+				F4F35F6F1F6AD53B00F3BDA9 /* MBT_TF_Stats.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F35F701F6AD53B00F3BDA9 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F711F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch1.txt */,
+				F4F35F721F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch2.txt */,
+				F4F35F731F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch1.txt */,
+				F4F35F741F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch2.txt */,
+				F4F35F751F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch1.txt */,
+				F4F35F761F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch2.txt */,
+				F4F35F771F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch1.txt */,
+				F4F35F781F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2.txt */,
+				F4F35F791F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt */,
+				F4F35F7A1F6AD53B00F3BDA9 /* Etienne.txt */,
+				F4F35F7B1F6AD53B00F3BDA9 /* NP2Ch1FiltCalib.txt */,
+				F4F35F7C1F6AD53B00F3BDA9 /* NP2Ch1FiltSession.txt */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		F4F35F7D1F6AD53B00F3BDA9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F7E1F6AD53B00F3BDA9 /* MBT_Contour.h */,
+				F4F35F7F1F6AD53B00F3BDA9 /* MBT_FinalClustering.h */,
+				F4F35F801F6AD53B00F3BDA9 /* MBT_TF_map.h */,
+				F4F35F811F6AD53B00F3BDA9 /* MBT_TF_Stats.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F35F821F6AD53B00F3BDA9 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				F4F35F831F6AD53B00F3BDA9 /* Results_Arma */,
+				F4F35F841F6AD53B00F3BDA9 /* Results_Emma */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -400,7 +1895,35 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F360C31F6AD53B00F3BDA9 /* MBT_FindPeak.h in Headers */,
+				F4F360C41F6AD53B00F3BDA9 /* MBT_Fourier.h in Headers */,
+				F4F35FB31F6AD53B00F3BDA9 /* MBT_ComputeSNR.h in Headers */,
+				F4F360E71F6AD53B00F3BDA9 /* MBT_TF_Stats.h in Headers */,
+				F4F360B91F6AD53B00F3BDA9 /* MBT_PreProcessing.h in Headers */,
+				F4F35FB21F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.h in Headers */,
+				F4F360B71F6AD53B00F3BDA9 /* MBT_BandPass.h in Headers */,
+				F4F360A81F6AD53B00F3BDA9 /* MBT_FindClosest.h in Headers */,
+				F4F360AE1F6AD53B00F3BDA9 /* MBT_Matrix.h in Headers */,
 				3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
+				F4F360AB1F6AD53B00F3BDA9 /* MBT_Operations.h in Headers */,
+				F4F35FB51F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.h in Headers */,
+				F4F360C21F6AD53B00F3BDA9 /* MBT_FFTReal.h in Headers */,
+				F4F360AF1F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.h in Headers */,
+				F4F360C81F6AD53B00F3BDA9 /* version.h in Headers */,
+				F4F35FB41F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.h in Headers */,
+				F4F360B81F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.h in Headers */,
+				F4F360E51F6AD53B00F3BDA9 /* MBT_FinalClustering.h in Headers */,
+				F4F3607B1F6AD53B00F3BDA9 /* MBT_MainQC.h in Headers */,
+				F4F360A91F6AD53B00F3BDA9 /* MBT_Interpolation.h in Headers */,
+				F4F35FB11F6AD53B00F3BDA9 /* MBT_ComputeCalibration.h in Headers */,
+				F4F35FB61F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.h in Headers */,
+				F4F360B61F6AD53B00F3BDA9 /* Biquad.h in Headers */,
+				F4F360E41F6AD53B00F3BDA9 /* MBT_Contour.h in Headers */,
+				F4F360C51F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.h in Headers */,
+				F4F360AA1F6AD53B00F3BDA9 /* MBT_kmeans.h in Headers */,
+				F4F360D01F6AD53B00F3BDA9 /* MBT_SNR_Stats.h in Headers */,
+				F4F360C61F6AD53B00F3BDA9 /* MBT_PWelchComputer.h in Headers */,
+				F4F360E61F6AD53B00F3BDA9 /* MBT_TF_map.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +2155,300 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F360871F6AD53B00F3BDA9 /* outputData_testGood_MM.txt in Resources */,
+				F4F35F9F1F6AD53B00F3BDA9 /* inputData2.txt in Resources */,
+				F4F35FA31F6AD53B00F3BDA9 /* sessionPb.txt in Resources */,
+				F4F35F8E1F6AD53B00F3BDA9 /* calibPbQuality.txt in Resources */,
+				F4F360461F6AD53B00F3BDA9 /* inputDataNewTest.txt in Resources */,
+				F4F360111F6AD53B00F3BDA9 /* SNRCalib_BOTHBad.txt in Resources */,
+				F4F360DF1F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2.txt in Resources */,
+				F4F35FBE1F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */,
+				F4F3605C1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P3.txt in Resources */,
+				F4F360DB1F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch2.txt in Resources */,
+				F4F360E21F6AD53B00F3BDA9 /* NP2Ch1FiltCalib.txt in Resources */,
+				F4F360951F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P3.txt in Resources */,
+				F4F3601A1F6AD53B00F3BDA9 /* tmp_outputBandpass.txt in Resources */,
+				F4F35FDD1F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf in Resources */,
+				F4F360261F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */,
+				F4F3605E1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P3.txt in Resources */,
+				F4F35FE21F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.docx in Resources */,
+				F4F360E01F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt in Resources */,
+				F4F35FEB1F6AD53B00F3BDA9 /* MBT_Fourierh.txt in Resources */,
+				F4F360221F6AD53B00F3BDA9 /* bestChannel.txt in Resources */,
+				F4F360601F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P3.txt in Resources */,
+				F4F360521F6AD53B00F3BDA9 /* rawInterpData_after_interpolation.txt in Resources */,
+				F4F360431F6AD53B00F3BDA9 /* inputData5.txt in Resources */,
+				F4F360931F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P3.txt in Resources */,
+				F4F360071F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx in Resources */,
+				F4F3609C1F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P3.txt in Resources */,
+				F4F3600D1F6AD53B00F3BDA9 /* SNR.txt in Resources */,
+				F4F360281F6AD53B00F3BDA9 /* bestChannel.txt in Resources */,
+				F4F3600A1F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf in Resources */,
+				F4F360621F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P3.txt in Resources */,
+				F4F3606E1F6AD53B00F3BDA9 /* trainingFeatures4bis.txt in Resources */,
+				F4F35FD11F6AD53B00F3BDA9 /* bestChannel.txt in Resources */,
+				F4F360171F6AD53B00F3BDA9 /* tmp_correctedSignal.txt in Resources */,
+				F4F360861F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P4.txt in Resources */,
+				F4F35FAB1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */,
+				F4F3601E1F6AD53B00F3BDA9 /* Volum_avec_bandpass.png in Resources */,
+				F4F35FBD1F6AD53B00F3BDA9 /* bestChannel.txt in Resources */,
+				F4F360031F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx in Resources */,
+				F4F35FBF1F6AD53B00F3BDA9 /* README.txt.txt in Resources */,
+				F4F3608A1F6AD53B00F3BDA9 /* print_signalDelta2.txt in Resources */,
+				F4F35FE31F6AD53B00F3BDA9 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf in Resources */,
+				F4F360321F6AD53B00F3BDA9 /* afterDCRemoval2.txt in Resources */,
+				F4F35F9E1F6AD53B00F3BDA9 /* inputData.txt in Resources */,
+				F4F360341F6AD53B00F3BDA9 /* BuildComputationFeatures_Cplusplus.txt in Resources */,
+				F4F360811F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P3.txt in Resources */,
+				F4F35FF81F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P2.txt in Resources */,
+				F4F35FDB1F6AD53B00F3BDA9 /* comp_tmp_correctedSignal.txt in Resources */,
+				F4F360DC1F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch1.txt in Resources */,
+				F4F360851F6AD53B00F3BDA9 /* outputData_MM_NOEL_VIN_P3.txt in Resources */,
+				F4F35FE41F6AD53B00F3BDA9 /* correctedSignalch0.txt in Resources */,
+				F4F35FEA1F6AD53B00F3BDA9 /* MBT_Fouriercpp.txt in Resources */,
+				F4F35FFE1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx in Resources */,
+				F4F3608B1F6AD53B00F3BDA9 /* print_signalTheta1.txt in Resources */,
+				F4F35F951F6AD53B00F3BDA9 /* calibrationRecordingsQuality_2ndGood.txt in Resources */,
+				F4F360751F6AD53B00F3BDA9 /* trainingW_BrainAmp.txt in Resources */,
+				F4F35FD01F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt in Resources */,
+				F4F35FC11F6AD53B00F3BDA9 /* calibrationRecordings5s.txt in Resources */,
+				F4F35FBA1F6AD53B00F3BDA9 /* BeforeSmoothingSNRCalib.txt in Resources */,
+				F4F360DD1F6AD53B00F3BDA9 /* ArduinoData1606ecVR6_Ch2.txt in Resources */,
+				F4F360001F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf in Resources */,
+				F4F3603F1F6AD53B00F3BDA9 /* inputData2.txt in Resources */,
+				F4F3601D1F6AD53B00F3BDA9 /* tmp_sortiebandpass.txt in Resources */,
+				F4F360361F6AD53B00F3BDA9 /* Copy_testFeatures.txt in Resources */,
+				F4F3606F1F6AD53B00F3BDA9 /* trainingFeatures_BrainAmp.txt in Resources */,
+				F4F35FE51F6AD53B00F3BDA9 /* dataWithoutOutliers.txt in Resources */,
+				F4F360711F6AD53B00F3BDA9 /* trainingInputData_BrainAmp.txt in Resources */,
+				F4F35FC91F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */,
+				F4F35FB71F6AD53B00F3BDA9 /* README.txt.txt in Resources */,
+				F4F35FFA1F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P4.txt in Resources */,
+				F4F35FB81F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */,
+				F4F35FFD1F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf in Resources */,
+				F4F360571F6AD53B00F3BDA9 /* sigma.txt in Resources */,
+				F4F360651F6AD53B00F3BDA9 /* testGood_MM.txt in Resources */,
+				F4F35FF01F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt in Resources */,
+				F4F360141F6AD53B00F3BDA9 /* spectreCalib.txt in Resources */,
+				F4F35F921F6AD53B00F3BDA9 /* calibrationRecordings5s.txt in Resources */,
+				F4F3604C1F6AD53B00F3BDA9 /* mu.txt in Resources */,
+				F4F3609B1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P4.txt in Resources */,
+				F4F360E81F6AD53B00F3BDA9 /* Results_Arma in Resources */,
+				F4F35F961F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */,
+				F4F35FAC1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */,
+				F4F360881F6AD53B00F3BDA9 /* pasted_image_at_2017_03_03_10_11_am_720.png in Resources */,
+				F4F3601B1F6AD53B00F3BDA9 /* tmp_outputBandpass_test_interp.txt in Resources */,
+				F4F360CF1F6AD53B00F3BDA9 /* SNRTest9.txt in Resources */,
+				F4F35FED1F6AD53B00F3BDA9 /* MBT_PWelchComputerV2h.txt in Resources */,
+				F4F360971F6AD53B00F3BDA9 /* probaClass_testGood_MM.txt in Resources */,
+				F4F360181F6AD53B00F3BDA9 /* tmp_dataWithoutOutliers.txt in Resources */,
+				F4F3604A1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData6.txt in Resources */,
+				F4F3604D1F6AD53B00F3BDA9 /* mu2.txt in Resources */,
+				F4F360311F6AD53B00F3BDA9 /* afterDCRemoval1.txt in Resources */,
+				F4F360151F6AD53B00F3BDA9 /* tmp1_dataWithoutOutliers.txt in Resources */,
+				F4F35FFF1F6AD53B00F3BDA9 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf in Resources */,
+				F4F35FDE1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.docx in Resources */,
+				F4F3609A1F6AD53B00F3BDA9 /* quality_MM_NOEL_KEV2_P3.txt in Resources */,
+				F4F35FA71F6AD53B00F3BDA9 /* trueCalibrationRecordingsBugEtienne.txt in Resources */,
+				F4F360231F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */,
+				F4F3602B1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */,
+				F4F35FC81F6AD53B00F3BDA9 /* README.txt.txt in Resources */,
+				F4F360241F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */,
+				F4F3605B1F6AD53B00F3BDA9 /* spectrumClean.txt in Resources */,
+				F4F3606C1F6AD53B00F3BDA9 /* trainingFeatures3.txt in Resources */,
+				F4F3600C1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */,
+				F4F360701F6AD53B00F3BDA9 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt in Resources */,
+				F4F35FAA1F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */,
+				F4F360961F6AD53B00F3BDA9 /* probaClass_MM_NOEL_VIN_P4.txt in Resources */,
+				F4F3600F1F6AD53B00F3BDA9 /* SNRCalib_1stGood.txt in Resources */,
+				F4F35FAD1F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */,
+				F4F35FDC1F6AD53B00F3BDA9 /* ComputeSNR_v1.0_2017_01_23_FAG.docx in Resources */,
+				F4F3606B1F6AD53B00F3BDA9 /* trainingFeatures2.txt in Resources */,
+				F4F360531F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData4.txt in Resources */,
+				F4F35FF21F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P1.txt in Resources */,
+				F4F360331F6AD53B00F3BDA9 /* afterInterp.txt in Resources */,
+				F4F35FF71F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P1.txt in Resources */,
+				F4F35FD81F6AD53B00F3BDA9 /* channelPSD1.txt in Resources */,
+				F4F3603B1F6AD53B00F3BDA9 /* fft0.txt in Resources */,
+				F4F35FCF1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
+				F4F35FF61F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P0.txt in Resources */,
+				F4F3607F1F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P3.txt in Resources */,
+				F4F360691F6AD53B00F3BDA9 /* trainingEEGMoinsMean.txt in Resources */,
+				F4F360E31F6AD53B00F3BDA9 /* NP2Ch1FiltSession.txt in Resources */,
+				F4F3605D1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KEV2_P4.txt in Resources */,
+				F4F3603A1F6AD53B00F3BDA9 /* derivAeiocha.txt in Resources */,
+				F4F3607D1F6AD53B00F3BDA9 /* outputData2_Cplusplus.txt in Resources */,
+				F4F3606A1F6AD53B00F3BDA9 /* trainingFeatures.txt in Resources */,
+				F4F360791F6AD53B00F3BDA9 /* write_rawInterpData_row_ch1.txt in Resources */,
+				F4F35FDF1F6AD53B00F3BDA9 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf in Resources */,
+				F4F35F8D1F6AD53B00F3BDA9 /* calibPb.txt in Resources */,
+				F4F35FEE1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */,
+				F4F360921F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P4.txt in Resources */,
+				F4F35F8F1F6AD53B00F3BDA9 /* calibPbtest.txt in Resources */,
+				F4F360081F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf in Resources */,
+				F4F360411F6AD53B00F3BDA9 /* inputData4.txt in Resources */,
+				F4F360911F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KIN2_P3.txt in Resources */,
+				F4F35FA81F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */,
+				F4F360391F6AD53B00F3BDA9 /* deriv_X_two_save.txt in Resources */,
+				F4F360371F6AD53B00F3BDA9 /* DebugSignal.txt in Resources */,
+				F4F35FCB1F6AD53B00F3BDA9 /* README.txt.txt in Resources */,
+				F4F360721F6AD53B00F3BDA9 /* trainingInputData_BrainAmpVolt.txt in Resources */,
+				F4F360041F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf in Resources */,
+				F4F35FF51F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P4.txt in Resources */,
+				F4F360E11F6AD53B00F3BDA9 /* Etienne.txt in Resources */,
+				F4F360A21F6AD53B00F3BDA9 /* quality_testGood_MM.txt in Resources */,
+				F4F35FBC1F6AD53B00F3BDA9 /* plotdataWithoutOutliers.txt in Resources */,
+				F4F360981F6AD53B00F3BDA9 /* quality2_Cplusplus.txt in Resources */,
+				F4F360421F6AD53B00F3BDA9 /* inputData4bis.txt in Resources */,
+				F4F360061F6AD53B00F3BDA9 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf in Resources */,
+				F4F35FC51F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */,
+				F4F360BA1F6AD53B00F3BDA9 /* readme.txt in Resources */,
+				F4F3608E1F6AD53B00F3BDA9 /* probaClass3_Cplusplus.txt in Resources */,
+				F4F360401F6AD53B00F3BDA9 /* inputData3.txt in Resources */,
+				F4F35FD31F6AD53B00F3BDA9 /* bestChannel_2ndGood.txt in Resources */,
+				F4F35FD51F6AD53B00F3BDA9 /* bestChannel_BOTHBest.txt in Resources */,
+				F4F360131F6AD53B00F3BDA9 /* SNRSession.txt in Resources */,
+				F4F35FCD1F6AD53B00F3BDA9 /* SNRSession.txt in Resources */,
+				F4F3600B1F6AD53B00F3BDA9 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx in Resources */,
+				F4F360D11F6AD53B00F3BDA9 /* compile.sh in Resources */,
+				F4F35FF11F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P0.txt in Resources */,
+				F4F35FBB1F6AD53B00F3BDA9 /* correctedSignalch0.txt in Resources */,
+				F4F35FCC1F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */,
+				F4F360891F6AD53B00F3BDA9 /* print_signalDelta1.txt in Resources */,
+				F4F3605F1F6AD53B00F3BDA9 /* testBad_MM_NOEL_KIN2_P4.txt in Resources */,
+				F4F360301F6AD53B00F3BDA9 /* afterDCRemoval0.txt in Resources */,
+				F4F360D21F6AD53B00F3BDA9 /* exec in Resources */,
+				F4F360631F6AD53B00F3BDA9 /* testBad_MM_NOEL_VIN_P4.txt in Resources */,
+				F4F35FD61F6AD53B00F3BDA9 /* Bounds.txt in Resources */,
+				F4F35FEC1F6AD53B00F3BDA9 /* MBT_PWelchComputerV2cpp.txt in Resources */,
+				F4F35F971F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBest.txt in Resources */,
+				F4F360941F6AD53B00F3BDA9 /* probaClass_MM_NOEL_MAR4_P4.txt in Resources */,
+				F4F35FCE1F6AD53B00F3BDA9 /* README.txt.txt in Resources */,
+				F4F360021F6AD53B00F3BDA9 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf in Resources */,
+				F4F360581F6AD53B00F3BDA9 /* sigma2.txt in Resources */,
+				F4F360CD1F6AD53B00F3BDA9 /* SNRTest6.txt in Resources */,
+				F4F360291F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */,
+				F4F360641F6AD53B00F3BDA9 /* testFeatures2.txt in Resources */,
+				F4F360DE1F6AD53B00F3BDA9 /* ArduinoData1606ecVR7_Ch1.txt in Resources */,
+				F4F35FD91F6AD53B00F3BDA9 /* channelPSD2.txt in Resources */,
+				F4F360501F6AD53B00F3BDA9 /* rawInterpData2.txt in Resources */,
+				F4F360351F6AD53B00F3BDA9 /* cleanItakuraDistance.txt in Resources */,
+				F4F35FE61F6AD53B00F3BDA9 /* fftTransformed.txt in Resources */,
+				F4F360561F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData7.txt in Resources */,
+				F4F360CE1F6AD53B00F3BDA9 /* SNRTest8.txt in Resources */,
+				F4F35F9B1F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt in Resources */,
+				F4F360381F6AD53B00F3BDA9 /* deriv_X_save.txt in Resources */,
+				F4F35FB91F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */,
+				F4F35FF41F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P3.txt in Resources */,
+				F4F35F9C1F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt in Resources */,
+				F4F35F911F6AD53B00F3BDA9 /* calibrationRecordings.txt in Resources */,
+				F4F35F981F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt in Resources */,
+				F4F35F9D1F6AD53B00F3BDA9 /* InputBandpass.txt in Resources */,
+				F4F360D91F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch2.txt in Resources */,
+				F4F360831F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P3.txt in Resources */,
+				F4F3609F1F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P4.txt in Resources */,
+				F4F3604E1F6AD53B00F3BDA9 /* mu4.txt in Resources */,
+				F4F360771F6AD53B00F3BDA9 /* w.txt in Resources */,
+				F4F3603E1F6AD53B00F3BDA9 /* freqV0.txt in Resources */,
+				F4F360671F6AD53B00F3BDA9 /* trainingClasses_BrainAmp.txt in Resources */,
+				F4F3602A1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */,
+				F4F3607A1F6AD53B00F3BDA9 /* write_rawInterpData_row_ch2.txt in Resources */,
+				F4F360C71F6AD53B00F3BDA9 /* readme.txt in Resources */,
+				F4F3607C1F6AD53B00F3BDA9 /* Copy_testFeatures.txt in Resources */,
+				F4F360541F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData5.txt in Resources */,
+				F4F360191F6AD53B00F3BDA9 /* tmp_frequencies.txt in Resources */,
+				F4F360DA1F6AD53B00F3BDA9 /* ArduinoData1606ecNP_Ch1.txt in Resources */,
+				F4F360121F6AD53B00F3BDA9 /* SNRCalib_BOTHBest.txt in Resources */,
+				F4F360681F6AD53B00F3BDA9 /* trainingEEG.txt in Resources */,
+				F4F35FB01F6AD53B00F3BDA9 /* trueSessionRecordings.txt in Resources */,
+				F4F360901F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P4.txt in Resources */,
+				F4F35FFB1F6AD53B00F3BDA9 /* Pxx_testComputeSNR.txt in Resources */,
+				F4F35FC61F6AD53B00F3BDA9 /* README.txt.txt in Resources */,
+				F4F3604F1F6AD53B00F3BDA9 /* rawInterpData1.txt in Resources */,
+				F4F360CB1F6AD53B00F3BDA9 /* SNRTest2.txt in Resources */,
+				F4F35FD41F6AD53B00F3BDA9 /* bestChannel_BOTHBad.txt in Resources */,
+				F4F360481F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData4.txt in Resources */,
+				F4F35FC31F6AD53B00F3BDA9 /* README.txt.txt in Resources */,
+				F4F35FA91F6AD53B00F3BDA9 /* trueCalibrationRecordingsQualityBugEtienne.txt in Resources */,
+				F4F360251F6AD53B00F3BDA9 /* SmoothedSNRSession.txt in Resources */,
+				F4F360011F6AD53B00F3BDA9 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx in Resources */,
+				F4F360051F6AD53B00F3BDA9 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx in Resources */,
+				F4F35FE11F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf in Resources */,
+				F4F360CA1F6AD53B00F3BDA9 /* SNRTest1.txt in Resources */,
+				F4F360451F6AD53B00F3BDA9 /* inputData7.txt in Resources */,
+				F4F35FCA1F6AD53B00F3BDA9 /* NormalizedSmoothedSNRSession.txt in Resources */,
+				F4F3602C1F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */,
+				F4F35FE81F6AD53B00F3BDA9 /* goodCalibrationRecordings.txt in Resources */,
+				F4F35FE71F6AD53B00F3BDA9 /* frequenciesPSD.txt in Resources */,
+				F4F3606D1F6AD53B00F3BDA9 /* trainingFeatures4.txt in Resources */,
+				F4F35FA51F6AD53B00F3BDA9 /* testDCremoval2.txt in Resources */,
+				F4F35FF31F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch0P2.txt in Resources */,
+				F4F3602D1F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
+				F4F360511F6AD53B00F3BDA9 /* rawInterpData3.txt in Resources */,
+				F4F35FD21F6AD53B00F3BDA9 /* bestChannel_1stGood.txt in Resources */,
+				F4F360491F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData5.txt in Resources */,
+				F4F3601F1F6AD53B00F3BDA9 /* Volum_sans_bandpass.png in Resources */,
+				F4F360821F6AD53B00F3BDA9 /* outputData_MM_NOEL_KIN2_P4.txt in Resources */,
+				F4F3609E1F6AD53B00F3BDA9 /* quality_MM_NOEL_MAR4_P3.txt in Resources */,
+				F4F35FAF1F6AD53B00F3BDA9 /* trueCalibrationRecordingsQuality.txt in Resources */,
+				F4F35FC41F6AD53B00F3BDA9 /* bestChannel.txt in Resources */,
+				F4F360091F6AD53B00F3BDA9 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx in Resources */,
+				F4F35FFC1F6AD53B00F3BDA9 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx in Resources */,
+				F4F3608F1F6AD53B00F3BDA9 /* probaClass_MM_NOEL_KEV2_P3.txt in Resources */,
+				F4F35FE01F6AD53B00F3BDA9 /* ComputeSNR_v3.0_2017_02_02_FAG.docx in Resources */,
+				F4F360781F6AD53B00F3BDA9 /* write_rawInterpData_row_ch0.txt in Resources */,
+				F4F360661F6AD53B00F3BDA9 /* trainingClasses.txt in Resources */,
+				F4F35FF91F6AD53B00F3BDA9 /* Pxx_testComputeCalibration_Ch1P3.txt in Resources */,
+				F4F3608C1F6AD53B00F3BDA9 /* print_signalTheta2.txt in Resources */,
+				F4F360101F6AD53B00F3BDA9 /* SNRCalib_2ndGood.txt in Resources */,
+				F4F35FA21F6AD53B00F3BDA9 /* inputNAN.txt in Resources */,
+				F4F360D81F6AD53B00F3BDA9 /* ArduinoData1606ecNP2_Ch1.txt in Resources */,
+				F4F360991F6AD53B00F3BDA9 /* quality3_Cplusplus.txt in Resources */,
+				F4F35F9A1F6AD53B00F3BDA9 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt in Resources */,
+				F4F360551F6AD53B00F3BDA9 /* rawInterpData_after_interpolation_inputData6.txt in Resources */,
+				F4F35FA41F6AD53B00F3BDA9 /* testDCremoval.txt in Resources */,
+				F4F35FC71F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */,
+				F4F360A11F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P4.txt in Resources */,
+				F4F35FA61F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */,
+				F4F35F901F6AD53B00F3BDA9 /* calibPbtestQuality.txt in Resources */,
+				F4F360591F6AD53B00F3BDA9 /* sigma4.txt in Resources */,
+				F4F3600E1F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */,
+				F4F35FA11F6AD53B00F3BDA9 /* inputForPwelch.txt in Resources */,
+				F4F3604B1F6AD53B00F3BDA9 /* m_inputData_after_interpolation_inputData7.txt in Resources */,
+				F4F360841F6AD53B00F3BDA9 /* outputData_MM_NOEL_MAR4_P4.txt in Resources */,
+				F4F3601C1F6AD53B00F3BDA9 /* tmp_signal_ch_withoutDC.txt in Resources */,
+				F4F360761F6AD53B00F3BDA9 /* variance.txt in Resources */,
+				F4F35FC01F6AD53B00F3BDA9 /* SNRCalib.txt in Resources */,
+				F4F360441F6AD53B00F3BDA9 /* inputData6.txt in Resources */,
+				F4F3607E1F6AD53B00F3BDA9 /* outputData3_Cplusplus.txt in Resources */,
+				F4F360161F6AD53B00F3BDA9 /* tmp_channelPSD.txt in Resources */,
+				F4F360731F6AD53B00F3BDA9 /* trainingMu_BrainAmp.txt in Resources */,
+				F4F3603D1F6AD53B00F3BDA9 /* fft2.txt in Resources */,
+				F4F35F941F6AD53B00F3BDA9 /* calibrationRecordingsQuality_1stGood.txt in Resources */,
+				F4F35FD71F6AD53B00F3BDA9 /* BoundsCalib.txt in Resources */,
+				F4F3605A1F6AD53B00F3BDA9 /* signalAeiocha.txt in Resources */,
+				F4F360801F6AD53B00F3BDA9 /* outputData_MM_NOEL_KEV2_P4.txt in Resources */,
+				F4F35FAE1F6AD53B00F3BDA9 /* trueCalibrationRecordings.txt in Resources */,
+				F4F360611F6AD53B00F3BDA9 /* testBad_MM_NOEL_MAR4_P4.txt in Resources */,
+				F4F360E91F6AD53B00F3BDA9 /* Results_Emma in Resources */,
+				F4F360471F6AD53B00F3BDA9 /* m_inputData_after_interpolation.txt in Resources */,
+				F4F360CC1F6AD53B00F3BDA9 /* SNRTest4.txt in Resources */,
+				F4F360201F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
+				F4F3608D1F6AD53B00F3BDA9 /* probaClass2_Cplusplus.txt in Resources */,
+				F4F35F931F6AD53B00F3BDA9 /* calibrationRecordingsQuality.txt in Resources */,
+				F4F35FA01F6AD53B00F3BDA9 /* inputData3.txt in Resources */,
+				F4F360741F6AD53B00F3BDA9 /* trainingSigma_BrainAmp.txt in Resources */,
+				F4F360A01F6AD53B00F3BDA9 /* quality_MM_NOEL_VIN_P3.txt in Resources */,
+				F4F360211F6AD53B00F3BDA9 /* writechpsd.txt in Resources */,
+				F4F35F991F6AD53B00F3BDA9 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt in Resources */,
+				F4F35F8C1F6AD53B00F3BDA9 /* Calib_4s.txt in Resources */,
+				F4F360271F6AD53B00F3BDA9 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
+				F4F35FDA1F6AD53B00F3BDA9 /* comp_signal_ch.txt in Resources */,
+				F4F3609D1F6AD53B00F3BDA9 /* quality_MM_NOEL_KIN2_P4.txt in Resources */,
+				F4F35FC21F6AD53B00F3BDA9 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */,
+				F4F35FE91F6AD53B00F3BDA9 /* ifftTransformed.txt in Resources */,
+				F4F35FEF1F6AD53B00F3BDA9 /* outputBandpass.txt in Resources */,
+				F4F3603C1F6AD53B00F3BDA9 /* fft1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,19 +2519,54 @@
 			buildActionMask = 2147483647;
 			files = (
 				F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */,
+				F4F3602F1F6AD53B00F3BDA9 /* MBT_MainQC.cpp in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
+				F4F35F8A1F6AD53B00F3BDA9 /* MBT_RelaxIndexToVolum.cpp in Sources */,
+				F4F35F8B1F6AD53B00F3BDA9 /* MBT_SmoothRelaxIndex.cpp in Sources */,
+				F4F360C91F6AD53B00F3BDA9 /* MBT_SNR_Stats.cpp in Sources */,
+				F4F3602E1F6AD53B00F3BDA9 /* main.cpp in Sources */,
+				F4F35F861F6AD53B00F3BDA9 /* MBT_ComputeCalibration.cpp in Sources */,
+				F4F360D61F6AD53B00F3BDA9 /* MBT_TF_map.cpp in Sources */,
 				F40CDF271F2F6B4B00515A91 /* MBTJSONHelper.swift in Sources */,
+				F4F360B51F6AD53B00F3BDA9 /* MBT_PreProcessing.cpp in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
+				F4F360A71F6AD53B00F3BDA9 /* MBT_Operations.cpp in Sources */,
+				F4F360A41F6AD53B00F3BDA9 /* MBT_FindClosest.cpp in Sources */,
+				F4F360A51F6AD53B00F3BDA9 /* MBT_Interpolation.cpp in Sources */,
+				F4F360BD1F6AD53B00F3BDA9 /* MBT_FFTReal.cpp in Sources */,
 				F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */,
 				F40CDF291F2F818F00515A91 /* MBTBrainWebHelper.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */,
+				F4F360B11F6AD53B00F3BDA9 /* MBT_BandPass.cpp in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
+				F4F360AD1F6AD53B00F3BDA9 /* MBT_ReadInputOrWriteOutput.cpp in Sources */,
+				F4F35F851F6AD53B00F3BDA9 /* main.cpp in Sources */,
+				F4F360A31F6AD53B00F3BDA9 /* main.cpp in Sources */,
+				F4F360AC1F6AD53B00F3BDA9 /* MBT_Matrix.cpp in Sources */,
+				F4F360C11F6AD53B00F3BDA9 /* MBT_PWelchComputer.cpp in Sources */,
+				F4F35F871F6AD53B00F3BDA9 /* MBT_ComputeRelaxIndex.cpp in Sources */,
 				F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */,
+				F4F360B31F6AD53B00F3BDA9 /* MBT_BandPass_Arma_double.cpp in Sources */,
+				F4F35F891F6AD53B00F3BDA9 /* MBT_NormalizeRelaxIndex.cpp in Sources */,
+				F4F360B21F6AD53B00F3BDA9 /* MBT_BandPass_Arma.cpp in Sources */,
 				F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */,
+				F4F35F881F6AD53B00F3BDA9 /* MBT_ComputeSNR.cpp in Sources */,
+				F4F360BB1F6AD53B00F3BDA9 /* README.md in Sources */,
 				F41D0C141F02A7650081AA7B /* MBTAcquisitionDelegate.swift in Sources */,
 				F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */,
+				F4F360BC1F6AD53B00F3BDA9 /* main.cpp in Sources */,
+				F4F360BF1F6AD53B00F3BDA9 /* MBT_Fourier.cpp in Sources */,
 				F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */,
+				F4F360D41F6AD53B00F3BDA9 /* MBT_Contour.cpp in Sources */,
+				F4F360D31F6AD53B00F3BDA9 /* main.cpp in Sources */,
+				F4F360D51F6AD53B00F3BDA9 /* MBT_FinalClustering.cpp in Sources */,
+				F4F360A61F6AD53B00F3BDA9 /* MBT_kmeans.cpp in Sources */,
 				F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */,
+				F4F360BE1F6AD53B00F3BDA9 /* MBT_FindPeak.cpp in Sources */,
+				F4F360D71F6AD53B00F3BDA9 /* MBT_TF_Stats.cpp in Sources */,
+				F4F360B01F6AD53B00F3BDA9 /* Biquad.cpp in Sources */,
+				F4F360B41F6AD53B00F3BDA9 /* MBT_BandPass_fftw3.cpp in Sources */,
+				F4F360C01F6AD53B00F3BDA9 /* MBT_Fourier_fftw3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
