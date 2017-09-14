@@ -11,13 +11,7 @@
       location = "group:Cartfile.private">
    </FileRef>
    <FileRef
-      location = "group:MyBrainTechnologiesSDK.podspec">
-   </FileRef>
-   <FileRef
       location = "group:LICENSE">
-   </FileRef>
-   <FileRef
-      location = "group:Package.swift">
    </FileRef>
    <FileRef
       location = "group:Readme.md">
