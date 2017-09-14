@@ -1,0 +1,152 @@
+//
+//  MBT_ComputeSNR.cpp
+//
+//  Created by Fanny Grosselin on 03/01/2017.
+//  Copyright (c) 2017 myBrain Technologies. All rights reserved.
+//
+
+#include "..\Headers\MBT_ComputeSNR.h"
+
+
+std::vector<float> MBT_ComputeSNR(MBT_Matrix<float> signal, const float sampRate, const float IAFinf, const float IAFsup, const int packetIndex, const int bestChannelIndex)
+{
+    if (signal.size().first >= 0 & signal.size().second >= 0)
+    {
+    /*MBT_Matrix<float> correctedSignal = MBT_trendCorrection(signal,sampRate); // Correct the signal to avoid 1/f trend of the spectrum
+    MBT_PWelchComputer psd = MBT_PWelchComputer(correctedSignal, sampRate, "RECT"); // Compute spectrum
+    std::vector<float> frequencies = psd.get_PSD(0); //Extract the frequencies for the psd
+    */
+
+    /*MBT_Matrix<float> psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeSNR.txt");
+    std::vector<float> frequencies = psd.row (0); //Extract the frequencies for the psd*/
+
+    // Test MBT_ComputeCalibration
+    MBT_Matrix<float> psd;
+    std::vector<float> frequencies;
+    if (bestChannelIndex==0)
+    {
+        if (packetIndex==0)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch0P0.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==1)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch0P1.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==2)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch0P2.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==3)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch0P3.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==4)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch0P4.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+    }
+    else if (bestChannelIndex==1)
+    {
+        if (packetIndex==0)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch1P0.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==1)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch1P1.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==2)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch1P2.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==3)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch1P3.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+        else if (packetIndex==4)
+        {
+            psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeCalibration_Ch1P4.txt");
+            frequencies = psd.row (0); //Extract the frequencies for the psd
+        }
+    }
+    // ----------------------------------------------------------------------------------------
+
+    // Find the first index of the frequencies which is higher or equal to IAFinf
+    // and find the last index of the frequencies which is lower or equal to IAFsup
+    std::pair<int,int> freqBounds = MBT_frequencyBounds(frequencies, IAFinf, IAFsup);
+    int n_f7 = freqBounds.first;
+    int n_f13 = freqBounds.second;
+
+
+    std::vector<float> SNR;
+    SNR.assign(signal.size().first,0);
+    for (int channel=0; channel<signal.size().first; channel++)
+    {
+        // Find the value and the index of EEG peak into the range [IAFinf:IAFsup]
+        std::vector<float> channelPSD = psd.row(channel + 1);
+        //std::vector<float> channelPSD = psd.get_PSD(channel + 1);
+
+        float alphaMax = MBT_valMaxPeak(channelPSD, n_f7, n_f13);
+        int peakIndex = MBT_indMaxPeak(channelPSD, n_f7, n_f13);
+        std::cout<<"alphaMax = "<<alphaMax<<" at index : "<<peakIndex<<std::endl;
+
+
+        // Estimate the EEG noise by linear interpolation
+        int iFlow = peakIndex - 4;
+        int iFup = peakIndex + 4;
+        float Flow = frequencies[iFlow];
+        float Fup = frequencies[iFup];
+        std::vector<float> n_x; // indexes of known values (n_x)
+        std::vector<float> n_v; // values of known values (n_v)
+        for (int i = iFlow-3; i<iFlow +1; i++) // assign the index of known values (n_x)
+        {
+            n_x.push_back(i);
+            n_v.push_back(channelPSD[i]);
+        }
+        for (int i = iFup; i<iFup+3 +1; i++) // assign the values of known values (n_v)
+        {
+            n_x.push_back(i);
+            n_v.push_back(channelPSD[i]);
+        }
+        std::vector<float> n_xq; // assign the index of interpolated values (n_xq)
+        for (int i = iFlow+1; i<iFup-1 +1; i++)
+        {
+            n_xq.push_back(i);
+        }
+        std::vector<float> n_vq = MBT_linearInterp(n_x, n_v, n_xq);  // find the interpolated values (n_vq)
+        float estimatedNoise = n_vq[4];
+        std::cout<<"Estimated noise = "<<estimatedNoise<<std::endl;
+
+
+        // Compute SNR
+        float snr = alphaMax/estimatedNoise;
+        if (snr<1)
+        {
+            snr = 1;
+        }
+        SNR[channel] = snr;
+        std::cout<<"SNR = "<<SNR[channel]<<std::endl;
+    }
+
+    return SNR;
+
+    }
+    else
+    {
+        // Return NaN values to be handled in case of problem into MBT_ComputeSNR
+        std::vector<float> SNR;
+        SNR.push_back(nan(" "));
+        errno = EINVAL;
+        perror("ERROR: Incorrect signal in input in MBT_ComputeSNR");
+    }
+}
