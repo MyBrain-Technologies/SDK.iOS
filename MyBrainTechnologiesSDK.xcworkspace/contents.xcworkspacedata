@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MyBrainTechnologiesSDK.xcodeproj">
+      location = "absolute:MyBrainTechnologiesSDK.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Cartfile">
