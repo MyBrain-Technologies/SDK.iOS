@@ -14,7 +14,7 @@ float MBT_SmoothRelaxIndex(std::vector<float> tmp_pastRelaxIndexes)
     double smoothedRelaxIndex;
 	std::vector<double> pastRelaxIndexes(tmp_pastRelaxIndexes.begin(),tmp_pastRelaxIndexes.end());
 
-    int sizePastRelaxIndexes = pastRelaxIndexes.size();
+    int sizePastRelaxIndexes = int(pastRelaxIndexes.size());
 
     if (sizePastRelaxIndexes > 0)
     {
@@ -139,7 +139,7 @@ float MBT_SmoothRelaxIndex(std::vector<float> tmp_pastRelaxIndexes)
                 smoothedRelaxIndex = mean(pastRelaxIndexesWithoutInfNaN);
             }
         }
-        else if (sizePastRelaxIndexes >= 4)
+        else
         {
             // count the number of inf and nan
             int counterInf = 0;

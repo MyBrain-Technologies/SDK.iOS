@@ -25,7 +25,7 @@ float MBT_RelaxIndexToVolum(const float smoothedRelaxIndex)
     }
     else
     {
-        float rescale = tanh(smoothedRelaxIndex); // rescale between -1 and 1
+        float rescale = float(tanh(smoothedRelaxIndex)); // rescale between -1 and 1
         rescale = rescale + 1; // rescale between 0 and 2
         rescale = rescale/2; // rescale between 0 and 1
         volum = 1 - rescale;
