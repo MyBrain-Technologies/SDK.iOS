@@ -25,283 +25,13 @@
 		F40E029E1F6C17A40055E296 /* MBT_NormalizeRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01071F6C17A40055E296 /* MBT_NormalizeRelaxIndex.cpp */; };
 		F40E029F1F6C17A40055E296 /* MBT_RelaxIndexToVolum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01081F6C17A40055E296 /* MBT_RelaxIndexToVolum.cpp */; };
 		F40E02A01F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01091F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp */; };
-		F40E02A11F6C17A40055E296 /* Calib_4s.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E010C1F6C17A40055E296 /* Calib_4s.txt */; };
-		F40E02A21F6C17A40055E296 /* calibPb.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E010D1F6C17A40055E296 /* calibPb.txt */; };
-		F40E02A31F6C17A40055E296 /* calibPbQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E010E1F6C17A40055E296 /* calibPbQuality.txt */; };
-		F40E02A41F6C17A40055E296 /* calibPbtest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E010F1F6C17A40055E296 /* calibPbtest.txt */; };
-		F40E02A51F6C17A40055E296 /* calibPbtestQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01101F6C17A40055E296 /* calibPbtestQuality.txt */; };
-		F40E02A61F6C17A40055E296 /* calibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01111F6C17A40055E296 /* calibrationRecordings.txt */; };
-		F40E02A71F6C17A40055E296 /* calibrationRecordings5s.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01121F6C17A40055E296 /* calibrationRecordings5s.txt */; };
-		F40E02A81F6C17A40055E296 /* calibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01131F6C17A40055E296 /* calibrationRecordingsQuality.txt */; };
-		F40E02A91F6C17A40055E296 /* calibrationRecordingsQuality_1stGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01141F6C17A40055E296 /* calibrationRecordingsQuality_1stGood.txt */; };
-		F40E02AA1F6C17A40055E296 /* calibrationRecordingsQuality_2ndGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01151F6C17A40055E296 /* calibrationRecordingsQuality_2ndGood.txt */; };
-		F40E02AB1F6C17A40055E296 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01161F6C17A40055E296 /* calibrationRecordingsQuality_BOTHBad.txt */; };
-		F40E02AC1F6C17A40055E296 /* calibrationRecordingsQuality_BOTHBest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01171F6C17A40055E296 /* calibrationRecordingsQuality_BOTHBest.txt */; };
-		F40E02AD1F6C17A40055E296 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01181F6C17A40055E296 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt */; };
-		F40E02AE1F6C17A40055E296 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01191F6C17A40055E296 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt */; };
-		F40E02AF1F6C17A40055E296 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E011A1F6C17A40055E296 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt */; };
-		F40E02B01F6C17A40055E296 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E011B1F6C17A40055E296 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt */; };
-		F40E02B11F6C17A40055E296 /* goodCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E011C1F6C17A40055E296 /* goodCalibrationRecordings.txt */; };
-		F40E02B21F6C17A40055E296 /* InputBandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E011D1F6C17A40055E296 /* InputBandpass.txt */; };
-		F40E02B31F6C17A40055E296 /* inputData.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E011E1F6C17A40055E296 /* inputData.txt */; };
-		F40E02B41F6C17A40055E296 /* inputData2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E011F1F6C17A40055E296 /* inputData2.txt */; };
-		F40E02B51F6C17A40055E296 /* inputData3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01201F6C17A40055E296 /* inputData3.txt */; };
-		F40E02B61F6C17A40055E296 /* inputForPwelch.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01211F6C17A40055E296 /* inputForPwelch.txt */; };
-		F40E02B71F6C17A40055E296 /* inputNAN.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01221F6C17A40055E296 /* inputNAN.txt */; };
-		F40E02B81F6C17A40055E296 /* sessionPb.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01231F6C17A40055E296 /* sessionPb.txt */; };
-		F40E02B91F6C17A40055E296 /* testDCremoval.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01241F6C17A40055E296 /* testDCremoval.txt */; };
-		F40E02BA1F6C17A40055E296 /* testDCremoval2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01251F6C17A40055E296 /* testDCremoval2.txt */; };
-		F40E02BB1F6C17A40055E296 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01261F6C17A40055E296 /* trueCalibrationRecordings.txt */; };
-		F40E02BC1F6C17A40055E296 /* trueCalibrationRecordingsBugEtienne.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01271F6C17A40055E296 /* trueCalibrationRecordingsBugEtienne.txt */; };
-		F40E02BD1F6C17A40055E296 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01281F6C17A40055E296 /* trueCalibrationRecordingsQuality.txt */; };
-		F40E02BE1F6C17A50055E296 /* trueCalibrationRecordingsQualityBugEtienne.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01291F6C17A40055E296 /* trueCalibrationRecordingsQualityBugEtienne.txt */; };
-		F40E02BF1F6C17A50055E296 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E012A1F6C17A40055E296 /* trueSessionRecordings.txt */; };
-		F40E02C01F6C17A50055E296 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E012C1F6C17A40055E296 /* trueCalibrationRecordings.txt */; };
-		F40E02C11F6C17A50055E296 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E012D1F6C17A40055E296 /* trueCalibrationRecordingsQuality.txt */; };
-		F40E02C21F6C17A50055E296 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E012E1F6C17A40055E296 /* trueSessionRecordings.txt */; };
-		F40E02C31F6C17A50055E296 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01301F6C17A40055E296 /* trueCalibrationRecordings.txt */; };
-		F40E02C41F6C17A50055E296 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01311F6C17A40055E296 /* trueCalibrationRecordingsQuality.txt */; };
-		F40E02C51F6C17A50055E296 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01321F6C17A40055E296 /* trueSessionRecordings.txt */; };
 		F40E02C61F6C17A50055E296 /* MBT_ComputeCalibration.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01341F6C17A40055E296 /* MBT_ComputeCalibration.h */; };
 		F40E02C71F6C17A50055E296 /* MBT_ComputeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01351F6C17A40055E296 /* MBT_ComputeRelaxIndex.h */; };
 		F40E02C81F6C17A50055E296 /* MBT_ComputeSNR.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01361F6C17A40055E296 /* MBT_ComputeSNR.h */; };
 		F40E02C91F6C17A50055E296 /* MBT_NormalizeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01371F6C17A40055E296 /* MBT_NormalizeRelaxIndex.h */; };
 		F40E02CA1F6C17A50055E296 /* MBT_RelaxIndexToVolum.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01381F6C17A40055E296 /* MBT_RelaxIndexToVolum.h */; };
 		F40E02CB1F6C17A50055E296 /* MBT_SmoothRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01391F6C17A40055E296 /* MBT_SmoothRelaxIndex.h */; };
-		F40E02CC1F6C17A50055E296 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E013E1F6C17A40055E296 /* README.txt.txt */; };
-		F40E02CD1F6C17A50055E296 /* trueCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E013F1F6C17A40055E296 /* trueCalibrationRecordings.txt */; };
-		F40E02CE1F6C17A50055E296 /* trueCalibrationRecordingsQuality.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01401F6C17A40055E296 /* trueCalibrationRecordingsQuality.txt */; };
-		F40E02CF1F6C17A50055E296 /* BeforeSmoothingSNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01421F6C17A40055E296 /* BeforeSmoothingSNRCalib.txt */; };
-		F40E02D01F6C17A50055E296 /* correctedSignalch0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01431F6C17A40055E296 /* correctedSignalch0.txt */; };
-		F40E02D11F6C17A50055E296 /* plotdataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01441F6C17A40055E296 /* plotdataWithoutOutliers.txt */; };
-		F40E02D21F6C17A50055E296 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01461F6C17A40055E296 /* bestChannel.txt */; };
-		F40E02D31F6C17A50055E296 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01471F6C17A40055E296 /* BoundsCalib.txt */; };
-		F40E02D41F6C17A50055E296 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01481F6C17A40055E296 /* README.txt.txt */; };
-		F40E02D51F6C17A50055E296 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01491F6C17A40055E296 /* SNRCalib.txt */; };
-		F40E02D61F6C17A50055E296 /* calibrationRecordings5s.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E014C1F6C17A40055E296 /* calibrationRecordings5s.txt */; };
-		F40E02D71F6C17A50055E296 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E014D1F6C17A40055E296 /* calibrationRecordingsQuality_BOTHBad.txt */; };
-		F40E02D81F6C17A50055E296 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E014E1F6C17A40055E296 /* README.txt.txt */; };
-		F40E02D91F6C17A50055E296 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01501F6C17A40055E296 /* bestChannel.txt */; };
-		F40E02DA1F6C17A50055E296 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01511F6C17A40055E296 /* BoundsCalib.txt */; };
-		F40E02DB1F6C17A50055E296 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01521F6C17A40055E296 /* README.txt.txt */; };
-		F40E02DC1F6C17A50055E296 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01531F6C17A40055E296 /* SNRCalib.txt */; };
-		F40E02DD1F6C17A50055E296 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01561F6C17A40055E296 /* README.txt.txt */; };
-		F40E02DE1F6C17A50055E296 /* trueSessionRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01571F6C17A40055E296 /* trueSessionRecordings.txt */; };
-		F40E02DF1F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01591F6C17A40055E296 /* NormalizedSmoothedSNRSession.txt */; };
-		F40E02E01F6C17A50055E296 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E015A1F6C17A40055E296 /* README.txt.txt */; };
-		F40E02E11F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E015B1F6C17A40055E296 /* SmoothedSNRSession.txt */; };
-		F40E02E21F6C17A50055E296 /* SNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E015C1F6C17A40055E296 /* SNRSession.txt */; };
-		F40E02E31F6C17A50055E296 /* README.txt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E015E1F6C17A40055E296 /* README.txt.txt */; };
-		F40E02E41F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E015F1F6C17A40055E296 /* VolumNormalizedSmoothedSNRSession.txt */; };
-		F40E02E51F6C17A50055E296 /* BeforeSmoothingSNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01621F6C17A40055E296 /* BeforeSmoothingSNRCalib.txt */; };
-		F40E02E61F6C17A50055E296 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01631F6C17A40055E296 /* bestChannel.txt */; };
-		F40E02E71F6C17A50055E296 /* bestChannel_1stGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01641F6C17A40055E296 /* bestChannel_1stGood.txt */; };
-		F40E02E81F6C17A50055E296 /* bestChannel_2ndGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01651F6C17A40055E296 /* bestChannel_2ndGood.txt */; };
-		F40E02E91F6C17A50055E296 /* bestChannel_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01661F6C17A40055E296 /* bestChannel_BOTHBad.txt */; };
-		F40E02EA1F6C17A50055E296 /* bestChannel_BOTHBest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01671F6C17A40055E296 /* bestChannel_BOTHBest.txt */; };
-		F40E02EB1F6C17A50055E296 /* Bounds.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01681F6C17A40055E296 /* Bounds.txt */; };
-		F40E02EC1F6C17A50055E296 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01691F6C17A40055E296 /* BoundsCalib.txt */; };
-		F40E02ED1F6C17A50055E296 /* channelPSD1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E016A1F6C17A40055E296 /* channelPSD1.txt */; };
-		F40E02EE1F6C17A50055E296 /* channelPSD2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E016B1F6C17A40055E296 /* channelPSD2.txt */; };
-		F40E02EF1F6C17A50055E296 /* comp_signal_ch.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E016C1F6C17A40055E296 /* comp_signal_ch.txt */; };
-		F40E02F01F6C17A50055E296 /* comp_tmp_correctedSignal.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E016D1F6C17A40055E296 /* comp_tmp_correctedSignal.txt */; };
-		F40E02F11F6C17A50055E296 /* ComputeSNR_v1.0_2017_01_23_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F40E016E1F6C17A40055E296 /* ComputeSNR_v1.0_2017_01_23_FAG.docx */; };
-		F40E02F21F6C17A50055E296 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E016F1F6C17A40055E296 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf */; };
-		F40E02F31F6C17A50055E296 /* ComputeSNR_v2.0_2017_01_30_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01701F6C17A40055E296 /* ComputeSNR_v2.0_2017_01_30_FAG.docx */; };
-		F40E02F41F6C17A50055E296 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01711F6C17A40055E296 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf */; };
-		F40E02F51F6C17A50055E296 /* ComputeSNR_v3.0_2017_02_02_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01721F6C17A40055E296 /* ComputeSNR_v3.0_2017_02_02_FAG.docx */; };
-		F40E02F61F6C17A50055E296 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01731F6C17A40055E296 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf */; };
-		F40E02F71F6C17A50055E296 /* ComputeSNR_v4.0_2017_02_27_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01741F6C17A40055E296 /* ComputeSNR_v4.0_2017_02_27_FAG.docx */; };
-		F40E02F81F6C17A50055E296 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01751F6C17A40055E296 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf */; };
-		F40E02F91F6C17A50055E296 /* correctedSignalch0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01761F6C17A40055E296 /* correctedSignalch0.txt */; };
-		F40E02FA1F6C17A50055E296 /* dataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01771F6C17A40055E296 /* dataWithoutOutliers.txt */; };
-		F40E02FB1F6C17A50055E296 /* fftTransformed.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01781F6C17A40055E296 /* fftTransformed.txt */; };
-		F40E02FC1F6C17A50055E296 /* frequenciesPSD.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01791F6C17A40055E296 /* frequenciesPSD.txt */; };
-		F40E02FD1F6C17A50055E296 /* goodCalibrationRecordings.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E017A1F6C17A40055E296 /* goodCalibrationRecordings.txt */; };
-		F40E02FE1F6C17A50055E296 /* ifftTransformed.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E017B1F6C17A40055E296 /* ifftTransformed.txt */; };
-		F40E02FF1F6C17A50055E296 /* MBT_Fouriercpp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E017C1F6C17A40055E296 /* MBT_Fouriercpp.txt */; };
-		F40E03001F6C17A50055E296 /* MBT_Fourierh.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E017D1F6C17A40055E296 /* MBT_Fourierh.txt */; };
-		F40E03011F6C17A50055E296 /* MBT_PWelchComputerV2cpp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E017E1F6C17A40055E296 /* MBT_PWelchComputerV2cpp.txt */; };
-		F40E03021F6C17A50055E296 /* MBT_PWelchComputerV2h.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E017F1F6C17A40055E296 /* MBT_PWelchComputerV2h.txt */; };
-		F40E03031F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01801F6C17A40055E296 /* NormalizedSmoothedSNRSession.txt */; };
-		F40E03041F6C17A50055E296 /* outputBandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01811F6C17A40055E296 /* outputBandpass.txt */; };
-		F40E03051F6C17A50055E296 /* plotdataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01821F6C17A40055E296 /* plotdataWithoutOutliers.txt */; };
-		F40E03061F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01831F6C17A40055E296 /* Pxx_testComputeCalibration_Ch0P0.txt */; };
-		F40E03071F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01841F6C17A40055E296 /* Pxx_testComputeCalibration_Ch0P1.txt */; };
-		F40E03081F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01851F6C17A40055E296 /* Pxx_testComputeCalibration_Ch0P2.txt */; };
-		F40E03091F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01861F6C17A40055E296 /* Pxx_testComputeCalibration_Ch0P3.txt */; };
-		F40E030A1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01871F6C17A40055E296 /* Pxx_testComputeCalibration_Ch0P4.txt */; };
-		F40E030B1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01881F6C17A40055E296 /* Pxx_testComputeCalibration_Ch1P0.txt */; };
-		F40E030C1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01891F6C17A40055E296 /* Pxx_testComputeCalibration_Ch1P1.txt */; };
-		F40E030D1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E018A1F6C17A40055E296 /* Pxx_testComputeCalibration_Ch1P2.txt */; };
-		F40E030E1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E018B1F6C17A40055E296 /* Pxx_testComputeCalibration_Ch1P3.txt */; };
-		F40E030F1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E018C1F6C17A40055E296 /* Pxx_testComputeCalibration_Ch1P4.txt */; };
-		F40E03101F6C17A50055E296 /* Pxx_testComputeSNR.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E018D1F6C17A40055E296 /* Pxx_testComputeSNR.txt */; };
-		F40E03111F6C17A50055E296 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F40E018E1F6C17A40055E296 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx */; };
-		F40E03121F6C17A50055E296 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E018F1F6C17A40055E296 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf */; };
-		F40E03131F6C17A50055E296 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01901F6C17A40055E296 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx */; };
-		F40E03141F6C17A50055E296 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01911F6C17A40055E296 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf */; };
-		F40E03151F6C17A50055E296 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01921F6C17A40055E296 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf */; };
-		F40E03161F6C17A50055E296 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01931F6C17A40055E296 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx */; };
-		F40E03171F6C17A50055E296 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01941F6C17A40055E296 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf */; };
-		F40E03181F6C17A50055E296 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01951F6C17A40055E296 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx */; };
-		F40E03191F6C17A50055E296 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01961F6C17A40055E296 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf */; };
-		F40E031A1F6C17A50055E296 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01971F6C17A40055E296 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx */; };
-		F40E031B1F6C17A50055E296 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E01981F6C17A40055E296 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf */; };
-		F40E031C1F6C17A50055E296 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F40E01991F6C17A40055E296 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx */; };
-		F40E031D1F6C17A50055E296 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E019A1F6C17A40055E296 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf */; };
-		F40E031E1F6C17A50055E296 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F40E019B1F6C17A40055E296 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx */; };
-		F40E031F1F6C17A50055E296 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F40E019C1F6C17A40055E296 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf */; };
-		F40E03201F6C17A50055E296 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx in Resources */ = {isa = PBXBuildFile; fileRef = F40E019D1F6C17A40055E296 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx */; };
-		F40E03211F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E019E1F6C17A40055E296 /* SmoothedSNRSession.txt */; };
-		F40E03221F6C17A50055E296 /* SNR.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E019F1F6C17A40055E296 /* SNR.txt */; };
-		F40E03231F6C17A50055E296 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A01F6C17A40055E296 /* SNRCalib.txt */; };
-		F40E03241F6C17A50055E296 /* SNRCalib_1stGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A11F6C17A40055E296 /* SNRCalib_1stGood.txt */; };
-		F40E03251F6C17A50055E296 /* SNRCalib_2ndGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A21F6C17A40055E296 /* SNRCalib_2ndGood.txt */; };
-		F40E03261F6C17A50055E296 /* SNRCalib_BOTHBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A31F6C17A40055E296 /* SNRCalib_BOTHBad.txt */; };
-		F40E03271F6C17A50055E296 /* SNRCalib_BOTHBest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A41F6C17A40055E296 /* SNRCalib_BOTHBest.txt */; };
-		F40E03281F6C17A50055E296 /* SNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A51F6C17A40055E296 /* SNRSession.txt */; };
-		F40E03291F6C17A50055E296 /* spectreCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A61F6C17A40055E296 /* spectreCalib.txt */; };
-		F40E032A1F6C17A50055E296 /* tmp1_dataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A71F6C17A40055E296 /* tmp1_dataWithoutOutliers.txt */; };
-		F40E032B1F6C17A50055E296 /* tmp_channelPSD.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A81F6C17A40055E296 /* tmp_channelPSD.txt */; };
-		F40E032C1F6C17A50055E296 /* tmp_correctedSignal.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01A91F6C17A40055E296 /* tmp_correctedSignal.txt */; };
-		F40E032D1F6C17A50055E296 /* tmp_dataWithoutOutliers.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01AA1F6C17A40055E296 /* tmp_dataWithoutOutliers.txt */; };
-		F40E032E1F6C17A50055E296 /* tmp_frequencies.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01AB1F6C17A40055E296 /* tmp_frequencies.txt */; };
-		F40E032F1F6C17A50055E296 /* tmp_outputBandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01AC1F6C17A40055E296 /* tmp_outputBandpass.txt */; };
-		F40E03301F6C17A50055E296 /* tmp_outputBandpass_test_interp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01AD1F6C17A40055E296 /* tmp_outputBandpass_test_interp.txt */; };
-		F40E03311F6C17A50055E296 /* tmp_signal_ch_withoutDC.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01AE1F6C17A40055E296 /* tmp_signal_ch_withoutDC.txt */; };
-		F40E03321F6C17A50055E296 /* tmp_sortiebandpass.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01AF1F6C17A40055E296 /* tmp_sortiebandpass.txt */; };
-		F40E03331F6C17A50055E296 /* Volum_avec_bandpass.png in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B01F6C17A40055E296 /* Volum_avec_bandpass.png */; };
-		F40E03341F6C17A50055E296 /* Volum_sans_bandpass.png in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B11F6C17A40055E296 /* Volum_sans_bandpass.png */; };
-		F40E03351F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B21F6C17A40055E296 /* VolumNormalizedSmoothedSNRSession.txt */; };
-		F40E03361F6C17A50055E296 /* writechpsd.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B31F6C17A40055E296 /* writechpsd.txt */; };
-		F40E03371F6C17A50055E296 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B51F6C17A40055E296 /* bestChannel.txt */; };
-		F40E03381F6C17A50055E296 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B61F6C17A40055E296 /* BoundsCalib.txt */; };
-		F40E03391F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B71F6C17A40055E296 /* NormalizedSmoothedSNRSession.txt */; };
-		F40E033A1F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B81F6C17A40055E296 /* SmoothedSNRSession.txt */; };
-		F40E033B1F6C17A50055E296 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01B91F6C17A40055E296 /* SNRCalib.txt */; };
-		F40E033C1F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01BA1F6C17A40055E296 /* VolumNormalizedSmoothedSNRSession.txt */; };
-		F40E033D1F6C17A50055E296 /* bestChannel.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01BC1F6C17A40055E296 /* bestChannel.txt */; };
-		F40E033E1F6C17A50055E296 /* BoundsCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01BD1F6C17A40055E296 /* BoundsCalib.txt */; };
-		F40E033F1F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01BE1F6C17A40055E296 /* NormalizedSmoothedSNRSession.txt */; };
-		F40E03401F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01BF1F6C17A40055E296 /* SmoothedSNRSession.txt */; };
-		F40E03411F6C17A50055E296 /* SNRCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01C01F6C17A40055E296 /* SNRCalib.txt */; };
-		F40E03421F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01C11F6C17A40055E296 /* VolumNormalizedSmoothedSNRSession.txt */; };
-		F40E03451F6C17A50055E296 /* afterDCRemoval0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01C71F6C17A40055E296 /* afterDCRemoval0.txt */; };
-		F40E03461F6C17A50055E296 /* afterDCRemoval1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01C81F6C17A40055E296 /* afterDCRemoval1.txt */; };
-		F40E03471F6C17A50055E296 /* afterDCRemoval2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01C91F6C17A40055E296 /* afterDCRemoval2.txt */; };
-		F40E03481F6C17A50055E296 /* afterInterp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CA1F6C17A40055E296 /* afterInterp.txt */; };
-		F40E03491F6C17A50055E296 /* BuildComputationFeatures_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CB1F6C17A40055E296 /* BuildComputationFeatures_Cplusplus.txt */; };
-		F40E034A1F6C17A50055E296 /* cleanItakuraDistance.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CC1F6C17A40055E296 /* cleanItakuraDistance.txt */; };
-		F40E034B1F6C17A50055E296 /* Copy_testFeatures.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CD1F6C17A40055E296 /* Copy_testFeatures.txt */; };
-		F40E034C1F6C17A50055E296 /* DebugSignal.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CE1F6C17A40055E296 /* DebugSignal.txt */; };
-		F40E034D1F6C17A50055E296 /* deriv_X_save.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CF1F6C17A40055E296 /* deriv_X_save.txt */; };
-		F40E034E1F6C17A50055E296 /* deriv_X_two_save.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D01F6C17A40055E296 /* deriv_X_two_save.txt */; };
-		F40E034F1F6C17A50055E296 /* derivAeiocha.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D11F6C17A40055E296 /* derivAeiocha.txt */; };
-		F40E03501F6C17A50055E296 /* fft0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D21F6C17A40055E296 /* fft0.txt */; };
-		F40E03511F6C17A50055E296 /* fft1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D31F6C17A40055E296 /* fft1.txt */; };
-		F40E03521F6C17A50055E296 /* fft2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D41F6C17A40055E296 /* fft2.txt */; };
-		F40E03531F6C17A50055E296 /* freqV0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D51F6C17A40055E296 /* freqV0.txt */; };
-		F40E03541F6C17A50055E296 /* inputData2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D61F6C17A40055E296 /* inputData2.txt */; };
-		F40E03551F6C17A50055E296 /* inputData3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D71F6C17A40055E296 /* inputData3.txt */; };
-		F40E03561F6C17A50055E296 /* inputData4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D81F6C17A40055E296 /* inputData4.txt */; };
-		F40E03571F6C17A50055E296 /* inputData4bis.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01D91F6C17A40055E296 /* inputData4bis.txt */; };
-		F40E03581F6C17A50055E296 /* inputData5.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01DA1F6C17A40055E296 /* inputData5.txt */; };
-		F40E03591F6C17A50055E296 /* inputData6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01DB1F6C17A40055E296 /* inputData6.txt */; };
-		F40E035A1F6C17A50055E296 /* inputData7.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01DC1F6C17A40055E296 /* inputData7.txt */; };
-		F40E035B1F6C17A50055E296 /* inputDataNewTest.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01DD1F6C17A40055E296 /* inputDataNewTest.txt */; };
-		F40E035C1F6C17A50055E296 /* m_inputData_after_interpolation.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01DE1F6C17A40055E296 /* m_inputData_after_interpolation.txt */; };
-		F40E035D1F6C17A50055E296 /* m_inputData_after_interpolation_inputData4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01DF1F6C17A40055E296 /* m_inputData_after_interpolation_inputData4.txt */; };
-		F40E035E1F6C17A50055E296 /* m_inputData_after_interpolation_inputData5.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E01F6C17A40055E296 /* m_inputData_after_interpolation_inputData5.txt */; };
-		F40E035F1F6C17A50055E296 /* m_inputData_after_interpolation_inputData6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E11F6C17A40055E296 /* m_inputData_after_interpolation_inputData6.txt */; };
-		F40E03601F6C17A50055E296 /* m_inputData_after_interpolation_inputData7.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E21F6C17A40055E296 /* m_inputData_after_interpolation_inputData7.txt */; };
-		F40E03611F6C17A50055E296 /* mu.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E31F6C17A40055E296 /* mu.txt */; };
-		F40E03621F6C17A50055E296 /* mu2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E41F6C17A40055E296 /* mu2.txt */; };
-		F40E03631F6C17A50055E296 /* mu4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E51F6C17A40055E296 /* mu4.txt */; };
-		F40E03641F6C17A50055E296 /* rawInterpData1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E61F6C17A40055E296 /* rawInterpData1.txt */; };
-		F40E03651F6C17A50055E296 /* rawInterpData2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E71F6C17A40055E296 /* rawInterpData2.txt */; };
-		F40E03661F6C17A50055E296 /* rawInterpData3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E81F6C17A40055E296 /* rawInterpData3.txt */; };
-		F40E03671F6C17A50055E296 /* rawInterpData_after_interpolation.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01E91F6C17A40055E296 /* rawInterpData_after_interpolation.txt */; };
-		F40E03681F6C17A50055E296 /* rawInterpData_after_interpolation_inputData4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01EA1F6C17A40055E296 /* rawInterpData_after_interpolation_inputData4.txt */; };
-		F40E03691F6C17A50055E296 /* rawInterpData_after_interpolation_inputData5.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01EB1F6C17A40055E296 /* rawInterpData_after_interpolation_inputData5.txt */; };
-		F40E036A1F6C17A50055E296 /* rawInterpData_after_interpolation_inputData6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01EC1F6C17A40055E296 /* rawInterpData_after_interpolation_inputData6.txt */; };
-		F40E036B1F6C17A50055E296 /* rawInterpData_after_interpolation_inputData7.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01ED1F6C17A40055E296 /* rawInterpData_after_interpolation_inputData7.txt */; };
-		F40E036C1F6C17A50055E296 /* sigma.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01EE1F6C17A40055E296 /* sigma.txt */; };
-		F40E036D1F6C17A50055E296 /* sigma2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01EF1F6C17A40055E296 /* sigma2.txt */; };
-		F40E036E1F6C17A50055E296 /* sigma4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F01F6C17A40055E296 /* sigma4.txt */; };
-		F40E036F1F6C17A50055E296 /* signalAeiocha.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F11F6C17A40055E296 /* signalAeiocha.txt */; };
-		F40E03701F6C17A50055E296 /* spectrumClean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F21F6C17A40055E296 /* spectrumClean.txt */; };
-		F40E03711F6C17A50055E296 /* testBad_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F31F6C17A40055E296 /* testBad_MM_NOEL_KEV2_P3.txt */; };
-		F40E03721F6C17A50055E296 /* testBad_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F41F6C17A40055E296 /* testBad_MM_NOEL_KEV2_P4.txt */; };
-		F40E03731F6C17A50055E296 /* testBad_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F51F6C17A40055E296 /* testBad_MM_NOEL_KIN2_P3.txt */; };
-		F40E03741F6C17A50055E296 /* testBad_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F61F6C17A40055E296 /* testBad_MM_NOEL_KIN2_P4.txt */; };
-		F40E03751F6C17A50055E296 /* testBad_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F71F6C17A40055E296 /* testBad_MM_NOEL_MAR4_P3.txt */; };
-		F40E03761F6C17A50055E296 /* testBad_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F81F6C17A40055E296 /* testBad_MM_NOEL_MAR4_P4.txt */; };
-		F40E03771F6C17A50055E296 /* testBad_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F91F6C17A40055E296 /* testBad_MM_NOEL_VIN_P3.txt */; };
-		F40E03781F6C17A50055E296 /* testBad_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FA1F6C17A40055E296 /* testBad_MM_NOEL_VIN_P4.txt */; };
-		F40E03791F6C17A50055E296 /* testFeatures2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FB1F6C17A40055E296 /* testFeatures2.txt */; };
-		F40E037A1F6C17A50055E296 /* testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FC1F6C17A40055E296 /* testGood_MM.txt */; };
-		F40E037B1F6C17A50055E296 /* trainingClasses.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FD1F6C17A40055E296 /* trainingClasses.txt */; };
-		F40E037C1F6C17A50055E296 /* trainingClasses_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FE1F6C17A40055E296 /* trainingClasses_BrainAmp.txt */; };
-		F40E037D1F6C17A50055E296 /* trainingEEG.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FF1F6C17A40055E296 /* trainingEEG.txt */; };
-		F40E037E1F6C17A50055E296 /* trainingEEGMoinsMean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02001F6C17A40055E296 /* trainingEEGMoinsMean.txt */; };
-		F40E037F1F6C17A50055E296 /* trainingFeatures.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02011F6C17A40055E296 /* trainingFeatures.txt */; };
-		F40E03801F6C17A50055E296 /* trainingFeatures2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02021F6C17A40055E296 /* trainingFeatures2.txt */; };
-		F40E03811F6C17A50055E296 /* trainingFeatures3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02031F6C17A40055E296 /* trainingFeatures3.txt */; };
-		F40E03821F6C17A50055E296 /* trainingFeatures4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02041F6C17A40055E296 /* trainingFeatures4.txt */; };
-		F40E03831F6C17A50055E296 /* trainingFeatures4bis.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02051F6C17A40055E296 /* trainingFeatures4bis.txt */; };
-		F40E03841F6C17A50055E296 /* trainingFeatures_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02061F6C17A40055E296 /* trainingFeatures_BrainAmp.txt */; };
-		F40E03851F6C17A50055E296 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02071F6C17A40055E296 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt */; };
-		F40E03861F6C17A50055E296 /* trainingInputData_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02081F6C17A40055E296 /* trainingInputData_BrainAmp.txt */; };
-		F40E03871F6C17A50055E296 /* trainingInputData_BrainAmpVolt.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02091F6C17A40055E296 /* trainingInputData_BrainAmpVolt.txt */; };
-		F40E03881F6C17A50055E296 /* trainingMu_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020A1F6C17A40055E296 /* trainingMu_BrainAmp.txt */; };
-		F40E03891F6C17A50055E296 /* trainingSigma_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020B1F6C17A40055E296 /* trainingSigma_BrainAmp.txt */; };
-		F40E038A1F6C17A50055E296 /* trainingW_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020C1F6C17A40055E296 /* trainingW_BrainAmp.txt */; };
-		F40E038B1F6C17A50055E296 /* variance.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020D1F6C17A40055E296 /* variance.txt */; };
-		F40E038C1F6C17A50055E296 /* w.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020E1F6C17A40055E296 /* w.txt */; };
-		F40E038D1F6C17A50055E296 /* write_rawInterpData_row_ch0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020F1F6C17A40055E296 /* write_rawInterpData_row_ch0.txt */; };
-		F40E038E1F6C17A50055E296 /* write_rawInterpData_row_ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02101F6C17A40055E296 /* write_rawInterpData_row_ch1.txt */; };
-		F40E038F1F6C17A50055E296 /* write_rawInterpData_row_ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02111F6C17A40055E296 /* write_rawInterpData_row_ch2.txt */; };
 		F40E03901F6C17A50055E296 /* MBT_MainQC.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02131F6C17A40055E296 /* MBT_MainQC.h */; };
-		F40E03911F6C17A50055E296 /* Copy_testFeatures.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02151F6C17A40055E296 /* Copy_testFeatures.txt */; };
-		F40E03921F6C17A50055E296 /* outputData2_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02161F6C17A40055E296 /* outputData2_Cplusplus.txt */; };
-		F40E03931F6C17A50055E296 /* outputData3_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02171F6C17A40055E296 /* outputData3_Cplusplus.txt */; };
-		F40E03941F6C17A50055E296 /* outputData_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02181F6C17A40055E296 /* outputData_MM_NOEL_KEV2_P3.txt */; };
-		F40E03951F6C17A50055E296 /* outputData_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02191F6C17A40055E296 /* outputData_MM_NOEL_KEV2_P4.txt */; };
-		F40E03961F6C17A50055E296 /* outputData_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E021A1F6C17A40055E296 /* outputData_MM_NOEL_KIN2_P3.txt */; };
-		F40E03971F6C17A50055E296 /* outputData_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E021B1F6C17A40055E296 /* outputData_MM_NOEL_KIN2_P4.txt */; };
-		F40E03981F6C17A50055E296 /* outputData_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E021C1F6C17A40055E296 /* outputData_MM_NOEL_MAR4_P3.txt */; };
-		F40E03991F6C17A50055E296 /* outputData_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E021D1F6C17A40055E296 /* outputData_MM_NOEL_MAR4_P4.txt */; };
-		F40E039A1F6C17A50055E296 /* outputData_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E021E1F6C17A40055E296 /* outputData_MM_NOEL_VIN_P3.txt */; };
-		F40E039B1F6C17A50055E296 /* outputData_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E021F1F6C17A40055E296 /* outputData_MM_NOEL_VIN_P4.txt */; };
-		F40E039C1F6C17A50055E296 /* outputData_testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02201F6C17A40055E296 /* outputData_testGood_MM.txt */; };
-		F40E039D1F6C17A50055E296 /* pasted_image_at_2017_03_03_10_11_am_720.png in Resources */ = {isa = PBXBuildFile; fileRef = F40E02211F6C17A40055E296 /* pasted_image_at_2017_03_03_10_11_am_720.png */; };
-		F40E039E1F6C17A50055E296 /* print_signalDelta1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02221F6C17A40055E296 /* print_signalDelta1.txt */; };
-		F40E039F1F6C17A50055E296 /* print_signalDelta2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02231F6C17A40055E296 /* print_signalDelta2.txt */; };
-		F40E03A01F6C17A50055E296 /* print_signalTheta1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02241F6C17A40055E296 /* print_signalTheta1.txt */; };
-		F40E03A11F6C17A50055E296 /* print_signalTheta2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02251F6C17A40055E296 /* print_signalTheta2.txt */; };
-		F40E03A21F6C17A50055E296 /* probaClass2_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02261F6C17A40055E296 /* probaClass2_Cplusplus.txt */; };
-		F40E03A31F6C17A50055E296 /* probaClass3_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02271F6C17A40055E296 /* probaClass3_Cplusplus.txt */; };
-		F40E03A41F6C17A50055E296 /* probaClass_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02281F6C17A40055E296 /* probaClass_MM_NOEL_KEV2_P3.txt */; };
-		F40E03A51F6C17A50055E296 /* probaClass_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02291F6C17A40055E296 /* probaClass_MM_NOEL_KEV2_P4.txt */; };
-		F40E03A61F6C17A50055E296 /* probaClass_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E022A1F6C17A40055E296 /* probaClass_MM_NOEL_KIN2_P3.txt */; };
-		F40E03A71F6C17A50055E296 /* probaClass_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E022B1F6C17A40055E296 /* probaClass_MM_NOEL_KIN2_P4.txt */; };
-		F40E03A81F6C17A50055E296 /* probaClass_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E022C1F6C17A40055E296 /* probaClass_MM_NOEL_MAR4_P3.txt */; };
-		F40E03A91F6C17A50055E296 /* probaClass_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E022D1F6C17A40055E296 /* probaClass_MM_NOEL_MAR4_P4.txt */; };
-		F40E03AA1F6C17A50055E296 /* probaClass_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E022E1F6C17A40055E296 /* probaClass_MM_NOEL_VIN_P3.txt */; };
-		F40E03AB1F6C17A50055E296 /* probaClass_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E022F1F6C17A40055E296 /* probaClass_MM_NOEL_VIN_P4.txt */; };
-		F40E03AC1F6C17A50055E296 /* probaClass_testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02301F6C17A40055E296 /* probaClass_testGood_MM.txt */; };
-		F40E03AD1F6C17A50055E296 /* quality2_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02311F6C17A40055E296 /* quality2_Cplusplus.txt */; };
-		F40E03AE1F6C17A50055E296 /* quality3_Cplusplus.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02321F6C17A40055E296 /* quality3_Cplusplus.txt */; };
-		F40E03AF1F6C17A50055E296 /* quality_MM_NOEL_KEV2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02331F6C17A40055E296 /* quality_MM_NOEL_KEV2_P3.txt */; };
-		F40E03B01F6C17A50055E296 /* quality_MM_NOEL_KEV2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02341F6C17A40055E296 /* quality_MM_NOEL_KEV2_P4.txt */; };
-		F40E03B11F6C17A50055E296 /* quality_MM_NOEL_KIN2_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02351F6C17A40055E296 /* quality_MM_NOEL_KIN2_P3.txt */; };
-		F40E03B21F6C17A50055E296 /* quality_MM_NOEL_KIN2_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02361F6C17A40055E296 /* quality_MM_NOEL_KIN2_P4.txt */; };
-		F40E03B31F6C17A50055E296 /* quality_MM_NOEL_MAR4_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02371F6C17A40055E296 /* quality_MM_NOEL_MAR4_P3.txt */; };
-		F40E03B41F6C17A50055E296 /* quality_MM_NOEL_MAR4_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02381F6C17A40055E296 /* quality_MM_NOEL_MAR4_P4.txt */; };
-		F40E03B51F6C17A50055E296 /* quality_MM_NOEL_VIN_P3.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02391F6C17A40055E296 /* quality_MM_NOEL_VIN_P3.txt */; };
-		F40E03B61F6C17A50055E296 /* quality_MM_NOEL_VIN_P4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E023A1F6C17A40055E296 /* quality_MM_NOEL_VIN_P4.txt */; };
-		F40E03B71F6C17A50055E296 /* quality_testGood_MM.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E023B1F6C17A40055E296 /* quality_testGood_MM.txt */; };
 		F40E03B91F6C17A50055E296 /* MBT_FindClosest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02401F6C17A40055E296 /* MBT_FindClosest.cpp */; };
 		F40E03BA1F6C17A50055E296 /* MBT_Interpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02411F6C17A40055E296 /* MBT_Interpolation.cpp */; };
 		F40E03BB1F6C17A50055E296 /* MBT_kmeans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02421F6C17A40055E296 /* MBT_kmeans.cpp */; };
@@ -321,7 +51,6 @@
 		F40E03CC1F6C17A50055E296 /* MBT_BandPass.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E025A1F6C17A40055E296 /* MBT_BandPass.h */; };
 		F40E03CD1F6C17A50055E296 /* MBT_BandPass_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E025B1F6C17A40055E296 /* MBT_BandPass_fftw3.h */; };
 		F40E03CE1F6C17A50055E296 /* MBT_PreProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E025C1F6C17A40055E296 /* MBT_PreProcessing.h */; };
-		F40E03CF1F6C17A50055E296 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E025D1F6C17A40055E296 /* readme.txt */; };
 		F40E03D21F6C17A50055E296 /* MBT_FFTReal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02621F6C17A40055E296 /* MBT_FFTReal.cpp */; };
 		F40E03D31F6C17A50055E296 /* MBT_FindPeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02631F6C17A40055E296 /* MBT_FindPeak.cpp */; };
 		F40E03D51F6C17A50055E296 /* MBT_Fourier_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02651F6C17A40055E296 /* MBT_Fourier_fftw3.cpp */; };
@@ -331,41 +60,18 @@
 		F40E03D91F6C17A50055E296 /* MBT_Fourier.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026A1F6C17A40055E296 /* MBT_Fourier.h */; };
 		F40E03DA1F6C17A50055E296 /* MBT_Fourier_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026B1F6C17A40055E296 /* MBT_Fourier_fftw3.h */; };
 		F40E03DB1F6C17A50055E296 /* MBT_PWelchComputer.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026C1F6C17A40055E296 /* MBT_PWelchComputer.h */; };
-		F40E03DC1F6C17A50055E296 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E026D1F6C17A40055E296 /* readme.txt */; };
 		F40E03DD1F6C17A50055E296 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026E1F6C17A40055E296 /* version.h */; };
 		F40E03DE1F6C17A50055E296 /* MBT_SNR_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02721F6C17A40055E296 /* MBT_SNR_Stats.cpp */; };
-		F40E03DF1F6C17A50055E296 /* SNRTest1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02741F6C17A40055E296 /* SNRTest1.txt */; };
-		F40E03E01F6C17A50055E296 /* SNRTest2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02751F6C17A40055E296 /* SNRTest2.txt */; };
-		F40E03E11F6C17A50055E296 /* SNRTest4.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02761F6C17A40055E296 /* SNRTest4.txt */; };
-		F40E03E21F6C17A50055E296 /* SNRTest6.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02771F6C17A40055E296 /* SNRTest6.txt */; };
-		F40E03E31F6C17A50055E296 /* SNRTest8.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02781F6C17A40055E296 /* SNRTest8.txt */; };
-		F40E03E41F6C17A50055E296 /* SNRTest9.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02791F6C17A40055E296 /* SNRTest9.txt */; };
 		F40E03E51F6C17A50055E296 /* MBT_SNR_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E027B1F6C17A40055E296 /* MBT_SNR_Stats.h */; };
-		F40E03E61F6C17A50055E296 /* compile.sh in Resources */ = {isa = PBXBuildFile; fileRef = F40E027E1F6C17A40055E296 /* compile.sh */; };
-		F40E03E71F6C17A50055E296 /* exec in Resources */ = {isa = PBXBuildFile; fileRef = F40E027F1F6C17A40055E296 /* exec */; };
 		F40E03E91F6C17A50055E296 /* MBT_Contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02811F6C17A40055E296 /* MBT_Contour.cpp */; };
 		F40E03EA1F6C17A50055E296 /* MBT_FinalClustering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02821F6C17A40055E296 /* MBT_FinalClustering.cpp */; };
 		F40E03EB1F6C17A50055E296 /* MBT_TF_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02831F6C17A40055E296 /* MBT_TF_map.cpp */; };
 		F40E03EC1F6C17A50055E296 /* MBT_TF_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02841F6C17A40055E296 /* MBT_TF_Stats.cpp */; };
-		F40E03ED1F6C17A50055E296 /* ArduinoData1606ecNP2_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02861F6C17A40055E296 /* ArduinoData1606ecNP2_Ch1.txt */; };
-		F40E03EE1F6C17A50055E296 /* ArduinoData1606ecNP2_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02871F6C17A40055E296 /* ArduinoData1606ecNP2_Ch2.txt */; };
-		F40E03EF1F6C17A50055E296 /* ArduinoData1606ecNP_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02881F6C17A40055E296 /* ArduinoData1606ecNP_Ch1.txt */; };
-		F40E03F01F6C17A50055E296 /* ArduinoData1606ecNP_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02891F6C17A40055E296 /* ArduinoData1606ecNP_Ch2.txt */; };
-		F40E03F11F6C17A50055E296 /* ArduinoData1606ecVR6_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E028A1F6C17A40055E296 /* ArduinoData1606ecVR6_Ch1.txt */; };
-		F40E03F21F6C17A50055E296 /* ArduinoData1606ecVR6_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E028B1F6C17A40055E296 /* ArduinoData1606ecVR6_Ch2.txt */; };
-		F40E03F31F6C17A50055E296 /* ArduinoData1606ecVR7_Ch1.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E028C1F6C17A40055E296 /* ArduinoData1606ecVR7_Ch1.txt */; };
-		F40E03F41F6C17A50055E296 /* ArduinoData1606ecVR7_Ch2.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E028D1F6C17A40055E296 /* ArduinoData1606ecVR7_Ch2.txt */; };
-		F40E03F51F6C17A50055E296 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E028E1F6C17A40055E296 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt */; };
-		F40E03F61F6C17A50055E296 /* Etienne.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E028F1F6C17A40055E296 /* Etienne.txt */; };
-		F40E03F71F6C17A50055E296 /* NP2Ch1FiltCalib.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02901F6C17A40055E296 /* NP2Ch1FiltCalib.txt */; };
-		F40E03F81F6C17A50055E296 /* NP2Ch1FiltSession.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02911F6C17A40055E296 /* NP2Ch1FiltSession.txt */; };
 		F40E03F91F6C17A50055E296 /* MBT_Contour.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02931F6C17A40055E296 /* MBT_Contour.h */; };
 		F40E03FA1F6C17A50055E296 /* MBT_FinalClustering.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02941F6C17A40055E296 /* MBT_FinalClustering.h */; };
 		F40E03FB1F6C17A50055E296 /* MBT_TF_map.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02951F6C17A40055E296 /* MBT_TF_map.h */; };
 		F40E03FC1F6C17A50055E296 /* MBT_TF_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02961F6C17A40055E296 /* MBT_TF_Stats.h */; };
-		F40E03FD1F6C17A50055E296 /* Results_Arma in Resources */ = {isa = PBXBuildFile; fileRef = F40E02981F6C17A40055E296 /* Results_Arma */; };
-		F40E03FE1F6C17A50055E296 /* Results_Emma in Resources */ = {isa = PBXBuildFile; fileRef = F40E02991F6C17A40055E296 /* Results_Emma */; };
-		F40E040E1F6C17C40055E296 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F40E040E1F6C17C40055E296 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; };
 		F40E04121F6C1A500055E296 /* MBTSignalProcessingProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40E04111F6C1A500055E296 /* MBTSignalProcessingProtocols.swift */; };
 		F40E04141F6C1A5B0055E296 /* MBTSignalProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40E04131F6C1A5B0055E296 /* MBTSignalProcessingManager.swift */; };
 		F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -375,7 +81,7 @@
 		F40E041D1F6C41330055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E04051F6C17C40055E296 /* libfftw3.a */; };
 		F40E041E1F6C41380055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E04081F6C17C40055E296 /* libfftw3.a */; };
 		F40E041F1F6C413B0055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E040A1F6C17C40055E296 /* libfftw3.a */; };
-		F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */; };
+		F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
 		F41D0C141F02A7650081AA7B /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */; };
@@ -821,7 +527,7 @@
 		F40E04131F6C1A5B0055E296 /* MBTSignalProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTSignalProcessingManager.swift; sourceTree = "<group>"; };
 		F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBTSignalProcessingBridge.h; path = "Utils/CPPSignalProcessing/Code bridge/MBTSignalProcessingBridge.h"; sourceTree = "<group>"; };
 		F40E04171F6C26F50055E296 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MBTSignalProcessingBridge.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTSignalProcessingBridge.mm"; sourceTree = "<group>"; };
-		F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmEntityManager.swift; path = Models/RealmEntityManager.swift; sourceTree = "<group>"; };
+		F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTRealmEntityManager.swift; path = Models/MBTRealmEntityManager.swift; sourceTree = "<group>"; };
 		F41A6D6D1F05588100092027 /* MBTDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTDevice.swift; path = Models/MBTDevice.swift; sourceTree = "<group>"; };
 		F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTEEGPacket.swift; path = Models/MBTEEGPacket.swift; sourceTree = "<group>"; };
 		F41D0C131F02A7650081AA7B /* MBTAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTAcquisitionDelegate.swift; path = "Acquisition Module/MBTAcquisitionDelegate.swift"; sourceTree = "<group>"; };
@@ -1934,7 +1640,7 @@
 			children = (
 				F41A6D6D1F05588100092027 /* MBTDevice.swift */,
 				F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */,
-				F419A4D31F1CF8710070C160 /* RealmEntityManager.swift */,
+				F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1987,10 +1693,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F40E040E1F6C17C40055E296 /* fftw3.h in Headers */,
-				F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */,
 				3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
+				F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */,
+				F40E03901F6C17A50055E296 /* MBT_MainQC.h in Headers */,
+				F40E040E1F6C17C40055E296 /* fftw3.h in Headers */,
 				F40E03DD1F6C17A50055E296 /* version.h in Headers */,
+				F40E03C41F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.h in Headers */,
 				F40E02C91F6C17A50055E296 /* MBT_NormalizeRelaxIndex.h in Headers */,
 				F40E03CD1F6C17A50055E296 /* MBT_BandPass_fftw3.h in Headers */,
 				F40E03FA1F6C17A50055E296 /* MBT_FinalClustering.h in Headers */,
@@ -2004,7 +1712,6 @@
 				F40E03E51F6C17A50055E296 /* MBT_SNR_Stats.h in Headers */,
 				F40E03DB1F6C17A50055E296 /* MBT_PWelchComputer.h in Headers */,
 				F40E03FB1F6C17A50055E296 /* MBT_TF_map.h in Headers */,
-				F40E03901F6C17A50055E296 /* MBT_MainQC.h in Headers */,
 				F40E03D81F6C17A50055E296 /* MBT_FindPeak.h in Headers */,
 				F40E03D91F6C17A50055E296 /* MBT_Fourier.h in Headers */,
 				F40E02C81F6C17A50055E296 /* MBT_ComputeSNR.h in Headers */,
@@ -2017,7 +1724,6 @@
 				F40E03C01F6C17A50055E296 /* MBT_Operations.h in Headers */,
 				F40E02CA1F6C17A50055E296 /* MBT_RelaxIndexToVolum.h in Headers */,
 				F40E03D71F6C17A50055E296 /* MBT_FFTReal.h in Headers */,
-				F40E03C41F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2249,300 +1955,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F40E039C1F6C17A50055E296 /* outputData_testGood_MM.txt in Resources */,
-				F40E02B41F6C17A40055E296 /* inputData2.txt in Resources */,
-				F40E02B81F6C17A40055E296 /* sessionPb.txt in Resources */,
-				F40E02A31F6C17A40055E296 /* calibPbQuality.txt in Resources */,
-				F40E035B1F6C17A50055E296 /* inputDataNewTest.txt in Resources */,
-				F40E03261F6C17A50055E296 /* SNRCalib_BOTHBad.txt in Resources */,
-				F40E03F41F6C17A50055E296 /* ArduinoData1606ecVR7_Ch2.txt in Resources */,
-				F40E02D31F6C17A50055E296 /* BoundsCalib.txt in Resources */,
-				F40E03711F6C17A50055E296 /* testBad_MM_NOEL_KEV2_P3.txt in Resources */,
-				F40E03F01F6C17A50055E296 /* ArduinoData1606ecNP_Ch2.txt in Resources */,
-				F40E03F71F6C17A50055E296 /* NP2Ch1FiltCalib.txt in Resources */,
-				F40E03AA1F6C17A50055E296 /* probaClass_MM_NOEL_VIN_P3.txt in Resources */,
-				F40E032F1F6C17A50055E296 /* tmp_outputBandpass.txt in Resources */,
-				F40E02F21F6C17A50055E296 /* ComputeSNR_v1.0_2017_01_23_FAG.pdf in Resources */,
-				F40E033B1F6C17A50055E296 /* SNRCalib.txt in Resources */,
-				F40E03731F6C17A50055E296 /* testBad_MM_NOEL_KIN2_P3.txt in Resources */,
-				F40E02F71F6C17A50055E296 /* ComputeSNR_v4.0_2017_02_27_FAG.docx in Resources */,
-				F40E03F51F6C17A50055E296 /* ArduinoData1606ecVR7_Ch2_with_NaN.txt in Resources */,
-				F40E03001F6C17A50055E296 /* MBT_Fourierh.txt in Resources */,
-				F40E03371F6C17A50055E296 /* bestChannel.txt in Resources */,
-				F40E03751F6C17A50055E296 /* testBad_MM_NOEL_MAR4_P3.txt in Resources */,
-				F40E03671F6C17A50055E296 /* rawInterpData_after_interpolation.txt in Resources */,
-				F40E03581F6C17A50055E296 /* inputData5.txt in Resources */,
-				F40E03A81F6C17A50055E296 /* probaClass_MM_NOEL_MAR4_P3.txt in Resources */,
-				F40E031C1F6C17A50055E296 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pptx in Resources */,
-				F40E03B11F6C17A50055E296 /* quality_MM_NOEL_KIN2_P3.txt in Resources */,
-				F40E03221F6C17A50055E296 /* SNR.txt in Resources */,
-				F40E033D1F6C17A50055E296 /* bestChannel.txt in Resources */,
-				F40E031F1F6C17A50055E296 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pdf in Resources */,
-				F40E03771F6C17A50055E296 /* testBad_MM_NOEL_VIN_P3.txt in Resources */,
-				F40E03831F6C17A50055E296 /* trainingFeatures4bis.txt in Resources */,
-				F40E02E61F6C17A50055E296 /* bestChannel.txt in Resources */,
-				F40E032C1F6C17A50055E296 /* tmp_correctedSignal.txt in Resources */,
-				F40E039B1F6C17A50055E296 /* outputData_MM_NOEL_VIN_P4.txt in Resources */,
-				F40E02C01F6C17A50055E296 /* trueCalibrationRecordings.txt in Resources */,
-				F40E03331F6C17A50055E296 /* Volum_avec_bandpass.png in Resources */,
-				F40E02D21F6C17A50055E296 /* bestChannel.txt in Resources */,
-				F40E03181F6C17A50055E296 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pptx in Resources */,
-				F40E02D41F6C17A50055E296 /* README.txt.txt in Resources */,
-				F40E039F1F6C17A50055E296 /* print_signalDelta2.txt in Resources */,
-				F40E02F81F6C17A50055E296 /* ComputeSNR_v4.0_2017_02_27_FAG.pdf in Resources */,
-				F40E03471F6C17A50055E296 /* afterDCRemoval2.txt in Resources */,
-				F40E02B31F6C17A40055E296 /* inputData.txt in Resources */,
-				F40E03491F6C17A50055E296 /* BuildComputationFeatures_Cplusplus.txt in Resources */,
-				F40E03961F6C17A50055E296 /* outputData_MM_NOEL_KIN2_P3.txt in Resources */,
-				F40E030D1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P2.txt in Resources */,
-				F40E02F01F6C17A50055E296 /* comp_tmp_correctedSignal.txt in Resources */,
-				F40E03F11F6C17A50055E296 /* ArduinoData1606ecVR6_Ch1.txt in Resources */,
-				F40E039A1F6C17A50055E296 /* outputData_MM_NOEL_VIN_P3.txt in Resources */,
-				F40E02F91F6C17A50055E296 /* correctedSignalch0.txt in Resources */,
-				F40E02FF1F6C17A50055E296 /* MBT_Fouriercpp.txt in Resources */,
-				F40E03131F6C17A50055E296 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.docx in Resources */,
-				F40E03A01F6C17A50055E296 /* print_signalTheta1.txt in Resources */,
-				F40E02AA1F6C17A40055E296 /* calibrationRecordingsQuality_2ndGood.txt in Resources */,
-				F40E038A1F6C17A50055E296 /* trainingW_BrainAmp.txt in Resources */,
-				F40E02E51F6C17A50055E296 /* BeforeSmoothingSNRCalib.txt in Resources */,
-				F40E02D61F6C17A50055E296 /* calibrationRecordings5s.txt in Resources */,
-				F40E02CF1F6C17A50055E296 /* BeforeSmoothingSNRCalib.txt in Resources */,
-				F40E03F21F6C17A50055E296 /* ArduinoData1606ecVR6_Ch2.txt in Resources */,
-				F40E03151F6C17A50055E296 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pdf in Resources */,
-				F40E03541F6C17A50055E296 /* inputData2.txt in Resources */,
-				F40E03321F6C17A50055E296 /* tmp_sortiebandpass.txt in Resources */,
-				F40E034B1F6C17A50055E296 /* Copy_testFeatures.txt in Resources */,
-				F40E03841F6C17A50055E296 /* trainingFeatures_BrainAmp.txt in Resources */,
-				F40E02FA1F6C17A50055E296 /* dataWithoutOutliers.txt in Resources */,
-				F40E03861F6C17A50055E296 /* trainingInputData_BrainAmp.txt in Resources */,
-				F40E02DE1F6C17A50055E296 /* trueSessionRecordings.txt in Resources */,
-				F40E02CC1F6C17A50055E296 /* README.txt.txt in Resources */,
-				F40E030F1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P4.txt in Resources */,
-				F40E02CD1F6C17A50055E296 /* trueCalibrationRecordings.txt in Resources */,
-				F40E03121F6C17A50055E296 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.pdf in Resources */,
-				F40E036C1F6C17A50055E296 /* sigma.txt in Resources */,
-				F40E037A1F6C17A50055E296 /* testGood_MM.txt in Resources */,
-				F40E03051F6C17A50055E296 /* plotdataWithoutOutliers.txt in Resources */,
-				F40E03291F6C17A50055E296 /* spectreCalib.txt in Resources */,
-				F40E02A71F6C17A40055E296 /* calibrationRecordings5s.txt in Resources */,
-				F40E03611F6C17A50055E296 /* mu.txt in Resources */,
-				F40E03B01F6C17A50055E296 /* quality_MM_NOEL_KEV2_P4.txt in Resources */,
-				F40E03FD1F6C17A50055E296 /* Results_Arma in Resources */,
-				F40E02AB1F6C17A40055E296 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */,
-				F40E02C11F6C17A50055E296 /* trueCalibrationRecordingsQuality.txt in Resources */,
-				F40E039D1F6C17A50055E296 /* pasted_image_at_2017_03_03_10_11_am_720.png in Resources */,
-				F40E03301F6C17A50055E296 /* tmp_outputBandpass_test_interp.txt in Resources */,
-				F40E03E41F6C17A50055E296 /* SNRTest9.txt in Resources */,
-				F40E03021F6C17A50055E296 /* MBT_PWelchComputerV2h.txt in Resources */,
-				F40E03AC1F6C17A50055E296 /* probaClass_testGood_MM.txt in Resources */,
-				F40E032D1F6C17A50055E296 /* tmp_dataWithoutOutliers.txt in Resources */,
-				F40E035F1F6C17A50055E296 /* m_inputData_after_interpolation_inputData6.txt in Resources */,
-				F40E03621F6C17A50055E296 /* mu2.txt in Resources */,
-				F40E03461F6C17A50055E296 /* afterDCRemoval1.txt in Resources */,
-				F40E032A1F6C17A50055E296 /* tmp1_dataWithoutOutliers.txt in Resources */,
-				F40E03141F6C17A50055E296 /* ReportAboutPwelch_v2.0_2017_02_03_FAG.pdf in Resources */,
-				F40E02F31F6C17A50055E296 /* ComputeSNR_v2.0_2017_01_30_FAG.docx in Resources */,
-				F40E03AF1F6C17A50055E296 /* quality_MM_NOEL_KEV2_P3.txt in Resources */,
-				F40E02BC1F6C17A40055E296 /* trueCalibrationRecordingsBugEtienne.txt in Resources */,
-				F40E03381F6C17A50055E296 /* BoundsCalib.txt in Resources */,
-				F40E03401F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */,
-				F40E02DD1F6C17A50055E296 /* README.txt.txt in Resources */,
-				F40E03391F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */,
-				F40E03701F6C17A50055E296 /* spectrumClean.txt in Resources */,
-				F40E03811F6C17A50055E296 /* trainingFeatures3.txt in Resources */,
-				F40E03211F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */,
-				F40E03851F6C17A50055E296 /* trainingFeaturesQuandTrainingEEGMoinsMean.txt in Resources */,
-				F40E02BF1F6C17A50055E296 /* trueSessionRecordings.txt in Resources */,
-				F40E03AB1F6C17A50055E296 /* probaClass_MM_NOEL_VIN_P4.txt in Resources */,
-				F40E03241F6C17A50055E296 /* SNRCalib_1stGood.txt in Resources */,
-				F40E02C21F6C17A50055E296 /* trueSessionRecordings.txt in Resources */,
-				F40E02F11F6C17A50055E296 /* ComputeSNR_v1.0_2017_01_23_FAG.docx in Resources */,
-				F40E03801F6C17A50055E296 /* trainingFeatures2.txt in Resources */,
-				F40E03681F6C17A50055E296 /* rawInterpData_after_interpolation_inputData4.txt in Resources */,
-				F40E03071F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P1.txt in Resources */,
-				F40E03481F6C17A50055E296 /* afterInterp.txt in Resources */,
-				F40E030C1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P1.txt in Resources */,
-				F40E02ED1F6C17A50055E296 /* channelPSD1.txt in Resources */,
-				F40E03501F6C17A50055E296 /* fft0.txt in Resources */,
-				F40E02E41F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
-				F40E030B1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P0.txt in Resources */,
-				F40E03941F6C17A50055E296 /* outputData_MM_NOEL_KEV2_P3.txt in Resources */,
-				F40E037E1F6C17A50055E296 /* trainingEEGMoinsMean.txt in Resources */,
-				F40E03F81F6C17A50055E296 /* NP2Ch1FiltSession.txt in Resources */,
-				F40E03721F6C17A50055E296 /* testBad_MM_NOEL_KEV2_P4.txt in Resources */,
-				F40E034F1F6C17A50055E296 /* derivAeiocha.txt in Resources */,
-				F40E03921F6C17A50055E296 /* outputData2_Cplusplus.txt in Resources */,
-				F40E037F1F6C17A50055E296 /* trainingFeatures.txt in Resources */,
-				F40E038E1F6C17A50055E296 /* write_rawInterpData_row_ch1.txt in Resources */,
-				F40E02F41F6C17A50055E296 /* ComputeSNR_v2.0_2017_01_30_FAG.pdf in Resources */,
-				F40E02A21F6C17A40055E296 /* calibPb.txt in Resources */,
-				F40E03031F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */,
-				F40E03A71F6C17A50055E296 /* probaClass_MM_NOEL_KIN2_P4.txt in Resources */,
-				F40E02A41F6C17A40055E296 /* calibPbtest.txt in Resources */,
-				F40E031D1F6C17A50055E296 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pdf in Resources */,
-				F40E03561F6C17A50055E296 /* inputData4.txt in Resources */,
-				F40E03A61F6C17A50055E296 /* probaClass_MM_NOEL_KIN2_P3.txt in Resources */,
-				F40E02BD1F6C17A40055E296 /* trueCalibrationRecordingsQuality.txt in Resources */,
-				F40E034E1F6C17A50055E296 /* deriv_X_two_save.txt in Resources */,
-				F40E034C1F6C17A50055E296 /* DebugSignal.txt in Resources */,
-				F40E02E01F6C17A50055E296 /* README.txt.txt in Resources */,
-				F40E03871F6C17A50055E296 /* trainingInputData_BrainAmpVolt.txt in Resources */,
-				F40E03191F6C17A50055E296 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pdf in Resources */,
-				F40E030A1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P4.txt in Resources */,
-				F40E03F61F6C17A50055E296 /* Etienne.txt in Resources */,
-				F40E03B71F6C17A50055E296 /* quality_testGood_MM.txt in Resources */,
-				F40E02D11F6C17A50055E296 /* plotdataWithoutOutliers.txt in Resources */,
-				F40E03AD1F6C17A50055E296 /* quality2_Cplusplus.txt in Resources */,
-				F40E03571F6C17A50055E296 /* inputData4bis.txt in Resources */,
-				F40E031B1F6C17A50055E296 /* SchemaComputeSNR_v4.0_2017_02-06_FAG.pdf in Resources */,
-				F40E02DA1F6C17A50055E296 /* BoundsCalib.txt in Resources */,
-				F40E03CF1F6C17A50055E296 /* readme.txt in Resources */,
-				F40E03A31F6C17A50055E296 /* probaClass3_Cplusplus.txt in Resources */,
-				F40E03551F6C17A50055E296 /* inputData3.txt in Resources */,
-				F40E02E81F6C17A50055E296 /* bestChannel_2ndGood.txt in Resources */,
-				F40E02EA1F6C17A50055E296 /* bestChannel_BOTHBest.txt in Resources */,
-				F40E03281F6C17A50055E296 /* SNRSession.txt in Resources */,
-				F40E02E21F6C17A50055E296 /* SNRSession.txt in Resources */,
-				F40E03201F6C17A50055E296 /* SchemaComputeSNR_v6.0_2017_02-27_FAG.pptx in Resources */,
-				F40E03E61F6C17A50055E296 /* compile.sh in Resources */,
-				F40E03061F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P0.txt in Resources */,
-				F40E02D01F6C17A50055E296 /* correctedSignalch0.txt in Resources */,
-				F40E02E11F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */,
-				F40E039E1F6C17A50055E296 /* print_signalDelta1.txt in Resources */,
-				F40E03741F6C17A50055E296 /* testBad_MM_NOEL_KIN2_P4.txt in Resources */,
-				F40E03451F6C17A50055E296 /* afterDCRemoval0.txt in Resources */,
-				F40E03E71F6C17A50055E296 /* exec in Resources */,
-				F40E03781F6C17A50055E296 /* testBad_MM_NOEL_VIN_P4.txt in Resources */,
-				F40E02EB1F6C17A50055E296 /* Bounds.txt in Resources */,
-				F40E03011F6C17A50055E296 /* MBT_PWelchComputerV2cpp.txt in Resources */,
-				F40E02AC1F6C17A40055E296 /* calibrationRecordingsQuality_BOTHBest.txt in Resources */,
-				F40E03A91F6C17A50055E296 /* probaClass_MM_NOEL_MAR4_P4.txt in Resources */,
-				F40E02E31F6C17A50055E296 /* README.txt.txt in Resources */,
-				F40E03171F6C17A50055E296 /* SchemaComputeSNR_v2.0_2017_02-01_FAG.pdf in Resources */,
-				F40E036D1F6C17A50055E296 /* sigma2.txt in Resources */,
-				F40E03E21F6C17A50055E296 /* SNRTest6.txt in Resources */,
-				F40E033E1F6C17A50055E296 /* BoundsCalib.txt in Resources */,
-				F40E03791F6C17A50055E296 /* testFeatures2.txt in Resources */,
-				F40E03F31F6C17A50055E296 /* ArduinoData1606ecVR7_Ch1.txt in Resources */,
-				F40E02EE1F6C17A50055E296 /* channelPSD2.txt in Resources */,
-				F40E03651F6C17A50055E296 /* rawInterpData2.txt in Resources */,
-				F40E034A1F6C17A50055E296 /* cleanItakuraDistance.txt in Resources */,
-				F40E02FB1F6C17A50055E296 /* fftTransformed.txt in Resources */,
-				F40E036B1F6C17A50055E296 /* rawInterpData_after_interpolation_inputData7.txt in Resources */,
-				F40E03E31F6C17A50055E296 /* SNRTest8.txt in Resources */,
-				F40E02B01F6C17A40055E296 /* CodeOfMBT_ComputeSNRH_toTestMBT_ComputeCalibration.txt in Resources */,
-				F40E034D1F6C17A50055E296 /* deriv_X_save.txt in Resources */,
-				F40E02CE1F6C17A50055E296 /* trueCalibrationRecordingsQuality.txt in Resources */,
-				F40E03091F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P3.txt in Resources */,
-				F40E02B11F6C17A40055E296 /* goodCalibrationRecordings.txt in Resources */,
-				F40E02A61F6C17A40055E296 /* calibrationRecordings.txt in Resources */,
-				F40E02AD1F6C17A40055E296 /* CodeOfMBT_ComputeCalibrationCPP_toTestMBT_ComputeCalibration.txt in Resources */,
-				F40E02B21F6C17A40055E296 /* InputBandpass.txt in Resources */,
-				F40E03EE1F6C17A50055E296 /* ArduinoData1606ecNP2_Ch2.txt in Resources */,
-				F40E03981F6C17A50055E296 /* outputData_MM_NOEL_MAR4_P3.txt in Resources */,
-				F40E03B41F6C17A50055E296 /* quality_MM_NOEL_MAR4_P4.txt in Resources */,
-				F40E03631F6C17A50055E296 /* mu4.txt in Resources */,
-				F40E038C1F6C17A50055E296 /* w.txt in Resources */,
-				F40E03531F6C17A50055E296 /* freqV0.txt in Resources */,
-				F40E037C1F6C17A50055E296 /* trainingClasses_BrainAmp.txt in Resources */,
-				F40E033F1F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */,
-				F40E038F1F6C17A50055E296 /* write_rawInterpData_row_ch2.txt in Resources */,
-				F40E03DC1F6C17A50055E296 /* readme.txt in Resources */,
-				F40E03911F6C17A50055E296 /* Copy_testFeatures.txt in Resources */,
-				F40E03691F6C17A50055E296 /* rawInterpData_after_interpolation_inputData5.txt in Resources */,
-				F40E032E1F6C17A50055E296 /* tmp_frequencies.txt in Resources */,
-				F40E03EF1F6C17A50055E296 /* ArduinoData1606ecNP_Ch1.txt in Resources */,
-				F40E03271F6C17A50055E296 /* SNRCalib_BOTHBest.txt in Resources */,
-				F40E037D1F6C17A50055E296 /* trainingEEG.txt in Resources */,
-				F40E02C51F6C17A50055E296 /* trueSessionRecordings.txt in Resources */,
-				F40E03A51F6C17A50055E296 /* probaClass_MM_NOEL_KEV2_P4.txt in Resources */,
-				F40E03101F6C17A50055E296 /* Pxx_testComputeSNR.txt in Resources */,
-				F40E02DB1F6C17A50055E296 /* README.txt.txt in Resources */,
-				F40E03641F6C17A50055E296 /* rawInterpData1.txt in Resources */,
-				F40E03E01F6C17A50055E296 /* SNRTest2.txt in Resources */,
-				F40E02E91F6C17A50055E296 /* bestChannel_BOTHBad.txt in Resources */,
-				F40E035D1F6C17A50055E296 /* m_inputData_after_interpolation_inputData4.txt in Resources */,
-				F40E02D81F6C17A50055E296 /* README.txt.txt in Resources */,
-				F40E02BE1F6C17A50055E296 /* trueCalibrationRecordingsQualityBugEtienne.txt in Resources */,
-				F40E033A1F6C17A50055E296 /* SmoothedSNRSession.txt in Resources */,
-				F40E03161F6C17A50055E296 /* SchemaComputeSNR_v1.0_2017_01_30_FAG.pptx in Resources */,
-				F40E031A1F6C17A50055E296 /* SchemaComputeSNR_v3.0_2017_02-02_FAG.pptx in Resources */,
-				F40E02F61F6C17A50055E296 /* ComputeSNR_v3.0_2017_02_02_FAG.pdf in Resources */,
-				F40E03DF1F6C17A50055E296 /* SNRTest1.txt in Resources */,
-				F40E035A1F6C17A50055E296 /* inputData7.txt in Resources */,
-				F40E02DF1F6C17A50055E296 /* NormalizedSmoothedSNRSession.txt in Resources */,
-				F40E03411F6C17A50055E296 /* SNRCalib.txt in Resources */,
-				F40E02FD1F6C17A50055E296 /* goodCalibrationRecordings.txt in Resources */,
-				F40E02FC1F6C17A50055E296 /* frequenciesPSD.txt in Resources */,
-				F40E03821F6C17A50055E296 /* trainingFeatures4.txt in Resources */,
-				F40E02BA1F6C17A40055E296 /* testDCremoval2.txt in Resources */,
-				F40E03081F6C17A50055E296 /* Pxx_testComputeCalibration_Ch0P2.txt in Resources */,
-				F40E03421F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
-				F40E03661F6C17A50055E296 /* rawInterpData3.txt in Resources */,
-				F40E02E71F6C17A50055E296 /* bestChannel_1stGood.txt in Resources */,
-				F40E035E1F6C17A50055E296 /* m_inputData_after_interpolation_inputData5.txt in Resources */,
-				F40E03341F6C17A50055E296 /* Volum_sans_bandpass.png in Resources */,
-				F40E03971F6C17A50055E296 /* outputData_MM_NOEL_KIN2_P4.txt in Resources */,
-				F40E03B31F6C17A50055E296 /* quality_MM_NOEL_MAR4_P3.txt in Resources */,
-				F40E02C41F6C17A50055E296 /* trueCalibrationRecordingsQuality.txt in Resources */,
-				F40E02D91F6C17A50055E296 /* bestChannel.txt in Resources */,
-				F40E031E1F6C17A50055E296 /* SchemaComputeSNR_v5.0_2017_02-09_FAG.pptx in Resources */,
-				F40E03111F6C17A50055E296 /* ReportAboutPwelch_v1.0_2017_01_20_FAG.docx in Resources */,
-				F40E03A41F6C17A50055E296 /* probaClass_MM_NOEL_KEV2_P3.txt in Resources */,
-				F40E02F51F6C17A50055E296 /* ComputeSNR_v3.0_2017_02_02_FAG.docx in Resources */,
-				F40E038D1F6C17A50055E296 /* write_rawInterpData_row_ch0.txt in Resources */,
-				F40E037B1F6C17A50055E296 /* trainingClasses.txt in Resources */,
-				F40E030E1F6C17A50055E296 /* Pxx_testComputeCalibration_Ch1P3.txt in Resources */,
-				F40E03A11F6C17A50055E296 /* print_signalTheta2.txt in Resources */,
-				F40E03251F6C17A50055E296 /* SNRCalib_2ndGood.txt in Resources */,
-				F40E02B71F6C17A40055E296 /* inputNAN.txt in Resources */,
-				F40E03ED1F6C17A50055E296 /* ArduinoData1606ecNP2_Ch1.txt in Resources */,
-				F40E03AE1F6C17A50055E296 /* quality3_Cplusplus.txt in Resources */,
-				F40E02AF1F6C17A40055E296 /* CodeOfMBT_ComputeSNRCPP_toTestMBT_ComputeCalibration.txt in Resources */,
-				F40E036A1F6C17A50055E296 /* rawInterpData_after_interpolation_inputData6.txt in Resources */,
-				F40E02B91F6C17A40055E296 /* testDCremoval.txt in Resources */,
-				F40E02DC1F6C17A50055E296 /* SNRCalib.txt in Resources */,
-				F40E03B61F6C17A50055E296 /* quality_MM_NOEL_VIN_P4.txt in Resources */,
-				F40E02BB1F6C17A40055E296 /* trueCalibrationRecordings.txt in Resources */,
-				F40E02A51F6C17A40055E296 /* calibPbtestQuality.txt in Resources */,
-				F40E036E1F6C17A50055E296 /* sigma4.txt in Resources */,
-				F40E03231F6C17A50055E296 /* SNRCalib.txt in Resources */,
-				F40E02B61F6C17A40055E296 /* inputForPwelch.txt in Resources */,
-				F40E03601F6C17A50055E296 /* m_inputData_after_interpolation_inputData7.txt in Resources */,
-				F40E03991F6C17A50055E296 /* outputData_MM_NOEL_MAR4_P4.txt in Resources */,
-				F40E03311F6C17A50055E296 /* tmp_signal_ch_withoutDC.txt in Resources */,
-				F40E038B1F6C17A50055E296 /* variance.txt in Resources */,
-				F40E02D51F6C17A50055E296 /* SNRCalib.txt in Resources */,
-				F40E03591F6C17A50055E296 /* inputData6.txt in Resources */,
-				F40E03931F6C17A50055E296 /* outputData3_Cplusplus.txt in Resources */,
-				F40E032B1F6C17A50055E296 /* tmp_channelPSD.txt in Resources */,
-				F40E03881F6C17A50055E296 /* trainingMu_BrainAmp.txt in Resources */,
-				F40E03521F6C17A50055E296 /* fft2.txt in Resources */,
-				F40E02A91F6C17A40055E296 /* calibrationRecordingsQuality_1stGood.txt in Resources */,
-				F40E02EC1F6C17A50055E296 /* BoundsCalib.txt in Resources */,
-				F40E036F1F6C17A50055E296 /* signalAeiocha.txt in Resources */,
-				F40E03951F6C17A50055E296 /* outputData_MM_NOEL_KEV2_P4.txt in Resources */,
-				F40E02C31F6C17A50055E296 /* trueCalibrationRecordings.txt in Resources */,
-				F40E03761F6C17A50055E296 /* testBad_MM_NOEL_MAR4_P4.txt in Resources */,
-				F40E03FE1F6C17A50055E296 /* Results_Emma in Resources */,
-				F40E035C1F6C17A50055E296 /* m_inputData_after_interpolation.txt in Resources */,
-				F40E03E11F6C17A50055E296 /* SNRTest4.txt in Resources */,
-				F40E03351F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
-				F40E03A21F6C17A50055E296 /* probaClass2_Cplusplus.txt in Resources */,
-				F40E02A81F6C17A40055E296 /* calibrationRecordingsQuality.txt in Resources */,
-				F40E02B51F6C17A40055E296 /* inputData3.txt in Resources */,
-				F40E03891F6C17A50055E296 /* trainingSigma_BrainAmp.txt in Resources */,
-				F40E03B51F6C17A50055E296 /* quality_MM_NOEL_VIN_P3.txt in Resources */,
-				F40E03361F6C17A50055E296 /* writechpsd.txt in Resources */,
-				F40E02AE1F6C17A40055E296 /* CodeOfMBT_ComputeCalibrationH_toTestMBT_ComputeCalibration.txt in Resources */,
-				F40E02A11F6C17A40055E296 /* Calib_4s.txt in Resources */,
-				F40E033C1F6C17A50055E296 /* VolumNormalizedSmoothedSNRSession.txt in Resources */,
-				F40E02EF1F6C17A50055E296 /* comp_signal_ch.txt in Resources */,
-				F40E03B21F6C17A50055E296 /* quality_MM_NOEL_KIN2_P4.txt in Resources */,
-				F40E02D71F6C17A50055E296 /* calibrationRecordingsQuality_BOTHBad.txt in Resources */,
-				F40E02FE1F6C17A50055E296 /* ifftTransformed.txt in Resources */,
-				F40E03041F6C17A50055E296 /* outputBandpass.txt in Resources */,
-				F40E03511F6C17A50055E296 /* fft1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2631,7 +2043,7 @@
 				F40E03D21F6C17A50055E296 /* MBT_FFTReal.cpp in Sources */,
 				F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */,
 				F40CDF291F2F818F00515A91 /* MBTBrainWebHelper.swift in Sources */,
-				F419A4D41F1CF8710070C160 /* RealmEntityManager.swift in Sources */,
+				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				F40E03C21F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.cpp in Sources */,
 				F40E03C11F6C17A50055E296 /* MBT_Matrix.cpp in Sources */,
@@ -2830,6 +2242,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35CD65061E60192300AF060B /* iOS-Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2862,6 +2275,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2872,6 +2286,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35CD65061E60192300AF060B /* iOS-Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -2902,6 +2317,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

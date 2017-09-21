@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 /// Class to manage the structure to create entities manager.
-class RealmEntityManager: Object {
+class MBTRealmEntityManager: Object {
     /// Structure declaration to create DB Entity managers.
     struct RealmManager {
         /// The *Realm* object.

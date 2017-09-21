@@ -55,7 +55,7 @@ public class ChannelDatas: Object {
 
 //MARK: -
 /// *MBTEEGPacket* model DB Manager.
-class EEGPacketManager: RealmEntityManager {
+class EEGPacketManager: MBTRealmEntityManager {
     
     /// Method to persist EEGPacket received in the Realm database.
     class func saveEEGPacket(_ eegPacket: MBTEEGPacket) {

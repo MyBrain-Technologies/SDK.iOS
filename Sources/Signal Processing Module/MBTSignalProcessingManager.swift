@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 //Holds the current implementation of the signal processing protocols.
 internal class MBTSignalProcessingManager: NSObject { //MBTQualityComputer, MBTCalibrationComputer, MBTRelaxIndexComputer, MBTSessionAnalysisComputer {
     
@@ -16,7 +15,7 @@ internal class MBTSignalProcessingManager: NSObject { //MBTQualityComputer, MBTC
     static let shared = MBTSignalProcessingManager()
     
     /// Instance of MBT_MainQC
-    var mainQC: MBT_MainQC?
+//    var mainQC: MBT_MainQC?
     
     func initializeQualityChecker() {
         MBTQualityCheckerBridge.initializeMainQualityChecker()

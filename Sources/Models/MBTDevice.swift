@@ -13,7 +13,7 @@ import RealmSwift
 class MBTDevice: Object {
     
     /// Device informations from MBT Headset Bluetooth LE.
-    public private(set) var deviceInfos = MBTDeviceInformations()
+    public private(set) var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
     
     /// The number of active channels in the device.
     dynamic var nbChannels:Int = 0
@@ -55,7 +55,7 @@ public class MBTDeviceInformations: Object {
 //MARK: -
 
 /// *MBTDevice* model DB Manager.
-class DeviceManager: RealmEntityManager {
+class DeviceManager: MBTRealmEntityManager {
     
     /// Update *deviceInformations* of the newly connected device record in the DB.
     /// - Parameters:
@@ -65,10 +65,10 @@ class DeviceManager: RealmEntityManager {
         let device = getCurrentDevice()
         
         try! RealmManager.realm.write {
-            device.deviceInfos.productName = deviceInfos.productName ?? device.deviceInfos.productName
-            device.deviceInfos.deviceId = deviceInfos.deviceId ?? device.deviceInfos.deviceId
-            device.deviceInfos.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos.hardwareVersion
-            device.deviceInfos.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos.firmwareVersion
+            device.deviceInfos?.productName = deviceInfos.productName ?? device.deviceInfos?.productName
+            device.deviceInfos?.deviceId = deviceInfos.deviceId ?? device.deviceInfos?.deviceId
+            device.deviceInfos?.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos?.hardwareVersion
+            device.deviceInfos?.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos?.firmwareVersion
         }
     }
     
@@ -121,7 +121,7 @@ class DeviceManager: RealmEntityManager {
     
     /// Get BLE device informations of the connected MBT device.
     /// - Returns: The DB-saved *MBTDeviceInformations* instance.
-    class func getDeviceInfos() -> MBTDeviceInformations {
+    class func getDeviceInfos() -> MBTDeviceInformations? {
         // Get current device.
         let device = getCurrentDevice()
         

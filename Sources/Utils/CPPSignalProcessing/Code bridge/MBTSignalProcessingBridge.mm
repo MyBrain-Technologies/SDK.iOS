@@ -8,7 +8,6 @@
 
 #import "MBTSignalProcessingBridge.h"
 
-
 #include "MBT_Matrix.h" // use of the class MBT_Matrix
 #include "MBT_MainQC.h" // use of the class MBT_Matrix
 #include "MBT_ReadInputOrWriteOutput.h" // use of the class MBT_ReadInputOrWriteOutput
@@ -19,17 +18,9 @@
 #include "MBT_BandPass_fftw3.h"
 
 
-@interface MBTQualityCheckerBridge: NSObject
-
-+ (MBT_MainQC)initializeMainQualityChecker;
-
-@end
-
-
-
 @implementation MBTQualityCheckerBridge
 
-+ (MBT_MainQC)initializeMainQualityChecker {
++ (void)initializeMainQualityChecker {
     float sampRate = 250;
     
     // Construction de trainingFeatures
@@ -120,7 +111,7 @@
     float accuracy = (float)0.85;
     
     
-    return MBT_MainQC(sampRate, trainingFeatures, trainingClasses, w, mu, sigma, kppv, costClass, potTrainingFeatures, dataClean, spectrumClean, cleanItakuraDistance, accuracy);
+    //return MBT_MainQC(sampRate, trainingFeatures, trainingClasses, w, mu, sigma, kppv, costClass, potTrainingFeatures, dataClean, spectrumClean, cleanItakuraDistance, accuracy);
 }
 
 @end

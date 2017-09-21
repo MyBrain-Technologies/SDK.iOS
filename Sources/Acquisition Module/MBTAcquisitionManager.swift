@@ -182,10 +182,10 @@ internal class MBTAcquisitionManager: NSObject  {
             "uuidJsonFile": MBTJSONHelper.uuid.uuidString,
             "header": [
                 "deviceInfo": [
-                    "productName": device.deviceInfos.productName!,
-                    "hardwareVersion": device.deviceInfos.hardwareVersion!,
-                    "firmwareVersion": device.deviceInfos.firmwareVersion!,
-                    "uniqueDeviceIdentifier": device.deviceInfos.deviceId!
+                    "productName": device.deviceInfos?.productName!,
+                    "hardwareVersion": device.deviceInfos?.hardwareVersion!,
+                    "firmwareVersion": device.deviceInfos?.firmwareVersion!,
+                    "uniqueDeviceIdentifier": device.deviceInfos?.deviceId!
                 ],
                 "recordingNB": "0x14",
                 "comments": [],

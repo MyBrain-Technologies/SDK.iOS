@@ -11,4 +11,11 @@
 
 #import <Foundation/Foundation.h>
 
+@interface MBTQualityCheckerBridge: NSObject
+
++ (void)initializeMainQualityChecker;
+
+@end
+
+
 #endif /* MBTSignalProcessingBridge_h */
