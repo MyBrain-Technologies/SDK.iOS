@@ -25,53 +25,24 @@
 		F40E029E1F6C17A40055E296 /* MBT_NormalizeRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01071F6C17A40055E296 /* MBT_NormalizeRelaxIndex.cpp */; };
 		F40E029F1F6C17A40055E296 /* MBT_RelaxIndexToVolum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01081F6C17A40055E296 /* MBT_RelaxIndexToVolum.cpp */; };
 		F40E02A01F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01091F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp */; };
-		F40E02C61F6C17A50055E296 /* MBT_ComputeCalibration.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01341F6C17A40055E296 /* MBT_ComputeCalibration.h */; };
-		F40E02C71F6C17A50055E296 /* MBT_ComputeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01351F6C17A40055E296 /* MBT_ComputeRelaxIndex.h */; };
-		F40E02C81F6C17A50055E296 /* MBT_ComputeSNR.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01361F6C17A40055E296 /* MBT_ComputeSNR.h */; };
-		F40E02C91F6C17A50055E296 /* MBT_NormalizeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01371F6C17A40055E296 /* MBT_NormalizeRelaxIndex.h */; };
-		F40E02CA1F6C17A50055E296 /* MBT_RelaxIndexToVolum.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01381F6C17A40055E296 /* MBT_RelaxIndexToVolum.h */; };
-		F40E02CB1F6C17A50055E296 /* MBT_SmoothRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E01391F6C17A40055E296 /* MBT_SmoothRelaxIndex.h */; };
-		F40E03901F6C17A50055E296 /* MBT_MainQC.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02131F6C17A40055E296 /* MBT_MainQC.h */; };
 		F40E03B91F6C17A50055E296 /* MBT_FindClosest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02401F6C17A40055E296 /* MBT_FindClosest.cpp */; };
 		F40E03BA1F6C17A50055E296 /* MBT_Interpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02411F6C17A40055E296 /* MBT_Interpolation.cpp */; };
 		F40E03BB1F6C17A50055E296 /* MBT_kmeans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02421F6C17A40055E296 /* MBT_kmeans.cpp */; };
 		F40E03BC1F6C17A50055E296 /* MBT_Operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02431F6C17A40055E296 /* MBT_Operations.cpp */; };
-		F40E03BD1F6C17A50055E296 /* MBT_FindClosest.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02451F6C17A40055E296 /* MBT_FindClosest.h */; };
-		F40E03BE1F6C17A50055E296 /* MBT_Interpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02461F6C17A40055E296 /* MBT_Interpolation.h */; };
-		F40E03BF1F6C17A50055E296 /* MBT_kmeans.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02471F6C17A40055E296 /* MBT_kmeans.h */; };
-		F40E03C01F6C17A50055E296 /* MBT_Operations.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02481F6C17A40055E296 /* MBT_Operations.h */; };
 		F40E03C11F6C17A50055E296 /* MBT_Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E024B1F6C17A40055E296 /* MBT_Matrix.cpp */; };
 		F40E03C21F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E024C1F6C17A40055E296 /* MBT_ReadInputOrWriteOutput.cpp */; };
-		F40E03C31F6C17A50055E296 /* MBT_Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E024E1F6C17A40055E296 /* MBT_Matrix.h */; };
-		F40E03C41F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E024F1F6C17A40055E296 /* MBT_ReadInputOrWriteOutput.h */; };
 		F40E03C51F6C17A50055E296 /* Biquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02521F6C17A40055E296 /* Biquad.cpp */; };
 		F40E03C91F6C17A50055E296 /* MBT_BandPass_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02561F6C17A40055E296 /* MBT_BandPass_fftw3.cpp */; };
 		F40E03CA1F6C17A50055E296 /* MBT_PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02571F6C17A40055E296 /* MBT_PreProcessing.cpp */; };
-		F40E03CB1F6C17A50055E296 /* Biquad.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02591F6C17A40055E296 /* Biquad.h */; };
-		F40E03CC1F6C17A50055E296 /* MBT_BandPass.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E025A1F6C17A40055E296 /* MBT_BandPass.h */; };
-		F40E03CD1F6C17A50055E296 /* MBT_BandPass_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E025B1F6C17A40055E296 /* MBT_BandPass_fftw3.h */; };
-		F40E03CE1F6C17A50055E296 /* MBT_PreProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E025C1F6C17A40055E296 /* MBT_PreProcessing.h */; };
 		F40E03D21F6C17A50055E296 /* MBT_FFTReal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02621F6C17A40055E296 /* MBT_FFTReal.cpp */; };
 		F40E03D31F6C17A50055E296 /* MBT_FindPeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02631F6C17A40055E296 /* MBT_FindPeak.cpp */; };
 		F40E03D51F6C17A50055E296 /* MBT_Fourier_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02651F6C17A40055E296 /* MBT_Fourier_fftw3.cpp */; };
 		F40E03D61F6C17A50055E296 /* MBT_PWelchComputer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02661F6C17A40055E296 /* MBT_PWelchComputer.cpp */; };
-		F40E03D71F6C17A50055E296 /* MBT_FFTReal.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02681F6C17A40055E296 /* MBT_FFTReal.h */; };
-		F40E03D81F6C17A50055E296 /* MBT_FindPeak.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02691F6C17A40055E296 /* MBT_FindPeak.h */; };
-		F40E03D91F6C17A50055E296 /* MBT_Fourier.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026A1F6C17A40055E296 /* MBT_Fourier.h */; };
-		F40E03DA1F6C17A50055E296 /* MBT_Fourier_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026B1F6C17A40055E296 /* MBT_Fourier_fftw3.h */; };
-		F40E03DB1F6C17A50055E296 /* MBT_PWelchComputer.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026C1F6C17A40055E296 /* MBT_PWelchComputer.h */; };
-		F40E03DD1F6C17A50055E296 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E026E1F6C17A40055E296 /* version.h */; };
 		F40E03DE1F6C17A50055E296 /* MBT_SNR_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02721F6C17A40055E296 /* MBT_SNR_Stats.cpp */; };
-		F40E03E51F6C17A50055E296 /* MBT_SNR_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E027B1F6C17A40055E296 /* MBT_SNR_Stats.h */; };
 		F40E03E91F6C17A50055E296 /* MBT_Contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02811F6C17A40055E296 /* MBT_Contour.cpp */; };
 		F40E03EA1F6C17A50055E296 /* MBT_FinalClustering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02821F6C17A40055E296 /* MBT_FinalClustering.cpp */; };
 		F40E03EB1F6C17A50055E296 /* MBT_TF_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02831F6C17A40055E296 /* MBT_TF_map.cpp */; };
 		F40E03EC1F6C17A50055E296 /* MBT_TF_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02841F6C17A40055E296 /* MBT_TF_Stats.cpp */; };
-		F40E03F91F6C17A50055E296 /* MBT_Contour.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02931F6C17A40055E296 /* MBT_Contour.h */; };
-		F40E03FA1F6C17A50055E296 /* MBT_FinalClustering.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02941F6C17A40055E296 /* MBT_FinalClustering.h */; };
-		F40E03FB1F6C17A50055E296 /* MBT_TF_map.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02951F6C17A40055E296 /* MBT_TF_map.h */; };
-		F40E03FC1F6C17A50055E296 /* MBT_TF_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E02961F6C17A40055E296 /* MBT_TF_Stats.h */; };
-		F40E040E1F6C17C40055E296 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; };
 		F40E04121F6C1A500055E296 /* MBTSignalProcessingProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40E04111F6C1A500055E296 /* MBTSignalProcessingProtocols.swift */; };
 		F40E04141F6C1A5B0055E296 /* MBTSignalProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40E04131F6C1A5B0055E296 /* MBTSignalProcessingManager.swift */; };
 		F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -90,9 +61,17 @@
 		F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A11EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift */; };
 		F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */; };
 		F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */; };
+		F426C7B91F750FA100BBDE1F /* cleanItakuraDistance.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CC1F6C17A40055E296 /* cleanItakuraDistance.txt */; };
+		F426C7BA1F750FC100BBDE1F /* trainingClasses_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FE1F6C17A40055E296 /* trainingClasses_BrainAmp.txt */; };
+		F426C7BB1F750FD000BBDE1F /* trainingFeatures_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02061F6C17A40055E296 /* trainingFeatures_BrainAmp.txt */; };
+		F426C7BC1F750FE200BBDE1F /* trainingW_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020C1F6C17A40055E296 /* trainingW_BrainAmp.txt */; };
+		F426C7BD1F750FEC00BBDE1F /* trainingMu_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020A1F6C17A40055E296 /* trainingMu_BrainAmp.txt */; };
+		F426C7BE1F750FF700BBDE1F /* trainingSigma_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020B1F6C17A40055E296 /* trainingSigma_BrainAmp.txt */; };
+		F426C7BF1F75100100BBDE1F /* spectrumClean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F21F6C17A40055E296 /* spectrumClean.txt */; };
 		F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45837381EC5C21000C5D596 /* MelomindEngine.swift */; };
 		F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */; };
 		F487F5DB1F7141EC00EB3AD4 /* MBT_MainQC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01C51F6C17A40055E296 /* MBT_MainQC.cpp */; };
+		F4A0BD801F73FFBC00488038 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; };
 		F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -342,7 +321,7 @@
 		F40E01CE1F6C17A40055E296 /* DebugSignal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DebugSignal.txt; sourceTree = "<group>"; };
 		F40E01CF1F6C17A40055E296 /* deriv_X_save.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deriv_X_save.txt; sourceTree = "<group>"; };
 		F40E01D01F6C17A40055E296 /* deriv_X_two_save.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = deriv_X_two_save.txt; sourceTree = "<group>"; };
-		F40E01D11F6C17A40055E296 /* derivAeiocha.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = derivAeiocha.txt; sourceTree = "<group>"; };
+		F40E01D11F6C17A40055E296 /* derivAeiocha.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = derivAeiocha.txt; path = Sources/Utils/CPPSignalProcessing/QualityChecker/Files/derivAeiocha.txt; sourceTree = SOURCE_ROOT; };
 		F40E01D21F6C17A40055E296 /* fft0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft0.txt; sourceTree = "<group>"; };
 		F40E01D31F6C17A40055E296 /* fft1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft1.txt; sourceTree = "<group>"; };
 		F40E01D41F6C17A40055E296 /* fft2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fft2.txt; sourceTree = "<group>"; };
@@ -1695,35 +1674,7 @@
 			files = (
 				3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
 				F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */,
-				F40E03901F6C17A50055E296 /* MBT_MainQC.h in Headers */,
-				F40E040E1F6C17C40055E296 /* fftw3.h in Headers */,
-				F40E03DD1F6C17A50055E296 /* version.h in Headers */,
-				F40E03C41F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.h in Headers */,
-				F40E02C91F6C17A50055E296 /* MBT_NormalizeRelaxIndex.h in Headers */,
-				F40E03CD1F6C17A50055E296 /* MBT_BandPass_fftw3.h in Headers */,
-				F40E03FA1F6C17A50055E296 /* MBT_FinalClustering.h in Headers */,
-				F40E03BE1F6C17A50055E296 /* MBT_Interpolation.h in Headers */,
-				F40E02C61F6C17A50055E296 /* MBT_ComputeCalibration.h in Headers */,
-				F40E02CB1F6C17A50055E296 /* MBT_SmoothRelaxIndex.h in Headers */,
-				F40E03CB1F6C17A50055E296 /* Biquad.h in Headers */,
-				F40E03F91F6C17A50055E296 /* MBT_Contour.h in Headers */,
-				F40E03DA1F6C17A50055E296 /* MBT_Fourier_fftw3.h in Headers */,
-				F40E03BF1F6C17A50055E296 /* MBT_kmeans.h in Headers */,
-				F40E03E51F6C17A50055E296 /* MBT_SNR_Stats.h in Headers */,
-				F40E03DB1F6C17A50055E296 /* MBT_PWelchComputer.h in Headers */,
-				F40E03FB1F6C17A50055E296 /* MBT_TF_map.h in Headers */,
-				F40E03D81F6C17A50055E296 /* MBT_FindPeak.h in Headers */,
-				F40E03D91F6C17A50055E296 /* MBT_Fourier.h in Headers */,
-				F40E02C81F6C17A50055E296 /* MBT_ComputeSNR.h in Headers */,
-				F40E03FC1F6C17A50055E296 /* MBT_TF_Stats.h in Headers */,
-				F40E03CE1F6C17A50055E296 /* MBT_PreProcessing.h in Headers */,
-				F40E02C71F6C17A50055E296 /* MBT_ComputeRelaxIndex.h in Headers */,
-				F40E03CC1F6C17A50055E296 /* MBT_BandPass.h in Headers */,
-				F40E03BD1F6C17A50055E296 /* MBT_FindClosest.h in Headers */,
-				F40E03C31F6C17A50055E296 /* MBT_Matrix.h in Headers */,
-				F40E03C01F6C17A50055E296 /* MBT_Operations.h in Headers */,
-				F40E02CA1F6C17A50055E296 /* MBT_RelaxIndexToVolum.h in Headers */,
-				F40E03D71F6C17A50055E296 /* MBT_FFTReal.h in Headers */,
+				F4A0BD801F73FFBC00488038 /* fftw3.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1955,6 +1906,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F426C7BF1F75100100BBDE1F /* spectrumClean.txt in Resources */,
+				F426C7BE1F750FF700BBDE1F /* trainingSigma_BrainAmp.txt in Resources */,
+				F426C7BD1F750FEC00BBDE1F /* trainingMu_BrainAmp.txt in Resources */,
+				F426C7BC1F750FE200BBDE1F /* trainingW_BrainAmp.txt in Resources */,
+				F426C7BB1F750FD000BBDE1F /* trainingFeatures_BrainAmp.txt in Resources */,
+				F426C7BA1F750FC100BBDE1F /* trainingClasses_BrainAmp.txt in Resources */,
+				F426C7B91F750FA100BBDE1F /* cleanItakuraDistance.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,15 +7,23 @@
 //
 
 import Foundation
+import RealmSwift
 
-//protocol MBTQualityComputer {
-//    /// Returns an array of "quality" values for a data matrix of an acquisition packet.
-//    /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
-//    /// - parameter sampRate: The data sampling rate.
-//    /// - returns: The array of computed "quality" values. Each value is the quality for a channel, in the same order as the row order in data.
-//    func computeQualityValue(_ data: [[Float]], sampRate: Int) -> [Float]
-//}
-//
+/// Protocol to call Quality Checker methods from the Objective-C++ bridge.
+protocol MBTQualityComputer {
+    
+    /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
+    func initializeQualityChecker()
+    
+    /// Returns an array of "quality" values for a data matrix of an acquisition packet.
+    /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
+    /// - returns: The array of computed "quality" values. Each value is the quality for a channel, in the same order as the row order in data.
+    func computeQualityValue(_ data: List<ChannelDatas>) -> [Float]
+    
+    /// Delete MBT_MainQC instance once acquisition phase is over.
+    func deinitQualityChecker()
+}
+
 //protocol MBTCalibrationComputer {
 //    
 //    /// Computes the necessary information from the calibration data and returns it in a dictionary.

@@ -7,39 +7,59 @@
 //
 
 import Foundation
+import RealmSwift
 
-//Holds the current implementation of the signal processing protocols.
-internal class MBTSignalProcessingManager: NSObject { //MBTQualityComputer, MBTCalibrationComputer, MBTRelaxIndexComputer, MBTSessionAnalysisComputer {
+/// Holds the current implementation of the signal processing protocols.
+internal class MBTSignalProcessingManager: MBTQualityComputer {
     
     /// Singleton declaration
     static let shared = MBTSignalProcessingManager()
     
-    /// Instance of MBT_MainQC
-//    var mainQC: MBT_MainQC?
-    
+    /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
     func initializeQualityChecker() {
-        MBTQualityCheckerBridge.initializeMainQualityChecker()
+        // Getting connected MBTDevice *sampRate*.
+        let sampRate = DeviceManager.getDeviceSampRate()
+        // Calling bridge method to init mainQC.
+        MBTQualityCheckerBridge.initializeMainQualityChecker(sampRate, accuracy: 0.85)
     }
     
-//    //Implementing MBT_QualityComputer
-//    func computeQualityValue(_ data: [[Float]], sampRate: Int) -> [Float] {
-//        
-//        //Transform the input data into the format needed by the Obj-C bridge
-//        let nbChannels: Int = data.count
-//        let nbDataPoints: Int = data[0].count
-//        var dataArray = [Float]()
-//        for dataForChannel in data {
-//            dataArray += dataForChannel
-//        }
-//        
-//        //Perform the computation
-//        let qualities = MBT_SignalProcessingObjC.computeQuality(dataArray, sampRate: NSInteger(sampRate), nbChannels: NSInteger(nbChannels), nbDataPoints: NSInteger(nbDataPoints))
-//        
-//        //Return the quality values
-//        let qualitySwift = qualities as! [Float]
-//        return qualitySwift
-//    }
-//    
+    /// Delete MBT_MainQC instance once acquisition phase is over.
+    func deinitQualityChecker() {
+        MBTQualityCheckerBridge.deInitializeMainQualityChecker()
+    }
+    
+    /// Returns an array of "quality" values for a data matrix of an acquisition packet.
+    /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
+    /// - returns: The array of computed "quality" values. Each value is the quality for a channel, in the same order as the row order in data.
+    func computeQualityValue(_ data: List<ChannelDatas>) -> [Float] {
+        
+        // Getting connected MBTDevice *sampRate*.
+        let sampRate = Int(DeviceManager.getDeviceSampRate())
+        
+        // Transform the input data into the format needed by the Obj-C++ bridge.
+        let nbChannels: Int = data.count
+        let nbDataPoints: Int = data.first!.value.count
+        var dataArray = [Float]()
+        
+        for channelDatas in data {
+            for channelData in channelDatas.value {
+                dataArray.append(channelData.value)
+            }
+        }
+
+        // Perform the computation.
+        let qualities = MBTQualityCheckerBridge.computeQuality(dataArray,
+                                                               sampRate: sampRate,
+                                                               nbChannels: nbChannels,
+                                                               nbDataPoints: nbDataPoints)
+        // Return the quality values.
+        let qualitySwift = qualities as! [Float]
+        return qualitySwift
+    }
+    
+    
+}
+//
 //    
 //    //Implementing MBT_CalibrationComputer
 //    func computeSettingsFromCalibration(_ calibrationData: [[Float]], calibrationQualityValues: [[Float]], sampRate: Int, packetLength: Int) -> [String: Float] {
@@ -106,4 +126,3 @@ internal class MBTSignalProcessingManager: NSObject { //MBTQualityComputer, MBTC
 //        let sessionAnalysis = sessionAnalysisValues as! [String: Float]
 //        return sessionAnalysis
 //    }
-}

@@ -127,6 +127,16 @@ class DeviceManager: MBTRealmEntityManager {
         
         return device.deviceInfos
     }
+    
+    /// Get EEG data samp rate of the connected device.
+    /// - Returns: The *sampRate* of the current *MBTDevice*.
+    class func getDeviceSampRate() -> Float {
+        // Get current device.
+        let device = getCurrentDevice()
+        let sampRate = Float(device.sampRate)
+        
+        return sampRate
+    }
 }
 
 //MARK: -

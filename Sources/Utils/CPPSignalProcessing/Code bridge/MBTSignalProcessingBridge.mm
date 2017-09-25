@@ -20,14 +20,17 @@
 
 @implementation MBTQualityCheckerBridge
 
-+ (void)initializeMainQualityChecker {
-    float sampRate = 250;
-    
+
+static MBT_MainQC *mainQC;
+
+
++ (void)initializeMainQualityChecker:(float)sampRate
+                             accuracy:(float)accuracy {
     // Construction de trainingFeatures
-    MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_BrainAmp.txt");
+    MBT_Matrix<float> trainingFeatures = MBT_readMatrix("Sources/Utils/CPPSignalProcessing/QualityChecker/Files/trainingFeatures_BrainAmp.txt");
     
     // Construction de trainingClasses
-    std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses_BrainAmp.txt");
+    std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("Sources/Utils/CPPSignalProcessing/QualityChecker/Files/trainingClasses_BrainAmp.txt");
     std::vector<float> trainingClasses;
     trainingClasses.assign(tmp_trainingClasses.size(),0);
     for (unsigned int t=0;t<tmp_trainingClasses.size();t++)
@@ -36,7 +39,7 @@
     }
     
     // Construction de w
-    std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_BrainAmp.txt");
+    std::vector<std::complex<float> > tmp_w = MBT_readVector("Sources/Utils/CPPSignalProcessing/QualityChecker/Files/trainingW_BrainAmp.txt");
     std::vector<float> w;
     w.assign(tmp_w.size(),0);
     for (unsigned int t=0;t<tmp_w.size();t++)
@@ -45,7 +48,7 @@
     }
     
     // Construction de mu
-    std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_BrainAmp.txt");
+    std::vector<std::complex<float> > tmp_mu = MBT_readVector("Sources/Utils/CPPSignalProcessing/QualityChecker/Files/trainingMu_BrainAmp.txt");
     std::vector<float> mu;
     mu.assign(tmp_mu.size(),0);
     for (unsigned int t=0;t<tmp_mu.size();t++)
@@ -54,7 +57,7 @@
     }
     
     // Construction de sigma
-    std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_BrainAmp.txt");
+    std::vector<std::complex<float> > tmp_sigma = MBT_readVector("Sources/Utils/CPPSignalProcessing/QualityChecker/Files/trainingSigma_BrainAmp.txt");
     std::vector<float> sigma;
     sigma.assign(tmp_sigma.size(),0);
     for (unsigned int t=0;t<tmp_sigma.size();t++)
@@ -89,7 +92,7 @@
     std::vector< std::vector<float> > dataClean;
     
     // Construction de spectrumClean
-    std::vector<std::complex<float> > tmp_spectrumClean = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/spectrumClean.txt");
+    std::vector<std::complex<float> > tmp_spectrumClean = MBT_readVector("Sources/Utils/CPPSignalProcessing/QualityChecker/Files/spectrumClean.txt");
     std::vector<float> spectrumClean;
     spectrumClean.assign(tmp_spectrumClean.size(),0);
     for (unsigned int t=0;t<tmp_spectrumClean.size();t++)
@@ -98,7 +101,7 @@
     }
     
     // Construction de cleanItakuraDistance
-    std::vector<std::complex<float> > tmp_cleanItakuraDistance = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/cleanItakuraDistance.txt");
+    std::vector<std::complex<float> > tmp_cleanItakuraDistance = MBT_readVector("Sources/Utils/CPPSignalProcessing/QualityChecker/Files/cleanItakuraDistance.txt");
     std::vector<float> cleanItakuraDistance;
     cleanItakuraDistance.assign(tmp_cleanItakuraDistance.size(),0);
     for (unsigned int t=0;t<tmp_cleanItakuraDistance.size();t++)
@@ -106,12 +109,48 @@
         cleanItakuraDistance[t] = tmp_cleanItakuraDistance[t].real();
     }
     
-    
-    // Construction de accuracy
-    float accuracy = (float)0.85;
-    
-    
-    //return MBT_MainQC(sampRate, trainingFeatures, trainingClasses, w, mu, sigma, kppv, costClass, potTrainingFeatures, dataClean, spectrumClean, cleanItakuraDistance, accuracy);
+    mainQC = new MBT_MainQC(sampRate, trainingFeatures, trainingClasses, w, mu, sigma, kppv, costClass, potTrainingFeatures, dataClean, spectrumClean, cleanItakuraDistance, accuracy);
 }
+
++ (void)deInitializeMainQualityChecker {
+    delete mainQC;
+}
+
++ (NSArray*) computeQuality: (NSArray*) signal
+                   sampRate: (NSInteger) sampRate
+                 nbChannels: (NSInteger) nbChannels
+               nbDataPoints: (NSInteger) nbDataPoints
+{
+    // Transform EEG data into MBT_Matrix
+    MBT_Matrix<float> signalMatrix = MBT_Matrix<float>((int) nbChannels, (int) nbDataPoints);
+    for (int channelIndex = 0; channelIndex < nbChannels; channelIndex++)
+    {
+        for (int dataPoint = 0; dataPoint < nbDataPoints; dataPoint++)
+        {
+            signalMatrix(channelIndex, dataPoint) = [signal[channelIndex * nbDataPoints + dataPoint] floatValue];
+        }
+    }
+    
+    // Compute Quality
+    mainQC->MBT_ComputeQuality(signalMatrix);
+    
+    // Getting the qualities in a cpp format
+    std::vector<float> qualities = mainQC->MBT_get_m_quality();
+    
+    // Converting the qualities to an Objective-C format
+    NSMutableArray * qualitiesArray = [[NSMutableArray alloc] init];
+    for (int channelIndex = 0; channelIndex < nbChannels; channelIndex++)
+    {
+        NSNumber *quality = [NSNumber numberWithDouble:qualities[channelIndex]];
+        [qualitiesArray addObject:quality];
+    }
+    return (NSArray*) qualitiesArray;
+}
+
+//+ (NSArray*) getModifiedEEGData {
+//    MBT_Matrix<float> modifiedData = mainQC->MBT_get_m_inputData();
+//    
+//    
+//}
 
 @end

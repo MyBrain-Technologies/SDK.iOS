@@ -44,6 +44,7 @@ public class MelomindEngine {
     /// - Parameters:
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
     public static func connectEEGAndA2DP(withDelegate delegate: MelomindEngineDelegate) {
+        //TODO: Update it to "melo_xx"
         bluetoothManager.connectTo("melomind", with: delegate, and: delegate)
         
         // Add the Acquisition delegate to the Acquisition manager
@@ -76,6 +77,7 @@ public class MelomindEngine {
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
     public static func startStream() {
         bluetoothManager.isListeningToEEG = true
+        // Prepare acquisition manager for streaming.
         acqusitionManager.streamHasStarted()
     }
     

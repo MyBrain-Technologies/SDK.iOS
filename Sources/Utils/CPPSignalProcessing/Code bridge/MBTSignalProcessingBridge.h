@@ -11,9 +11,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MBTQualityCheckerBridge: NSObject
+@interface MBTQualityCheckerBridge: NSObject 
 
-+ (void)initializeMainQualityChecker;
++ (void)initializeMainQualityChecker:(float) sampRate
+                             accuracy:(float) accuracy;
++ (void)deInitializeMainQualityChecker;
++ (NSArray*) computeQuality: (NSArray*) signal
+                   sampRate: (NSInteger) sampRate
+                 nbChannels: (NSInteger) nbChannels
+               nbDataPoints: (NSInteger) nbDataPoints;
+//+ (NSArray*) getModifiedEEGData;
 
 @end
 
