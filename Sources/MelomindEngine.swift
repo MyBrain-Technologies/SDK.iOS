@@ -28,7 +28,7 @@ public class MelomindEngine {
     /// - Parameters:
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
     public static func connectEEG(withDelegate delegate: MelomindEngineDelegate) {
-        bluetoothManager.connectTo("melomind", with: delegate, and: nil)
+        bluetoothManager.connectTo("melo_testios", with: delegate, and: nil)
         
         // Add the Acquisition delegate to the Acquisition manager
         MelomindEngine.initAcquisitionManager(with: delegate)
@@ -45,7 +45,7 @@ public class MelomindEngine {
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
     public static func connectEEGAndA2DP(withDelegate delegate: MelomindEngineDelegate) {
         //TODO: Update it to "melo_xx"
-        bluetoothManager.connectTo("melomind", with: delegate, and: delegate)
+        bluetoothManager.connectTo("melo_testios", with: delegate, and: delegate)
         
         // Add the Acquisition delegate to the Acquisition manager
         MelomindEngine.initAcquisitionManager(with: delegate)
