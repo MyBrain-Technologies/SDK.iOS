@@ -198,8 +198,7 @@ internal class MBTAcquisitionManager: NSObject  {
         let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
         
         for qualityFloat in qualities {
-            let quality = Quality(value: qualityFloat)
-            
+            let quality = Quality(data:qualityFloat)
             eegPacket.qualities.append(quality)
         }
         

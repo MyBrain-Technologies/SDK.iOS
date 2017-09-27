@@ -61,13 +61,6 @@
 		F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A11EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift */; };
 		F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */; };
 		F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */; };
-		F426C7B91F750FA100BBDE1F /* cleanItakuraDistance.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01CC1F6C17A40055E296 /* cleanItakuraDistance.txt */; };
-		F426C7BA1F750FC100BBDE1F /* trainingClasses_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01FE1F6C17A40055E296 /* trainingClasses_BrainAmp.txt */; };
-		F426C7BB1F750FD000BBDE1F /* trainingFeatures_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E02061F6C17A40055E296 /* trainingFeatures_BrainAmp.txt */; };
-		F426C7BC1F750FE200BBDE1F /* trainingW_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020C1F6C17A40055E296 /* trainingW_BrainAmp.txt */; };
-		F426C7BD1F750FEC00BBDE1F /* trainingMu_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020A1F6C17A40055E296 /* trainingMu_BrainAmp.txt */; };
-		F426C7BE1F750FF700BBDE1F /* trainingSigma_BrainAmp.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E020B1F6C17A40055E296 /* trainingSigma_BrainAmp.txt */; };
-		F426C7BF1F75100100BBDE1F /* spectrumClean.txt in Resources */ = {isa = PBXBuildFile; fileRef = F40E01F21F6C17A40055E296 /* spectrumClean.txt */; };
 		F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45837381EC5C21000C5D596 /* MelomindEngine.swift */; };
 		F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */; };
 		F487F5DB1F7141EC00EB3AD4 /* MBT_MainQC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01C51F6C17A40055E296 /* MBT_MainQC.cpp */; };
@@ -1906,13 +1899,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F426C7BF1F75100100BBDE1F /* spectrumClean.txt in Resources */,
-				F426C7BE1F750FF700BBDE1F /* trainingSigma_BrainAmp.txt in Resources */,
-				F426C7BD1F750FEC00BBDE1F /* trainingMu_BrainAmp.txt in Resources */,
-				F426C7BC1F750FE200BBDE1F /* trainingW_BrainAmp.txt in Resources */,
-				F426C7BB1F750FD000BBDE1F /* trainingFeatures_BrainAmp.txt in Resources */,
-				F426C7BA1F750FC100BBDE1F /* trainingClasses_BrainAmp.txt in Resources */,
-				F426C7B91F750FA100BBDE1F /* cleanItakuraDistance.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
