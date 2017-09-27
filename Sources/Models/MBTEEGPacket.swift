@@ -32,6 +32,12 @@ public class MBTEEGPacket: Object {
 public class Quality: Object {
     /// Value property of the *Quality*.
     public dynamic var value: Float = 0
+    
+    /// Special init with the value of *Quality*.
+    public convenience init(data: Float) {
+        self.init()
+        self.value = data
+    }
 }
 
 /// One EEG value from one channel.
