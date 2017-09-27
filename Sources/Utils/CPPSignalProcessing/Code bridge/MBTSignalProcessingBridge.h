@@ -20,9 +20,8 @@
                    sampRate: (NSInteger) sampRate
                  nbChannels: (NSInteger) nbChannels
                nbDataPoints: (NSInteger) nbDataPoints;
-//+ (NSArray*) getModifiedEEGData;
++ (NSArray*) getModifiedEEGData;
 
 @end
-
 
 #endif /* MBTSignalProcessingBridge_h */
