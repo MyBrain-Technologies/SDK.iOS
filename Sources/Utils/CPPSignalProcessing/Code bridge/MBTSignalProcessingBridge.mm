@@ -207,6 +207,7 @@ static std::vector<float> w = {(float)0.00340136054421800,(float)0.0034013605442
     return [MBTSignalProcessingHelper fromVectorToNSArray:qualities];
 }
 
+/// 
 + (NSArray*) getModifiedEEGData {
     MBT_Matrix<float> modifiedData = mainQC->MBT_get_m_inputData();
     

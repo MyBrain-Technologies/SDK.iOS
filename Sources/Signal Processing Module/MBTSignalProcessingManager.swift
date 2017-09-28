@@ -57,7 +57,13 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
         return qualitySwift
     }
     
-    
+    func getModifiedEEGValues() -> [Float] {
+        let newEEGValues = MBTQualityCheckerBridge.getModifiedEEGData()
+        
+        // Return the updated EEG values.
+        let newEEGValuesSwift = newEEGValues as! [Float]
+        return newEEGValuesSwift
+    }
 }
 //
 //    
