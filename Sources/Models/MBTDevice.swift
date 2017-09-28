@@ -13,7 +13,7 @@ import RealmSwift
 class MBTDevice: Object {
     
     /// Device informations from MBT Headset Bluetooth LE.
-    public private(set) var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
+    dynamic public internal(set) var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
     
     /// The number of active channels in the device.
     dynamic var nbChannels:Int = 0
@@ -38,7 +38,6 @@ class MBTDevice: Object {
 
 /// Device Informations model.
 public class MBTDeviceInformations: Object {
-    
     /// The commercial name of the device.
     public dynamic var productName:String? = nil
     
@@ -61,14 +60,15 @@ class DeviceManager: MBTRealmEntityManager {
     /// - Parameters:
     ///     - deviceInfos: *MBTDeviceInformations* from BLE to record.
     class func updateDeviceInformations(_ deviceInfos:MBTDeviceInformations) {
-        // Save the new device infos to Realm Database
+        // Get the myBrainTechnologies device connected.
         let device = getCurrentDevice()
         
+        // Save the new device infos to Realm Database
         try! RealmManager.realm.write {
-            device.deviceInfos?.productName = deviceInfos.productName ?? device.deviceInfos?.productName
-            device.deviceInfos?.deviceId = deviceInfos.deviceId ?? device.deviceInfos?.deviceId
-            device.deviceInfos?.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos?.hardwareVersion
-            device.deviceInfos?.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos?.firmwareVersion
+            device.deviceInfos!.productName = deviceInfos.productName ?? device.deviceInfos!.productName
+            device.deviceInfos!.deviceId = deviceInfos.deviceId ?? device.deviceInfos!.deviceId
+            device.deviceInfos!.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos!.hardwareVersion
+            device.deviceInfos!.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos!.firmwareVersion
         }
     }
     
@@ -99,8 +99,8 @@ class DeviceManager: MBTRealmEntityManager {
             // Add electrodes locations value.
             device.acquisitionLocations.append(acquisition1)
             device.acquisitionLocations.append(acquisition2)
-            device.acquisitionLocations.append(reference)
-            device.acquisitionLocations.append(ground)
+            device.referencesLocations.append(reference)
+            device.groundsLocations.append(ground)
         }
     }
     
@@ -112,7 +112,7 @@ class DeviceManager: MBTRealmEntityManager {
             let newDevice = MBTDevice()
             
             try! RealmManager.realm.write {
-                RealmManager.realm.add(newDevice)
+                RealmManager.realm.add(newDevice, update:true)
             }
             return newDevice
         }
@@ -136,6 +136,14 @@ class DeviceManager: MBTRealmEntityManager {
         let sampRate = Float(device.sampRate)
         
         return sampRate
+    }
+    
+    /// Get EEGPacket length of the connected device.
+    /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
+    class func getDeviceEEGPacketLength() -> Int {
+        // Get current device.
+        let device = getCurrentDevice()        
+        return device.eegPacketLength
     }
 }
 
