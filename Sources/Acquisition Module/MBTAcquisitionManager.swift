@@ -13,6 +13,12 @@ import CoreBluetooth
 /// device info, battery level ...
 internal class MBTAcquisitionManager: NSObject  {
     
+    static let SHIFT_MELOMIND: Int32 = 8+4 //mandatory 8 to switch from 24 bits to 32 bits + variable part which fits fw config
+    static let CHECK_SIGN_MELOMIND: Int32 = (0x80 << SHIFT_MELOMIND)
+    static let NEGATIVE_MASK_MELOMIND: Int32 = (0xFFFFFF << (32 - SHIFT_MELOMIND))
+    static let POSITIVE_MASK_MELOMIND: Int32 = (~NEGATIVE_MASK_MELOMIND)
+    static var previousIndex : Int16 = 0xFF
+    
     /// Singleton declaration
     static let shared = MBTAcquisitionManager()
     
@@ -28,7 +34,7 @@ internal class MBTAcquisitionManager: NSObject  {
     /// Constant to decod EEG data
     let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 12
     
-    //MARK: - 
+    //MARK: -
     
     /// Method called by MelomindEngine when a new EEG streaming
     /// session has began. Method will make everything ready, acquisition side
@@ -38,11 +44,11 @@ internal class MBTAcquisitionManager: NSObject  {
         MBTJSONHelper.uuid = UUID()
         
         // Deleting the previous session JSON.
-//        MBTJSONHelper.deleteJSONFromDevice()
+        //        MBTJSONHelper.deleteJSONFromDevice()
         
         // Start mainQualityChecker.
         if shouldUseQualityChecker {
-           MBTSignalProcessingManager.shared.initializeQualityChecker()
+            MBTSignalProcessingManager.shared.initializeQualityChecker()
         }
         
         // Register to packet Complete notification
@@ -84,14 +90,14 @@ internal class MBTAcquisitionManager: NSObject  {
         
         // Get caluclated qualities of the EEGPacket.
         let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
-
+        
         // Save it to Realm DB.
         EEGPacketManager.addQualities(qualities,to:eegPacket)
         
         // Update EEG data and add calculated qualities to the EEGPacket.
-//        if shouldUseQualityChecker {
-//
-//        }
+        //        if shouldUseQualityChecker {
+        //
+        //        }
         
         // Send EEGPacket to the delegate.
         delegate.onReceivingPackage?(eegPacket)
@@ -176,21 +182,46 @@ internal class MBTAcquisitionManager: NSObject  {
     ///     P3 and P4 samples arrays ( key : "packet" )
     func processBrainActivityData(_ data: Data) {
         // Get the bytes as unsigned shorts
+
+        if data.count == 0 {
+            return
+        }
+        
         let count = 18
         var bytesArray = [UInt8](repeating: 0, count: count)
         (data as NSData).getBytes(&bytesArray, length: count * MemoryLayout<UInt8>.size)
+        let currentIndex : Int16 = Int16(bytesArray[0] & 0xff) << 8 | Int16(bytesArray[1] & 0xff)
         
         // Process the data.
-//        let packetIndex = Int(bytesArray[0]) << 8 | Int(bytesArray[1])
         var values = [Float]()
-        for i in 0..<8 {
-            let temp = Int(bytesArray[2 * i + 2]) << 8 | Int(bytesArray[2 * i + 3])
-            var value = temp & Int(pow(2.0, 23.0) - 1)
-            let sign = (temp & Int(pow(2.0, 23.0))) >> 23
-            if sign == 0 {
-                value -= Int(pow(2.0, 23.0))
+        
+        if MBTAcquisitionManager.previousIndex == 0xFF {
+            MBTAcquisitionManager.previousIndex = currentIndex - 1
+        }
+    
+        let diff = currentIndex - MBTAcquisitionManager.previousIndex
+        
+        if diff != 1 {
+            print("lost \(diff) packet(s)")
+            for _ in 0...diff {
+                let packetLostArray = Array(arrayLiteral: ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")))
+                let datasArray = [packetLostArray, packetLostArray]
+                EEGPacketManager.addValueToEEGPacket(datasArray)
             }
-            values.append(Float(value))
+        }
+        
+        for i in 0..<8 {
+            var temp : Int32 = 0x00000000
+            temp = (Int32(bytesArray[2 * i + 2] & 0xFF) << MBTAcquisitionManager.SHIFT_MELOMIND) | Int32(bytesArray[2 * i + 3] & 0xFF) << (MBTAcquisitionManager.SHIFT_MELOMIND - 8)
+            
+            if ((temp & MBTAcquisitionManager.CHECK_SIGN_MELOMIND) > 0) { // value is negative
+                temp = Int32(temp | MBTAcquisitionManager.NEGATIVE_MASK_MELOMIND )
+            }
+            else{
+                // value is positive
+                temp = Int32(temp & MBTAcquisitionManager.POSITIVE_MASK_MELOMIND)
+            }
+            values.append(Float(temp))
         }
         
         let P3Sample1 = ChannelData(data: values[0] * voltageADS1299)
@@ -209,37 +240,38 @@ internal class MBTAcquisitionManager: NSObject  {
         let datasArray = [P3DatasArray, P4DatasArray]
         
         EEGPacketManager.addValueToEEGPacket(datasArray)
-//        // Create the P3 channel data array.
-//        let P3Datas = ChannelDatas()
-//        for P3Sample in P3DatasArray {
-//            P3Datas.value.append(P3Sample)
-//        }
-//        // Create the P4 channel data array.
-//        let P4Datas = ChannelDatas()
-//        for P4Sample in P4DatasArray {
-//            P4Datas.value.append(P4Sample)
-//        }
-//
-//        // Create a *MBTEEGPacket* entity.
-//        let eegPacket = MBTEEGPacket()
-//        eegPacket.channelsData.append(P3Datas)
-//        eegPacket.channelsData.append(P4Datas)
-//
-//        // Get caluclated qualities of the EEGPacket.
-//        let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
-//
-//        for qualityFloat in qualities {
-//            let quality = Quality(data:qualityFloat)
-//            eegPacket.qualities.append(quality)
-//        }
-//
-//        // Update EEG data and add calculated qualities to the EEGPacket.
-//        if shouldUseQualityChecker {
-//
-//        }
-//
-//        // Send EEGPacket to the delegate.
-//        delegate.onReceivingPackage?(eegPacket)
+        MBTAcquisitionManager.previousIndex = currentIndex
+        //        // Create the P3 channel data array.
+        //        let P3Datas = ChannelDatas()
+        //        for P3Sample in P3DatasArray {
+        //            P3Datas.value.append(P3Sample)
+        //        }
+        //        // Create the P4 channel data array.
+        //        let P4Datas = ChannelDatas()
+        //        for P4Sample in P4DatasArray {
+        //            P4Datas.value.append(P4Sample)
+        //        }
+        //
+        //        // Create a *MBTEEGPacket* entity.
+        //        let eegPacket = MBTEEGPacket()
+        //        eegPacket.channelsData.append(P3Datas)
+        //        eegPacket.channelsData.append(P4Datas)
+        //
+        //        // Get caluclated qualities of the EEGPacket.
+        //        let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
+        //
+        //        for qualityFloat in qualities {
+        //            let quality = Quality(data:qualityFloat)
+        //            eegPacket.qualities.append(quality)
+        //        }
+        //
+        //        // Update EEG data and add calculated qualities to the EEGPacket.
+        //        if shouldUseQualityChecker {
+        //
+        //        }
+        //
+        //        // Send EEGPacket to the delegate.
+        //        delegate.onReceivingPackage?(eegPacket)
     }
     
     
@@ -275,3 +307,4 @@ internal class MBTAcquisitionManager: NSObject  {
         DeviceManager.updateDeviceInformations(deviceInfos)
     }
 }
+

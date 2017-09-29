@@ -11,6 +11,7 @@
 //          Fanny Grosselin 2017/03/28 --> Add a member function MBT_interpBTpacketLost to try to interpolate the possible NaN values inside inputData thanks to rawInterpData.
 //          Fanny Grosselin 2017/03/28 --> Create a member function MBT_MainQC::MBT_ComputeQuality() to call the others functions.
 //          Fanny Grosselin 2017/09/05 --> Change the paths
+//          Fanny Grosselin 2017/09/19 --> In MBT_MainQC::MBT_qualityChecker, change the output signal after QualityChecker: keep NaN signal if the quality is 0, or get the original signal (no the interpolated ones).
 
 #ifndef MBT_MAINQC_H
 #define MBT_MAINQC_H
@@ -79,7 +80,7 @@ class MBT_MainQC
         void MBT_featuresQualityChecker(); // Method which calculates features of each EEG observation
         void MBT_knn(); // Method which is a k-nearest neighbors classifier
         void MBT_addTraining(); // Method which prepares variables to add eventual data in the cloud storage
-        void MBT_qualityChecker(); // Method which gives the final quality of each observation and prepare each observation
+        void MBT_qualityChecker(MBT_Matrix<float> inputData); // Method which gives the final quality of each observation and prepare each observation
                               //  (in function of its quality) to the relaxation index module
         float MBT_itakuraDistance(std::vector<float> data); // Method which calculates the Itakura distance between the averaged
                                                               // spectrum of clean data (quality = 1) and the spectrum of each observation

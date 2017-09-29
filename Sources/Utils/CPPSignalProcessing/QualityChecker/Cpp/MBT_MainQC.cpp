@@ -24,6 +24,9 @@
 //          Fanny Grosselin 2017/07/25 --> In MBT_MainQC::MBT_qualityChecker, transform ampvar in Volts instead of microVolts.
 //          Fanny Grosselin 2017/07/26 --> In MBT_MainQC::MBT_interpBTpacketLost, fix the case where the number of channels in m_inputData is higher than m_rawInterpData.
 //          Fanny Grosselin 2017/09/05 --> Change the paths
+//          Fanny Grosselin 2017/09/15 --> In MBT_MainQC::MBT_featuresQualityChecker(), multiply each data by 10^6 in order to convert data in microVolts.
+//          Fanny Grosselin 2017/07/25 --> In MBT_MainQC::MBT_qualityChecker, keep ampvar in microVolts.
+//          Fanny Grosselin 2017/09/19 --> In MBT_MainQC::MBT_qualityChecker, change the output signal after QualityChecker: keep NaN signal if the quality is 0, or get the original signal (no the interpolated ones).
 
 #include "../Headers/MBT_MainQC.h"
 #include "../../SignalProcessing.Cpp/Transformations/Headers/MBT_Fourier_fftw3.h"
@@ -78,7 +81,7 @@ void MBT_MainQC::MBT_ComputeQuality(MBT_Matrix<float> const& inputData)
         MBT_knn(); // change m_probaClass and m_predictedClass
         //MBT_addTraining(); // change m_potTrainingFeatures and m_dataClean
 
-        MBT_qualityChecker(); // change m_predictedClass and m_quality
+        MBT_qualityChecker(inputData); // change m_predictedClass and m_quality
 
     }
     else
@@ -184,7 +187,7 @@ void MBT_MainQC::MBT_interpBTpacketLost()
         std::vector<double> InterpolatedData = MBT_linearInterp(x, y, xInterp);
         for (unsigned int d = 0; d<InterpolatedData.size(); d++)
         {
-            rawInterpData_row[xInterp[d]] = InterpolatedData[d];
+            rawInterpData_row[(unsigned int)xInterp[d]] = InterpolatedData[d];
         }
 
         // Update of m_rawInterpData after interpolation
@@ -263,6 +266,10 @@ void MBT_MainQC::MBT_featuresQualityChecker()
         {
             std::vector<double> tmp_tmp_signal(tmp_signal.begin(),tmp_signal.end());
             std::vector<double> signal = RemoveDC(tmp_tmp_signal); // Remove DC
+            for (unsigned int v=0;v<signal.size();v++)
+            {
+                signal[v] = signal[v]*pow(10,6);
+            }
             //std::vector<double> signal = tmp_tmp_signal;
             // TODO:
             // notch
@@ -844,7 +851,7 @@ void MBT_MainQC::MBT_featuresQualityChecker()
             // Zero-padding
             // ------------
             unsigned int N = signal.size();
-            int tmp_nfft = pow(2, ceil(log(N)/log(2)));
+            int tmp_nfft = (int)pow(2, ceil(log(N)/log(2)));
             unsigned int nfft = std::max(256,tmp_nfft);
             unsigned int nb_zero_added = nfft-N;
             if (nfft>N)
@@ -870,7 +877,7 @@ void MBT_MainQC::MBT_featuresQualityChecker()
             std::vector<std::complex<double> > complex_signal;
             for (unsigned int ki=0;ki<signal.size();ki++)
             {
-                complex_signal.push_back(std::complex<float>(signal[ki], 0));
+                complex_signal.push_back(std::complex<double>(signal[ki], 0));
             }
             DOUBLE_FFTW_C2C_1D *obj = new DOUBLE_FFTW_C2C_1D(complex_signal.size(), complex_signal,-1);
             std::vector<complex<double> > dataToTransform(complex_signal.size());
@@ -1585,7 +1592,7 @@ void MBT_MainQC::MBT_featuresQualityChecker()
 
             // Modified Median Frequency
             std::vector<double> ecart;
-            ecart.assign(floor((double)m_sampRate/(double)2),0);
+            ecart.assign((unsigned int) floor((double)m_sampRate/(double)2),0);
             for (unsigned int i = 0; i<floor(m_sampRate/2); i++)
             {
                 unsigned int f_dist = 0;
@@ -1748,7 +1755,7 @@ void MBT_MainQC::MBT_knn()
     double minDist;
     std::vector<double> tmpProbaClass;
     tmpProbaClass.assign(typeClasses.size(), 0);
-    int redondance;
+    //int redondance;
     std::vector<double> distanceNeighborNormalized;
     distanceNeighborNormalized.assign(m_trainingFeatures.size().first,0);
     std::vector<double> distanceNeighborWeight;
@@ -1761,7 +1768,7 @@ void MBT_MainQC::MBT_knn()
     classNeighbor.assign(m_trainingFeatures.size().first,0);
     std::vector<double> tmp_yPredict;
     tmp_yPredict.assign(m_costClass.size().first,0);
-    double inf = std::numeric_limits<double>::infinity();
+    float inf = std::numeric_limits<double>::infinity();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -1989,7 +1996,7 @@ void MBT_MainQC::MBT_addTraining()
 }
 
 
-void MBT_MainQC::MBT_qualityChecker()
+void MBT_MainQC::MBT_qualityChecker(MBT_Matrix<float> inputDataInit)
 {
     // seuil of Itakura distance to detect muscular artifacts --> sid can be changed
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2004,6 +2011,8 @@ void MBT_MainQC::MBT_qualityChecker()
     int t1;
     std::vector<double> signal;
     signal.assign(m_inputData.size().second,0);
+    std::vector<double> signalInit;
+    signalInit.assign(inputDataInit.size().second,0);
     int cstce;
     double ampvar;
     std::vector<double> pow_signal;
@@ -2015,10 +2024,18 @@ void MBT_MainQC::MBT_qualityChecker()
 
     for (t=0;t<(unsigned int)m_inputData.size().first;t++)
     {
+        // Original signal
+        std::vector<float> inputDataInit_row = inputDataInit.row(t);
+        std::vector<double> double_inputDataInit_row(inputDataInit_row.begin(),inputDataInit_row.end());
+        signalInit = double_inputDataInit_row;
+
+        // Interpolated signal
         std::vector<float> m_inputData_row = m_inputData.row(t);
         std::vector<double> double_m_inputData_row(m_inputData_row.begin(),m_inputData_row.end());
         signal = double_m_inputData_row;
+
         int len = signal.size();
+
         // Check if signal is constant
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         int counter = 0;
@@ -2046,7 +2063,7 @@ void MBT_MainQC::MBT_qualityChecker()
                 pow_signal[t1] = pow(signal[t1]-mean(signal),(double)2);
             }
             ampvar = (double)2*sqrt((double)2)*sqrt(mean(pow_signal));
-            if (ampvar > (double)300*pow(10,-6))
+            if (ampvar > (double)300)
             {
                 m_predictedClass[t] = (float)0;
                 m_probaClass[t] = (float)inf;
@@ -2061,6 +2078,10 @@ void MBT_MainQC::MBT_qualityChecker()
         {
             std::vector<double> signalRem = MBT_remove(signal);
             signal = signalRem;
+            for (t1=0;t1<m_inputData.size().second;t1++) // we keep NaN values because the signal is bad
+            {
+                m_inputData(t,t1)=(float)signal[t1];
+            }
             //std::cout<<"The signal no"<<t<<" has been removed."<<std::endl;
         }
         else if (m_predictedClass[t] == (float)0.5)
@@ -2082,18 +2103,26 @@ void MBT_MainQC::MBT_qualityChecker()
                 //signal = signalCorr;
                 //std::cout<<"The signal no"<<t<<" has been corrected."<<std::endl;
             }
+            for (t1=0;t1<m_inputData.size().second;t1++) // we get the original signal, not the interpolated one
+            {
+                m_inputData(t,t1)=(float)signalInit[t1];
+            }
         }
         else if (m_predictedClass[t] == (float)1)
         {
             // Puis detrend et/ou bandpass % ########################
             //std::cout<<"The signal no"<<t<<" is correct."<<std::endl;
+            for (t1=0;t1<m_inputData.size().second;t1++) // we get the original signal, not the interpolated one
+            {
+                m_inputData(t,t1)=(float)signalInit[t1];
+            }
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        for (t1=0;t1<m_inputData.size().second;t1++)
+        /*for (t1=0;t1<m_inputData.size().second;t1++)
         {
             m_inputData(t,t1)=(float)signal[t1];
-        }
+        }*/
     }
 
     m_quality = m_predictedClass;
@@ -2187,7 +2216,7 @@ float MBT_MainQC::MBT_itakuraDistance(std::vector<float> data)
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    return itakuraDistance;
+    return (float)itakuraDistance;
 }
 
 
