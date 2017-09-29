@@ -13,7 +13,7 @@ import RealmSwift
 class MBTDevice: Object {
     
     /// Device informations from MBT Headset Bluetooth LE.
-    dynamic public internal(set) var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
+    dynamic public var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
     
     /// The number of active channels in the device.
     dynamic var nbChannels:Int = 0
@@ -112,7 +112,7 @@ class DeviceManager: MBTRealmEntityManager {
             let newDevice = MBTDevice()
             
             try! RealmManager.realm.write {
-                RealmManager.realm.add(newDevice, update:true)
+                RealmManager.realm.add(newDevice)
             }
             return newDevice
         }

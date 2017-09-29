@@ -77,7 +77,7 @@ public:
      * @param data Reference to a 1d vector representation of the data.
      * @return A MBT_Matrix object initialized to represent a default matrix of the provided dimensions.
     */
-   MBT_Matrix(unsigned int height, unsigned int width, std::vector<double> const& data){
+   MBT_Matrix(unsigned int height, unsigned int width, std::vector<T> const& data){
        m_height = height;
        m_width = width;
        m_data.resize(data.size());
@@ -94,22 +94,7 @@ public:
      * @param data Reference to a 2d vector representation of the data.
      * @return A MBT_Matrix object initialized to represent a default matrix of the provided dimensions.
      */
-    MBT_Matrix(unsigned int height, unsigned int width, std::vector< std::vector<float> > const& data)
-    {
-        m_height = height;
-        m_width = width;
-
-        m_data.resize(m_height * m_width);
-        for (int i = 0; i < m_height; i++)
-        {
-            for (int j = 0; j < m_width; j++)
-            {
-                m_data[i * m_width + j] = data[i][j];
-            }
-        }
-    }
-	// Version with double
-    MBT_Matrix(unsigned int height, unsigned int width, std::vector< std::vector<double> > const& data)
+    MBT_Matrix(unsigned int height, unsigned int width, std::vector< std::vector<T> > const& data)
     {
         m_height = height;
         m_width = width;
