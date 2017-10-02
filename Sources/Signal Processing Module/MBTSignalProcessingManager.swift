@@ -46,17 +46,12 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
                 dataArray.append(channelData.value)
             }
         }
-
-        let date1 = Date().timeIntervalSince1970*1000
         
         // Perform the computation.
         let qualities = MBTQualityCheckerBridge.computeQuality(dataArray,
                                                                sampRate: sampRate,
                                                                nbChannels: nbChannels,
                                                                nbDataPoints: nbDataPoints)
-        let date2 = Date().timeIntervalSince1970*1000
-        
-        print("QC Duration : \(date2 - date1)")
         // Return the quality values.
         let qualitySwift = qualities as! [Float]
         return qualitySwift

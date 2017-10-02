@@ -107,6 +107,7 @@ static MBT_MainQC *mainQC;
     // Construction de dataClean
     std::vector< std::vector<float> > dataClean;
 
+    // Init of Main_QC.
     mainQC = new MBT_MainQC(sampRate, trainingFeatures, trainingClasses, w, mu, sigma, kppv, costClass, potTrainingFeatures, dataClean, spectrumClean, cleanItakuraDistance, accuracy);
 }
 
