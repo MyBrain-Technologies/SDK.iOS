@@ -19,6 +19,13 @@ public class MelomindEngine {
     /// data from the MBT Headset.
     internal static let acqusitionManager = MBTAcquisitionManager.shared
     
+    /// Indicate if the SDK should use Quality checker to compute qualities,
+    /// and correct received EEG values, acoording to the calculated qualities.
+    public static var shouldUseQualityChecker:Bool = true {
+        didSet {
+            acqusitionManager.shouldUseQualityChecker = shouldUseQualityChecker
+        }
+    }
     
     //MARK: - Connect and Disconnect MBT Headset Methods
 
@@ -54,22 +61,11 @@ public class MelomindEngine {
         DeviceManager.updateDeviceToMelomind()
     }
     
-    /// Add delegate to Acquisition Manager
-    /// - Parameters:
-    ///     - delegate : The Melomind Engine Delegate to get Headset datas.
-    internal static func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
-        if acqusitionManager.delegate == nil {
-            acqusitionManager.delegate = delegate
-        }
-    }
-    
-    
     /// Disconnect the iDevice from the headset
     /// - Remark: The audio can't be disconnect from code.
     public static func disconnect() {
         bluetoothManager.disconnect()
     }
-    
     
     //MARK: - Start / stop listening to EEG
     
@@ -99,5 +95,21 @@ public class MelomindEngine {
     /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
     public static func getSessionJSON() -> Data? {
         return MBTJSONHelper.getSessionData()
+    }
+    
+    //MARK: - Acquisition Manager
+    
+    /// Add delegate to Acquisition Manager
+    /// - Parameters:
+    ///     - delegate : The Melomind Engine Delegate to get Headset datas.
+    internal static func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
+        if acqusitionManager.delegate == nil {
+            acqusitionManager.delegate = delegate
+        }
+    }
+    
+    /// Set *shouldUseQualityChecker* to false.
+    public static func shouldNotUseQualityChecker() {
+        self.shouldUseQualityChecker = false
     }
 }
