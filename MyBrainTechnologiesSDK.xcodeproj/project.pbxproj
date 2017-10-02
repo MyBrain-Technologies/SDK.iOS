@@ -64,6 +64,7 @@
 		F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45837381EC5C21000C5D596 /* MelomindEngine.swift */; };
 		F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */; };
 		F487F5DB1F7141EC00EB3AD4 /* MBT_MainQC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01C51F6C17A40055E296 /* MBT_MainQC.cpp */; };
+		F49C741B1F82503B0033262E /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = F49C741A1F82503B0033262E /* MBTBridgeConstants.mm */; };
 		F4A0BD801F73FFBC00488038 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; };
 		F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */; };
 		FE3820C81F741BD200764A5F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44849CE1F2B3EC200006A04 /* Alamofire.framework */; };
@@ -516,6 +517,8 @@
 		F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPDelegate.swift; path = "Bluetooth Module/MBTBluetoothA2DPDelegate.swift"; sourceTree = "<group>"; };
 		F495BD311F040CB400755BD1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		F495BD401F040CB700755BD1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		F49C74191F824C920033262E /* MBTBridgeConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBTBridgeConstants.h; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.h"; sourceTree = "<group>"; };
+		F49C741A1F82503B0033262E /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = MBTBridgeConstants.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.mm"; sourceTree = "<group>"; };
 		F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngineDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -783,6 +786,8 @@
 			children = (
 				F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */,
 				F40E04171F6C26F50055E296 /* MBTSignalProcessingBridge.mm */,
+				F49C74191F824C920033262E /* MBTBridgeConstants.h */,
+				F49C741A1F82503B0033262E /* MBTBridgeConstants.mm */,
 			);
 			name = "Code bridge";
 			sourceTree = "<group>";
@@ -1983,6 +1988,7 @@
 				F40E02A01F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp in Sources */,
 				F40E03DE1F6C17A50055E296 /* MBT_SNR_Stats.cpp in Sources */,
 				F40E029B1F6C17A40055E296 /* MBT_ComputeCalibration.cpp in Sources */,
+				F49C741B1F82503B0033262E /* MBTBridgeConstants.mm in Sources */,
 				F40E03EB1F6C17A50055E296 /* MBT_TF_map.cpp in Sources */,
 				F40CDF271F2F6B4B00515A91 /* MBTJSONHelper.swift in Sources */,
 				F40E03CA1F6C17A50055E296 /* MBT_PreProcessing.cpp in Sources */,
