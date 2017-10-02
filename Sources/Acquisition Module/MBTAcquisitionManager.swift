@@ -92,7 +92,7 @@ internal class MBTAcquisitionManager: NSObject  {
         let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
         
         // Save it to Realm DB.
-        EEGPacketManager.addQualities(qualities,to:eegPacket)
+        EEGPacketManager.addQualities(qualities, to:eegPacket)
         
         // Update EEG data and add calculated qualities to the EEGPacket.
         //        if shouldUseQualityChecker {
@@ -240,38 +240,6 @@ internal class MBTAcquisitionManager: NSObject  {
         let datasArray = [P3DatasArray, P4DatasArray]
         
         EEGPacketManager.addValueToEEGPacket(datasArray)
-        MBTAcquisitionManager.previousIndex = currentIndex
-        //        // Create the P3 channel data array.
-        //        let P3Datas = ChannelDatas()
-        //        for P3Sample in P3DatasArray {
-        //            P3Datas.value.append(P3Sample)
-        //        }
-        //        // Create the P4 channel data array.
-        //        let P4Datas = ChannelDatas()
-        //        for P4Sample in P4DatasArray {
-        //            P4Datas.value.append(P4Sample)
-        //        }
-        //
-        //        // Create a *MBTEEGPacket* entity.
-        //        let eegPacket = MBTEEGPacket()
-        //        eegPacket.channelsData.append(P3Datas)
-        //        eegPacket.channelsData.append(P4Datas)
-        //
-        //        // Get caluclated qualities of the EEGPacket.
-        //        let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
-        //
-        //        for qualityFloat in qualities {
-        //            let quality = Quality(data:qualityFloat)
-        //            eegPacket.qualities.append(quality)
-        //        }
-        //
-        //        // Update EEG data and add calculated qualities to the EEGPacket.
-        //        if shouldUseQualityChecker {
-        //
-        //        }
-        //
-        //        // Send EEGPacket to the delegate.
-        //        delegate.onReceivingPackage?(eegPacket)
     }
     
     
