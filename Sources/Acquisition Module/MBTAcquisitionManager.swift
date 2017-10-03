@@ -201,7 +201,7 @@ internal class MBTAcquisitionManager: NSObject  {
         
         if diff != 1 {
             print("lost \(diff) packet(s)")
-            for _ in 0...diff {
+            for _ in 0..<diff {
                 let packetLostArray = Array(arrayLiteral: ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")))
                 let datasArray = [packetLostArray, packetLostArray]
                 self.addValuesToEEGPacket(datasArray)
@@ -237,6 +237,7 @@ internal class MBTAcquisitionManager: NSObject  {
         let P4DatasArray = Array(arrayLiteral: P4Sample1, P4Sample2, P4Sample3, P4Sample4)
         let datasArray = [P3DatasArray, P4DatasArray]
         
+        MBTAcquisitionManager.previousIndex = currentIndex
         self.addValuesToEEGPacket(datasArray)
     }
     
