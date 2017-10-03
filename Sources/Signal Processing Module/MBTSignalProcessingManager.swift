@@ -28,7 +28,8 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
         MBTQualityCheckerBridge.deInitializeMainQualityChecker()
     }
     
-    /// Returns an array of "quality" values for a data matrix of an acquisition packet.
+    /// Compute datas in the *Quality Checker* and returns an array of *Quality* values
+    /// for a data matrix of an acquisition packet.
     /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
     /// - returns: The array of computed "quality" values. Each value is the quality for a channel, in the same order as the row order in data.
     func computeQualityValue(_ data: List<ChannelDatas>) -> [Float] {
@@ -57,11 +58,12 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
         return qualitySwift
     }
     
-    func getModifiedEEGValues() -> [Float] {
+    /// Get an array of the modified EEG datas by the *Quality Checker*, and return it.
+    /// - returns: The matrix of EEG datas (modified) by channel.
+    func getModifiedEEGValues() -> [[Float]] {
         let newEEGValues = MBTQualityCheckerBridge.getModifiedEEGData()
+        let newEEGValuesSwift = newEEGValues as! [[Float]]
         
-        // Return the updated EEG values.
-        let newEEGValuesSwift = newEEGValues as! [Float]
         return newEEGValuesSwift
     }
 }

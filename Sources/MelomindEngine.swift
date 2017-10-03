@@ -19,14 +19,6 @@ public class MelomindEngine {
     /// data from the MBT Headset.
     internal static let acqusitionManager = MBTAcquisitionManager.shared
     
-    /// Indicate if the SDK should use Quality checker to compute qualities,
-    /// and correct received EEG values, acoording to the calculated qualities.
-    public static var shouldUseQualityChecker:Bool = true {
-        didSet {
-            acqusitionManager.shouldUseQualityChecker = shouldUseQualityChecker
-        }
-    }
-    
     //MARK: - Connect and Disconnect MBT Headset Methods
 
     /// Connect to bluetooth LE profile of the MBT headset.
@@ -71,10 +63,9 @@ public class MelomindEngine {
     
     /// Start streaming EEG Data from MyBrainActivity Characteristic.
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
-    public static func startStream() {
+    public static func startStream(_ shouldUseQualityChecker: Bool) {
+        acqusitionManager.streamHasStarted(shouldUseQualityChecker)
         bluetoothManager.isListeningToEEG = true
-        // Prepare acquisition manager for streaming.
-        acqusitionManager.streamHasStarted()
     }
     
     /// Stop streaming EEG Data to MelomineEngineDelegate.
@@ -106,10 +97,5 @@ public class MelomindEngine {
         if acqusitionManager.delegate == nil {
             acqusitionManager.delegate = delegate
         }
-    }
-    
-    /// Set *shouldUseQualityChecker* to false.
-    public static func shouldNotUseQualityChecker() {
-        self.shouldUseQualityChecker = false
     }
 }

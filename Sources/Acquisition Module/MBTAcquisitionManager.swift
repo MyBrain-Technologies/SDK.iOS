@@ -9,12 +9,12 @@
 import Foundation
 import CoreBluetooth
 
-/// Manage Acquisition data MBT Headset part. Such as EEG,
-/// device info, battery level ...
+/// Manage Acquisition data from the MBT device connected.
+/// Such as EEG, device info, battery level ...
 internal class MBTAcquisitionManager: NSObject  {
     /// Mandatory 8 to switch from 24 bits to 32 bits + variable part which fits fw config.
     static let SHIFT_MELOMIND: Int32 = 8+4
-    // Constante to get EEG value from bluetooth.
+    // Constantes to get EEG values from bluetooth.
     static let CHECK_SIGN_MELOMIND: Int32 = (0x80 << SHIFT_MELOMIND)
     static let NEGATIVE_MASK_MELOMIND: Int32 = (0xFFFFFF << (32 - SHIFT_MELOMIND))
     static let POSITIVE_MASK_MELOMIND: Int32 = (~NEGATIVE_MASK_MELOMIND)
@@ -24,7 +24,7 @@ internal class MBTAcquisitionManager: NSObject  {
     static let shared = MBTAcquisitionManager()
     
     /// Bool to know if developer wants to use QC or not.
-    var shouldUseQualityChecker = true
+    var shouldUseQualityChecker: Bool!
     
     /// The MBTBluetooth Event Delegate.
     var delegate: MBTAcquisitionDelegate!
@@ -40,12 +40,8 @@ internal class MBTAcquisitionManager: NSObject  {
     /// Method called by MelomindEngine when a new EEG streaming
     /// session has began. Method will make everything ready, acquisition side
     /// for the new session.
-    func streamHasStarted() {
-        // Add a new UUID for a new streaming session.
-        MBTJSONHelper.uuid = UUID()
-        
-        // Deleting the previous session JSON.
-        //        MBTJSONHelper.deleteJSONFromDevice()
+    func streamHasStarted(_ useQualityChecker:Bool) {
+        shouldUseQualityChecker = useQualityChecker
         
         // Start mainQualityChecker.
         if shouldUseQualityChecker {
@@ -54,9 +50,23 @@ internal class MBTAcquisitionManager: NSObject  {
     }
     
     /// Method called by MelomindEngine when the current EEG streaming
-    /// session has finished. Method will create and save on the iDevice
-    /// the JSON.
+    /// session has finished.
     func streamHasStopped() {
+        // Dealloc mainQC.
+        if shouldUseQualityChecker {
+            MBTSignalProcessingManager.shared.deinitQualityChecker()
+        }
+    }
+    
+    func startRecording() {
+        // Deleting the previous session JSON.
+        //        MBTJSONHelper.deleteJSONFromDevice()
+        
+        // Add a new UUID for a new streaming session.
+        MBTJSONHelper.uuid = UUID()
+    }
+    
+    func stopRecording() {
         // Collect data for the JSON.
         let jsonObject = self.collectSessionData()
         
@@ -68,20 +78,21 @@ internal class MBTAcquisitionManager: NSObject  {
             // Send JSON to BrainWeb.
             MBTBrainWebHelper.sendJSONToBrainWeb(fileURL)
         }
-        
-        // Dealloc mainQC.
-        if shouldUseQualityChecker {
-            MBTSignalProcessingManager.shared.deinitQualityChecker()
-        }
     }
     
+    /// Add *ChannelData* values to Realm DB. If a packet is complete,
+    /// it'll be sent to the packet complete management method.
+    /// - Parameter datasArray : *Array* of *ChannelData* by channel.
     func addValuesToEEGPacket(_ datasArray:[[ChannelData]]) {
         if let packetComplete = EEGPacketManager.addValuesToEEGPacket(datasArray) {
-            print("packet complete : \(packetComplete)")
             self.manageCompleteEEGPacket(packetComplete)
         }
     }
     
+    
+    /// Method to manage a complete *MBTEEGPacket*. Use *Quality Checker*
+    /// on it if user asks for it, or just send it via the delegate.
+    /// - Parameter eegPacket : A complete *MBTEEGPacket*.
     func manageCompleteEEGPacket(_ eegPacket:MBTEEGPacket) {
         var packet:MBTEEGPacket? = nil
         
@@ -91,19 +102,18 @@ internal class MBTAcquisitionManager: NSObject  {
             
             // Add *qualities* and save it in Realm DB.
             EEGPacketManager.addQualities(qualities, to:eegPacket)
-            
+            // Get the EEG values modified by the *QC* according to the *Quality* values.
             let correctedValues = MBTSignalProcessingManager.shared.getModifiedEEGValues()
-            print("corrected values : \(correctedValues)")
             packet = EEGPacketManager.updateEEGPacketChannelsDataValues(eegPacket,
                                                                         newValues: correctedValues)
-            print("packet : \(String(describing: packet))")
         }
         
         // Send EEGPacket to the delegate.
         delegate.onReceivingPackage?(packet ?? eegPacket)
     }
     
-    /// Collecting the session datas to create the JSON.
+    /// Collecting the session datas and create the JSON.
+    /// - Returns: The *JSON* created with the session datas.
     func collectSessionData() -> [String: Any] {
         let eegPackets = EEGPacketManager.getEEGPackets()
         
@@ -114,15 +124,22 @@ internal class MBTAcquisitionManager: NSObject  {
         }
         
         // Get datas per channel.
-        var channel1: [Float] = Array()
-        var channel2: [Float] = Array()
+        var eegDatas = [[Float]]()
         for eegPacket in eegPackets {
-            for channelData in eegPacket.channelsData.first!.value {
-                channel1.append(channelData.value)
+            for channelNumber in 0 ..< device.nbChannels {
+                var arrayForOneChannel = [Float]()
+                for packetIndex in 0 ..< device.eegPacketLength {
+                   arrayForOneChannel.append(eegPacket.channelsData[channelNumber].value[packetIndex].value)
+                }
+                eegDatas.append(arrayForOneChannel)
             }
-            
-            for channelData in eegPacket.channelsData.last!.value {
-                channel2.append(channelData.value)
+        }
+        
+        // Get the qualities per channel.
+        var qualities = [Float]()
+        for eegPacket in eegPackets {
+            for channelNumber in 0 ..< device.nbChannels {
+                qualities.append(eegPacket.qualities[channelNumber].value)
             }
         }
         
@@ -160,11 +177,8 @@ internal class MBTAcquisitionManager: NSObject  {
                 "recordingTime": eegPackets.first!.timestamp,
                 "nbPackets": eegPackets.count,
                 "firstPacketId": eegPackets.index(of: eegPackets.first!)!,
-                "qualities": [[],[]],
-                "channelData": [
-                    channel1,
-                    channel2
-                ],
+                "qualities": qualities,
+                "channelData": eegDatas,
                 "statusData": []
             ]
         ]
@@ -199,9 +213,10 @@ internal class MBTAcquisitionManager: NSObject  {
     
         let diff = currentIndex - MBTAcquisitionManager.previousIndex
         
+        // Lost packets management.
         if diff != 1 {
             print("lost \(diff) packet(s)")
-            for _ in 0..<diff {
+            for _ in 0 ..< diff {
                 let packetLostArray = Array(arrayLiteral: ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")))
                 let datasArray = [packetLostArray, packetLostArray]
                 self.addValuesToEEGPacket(datasArray)
@@ -222,6 +237,9 @@ internal class MBTAcquisitionManager: NSObject  {
             values.append(Float(temp))
         }
         
+        // Save the current index as previousIndex.
+        MBTAcquisitionManager.previousIndex = currentIndex
+        
         // Format eeg samples as ChannelData.
         let P3Sample1 = ChannelData(data: values[0] * voltageADS1299)
         let P4Sample1 = ChannelData(data: values[1] * voltageADS1299)
@@ -236,8 +254,7 @@ internal class MBTAcquisitionManager: NSObject  {
         let P3DatasArray = Array(arrayLiteral: P3Sample1, P3Sample2, P3Sample3, P3Sample4)
         let P4DatasArray = Array(arrayLiteral: P4Sample1, P4Sample2, P4Sample3, P4Sample4)
         let datasArray = [P3DatasArray, P4DatasArray]
-        
-        MBTAcquisitionManager.previousIndex = currentIndex
+        // Add datas to the last uncomplete EEG Packet.
         self.addValuesToEEGPacket(datasArray)
     }
     
