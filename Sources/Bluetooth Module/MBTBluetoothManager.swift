@@ -64,16 +64,21 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 } else {
                     // Try to set Category to help device to connect
                     // to the MBT A2DP profile
-                    do {
-                        if #available(iOS 10.0, *) {
-                            try session.setCategory(AVAudioSessionCategoryPlayback,
-                                                    with: AVAudioSessionCategoryOptions.allowBluetoothA2DP)
-                        } else {
+                    if #available(iOS 10.0, *) {
+                        do {
+                            try session.setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault, options: AVAudioSessionCategoryOptions.allowBluetoothA2DP)
+//                            try session.setCategory(AVAudioSessionCategoryPlayback,
+//                                                    with: AVAudioSessionCategoryOptions.allowAirPlay)
+                        } catch let error {
+                            print("[MyBrainTechnologiesSDK] Error while setting category for A2DP Bluetooth : \(error.localizedDescription)")
+                        }
+                    } else {
+                        do {
                             try session.setCategory(AVAudioSessionCategoryPlayback,
                                                     with: AVAudioSessionCategoryOptions.allowBluetooth)
+                        } catch let error {
+                            print("[MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
                         }
-                    } catch {
-                        debugPrint("[MyBrainTechnologiesSDK] Error while setting category for bluetooth or (if over iOS 10) A2DP Bluetooth : \(error)")
                     }
                 }
                 
@@ -82,8 +87,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 NotificationCenter.default.addObserver(self,
                                                        selector: #selector(audioChangedRoute(_:)),
                                                        name:Notification.Name.AVAudioSessionRouteChange,
-                                                       object: nil
-                )
+                                                       object: nil)
             }
         }
     }
