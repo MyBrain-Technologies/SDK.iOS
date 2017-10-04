@@ -99,6 +99,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     public func connectTo(_ deviceName:String,
                           with eventDelegate: MBTBluetoothEventDelegate,
                           and audioA2DPDelegate: MBTBluetoothA2DPDelegate?) {
+        // Check if a current device is already saved in the DB, and delete it
+        DeviceManager.deleteCurrentDevice()
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
         self.deviceName = NSString(string: deviceName)
@@ -118,6 +120,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         blePeripheral = nil
         eventDelegate = nil
         audioA2DPDelegate = nil
+        
+        // Remove current device saved
+        DeviceManager.deleteCurrentDevice()
     }
     
     

@@ -119,6 +119,15 @@ class DeviceManager: MBTRealmEntityManager {
         return device
     }
     
+    /// Remove the current device from Realm DB
+    class func deleteCurrentDevice() {
+        if let device = RealmManager.realm.objects(MBTDevice.self).first {
+            try! RealmManager.realm.write {
+                RealmManager.realm.delete(device)
+            }
+        }
+    }
+    
     /// Get BLE device informations of the connected MBT device.
     /// - Returns: The DB-saved *MBTDeviceInformations* instance.
     class func getDeviceInfos() -> MBTDeviceInformations? {
