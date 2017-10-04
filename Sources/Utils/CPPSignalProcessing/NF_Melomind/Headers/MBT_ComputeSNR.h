@@ -8,6 +8,7 @@
 //          Fanny Grosselin : 2017/03/21 Use MBT_BandPass_fftw3 instead of MBT_BandPass.
 //          Fanny Grosselin : 2017/03/23 Change float by double.
 //          Fanny Grosselin : 2017/09/05 Change the pathes.
+//          Fanny Grosselin : 2017/09/18 Change the input of MBT_ComputeSNR function.
 
 #ifndef MBT_COMPUTESNR_H_INCLUDED
 #define MBT_COMPUTESNR_H_INCLUDED
@@ -26,7 +27,6 @@
 #include "../../SignalProcessing.Cpp/Algebra/Headers/MBT_Interpolation.h"
 #include "../../SignalProcessing.Cpp/PreProcessing/Headers/MBT_PreProcessing.h"
 #include "../../SignalProcessing.Cpp/PreProcessing/Headers/MBT_BandPass_fftw3.h"
-
 #include "../../SignalProcessing.Cpp/DataManipulation/Headers/MBT_ReadInputOrWriteOutput.h"
 
 
@@ -38,10 +38,9 @@
  * @param sampRate The sample rate.
  * @param IAFinf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
  * @param IAFsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
- * @param Bounds A vector of double which holds the thresholds to detect the outliers of the signal.
  * @return The vector containing one SNR value by channel.
  */
-std::vector<double> MBT_ComputeSNR(MBT_Matrix<double> const signal, const double sampRate, const double IAFinf, const double IAFsup, std::vector<double> Bounds);
+std::vector<double> MBT_ComputeSNR(MBT_Matrix<double> const signal, const double sampRate, const double IAFinf, const double IAFsup);
 
 
 #endif // MBT_COMPUTESNR_H_INCLUDED

@@ -8,6 +8,7 @@
 // Update on 20/03/2017 by Katerina Pandremmenou (delete the map object)
 // Update on 03/04/2017 by Katerina Pandremmenou (convert everything from float to double, remove +1 on the upper bound of max_element, line 196)
 // Update on 05/04/2017 by Katerina Pandremmenou (Fix all the warnings)
+// Update on 19/09/2017 by Katerina Pandremmenou (Change all implicit type castings to explicit ones)
 
 #include <complex>
 #include <cmath>
@@ -193,7 +194,7 @@ int get_freqPeak(vector<double> powers, vector<double> frequencies)
     int pos = max_element(powers.begin()+ind1, powers.begin()+ind2) - powers.begin();
        
     // get the frequency that corresponds to the maximum power
-    int freqPeak = round(frequencies[pos]);
+    int freqPeak = (int) round(frequencies[pos]);
 
 	return freqPeak;
 }

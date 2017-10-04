@@ -6,8 +6,16 @@
 //
 //  Update: Fanny Grosselin 2017/01/16 --> Remove the normalization of SNR because we do that after smoothing and not before.
 //          Fanny Grosselin 2017/02/03 --> Get the Bounds (from parametersFromCalibration) to detect the outliers of the signal.
-// 		    Fanny Grosselin 2017/03/23 --> Change float by double for the functions not directly used by Androïd. For the others, keep inputs and outputs in double, but do the steps with double.
+// 		    Fanny Grosselin 2017/03/23 --> Change float by double for the functions not directly used by Androï¿½d. For the others, keep inputs and outputs in double, but do the steps with double.
 //          Fanny Grosselin 2017/03/27 --> Fix all the warnings.
+//          Fanny Grosselin 2017/09/18 --> Remove Bounds from the input of MBT_ComputeSNR
+//          Katerina Pandremmenou 2017/09/20 --> Change the preprocessing (use the bounds from calibration and set the outliers to NaN
+//                                               interpolate the nan values between the channels, interpolate each channel across itself,
+//                                               remove possible remaining nan values in the beginning or the end of an MBT_Matrix.
+//                                               Change all implicit type castings to explicit ones
+//          Katerina Pandremmenou 2017/09/28 --> Put all the block with outliers to nan, interpolatation between and across channels, 
+//                                               in the case where the calibration is good.
+//                                           --> Put outliers of BOTH channels to NaN. Put in comments the function for ignoring remaining nan values. (This is done in MBT_ComputeSNR file).
 
 #include "../Headers/MBT_ComputeRelaxIndex.h"
 
@@ -17,22 +25,45 @@ float MBT_ComputeRelaxIndex(MBT_Matrix<float> sessionPacket, std::map<std::strin
     std::vector<float> bestChannelVector = parametersFromCalibration["BestChannel"];
     std::vector<float> tmp_Bounds = parametersFromCalibration["Bounds_For_Outliers"]; // Fanny Grosselin 2017/02/03
     std::vector<double> Bounds(tmp_Bounds.begin(), tmp_Bounds.end());
+    std::vector<double> BoundsPerChan;
 
-    int bestChannel = round(bestChannelVector[0]);
+    int bestChannel = (int) round(bestChannelVector[0]);
 
     double relaxIndex;
-
+    
     if ((sessionPacket.size().first>0) & (sessionPacket.size().second>0) & (bestChannel != -2) & (bestChannel != -1))
     {
+        for (int r1 = 0 ; r1 < sessionPacket.size().first; r1++)
+        {
+            vector<float> NewsessionPacket = sessionPacket.row(r1);
+            vector<double> CopysessionPacket(NewsessionPacket.begin(), NewsessionPacket.end());
+    
+            // set the outliers to NaN based on the bounds found from calibration
+            // bounds for the specific channel
+            BoundsPerChan.push_back(Bounds[2*r1]);
+            BoundsPerChan.push_back(Bounds[2*r1+1]);
+
+            vector<double> InterpolatedsessionPacket = MBT_OutliersToNan(CopysessionPacket, BoundsPerChan);
+            for (unsigned int t = 0 ; t < InterpolatedsessionPacket.size(); t++)
+                sessionPacket(r1,t) = (float) InterpolatedsessionPacket[t];
+        }
+    
+        // interpolate the nan values between the channels
+        MBT_Matrix<float> InterpolatedsessionPacket = MBT_InterpolateBetweenChannels(sessionPacket);
+        // interpolate the nan values across each channel
+        MBT_Matrix<float> InterpolatedAcrossChannelssessionPackets = MBT_InterpolateAcrossChannels(InterpolatedsessionPacket);
+        // remove the nan if there still exist in the beginning or the end of the MBT_Matrix
+        //MBT_Matrix<float> DataWithoutNaN = RemoveNaNIfAny(InterpolatedAcrossChannelssessionPackets);
+    
         // Get  SNR vector from the calibration
         //std::vector<double> SNRCalib = parametersFromCalibration["SNRCalib_ofBestChannel"];
-        MBT_Matrix<double> packetBestChannel(1,sessionPacket.size().second);
-        for (int sample = 0; sample < sessionPacket.size().second; sample++)
+        MBT_Matrix<double> packetBestChannel(1,InterpolatedAcrossChannelssessionPackets.size().second);
+        for (int sample = 0; sample < InterpolatedAcrossChannelssessionPackets.size().second; sample++)
         {
             packetBestChannel(0,sample) = nan(" ");
-            if (!std::isnan(sessionPacket(bestChannel,sample)))
+            if (!std::isnan(InterpolatedAcrossChannelssessionPackets(bestChannel,sample)))
             {
-                packetBestChannel(0,sample) = sessionPacket(bestChannel,sample);
+                packetBestChannel(0,sample) = InterpolatedAcrossChannelssessionPackets(bestChannel,sample);
             }
         }
 
@@ -46,9 +77,8 @@ float MBT_ComputeRelaxIndex(MBT_Matrix<float> sessionPacket, std::map<std::strin
         else
         {
             // Compute SNR
-            SNRSession = MBT_ComputeSNR(packetBestChannel, double(sampRate), double(IAFinf), double(IAFsup), Bounds); // there is only one value but this is a vector
+            SNRSession = MBT_ComputeSNR(packetBestChannel, double(sampRate), double(IAFinf), double(IAFsup)); // there is only one value but this is a vector
         }
-
 
         // Normalize SNR
         /*double meanSNRCalib = mean(SNRCalib);
@@ -67,5 +97,5 @@ float MBT_ComputeRelaxIndex(MBT_Matrix<float> sessionPacket, std::map<std::strin
         errno = EINVAL;
         perror("ERROR: MBT_COMPUTERELAXINDEX CANNOT PROCESS WITHOUT GOOD INPUTS");
     }
-    return relaxIndex;
+    return (float) relaxIndex;
 }

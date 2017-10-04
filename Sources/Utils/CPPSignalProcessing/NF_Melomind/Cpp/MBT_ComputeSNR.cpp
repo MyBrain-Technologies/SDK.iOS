@@ -13,11 +13,13 @@
 //          Fanny Grosselin : 2017/06/09 Fix the case when the outliers were not interpolated and put to NaN (SNR is impossible to be computed if we have only NaN).
 //          Fanny Grosselin : 2017/07/26 Change the index that we get for the estimatedNoise.
 //          Fanny Grosselin : 2017/07/27 Fix the exception when estimatedNoise=0.
+//          Fanny Grosselin : 2017/09/18 Remove std::vector<double> Bounds from the input of MBT_ComputeSNR
+//          Fanny Grosselin : 2017/09/28 Change the name of freqBoundsOutliers to a more relevant name, that is freqBOundsBandPass
 
 #include "../Headers/MBT_ComputeSNR.h"
 
 
-std::vector<double> MBT_ComputeSNR(MBT_Matrix<double> signal, const double sampRate, const double IAFinf, const double IAFsup, std::vector<double> Bounds)
+std::vector<double> MBT_ComputeSNR(MBT_Matrix<double> signal, const double sampRate, const double IAFinf, const double IAFsup)
 {
     if ((signal.size().first > 0) & (signal.size().second > 0))
     {
@@ -37,30 +39,28 @@ std::vector<double> MBT_ComputeSNR(MBT_Matrix<double> signal, const double sampR
             {
                 signal_ch.erase(std::remove_if(signal_ch.begin(), signal_ch.end(),[](double testNaN){return std::isnan(testNaN);}),signal_ch.end()); // remove NaN values
                 std::vector<double> signal_ch_withoutDC = RemoveDC(signal_ch); // Remove DC
-                // Notch
-                std::vector<double> freqBoundsOutliers;
-                freqBoundsOutliers.assign(2,0);
-                freqBoundsOutliers[0] = 2.0;
-                freqBoundsOutliers[1] = 30.0;
-                std::vector<double> tmp_outputBandpass = BandPassFilter(signal_ch_withoutDC,freqBoundsOutliers); // BandPass
-                std::vector<double> tmp_Bounds(Bounds.begin(), Bounds.end());
-                std::vector<double> dataWithoutOutliers = InterpolateOutliers(tmp_outputBandpass, tmp_Bounds); // Interpolate outliers
-                if (std::all_of(dataWithoutOutliers.begin(), dataWithoutOutliers.end(), [](double testNaN){return std::isnan(testNaN);}) )
+                std::vector<double> freqBoundsBandPass;
+                freqBoundsBandPass.assign(2,0);
+                freqBoundsBandPass[0] = 2.0;
+                freqBoundsBandPass[1] = 30.0;
+                std::vector<double> tmp_outputBandpass = BandPassFilter(signal_ch_withoutDC,freqBoundsBandPass); // BandPass
+               
+                if (std::all_of(tmp_outputBandpass.begin(), tmp_outputBandpass.end(), [](double testNaN){return std::isnan(testNaN);}) )
                 {
                     SNR[channel] = nan(" ");
                 }
                 else
                 {
-                    dataWithoutOutliers.erase(std::remove_if(dataWithoutOutliers.begin(), dataWithoutOutliers.end(),[](double testNaN){return std::isnan(testNaN);}),dataWithoutOutliers.end()); // remove NaN values
+                    tmp_outputBandpass.erase(std::remove_if(tmp_outputBandpass.begin(), tmp_outputBandpass.end(),[](double testNaN){return std::isnan(testNaN);}),tmp_outputBandpass.end()); // remove NaN values
                     // -----------------------------------
 
-                    MBT_Matrix<double> signal_ch_mat(1,dataWithoutOutliers.size());
+                    MBT_Matrix<double> signal_ch_mat(1,tmp_outputBandpass.size());
                     for (int m = 0; m<signal_ch_mat.size().second;m++)
                     {
-                        signal_ch_mat(0,m) = dataWithoutOutliers[m];
+                        signal_ch_mat(0,m) = tmp_outputBandpass[m];
                     }
-                    MBT_Matrix<double> correctedSignal = MBT_trendCorrection(signal_ch_mat,sampRate); // Correct the signal to avoid 1/f trend of the spectrum
-                    MBT_PWelchComputer psd = MBT_PWelchComputer(correctedSignal, sampRate, "HAMMING"); // Compute spectrum
+                    //MBT_Matrix<double> correctedSignal = MBT_trendCorrection(signal_ch_mat,sampRate); // Correct the signal to avoid 1/f trend of the spectrum
+                    MBT_PWelchComputer psd = MBT_PWelchComputer(signal_ch_mat, sampRate, "HAMMING"); // Compute spectrum
                     std::vector<double> frequencies = psd.get_PSD(0); //Extract the frequencies for the psd
                     /*MBT_Matrix<double> psd = MBT_readMatrix("C:/Users/Fanny/Documents/SignalProcessing.Cpp/Melomind/TestFiles/Pxx_testComputeSNR.txt");
                     std::vector<double> frequencies = psd.row (0); //Extract the frequencies for the psd*/
@@ -100,7 +100,9 @@ std::vector<double> MBT_ComputeSNR(MBT_Matrix<double> signal, const double sampR
                     }
                     std::vector<double> n_vq = MBT_linearInterp(n_x, n_v, n_xq);  // find the interpolated values (n_vq)
                     //double estimatedNoise = n_vq[floor(n_vq.size()/2)+1];
-                    double estimatedNoise = n_vq[floor(n_vq.size()/2)];// Fanny Grosselin 2017/07/26
+        
+                    int tmp = (int) floor(n_vq.size()/2);
+                    double estimatedNoise = n_vq[tmp];// Fanny Grosselin 2017/07/26
                     // Compute SNR
                     double snr = nan(" ");
                     if (estimatedNoise!=0) // Fanny Grosselin 2017/07/27

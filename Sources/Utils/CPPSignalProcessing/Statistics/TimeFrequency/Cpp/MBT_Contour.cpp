@@ -3,10 +3,11 @@
 // Created by Katerina Pandremmenou on 03/10/2016.
 // Copyright (c) 2016 Katerina Pandremmenou. All rights reserved
 //
-// Update on 09/01/2017 by Katerina Pandremmenou (double-->float, no armadillo)
-// Update on 03/04/2017 by Katerina Pandremmenou (convert everything from float to double,
-//                                                remove constant double bound and replace it with numeric_limits<double>::epsilon ())
-// Update on 5/07/2017 by Katerina Pandremmenou (fix all the warnings)
+// Update on 09/01/2017 by Katerina Pandremmenou :double-->float, no armadillo
+// Update on 03/04/2017 by Katerina Pandremmenou : Convert everything from float to double,
+//                                                 remove constant double bound and replace it with numeric_limits<double>::epsilon ()
+// Update on 5/07/2017 by Katerina Pandremmenou  : Fix all the warnings
+// Update on 19/09/2017 by Katerina Pandremmenou : Change all implicit type castings to explicit ones
 
 #include <iomanip>
 #include <iostream>
@@ -323,7 +324,7 @@ MBT_Matrix<int> C2xyz(MBT_Matrix<double> ContourResults)
     while (n < ContourResults.size().second) // because we start from 0
 	{
 	    n = n + 1;
-	    m[n] = m[n-1] + ContourResults(1,m[n-1])+1;	    
+	    m[n] = m[n-1] + ContourResults(1,(int) m[n-1])+1;	    
 	    m[n-1] = m[n];
 	    if ((m[n-1]) >= ContourResults.size().second-1)
 	    {   
@@ -340,8 +341,8 @@ MBT_Matrix<int> C2xyz(MBT_Matrix<double> ContourResults)
 		
 	for (counter = 0; counter < n; counter++)
 	{  
-	    bounds(0,counter) = m[counter] + 1;
-	    bounds(1,counter) = m[counter+1] - 1;
+	    bounds(0,counter) = (int) m[counter] + 1;
+	    bounds(1,counter) = (int) m[counter+1] - 1;
 	}
 	
 	return bounds;

@@ -8,6 +8,8 @@
 // Update on 14/06/2017 by Katerina Pandremmenou --> Calculate normalized values of the three statistics between 0 and 1.
 // Update on 25/07/2017 by Katerina Pandremmenou --> Calculate the sum of the area above a threshold and not the mean area above a threshold
 // Update on 27/07/2017 by Katerina Pandremmenou --> fixed a bug for the case where all of the points are below the threshold
+// Update on 19/09/2017 by Katerina Pandremmenou --> Change all implicit type castings to explicit ones
+//												 --> Change the type of the output of sort_indexes in lines 159, 356 
 
 #include "../Headers/MBT_SNR_Stats.h"
 
@@ -154,7 +156,7 @@ int SNR_Statistics::ExerciseSwitch(vector<float> SNR)
 	tmp2.insert(tmp2.end(), tmp4.begin(), tmp4.end());
 
     // sort "rows"
-	vector<int> indexes = sort_indexes(tmp1);
+	vector<unsigned long> indexes = sort_indexes(tmp1);
 	sort(tmp1.begin(), tmp1.end());
 
 	for (uint a = 0 ; a < tmp2.size(); a++)
@@ -351,13 +353,13 @@ pair<float, float> SNR_Statistics::ExerciseAreaTimeLength(vector<float> SNR, dou
 			}
 		}	
 
-		vector<double> Indtmp_All_x = sort_indexes(tmp_All_x);
+		vector<unsigned long> Indtmp_All_x = sort_indexes(tmp_All_x);
 		sort(tmp_All_x.begin(), tmp_All_x.end());
 		vector<double> Sorted_tmp_All_y(tmp_All_y.size()), Helper1(tmp_All_x.size()), Helper2(tmp_All_x.size());
 
 		for (uint a = 0 ; a < tmp_All_y.size(); a++)
 		{
-			Sorted_tmp_All_y[a] = tmp_All_y[Indtmp_All_x[a]];
+			Sorted_tmp_All_y[a] = tmp_All_y[(int) Indtmp_All_x[a]];
 			Helper1[a] = round((tmp_All_x[a]*100)) / 100;
 			Helper2[a] = round((Sorted_tmp_All_y[a]*100)) / 100;
 

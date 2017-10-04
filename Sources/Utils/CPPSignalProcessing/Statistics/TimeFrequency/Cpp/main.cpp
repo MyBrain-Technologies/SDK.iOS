@@ -9,6 +9,10 @@
 // Update on 04/04/2017 by Katerina Pandremmenou: Include a function to skip the possible nan values present in the input vector
 // Update on 04/04/2017 by Katerina Pandremmenou: Fix all the warnings
 // Update on 28/04/2017 by Katerina Pandremmenou: Include some code to trigger the calculation of the SNR statistics
+// Update on 06/09/2017 by Katerina Pandremmenou: Modify the header files path to fit with the new GIT architecture
+// Update on 14/09/2017 by Katerina Pandremmenou: Test a new preprocessing of the signals
+// Update on 19/09/2017 by Katerina Pandremmenou: Change the implicit type castings to explicit ones in line 210
+//                                              : Change the order of the testing of the different functionalities
 
 #include <stdio.h>
 #include <errno.h>
@@ -44,8 +48,8 @@
 
 using namespace std;
 
-/*// function to read from a file
-vector<float> readInput(string fileName)
+// function to read from a file
+/*vector<float> readInput(string fileName)
 {
     ifstream file (fileName.c_str());
     vector<float> data;
@@ -70,18 +74,18 @@ vector<float> readInput(string fileName)
     }
     
     return data;
-}
+}*/
 
 // function to write to a file
-void writeOutput(vector<float> const& outputData, string fileName)
+void writeOutput(vector<double> const& outputData, string fileName)
 {
     ofstream file (fileName.c_str());
-    for(vector<float>::const_iterator i = outputData.begin(); i != outputData.end(); ++i) 
+    for(vector<double>::const_iterator i = outputData.begin(); i != outputData.end(); ++i) 
     {
     	file << fixed << setprecision(30) << *i << '\n';
     }
     file.close();
-}*/
+}
 
 // this function skips the possible NaN values that are present in a file
 vector<float> SkipNaN(vector<complex<float>> Input)
@@ -96,9 +100,21 @@ vector<float> SkipNaN(vector<complex<float>> Input)
   return InputNoNaN;
 }
 
+// this function just converts the complex<float> input to float
+vector<double> ConvertComplexFloatToDouble(vector<complex<float>> Input)
+{
+  vector<double> InputToFloat;
+  for (unsigned int a = 0 ; a < Input.size(); a++)
+  {
+      InputToFloat.push_back(real(Input[a]));
+  }
+  return InputToFloat;
+}
+
 MBT_Matrix<float> runEverything(vector<float> Data, int flag)
 {
   vector<double> Bounds;
+  vector<float> OrigBounds;
   double threshold;
   VVDouble ClusteringResults;
   vector<VVDouble> XYValues;
@@ -192,7 +208,7 @@ MBT_Matrix<float> runEverything(vector<float> Data, int flag)
   {
     for (int t2 = 0 ; t2 < Statistics.size().second; t2++)
     {
-      Statistics(t1,t2) = FinalStatistics(t1,t2);
+      Statistics(t1,t2) = (float) FinalStatistics(t1,t2);
     }
   }
 
@@ -202,37 +218,57 @@ MBT_Matrix<float> runEverything(vector<float> Data, int flag)
 int main()
 {  
 	  //chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-    
+  
+    /*///////////////////////// CHECK THE TIME FREQUENCY MAP STATISTICS ///////////////////
     //load signal
     //vector<float> original = readInput("../Files/ArduinoData1606ecVR7_Ch2.txt"); 
-    //vector<complex<float>> OriginalComplex = MBT_readVector("../Files/ArduinoData1606ecVR7_Ch2.txt"); 
-    vector<complex<float>> OriginalComplex = MBT_readVector("../Files/Etienne.txt"); 
-
+    vector<complex<float>> OriginalComplex = MBT_readVector("../Files/ArduinoData1606ecVR7_Ch2.txt"); 
     // skip possible NaN values present in a file
     vector<float> original = SkipNaN(OriginalComplex);
+    
+     // this code is used to test the overall execution of the program
+     // calibration data
+     vector<float>::const_iterator firstCalib = original.begin();
+     vector<float>::const_iterator lastCalib  = original.begin() + original.size();
    
-    // this code is used to test the overall execution of the program
-    // calibration data
-    vector<float>::const_iterator firstCalib = original.begin();
-    vector<float>::const_iterator lastCalib  = original.begin() + original.size();
-  
-    vector<float> Calib(firstCalib, lastCalib);
+     vector<float> Calib(firstCalib, lastCalib);
+ 
+     // this function takes in input 0-for calibration and 1-for session data, 
+     // in the case we want to keep some statistics from the calibration and to pass them as parameters to session 
+     // for the time being, we leave it as it is to read and process all file data, without keeping parameters 
+     // from a part of the data
+     MBT_Matrix<float> Results = runEverything(Calib, 0);
+ 
+     // this code is used to verify the final TF-Statistics 
+     // the order is: areas, timelengths, distances
+     for (int k1 = 0 ; k1 < Results.size().first; k1++)
+     {
+       for (int k2 = 0 ; k2 < Results.size().second; k2++)
+           cout << Results(k1,k2) << " ";
+       cout << endl;
+     }*/
 
-    // this function takes in input 0-for calibration and 1-for session data, 
-    // in the case we want to keep some statistics from the calibration and to pass them as parameters to session 
-    // for the time being, we leave it as it is to read and process all file data, without keeping parameters 
-    // from a part of the data
-    //MBT_Matrix<float> Results = runEverything(Calib, 0);
+    /////////////////// CHECK THE NEW PREPROCESSING PROPOSED ON 14/09/2017 ////////////////////
+    // load the data
+    vector<complex<float>> OriginalData = MBT_readVector("../../SNR/Files/SNRTest1.txt"); 
+    // convert the input to vector<double>
+    vector<double> Data = ConvertComplexFloatToDouble(OriginalData);
+    // apply an IQR to check for outliers in raw data
+    // a) Bounds calculation
+    vector<double> OrigBounds = CalculateBounds(Data);
+    // b) set all the outliers to NaN and then interpolate them
+    vector<double> FixedOutliers = MBT_OutliersToNan(Data, OrigBounds);
+    // apply DC Removal
+    vector<double> DataNoDC = RemoveDC(FixedOutliers);
+    // apply a bandpass filter
+    vector<double> FreqBounds = {2, 40};
+    vector<double> BandPassedData = BandPassFilter(DataNoDC, FreqBounds); 
 
-    // this code is used to verify the final TF-Statistics 
-    // the order is: areas, timelengths, distances
-    /*for (int k1 = 0 ; k1 < Results.size().first; k1++)
-    {
-      for (int k2 = 0 ; k2 < Results.size().second; k2++)
-          cout << Results(k1,k2) << " ";
-      cout << endl;
-    }*/
+    writeOutput(BandPassedData, "../../SNR/Files/Output.txt");
 
+    //////////////////////////////////////////////////////////////////////////////////////////*/
+
+    ////////////////////////////// CHECK THE SNR STATISTICS ////////////////////////////
     vector<complex<float>> ComplexSNR = MBT_readVector("../../SNR/Files/SNRTest9.txt");   
   
     // convert from complex float to float
@@ -241,7 +277,8 @@ int main()
         SNR.push_back(real(ComplexSNR[a]));
 
     SNR_Statistics obj(SNR);
-    double ExerciseThreshold = 0.95;
+    float ExerciseThreshold = 0.95f;
+
     map<string, float> SNR_Statistics = obj.CalculateSNRStatistics(SNR, ExerciseThreshold);
 
     for (const auto &p : SNR_Statistics) 
