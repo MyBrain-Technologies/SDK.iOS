@@ -25,19 +25,6 @@
 		F40E029E1F6C17A40055E296 /* MBT_NormalizeRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01071F6C17A40055E296 /* MBT_NormalizeRelaxIndex.cpp */; };
 		F40E029F1F6C17A40055E296 /* MBT_RelaxIndexToVolum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01081F6C17A40055E296 /* MBT_RelaxIndexToVolum.cpp */; };
 		F40E02A01F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E01091F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp */; };
-		F40E03B91F6C17A50055E296 /* MBT_FindClosest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02401F6C17A40055E296 /* MBT_FindClosest.cpp */; };
-		F40E03BA1F6C17A50055E296 /* MBT_Interpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02411F6C17A40055E296 /* MBT_Interpolation.cpp */; };
-		F40E03BB1F6C17A50055E296 /* MBT_kmeans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02421F6C17A40055E296 /* MBT_kmeans.cpp */; };
-		F40E03BC1F6C17A50055E296 /* MBT_Operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02431F6C17A40055E296 /* MBT_Operations.cpp */; };
-		F40E03C11F6C17A50055E296 /* MBT_Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E024B1F6C17A40055E296 /* MBT_Matrix.cpp */; };
-		F40E03C21F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E024C1F6C17A40055E296 /* MBT_ReadInputOrWriteOutput.cpp */; };
-		F40E03C51F6C17A50055E296 /* Biquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02521F6C17A40055E296 /* Biquad.cpp */; };
-		F40E03C91F6C17A50055E296 /* MBT_BandPass_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02561F6C17A40055E296 /* MBT_BandPass_fftw3.cpp */; };
-		F40E03CA1F6C17A50055E296 /* MBT_PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02571F6C17A40055E296 /* MBT_PreProcessing.cpp */; };
-		F40E03D21F6C17A50055E296 /* MBT_FFTReal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02621F6C17A40055E296 /* MBT_FFTReal.cpp */; };
-		F40E03D31F6C17A50055E296 /* MBT_FindPeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02631F6C17A40055E296 /* MBT_FindPeak.cpp */; };
-		F40E03D51F6C17A50055E296 /* MBT_Fourier_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02651F6C17A40055E296 /* MBT_Fourier_fftw3.cpp */; };
-		F40E03D61F6C17A50055E296 /* MBT_PWelchComputer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02661F6C17A40055E296 /* MBT_PWelchComputer.cpp */; };
 		F40E03DE1F6C17A50055E296 /* MBT_SNR_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02721F6C17A40055E296 /* MBT_SNR_Stats.cpp */; };
 		F40E03E91F6C17A50055E296 /* MBT_Contour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02811F6C17A40055E296 /* MBT_Contour.cpp */; };
 		F40E03EA1F6C17A50055E296 /* MBT_FinalClustering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40E02821F6C17A40055E296 /* MBT_FinalClustering.cpp */; };
@@ -67,6 +54,20 @@
 		F49C741B1F82503B0033262E /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = F49C741A1F82503B0033262E /* MBTBridgeConstants.mm */; };
 		F4A0BD801F73FFBC00488038 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; };
 		F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */; };
+		F4F3BA711F86408900FBFA97 /* MBT_FFTReal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA441F86408900FBFA97 /* MBT_FFTReal.cpp */; };
+		F4F3BA721F86408900FBFA97 /* MBT_FindPeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA451F86408900FBFA97 /* MBT_FindPeak.cpp */; };
+		F4F3BA741F86408900FBFA97 /* MBT_Fourier_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA471F86408900FBFA97 /* MBT_Fourier_fftw3.cpp */; };
+		F4F3BA751F86408900FBFA97 /* MBT_PWelchComputer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA481F86408900FBFA97 /* MBT_PWelchComputer.cpp */; };
+		F4F3BA7B1F86408900FBFA97 /* Biquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA511F86408900FBFA97 /* Biquad.cpp */; };
+		F4F3BA7F1F86408900FBFA97 /* MBT_BandPass_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA551F86408900FBFA97 /* MBT_BandPass_fftw3.cpp */; };
+		F4F3BA801F86408900FBFA97 /* MBT_PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA561F86408900FBFA97 /* MBT_PreProcessing.cpp */; };
+		F4F3BA861F86408900FBFA97 /* MBT_FindClosest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA5F1F86408900FBFA97 /* MBT_FindClosest.cpp */; };
+		F4F3BA871F86408900FBFA97 /* MBT_Interpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA601F86408900FBFA97 /* MBT_Interpolation.cpp */; };
+		F4F3BA881F86408900FBFA97 /* MBT_kmeans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA611F86408900FBFA97 /* MBT_kmeans.cpp */; };
+		F4F3BA891F86408900FBFA97 /* MBT_Operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA621F86408900FBFA97 /* MBT_Operations.cpp */; };
+		F4F3BA8E1F86408900FBFA97 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F4F3BA681F86408900FBFA97 /* README.md */; };
+		F4F3BA8F1F86408900FBFA97 /* MBT_Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA6B1F86408900FBFA97 /* MBT_Matrix.cpp */; };
+		F4F3BA901F86408900FBFA97 /* MBT_ReadInputOrWriteOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3BA6C1F86408900FBFA97 /* MBT_ReadInputOrWriteOutput.cpp */; };
 		FE3820C81F741BD200764A5F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44849CE1F2B3EC200006A04 /* Alamofire.framework */; };
 		FE3820C91F741BD200764A5F /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD401F040CB700755BD1 /* Realm.framework */; };
 		FE3820CA1F741BD200764A5F /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD311F040CB400755BD1 /* RealmSwift.framework */; };
@@ -423,42 +424,6 @@
 		F40E02391F6C17A40055E296 /* quality_MM_NOEL_VIN_P3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_VIN_P3.txt; sourceTree = "<group>"; };
 		F40E023A1F6C17A40055E296 /* quality_MM_NOEL_VIN_P4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_MM_NOEL_VIN_P4.txt; sourceTree = "<group>"; };
 		F40E023B1F6C17A40055E296 /* quality_testGood_MM.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quality_testGood_MM.txt; sourceTree = "<group>"; };
-		F40E023F1F6C17A40055E296 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		F40E02401F6C17A40055E296 /* MBT_FindClosest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindClosest.cpp; sourceTree = "<group>"; };
-		F40E02411F6C17A40055E296 /* MBT_Interpolation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Interpolation.cpp; sourceTree = "<group>"; };
-		F40E02421F6C17A40055E296 /* MBT_kmeans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_kmeans.cpp; sourceTree = "<group>"; };
-		F40E02431F6C17A40055E296 /* MBT_Operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Operations.cpp; sourceTree = "<group>"; };
-		F40E02451F6C17A40055E296 /* MBT_FindClosest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindClosest.h; sourceTree = "<group>"; };
-		F40E02461F6C17A40055E296 /* MBT_Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Interpolation.h; sourceTree = "<group>"; };
-		F40E02471F6C17A40055E296 /* MBT_kmeans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_kmeans.h; sourceTree = "<group>"; };
-		F40E02481F6C17A40055E296 /* MBT_Operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Operations.h; sourceTree = "<group>"; };
-		F40E024B1F6C17A40055E296 /* MBT_Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Matrix.cpp; sourceTree = "<group>"; };
-		F40E024C1F6C17A40055E296 /* MBT_ReadInputOrWriteOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ReadInputOrWriteOutput.cpp; sourceTree = "<group>"; };
-		F40E024E1F6C17A40055E296 /* MBT_Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Matrix.h; sourceTree = "<group>"; };
-		F40E024F1F6C17A40055E296 /* MBT_ReadInputOrWriteOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ReadInputOrWriteOutput.h; sourceTree = "<group>"; };
-		F40E02521F6C17A40055E296 /* Biquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Biquad.cpp; sourceTree = "<group>"; };
-		F40E02531F6C17A40055E296 /* MBT_BandPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass.cpp; sourceTree = "<group>"; };
-		F40E02541F6C17A40055E296 /* MBT_BandPass_Arma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma.cpp; sourceTree = "<group>"; };
-		F40E02551F6C17A40055E296 /* MBT_BandPass_Arma_double.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma_double.cpp; sourceTree = "<group>"; };
-		F40E02561F6C17A40055E296 /* MBT_BandPass_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_fftw3.cpp; sourceTree = "<group>"; };
-		F40E02571F6C17A40055E296 /* MBT_PreProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PreProcessing.cpp; sourceTree = "<group>"; };
-		F40E02591F6C17A40055E296 /* Biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Biquad.h; sourceTree = "<group>"; };
-		F40E025A1F6C17A40055E296 /* MBT_BandPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass.h; sourceTree = "<group>"; };
-		F40E025B1F6C17A40055E296 /* MBT_BandPass_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass_fftw3.h; sourceTree = "<group>"; };
-		F40E025C1F6C17A40055E296 /* MBT_PreProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PreProcessing.h; sourceTree = "<group>"; };
-		F40E025D1F6C17A40055E296 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
-		F40E02611F6C17A40055E296 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		F40E02621F6C17A40055E296 /* MBT_FFTReal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FFTReal.cpp; sourceTree = "<group>"; };
-		F40E02631F6C17A40055E296 /* MBT_FindPeak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindPeak.cpp; sourceTree = "<group>"; };
-		F40E02641F6C17A40055E296 /* MBT_Fourier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier.cpp; sourceTree = "<group>"; };
-		F40E02651F6C17A40055E296 /* MBT_Fourier_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier_fftw3.cpp; sourceTree = "<group>"; };
-		F40E02661F6C17A40055E296 /* MBT_PWelchComputer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PWelchComputer.cpp; sourceTree = "<group>"; };
-		F40E02681F6C17A40055E296 /* MBT_FFTReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FFTReal.h; sourceTree = "<group>"; };
-		F40E02691F6C17A40055E296 /* MBT_FindPeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindPeak.h; sourceTree = "<group>"; };
-		F40E026A1F6C17A40055E296 /* MBT_Fourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier.h; sourceTree = "<group>"; };
-		F40E026B1F6C17A40055E296 /* MBT_Fourier_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier_fftw3.h; sourceTree = "<group>"; };
-		F40E026C1F6C17A40055E296 /* MBT_PWelchComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PWelchComputer.h; sourceTree = "<group>"; };
-		F40E026D1F6C17A40055E296 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		F40E026E1F6C17A40055E296 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		F40E02721F6C17A40055E296 /* MBT_SNR_Stats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_SNR_Stats.cpp; sourceTree = "<group>"; };
 		F40E02741F6C17A40055E296 /* SNRTest1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SNRTest1.txt; sourceTree = "<group>"; };
@@ -513,6 +478,8 @@
 		F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothManager.swift; path = "Bluetooth Module/MBTBluetoothManager.swift"; sourceTree = "<group>"; };
 		F420E9A81EFD6288008C0B08 /* MBTAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTAcquisitionManager.swift; path = "Acquisition Module/MBTAcquisitionManager.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		F44849CE1F2B3EC200006A04 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		F44BD28D1F852C4D00806AC8 /* NewMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NewMain.cpp; sourceTree = "<group>"; };
+		F44BD28F1F852C6800806AC8 /* Mymain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mymain.cpp; sourceTree = "<group>"; };
 		F45837381EC5C21000C5D596 /* MelomindEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngine.swift; sourceTree = "<group>"; };
 		F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPDelegate.swift; path = "Bluetooth Module/MBTBluetoothA2DPDelegate.swift"; sourceTree = "<group>"; };
 		F495BD311F040CB400755BD1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -520,6 +487,41 @@
 		F49C74191F824C920033262E /* MBTBridgeConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBTBridgeConstants.h; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.h"; sourceTree = "<group>"; };
 		F49C741A1F82503B0033262E /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = MBTBridgeConstants.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.mm"; sourceTree = "<group>"; };
 		F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngineDelegate.swift; sourceTree = "<group>"; };
+		F4F3BA431F86408900FBFA97 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F4F3BA441F86408900FBFA97 /* MBT_FFTReal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FFTReal.cpp; sourceTree = "<group>"; };
+		F4F3BA451F86408900FBFA97 /* MBT_FindPeak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindPeak.cpp; sourceTree = "<group>"; };
+		F4F3BA461F86408900FBFA97 /* MBT_Fourier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier.cpp; sourceTree = "<group>"; };
+		F4F3BA471F86408900FBFA97 /* MBT_Fourier_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier_fftw3.cpp; sourceTree = "<group>"; };
+		F4F3BA481F86408900FBFA97 /* MBT_PWelchComputer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PWelchComputer.cpp; sourceTree = "<group>"; };
+		F4F3BA4A1F86408900FBFA97 /* MBT_FFTReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FFTReal.h; sourceTree = "<group>"; };
+		F4F3BA4B1F86408900FBFA97 /* MBT_FindPeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindPeak.h; sourceTree = "<group>"; };
+		F4F3BA4C1F86408900FBFA97 /* MBT_Fourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier.h; sourceTree = "<group>"; };
+		F4F3BA4D1F86408900FBFA97 /* MBT_Fourier_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier_fftw3.h; sourceTree = "<group>"; };
+		F4F3BA4E1F86408900FBFA97 /* MBT_PWelchComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PWelchComputer.h; sourceTree = "<group>"; };
+		F4F3BA511F86408900FBFA97 /* Biquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Biquad.cpp; sourceTree = "<group>"; };
+		F4F3BA521F86408900FBFA97 /* MBT_BandPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass.cpp; sourceTree = "<group>"; };
+		F4F3BA531F86408900FBFA97 /* MBT_BandPass_Arma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma.cpp; sourceTree = "<group>"; };
+		F4F3BA541F86408900FBFA97 /* MBT_BandPass_Arma_double.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma_double.cpp; sourceTree = "<group>"; };
+		F4F3BA551F86408900FBFA97 /* MBT_BandPass_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_fftw3.cpp; sourceTree = "<group>"; };
+		F4F3BA561F86408900FBFA97 /* MBT_PreProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PreProcessing.cpp; sourceTree = "<group>"; };
+		F4F3BA581F86408900FBFA97 /* Biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Biquad.h; sourceTree = "<group>"; };
+		F4F3BA591F86408900FBFA97 /* MBT_BandPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass.h; sourceTree = "<group>"; };
+		F4F3BA5A1F86408900FBFA97 /* MBT_BandPass_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass_fftw3.h; sourceTree = "<group>"; };
+		F4F3BA5B1F86408900FBFA97 /* MBT_PreProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PreProcessing.h; sourceTree = "<group>"; };
+		F4F3BA5E1F86408900FBFA97 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F4F3BA5F1F86408900FBFA97 /* MBT_FindClosest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindClosest.cpp; sourceTree = "<group>"; };
+		F4F3BA601F86408900FBFA97 /* MBT_Interpolation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Interpolation.cpp; sourceTree = "<group>"; };
+		F4F3BA611F86408900FBFA97 /* MBT_kmeans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_kmeans.cpp; sourceTree = "<group>"; };
+		F4F3BA621F86408900FBFA97 /* MBT_Operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Operations.cpp; sourceTree = "<group>"; };
+		F4F3BA641F86408900FBFA97 /* MBT_FindClosest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindClosest.h; sourceTree = "<group>"; };
+		F4F3BA651F86408900FBFA97 /* MBT_Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Interpolation.h; sourceTree = "<group>"; };
+		F4F3BA661F86408900FBFA97 /* MBT_kmeans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_kmeans.h; sourceTree = "<group>"; };
+		F4F3BA671F86408900FBFA97 /* MBT_Operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Operations.h; sourceTree = "<group>"; };
+		F4F3BA681F86408900FBFA97 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F4F3BA6B1F86408900FBFA97 /* MBT_Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Matrix.cpp; sourceTree = "<group>"; };
+		F4F3BA6C1F86408900FBFA97 /* MBT_ReadInputOrWriteOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ReadInputOrWriteOutput.cpp; sourceTree = "<group>"; };
+		F4F3BA6E1F86408900FBFA97 /* MBT_Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Matrix.h; sourceTree = "<group>"; };
+		F4F3BA6F1F86408900FBFA97 /* MBT_ReadInputOrWriteOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ReadInputOrWriteOutput.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -808,6 +810,7 @@
 		F40E01021F6C17A40055E296 /* Cpp */ = {
 			isa = PBXGroup;
 			children = (
+				F44BD28D1F852C4D00806AC8 /* NewMain.cpp */,
 				F40E01031F6C17A40055E296 /* main.cpp */,
 				F40E01041F6C17A40055E296 /* MBT_ComputeCalibration.cpp */,
 				F40E01051F6C17A40055E296 /* MBT_ComputeRelaxIndex.cpp */,
@@ -1168,6 +1171,7 @@
 		F40E01C31F6C17A40055E296 /* Cpp */ = {
 			isa = PBXGroup;
 			children = (
+				F44BD28F1F852C6800806AC8 /* Mymain.cpp */,
 				F40E01C41F6C17A40055E296 /* main.cpp */,
 				F40E01C51F6C17A40055E296 /* MBT_MainQC.cpp */,
 			);
@@ -1313,142 +1317,15 @@
 		F40E023C1F6C17A40055E296 /* SignalProcessing.Cpp */ = {
 			isa = PBXGroup;
 			children = (
-				F40E023D1F6C17A40055E296 /* Algebra */,
-				F40E02491F6C17A40055E296 /* DataManipulation */,
-				F40E02501F6C17A40055E296 /* PreProcessing */,
-				F40E025F1F6C17A40055E296 /* Transformations */,
+				F4F3BA5C1F86408900FBFA97 /* Algebra */,
+				F4F3BA691F86408900FBFA97 /* DataManipulation */,
+				F4F3BA4F1F86408900FBFA97 /* PreProcessing */,
+				F4F3BA681F86408900FBFA97 /* README.md */,
+				F4F3BA411F86408900FBFA97 /* Transformations */,
 				F40E026E1F6C17A40055E296 /* version.h */,
 			);
 			name = SignalProcessing.Cpp;
 			path = Utils/CPPSignalProcessing/SignalProcessing.Cpp;
-			sourceTree = "<group>";
-		};
-		F40E023D1F6C17A40055E296 /* Algebra */ = {
-			isa = PBXGroup;
-			children = (
-				F40E023E1F6C17A40055E296 /* Cpp */,
-				F40E02441F6C17A40055E296 /* Headers */,
-			);
-			path = Algebra;
-			sourceTree = "<group>";
-		};
-		F40E023E1F6C17A40055E296 /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				F40E023F1F6C17A40055E296 /* main.cpp */,
-				F40E02401F6C17A40055E296 /* MBT_FindClosest.cpp */,
-				F40E02411F6C17A40055E296 /* MBT_Interpolation.cpp */,
-				F40E02421F6C17A40055E296 /* MBT_kmeans.cpp */,
-				F40E02431F6C17A40055E296 /* MBT_Operations.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		F40E02441F6C17A40055E296 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				F40E02451F6C17A40055E296 /* MBT_FindClosest.h */,
-				F40E02461F6C17A40055E296 /* MBT_Interpolation.h */,
-				F40E02471F6C17A40055E296 /* MBT_kmeans.h */,
-				F40E02481F6C17A40055E296 /* MBT_Operations.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		F40E02491F6C17A40055E296 /* DataManipulation */ = {
-			isa = PBXGroup;
-			children = (
-				F40E024A1F6C17A40055E296 /* Cpp */,
-				F40E024D1F6C17A40055E296 /* Headers */,
-			);
-			path = DataManipulation;
-			sourceTree = "<group>";
-		};
-		F40E024A1F6C17A40055E296 /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				F40E024B1F6C17A40055E296 /* MBT_Matrix.cpp */,
-				F40E024C1F6C17A40055E296 /* MBT_ReadInputOrWriteOutput.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		F40E024D1F6C17A40055E296 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				F40E024E1F6C17A40055E296 /* MBT_Matrix.h */,
-				F40E024F1F6C17A40055E296 /* MBT_ReadInputOrWriteOutput.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		F40E02501F6C17A40055E296 /* PreProcessing */ = {
-			isa = PBXGroup;
-			children = (
-				F40E02511F6C17A40055E296 /* Cpp */,
-				F40E02581F6C17A40055E296 /* Headers */,
-				F40E025D1F6C17A40055E296 /* readme.txt */,
-			);
-			path = PreProcessing;
-			sourceTree = "<group>";
-		};
-		F40E02511F6C17A40055E296 /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				F40E02521F6C17A40055E296 /* Biquad.cpp */,
-				F40E02531F6C17A40055E296 /* MBT_BandPass.cpp */,
-				F40E02541F6C17A40055E296 /* MBT_BandPass_Arma.cpp */,
-				F40E02551F6C17A40055E296 /* MBT_BandPass_Arma_double.cpp */,
-				F40E02561F6C17A40055E296 /* MBT_BandPass_fftw3.cpp */,
-				F40E02571F6C17A40055E296 /* MBT_PreProcessing.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		F40E02581F6C17A40055E296 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				F40E02591F6C17A40055E296 /* Biquad.h */,
-				F40E025A1F6C17A40055E296 /* MBT_BandPass.h */,
-				F40E025B1F6C17A40055E296 /* MBT_BandPass_fftw3.h */,
-				F40E025C1F6C17A40055E296 /* MBT_PreProcessing.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		F40E025F1F6C17A40055E296 /* Transformations */ = {
-			isa = PBXGroup;
-			children = (
-				F40E02601F6C17A40055E296 /* Cpp */,
-				F40E02671F6C17A40055E296 /* Headers */,
-				F40E026D1F6C17A40055E296 /* readme.txt */,
-			);
-			path = Transformations;
-			sourceTree = "<group>";
-		};
-		F40E02601F6C17A40055E296 /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				F40E02611F6C17A40055E296 /* main.cpp */,
-				F40E02621F6C17A40055E296 /* MBT_FFTReal.cpp */,
-				F40E02631F6C17A40055E296 /* MBT_FindPeak.cpp */,
-				F40E02641F6C17A40055E296 /* MBT_Fourier.cpp */,
-				F40E02651F6C17A40055E296 /* MBT_Fourier_fftw3.cpp */,
-				F40E02661F6C17A40055E296 /* MBT_PWelchComputer.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		F40E02671F6C17A40055E296 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				F40E02681F6C17A40055E296 /* MBT_FFTReal.h */,
-				F40E02691F6C17A40055E296 /* MBT_FindPeak.h */,
-				F40E026A1F6C17A40055E296 /* MBT_Fourier.h */,
-				F40E026B1F6C17A40055E296 /* MBT_Fourier_fftw3.h */,
-				F40E026C1F6C17A40055E296 /* MBT_PWelchComputer.h */,
-			);
-			path = Headers;
 			sourceTree = "<group>";
 		};
 		F40E026F1F6C17A40055E296 /* Statistics */ = {
@@ -1667,6 +1544,132 @@
 				F40E04131F6C1A5B0055E296 /* MBTSignalProcessingManager.swift */,
 			);
 			path = "Signal Processing Module";
+			sourceTree = "<group>";
+		};
+		F4F3BA411F86408900FBFA97 /* Transformations */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA421F86408900FBFA97 /* Cpp */,
+				F4F3BA491F86408900FBFA97 /* Headers */,
+			);
+			path = Transformations;
+			sourceTree = "<group>";
+		};
+		F4F3BA421F86408900FBFA97 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA431F86408900FBFA97 /* main.cpp */,
+				F4F3BA441F86408900FBFA97 /* MBT_FFTReal.cpp */,
+				F4F3BA451F86408900FBFA97 /* MBT_FindPeak.cpp */,
+				F4F3BA461F86408900FBFA97 /* MBT_Fourier.cpp */,
+				F4F3BA471F86408900FBFA97 /* MBT_Fourier_fftw3.cpp */,
+				F4F3BA481F86408900FBFA97 /* MBT_PWelchComputer.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F3BA491F86408900FBFA97 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA4A1F86408900FBFA97 /* MBT_FFTReal.h */,
+				F4F3BA4B1F86408900FBFA97 /* MBT_FindPeak.h */,
+				F4F3BA4C1F86408900FBFA97 /* MBT_Fourier.h */,
+				F4F3BA4D1F86408900FBFA97 /* MBT_Fourier_fftw3.h */,
+				F4F3BA4E1F86408900FBFA97 /* MBT_PWelchComputer.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F3BA4F1F86408900FBFA97 /* PreProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA501F86408900FBFA97 /* Cpp */,
+				F4F3BA571F86408900FBFA97 /* Headers */,
+			);
+			path = PreProcessing;
+			sourceTree = "<group>";
+		};
+		F4F3BA501F86408900FBFA97 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA511F86408900FBFA97 /* Biquad.cpp */,
+				F4F3BA521F86408900FBFA97 /* MBT_BandPass.cpp */,
+				F4F3BA531F86408900FBFA97 /* MBT_BandPass_Arma.cpp */,
+				F4F3BA541F86408900FBFA97 /* MBT_BandPass_Arma_double.cpp */,
+				F4F3BA551F86408900FBFA97 /* MBT_BandPass_fftw3.cpp */,
+				F4F3BA561F86408900FBFA97 /* MBT_PreProcessing.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F3BA571F86408900FBFA97 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA581F86408900FBFA97 /* Biquad.h */,
+				F4F3BA591F86408900FBFA97 /* MBT_BandPass.h */,
+				F4F3BA5A1F86408900FBFA97 /* MBT_BandPass_fftw3.h */,
+				F4F3BA5B1F86408900FBFA97 /* MBT_PreProcessing.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F3BA5C1F86408900FBFA97 /* Algebra */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA5D1F86408900FBFA97 /* Cpp */,
+				F4F3BA631F86408900FBFA97 /* Headers */,
+			);
+			path = Algebra;
+			sourceTree = "<group>";
+		};
+		F4F3BA5D1F86408900FBFA97 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA5E1F86408900FBFA97 /* main.cpp */,
+				F4F3BA5F1F86408900FBFA97 /* MBT_FindClosest.cpp */,
+				F4F3BA601F86408900FBFA97 /* MBT_Interpolation.cpp */,
+				F4F3BA611F86408900FBFA97 /* MBT_kmeans.cpp */,
+				F4F3BA621F86408900FBFA97 /* MBT_Operations.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F3BA631F86408900FBFA97 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA641F86408900FBFA97 /* MBT_FindClosest.h */,
+				F4F3BA651F86408900FBFA97 /* MBT_Interpolation.h */,
+				F4F3BA661F86408900FBFA97 /* MBT_kmeans.h */,
+				F4F3BA671F86408900FBFA97 /* MBT_Operations.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F4F3BA691F86408900FBFA97 /* DataManipulation */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA6A1F86408900FBFA97 /* Cpp */,
+				F4F3BA6D1F86408900FBFA97 /* Headers */,
+			);
+			path = DataManipulation;
+			sourceTree = "<group>";
+		};
+		F4F3BA6A1F86408900FBFA97 /* Cpp */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA6B1F86408900FBFA97 /* MBT_Matrix.cpp */,
+				F4F3BA6C1F86408900FBFA97 /* MBT_ReadInputOrWriteOutput.cpp */,
+			);
+			path = Cpp;
+			sourceTree = "<group>";
+		};
+		F4F3BA6D1F86408900FBFA97 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3BA6E1F86408900FBFA97 /* MBT_Matrix.h */,
+				F4F3BA6F1F86408900FBFA97 /* MBT_ReadInputOrWriteOutput.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1910,6 +1913,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F3BA8E1F86408900FBFA97 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1980,7 +1984,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F487F5DB1F7141EC00EB3AD4 /* MBT_MainQC.cpp in Sources */,
+				F4F3BA711F86408900FBFA97 /* MBT_FFTReal.cpp in Sources */,
 				F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */,
+				F4F3BA721F86408900FBFA97 /* MBT_FindPeak.cpp in Sources */,
+				F4F3BA881F86408900FBFA97 /* MBT_kmeans.cpp in Sources */,
 				F40E04141F6C1A5B0055E296 /* MBTSignalProcessingManager.swift in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				F40E029F1F6C17A40055E296 /* MBT_RelaxIndexToVolum.cpp in Sources */,
@@ -1988,23 +1995,20 @@
 				F40E02A01F6C17A40055E296 /* MBT_SmoothRelaxIndex.cpp in Sources */,
 				F40E03DE1F6C17A50055E296 /* MBT_SNR_Stats.cpp in Sources */,
 				F40E029B1F6C17A40055E296 /* MBT_ComputeCalibration.cpp in Sources */,
+				F4F3BA871F86408900FBFA97 /* MBT_Interpolation.cpp in Sources */,
+				F4F3BA7B1F86408900FBFA97 /* Biquad.cpp in Sources */,
 				F49C741B1F82503B0033262E /* MBTBridgeConstants.mm in Sources */,
+				F4F3BA7F1F86408900FBFA97 /* MBT_BandPass_fftw3.cpp in Sources */,
 				F40E03EB1F6C17A50055E296 /* MBT_TF_map.cpp in Sources */,
 				F40CDF271F2F6B4B00515A91 /* MBTJSONHelper.swift in Sources */,
-				F40E03CA1F6C17A50055E296 /* MBT_PreProcessing.cpp in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
-				F40E03BC1F6C17A50055E296 /* MBT_Operations.cpp in Sources */,
-				F40E03B91F6C17A50055E296 /* MBT_FindClosest.cpp in Sources */,
-				F40E03BA1F6C17A50055E296 /* MBT_Interpolation.cpp in Sources */,
-				F40E03D21F6C17A50055E296 /* MBT_FFTReal.cpp in Sources */,
 				F420E9A91EFD6288008C0B08 /* MBTAcquisitionManager.swift in Sources */,
 				F40CDF291F2F818F00515A91 /* MBTBrainWebHelper.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
-				F40E03C21F6C17A50055E296 /* MBT_ReadInputOrWriteOutput.cpp in Sources */,
-				F40E03C11F6C17A50055E296 /* MBT_Matrix.cpp in Sources */,
-				F40E03D61F6C17A50055E296 /* MBT_PWelchComputer.cpp in Sources */,
 				F40E029C1F6C17A40055E296 /* MBT_ComputeRelaxIndex.cpp in Sources */,
+				F4F3BA751F86408900FBFA97 /* MBT_PWelchComputer.cpp in Sources */,
+				F4F3BA741F86408900FBFA97 /* MBT_Fourier_fftw3.cpp in Sources */,
 				F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */,
 				F40E029E1F6C17A40055E296 /* MBT_NormalizeRelaxIndex.cpp in Sources */,
 				F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */,
@@ -2012,16 +2016,16 @@
 				F41D0C141F02A7650081AA7B /* MBTAcquisitionDelegate.swift in Sources */,
 				F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */,
 				F40E04121F6C1A500055E296 /* MBTSignalProcessingProtocols.swift in Sources */,
+				F4F3BA891F86408900FBFA97 /* MBT_Operations.cpp in Sources */,
+				F4F3BA8F1F86408900FBFA97 /* MBT_Matrix.cpp in Sources */,
+				F4F3BA861F86408900FBFA97 /* MBT_FindClosest.cpp in Sources */,
 				F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */,
 				F40E03E91F6C17A50055E296 /* MBT_Contour.cpp in Sources */,
 				F40E03EA1F6C17A50055E296 /* MBT_FinalClustering.cpp in Sources */,
-				F40E03BB1F6C17A50055E296 /* MBT_kmeans.cpp in Sources */,
 				F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */,
-				F40E03D31F6C17A50055E296 /* MBT_FindPeak.cpp in Sources */,
+				F4F3BA801F86408900FBFA97 /* MBT_PreProcessing.cpp in Sources */,
+				F4F3BA901F86408900FBFA97 /* MBT_ReadInputOrWriteOutput.cpp in Sources */,
 				F40E03EC1F6C17A50055E296 /* MBT_TF_Stats.cpp in Sources */,
-				F40E03C51F6C17A50055E296 /* Biquad.cpp in Sources */,
-				F40E03C91F6C17A50055E296 /* MBT_BandPass_fftw3.cpp in Sources */,
-				F40E03D51F6C17A50055E296 /* MBT_Fourier_fftw3.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
