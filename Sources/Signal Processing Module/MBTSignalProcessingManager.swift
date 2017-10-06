@@ -67,35 +67,60 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
         return newEEGValuesSwift
     }
 }
-//
-//    
-//    //Implementing MBT_CalibrationComputer
-//    func computeSettingsFromCalibration(_ calibrationData: [[Float]], calibrationQualityValues: [[Float]], sampRate: Int, packetLength: Int) -> [String: Float] {
-//        
-//        //Transform the input data into the format needed by the Obj-C bridge
-//        let nbChannels: Int = calibrationData.count
-//        let nbDataPoints: Int = calibrationData[0].count
-//        var dataArray = [Float]()
-//        for dataForChannel in calibrationData {
-//            dataArray += dataForChannel
-//        }
-//        
-//        //Transform the quality data into the format needed by the Obj-C bridge
-//        var qualityArray = [Float]()
-//        for qualityForChannel in calibrationQualityValues {
-//            qualityArray += qualityForChannel
-//        }
-//        
-//        //Perform the computation
-//        let parametersFromComputation = MBT_SignalProcessingObjC.computeCalibration(dataArray, signalQuality: qualityArray, sampRate: NSInteger(sampRate), packetLength: NSInteger(packetLength), nbChannels: NSInteger(nbChannels), nbDataPoints: NSInteger(nbDataPoints))
-//        
-//        //Return the quality values
-//        let parameters = parametersFromComputation as! [String: Float]
-//        return parameters
-//    }
-//    
-//    
-//    //Implementing MBT_RelaxIndexComputer
+
+extension MBTSignalProcessingManager: MBTCalibrationComputer {
+    
+    //Implementing MBT_CalibrationComputer
+    func computeCalibration(_ packetsCount: Int) -> [String: [Float]] {
+        
+        let packetLength = DeviceManager.getDeviceEEGPacketLength()
+        let sampRate = Int(DeviceManager.getDeviceSampRate())
+        
+        // Get the last N packets.
+        let packets = EEGPacketManager.getLastNPacketsComplete(packetsCount)
+        
+        var calibrationData = [List<ChannelDatas>]()
+        for i in 0 ..< packetsCount {
+            calibrationData.append(packets[i].modifiedChannelsData)
+        }
+        
+        var calibrationQualityValues = [List<Quality>]()
+        for j in 0 ..< packetsCount {
+            calibrationQualityValues.append(packets[j].qualities)
+            print(packets[j].qualities)
+        }
+        
+        //Transform the input data into the format needed by the Obj-C bridge
+        var dataArray = [Float]()
+        for listChannelData in calibrationData {
+            for datasForChannel in listChannelData {
+                for data in datasForChannel.value {
+                    dataArray.append(data.value)
+                }
+            }
+        }
+        
+        //Transform the quality data into the format needed by the Obj-C bridge
+        var qualityArray = [Float]()
+        for qualityList in calibrationQualityValues {
+            for qualityForChannel in qualityList {
+                qualityArray.append(qualityForChannel.value)
+            }
+        }
+
+        //Perform the computation
+        let parametersFromComputation = MBTCalibrationBridge.computeCalibration(dataArray,
+                                                                                qualities: qualityArray,
+                                                                                packetLength: packetLength,
+                                                                                packetsCount: packetsCount,
+                                                                                sampRate: sampRate)
+        //Return the quality values
+        let parameters = parametersFromComputation as! [String: [Float]]
+        
+        return parameters
+    }
+}
+    //Implementing MBT_RelaxIndexComputer
 //    func computeRelaxIndex(_ sessionData: [[Float]], sessionQualityValues: [Float], parametersFromCalibration: [String: Float], sampRate: Int) -> Float {
 //        
 //        //Transform the input data into the format needed by the Obj-C bridge
@@ -110,11 +135,11 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
 //        let relaxIndex = MBT_SignalProcessingObjC.computeRelaxIndex(dataArray, signalQuality: sessionQualityValues, parametersFromCalibration: parametersFromCalibration, sampRate: NSInteger(sampRate), windowType: "HAMMING", nbChannels: NSInteger(nbChannels), nbDataPoints: NSInteger(nbDataPoints))
 //        return relaxIndex!.floatValue
 //    }
-//    
-//    
-//    //Implementing MBT_SessionAnalysisComputer
+
+
+    //Implementing MBT_SessionAnalysisComputer
 //    func analyseSession(_ sessionData: [[Float]], sessionQualityValues: [[Float]], parametersFromCalibration: [String : Float], relaxIndex: [Float], sampRate: Int, packetLength: Int) -> [String : Float] {
-//        
+//
 //        //Transform the input data into the format needed by the Obj-C bridge
 //        let nbChannels: Int = sessionData.count
 //        let nbDataPoints: Int = sessionData[0].count
@@ -122,15 +147,16 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
 //        for dataForChannel in sessionData {
 //            dataArray += dataForChannel
 //        }
-//        
+//
 //        //Transform the quality data into the format needed by the Obj-C bridge
 //        var qualityArray = [Float]()
 //        for qualityForChannel in sessionQualityValues {
 //            qualityArray += qualityForChannel
 //        }
-//        
+//
 //        //Perform the computation
 //        let sessionAnalysisValues = MBT_SignalProcessingObjC.computeSessionAnalysis(dataArray, signalQuality: qualityArray, parametersFromCalibration: parametersFromCalibration, relaxIndex: relaxIndex, sampRate: NSInteger(sampRate), packetLength: NSInteger(packetLength), nbChannels: NSInteger(nbChannels), nbDataPoints: NSInteger(nbDataPoints))
 //        let sessionAnalysis = sessionAnalysisValues as! [String: Float]
 //        return sessionAnalysis
 //    }
+

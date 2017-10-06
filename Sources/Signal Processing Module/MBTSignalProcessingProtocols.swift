@@ -24,17 +24,17 @@ protocol MBTQualityComputer {
     func deinitQualityChecker()
 }
 
-//protocol MBTCalibrationComputer {
-//    
-//    /// Computes the necessary information from the calibration data and returns it in a dictionary.
-//    /// - parameter calibrationData: The data matrix for the calibration acquisition. Each row is a channel (no GPIOs).
-//    /// - parameter calibrationQualityValues: The matrix of computed "quality" values. Each row is a channel (no GPIOs), each column is a packet.
-//    /// - parameter sampRate: The data sampling rate.
-//    /// - paremeter packetLength: The number of data points in a "packet".
-//    /// - returns: A dictionary with the parameters computed from the calibration data.
-//    func computeSettingsFromCalibration(_ calibrationData: [[Float]], calibrationQualityValues: [[Float]], sampRate: Int, packetLength: Int) -> [String: Float]
-//}
-//
+protocol MBTCalibrationComputer {
+    
+    /// Computes the necessary information from the calibration data and returns it in a dictionary.
+    /// - parameter calibrationData: The data matrix for the calibration acquisition. Each row is a channel (no GPIOs).
+    /// - parameter calibrationQualityValues: The matrix of computed "quality" values. Each row is a channel (no GPIOs), each column is a packet.
+    /// - parameter sampRate: The data sampling rate.
+    /// - paremeter packetLength: The number of data points in a "packet".
+    /// - returns: A dictionary with the parameters computed from the calibration data.
+    func computeCalibration(_ packetsCount: Int)-> [String: [Float]]
+}
+
 //protocol MBTRelaxIndexComputer {
 //    
 //    /// Computes and return the relaxation index for the "packet".

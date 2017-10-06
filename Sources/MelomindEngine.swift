@@ -98,4 +98,9 @@ public class MelomindEngine {
             acqusitionManager.delegate = delegate
         }
     }
+    
+    
+    public static func computeCalibration() {
+        print("calibration : \(MBTSignalProcessingManager.shared.computeCalibration(30))")
+    }
 }

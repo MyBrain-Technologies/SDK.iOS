@@ -15,12 +15,26 @@
 
 + (void)initializeMainQualityChecker:(float) sampRate
                              accuracy:(float) accuracy;
+
 + (void)deInitializeMainQualityChecker;
+
 + (NSArray*) computeQuality: (NSArray*) signal
                    sampRate: (NSInteger) sampRate
                  nbChannels: (NSInteger) nbChannels
                nbDataPoints: (NSInteger) nbDataPoints;
+
 + (NSArray*) getModifiedEEGData;
+
+@end
+
+
+@interface MBTCalibrationBridge: NSObject
+
++ (NSDictionary *)computeCalibration: (NSArray *)modifiedChannelsData
+                 qualities: (NSArray *)qualities
+              packetLength: (NSInteger)packetLength
+              packetsCount: (NSInteger)packetsCount
+                  sampRate: (NSInteger)sampRate;
 
 @end
 
