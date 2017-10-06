@@ -94,22 +94,19 @@ internal class MBTAcquisitionManager: NSObject  {
     /// on it if user asks for it, or just send it via the delegate.
     /// - Parameter eegPacket : A complete *MBTEEGPacket*.
     func manageCompleteEEGPacket(_ eegPacket:MBTEEGPacket) {
-        var packet:MBTEEGPacket? = nil
-        
         if shouldUseQualityChecker {
             // Get caluclated qualities of the EEGPacket.
             let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
-            
             // Add *qualities* and save it in Realm DB.
             EEGPacketManager.addQualities(qualities, to:eegPacket)
             // Get the EEG values modified by the *QC* according to the *Quality* values.
             let correctedValues = MBTSignalProcessingManager.shared.getModifiedEEGValues()
-            packet = EEGPacketManager.updateEEGPacketChannelsDataValues(eegPacket,
-                                                                        newValues: correctedValues)
+            EEGPacketManager.addModifiedChannelsData(eegPacket,
+                                                     modifiedValues: correctedValues)
         }
         
         // Send EEGPacket to the delegate.
-        delegate.onReceivingPackage?(packet ?? eegPacket)
+        delegate.onReceivingPackage?(eegPacket)
     }
     
     /// Collecting the session datas and create the JSON.

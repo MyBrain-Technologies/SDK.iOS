@@ -23,6 +23,9 @@ public class MBTEEGPacket: Object {
     
     /// The values from all channels.
     public let channelsData = List<ChannelDatas>()
+    
+    /// The values updated by the *Quality Checker* from all channels.
+    public let modifiedChannelsData = List<ChannelDatas>()
 }
 
 //MARK: -
@@ -174,25 +177,20 @@ class EEGPacketManager: MBTRealmEntityManager {
     /// from the Quality Checker.
     /// - Parameters:
     ///     - eegPacket : The *MBTEEGPacket* to update the EEG values.
-    ///     - newValues : Array of the corrected values, by channel.
-    /// - Returns: The *MBTEEGPacket* with the EEG values updated.
-    class func updateEEGPacketChannelsDataValues(_ eegPacket: MBTEEGPacket, newValues:[[Float]]) -> MBTEEGPacket {
-        // Create a copy of the concerned EEGPacket.
-        let updatedEEGPacket = MBTEEGPacket.init(value: eegPacket)
-        // Remove old values from it.
-        updatedEEGPacket.channelsData.removeAll()
+    ///     - modifiedValues : Array of the corrected values, by channel.
+    class func addModifiedChannelsData(_ eegPacket: MBTEEGPacket, modifiedValues:[[Float]]) {
         let device = DeviceManager.getCurrentDevice()
         // Add the updated values to the packet copy.
         for channel in 0 ..< device.nbChannels {
             let channelDatas = ChannelDatas()
             for packetValue in 0 ..< device.sampRate {
-                let channelData = ChannelData(data: newValues[channel][packetValue])
+                let channelData = ChannelData(data: modifiedValues[channel][packetValue])
                 channelDatas.value.append(channelData)
             }
-            updatedEEGPacket.channelsData.append(channelDatas)
+            try! RealmManager.realm.write {
+                eegPacket.modifiedChannelsData.append(channelDatas)
+            }
         }
-        
-        return updatedEEGPacket
     }
     
     
@@ -207,6 +205,27 @@ class EEGPacketManager: MBTRealmEntityManager {
                 let quality = Quality(data:qualityFloat)
                 eegPacket.qualities.append(quality)
             }
+        }
+    }
+    
+    /// Get last n *MBTEEGPackets* from the Realm DB.
+    /// - Parameters:
+    ///     - n : Number of *MBTEEGPackets* wanted.
+    /// - Returns : The last n *MBTEEGPacket*.
+    class func getLastNPacketsComplete(_ n:Int) -> [MBTEEGPacket] {
+        let packets = EEGPacketManager.getEEGPackets().dropLast()
+        let packetsCount = packets.count
+        var lastNPackets = [MBTEEGPacket]()
+        
+        // If there is less packets than wanted.
+        if n > packetsCount {
+            return Array(packets)
+        } else {
+            for i in (packetsCount - n) ..< packetsCount {
+                lastNPackets.append(packets[i])
+            }
+            
+            return lastNPackets
         }
     }
 }
