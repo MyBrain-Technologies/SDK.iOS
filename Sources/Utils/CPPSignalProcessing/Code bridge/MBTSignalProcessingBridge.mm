@@ -28,7 +28,8 @@
 #include "MBT_PreProcessing.h"
 
 
-/// Signal Processing Bridge helper methods.
+/// Signal Processing Bridge helper methods,
+/// to help converting format between C++ and Obj-C++.
 @interface MBTSignalProcessingHelper: NSObject
 + (NSArray *)fromVectorToNSArray:(std::vector<float>) vector;
 + (NSArray *)fromMatrixToNSArray:(MBT_Matrix<float>) matrix;
@@ -39,7 +40,7 @@
 
 @implementation MBTSignalProcessingHelper
 
-/// Converte vector to an Objective-C NSArray.
+/// Converte *vector* to an Objective-C NSArray.
 + (NSArray *)fromVectorToNSArray:(std::vector<float>) vector {
     NSMutableArray * array = [[NSMutableArray alloc] init];
     for (int index = 0; index < int(vector.size()); index++)
@@ -51,7 +52,7 @@
     return (NSArray*) array;
 }
 
-/// Converte MBT_Matrix to an Objective-C NSArray.
+/// Converte *MBT_Matrix* to an Objective-C NSArray.
 + (NSArray *)fromMatrixToNSArray:(MBT_Matrix<float>) matrix {
     NSMutableArray * array = [[NSMutableArray alloc] init];
     for (int index = 0; index < matrix.size().first; index++)
@@ -63,7 +64,7 @@
     return (NSArray*) array;
 }
 
-/// Converte NSArray to MBT_Matrix format.
+/// Converte *NSArray* to *MBT_Matrix* format.
 + (MBT_Matrix<float>)fromNSArrayToMatrix:(NSArray *)array andHeight:(int)height andWidth:(int)width {
     MBT_Matrix<float> matrix = MBT_Matrix<float>((int) height, (int) width);
 
@@ -85,9 +86,10 @@
 /// Quality Checker Bridge methods, for use in Swift.
 @implementation MBTQualityCheckerBridge
 
+/// Instance on *Main Quality Checker* to keep.
 static MBT_MainQC *mainQC;
 
-
+/// Initialize Main_QC, and save it.
 + (void)initializeMainQualityChecker:(float)sampRate
                              accuracy:(float)accuracy {
     // Construction de kppv
@@ -117,15 +119,24 @@ static MBT_MainQC *mainQC;
     std::vector< std::vector<float> > dataClean;
 
     // Init of Main_QC.
-    mainQC = new MBT_MainQC(sampRate, trainingFeatures, trainingClasses, w, mu, sigma, kppv, costClass, potTrainingFeatures, dataClean, spectrumClean, cleanItakuraDistance, accuracy);
+    mainQC = new MBT_MainQC(sampRate,
+                            trainingFeatures,
+                            trainingClasses,
+                            w, mu, sigma, kppv,
+                            costClass,
+                            potTrainingFeatures,
+                            dataClean,
+                            spectrumClean,
+                            cleanItakuraDistance,
+                            accuracy);
 }
 
-/// Dealloc MBT_MainQC instance, for memory safety.
+/// Dealloc MBT_MainQC instance when session is finished, for memory safety.
 + (void)deInitializeMainQualityChecker {
     delete mainQC;
 }
 
-///
+/// Method to compute Quality for a EEGPacket, for each channel.
 + (NSArray*) computeQuality: (NSArray*) signal
                    sampRate: (NSInteger) sampRate
                  nbChannels: (NSInteger) nbChannels
@@ -143,7 +154,7 @@ static MBT_MainQC *mainQC;
     return [MBTSignalProcessingHelper fromVectorToNSArray:qualities];
 }
 
-///
+/// Method to get the modified EEG Data, according to the quality value.
 + (NSArray*) getModifiedEEGData {
     MBT_Matrix<float> modifiedData = mainQC->MBT_get_m_inputData();
 
@@ -154,8 +165,11 @@ static MBT_MainQC *mainQC;
 
 //MARK: -
 
+/// Bridge methods for calibration calculation, for a group of
+/// *MBTEEGPacket*.
 @implementation MBTCalibrationBridge
 
+/// Method to get the calibration dictionnary.
 + (NSDictionary *)computeCalibration: (NSArray *)modifiedChannelsData
                  qualities: (NSArray *)qualities
               packetLength: (NSInteger)packetLength
@@ -173,7 +187,7 @@ static MBT_MainQC *mainQC;
                                                                                     andWidth:(int)(packetLength * packetsCount)];
     
     // Put the qualities in a matrix.
-    MBT_Matrix<float> calibrationRecordingsQuality = [MBTSignalProcessingHelper fromNSArrayToMatrix:modifiedChannelsData
+    MBT_Matrix<float> calibrationRecordingsQuality = [MBTSignalProcessingHelper fromNSArrayToMatrix:qualities
                                                                                           andHeight:height
                                                                                            andWidth:(int)packetsCount];
     

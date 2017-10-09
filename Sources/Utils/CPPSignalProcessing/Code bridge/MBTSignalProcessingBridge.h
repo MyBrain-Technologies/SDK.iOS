@@ -11,6 +11,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface MBTQualityCheckerBridge: NSObject 
 
 + (void)initializeMainQualityChecker:(float) sampRate
@@ -28,6 +30,9 @@
 @end
 
 
+
+
+
 @interface MBTCalibrationBridge: NSObject
 
 + (NSDictionary *)computeCalibration: (NSArray *)modifiedChannelsData
@@ -35,6 +40,15 @@
               packetLength: (NSInteger)packetLength
               packetsCount: (NSInteger)packetsCount
                   sampRate: (NSInteger)sampRate;
+
+@end
+
+
+
+
+@interface MBTRelaxIndexBridge: NSObject
+
++ (float)computeRelaxIndex;
 
 @end
 

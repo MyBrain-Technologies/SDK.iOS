@@ -19,6 +19,11 @@ public class MelomindEngine {
     /// data from the MBT Headset.
     internal static let acqusitionManager = MBTAcquisitionManager.shared
     
+    /// Init a MBTSignalProcessingManager, which deals with
+    /// the Signal Processing Library (via the bridge).
+    internal static let signalProcessingManager = MBTSignalProcessingManager.shared
+    
+    
     //MARK: - Connect and Disconnect MBT Headset Methods
 
     /// Connect to bluetooth LE profile of the MBT headset.
@@ -59,7 +64,30 @@ public class MelomindEngine {
         bluetoothManager.disconnect()
     }
     
-    //MARK: - Start / stop listening to EEG
+    //MARK: - Getters 
+    /// Getter for device informations of the MBT headset.
+    /// - Returns: A *MBTDeviceInformations* instance of the connected headset, or nil if no instance yet.
+    public static func getDeviceInformations() -> MBTDeviceInformations? {
+        return DeviceManager.getDeviceInfos()
+    }
+    
+    /// Getter for the session JSON.
+    /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
+    public static func getSessionJSON() -> Data? {
+        return MBTJSONHelper.getSessionData()
+    }
+    
+    
+    //MARK: - Acquisition Manager
+    
+    /// Add delegate to Acquisition Manager.
+    /// - Parameters:
+    ///     - delegate : The Melomind Engine Delegate to get Headset datas.
+    internal static func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
+        if acqusitionManager.delegate == nil {
+            acqusitionManager.delegate = delegate
+        }
+    }
     
     /// Start streaming EEG Data from MyBrainActivity Characteristic.
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
@@ -75,32 +103,13 @@ public class MelomindEngine {
         acqusitionManager.streamHasStopped()
     }
     
-    //MARK: - Getters 
-    /// Getter for device informations of the MBT headset.
-    /// - Returns: A *MBTDeviceInformations* instance of the connected headset, or nil if no instance yet.
-    public static func getDeviceInformations() -> MBTDeviceInformations? {
-        return DeviceManager.getDeviceInfos()
-    }
+    //MARK: - Signal Processing Manager
     
-    /// Getter for the session JSON.
-    /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
-    public static func getSessionJSON() -> Data? {
-        return MBTJSONHelper.getSessionData()
-    }
-    
-    //MARK: - Acquisition Manager
-    
-    /// Add delegate to Acquisition Manager
+    /// Compute calibration with the last 'n' complete packets.
     /// - Parameters:
-    ///     - delegate : The Melomind Engine Delegate to get Headset datas.
-    internal static func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
-        if acqusitionManager.delegate == nil {
-            acqusitionManager.delegate = delegate
-        }
-    }
-    
-    
-    public static func computeCalibration() {
-        print("calibration : \(MBTSignalProcessingManager.shared.computeCalibration(30))")
+    ///     - n : Number of complete packets to take to compute the calibration.
+    /// - Returns: A dictionnary received by the Signal Processing library.
+    public static func computeCalibration(_ n:Int) -> [String:[Float]] {
+        return signalProcessingManager.computeCalibration(n)
     }
 }

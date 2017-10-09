@@ -12,8 +12,13 @@ import RealmSwift
 /// Holds the current implementation of the signal processing protocols.
 internal class MBTSignalProcessingManager: MBTQualityComputer {
     
-    /// Singleton declaration
+    /// Singleton declaration.
     static let shared = MBTSignalProcessingManager()
+    
+    /// Dictionnary to store calibration results.
+    internal var calibrationComputed: [String: [Float]]!
+    
+    
     
     /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
     func initializeQualityChecker() {
@@ -70,9 +75,12 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
 
 extension MBTSignalProcessingManager: MBTCalibrationComputer {
     
-    //Implementing MBT_CalibrationComputer
+    /// Compute calibration from modified EEG Data and qualities,
+    /// from the last complete packet until the *n* last packet.
+    /// - Parameters:
+    ///     - packetsCount: Number of packets to get, from the last one.
+    /// - Returns: A dictionnary with calibration datas from the CPP Signal Processing.
     func computeCalibration(_ packetsCount: Int) -> [String: [Float]] {
-        
         let packetLength = DeviceManager.getDeviceEEGPacketLength()
         let sampRate = Int(DeviceManager.getDeviceSampRate())
         
