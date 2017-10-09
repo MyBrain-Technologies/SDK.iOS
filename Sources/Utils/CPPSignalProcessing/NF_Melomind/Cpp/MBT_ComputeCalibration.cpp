@@ -21,10 +21,10 @@
 
 #include "../Headers/MBT_ComputeCalibration.h"
 
-#define MIN_QUALITY_PER_PACKET 0.5
+#define MIN_QUALITY_PER_PACKET 0.5f
 
-#define GENERAL_QUALITY_THRESHOLD 0.5
-#define CHANNEL_QUALITY_THRESHOLD 0.75
+#define GENERAL_QUALITY_THRESHOLD 0.5f
+#define CHANNEL_QUALITY_THRESHOLD 0.75f
 
 std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup, MBT_Matrix<float> Bounds)
 {
@@ -36,6 +36,7 @@ std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<flo
         //Selecting the packets with a good enough quality value.
         //The minimum quality value for a packet to be taken into account. Hard coded to 0.5.
         int channelNb = calibrationRecordings.size().first;
+        
         std::vector<std::vector<int> > packetsToKeepIndex; //A two-dimensional vector holding for each channel (row) the indices of the good packets.
         packetsToKeepIndex.resize(channelNb);
         std::vector<double> meanQualities;
@@ -55,10 +56,14 @@ std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<flo
                 }
             }
             //meanQualities[channelIndex] /= packetsToKeepIndex[channelIndex].size();
-			meanQualities[channelIndex] /= calibrationRecordingsQuality.size().second;
+            printf("mean qualities : %f", meanQualities[channelIndex]);
+			meanQualities[channelIndex] /= (float)calibrationRecordingsQuality.size().second;
         }
 		//double AverageMeanQuality = std::accumulate(meanQualities.begin(), meanQualities.end(), 0.0);
 		//AverageMeanQuality = AverageMeanQuality/meanQualities.size();
+        for (auto i = meanQualities.begin(); i != meanQualities.end(); ++i)
+            std::cout << *i << ' ';
+        
         unsigned int counter = 0;
         for (unsigned int co = 0; co<meanQualities.size(); co++)
         {

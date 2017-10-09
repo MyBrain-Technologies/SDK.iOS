@@ -166,22 +166,22 @@ static MBT_MainQC *mainQC;
     float IAFsup = 13;
 
     int height = (int)(qualities.count / packetsCount);
-    NSLog(@"height : %i", height);
+    
     // Put the modified EEG data in a matrix.
     MBT_Matrix<float> calibrationRecordings = [MBTSignalProcessingHelper fromNSArrayToMatrix:modifiedChannelsData
                                                                                    andHeight:height
                                                                                     andWidth:(int)(packetLength * packetsCount)];
-    NSLog(@"calibration recording");
+    
     // Put the qualities in a matrix.
     MBT_Matrix<float> calibrationRecordingsQuality = [MBTSignalProcessingHelper fromNSArrayToMatrix:modifiedChannelsData
                                                                                           andHeight:height
                                                                                            andWidth:(int)packetsCount];
-    NSLog(@"calibration recording qualities");
+    
     // Set the thresholds for the outliers
     // -----------------------------------
     MBT_Matrix<float> Bounds(calibrationRecordings.size().first,2);
     MBT_Matrix<float> Test(calibrationRecordings.size().first, calibrationRecordings.size().second);
-    NSLog(@"bounds and test");
+    
     for (int ch=0; ch<calibrationRecordings.size().first; ch++)
     {
         vector<float> signal_ch = calibrationRecordings.row(ch);

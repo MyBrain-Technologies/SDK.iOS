@@ -87,7 +87,6 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
         var calibrationQualityValues = [List<Quality>]()
         for j in 0 ..< packetsCount {
             calibrationQualityValues.append(packets[j].qualities)
-            print(packets[j].qualities)
         }
         
         //Transform the input data into the format needed by the Obj-C bridge
@@ -107,6 +106,8 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
                 qualityArray.append(qualityForChannel.value)
             }
         }
+        
+        print(qualityArray)
 
         //Perform the computation
         let parametersFromComputation = MBTCalibrationBridge.computeCalibration(dataArray,
