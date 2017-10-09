@@ -56,13 +56,10 @@ std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<flo
                 }
             }
             //meanQualities[channelIndex] /= packetsToKeepIndex[channelIndex].size();
-            printf("mean qualities : %f", meanQualities[channelIndex]);
 			meanQualities[channelIndex] /= (float)calibrationRecordingsQuality.size().second;
         }
 		//double AverageMeanQuality = std::accumulate(meanQualities.begin(), meanQualities.end(), 0.0);
 		//AverageMeanQuality = AverageMeanQuality/meanQualities.size();
-        for (auto i = meanQualities.begin(); i != meanQualities.end(); ++i)
-            std::cout << *i << ' ';
         
         unsigned int counter = 0;
         for (unsigned int co = 0; co<meanQualities.size(); co++)

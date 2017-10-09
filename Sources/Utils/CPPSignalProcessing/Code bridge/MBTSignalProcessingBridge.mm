@@ -209,10 +209,9 @@ static MBT_MainQC *mainQC;
         for (unsigned int t = 0 ; t < InterCopySignal_ch.size(); t++)
             Test(ch,t) = (float) InterCopySignal_ch[t];
     }
-    NSLog(@"before fully interpolated");
+    
     // interpolate the nan values between the channels
     MBT_Matrix<float> FullyInterpolatedTest = MBT_InterpolateBetweenChannels(Test);
-    NSLog(@"fully interpolated");
     // interpolate the nan values across each channel
     MBT_Matrix<float> InterpolatedAcrossChannels = MBT_InterpolateAcrossChannels(FullyInterpolatedTest);
     
@@ -225,7 +224,7 @@ static MBT_MainQC *mainQC;
                                                                                    IAFsup,
                                                                                    Bounds);
     
-    //Converting the parameters to an Obj-C format
+    // Converting the parameters to an Obj-C format
     NSMutableDictionary * parametersDictionnary = [[NSMutableDictionary alloc] init];
     for (auto parameter: paramCalib)
     {
@@ -237,4 +236,17 @@ static MBT_MainQC *mainQC;
     
     return parametersDictionnary;
 }
+@end
+
+
+//MARK: -
+
+/// Bridge method to get the Relax Index
+@implementation MBTRelaxIndexBridge
+
++ (float)computeRelaxIndex {
+   
+    return 0.6f;
+}
+
 @end
