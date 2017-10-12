@@ -150,7 +150,7 @@ internal class MBTAcquisitionManager: NSObject  {
                     "firmwareVersion": device.deviceInfos?.firmwareVersion!,
                     "uniqueDeviceIdentifier": device.deviceInfos?.deviceId!
                 ],
-                "recordingNB": "0x14",
+                "recordingNb": "0x14",
                 "comments": [],
                 "eegPacketLength": device.eegPacketLength,
                 "sampRate": device.sampRate,
@@ -214,7 +214,10 @@ internal class MBTAcquisitionManager: NSObject  {
         if diff != 1 {
             print("lost \(diff) packet(s)")
             for _ in 0 ..< diff {
-                let packetLostArray = Array(arrayLiteral: ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")), ChannelData(data: nan("")))
+                let packetLostArray = Array(arrayLiteral: ChannelData(data: nan("")),
+                                            ChannelData(data: nan("")),
+                                            ChannelData(data: nan("")),
+                                            ChannelData(data: nan("")))
                 let datasArray = [packetLostArray, packetLostArray]
                 self.addValuesToEEGPacket(datasArray)
             }
