@@ -112,4 +112,12 @@ public class MelomindEngine {
     public static func computeCalibration(_ n:Int) -> [String:[Float]] {
         return signalProcessingManager.computeCalibration(n)
     }
+    
+    public static func computeRelaxIndex() -> Float {
+        return signalProcessingManager.computeRelaxIndex()
+    }
+    
+    public static func computeSessionStatistics(_ inputSNR:[Float], threshold:Float) -> [String:Float] {
+        return signalProcessingManager.analyseSession(inputSNR, threshold: threshold)
+    }
 }

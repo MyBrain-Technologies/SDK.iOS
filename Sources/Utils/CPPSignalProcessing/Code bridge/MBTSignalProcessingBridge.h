@@ -13,7 +13,7 @@
 
 
 
-@interface MBTQualityCheckerBridge: NSObject 
+@interface MBTQualityCheckerBridge: NSObject
 
 + (void)initializeMainQualityChecker:(float) sampRate
                              accuracy:(float) accuracy;
@@ -48,7 +48,17 @@
 
 @interface MBTRelaxIndexBridge: NSObject
 
-+ (float)computeRelaxIndex;
++ (float)computeRelaxIndex:(NSArray *)signal
+                  sampRate:(NSInteger)sampRate
+                nbChannels: (NSInteger) nbChannels;
+
+@end
+
+
+@interface MBTSNRStatisticsBridge: NSObject
+
++ (NSDictionary *)computeSessionStatistics:(NSArray *)inputDataSNR
+                                 threshold:(float)threshold;
 
 @end
 

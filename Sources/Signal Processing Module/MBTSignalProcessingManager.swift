@@ -129,43 +129,47 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
         return parameters
     }
 }
+
+extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     //Implementing MBT_RelaxIndexComputer
-//    func computeRelaxIndex(_ sessionData: [[Float]], sessionQualityValues: [Float], parametersFromCalibration: [String: Float], sampRate: Int) -> Float {
-//        
-//        //Transform the input data into the format needed by the Obj-C bridge
-//        let nbChannels: Int = sessionData.count
-//        let nbDataPoints: Int = sessionData[0].count
-//        var dataArray = [Float]()
-//        for dataForChannel in sessionData {
-//            dataArray += dataForChannel
-//        }
-//        
-//        //Perform the computation
-//        let relaxIndex = MBT_SignalProcessingObjC.computeRelaxIndex(dataArray, signalQuality: sessionQualityValues, parametersFromCalibration: parametersFromCalibration, sampRate: NSInteger(sampRate), windowType: "HAMMING", nbChannels: NSInteger(nbChannels), nbDataPoints: NSInteger(nbDataPoints))
-//        return relaxIndex!.floatValue
-//    }
+    func computeRelaxIndex() -> Float {
+        
+        // Get the last N packets.
+        let packets = EEGPacketManager.getLastNPacketsComplete(4)
+        
+        let sampRate = Int(DeviceManager.getDeviceSampRate())
+        let nbChannels: Int = DeviceManager.getChannelsCount()
+        
+        var calibrationData = [List<ChannelDatas>]()
+        for i in 0 ..< packets.count {
+            calibrationData.append(packets[i].modifiedChannelsData
+            )
+        }
+        
+        // Transform the input data into the format needed by the Obj-C bridge
+        var dataArray = [Float]()
+        for listChannelData in calibrationData {
+            for datasForChannel in listChannelData {
+                for data in datasForChannel.value {
+                    dataArray.append(data.value)
+                }
+            }
+        }
+        
+        //Perform the computation
+        let relaxIndex = MBTRelaxIndexBridge.computeRelaxIndex(dataArray,
+                                                               sampRate: sampRate,
+                                                               nbChannels: nbChannels)
+        return relaxIndex
+    }
+}
 
-
+extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
     //Implementing MBT_SessionAnalysisComputer
-//    func analyseSession(_ sessionData: [[Float]], sessionQualityValues: [[Float]], parametersFromCalibration: [String : Float], relaxIndex: [Float], sampRate: Int, packetLength: Int) -> [String : Float] {
-//
-//        //Transform the input data into the format needed by the Obj-C bridge
-//        let nbChannels: Int = sessionData.count
-//        let nbDataPoints: Int = sessionData[0].count
-//        var dataArray = [Float]()
-//        for dataForChannel in sessionData {
-//            dataArray += dataForChannel
-//        }
-//
-//        //Transform the quality data into the format needed by the Obj-C bridge
-//        var qualityArray = [Float]()
-//        for qualityForChannel in sessionQualityValues {
-//            qualityArray += qualityForChannel
-//        }
-//
-//        //Perform the computation
-//        let sessionAnalysisValues = MBT_SignalProcessingObjC.computeSessionAnalysis(dataArray, signalQuality: qualityArray, parametersFromCalibration: parametersFromCalibration, relaxIndex: relaxIndex, sampRate: NSInteger(sampRate), packetLength: NSInteger(packetLength), nbChannels: NSInteger(nbChannels), nbDataPoints: NSInteger(nbDataPoints))
-//        let sessionAnalysis = sessionAnalysisValues as! [String: Float]
-//        return sessionAnalysis
-//    }
-
+    func analyseSession(_ inputDataSNR:[Float], threshold:Float) -> [String:Float] {
+        //Perform the computation
+        let sessionAnalysisValues = MBTSNRStatisticsBridge.computeSessionStatistics(inputDataSNR, threshold: threshold)
+        let sessionAnalysis = sessionAnalysisValues as! [String: Float]
+        return sessionAnalysis
+    }
+}

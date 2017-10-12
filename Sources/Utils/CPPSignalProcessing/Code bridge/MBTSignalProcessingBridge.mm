@@ -27,18 +27,33 @@
 #include "MBT_RelaxIndexToVolum.h"
 #include "MBT_PreProcessing.h"
 
+#include "MBT_SNR_Stats.h"
+
 
 /// Signal Processing Bridge helper methods,
 /// to help converting format between C++ and Obj-C++.
 @interface MBTSignalProcessingHelper: NSObject
+extern const float IAFinf;
+extern const float IAFsup;
+
+
 + (NSArray *)fromVectorToNSArray:(std::vector<float>) vector;
 + (NSArray *)fromMatrixToNSArray:(MBT_Matrix<float>) matrix;
 + (MBT_Matrix<float>)fromNSArrayToMatrix:(NSArray *)array
                                andHeight:(int)height
                                 andWidth:(int)width;
++ (std::vector<float>)fromNSArraytoVector:(NSArray *)array;
+
++ (void)setCalibrationParameters:(std::map<std::string, std::vector<float>>) calibParameters;
++ (std::map<std::string, std::vector<float>>)getCalibrationParameters;
 @end
 
 @implementation MBTSignalProcessingHelper
+
+const float IAFinf = 7;
+const float IAFsup = 13;
+
+static std::map<std::string, std::vector<float>> calibParams;
 
 /// Converte *vector* to an Objective-C NSArray.
 + (NSArray *)fromVectorToNSArray:(std::vector<float>) vector {
@@ -78,6 +93,26 @@
 
     return matrix;
 }
+
++ (std::vector<float>)fromNSArraytoVector:(NSArray *)array {
+    std::vector<float> vector;
+    
+    for (int i = 0; i < (int)array.count; i++) {
+        float arrayValue = [array[i] floatValue];
+        vector.push_back(arrayValue);
+    }
+    
+    return vector;
+}
+
++ (void)setCalibrationParameters:(std::map<std::string, std::vector<float>>) calibParameters {
+    calibParams = calibParameters;
+}
+
++ (std::map<std::string, std::vector<float>>)getCalibrationParameters {
+    return calibParams;
+}
+
 @end
 
 
@@ -176,9 +211,6 @@ static MBT_MainQC *mainQC;
               packetsCount: (NSInteger)packetsCount
                   sampRate: (NSInteger)sampRate
 {
-    float IAFinf = 7;
-    float IAFsup = 13;
-
     int height = (int)(qualities.count / packetsCount);
     
     // Put the modified EEG data in a matrix.
@@ -230,13 +262,16 @@ static MBT_MainQC *mainQC;
     MBT_Matrix<float> InterpolatedAcrossChannels = MBT_InterpolateAcrossChannels(FullyInterpolatedTest);
     
     // Getting the map.
-    std::map<std::string, std::vector<float> > paramCalib = MBT_ComputeCalibration(calibrationRecordings,
+    std::map<std::string, std::vector<float>> paramCalib = MBT_ComputeCalibration(calibrationRecordings,
                                                                                    calibrationRecordingsQuality,
                                                                                    (int)sampRate,
                                                                                    (int)packetLength,
                                                                                    IAFinf,
                                                                                    IAFsup,
                                                                                    Bounds);
+    
+    // Save calibration parameters received.
+    [MBTSignalProcessingHelper setCalibrationParameters:paramCalib];
     
     // Converting the parameters to an Obj-C format
     NSMutableDictionary * parametersDictionnary = [[NSMutableDictionary alloc] init];
@@ -258,9 +293,55 @@ static MBT_MainQC *mainQC;
 /// Bridge method to get the Relax Index
 @implementation MBTRelaxIndexBridge
 
-+ (float)computeRelaxIndex {
-   
-    return 0.6f;
+static vector<float>pastRelaxIndex;
+
++ (float)computeRelaxIndex:(NSArray *)signal
+                  sampRate:(NSInteger)sampRate
+                nbChannels: (NSInteger) nbChannels
+{
+    int width = (int)(signal.count / nbChannels);
+    MBT_Matrix<float> signalMatrix = [MBTSignalProcessingHelper fromNSArrayToMatrix:signal
+                                                                          andHeight:(int)nbChannels
+                                                                           andWidth:width];
+    
+    std::map<std::string, std::vector<float>> calibrationParams = [MBTSignalProcessingHelper getCalibrationParameters];
+    std::vector<float> calibrationParameters = calibrationParams["SNRCalib_ofBestChannel"];
+    
+    float RelaxationIndex = MBT_ComputeRelaxIndex(signalMatrix, calibrationParams, sampRate, IAFinf, IAFsup);
+    pastRelaxIndex.push_back(RelaxationIndex);
+    float tmp_SmoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex);
+    float tmp_NormalizedRelaxIndex = MBT_NormalizeRelaxIndex(tmp_SmoothedRelaxIndex, calibrationParameters);
+    float tmp_Volum = MBT_RelaxIndexToVolum(tmp_NormalizedRelaxIndex);
+    
+    return tmp_Volum;
+}
+
+@end
+
+
+//MARK: -
+
+/// Bridge method for SNR Statistics
+@implementation MBTSNRStatisticsBridge
+
++ (NSDictionary *)computeSessionStatistics:(NSArray *)inputDataSNR
+                                 threshold:(float)threshold
+{
+    std::vector<float> inputDataVector = [MBTSignalProcessingHelper fromNSArraytoVector:inputDataSNR];
+    SNR_Statistics statisticsObj = SNR_Statistics(inputDataVector);
+    std::map<string, float> statisticsResults = statisticsObj.CalculateSNRStatistics(inputDataVector, threshold);
+    
+    // Converting the parameters to a NSDictionnary
+    NSMutableDictionary * resultsDictionnary = [[NSMutableDictionary alloc] init];
+    for (auto parameter: statisticsResults)
+    {
+        NSString *parameterName = [NSString stringWithCString: parameter.first.c_str()
+                                                     encoding:[NSString defaultCStringEncoding]];
+        NSNumber *parameterValue = [NSNumber numberWithFloat:parameter.second];
+        [resultsDictionnary setObject:parameterValue forKey:parameterName];
+    }
+    
+    return resultsDictionnary;
 }
 
 @end

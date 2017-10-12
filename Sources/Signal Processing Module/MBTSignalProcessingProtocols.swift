@@ -35,26 +35,27 @@ protocol MBTCalibrationComputer {
     func computeCalibration(_ packetsCount: Int)-> [String: [Float]]
 }
 
-//protocol MBTRelaxIndexComputer {
-//    
-//    /// Computes and return the relaxation index for the "packet".
-//    /// - parameter sessionData: The data matrix for the session acquisition packet. Each row is a channel (no GPIOs).
-//    /// - parameter sessionQualityValues: The array of computed "quality" values. Each row is a channel (no GPIOs).
-//    /// - parameter parametersFromCalibration: A dictionary with the parameters computed from the calibration data.
-//    /// - parameter sampRate: The data sampling rate.
-//    /// - returns: The relaxation index for the packet.
-//    func computeRelaxIndex(_ sessionData: [[Float]], sessionQualityValues: [Float], parametersFromCalibration: [String: Float], sampRate: Int) -> Float
-//}
-//
-//protocol MBTSessionAnalysisComputer {
-//    
-//    /// Computes and return the results of the session analysis.
-//    /// - parameter sessionData: The data matrix for the session acquisition packet. Each row is a channel (no GPIOs).
-//    /// - parameter sessionQualityValues: The array of computed "quality" values. Each row is a channel (no GPIOs).
-//    /// - parameter parametersFromCalibration: A dictionary with the parameters computed from the calibration data.
-//    /// - parameter relaxIndex: The array of computed "relax index" values. Each value correspond to a session acquisition packet.
-//    /// - parameter sampRate: The data sampling rate.
-//    /// - paremeter packetLength: The number of data points in a "packet".
-//    /// - returns: A dictionnary with the output values for the session analysis
-//    func analyseSession(_ sessionData: [[Float]], sessionQualityValues: [[Float]], parametersFromCalibration: [String: Float], relaxIndex: [Float], sampRate: Int, packetLength: Int) -> [String: Float]
-//}
+protocol MBTRelaxIndexComputer {
+    
+    /// Computes and return the relaxation index for the "packet".
+    /// - parameter sessionData: The data matrix for the session acquisition packet. Each row is a channel (no GPIOs).
+    /// - parameter sessionQualityValues: The array of computed "quality" values. Each row is a channel (no GPIOs).
+    /// - parameter parametersFromCalibration: A dictionary with the parameters computed from the calibration data.
+    /// - parameter sampRate: The data sampling rate.
+    /// - returns: The relaxation index for the packet.
+    func computeRelaxIndex() -> Float
+}
+
+protocol MBTSessionAnalysisComputer {
+    
+    /// Computes and return the results of the session analysis.
+    /// - parameter sessionData: The data matrix for the session acquisition packet. Each row is a channel (no GPIOs).
+    /// - parameter sessionQualityValues: The array of computed "quality" values. Each row is a channel (no GPIOs).
+    /// - parameter parametersFromCalibration: A dictionary with the parameters computed from the calibration data.
+    /// - parameter relaxIndex: The array of computed "relax index" values. Each value correspond to a session acquisition packet.
+    /// - parameter sampRate: The data sampling rate.
+    /// - paremeter packetLength: The number of data points in a "packet".
+    /// - returns: A dictionnary with the output values for the session analysis
+    func analyseSession(_ inputDataSNR:[Float], threshold:Float) -> [String:Float]
+}
+
