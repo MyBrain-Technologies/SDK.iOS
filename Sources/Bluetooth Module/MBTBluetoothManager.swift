@@ -31,6 +31,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             eventDelegate.onBluetoothStatusUpdate?(newValue)
         }
     }
+    // Time Out Timer
+    
+    var timerTimeOut : Timer!
     
     /// A *Bool* indicating if SDK is listening to EEG Headset notifications.
     var isListeningToEEG = false {
@@ -43,14 +46,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     /// The headset bluetooth profile name to connect to.
-    var deviceName: NSString!
-    
-    /// The MBTBluetooth Event Delegate.
-    var eventDelegate: MBTBluetoothEventDelegate!
-    
-    /// The MBT Audio A2DP Delegate.
-    /// Tell developers when audio connect / disconnect
-    var audioA2DPDelegate: MBTBluetoothA2DPDelegate? {
+    var deviceName: String! {
         didSet {
             if audioA2DPDelegate != nil {
                 let session = AVAudioSession.sharedInstance()
@@ -67,8 +63,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                     if #available(iOS 10.0, *) {
                         do {
                             try session.setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault, options: AVAudioSessionCategoryOptions.allowBluetoothA2DP)
-//                            try session.setCategory(AVAudioSessionCategoryPlayback,
-//                                                    with: AVAudioSessionCategoryOptions.allowAirPlay)
+                            //                            try session.setCategory(AVAudioSessionCategoryPlayback,
+                            //                                                    with: AVAudioSessionCategoryOptions.allowAirPlay)
                         } catch let error {
                             print("[MyBrainTechnologiesSDK] Error while setting category for A2DP Bluetooth : \(error.localizedDescription)")
                         }
@@ -92,6 +88,13 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
+    /// The MBTBluetooth Event Delegate.
+    var eventDelegate: MBTBluetoothEventDelegate!
+    
+    /// The MBT Audio A2DP Delegate.
+    /// Tell developers when audio connect / disconnect
+    var audioA2DPDelegate: MBTBluetoothA2DPDelegate?
+    
 
     //MARK: - Connect and Disconnect MBT Headset Methods
     
@@ -100,21 +103,25 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     ///     - deviceName : The name of the device to connect (Bluetooth profile).
     ///     - eventDelegate: The delegate which whill handle Bluetooth events.
     ///     - audioA2DPDelegate: The audio A2DP protocol delegate to monitor A2DP connection state. Can be nil.
-    public func connectTo(_ deviceName:String,
+    public func connectTo(_ deviceName:String? = nil,
                           with eventDelegate: MBTBluetoothEventDelegate,
                           and audioA2DPDelegate: MBTBluetoothA2DPDelegate?) {
         // Check if a current device is already saved in the DB, and delete it
         DeviceManager.deleteCurrentDevice()
         
-        centralManager = CBCentralManager(delegate: self, queue: nil)
-        self.deviceName = NSString(string: deviceName)
-        self.eventDelegate = eventDelegate        
+        self.audioA2DPDelegate = audioA2DPDelegate
         
-        // Check if should launch audio process to help the A2DP connection
-        guard let audioDelegate = audioA2DPDelegate else {
-            return
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+        centralManager.stopScan()
+        centralManager.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
+        timerTimeOut = Timer.scheduledTimer(timeInterval: 20.0, target: self, selector: #selector(connectionMelominTimeOut), userInfo: nil, repeats: false)
+        
+        if let deviceName = deviceName {
+            self.deviceName = deviceName
         }
-        self.audioA2DPDelegate = audioDelegate
+        self.eventDelegate = eventDelegate        
+        // Check if should launch audio process to help the A2DP connection
+        
     }
     
     /// Disconnect centralManager, and remove session's values.
@@ -128,6 +135,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Remove current device saved
         DeviceManager.deleteCurrentDevice()
     }
+    
     
     
     //MARK: Central Manager Delegate Methods
@@ -159,18 +167,25 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         advertisementData: [String : Any],
         rssi RSSI: NSNumber)
     {
-        let nameOfDeviceFound =
-            (advertisementData as NSDictionary).object(
-                forKey: CBAdvertisementDataLocalNameKey) as? NSString
+        guard let nameOfDeviceFound = advertisementData[CBAdvertisementDataLocalNameKey] as? String else { return }
         
-        if (nameOfDeviceFound == self.deviceName) {
+        
+        if let array = advertisementData[CBAdvertisementDataServiceUUIDsKey] as? Array<CBUUID>,
+            array.contains(MBTBluetoothLEHelper.myBrainServiceUUID) && nameOfDeviceFound.lowercased().range(of: "melo_") != nil {
+            if self.deviceName == nil {
+                self.deviceName = nameOfDeviceFound
+            }
             
-            // Stop scanning
-            self.centralManager.stopScan()
-            // Set as the peripheral to use and establish connection
-            self.blePeripheral = peripheral
-            self.blePeripheral.delegate = self
-            self.centralManager.connect(peripheral, options: nil)
+            if self.deviceName == nameOfDeviceFound  {
+                // Stop scanning
+                self.centralManager.stopScan()
+                // invalidate timerTimeOut
+                self.timerTimeOut.invalidate()
+                // Set as the peripheral to use and establish connection
+                self.blePeripheral = peripheral
+                self.blePeripheral.delegate = self
+                self.centralManager.connect(peripheral, options: nil)
+            }
         }
     }
     
@@ -222,6 +237,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         eventDelegate.onConnectionFailed?(error)
     }
     
+    
+    //MARK: - Time Out Timer
+    
+    @objc func connectionMelominTimeOut() {
+        centralManager.stopScan()
+        let error = NSError(domain: "Time Out", code: 999, userInfo: [NSLocalizedDescriptionKey : "Time Out Connection Melomind"]) as Error
+        eventDelegate.onConnectionFailed!(error)
+    }
     
     //MARK: CBPeripheral Delegate Methods
     
@@ -275,7 +298,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Check if characteristics have been discovered and set
         if MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic != nil {
             // Tell the event delegate that the connection is established
-            eventDelegate.onConnectionEstablished?()
+            // Rochdi -> Change onConnectionEstablished When we set Info To the Device Model
+            //eventDelegate.onConnectionEstablished?()
         }
     }
 
@@ -304,6 +328,12 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         default:
             break
         }
+        // Tell the event delegate that the connection is established
+
+        if DeviceManager.isAllDeviceInfosSet() {
+            eventDelegate.onConnectionEstablished?()
+        }
+        
     }
     
     /// Check if the notification status changed.

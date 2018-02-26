@@ -28,4 +28,5 @@ import Foundation
     /// Called when the headset lost connection.
     /// - Parameter error : If failure, the cause of the failure (Core Bluetooth error).
     @objc optional func onConnectionOff(_ error: Error?)
+    
 }

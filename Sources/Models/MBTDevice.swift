@@ -49,6 +49,10 @@ public class MBTDeviceInformations: Object {
     
     /// The product firmware version.
     public dynamic var firmwareVersion:String? = nil
+    
+    func isInfosNil() -> Bool {
+        return productName != nil && deviceId != nil && hardwareVersion != nil && firmwareVersion != nil
+    }
 }
 
 //MARK: -
@@ -70,6 +74,12 @@ class DeviceManager: MBTRealmEntityManager {
             device.deviceInfos!.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos!.hardwareVersion
             device.deviceInfos!.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos!.firmwareVersion
         }
+    }
+    
+    /// Tell If All deviceInfos are set
+    
+    class func isAllDeviceInfosSet() -> Bool {
+        return getCurrentDevice().deviceInfos?.isInfosNil() ?? false
     }
     
     /// Init device with Melomind specifications.

@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B7F42CE203C339400A87298 /* libfftw3_arm64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42CD203C339400A87298 /* libfftw3_arm64.a */; };
+		2B7F42D0203C33A500A87298 /* libfftw3_armv7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42CF203C33A500A87298 /* libfftw3_armv7.a */; };
+		2B7F42D2203C33B300A87298 /* libfftw3_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42D1203C33B200A87298 /* libfftw3_armv7s.a */; };
+		2B7F42D4203C33BF00A87298 /* libfftw3_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42D3203C33BF00A87298 /* libfftw3_i386.a */; };
+		2B7F42D6203C33CA00A87298 /* libfftw3_x86_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42D5203C33CA00A87298 /* libfftw3_x86_64.a */; };
+		2B7F42E3203C3CDE00A87298 /* libfftw3_arm64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42E2203C3CDE00A87298 /* libfftw3_arm64.a */; };
+		2B7F42E5203C3CE800A87298 /* libfftw3_armv7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42E4203C3CE700A87298 /* libfftw3_armv7.a */; };
+		2B7F42E7203C3CF000A87298 /* libfftw3_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42E6203C3CEF00A87298 /* libfftw3_armv7s.a */; };
+		2B7F42E9203C3D0200A87298 /* libfftw3_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42E8203C3D0100A87298 /* libfftw3_i386.a */; };
+		2B7F42EB203C3D0A00A87298 /* libfftw3_x86_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B7F42EA203C3D0900A87298 /* libfftw3_x86_64.a */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3549BB511DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3549BB521DA38A2100C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,11 +44,6 @@
 		F40E04141F6C1A5B0055E296 /* MBTSignalProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40E04131F6C1A5B0055E296 /* MBTSignalProcessingManager.swift */; };
 		F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F40E04181F6C26F50055E296 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40E04171F6C26F50055E296 /* MBTSignalProcessingBridge.mm */; };
-		F40E041B1F6C412A0055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E04011F6C17C40055E296 /* libfftw3.a */; };
-		F40E041C1F6C412F0055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E04031F6C17C40055E296 /* libfftw3.a */; };
-		F40E041D1F6C41330055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E04051F6C17C40055E296 /* libfftw3.a */; };
-		F40E041E1F6C41380055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E04081F6C17C40055E296 /* libfftw3.a */; };
-		F40E041F1F6C413B0055E296 /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F40E040A1F6C17C40055E296 /* libfftw3.a */; };
 		F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
@@ -98,6 +103,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B7F42CD203C339400A87298 /* libfftw3_arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3_arm64.a; path = Sources/Utils/fftw3/arm64/libfftw3_arm64.a; sourceTree = "<group>"; };
+		2B7F42CF203C33A500A87298 /* libfftw3_armv7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3_armv7.a; path = Sources/Utils/fftw3/armv7/libfftw3_armv7.a; sourceTree = "<group>"; };
+		2B7F42D1203C33B200A87298 /* libfftw3_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3_armv7s.a; path = Sources/Utils/fftw3/armv7s/libfftw3_armv7s.a; sourceTree = "<group>"; };
+		2B7F42D3203C33BF00A87298 /* libfftw3_i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3_i386.a; path = Sources/Utils/fftw3/i386/libfftw3_i386.a; sourceTree = "<group>"; };
+		2B7F42D5203C33CA00A87298 /* libfftw3_x86_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3_x86_64.a; path = Sources/Utils/fftw3/x86_64/libfftw3_x86_64.a; sourceTree = "<group>"; };
+		2B7F42E2203C3CDE00A87298 /* libfftw3_arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_arm64.a; sourceTree = "<group>"; };
+		2B7F42E4203C3CE700A87298 /* libfftw3_armv7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_armv7.a; sourceTree = "<group>"; };
+		2B7F42E6203C3CEF00A87298 /* libfftw3_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_armv7s.a; sourceTree = "<group>"; };
+		2B7F42E8203C3D0100A87298 /* libfftw3_i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_i386.a; sourceTree = "<group>"; };
+		2B7F42EA203C3D0900A87298 /* libfftw3_x86_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_x86_64.a; sourceTree = "<group>"; };
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,12 +473,7 @@
 		F40E02961F6C17A40055E296 /* MBT_TF_Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_TF_Stats.h; sourceTree = "<group>"; };
 		F40E02981F6C17A40055E296 /* Results_Arma */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Results_Arma; sourceTree = "<group>"; };
 		F40E02991F6C17A40055E296 /* Results_Emma */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Results_Emma; sourceTree = "<group>"; };
-		F40E04011F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E04031F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E04051F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
 		F40E04061F6C17C40055E296 /* fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fftw3.h; sourceTree = "<group>"; };
-		F40E04081F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E040A1F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
 		F40E04111F6C1A500055E296 /* MBTSignalProcessingProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTSignalProcessingProtocols.swift; sourceTree = "<group>"; };
 		F40E04131F6C1A5B0055E296 /* MBTSignalProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTSignalProcessingManager.swift; sourceTree = "<group>"; };
 		F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBTSignalProcessingBridge.h; path = "Utils/CPPSignalProcessing/Code bridge/MBTSignalProcessingBridge.h"; sourceTree = "<group>"; };
@@ -529,14 +539,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B7F42E5203C3CE800A87298 /* libfftw3_armv7.a in Frameworks */,
+				2B7F42D6203C33CA00A87298 /* libfftw3_x86_64.a in Frameworks */,
+				2B7F42D4203C33BF00A87298 /* libfftw3_i386.a in Frameworks */,
+				2B7F42D2203C33B300A87298 /* libfftw3_armv7s.a in Frameworks */,
+				2B7F42E9203C3D0200A87298 /* libfftw3_i386.a in Frameworks */,
+				2B7F42D0203C33A500A87298 /* libfftw3_armv7.a in Frameworks */,
+				2B7F42CE203C339400A87298 /* libfftw3_arm64.a in Frameworks */,
 				FE3820C81F741BD200764A5F /* Alamofire.framework in Frameworks */,
 				FE3820C91F741BD200764A5F /* Realm.framework in Frameworks */,
+				2B7F42E3203C3CDE00A87298 /* libfftw3_arm64.a in Frameworks */,
 				FE3820CA1F741BD200764A5F /* RealmSwift.framework in Frameworks */,
-				F40E041D1F6C41330055E296 /* libfftw3.a in Frameworks */,
-				F40E041F1F6C413B0055E296 /* libfftw3.a in Frameworks */,
-				F40E041C1F6C412F0055E296 /* libfftw3.a in Frameworks */,
-				F40E041E1F6C41380055E296 /* libfftw3.a in Frameworks */,
-				F40E041B1F6C412A0055E296 /* libfftw3.a in Frameworks */,
+				2B7F42EB203C3D0A00A87298 /* libfftw3_x86_64.a in Frameworks */,
+				2B7F42E7203C3CF000A87298 /* libfftw3_armv7s.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +682,11 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B7F42D5203C33CA00A87298 /* libfftw3_x86_64.a */,
+				2B7F42D3203C33BF00A87298 /* libfftw3_i386.a */,
+				2B7F42D1203C33B200A87298 /* libfftw3_armv7s.a */,
+				2B7F42CF203C33A500A87298 /* libfftw3_armv7.a */,
+				2B7F42CD203C339400A87298 /* libfftw3_arm64.a */,
 				F44849CE1F2B3EC200006A04 /* Alamofire.framework */,
 				F495BD401F040CB700755BD1 /* Realm.framework */,
 				F495BD311F040CB400755BD1 /* RealmSwift.framework */,
@@ -1458,7 +1478,7 @@
 		F40E04001F6C17C40055E296 /* arm64 */ = {
 			isa = PBXGroup;
 			children = (
-				F40E04011F6C17C40055E296 /* libfftw3.a */,
+				2B7F42E2203C3CDE00A87298 /* libfftw3_arm64.a */,
 			);
 			path = arm64;
 			sourceTree = "<group>";
@@ -1466,7 +1486,7 @@
 		F40E04021F6C17C40055E296 /* armv7 */ = {
 			isa = PBXGroup;
 			children = (
-				F40E04031F6C17C40055E296 /* libfftw3.a */,
+				2B7F42E4203C3CE700A87298 /* libfftw3_armv7.a */,
 			);
 			path = armv7;
 			sourceTree = "<group>";
@@ -1474,7 +1494,7 @@
 		F40E04041F6C17C40055E296 /* armv7s */ = {
 			isa = PBXGroup;
 			children = (
-				F40E04051F6C17C40055E296 /* libfftw3.a */,
+				2B7F42E6203C3CEF00A87298 /* libfftw3_armv7s.a */,
 			);
 			path = armv7s;
 			sourceTree = "<group>";
@@ -1482,7 +1502,7 @@
 		F40E04071F6C17C40055E296 /* i386 */ = {
 			isa = PBXGroup;
 			children = (
-				F40E04081F6C17C40055E296 /* libfftw3.a */,
+				2B7F42E8203C3D0100A87298 /* libfftw3_i386.a */,
 			);
 			path = i386;
 			sourceTree = "<group>";
@@ -1490,7 +1510,7 @@
 		F40E04091F6C17C40055E296 /* x86_64 */ = {
 			isa = PBXGroup;
 			children = (
-				F40E040A1F6C17C40055E296 /* libfftw3.a */,
+				2B7F42EA203C3D0900A87298 /* libfftw3_x86_64.a */,
 			);
 			path = x86_64;
 			sourceTree = "<group>";
@@ -1851,7 +1871,7 @@
 				TargetAttributes = {
 					3549BB201DA389CD00C63030 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 23T8TD424J;
+						DevelopmentTeam = 8JJ8PKK266;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -1869,7 +1889,7 @@
 					};
 					3549BB601DA38ADB00C63030 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 6672ETQ9F2;
+						DevelopmentTeam = 8JJ8PKK266;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -2207,7 +2227,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 23T8TD424J;
+				DEVELOPMENT_TEAM = 8JJ8PKK266;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2223,6 +2243,7 @@
 				HEADER_SEARCH_PATHS = "$(OBJROOT)/UninstalledProducts/include";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2251,7 +2272,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 23T8TD424J;
+				DEVELOPMENT_TEAM = 8JJ8PKK266;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2266,6 +2287,7 @@
 				HEADER_SEARCH_PATHS = "$(OBJROOT)/UninstalledProducts/include";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2278,6 +2300,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2426,7 +2449,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 6672ETQ9F2;
+				DEVELOPMENT_TEAM = 8JJ8PKK266;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -2446,7 +2469,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 6672ETQ9F2;
+				DEVELOPMENT_TEAM = 8JJ8PKK266;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
