@@ -29,4 +29,9 @@ import Foundation
     /// - Parameter error : If failure, the cause of the failure (Core Bluetooth error).
     @objc optional func onConnectionOff(_ error: Error?)
     
+    
+    /// Called when initiate timerUpdateBatteryLevel
+    /// returns -> schedules timerUpdateBatteryLevel with this timeInterval
+    @objc optional func timeIntervalOnReceiveBattery() -> TimeInterval
+    
 }

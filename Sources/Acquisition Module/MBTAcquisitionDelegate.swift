@@ -16,6 +16,12 @@ import Foundation
     @objc optional func onReceivingPackage(_ eegPacket : MBTEEGPacket)
     
     /// Called when getting the battery level.
-    /// - Parameter notification : *Notification* received.
-    @objc optional func onReceivingBatteryLevel(_ notification: Notification)
+    /// - Parameter battery level : *batteryLevel* received.
+    @objc optional func onReceivingBatteryLevel(_ batteryLevel:Int)
+    
+    
+    /// Called when calling onReceivingBatteryLevel
+    /// - returns -> The boolean which use to call onReceivingBatteryLevel if batteryLevel Change
+    @objc optional func receiveBatteryLevelOnUpdate() -> Bool
+    
 }

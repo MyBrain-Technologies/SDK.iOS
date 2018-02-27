@@ -24,6 +24,8 @@ class MBTDevice: Object {
     /// An EEG Packet length.
     dynamic var eegPacketLength: Int = 0
     
+    dynamic var batteryLevel: Int = 0
+    
     /// Locations of the acquisition electrodes.
     let acquisitionLocations = List<MBTAcquistionLocation>()
     
@@ -49,10 +51,6 @@ public class MBTDeviceInformations: Object {
     
     /// The product firmware version.
     public dynamic var firmwareVersion:String? = nil
-    
-    func isInfosNil() -> Bool {
-        return productName != nil && deviceId != nil && hardwareVersion != nil && firmwareVersion != nil
-    }
 }
 
 //MARK: -
@@ -76,10 +74,17 @@ class DeviceManager: MBTRealmEntityManager {
         }
     }
     
-    /// Tell If All deviceInfos are set
-    
-    class func isAllDeviceInfosSet() -> Bool {
-        return getCurrentDevice().deviceInfos?.isInfosNil() ?? false
+    /// Update *deviceBatteryLevel*
+    /// - Parameters:
+    ///     - batterylevel: *Int* from BLE to record.
+    class func updateDeviceBatteryLevel(_ batteryLevel:Int) {
+        // Get the myBrainTechnologies device connected.
+        let device = getCurrentDevice()
+        
+        // Save the new battery status to Realm Database
+        try! RealmManager.realm.write {
+            device.batteryLevel = batteryLevel
+        }
     }
     
     /// Init device with Melomind specifications.

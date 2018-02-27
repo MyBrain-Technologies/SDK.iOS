@@ -290,5 +290,21 @@ internal class MBTAcquisitionManager: NSObject  {
         // Saving the new connected device in the DB.
         DeviceManager.updateDeviceInformations(deviceInfos)
     }
+    
+    
+    func processDeviceBatteryStatus(_ characteristic: CBCharacteristic) {
+        if characteristic.value != nil {
+            let tabByte = [UInt8](characteristic.value!)
+            if tabByte.count > 0 {
+                let batteryLevel = Int(tabByte[0])
+                /// ReceiveBatteryOnUpdate/defaultValue = false -> onReceivingBatteryLevel always call
+                /// ReceiveBatteryOnUpdate = true -> OnReceiveBatteryLevel call if batteryLevel change
+                if DeviceManager.getCurrentDevice().batteryLevel != batteryLevel || !(delegate.receiveBatteryLevelOnUpdate?() ?? false) {
+                    DeviceManager.updateDeviceBatteryLevel(batteryLevel)
+                    delegate.onReceivingBatteryLevel?(batteryLevel)
+                }
+            }
+        }
+    }
 }
 

@@ -31,9 +31,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             eventDelegate.onBluetoothStatusUpdate?(newValue)
         }
     }
-    // Time Out Timer
     
+    // Time Out Timer
     var timerTimeOut : Timer!
+    var timerUpdateBatteryLevel: Timer!
     
     /// A *Bool* indicating if SDK is listening to EEG Headset notifications.
     var isListeningToEEG = false {
@@ -238,12 +239,18 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     
-    //MARK: - Time Out Timer
+    //MARK: - Timer Method
     
+    // Method Call Time Out
     @objc func connectionMelominTimeOut() {
         centralManager.stopScan()
         let error = NSError(domain: "Time Out", code: 999, userInfo: [NSLocalizedDescriptionKey : "Time Out Connection Melomind"]) as Error
         eventDelegate.onConnectionFailed!(error)
+    }
+    
+    //  Method Request Update Status Battery
+    @objc func requestUpdateBatteryLevel() {
+        blePeripheral.readValue(for: MBTBluetoothLEHelper.deviceStateCharacteristic)
     }
     
     //MARK: CBPeripheral Delegate Methods
@@ -293,13 +300,23 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             if characsUUIDS.contains(CBUUID(data: thisCharacteristic.uuid.data)) {
                 self.blePeripheral.readValue(for: thisCharacteristic)
             }
+            
+            // Device State's Characteristics
+            if MBTBluetoothLEHelper.deviceStateUUID == CBUUID(data: thisCharacteristic.uuid.data) {
+                MBTBluetoothLEHelper.deviceStateCharacteristic = thisCharacteristic
+                timerUpdateBatteryLevel = Timer.scheduledTimer(timeInterval: eventDelegate.timeIntervalOnReceiveBattery?() ?? 5, target: self, selector: #selector(requestUpdateBatteryLevel), userInfo: nil, repeats: true)
+            }
+            
+            if MBTBluetoothLEHelper.deviceNameUUID == CBUUID(data: thisCharacteristic.uuid.data)  {
+                blePeripheral.readValue(for: thisCharacteristic)
+            }
         }
+
         
         // Check if characteristics have been discovered and set
         if MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic != nil {
             // Tell the event delegate that the connection is established
-            // Rochdi -> Change onConnectionEstablished When we set Info To the Device Model
-            //eventDelegate.onConnectionEstablished?()
+            eventDelegate.onConnectionEstablished?()
         }
     }
 
@@ -325,14 +342,12 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             MelomindEngine.acqusitionManager.processBrainActivityData(notifiedData)
         case let uuid where characsUUIDS.contains(uuid) :
             MelomindEngine.acqusitionManager.processDeviceInformations(characteristic)
+        case MBTBluetoothLEHelper.deviceStateUUID :
+            MelomindEngine.acqusitionManager.processDeviceBatteryStatus(characteristic)
         default:
             break
         }
-        // Tell the event delegate that the connection is established
-
-        if DeviceManager.isAllDeviceInfosSet() {
-            eventDelegate.onConnectionEstablished?()
-        }
+      
         
     }
     
