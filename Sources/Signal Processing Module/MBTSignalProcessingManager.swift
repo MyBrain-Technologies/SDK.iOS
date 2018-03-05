@@ -21,10 +21,9 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     
     
     /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-    func initializeQualityChecker() {
+    func initializeQualityChecker()  {
         // Getting connected MBTDevice *sampRate*.
         let sampRate = DeviceManager.getDeviceSampRate()
-        // Calling bridge method to init mainQC.
         MBTQualityCheckerBridge.initializeMainQualityChecker(sampRate, accuracy: 0.85)
     }
     

@@ -44,7 +44,7 @@ internal class MBTAcquisitionManager: NSObject  {
         shouldUseQualityChecker = useQualityChecker
         
         // Start mainQualityChecker.
-        if shouldUseQualityChecker {
+        if shouldUseQualityChecker && DeviceManager.connectedDeviceName != nil {
             MBTSignalProcessingManager.shared.initializeQualityChecker()
         }
     }
@@ -68,16 +68,19 @@ internal class MBTAcquisitionManager: NSObject  {
     
     func stopRecording() {
         // Collect data for the JSON.
-        let jsonObject = self.collectSessionData()
-        
-        // Save JSON with EEG data received.
-        MBTJSONHelper.saveJSON(jsonObject) { fileURL in
-            // Then delete all MBTEEGPacket saved.
-            EEGPacketManager.removeAllEEGPackets()
+        if let device = DeviceManager.getCurrentDevice() {
+            let jsonObject = self.getJSONRecord(device)
             
-            // Send JSON to BrainWeb.
-            MBTBrainWebHelper.sendJSONToBrainWeb(fileURL)
+            // Save JSON with EEG data received.
+            MBTJSONHelper.saveJSON(jsonObject) { fileURL in
+                // Then delete all MBTEEGPacket saved.
+                EEGPacketManager.removeAllEEGPackets()
+                
+                // Send JSON to BrainWeb.
+                MBTBrainWebHelper.sendJSONToBrainWeb(fileURL)
+            }
         }
+    
     }
     
     /// Add *ChannelData* values to Realm DB. If a packet is complete,
@@ -94,7 +97,7 @@ internal class MBTAcquisitionManager: NSObject  {
     /// on it if user asks for it, or just send it via the delegate.
     /// - Parameter eegPacket : A complete *MBTEEGPacket*.
     func manageCompleteEEGPacket(_ eegPacket:MBTEEGPacket) {
-        if shouldUseQualityChecker {
+        if shouldUseQualityChecker && DeviceManager.connectedDeviceName != nil {
             // Get caluclated qualities of the EEGPacket.
             let qualities = MBTSignalProcessingManager.shared.computeQualityValue(eegPacket.channelsData)
             // Add *qualities* and save it in Realm DB.
@@ -111,10 +114,9 @@ internal class MBTAcquisitionManager: NSObject  {
     
     /// Collecting the session datas and create the JSON.
     /// - Returns: The *JSON* created with the session datas.
-    func collectSessionData() -> [String: Any] {
+    func getJSONRecord(_ device:MBTDevice) -> [String: Any]  {
         let eegPackets = EEGPacketManager.getEEGPackets()
-        
-        let device = DeviceManager.getCurrentDevice()
+
         var acquisitions: [String] = Array()
         for acquisition in device.acquisitionLocations {
             acquisitions.append("\(acquisition.type)")
@@ -126,7 +128,7 @@ internal class MBTAcquisitionManager: NSObject  {
             for channelNumber in 0 ..< device.nbChannels {
                 var arrayForOneChannel = [Float]()
                 for packetIndex in 0 ..< device.eegPacketLength {
-                   arrayForOneChannel.append(eegPacket.channelsData[channelNumber].value[packetIndex].value)
+                    arrayForOneChannel.append(eegPacket.channelsData[channelNumber].value[packetIndex].value)
                 }
                 eegDatas.append(arrayForOneChannel)
             }
@@ -139,7 +141,6 @@ internal class MBTAcquisitionManager: NSObject  {
                 qualities.append(eegPacket.qualities[channelNumber].value)
             }
         }
-        
         // Create the session JSON.
         let jsonObject: [String: Any] = [
             "uuidJsonFile": MBTJSONHelper.uuid.uuidString,
@@ -182,7 +183,6 @@ internal class MBTAcquisitionManager: NSObject  {
         
         return jsonObject
     }
-    
     
     //MARK: - Process Received data Methods.
     
@@ -293,13 +293,11 @@ internal class MBTAcquisitionManager: NSObject  {
     
     
     func processDeviceBatteryStatus(_ characteristic: CBCharacteristic) {
-        if characteristic.value != nil {
+        if characteristic.value != nil && DeviceManager.getCurrentDevice() != nil {
             let tabByte = [UInt8](characteristic.value!)
             if tabByte.count > 0 {
                 let batteryLevel = Int(tabByte[0])
-                /// ReceiveBatteryOnUpdate/defaultValue = false -> onReceivingBatteryLevel always call
-                /// ReceiveBatteryOnUpdate = true -> OnReceiveBatteryLevel call if batteryLevel change
-                if DeviceManager.getCurrentDevice().batteryLevel != batteryLevel || !(delegate.receiveBatteryLevelOnUpdate?() ?? false) {
+                if DeviceManager.getCurrentDevice()!.batteryLevel != batteryLevel || !(delegate.receiveBatteryLevelOnUpdate?() ?? false) {
                     DeviceManager.updateDeviceBatteryLevel(batteryLevel)
                     delegate.onReceivingBatteryLevel?(batteryLevel)
                 }

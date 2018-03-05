@@ -12,6 +12,10 @@ import RealmSwift
 /// Model to store data about the Headset connected.
 class MBTDevice: Object {
     
+    /// Device Name
+    
+    dynamic public var deviceName: String = ""
+    
     /// Device informations from MBT Headset Bluetooth LE.
     dynamic public var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
     
@@ -58,19 +62,23 @@ public class MBTDeviceInformations: Object {
 /// *MBTDevice* model DB Manager.
 class DeviceManager: MBTRealmEntityManager {
     
+    /// The headset bluetooth profile name to connect to.
+    static var connectedDeviceName: String? 
+    
+    
     /// Update *deviceInformations* of the newly connected device record in the DB.
     /// - Parameters:
     ///     - deviceInfos: *MBTDeviceInformations* from BLE to record.
     class func updateDeviceInformations(_ deviceInfos:MBTDeviceInformations) {
         // Get the myBrainTechnologies device connected.
-        let device = getCurrentDevice()
-        
-        // Save the new device infos to Realm Database
-        try! RealmManager.realm.write {
-            device.deviceInfos!.productName = deviceInfos.productName ?? device.deviceInfos!.productName
-            device.deviceInfos!.deviceId = deviceInfos.deviceId ?? device.deviceInfos!.deviceId
-            device.deviceInfos!.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos!.hardwareVersion
-            device.deviceInfos!.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos!.firmwareVersion
+        if let device = getCurrentDevice() {
+            // Save the new device infos to Realm Database
+            try! RealmManager.realm.write {
+                device.deviceInfos!.productName = deviceInfos.productName ?? device.deviceInfos!.productName
+                device.deviceInfos!.deviceId = deviceInfos.deviceId ?? device.deviceInfos!.deviceId
+                device.deviceInfos!.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos!.hardwareVersion
+                device.deviceInfos!.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos!.firmwareVersion
+            }
         }
     }
     
@@ -79,11 +87,11 @@ class DeviceManager: MBTRealmEntityManager {
     ///     - batterylevel: *Int* from BLE to record.
     class func updateDeviceBatteryLevel(_ batteryLevel:Int) {
         // Get the myBrainTechnologies device connected.
-        let device = getCurrentDevice()
-        
-        // Save the new battery status to Realm Database
-        try! RealmManager.realm.write {
-            device.batteryLevel = batteryLevel
+        if let device = getCurrentDevice() {
+            // Save the new battery status to Realm Database
+            try! RealmManager.realm.write {
+                device.batteryLevel = batteryLevel
+            }
         }
     }
     
@@ -105,77 +113,90 @@ class DeviceManager: MBTRealmEntityManager {
         ground.type = .M2
         
         // Save Melomind info to DB
-        let device = getCurrentDevice()
-        try! RealmManager.realm.write {
-            device.sampRate = 250
-            device.nbChannels = 2
-            device.eegPacketLength = 250
-            
-            // Add electrodes locations value.
-            device.acquisitionLocations.append(acquisition1)
-            device.acquisitionLocations.append(acquisition2)
-            device.referencesLocations.append(reference)
-            device.groundsLocations.append(ground)
+        if let device = getCurrentDevice() {
+            try! RealmManager.realm.write {
+                device.sampRate = 250
+                device.nbChannels = 2
+                device.eegPacketLength = 250
+                
+                // Add electrodes locations value.
+                device.acquisitionLocations.append(acquisition1)
+                device.acquisitionLocations.append(acquisition2)
+                device.referencesLocations.append(reference)
+                device.groundsLocations.append(ground)
+            }
         }
+     
     }
     
     /// Get the DB-saved device or create one if any.
     /// - Returns: The DB-saved *MBTDevice* instance.
-    class func getCurrentDevice() -> MBTDevice {
+    class func getCurrentDevice() -> MBTDevice? {
         // If no device saved in DB, then create it.
-        guard let device = RealmManager.realm.objects(MBTDevice.self).first else {
-            let newDevice = MBTDevice()
-            
-            try! RealmManager.realm.write {
-                RealmManager.realm.add(newDevice)
+        if let deviceName = connectedDeviceName {
+            guard let device = RealmManager.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceName).first else {
+                let newDevice = MBTDevice()
+                newDevice.deviceName = deviceName
+                
+                try! RealmManager.realm.write {
+                    RealmManager.realm.add(newDevice)
+                }
+                return newDevice
             }
-            return newDevice
+            return device
         }
-        return device
+        
+        return nil
+    }
+    
+    /// Get Register Device
+    /// - Returns : The array DB-saved *[MBTDevice]* instance
+    class func getRegisteredDevices() -> [MBTDevice] {
+        let result = RealmManager.realm.objects(MBTDevice.self)
+        var arrayResult = [MBTDevice]()
+        for device in result {
+            arrayResult.append(device)
+        }
+        return arrayResult
     }
     
     /// Remove the current device from Realm DB
-    class func deleteCurrentDevice() {
-        if let device = RealmManager.realm.objects(MBTDevice.self).first {
+    class func deleteCurrentDevice(_ deviceName: String? = nil) {
+        
+        let deviceNameToDelete:String! = deviceName ?? connectedDeviceName
+        
+        if let device = RealmManager.realm.objects(MBTDevice.self).filter("productName = %@", deviceNameToDelete).first {
             try! RealmManager.realm.write {
                 RealmManager.realm.delete(device)
             }
         }
     }
     
+    
+    
     /// Get BLE device informations of the connected MBT device.
     /// - Returns: The DB-saved *MBTDeviceInformations* instance.
     class func getDeviceInfos() -> MBTDeviceInformations? {
         // Get current device.
-        let device = getCurrentDevice()
-        
-        return device.deviceInfos
+        return getCurrentDevice()?.deviceInfos
     }
     
     /// Get EEG data samp rate of the connected device.
     /// - Returns: The *sampRate* of the current *MBTDevice*.
     class func getDeviceSampRate() -> Float {
-        // Get current device.
-        let device = getCurrentDevice()
-        let sampRate = Float(device.sampRate)
-        
-        return sampRate
+        return Float(getCurrentDevice()!.sampRate)
     }
     
     /// Get the number of channels of the connected device.
     /// - Returns: The *nbChannels* of the current *MBTDevice*.
     class func getChannelsCount() -> Int {
-        // Get current device.
-        let device = getCurrentDevice()
-        return device.nbChannels
+        return getCurrentDevice()?.nbChannels ?? 0
     }
     
     /// Get EEGPacket length of the connected device.
     /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
     class func getDeviceEEGPacketLength() -> Int {
-        // Get current device.
-        let device = getCurrentDevice()        
-        return device.eegPacketLength
+        return getCurrentDevice()!.eegPacketLength
     }
 }
 

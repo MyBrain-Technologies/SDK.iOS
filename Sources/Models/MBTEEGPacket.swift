@@ -99,6 +99,9 @@ class EEGPacketManager: MBTRealmEntityManager {
     ///     - datasArray : EEG datas just received and processed, to add to the last packet.
     /// - Returns: A *MBTEEGPacket* if it's complete, *nil* if it isn't.
     class func addValuesToEEGPacket(_ datasArray: Array<Array<ChannelData>>) -> MBTEEGPacket? {
+        if DeviceManager.connectedDeviceName == nil {
+            return nil 
+        }
         let lastPacket = getLastPacket()
         // Get the number of data saved in this packet.
         let samplesCount = lastPacket.channelsData.isEmpty ? 0 : lastPacket.channelsData[0].value.count
@@ -179,16 +182,17 @@ class EEGPacketManager: MBTRealmEntityManager {
     ///     - eegPacket : The *MBTEEGPacket* to update the EEG values.
     ///     - modifiedValues : Array of the corrected values, by channel.
     class func addModifiedChannelsData(_ eegPacket: MBTEEGPacket, modifiedValues:[[Float]]) {
-        let device = DeviceManager.getCurrentDevice()
-        // Add the updated values to the packet copy.
-        for channel in 0 ..< device.nbChannels {
-            let channelDatas = ChannelDatas()
-            for packetValue in 0 ..< device.sampRate {
-                let channelData = ChannelData(data: modifiedValues[channel][packetValue])
-                channelDatas.value.append(channelData)
-            }
-            try! RealmManager.realm.write {
-                eegPacket.modifiedChannelsData.append(channelDatas)
+        if let device = DeviceManager.getCurrentDevice() {
+            // Add the updated values to the packet copy.
+            for channel in 0 ..< device.nbChannels {
+                let channelDatas = ChannelDatas()
+                for packetValue in 0 ..< device.sampRate {
+                    let channelData = ChannelData(data: modifiedValues[channel][packetValue])
+                    channelDatas.value.append(channelData)
+                }
+                try! RealmManager.realm.write {
+                    eegPacket.modifiedChannelsData.append(channelDatas)
+                }
             }
         }
     }

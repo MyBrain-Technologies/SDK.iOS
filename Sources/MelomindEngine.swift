@@ -37,8 +37,7 @@ public class MelomindEngine {
         // Add the Acquisition delegate to the Acquisition manager
         MelomindEngine.initAcquisitionManager(with: delegate)
         
-        // Add Melomind Device properties to MBTDevice
-        DeviceManager.updateDeviceToMelomind()
+        
     }
     
     /// Connect to the audio part of the MBT Headset (using the A2DP
@@ -53,9 +52,6 @@ public class MelomindEngine {
         
         // Add the Acquisition delegate to the Acquisition manager
         MelomindEngine.initAcquisitionManager(with: delegate)
-        
-        // Add Melomind Device properties to MBTDevice
-        DeviceManager.updateDeviceToMelomind()
     }
     
     /// Disconnect the iDevice from the headset
@@ -71,10 +67,26 @@ public class MelomindEngine {
         return DeviceManager.getDeviceInfos()
     }
     
+    public static func getDeviceName() -> String? {
+        return DeviceManager.connectedDeviceName
+    }
+    
     /// Getter for the session JSON.
     /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
     public static func getSessionJSON() -> Data? {
         return MBTJSONHelper.getSessionData()
+    }
+    
+    /// Getter for regiters devices
+    /// - Returns: array of deviceName *[String]*
+    public static func getRegisteredDevices() -> [String]{
+        var tabDeviceName = [String]()
+        
+        for device in DeviceManager.getRegisteredDevices() {
+            tabDeviceName.append(device.deviceName)
+        }
+        
+        return tabDeviceName
     }
     
     
@@ -109,12 +121,18 @@ public class MelomindEngine {
     /// - Parameters:
     ///     - n : Number of complete packets to take to compute the calibration.
     /// - Returns: A dictionnary received by the Signal Processing library.
-    public static func computeCalibration(_ n:Int) -> [String:[Float]] {
-        return signalProcessingManager.computeCalibration(n)
+    public static func computeCalibration(_ n:Int) -> [String:[Float]]? {
+        if let _ = DeviceManager.connectedDeviceName {
+            return signalProcessingManager.computeCalibration(n)
+        }
+        return nil
     }
     
-    public static func computeRelaxIndex() -> Float {
-        return signalProcessingManager.computeRelaxIndex()
+    public static func computeRelaxIndex() -> Float? {
+        if let _ = DeviceManager.connectedDeviceName {
+            return signalProcessingManager.computeRelaxIndex()
+        }
+        return nil
     }
     
     public static func computeSessionStatistics(_ inputSNR:[Float], threshold:Float) -> [String:Float] {
