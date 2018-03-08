@@ -15,13 +15,23 @@ public class MelomindEngine {
     /// the MBT headset bluetooth.
     internal static let bluetoothManager = MBTBluetoothManager.shared
     
-    /// Init a MBTAcquisitionManager, which deals with
+    /// Init a MBTEEGAcquisitionManager, which deals with
     /// data from the MBT Headset.
-    internal static let acqusitionManager = MBTAcquisitionManager.shared
+    internal static let eegAcqusitionManager = MBTEEGAcquisitionManager.shared
+    
+    
+    /// Init a MBTDeviceAcquisitionManager, which deals with
+    /// data from the MBT Headset.
+    internal static let deviceAcqusitionManager = MBTDeviceAcquisitionManager.shared
     
     /// Init a MBTSignalProcessingManager, which deals with
     /// the Signal Processing Library (via the bridge).
     internal static let signalProcessingManager = MBTSignalProcessingManager.shared
+    
+    internal static var recordInfo:MBTRecordInfo?
+    
+    
+    
     
     
     //MARK: - Connect and Disconnect MBT Headset Methods
@@ -71,10 +81,34 @@ public class MelomindEngine {
         return DeviceManager.connectedDeviceName
     }
     
+    public static func readBatteryStatus() {
+        if let _ = DeviceManager.connectedDeviceName {
+            bluetoothManager.requestUpdateBatteryLevel()
+        }
+    }
+    
+    public static func stopReceiveBatteryLevelEvent() {
+        if let _ = DeviceManager.connectedDeviceName {
+            bluetoothManager.stopTimerUpdateBatteryLevel()
+        }
+    }
+    
+    public static func startReceiveBatteryLevelEvent() {
+        if let _ = DeviceManager.connectedDeviceName {
+            bluetoothManager.startTimerUpdateBatteryLevel()
+        }
+    }
+    
     /// Getter for the session JSON.
     /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
     public static func getSessionJSON() -> Data? {
         return MBTJSONHelper.getSessionData()
+    }
+    
+    ///Getter for the JSON
+    
+    public static func saveRecordingOnFile() -> URL? {
+        return eegAcqusitionManager.saveRecordingOnFile()
     }
     
     /// Getter for regiters devices
@@ -96,15 +130,28 @@ public class MelomindEngine {
     /// - Parameters:
     ///     - delegate : The Melomind Engine Delegate to get Headset datas.
     internal static func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
-        if acqusitionManager.delegate == nil {
-            acqusitionManager.delegate = delegate
+        if eegAcqusitionManager.delegate == nil {
+            eegAcqusitionManager.delegate = delegate
+        }
+        if deviceAcqusitionManager.delegate == nil {
+            deviceAcqusitionManager.delegate = delegate
+        }
+    }
+    
+    ///Update RecordInfo
+    internal static func startSession(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) {
+        if newRecord {
+            recordInfo = MBTRecordInfo()
+            recordInfo?.recordingType = recordingType
+        } else if let currentId = recordInfo?.recordId {
+            recordInfo = MBTRecordInfo(currentId,recordingType:recordingType)
         }
     }
     
     /// Start streaming EEG Data from MyBrainActivity Characteristic.
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
     public static func startStream(_ shouldUseQualityChecker: Bool) {
-        acqusitionManager.streamHasStarted(shouldUseQualityChecker)
+        eegAcqusitionManager.streamHasStarted(shouldUseQualityChecker)
         bluetoothManager.isListeningToEEG = true
     }
     
@@ -112,7 +159,19 @@ public class MelomindEngine {
     /// - Remark: a JSON will be created with all the MBTEEGPacket.
     public static func stopStream() {
         bluetoothManager.isListeningToEEG = false
-        acqusitionManager.streamHasStopped()
+        eegAcqusitionManager.streamHasStopped()
+    }
+    
+    public static func startRecording() {
+        if let _ = DeviceManager.connectedDeviceName {
+            eegAcqusitionManager.isRecording = true
+        }
+    }
+    
+    public static func stopRecording() {
+        if let _ = DeviceManager.connectedDeviceName {
+            eegAcqusitionManager.isRecording = false
+        }
     }
     
     //MARK: - Signal Processing Manager

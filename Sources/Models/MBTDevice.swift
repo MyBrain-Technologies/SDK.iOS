@@ -38,6 +38,42 @@ class MBTDevice: Object {
     
     /// Locations of the ground electrodes.
     let groundsLocations = List<MBTAcquistionLocation>()
+    
+    func getJSON(_ comments:[String]) -> JSON {
+        var jsonHeader = JSON()
+        
+        var finalsArrayComment = comments
+        finalsArrayComment.insert("\(Date().timeIntervalSince1970)", at: 0)
+        var acquisitions: [String] = Array()
+        for acquisition in acquisitionLocations {
+            acquisitions.append("\(acquisition.type)")
+        }
+        
+        jsonHeader["deviceInfo"]                = deviceInfos!.getJSON()
+        jsonHeader["recordingNb"].stringValue   = "0x03"
+        jsonHeader["comments"].arrayObject      = finalsArrayComment
+        jsonHeader["sampRate"].intValue         = sampRate
+        jsonHeader["eegPacketLength"].intValue  = eegPacketLength
+        jsonHeader["nbChannels"].intValue       = nbChannels
+        jsonHeader["acquisitionLocation"]       = JSON(acquisitions)
+        
+        jsonHeader["referencesLocation"].arrayObject = [
+            "\(referencesLocations.first!.type)"
+        ]
+        jsonHeader["groundsLocation"].arrayObject = [
+            "\(groundsLocations.first!.type)"
+        ]
+        
+        return jsonHeader
+    }
+}
+
+//MARK: -
+
+/// Files Names
+
+public class FileName: Object {
+    public dynamic var value:String = ""
 }
 
 //MARK: -
@@ -55,6 +91,17 @@ public class MBTDeviceInformations: Object {
     
     /// The product firmware version.
     public dynamic var firmwareVersion:String? = nil
+    
+    func getJSON() -> JSON {
+        var jsonDevice = JSON()
+       
+        jsonDevice["productName"].stringValue               = productName ?? ""
+        jsonDevice["hardwareVersion"].stringValue           = hardwareVersion ?? ""
+        jsonDevice["firmwareVersion"].stringValue           = firmwareVersion ?? ""
+        jsonDevice["uniqueDeviceIdentifier"].stringValue    = deviceId ?? ""
+        
+        return jsonDevice
+    }
 }
 
 //MARK: -
@@ -63,7 +110,7 @@ public class MBTDeviceInformations: Object {
 class DeviceManager: MBTRealmEntityManager {
     
     /// The headset bluetooth profile name to connect to.
-    static var connectedDeviceName: String? 
+    static var connectedDeviceName: String?
     
     
     /// Update *deviceInformations* of the newly connected device record in the DB.
@@ -120,9 +167,12 @@ class DeviceManager: MBTRealmEntityManager {
                 device.eegPacketLength = 250
                 
                 // Add electrodes locations value.
+                device.acquisitionLocations.removeAll()
                 device.acquisitionLocations.append(acquisition1)
                 device.acquisitionLocations.append(acquisition2)
+                device.referencesLocations.removeAll()
                 device.referencesLocations.append(reference)
+                device.groundsLocations.removeAll()
                 device.groundsLocations.append(ground)
             }
         }
@@ -159,20 +209,7 @@ class DeviceManager: MBTRealmEntityManager {
         }
         return arrayResult
     }
-    
-    /// Remove the current device from Realm DB
-    class func deleteCurrentDevice(_ deviceName: String? = nil) {
-        
-        let deviceNameToDelete:String! = deviceName ?? connectedDeviceName
-        
-        if let device = RealmManager.realm.objects(MBTDevice.self).filter("productName = %@", deviceNameToDelete).first {
-            try! RealmManager.realm.write {
-                RealmManager.realm.delete(device)
-            }
-        }
-    }
-    
-    
+
     
     /// Get BLE device informations of the connected MBT device.
     /// - Returns: The DB-saved *MBTDeviceInformations* instance.
@@ -198,6 +235,19 @@ class DeviceManager: MBTRealmEntityManager {
     class func getDeviceEEGPacketLength() -> Int {
         return getCurrentDevice()!.eegPacketLength
     }
+    
+    /// Remove the current device from Realm DB
+    class func deleteCurrentDevice(_ deviceName: String? = nil) {
+        
+        let deviceNameToDelete:String! = deviceName ?? connectedDeviceName
+        
+        if let device = RealmManager.realm.objects(MBTDevice.self).filter("productName = %@", deviceNameToDelete).first {
+            try! RealmManager.realm.write {
+                RealmManager.realm.delete(device)
+            }
+        }
+    }
+
 }
 
 //MARK: -
