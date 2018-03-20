@@ -26,7 +26,7 @@ import Foundation
 // swiftlint:disable line_length
 /// Error domain
 @available(*, deprecated, message: "ErrorDomain is deprecated. Use `SwiftyJSONError.errorDomain` instead.", renamed: "SwiftyJSONError.errorDomain")
-public let ErrorDomain: String = "SwiftyJSONErrorDomain"
+let ErrorDomain: String = "SwiftyJSONErrorDomain"
 
 /// Error code
 @available(*, deprecated, message: "ErrorUnsupportedType is deprecated. Use `SwiftyJSONError.unsupportedType` instead.", renamed: "SwiftyJSONError.unsupportedType")

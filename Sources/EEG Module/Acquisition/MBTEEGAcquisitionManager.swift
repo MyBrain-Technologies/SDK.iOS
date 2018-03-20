@@ -29,11 +29,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     /// The MBTBluetooth Event Delegate.
     var delegate: MBTEEGAcquisitionDelegate!
     
-    /// The multiplicative constant.
-    let const = 4.5 * 1000000 / (pow(2.0, 23.0) - 1) / 24
     
     /// Constant to decod EEG data
-    let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 12
+    let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 8
     
     /// Constant use to
     lazy var streamEEGPacket = MBTEEGPacket.createNewEEGPacket()
@@ -79,10 +77,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         }
         return nil
     }
-    
-    func sendEEGPacketToMBTServer(_ fileURL : URL) {
-        MBTBrainWebHelper.sendJSONToBrainWeb(fileURL)
-    }
+  
     
     /// Add *ChannelData* values to Realm DB. If a packet is complete,
     /// it'll be sent to the packet complete management method.

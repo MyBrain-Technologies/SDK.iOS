@@ -13,7 +13,6 @@ import RealmSwift
 class MBTDevice: Object {
     
     /// Device Name
-    
     dynamic public var deviceName: String = ""
     
     /// Device informations from MBT Headset Bluetooth LE.
@@ -39,6 +38,10 @@ class MBTDevice: Object {
     /// Locations of the ground electrodes.
     let groundsLocations = List<MBTAcquistionLocation>()
     
+    /// Helper Function to get JSON
+    ///
+    /// - Parameter comments: user's comments
+    /// - Returns: A *JSON* instance of MBTDevice
     func getJSON(_ comments:[String]) -> JSON {
         var jsonHeader = JSON()
         
@@ -92,6 +95,9 @@ public class MBTDeviceInformations: Object {
     /// The product firmware version.
     public dynamic var firmwareVersion:String? = nil
     
+    /// Helper Function to get JSON
+    ///
+    /// - Returns: A *JSON* instance of MBTDeviceInformations
     func getJSON() -> JSON {
         var jsonDevice = JSON()
        
@@ -202,12 +208,7 @@ class DeviceManager: MBTRealmEntityManager {
     /// Get Register Device
     /// - Returns : The array DB-saved *[MBTDevice]* instance
     class func getRegisteredDevices() -> [MBTDevice] {
-        let result = RealmManager.realm.objects(MBTDevice.self)
-        var arrayResult = [MBTDevice]()
-        for device in result {
-            arrayResult.append(device)
-        }
-        return arrayResult
+        return [MBTDevice](RealmManager.realm.objects(MBTDevice.self))
     }
 
     
@@ -237,15 +238,30 @@ class DeviceManager: MBTRealmEntityManager {
     }
     
     /// Remove the current device from Realm DB
-    class func deleteCurrentDevice(_ deviceName: String? = nil) {
+    
+    class func removeCurrentDevice() -> Bool {
+        guard let deviceToDelete = connectedDeviceName else {
+            return false
+        }
         
-        let deviceNameToDelete:String! = deviceName ?? connectedDeviceName
+        return removeDevice(deviceToDelete)
+    }
+    
+    
+    /// Remove the device with deviceName == deviceName from Realm DB
+    class func removeDevice(_ deviceName: String) -> Bool {
         
-        if let device = RealmManager.realm.objects(MBTDevice.self).filter("productName = %@", deviceNameToDelete).first {
+        let deviceNameToDelete:String! = deviceName
+        
+        if let device = RealmManager.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceNameToDelete).first {
             try! RealmManager.realm.write {
                 RealmManager.realm.delete(device)
             }
+            
+            return true
         }
+        
+        return false
     }
 
 }

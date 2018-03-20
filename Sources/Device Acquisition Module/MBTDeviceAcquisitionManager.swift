@@ -53,7 +53,8 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
         DeviceManager.updateDeviceInformations(deviceInfos)
     }
     
-    
+    /// Process the BatteryLevel data
+    /// - Parameter data : *Data* received from Device info MBT Headset.
     func processDeviceBatteryStatus(_ characteristic: CBCharacteristic) {
         if characteristic.value != nil && DeviceManager.getCurrentDevice() != nil {
             let tabByte = [UInt8](characteristic.value!)

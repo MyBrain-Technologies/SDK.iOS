@@ -13,11 +13,11 @@ import Foundation
 
     /// Called when getting the battery level.
     /// - Parameter battery level : *batteryLevel* received.
-    @objc optional func onReceivingBatteryLevel(_ batteryLevel:Int)
+    @objc optional func onReceivingBatteryLevel(_ levelBattery:Int)
     
     
     /// Called when calling onReceivingBatteryLevel
-    /// - returns -> The boolean which use to call onReceivingBatteryLevel if batteryLevel Change
+    /// - returns : A *Bool* instance of onReceivingBatteryLevel if batteryLevel Change
     @objc optional func receiveBatteryLevelOnUpdate() -> Bool
     
 }

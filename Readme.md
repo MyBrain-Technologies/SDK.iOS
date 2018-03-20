@@ -53,7 +53,7 @@ class VC: UIViewController, MelomindEngineDelegate {
 
     ...
  
-    MelomindEngine.connectEEGAndA2DP(withDelegate: self)
+ MelomindEngine.connectEEGAndA2DP(_ deviceName: String, withDelegate: self)
  
     ...
 }
@@ -68,7 +68,7 @@ class VC: UIViewController, MBTBluetoothEventDelegate {
 
     ...
 
-    MelomindEngine.connectEEG(withDelegate: self)
+    MelomindEngine.connectEEG(_ deviceName: String, withDelegate: self)
 
     ...
 }

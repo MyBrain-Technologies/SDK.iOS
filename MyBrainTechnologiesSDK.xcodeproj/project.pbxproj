@@ -772,12 +772,12 @@
 		3549BB5C1DA38AA500C63030 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F41A6D6C1F0557E700092027 /* Models */,
 				2B6B5D9F205139D800928F1F /* Device Acquisition Module */,
 				2B6B5D96205139D800928F1F /* EEG Module */,
 				F420E9911EFD5F2C008C0B08 /* Bluetooth Module */,
 				F45837381EC5C21000C5D596 /* MelomindEngine.swift */,
 				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
-				F41A6D6C1F0557E700092027 /* Models */,
 			);
 			name = Core;
 			sourceTree = "<group>";

@@ -39,7 +39,9 @@ public class MelomindEngine {
     /// Connect to bluetooth LE profile of the MBT headset.
     /// BLE deals with EEG, but also OAD, device information,
     /// battery, etc.
+    /// - Remark : deviceName is optional if deviceName isn't provided the MelomindEngine will connect to the first headset detected
     /// - Parameters:
+    ///     - deviceName : The device Name Headset which be connect to the BLE
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
     public static func connectEEG(_ deviceName:String? = nil, withDelegate delegate: MelomindEngineDelegate) {
        bluetoothManager.connectTo(deviceName, with: delegate, and: nil)
@@ -53,11 +55,11 @@ public class MelomindEngine {
     /// Connect to the audio part of the MBT Headset (using the A2DP
     /// bluetooth protocol).
     /// - Remark: Audio can't be connected from code. User has to connect to it through
+    /// - Remark : deviceName is optional if deviceName isn't provided the MelomindEngine will connect to the first headset detected
     /// settings, on the first time is using it.
     /// - Parameters:
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
     public static func connectEEGAndA2DP(_ deviceName:String? = nil ,withDelegate delegate: MelomindEngineDelegate) {
-        //TODO: Update it to "melo_xx"
         bluetoothManager.connectTo(deviceName, with: delegate, and: delegate)
         
         // Add the Acquisition delegate to the Acquisition manager
@@ -70,33 +72,31 @@ public class MelomindEngine {
         bluetoothManager.disconnect()
     }
     
-    //MARK: - Getters 
+    /// Send JSON File
+    public static func sendEEGFile(_ urlFile:URL, accessTokens:String) {
+        MBTBrainWebHelper.accessTokens = accessTokens
+        MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, completion: {(finished)in})
+    }
+    
+    /// Save the DB recording on file
+    /// returns : A *URL* instance of the saved file, or nil if file is not created and save
+    public static func saveRecordingOnFile() -> URL? {
+        return eegAcqusitionManager.saveRecordingOnFile()
+    }
+    
+    //MARK: - Getters
+    
     /// Getter for device informations of the MBT headset.
     /// - Returns: A *MBTDeviceInformations* instance of the connected headset, or nil if no instance yet.
     public static func getDeviceInformations() -> MBTDeviceInformations? {
         return DeviceManager.getDeviceInfos()
     }
     
+    /// Getter for Device Name of the MBT headset
+    ///
+    /// - Returns: A *String* instance of the device's name, or nil if no instance yet
     public static func getDeviceName() -> String? {
         return DeviceManager.connectedDeviceName
-    }
-    
-    public static func readBatteryStatus() {
-        if let _ = DeviceManager.connectedDeviceName {
-            bluetoothManager.requestUpdateBatteryLevel()
-        }
-    }
-    
-    public static func stopReceiveBatteryLevelEvent() {
-        if let _ = DeviceManager.connectedDeviceName {
-            bluetoothManager.stopTimerUpdateBatteryLevel()
-        }
-    }
-    
-    public static func startReceiveBatteryLevelEvent() {
-        if let _ = DeviceManager.connectedDeviceName {
-            bluetoothManager.startTimerUpdateBatteryLevel()
-        }
     }
     
     /// Getter for the session JSON.
@@ -105,14 +105,8 @@ public class MelomindEngine {
         return MBTJSONHelper.getSessionData()
     }
     
-    ///Getter for the JSON
-    
-    public static func saveRecordingOnFile() -> URL? {
-        return eegAcqusitionManager.saveRecordingOnFile()
-    }
-    
-    /// Getter for regiters devices
-    /// - Returns: array of deviceName *[String]*
+    /// Getter Names of all regitered devices
+    /// - Returns: A *[String]* instance of array of deviceName
     public static func getRegisteredDevices() -> [String]{
         var tabDeviceName = [String]()
         
@@ -123,6 +117,29 @@ public class MelomindEngine {
         return tabDeviceName
     }
     
+    //MARK: - BluetoothManager
+    
+    /// Ask to read BatteryStatus
+    /// - Remark: Data will be provided through the MelomineEngineDelegate.
+    public static func readBatteryStatus() {
+        if let _ = DeviceManager.connectedDeviceName {
+            bluetoothManager.requestUpdateBatteryLevel()
+        }
+    }
+    
+    /// Stop the batteryLevel Event
+    public static func stopReceiveBatteryLevelEvent() {
+        if let _ = DeviceManager.connectedDeviceName {
+            bluetoothManager.stopTimerUpdateBatteryLevel()
+        }
+    }
+    
+    /// Start the batteryLevel Event
+    public static func startReceiveBatteryLevelEvent() {
+        if let _ = DeviceManager.connectedDeviceName {
+            bluetoothManager.startTimerUpdateBatteryLevel()
+        }
+    }
     
     //MARK: - Acquisition Manager
     
@@ -138,13 +155,30 @@ public class MelomindEngine {
         }
     }
     
-    ///Update RecordInfo
-    internal static func startSession(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) {
+    /// Start Session
+    /// - Parameters :
+    ///     - newRecord : Create a new recordId on the JSON File
+    ///     - recordingType : Change the session's type
+    public static func startSession(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) {
         if newRecord {
             recordInfo = MBTRecordInfo()
             recordInfo?.recordingType = recordingType
         } else if let currentId = recordInfo?.recordId {
             recordInfo = MBTRecordInfo(currentId,recordingType:recordingType)
+        }
+    }
+    
+    /// Start saving EEGPacket on DB
+    public static func startRecording() {
+        if let _ = DeviceManager.connectedDeviceName {
+            eegAcqusitionManager.isRecording = true
+        }
+    }
+    
+    /// Stop saving EEGPacket on DB
+    public static func stopRecording() {
+        if let _ = DeviceManager.connectedDeviceName {
+            eegAcqusitionManager.isRecording = false
         }
     }
     
@@ -162,18 +196,17 @@ public class MelomindEngine {
         eegAcqusitionManager.streamHasStopped()
     }
     
-    public static func startRecording() {
-        if let _ = DeviceManager.connectedDeviceName {
-            eegAcqusitionManager.isRecording = true
-        }
+    //MARK: - Upload
+    
+    /// Remove a specific Device
+    /// parameters :
+    ///     - deviceName : The Device name which will be remove from DB
+    public static func removeDevice(_ deviceName:String) -> Bool {
+        return DeviceManager.removeDevice(deviceName)
     }
     
-    public static func stopRecording() {
-        if let _ = DeviceManager.connectedDeviceName {
-            eegAcqusitionManager.isRecording = false
-        }
-    }
-    
+
+
     //MARK: - Signal Processing Manager
     
     /// Compute calibration with the last 'n' complete packets.
@@ -186,7 +219,11 @@ public class MelomindEngine {
         }
         return nil
     }
+
     
+    /// computeRelaxIndex
+    ///
+    /// - Returns: RelaxIndex
     public static func computeRelaxIndex() -> Float? {
         if let _ = DeviceManager.connectedDeviceName {
             return signalProcessingManager.computeRelaxIndex()
@@ -194,6 +231,12 @@ public class MelomindEngine {
         return nil
     }
     
+    /// ComputeSessionStatistics
+    ///
+    /// - Parameters:
+    ///   - inputSNR:
+    ///   - threshold:
+    /// - Returns:
     public static func computeSessionStatistics(_ inputSNR:[Float], threshold:Float) -> [String:Float] {
         return signalProcessingManager.analyseSession(inputSNR, threshold: threshold)
     }

@@ -265,9 +265,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     // Method Call Time Out
     @objc func connectionMelominTimeOut() {
         centralManager.stopScan()
-        disconnect()
         let error = NSError(domain: "Time Out", code: 999, userInfo: [NSLocalizedDescriptionKey : "Time Out Connection Melomind"]) as Error
         eventDelegate?.onConnectionFailed?(error)
+        disconnect()
     }
     
     //  Method Request Update Status Battery
