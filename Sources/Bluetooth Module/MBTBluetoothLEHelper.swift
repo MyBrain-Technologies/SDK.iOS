@@ -18,10 +18,10 @@ struct MBTBluetoothLEHelper {
     static let brainActivityMeasurementUUID = CBUUID(string: "0xB2A5")
     
     /// The *UUID* of the DeviceState characteristic of the Measurement service.
-    static let deviceStateUUID = CBUUID(string: "0xB2A2")
+    static let deviceBatteryStatusUUID = CBUUID(string: "0xB2A2")
     
     /// The *UUID* of the Device name characteristic.
-    static let deviceNameUUID = CBUUID(string: "0xB2A3")
+    static let headsetStatusUUID = CBUUID(string: "0xB2A3")
     
     /// The *UUID* of the DeviceInformation service.
     static let deviceInfoServiceUUID = CBUUID(string: "0x180A")
@@ -43,6 +43,9 @@ struct MBTBluetoothLEHelper {
     
     /// The Device state characteristic of the myBrain service.
     static var deviceStateCharacteristic: CBCharacteristic!
+    
+    /// The *characteristic* of the Headset Status
+    static var headsetStatusCharacteristic: CBCharacteristic!
     
     //MARK: - Bluetooth LE Methods
     

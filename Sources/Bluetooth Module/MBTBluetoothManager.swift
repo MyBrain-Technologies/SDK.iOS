@@ -32,6 +32,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
+    var inc = 0
+    
     // Time Out Timer
     var timerTimeOut : Timer!
     var timerUpdateBatteryLevel: Timer!
@@ -42,6 +44,16 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             self.blePeripheral?.setNotifyValue(
                 isListeningToEEG,
                 for: MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic
+            )
+        }
+    }
+    
+    /// A *Bool* indicating if SDK is listening to Saturation notifications.
+    var isListeningToHeadsetStatus = false {
+        didSet {
+            self.blePeripheral?.setNotifyValue(
+                isListeningToHeadsetStatus,
+                for: MBTBluetoothLEHelper.headsetStatusCharacteristic
             )
         }
     }
@@ -328,14 +340,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             }
             
             // Device State's Characteristics
-            if MBTBluetoothLEHelper.deviceStateUUID == CBUUID(data: thisCharacteristic.uuid.data) {
+            if MBTBluetoothLEHelper.deviceBatteryStatusUUID == CBUUID(data: thisCharacteristic.uuid.data) {
                 MBTBluetoothLEHelper.deviceStateCharacteristic = thisCharacteristic
                 startTimerUpdateBatteryLevel()
 
             }
             
-            if MBTBluetoothLEHelper.deviceNameUUID == CBUUID(data: thisCharacteristic.uuid.data)  {
-                blePeripheral?.readValue(for: thisCharacteristic)
+            if MBTBluetoothLEHelper.headsetStatusUUID == CBUUID(data: thisCharacteristic.uuid.data)  {
+                MBTBluetoothLEHelper.headsetStatusCharacteristic = thisCharacteristic
             }
         }
 
@@ -365,22 +377,42 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Get the device information characteristics UUIDs.
         let characsUUIDS = MBTBluetoothLEHelper.getDeviceInfoCharacteristicsUUIDS()
         
-        switch CBUUID(data: characteristic.uuid.data) {
-        case MBTBluetoothLEHelper.brainActivityMeasurementUUID:
+        let uuidCharacteristic = CBUUID(data: characteristic.uuid.data)
+        
+//        if uuidCharacteristic == MBTBluetoothLEHelper.brainActivityMeasurementUUID {
+//            DispatchQueue.main.async {
+//                [weak self] in
+//                if self?.isListeningToEEG ?? false {
+////                    print(self?.inc)
+////                    self?.inc += 1
+//                    MelomindEngine.eegAcqusitionManager.processBrainActivityData(notifiedData)
+//                }
+//            }
+//        }
+        
+        switch uuidCharacteristic {
+        case MBTBluetoothLEHelper.brainActivityMeasurementUUID :
             DispatchQueue.main.async {
                 [weak self] in
                 if self?.isListeningToEEG ?? false {
+//                    print(self?.inc)
+//                    self?.inc += 1
                     MelomindEngine.eegAcqusitionManager.processBrainActivityData(notifiedData)
                 }
             }
+        case MBTBluetoothLEHelper.headsetStatusUUID :
+            DispatchQueue.global(qos: .background).async {
+                MelomindEngine.deviceAcqusitionManager.processHeadsetStatus(characteristic)
+            }
+        case MBTBluetoothLEHelper.deviceBatteryStatusUUID :
+            MelomindEngine.deviceAcqusitionManager.processDeviceBatteryStatus(characteristic)
         case let uuid where characsUUIDS.contains(uuid) :
             MelomindEngine.deviceAcqusitionManager.processDeviceInformations(characteristic)
-        case MBTBluetoothLEHelper.deviceStateUUID :
-            MelomindEngine.deviceAcqusitionManager.processDeviceBatteryStatus(characteristic)
+
         default:
             break
         }
-      
+
         
     }
     

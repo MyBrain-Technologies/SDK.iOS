@@ -67,5 +67,16 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
             }
         }
     }
+    
+    func processHeadsetStatus(_ characteristic: CBCharacteristic) {
+        if let value = characteristic.value {
+            let tabByte = [UInt8](value)
+            if tabByte[0] == 1 {
+                delegate.onReceivingSaturationStatus?(Int(tabByte[1]))
+            } else {
+                print(tabByte)
+            }
+        }
+        
+    }
 }
-

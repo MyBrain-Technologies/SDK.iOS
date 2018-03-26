@@ -46,7 +46,7 @@ public class MBTRecordingType {
     public var recordType:MBTRecordType
     
     /// Signal Processing Version
-    public var spVersion:String
+    internal var spVersion:String
     
     /// Data Source cf enum *MBTDataSource*
     public var source:MBTDataSource
@@ -61,7 +61,7 @@ public class MBTRecordingType {
     /// - dataType = .DEFAULT
     public init() {
         recordType = .RAWDATA
-        spVersion = ""
+        spVersion = "2.0.4"
         source = .DEFAULT
         dataType = .DEFAULT
     }
@@ -77,7 +77,7 @@ public class MBTRecordingType {
     /// get a JSON
     ///
     /// - Returns: A *JSON* instance of RecordingType
-    func getJsonRecordInfo() -> JSON {
+    internal func getJsonRecordInfo() -> JSON {
         var jsonRecordType = JSON()
         jsonRecordType["recordType"].stringValue    = recordType.rawValue
         jsonRecordType["spVersion"].stringValue     = spVersion

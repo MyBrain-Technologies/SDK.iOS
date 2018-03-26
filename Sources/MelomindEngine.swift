@@ -155,22 +155,18 @@ public class MelomindEngine {
         }
     }
     
-    /// Start Session
-    /// - Parameters :
+    /// Start saving EEGPacket on DB    /// - Parameters :
     ///     - newRecord : Create a new recordId on the JSON File
     ///     - recordingType : Change the session's type
-    public static func startSession(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) {
-        if newRecord {
-            recordInfo = MBTRecordInfo()
-            recordInfo?.recordingType = recordingType
-        } else if let currentId = recordInfo?.recordId {
-            recordInfo = MBTRecordInfo(currentId,recordingType:recordingType)
-        }
-    }
-    
-    /// Start saving EEGPacket on DB
-    public static func startRecording() {
+    public static func startRecording(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) {
         if let _ = DeviceManager.connectedDeviceName {
+            if newRecord {
+                recordInfo = MBTRecordInfo()
+                recordInfo?.recordingType = recordingType
+            } else if let currentId = recordInfo?.recordId {
+                recordInfo = MBTRecordInfo(currentId,recordingType:recordingType)
+            }
+            
             eegAcqusitionManager.isRecording = true
         }
     }
@@ -183,15 +179,21 @@ public class MelomindEngine {
     }
     
     /// Start streaming EEG Data from MyBrainActivity Characteristic.
+    /// Start streaming headSet Data from HeadsetStatus Characteristic.
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
     public static func startStream(_ shouldUseQualityChecker: Bool) {
         eegAcqusitionManager.streamHasStarted(shouldUseQualityChecker)
         bluetoothManager.isListeningToEEG = true
+        bluetoothManager.isListeningToHeadsetStatus = true
+
     }
     
+    
     /// Stop streaming EEG Data to MelomineEngineDelegate.
+    /// Stop streaming headSet Data from MelomindEngineDelegate.
     /// - Remark: a JSON will be created with all the MBTEEGPacket.
     public static func stopStream() {
+        bluetoothManager.isListeningToHeadsetStatus = false
         bluetoothManager.isListeningToEEG = false
         eegAcqusitionManager.streamHasStopped()
     }
