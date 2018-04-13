@@ -9,7 +9,7 @@
 import Foundation
 
 /// Manage the acquisition data communication outside the SDK.
-@objc public protocol MBTDeviceAcquisitionDelegate {
+@objc public protocol MBTDeviceAcquisitionDelegate:class {
 
     /// Called when receiving batteryLevel from BLE
     ///

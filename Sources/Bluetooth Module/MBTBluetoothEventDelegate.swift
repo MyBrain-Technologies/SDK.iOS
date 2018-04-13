@@ -9,7 +9,7 @@
 import Foundation
 
 /// Event handler of the MBT Headset.
-@objc public protocol MBTBluetoothEventDelegate {
+@objc public protocol MBTBluetoothEventDelegate:class {
     /// Called when the headset has been connected
     /// before the services and characteristics exploration.
     @objc optional func onConnectionEstablished()

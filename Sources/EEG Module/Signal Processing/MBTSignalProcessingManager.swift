@@ -12,14 +12,17 @@ import RealmSwift
 /// Holds the current implementation of the signal processing protocols.
 internal class MBTSignalProcessingManager: MBTQualityComputer {
     
-    
     /// Singleton declaration.
     static let shared = MBTSignalProcessingManager()
     
     /// Dictionnary to store calibration results.
     internal var calibrationComputed: [String: [Float]]!
     
-    var sampRate = 0
+    ///
+    internal var sampRate:Int = 0
+    
+    ///
+    internal var eegPacketLength:Int = 0
     
     /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
     func initializeQualityChecker()  {
@@ -33,36 +36,50 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
         MBTQualityCheckerBridge.deInitializeMainQualityChecker()
     }
     
-    func computeQualityValue(_ data: List<ChannelDatas>, sampRate:Int) -> [Float] {
-        self.sampRate = sampRate
-        return computeQualityValue(data)
-    }
     
     /// Compute datas in the *Quality Checker* and returns an array of *Quality* values
     /// for a data matrix of an acquisition packet.
     /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
     /// - returns: The array of computed "quality" values. Each value is the quality for a channel, in the same order as the row order in data.
     func computeQualityValue(_ data: List<ChannelDatas>) -> [Float] {
+//        print("computeQualityValue")
+        // Getting connected MBTDevice *sampRate*.
+//        let sampRate = Int(DeviceManager.getDeviceSampRate())
+
         // Transform the input data into the format needed by the Obj-C++ bridge.
         let nbChannels: Int = data.count
         let nbDataPoints: Int = data.first!.value.count
         var dataArray = [Float]()
-        
+        var nbNAN = 0
         for channelDatas in data {
             for channelData in channelDatas.value {
+                if channelData.value.isNaN {
+                    nbNAN += 1
+                }
+                
                 dataArray.append(channelData.value)
             }
         }
         
+        print("NB NAN dataArray Quality: \(nbNAN)")
+
         // Perform the computation.
         let qualities = MBTQualityCheckerBridge.computeQuality(dataArray,
-                                                               sampRate: sampRate,
-                                                               nbChannels: nbChannels,
-                                                               nbDataPoints: nbDataPoints)
+                                                                    sampRate: sampRate,
+                                                                    nbChannels: nbChannels,
+                                                                    nbDataPoints: nbDataPoints)
+        
         // Return the quality values.
         let qualitySwift = qualities as! [Float]
         return qualitySwift
     }
+    
+    func computeQualityValue(_ data: List<ChannelDatas>, sampRate:Int,eegPacketLength:Int) -> [Float] {
+        self.sampRate = sampRate
+        self.eegPacketLength = eegPacketLength
+        return computeQualityValue(data)
+    }
+
     
     /// Get an array of the modified EEG datas by the *Quality Checker*, and return it.
     /// - returns: The matrix of EEG datas (modified) by channel.
@@ -84,9 +101,14 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
     func computeCalibration(_ packetsCount: Int) -> [String: [Float]] {
         let packetLength = DeviceManager.getDeviceEEGPacketLength()
         let sampRate = Int(DeviceManager.getDeviceSampRate())
+        let nbChannel = DeviceManager.getChannelsCount()
         
         // Get the last N packets.
         let packets = EEGPacketManager.getLastNPacketsComplete(packetsCount)
+        
+        if packets.count != packetsCount {
+            return [String: [Float]]()
+        }
         
         var calibrationData = [List<ChannelDatas>]()
         for i in 0 ..< packetsCount {
@@ -101,9 +123,10 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
         // Transform the input data into the format needed by the Obj-C bridge
         var dataArray = [Float]()
         for listChannelData in calibrationData {
-            for datasForChannel in listChannelData {
-                for data in datasForChannel.value {
-                    dataArray.append(data.value)
+            for i in 0 ..< nbChannel {
+                let data = listChannelData[i].value
+                for j in 0 ..< packetLength {
+                    dataArray.append(data[j].value)
                 }
             }
         }

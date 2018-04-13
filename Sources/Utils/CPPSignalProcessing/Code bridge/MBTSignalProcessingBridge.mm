@@ -177,6 +177,8 @@ static MBT_MainQC *mainQC;
                  nbChannels: (NSInteger) nbChannels
                nbDataPoints: (NSInteger) nbDataPoints
 {
+
+//    printf("Count Signal = %lu",[signal count]);
     // Transform EEG data into MBT_Matrix
     MBT_Matrix<float> signalMatrix = [MBTSignalProcessingHelper fromNSArrayToMatrix:signal
                                                                           andHeight:(int)nbChannels

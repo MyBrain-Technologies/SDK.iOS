@@ -36,8 +36,15 @@ struct MBTJSONHelper {
                 appropriateFor:nil,
                 create:false
             )
+            
+            let eegPacketJSONRecordingsPath = documentDirectory.appendingPathComponent("eegPacketJSONRecordings")
+            
+            if !fileManager.fileExists(atPath: eegPacketJSONRecordingsPath.path) {
+                try fileManager.createDirectory(at: eegPacketJSONRecordingsPath, withIntermediateDirectories: true, attributes: nil)
+            }
+            
             let fileName:String = MBTJSONHelper.getFileName(idUser)
-            let fileURL = documentDirectory.appendingPathComponent(fileName)
+            let fileURL = eegPacketJSONRecordingsPath.appendingPathComponent(fileName)
             
             // Saving JSON in device.
             try json.rawString([.castNilToNSNull:true])?.write(to: fileURL, atomically: true, encoding: .utf8)
@@ -58,11 +65,11 @@ struct MBTJSONHelper {
     static func getFileName(_ idUser:Int? = nil) -> String {
         let date = Date()
         let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "yyyy-MM-dd_HH:mm:ss"
+        dateFormater.dateFormat = "yyyy-MM-dd--HH:mm:ss"
         let projectName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
         let deviceID =  "melo_" + (DeviceManager.getCurrentDevice()?.deviceInfos?.deviceId)!
         let stringIdUser = idUser != nil ? "\(idUser!)" : ""
-        return "eegRecording" + dateFormater.string(from: date) + "_" + projectName + "_" + deviceID + "_" + stringIdUser + "_" + ".json"
+        return "eegPacketsRecording_" + dateFormater.string(from: date) + "_" + projectName + "_" + deviceID + "_" + stringIdUser + ".json"
     }
     
     /// Remove the JSON saved on the iDevice.

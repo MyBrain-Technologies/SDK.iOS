@@ -9,7 +9,7 @@
 import Foundation
 
 /// Delegate to know if audio A2DP just connected or disconnected.
-@objc public protocol MBTBluetoothA2DPDelegate {
+@objc public protocol MBTBluetoothA2DPDelegate:class {
     
     /// Called when the MBT Headset audio A2DP get connected.
     @objc optional func audioA2DPDidConnect()

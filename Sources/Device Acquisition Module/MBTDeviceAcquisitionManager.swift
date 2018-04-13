@@ -72,9 +72,12 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
         if let value = characteristic.value {
             let tabByte = [UInt8](value)
             if tabByte[0] == 1 {
-                delegate.onReceivingSaturationStatus?(Int(tabByte[1]))
+                DispatchQueue.main.async {
+                    [weak self] in
+                    self?.delegate.onReceivingSaturationStatus?(Int(tabByte[1]))
+                }
             } else {
-                print(tabByte)
+                //print(tabByte)
             }
         }
         
