@@ -61,15 +61,15 @@ public class MBTRecordingType {
     /// - dataType = .DEFAULT
     public init() {
         recordType = .RAWDATA
-        spVersion = "2.0.4"
+        spVersion = "1.1.1"
         source = .DEFAULT
         dataType = .DEFAULT
     }
     
     /// Create a *MBTRecordingType* with provided RecordType, spVersion, Source, dataType
-    public init(_ recordType:MBTRecordType, spVersion:String, source:MBTDataSource, dataType:MBTDataType) {
+    public init(_ recordType:MBTRecordType, source:MBTDataSource, dataType:MBTDataType) {
         self.recordType = recordType
-        self.spVersion = spVersion
+        self.spVersion = "1.1.1"
         self.source = source
         self.dataType = dataType
     }
