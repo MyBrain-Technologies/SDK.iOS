@@ -19,7 +19,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     static let shared = MBTBluetoothManager()
 
     /// The BLE central manager.
-    var centralManager : CBCentralManager!
+    var centralManager : CBCentralManager?
     
     /// The BLE peripheral with which a connection has been established.
     var blePeripheral : CBPeripheral?
@@ -95,13 +95,13 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     /// Disconnect centralManager, and remove session's values.
     public func disconnect() {
-        centralManager.stopScan()
+        centralManager?.stopScan()
         stopTimerUpdateBatteryLevel()
         MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = nil
         MBTBluetoothLEHelper.deviceStateCharacteristic = nil 
         isConnected = false
         if blePeripheral != nil {
-            centralManager.cancelPeripheralConnection(blePeripheral!)
+            centralManager?.cancelPeripheralConnection(blePeripheral!)
         }
         centralManager = nil
         blePeripheral = nil
@@ -178,7 +178,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
             // Scan for peripherals if BLE is turned on
-            centralManager.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
+            centralManager?.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
         }
         else {
             isConnected = false
@@ -209,14 +209,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             
             if DeviceManager.connectedDeviceName == nameOfDeviceFound  {
                 // Stop scanning
-                centralManager.stopScan()
+                centralManager?.stopScan()
                 // invalidate timerTimeOut
                 timerTimeOut?.invalidate()
                 // Set as the peripheral to use and establish connection
                 blePeripheral = peripheral
 
                 blePeripheral?.delegate = self
-                centralManager.connect(peripheral, options: nil)
+                centralManager?.connect(peripheral, options: nil)
                 DeviceManager.updateDeviceToMelomind()
             }
         }
@@ -275,7 +275,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     // Method Call Time Out
     @objc func connectionMelominTimeOut() {
-        centralManager.stopScan()
+        centralManager?.stopScan()
         let error = NSError(domain: "Time Out", code: 999, userInfo: [NSLocalizedDescriptionKey : "Time Out Connection Melomind"]) as Error
         eventDelegate?.onConnectionFailed?(error)
         disconnect()
