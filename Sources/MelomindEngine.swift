@@ -112,6 +112,7 @@ public class MelomindEngine {
     public func saveRecordingOnFile(_ idUser:Int?, comments:[String] = [String](), completion:((URL?)->())? = nil){
         self.eegAcqusitionManager.saveRecordingOnFile(idUser, comments: comments, completion: completion)
 
+
     }
     
     //MARK: - Getters
@@ -233,14 +234,6 @@ public class MelomindEngine {
     public func removeDevice(_ deviceName:String) -> Bool {
         return DeviceManager.removeDevice(deviceName)
     }
-    
-    public func get() -> Results<MBTEEGPacket> {
-        return EEGPacketManager.getEEGPackets()
-    }
-
-    public func getComp() -> [MBTEEGPacket] {
-        return EEGPacketManager.getLastNPacketsComplete(EEGPacketManager.getEEGPackets().count)
-    }
 
     //MARK: - Signal Processing Manager
     
@@ -260,7 +253,7 @@ public class MelomindEngine {
     ///
     /// - Returns: RelaxIndex
     public func computeRelaxIndex() -> Float? {
-        if let _ = DeviceManager.connectedDeviceName {
+        if let _ = DeviceManager.connectedDeviceName, EEGPacketManager.getEEGPackets().count > 3 {
             return signalProcessingManager.computeRelaxIndex()
         }
         return nil

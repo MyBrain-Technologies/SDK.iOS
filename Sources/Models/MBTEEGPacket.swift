@@ -300,12 +300,47 @@ class EEGPacketManager: MBTRealmEntityManager {
         return JSON(eegDatas)
     }
     
+    class func getJSONEEGDatas(_ eegPackets:Results<MBTEEGPacket>,eegPacketLength:Int) -> JSON {
+        var eegDatas = [[Float?]]()
+        let eegPackets = EEGPacketManager.getEEGPackets()
+        for eegPacket in eegPackets {
+            for channelNumber in 0 ..< eegPacket.channelsData.count {
+                if eegDatas.count < channelNumber + 1 {
+                    eegDatas.append([Float?]())
+                }
+                if eegPacket.channelsData[channelNumber].value.count  == eegPacketLength {
+                    for packetIndex in 0 ..< eegPacketLength{
+                        if eegPacket.channelsData[channelNumber].value[packetIndex].value.isNaN {
+                            eegDatas[channelNumber].append(nil)
+                        } else {
+                            eegDatas[channelNumber].append(eegPacket.channelsData[channelNumber].value[packetIndex].value)
+                        }
+                    }
+                }
+            }
+        }
+        
+        return JSON(eegDatas)
+    }
+    
     /// Get Qualities Data for eegPackets
     ///     - return : QualitiesChannel
     class func getJSONQualities() -> JSON {
         var qualities = [Float]()
         
         let eegPackets = EEGPacketManager.getEEGPackets()
+        for eegPacket in eegPackets {
+            for channelNumber in 0 ..< eegPacket.qualities.count {
+                qualities.append(eegPacket.qualities[channelNumber].value)
+            }
+        }
+        
+        return JSON(qualities)
+    }
+    
+    class func getJSONQualities(_ eegPackets:Results<MBTEEGPacket>) -> JSON {
+        var qualities = [Float]()
+        
         for eegPacket in eegPackets {
             for channelNumber in 0 ..< eegPacket.qualities.count {
                 qualities.append(eegPacket.qualities[channelNumber].value)

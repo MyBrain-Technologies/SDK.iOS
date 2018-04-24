@@ -46,7 +46,7 @@ public class MBTRecordingType {
     public var recordType:MBTRecordType
     
     /// Signal Processing Version
-    internal var spVersion:String
+    internal var spVersion:String = "2.3.0"
     
     /// Data Source cf enum *MBTDataSource*
     public var source:MBTDataSource
@@ -61,7 +61,6 @@ public class MBTRecordingType {
     /// - dataType = .DEFAULT
     public init() {
         recordType = .RAWDATA
-        spVersion = "1.1.1"
         source = .DEFAULT
         dataType = .DEFAULT
     }
@@ -69,7 +68,6 @@ public class MBTRecordingType {
     /// Create a *MBTRecordingType* with provided RecordType, spVersion, Source, dataType
     public init(_ recordType:MBTRecordType, source:MBTDataSource, dataType:MBTDataType) {
         self.recordType = recordType
-        self.spVersion = "1.1.1"
         self.source = source
         self.dataType = dataType
     }

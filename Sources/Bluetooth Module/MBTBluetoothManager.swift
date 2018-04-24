@@ -41,6 +41,11 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     /// A *Bool* indicating if SDK is listening to EEG Headset notifications.
     var isListeningToEEG = false {
         didSet {
+//            if isListeningToEEG {
+//                stopTimerUpdateBatteryLevel()
+//            } else {
+//                startTimerUpdateBatteryLevel()
+//            }
             self.blePeripheral?.setNotifyValue(
                 isListeningToEEG,
                 for: MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreBluetooth
+import RealmSwift
 
 typealias ArrayStreamEEGPacketToSend = (current:[[Float]]?,complete:[[Float]]?)
 
@@ -79,26 +80,41 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     }
     
     func saveRecordingOnFile(_ idUser:Int? = nil, comments:[String] = [String](), completion: ((URL?) ->())? = nil) {
+        guard let device = DeviceManager.getCurrentDevice() else {
+            completion?(nil)
+            return
+        }
+        
+        let deviceRef = ThreadSafeReference(to: device)
+        let eegPacketsRef = ThreadSafeReference(to: EEGPacketManager.getEEGPackets())
+        let packetsToSave = EEGPacketManager.getArrayEEGPackets()
         MBTJSONHelper.uuid = UUID()
         // Collect data for the JSON.
         ///let allPackets = EEGPacketManager.getEEGPackets()
-        let packetsToSave = EEGPacketManager.getArrayEEGPackets()
         
-        DispatchQueue.main.async {
-            if let device = DeviceManager.getCurrentDevice() { //EEGPacketManager.getEEGPackets().count > 0
-                if let jsonObject = self.getJSONRecord(device,recordInfo:MelomindEngine.main.recordInfo ?? MBTRecordInfo(), comments: comments) {
+        let config = EEGPacketManager.RealmManager.realm.configuration
+        
+        DispatchQueue.global(qos: .background).async {
+            let realm = try! Realm(configuration: config)
+            
+            if let resDevice = realm.resolve(deviceRef),let resEEGPackets = realm.resolve(eegPacketsRef){
+                
+                
+                if let jsonObject = self.getJSONRecord(resDevice, eegPackets: resEEGPackets,recordInfo:MelomindEngine.main.recordInfo ?? MBTRecordInfo(), comments: comments) {
                     // Save JSON with EEG data received.
-                    let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idUser: idUser, with: {
+                    let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idDevice: device.deviceInfos!.deviceId!, idUser: idUser, with: {
                         // Then delete all MBTEEGPacket saved.
                         EEGPacketManager.removePackets(packetsToSave)
                     })
                     completion?(fileURL)
                     
+                } else {
+                    completion?(nil)
+                    
                 }
             }
-            completion?(nil)
         }
-       
+    
     }
   
     
@@ -139,22 +155,21 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     
     /// Collecting the session datas and create the JSON.
     /// - Returns: The *JSON* created with the session datas.
-    func getJSONRecord(_ device:MBTDevice, recordInfo:MBTRecordInfo, comments:[String] = [String]() ) -> JSON?  {
+    func getJSONRecord(_ device:MBTDevice,eegPackets:Results<MBTEEGPacket> ,recordInfo:MBTRecordInfo, comments:[String] = [String]() ) -> JSON?  {
+        
         guard let _ = device.deviceInfos else {
             return nil
         }
         
-        let eegPackets = EEGPacketManager.getEEGPackets()
 
-        var acquisitions: [String] = Array()
-        for acquisition in device.acquisitionLocations {
-            acquisitions.append("\(acquisition.type)")
-        }
+//        var acquisitions: [String] = Array()
+//        for acquisition in device.acquisitionLocations {
+//            acquisitions.append("\(acquisition.type)")
+//        }
         
         
      
         // Create the session JSON.
-        
         var jsonObject = JSON()
         jsonObject["uuidJsonFile"].stringValue = MBTJSONHelper.uuid.uuidString
         jsonObject["header"] = device.getJSON(comments)
@@ -165,8 +180,8 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         jsonRecord["recordingTime"].intValue = eegPackets.first?.timestamp ?? 0
         jsonRecord["nbPackets"].intValue = eegPackets.count
         jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ? eegPackets.index(of: eegPackets.first! )! : 0
-        jsonRecord["qualities"] = EEGPacketManager.getJSONQualities()
-        jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas()
+        jsonRecord["qualities"] = EEGPacketManager.getJSONQualities(eegPackets)
+        jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets, eegPacketLength: device.eegPacketLength)
         jsonRecord["statusData"].arrayObject = [Any]()
         jsonRecord["recordingParameters"].arrayObject = [Any]()
         
