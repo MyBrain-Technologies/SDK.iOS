@@ -13,21 +13,21 @@ import RealmSwift
 class MBTDevice: Object {
     
     /// Device Name
-    dynamic public var deviceName: String = ""
+    @objc dynamic public var deviceName: String = ""
     
     /// Device informations from MBT Headset Bluetooth LE.
-    dynamic public var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
+    @objc dynamic public var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
     
     /// The number of active channels in the device.
-    dynamic var nbChannels:Int = 0
+    @objc dynamic var nbChannels:Int = 0
 
     /// The rate at which EEG data is being sent by the headset.
-    dynamic var sampRate:Int = 0
+    @objc dynamic var sampRate:Int = 0
     
     /// An EEG Packet length.
-    dynamic var eegPacketLength: Int = 0
+    @objc dynamic var eegPacketLength: Int = 0
     
-    dynamic var batteryLevel: Int = 0
+    @objc dynamic var batteryLevel: Int = 0
     
     /// Locations of the acquisition electrodes.
     let acquisitionLocations = List<MBTAcquistionLocation>()
@@ -76,7 +76,7 @@ class MBTDevice: Object {
 /// Files Names
 
 public class FileName: Object {
-    public dynamic var value:String = ""
+    @objc public dynamic var value:String = ""
 }
 
 //MARK: -
@@ -84,16 +84,16 @@ public class FileName: Object {
 /// Device Informations model.
 public class MBTDeviceInformations: Object {
     /// The commercial name of the device.
-    public dynamic var productName:String? = nil
+    @objc public dynamic var productName:String? = nil
     
     /// The product specific serial number.
-    public dynamic var deviceId:String? = nil
+    @objc public dynamic var deviceId:String? = nil
     
     /// The product hardware version.
-    public dynamic var hardwareVersion:String? = nil
+    @objc public dynamic var hardwareVersion:String? = nil
     
     /// The product firmware version.
-    public dynamic var firmwareVersion:String? = nil
+    @objc public dynamic var firmwareVersion:String? = nil
     
     /// Helper Function to get JSON
     ///
@@ -271,7 +271,7 @@ class DeviceManager: MBTRealmEntityManager {
 /// Electrode location model.
 class MBTAcquistionLocation: Object {
     /// Value (in the enum) of the electrode, for Realm.
-    fileprivate dynamic var rawType = -1
+    @objc fileprivate dynamic var rawType = -1
     
     /// Human Readable value of an electrode location.
     var type: ElectrodeLocation {

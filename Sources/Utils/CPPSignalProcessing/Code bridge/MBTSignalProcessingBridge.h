@@ -12,7 +12,6 @@
 #import <Foundation/Foundation.h>
 
 
-
 @interface MBTQualityCheckerBridge: NSObject
 
 + (void)initializeMainQualityChecker:(float) sampRate

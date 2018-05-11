@@ -14,10 +14,12 @@ struct MBTBrainWebHelper {
     
     static var accessTokens = ""
     
+    static var path = "https://api.preprodz.mybraintech.com/v1.0.2/ingest-legacy"
+    
     /// Send JSON to medical BrainWeb server.
     static func sendJSONToBrainWeb(_ fileURL: URL, completion: @escaping (Bool)->() ) {
         
-        let url                 = URL(string: "https://api.preprodz.mybraintech.com/v1.0.1beta/ingest-legacy")!
+        let url                 = URL(string: MBTBrainWebHelper.path)!
         var urlRequest          = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.post.rawValue
         urlRequest.timeoutInterval = TimeInterval(20)
@@ -31,14 +33,14 @@ struct MBTBrainWebHelper {
                     switch encodingResult {
                     case .success(let upload, _, _):
                         upload.responseJSON { response in
-                            debugPrint(response)
+                            debugPrint("#57685 - sendJSONToBrainWeb response :\(response)")
                             if response.response?.statusCode == 201 {
                                 completion(true)
                             }
                             completion(false)
                         }
                     case .failure(let encodingError):
-                        print(encodingError)
+                        print("#57685 - sendJSONToBrainWeb failure : \(encodingError)")
                         completion(false)
                     }
             })
@@ -47,7 +49,7 @@ struct MBTBrainWebHelper {
     /// Send ALL JSON to medical BrainWeb server.
     static func sendAllJSONToBrainWeb(completion: @escaping (Bool)->() ) {
         
-        let url                 = URL(string: "https://api.preprodz.mybraintech.com/v1.0.1beta/ingest-legacy")!
+        let url                 = URL(string: MBTBrainWebHelper.path)!
         var urlRequest          = URLRequest(url: url)
         urlRequest.httpMethod = HTTPMethod.post.rawValue
         urlRequest.timeoutInterval = TimeInterval(20)
@@ -76,14 +78,15 @@ struct MBTBrainWebHelper {
                             switch encodingResult {
                             case .success(let upload, _, _):
                                 upload.responseJSON { response in
-                                    debugPrint(response)
+                                    debugPrint("#57685 - sendALLJsonToBrainWeb response : \(response)")
                                     if response.response?.statusCode == 201 {
+                                        MBTJSONHelper.removeFile(fileURL)
                                         completion(true)
                                     }
                                     completion(false)
                                 }
                             case .failure(let encodingError):
-                                print(encodingError)
+                                print("#57685 - sendAllJSONToBrainWeb failure : \(encodingError)")
                                 completion(false)
                             }
                     })
@@ -91,7 +94,7 @@ struct MBTBrainWebHelper {
             }
             
         } catch {
-            debugPrint("[MyBrainTechnologiesSDK] Error while saving JSON on device : \(error)")
+            debugPrint("#57685 - [MyBrainTechnologiesSDK] Error while saving JSON on device : \(error)")
             completion(false)
         }
         

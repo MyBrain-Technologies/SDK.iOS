@@ -13,16 +13,16 @@ import Foundation
 struct MBTJSONHelper {
     
     /// Parameters received to start a session.
-    static var sessionParameters:[String: Any]!
+    //static var sessionParameters:[String: Any]!
     
     /// JSON UUID (for BrainWeb) and also JSON file's name.
-    static var uuid: UUID!
+//    static var uuid: UUID!
     
     /// File URL of the saved JSON.
-    static var fileURL: URL?
+    //static var fileURL: URL?
     
     /// Save the JSON on the iDevice.
-    static func saveJSONOnDevice(_ json: JSON,idDevice:String ,idUser:Int? = nil, with completion: ()->()) -> URL? {
+    static func saveJSONOnDevice(_ json: JSON,idDevice:String ,idUser:Int, with completion: ()->()) -> URL? {
         let fileManager = FileManager.default
 //        guard let json = getDataJSON(jsonObject) else {
 //            return nil
@@ -48,13 +48,13 @@ struct MBTJSONHelper {
             
             // Saving JSON in device.
             try json.rawString([.castNilToNSNull:true])?.write(to: fileURL, atomically: true, encoding: .utf8)
-            MBTJSONHelper.fileURL = fileURL
-            print("json saved here : \(fileURL)")
+//            MBTJSONHelper.fileURL = fileURL
+            print("#57685 - json saved here : \(fileURL)")
             
             completion()
             return fileURL
         } catch {
-            debugPrint("[MyBrainTechnologiesSDK] Error while saving JSON on device : \(error)")
+            debugPrint("#57685 - [MyBrainTechnologiesSDK] Error while saving JSON on device : \(error)")
         }
         
         return nil
@@ -62,50 +62,64 @@ struct MBTJSONHelper {
     
     /// Get File Name for a Record
     
-    static func getFileName(_ idUser:Int? = nil,withIdDevice idDevice:String) -> String {
+    static func getFileName(_ idUser:Int, withIdDevice idDevice:String) -> String {
         let date = Date()
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "yyyy-MM-dd--HH:mm:ss"
         let projectName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
         let deviceID =  "melo_" + idDevice
-        let stringIdUser = idUser != nil ? "\(idUser!)" : ""
+        let stringIdUser = "\(idUser)"
         return "eegPacketsRecording_" + dateFormater.string(from: date) + "_" + projectName + "_" + deviceID + "_" + stringIdUser + ".json"
     }
     
-    /// Remove the JSON saved on the iDevice.
-    static func deleteJSONFromDevice() {
-        if MBTJSONHelper.doesJSONExist() {
-            let fileManager = FileManager.default
-            
-            do {
-                try fileManager.removeItem(at: MBTJSONHelper.fileURL!)
-            } catch {
-                debugPrint("[MyBrainTechnologiesSDK] Error while deleting previous JSON : \(error)")
-            }
-        }
-    }
-    
-    /// Getter for the session JSON.
-    static func getSessionData() -> Data? {
-        if MBTJSONHelper.doesJSONExist() {
-            let fileManager = FileManager.default
-            
-            return fileManager.contents(atPath: MBTJSONHelper.fileURL!.path)
-        }
+    static func removeFile(_ urlFile:URL) -> Bool {
         
-        return nil
-    }
-    
-    /// Check if a file URL has been saved,
-    /// and if the json still exists.
-    static func doesJSONExist() -> Bool {
-        guard let fileURL = MBTJSONHelper.fileURL else {
-            debugPrint("[MyBrainTechnologiesSDK] Error no JSON exists. Try to startStream() / stopStream() first.")
-            
+        let fileManager = FileManager.default
+        
+        do {
+            try fileManager.removeItem(atPath: urlFile.path)
+        } catch {
+            print("#57685 - Can't remove File : \(urlFile.path) \n \(error)")
             return false
         }
         
-        let fileManager = FileManager.default
-        return  fileManager.fileExists(atPath: fileURL.path)
+        return true
     }
+    
+//    /// Remove the JSON saved on the iDevice.
+//    static func deleteJSONFromDevice() {
+//        if MBTJSONHelper.doesJSONExist() {
+//            let fileManager = FileManager.default
+//
+//            do {
+//                try fileManager.removeItem(at: MBTJSONHelper.fileURL!)
+//            } catch {
+//                debugPrint("[MyBrainTechnologiesSDK] Error while deleting previous JSON : \(error)")
+//            }
+//        }
+//    }
+//
+//    /// Getter for the session JSON.
+//    static func getSessionData() -> Data? {
+//        if MBTJSONHelper.doesJSONExist() {
+//            let fileManager = FileManager.default
+//
+//            return fileManager.contents(atPath: MBTJSONHelper.fileURL!.path)
+//        }
+//
+//        return nil
+//    }
+    
+    /// Check if a file URL has been saved,
+    /// and if the json still exists.
+//    static func doesJSONExist() -> Bool {
+//        guard let fileURL = MBTJSONHelper.fileURL else {
+//            debugPrint("[MyBrainTechnologiesSDK] Error no JSON exists. Try to startStream() / stopStream() first.")
+//
+//            return false
+//        }
+//
+//        let fileManager = FileManager.default
+//        return  fileManager.fileExists(atPath: fileURL.path)
+//    }
 }

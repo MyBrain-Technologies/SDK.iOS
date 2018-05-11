@@ -29,6 +29,8 @@
 
 #include "MBT_SNR_Stats.h"
 
+#include "version.h"
+
 
 /// Signal Processing Bridge helper methods,
 /// to help converting format between C++ and Obj-C++.
@@ -49,6 +51,7 @@ extern const float IAFsup;
 @end
 
 @implementation MBTSignalProcessingHelper
+static NSString* versionCPP = @VERSION;
 
 const float IAFinf = 7;
 const float IAFsup = 13;
@@ -128,10 +131,27 @@ static MBT_MainQC *mainQC;
 + (void)initializeMainQualityChecker:(float)sampRate
                              accuracy:(float)accuracy {
     // Construction de kppv
-    unsigned int kppv = 10;
+    unsigned int kppv = 19;
 
     // Construction de costClass
     MBT_Matrix<float> costClass(3,3);
+    for (int t=0;t<costClass.size().first;t++)
+    {
+        for (int t1=0;t1<costClass.size().second;t1++)
+        {
+            if (t == t1)
+            {
+                costClass(t,t1) = 0;
+            }
+            else
+            {
+                costClass(t,t1) = 1;
+            }
+        }
+    }
+    
+    // Construction de costClassBad
+    MBT_Matrix<float> costClassBad(2,2);
     for (int t=0;t<costClass.size().first;t++)
     {
         for (int t1=0;t1<costClass.size().second;t1++)
@@ -163,7 +183,12 @@ static MBT_MainQC *mainQC;
                             dataClean,
                             spectrumClean,
                             cleanItakuraDistance,
-                            accuracy);
+                            accuracy,
+                            trainingFeaturesBad,
+                            trainingClassesBad,
+                            wBad,muBad,sigmaBad,costClassBad);
+    
+    
 }
 
 /// Dealloc MBT_MainQC instance when session is finished, for memory safety.
@@ -226,42 +251,42 @@ static MBT_MainQC *mainQC;
                                                                                            andWidth:(int)packetsCount];
     
     // Set the thresholds for the outliers
-    // -----------------------------------
-    MBT_Matrix<float> Bounds(calibrationRecordings.size().first,2);
-    MBT_Matrix<float> Test(calibrationRecordings.size().first, calibrationRecordings.size().second);
-    
-    for (int ch=0; ch<calibrationRecordings.size().first; ch++)
-    {
-        vector<float> signal_ch = calibrationRecordings.row(ch);
-        
-        if (all_of(signal_ch.begin(), signal_ch.end(), [](double testNaN){return isnan(testNaN);}) )
-        {
-            errno = EINVAL;
-            perror("ERROR: BAD CALIBRATION - WE HAVE ONLY NAN VALUES");
-        }
-        
-        // skip the NaN values in order to calculate the Bounds
-        vector<float>tmp_signal_ch = SkipNaN(signal_ch);
-        
-        // find the bounds
-        vector<float> tmp_Bounds = CalculateBounds(tmp_signal_ch); // Set the thresholds for outliers
-        Bounds(ch,0) = tmp_Bounds[0];
-        Bounds(ch,1) = tmp_Bounds[1];
-        
-        // basically, we convert from vector<float> to vector<double>
-        vector<double> CopySignal_ch(signal_ch.begin(), signal_ch.end());
-        vector<double> Copytmp_Bounds(tmp_Bounds.begin(), tmp_Bounds.end());
-        
-        // set outliers to nan
-        vector<double> InterCopySignal_ch = MBT_OutliersToNan(CopySignal_ch, Copytmp_Bounds);
-        for (unsigned int t = 0 ; t < InterCopySignal_ch.size(); t++)
-            Test(ch,t) = (float) InterCopySignal_ch[t];
-    }
+//    // -----------------------------------
+//    MBT_Matrix<float> Bounds(calibrationRecordings.size().first,2);
+//    MBT_Matrix<float> Test(calibrationRecordings.size().first, calibrationRecordings.size().second);
+//
+//    for (int ch=0; ch<calibrationRecordings.size().first; ch++)
+//    {
+//        vector<float> signal_ch = calibrationRecordings.row(ch);
+//
+//        if (all_of(signal_ch.begin(), signal_ch.end(), [](double testNaN){return isnan(testNaN);}) )
+//        {
+//            errno = EINVAL;
+//            perror("ERROR: BAD CALIBRATION - WE HAVE ONLY NAN VALUES");
+//        }
+//
+//        // skip the NaN values in order to calculate the Bounds
+//        vector<float>tmp_signal_ch = SkipNaN(signal_ch);
+//
+//        // find the bounds
+//        vector<float> tmp_Bounds = CalculateBounds(tmp_signal_ch); // Set the thresholds for outliers
+//        Bounds(ch,0) = tmp_Bounds[0];
+//        Bounds(ch,1) = tmp_Bounds[1];
+//
+//        // basically, we convert from vector<float> to vector<double>
+//        vector<double> CopySignal_ch(signal_ch.begin(), signal_ch.end());
+//        vector<double> Copytmp_Bounds(tmp_Bounds.begin(), tmp_Bounds.end());
+//
+//        // set outliers to nan
+//        vector<double> InterCopySignal_ch = MBT_OutliersToNan(CopySignal_ch, Copytmp_Bounds);
+//        for (unsigned int t = 0 ; t < InterCopySignal_ch.size(); t++)
+//            Test(ch,t) = (float) InterCopySignal_ch[t];
+//    }
     
     // interpolate the nan values between the channels
-    MBT_Matrix<float> FullyInterpolatedTest = MBT_InterpolateBetweenChannels(Test);
+//    MBT_Matrix<float> FullyInterpolatedTest = MBT_InterpolateBetweenChannels(Test);
     // interpolate the nan values across each channel
-    MBT_Matrix<float> InterpolatedAcrossChannels = MBT_InterpolateAcrossChannels(FullyInterpolatedTest);
+//    MBT_Matrix<float> InterpolatedAcrossChannels = MBT_InterpolateAcrossChannels(FullyInterpolatedTest);
     
     // Getting the map.
     std::map<std::string, std::vector<float>> paramCalib = MBT_ComputeCalibration(calibrationRecordings,
@@ -269,14 +294,14 @@ static MBT_MainQC *mainQC;
                                                                                    (int)sampRate,
                                                                                    (int)packetLength,
                                                                                    IAFinf,
-                                                                                   IAFsup,
-                                                                                   Bounds);
+                                                                                   IAFsup);
     
     // Save calibration parameters received.
     [MBTSignalProcessingHelper setCalibrationParameters:paramCalib];
     
     // Converting the parameters to an Obj-C format
     NSMutableDictionary * parametersDictionnary = [[NSMutableDictionary alloc] init];
+    
     for (auto parameter: paramCalib)
     {
         NSString *parameterName = [NSString stringWithCString: parameter.first.c_str()
@@ -287,15 +312,20 @@ static MBT_MainQC *mainQC;
     
     return parametersDictionnary;
 }
+    
+
 @end
 
 
-//MARK: -
+//MARK: - RelaxIndex
 
 /// Bridge method to get the Relax Index
 @implementation MBTRelaxIndexBridge
 
 static vector<float>pastRelaxIndex;
+static vector<float>smoothedRelaxIndex;
+static vector<float>volume;
+static vector<float>histFreq;
 
 + (float)computeRelaxIndex:(NSArray *)signal
                   sampRate:(NSInteger)sampRate
@@ -307,15 +337,65 @@ static vector<float>pastRelaxIndex;
                                                                            andWidth:width];
     
     std::map<std::string, std::vector<float>> calibrationParams = [MBTSignalProcessingHelper getCalibrationParameters];
-    std::vector<float> calibrationParameters = calibrationParams["SNRCalib_ofBestChannel"];
+//    std::vector<float> calibrationParameters = calibrationParams["SNRCalib_ofBestChannel"];
     
-    float RelaxationIndex = MBT_ComputeRelaxIndex(signalMatrix, calibrationParams, sampRate, IAFinf, IAFsup);
-    pastRelaxIndex.push_back(RelaxationIndex);
-    float tmp_SmoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex);
-    float tmp_NormalizedRelaxIndex = MBT_NormalizeRelaxIndex(tmp_SmoothedRelaxIndex, calibrationParameters);
-    float tmp_Volum = MBT_RelaxIndexToVolum(tmp_NormalizedRelaxIndex);
+    if (histFreq.size() == 0) {
+        histFreq = calibrationParams["histFrequencies"];
+    }
     
-    return tmp_Volum;
+    float newVolum = main_relaxIndex(sampRate, calibrationParams, signalMatrix, histFreq, pastRelaxIndex, smoothedRelaxIndex, volume);
+
+    return newVolum;
+}
+    
+static float main_relaxIndex(const float sampRate, std::map<std::string, std::vector<float> > paramCalib,
+                             const MBT_Matrix<float> &sessionPacket, std::vector<float> &histFreq, std::vector<float> &pastRelaxIndex, std::vector<float> &resultSmoothedSNR, std::vector<float> &resultVolum)
+{
+    
+    std::vector<float> errorMsg = paramCalib["errorMsg"];
+    std::vector<float> snrCalib = paramCalib["snrCalib"];
+    
+    // Session-----------------------------------
+    float snrValue = MBT_ComputeRelaxIndex(sessionPacket, errorMsg, sampRate, IAFinf, IAFsup, histFreq);
+    
+    pastRelaxIndex.push_back(snrValue); // incrementation of pastRelaxIndex
+    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex);
+    float volum = MBT_RelaxIndexToVolum(smoothedRelaxIndex, snrCalib); // warning it's not the same inputs than previously
+    
+    //resultSmoothedSNR.assign(1,smoothedRelaxIndex);
+    resultSmoothedSNR.push_back(smoothedRelaxIndex);
+    
+    //resultVolum.assign(1,volum);
+    resultVolum.push_back(volum);
+    // WARNING: If it's possible, I would like to save in the .json file, pastRelaxIndex and smoothedRelaxIndex (both)
+    
+    return volum;
+}
+
++ (NSDictionary *) getSessionMetadata {
+    NSMutableDictionary* dicoMetadata = [[NSMutableDictionary alloc]init];
+    
+
+    NSArray *parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:pastRelaxIndex];
+    [dicoMetadata setObject:parameterValue forKey:@"rawRelaxIndexes"];
+    
+    parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:smoothedRelaxIndex];
+    [dicoMetadata setObject:parameterValue forKey:@"smoothedRelaxIndex"];
+    
+    parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:volume];
+    [dicoMetadata setObject:parameterValue forKey:@"volume"];
+    
+    parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:histFreq];
+    [dicoMetadata setObject:parameterValue forKey:@"histFrequencies"];
+    
+    return dicoMetadata;
+}
+
++(void) reinitRelaxIndex {
+    pastRelaxIndex.clear();
+    smoothedRelaxIndex.clear();
+    volume.clear();
+    histFreq.clear();
 }
 
 @end

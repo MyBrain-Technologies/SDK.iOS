@@ -8,4 +8,8 @@
 //              - Change all implicit type castings to explicit ones
 //V1.1.1 : EG : Updated MBT_Matrix constructors to fully use Template model.
 //		Redefined sort_indexes function to take template in input and unsigned long as output
-#define VERSION 1.1.1
+//		Fixed a bug in nan interpolations where matrix size wasn't checked
+//V1.1.2 : Change the type of the input in one function in MBT_Operations.h
+//V1.1.3 : FG : Add a new function in MBT_Operations to compute derivative and add some parameters in MBT_PWelchComputer.
+// 				Also, fix an error in MBT_frequencyBounds.
+#define SP_VERSION "1.1.3"

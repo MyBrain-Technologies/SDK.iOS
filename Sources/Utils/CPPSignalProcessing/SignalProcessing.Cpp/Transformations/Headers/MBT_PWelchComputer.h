@@ -10,6 +10,7 @@
 //          Fanny Grosselin 2017/01/19 --> Add a method fft
 //          Fanny Grosselin 2017/01/20 --> Remove the method fft
 //          Fanny Grosselin 2017/03/16 --> Use MBT_Fourier_fftw3 instead of using MBT_Fourier and change float to double
+//          Fanny Grosselin 2017/11/30 --> Add some parameters (the length of the window, the overlap and the length of zero-padding) in input.
 
 
 #ifndef __MBT_iOS__MBT_PWelchComputer__
@@ -35,10 +36,16 @@ private:
     enum WindowType {RECT, HANN, HAMMING};
 
     //The overlaping parameter. Hard coded to 0.5.
-    const double m_overlap = 0.5;
+    double m_overlap = 0.5;
 
     //The segmentation parameter. Hard coded to 8.
-    const int m_nbrWindows = 8;
+    int m_nbrWindows = 8;
+
+    // Length of the segmented window before zero-padding
+    int m_windowLength;
+
+    // Length of the segmented window after zero-padding
+    int m_zeropadding = 0;
 
     //The window type for the computation. Default value is RECT.
     WindowType m_windowType = RECT;
@@ -81,6 +88,18 @@ public:
      * @return A MBT_PWelchComputer initialized with the provided data.
      */
     MBT_PWelchComputer(MBT_Matrix<double> const& inputData, const double sampRate, std::string windowType);
+
+    /*
+     * @brief MBT_PWelchComputer constructor.
+     * @param inputData A MBT_Matrix<double> object with the input data, one row per channel.
+     * @param windowLength The segmentation parameter. It's a length in samples.
+     * @param overlapLength The overlaping parameter.
+     * @param sampRate The sampling rate.
+     * @param windowType A string indicating the type of window to be used for the PSD computation.
+     * @param zeropaddingLength The length of the segmented window after zero-padding operation.
+     * @return A MBT_PWelchComputer initialized with the provided data.
+     */
+    MBT_PWelchComputer(MBT_Matrix<double> const& inputData, const double sampRate, std::string windowType, const int windowLength, const double overlapLength, const int zeropaddingLength);
 
     /*
      * @brief MBT_PWelchComputer destructor.

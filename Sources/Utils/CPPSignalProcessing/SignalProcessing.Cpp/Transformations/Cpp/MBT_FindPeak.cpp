@@ -9,6 +9,7 @@
 //  Update: Fanny Grosselin 2017/03/27 --> Fix all the warnings.
 //  Update: Fanny Grosselin 2017/07/27 --> Change the bounds (add the +1 for the upper bound) of "MBT_valMaxPeak", "MBT_indMaxPeak" and "MBT_freqMaxPeak" because the upper bound is defined with ".begin + length" and not ".end".
 //  Update: Katerina Pandremmenou 2017/09/20 --> Change all implicit type castings to explicit ones
+//  Update: Fanny Grosselin 2017/11/30 --> Fix the error in MBT_frequencyBounds : we found the values of frequencies closest than IAFinf and IAFsup instead of finding the corresponding indexes.
 
 #include "../Headers/MBT_FindPeak.h"
 
@@ -16,25 +17,17 @@ std::pair<int,int> MBT_frequencyBounds(std::vector<double> frequencies, const do
 {
     std::pair<int,int> freqBounds;
 
-    // Round frequencies
-    std::vector<int> round_frequencies;
-    round_frequencies.assign(frequencies.size(), 0);
+    std::vector<int> bound_frequencies;
     for (unsigned int f=0;f<frequencies.size();f++)
     {
-        round_frequencies[f] = (int) round(frequencies[f]);
+        if (frequencies[f]>=IAFinf && frequencies[f]<=IAFsup)
+        {
+            bound_frequencies.push_back(f);
+        }
     }
 
-    // Find the first index of the frequencies which is higher or equal to IAFinf
-	std::vector<int>::iterator all_n_finf = std::find_if(round_frequencies.begin(),round_frequencies.end(),std::bind2nd(std::greater_equal<int>(),IAFinf)); // Fanny Grosselin 2017/02/16
-    int n_finf = all_n_finf[0];
-
-    // Find the last index of the frequencies which is lower or equal to IAFsup
-	std::vector<int>::iterator all_n_fsup = std::find_if(round_frequencies.begin(),round_frequencies.end(),std::bind2nd(std::less_equal<int>(),IAFsup)); // Fanny Grosselin 2017/02/16
-    int count_all_n_fsup = std::count_if (round_frequencies.begin(), round_frequencies.end(), std::bind2nd(std::less_equal<int>(),IAFsup));
-    int n_fsup = all_n_fsup[count_all_n_fsup-1];
-
-    freqBounds.first = n_finf;
-    freqBounds.second = n_fsup;
+    freqBounds.first = bound_frequencies[0]; //Find the first index of the frequencies which is higher or equal to IAFinf
+    freqBounds.second = bound_frequencies[bound_frequencies.size()-1]; // Find the last index of the frequencies which is lower or equal to IAFsup
 
     return freqBounds;
 }

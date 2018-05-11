@@ -61,7 +61,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
             }
         }
         
-        print("NB NAN dataArray Quality: \(nbNAN)")
+        print("#57685 - NB NAN dataArray Quality: \(nbNAN)")
 
         // Perform the computation.
         let qualities = MBTQualityCheckerBridge.computeQuality(dataArray,
@@ -71,6 +71,15 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
         
         // Return the quality values.
         let qualitySwift = qualities as! [Float]
+        
+        if qualitySwift.count < 2 {
+            print("#57685 - Quality Cound inf à 2")
+            print("#57685 - NBChannel : \(nbChannels)")
+            print("#57685 - sampRate : \(sampRate)")
+            print("#57685 - dataArray Count : \(dataArray.count)")
+            print("#57685 - nbDataPoints : \(nbDataPoints)")
+        }
+        
         return qualitySwift
     }
     

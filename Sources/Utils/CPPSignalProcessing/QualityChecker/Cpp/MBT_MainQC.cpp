@@ -27,14 +27,19 @@
 //          Fanny Grosselin 2017/09/15 --> In MBT_MainQC::MBT_featuresQualityChecker(), multiply each data by 10^6 in order to convert data in microVolts.
 //          Fanny Grosselin 2017/07/25 --> In MBT_MainQC::MBT_qualityChecker, keep ampvar in microVolts.
 //          Fanny Grosselin 2017/09/19 --> In MBT_MainQC::MBT_qualityChecker, change the output signal after QualityChecker: keep NaN signal if the quality is 0, or get the original signal (no the interpolated ones).
+//          Fanny Grosselin 2017/10/03 --> In MBT_MainQC::MBT_qualityChecker, change the existing thresholds and add one threshold to determined misclassified bad data.
+//          Fanny Grosselin 2018/01/10 --> In MBT_MainQC::MBT_featuresQualityChecker(), correct the way we compute nb_max_min.
+//          Fanny Grosselin 2018/02/21 --> In MBT_MainQC::MBT_qualityChecker, provide the detection of muscle artifacts.
+//          Fanny Grosselin 2018/02/22 --> Add a classifier after the first detection of qualities, in order to distinguish two different types of bad data (bad EEG vs no recorded EEG).
+//          Fanny Grosselin 2018/02/27 --> In MBT_MainQC::MBT_featuresQualityChecker(), UNcorrect the way we compute nb_max_min because it classifies better.
 
 #include "../Headers/MBT_MainQC.h"
 #include "../../SignalProcessing.Cpp/Transformations/Headers/MBT_Fourier_fftw3.h"
 
 // Constructor
-MBT_MainQC::MBT_MainQC(const float sampRate,MBT_Matrix<float> trainingFeatures, std::vector<float> trainingClasses, std::vector<float> w, std::vector<float> mu, std::vector<float> sigma, unsigned int const& kppv, MBT_Matrix<float> const& costClass, std::vector< std::vector<float> > potTrainingFeatures, std::vector< std::vector<float> > dataClean, std::vector<float> spectrumClean, std::vector<float> cleanItakuraDistance, float accuracy)
+MBT_MainQC::MBT_MainQC(const float sampRate,MBT_Matrix<float> trainingFeatures, std::vector<float> trainingClasses, std::vector<float> w, std::vector<float> mu, std::vector<float> sigma, unsigned int const& kppv, MBT_Matrix<float> const& costClass, std::vector< std::vector<float> > potTrainingFeatures, std::vector< std::vector<float> > dataClean, std::vector<float> spectrumClean, std::vector<float> cleanItakuraDistance, float accuracy, MBT_Matrix<float> trainingFeaturesBad, std::vector<float> trainingClassesBad, std::vector<float> wBad, std::vector<float> muBad, std::vector<float> sigmaBad, MBT_Matrix<float> const& costClassBad)
 {
-	if ((trainingFeatures.size().first > 0) & (trainingFeatures.size().second > 0) & (trainingClasses.size() > 0) & (w.size() > 0) & (mu.size() > 0) & (sigma.size() > 0) & (kppv != 0) & (costClass.size().first > 0) & (costClass.size().second > 0) & (spectrumClean.size() > 0) & (cleanItakuraDistance.size() > 0))
+	if ((trainingFeatures.size().first > 0) & (trainingFeatures.size().second > 0) & (trainingClasses.size() > 0) & (w.size() > 0) & (mu.size() > 0) & (sigma.size() > 0) & (kppv != 0) & (costClass.size().first > 0) & (costClass.size().second > 0) & (spectrumClean.size() > 0) & (cleanItakuraDistance.size() > 0) & (trainingFeaturesBad.size().first > 0) & (trainingFeaturesBad.size().second > 0) & (trainingClassesBad.size() > 0) & (wBad.size() > 0) & (muBad.size() > 0) & (sigmaBad.size() > 0) & (costClassBad.size().first > 0) & (costClassBad.size().second > 0))
     {
 		// Initialize the attributes
 		m_sampRate = sampRate;
@@ -50,6 +55,12 @@ MBT_MainQC::MBT_MainQC(const float sampRate,MBT_Matrix<float> trainingFeatures, 
 		m_spectrumClean = spectrumClean;
 		m_cleanItakuraDistance = cleanItakuraDistance;
 		m_accuracy = accuracy;
+		m_trainingFeaturesBad = trainingFeaturesBad;
+		m_trainingClassesBad = trainingClassesBad;
+		m_wBad = wBad;
+		m_muBad = muBad;
+		m_sigmaBad = sigmaBad;
+		m_costClassBad = costClassBad;
 		m_correctInput = true;
 	}
 	else
@@ -2001,7 +2012,7 @@ void MBT_MainQC::MBT_qualityChecker(MBT_Matrix<float> inputDataInit)
     // seuil of Itakura distance to detect muscular artifacts --> sid can be changed
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     std::vector<double> double_m_cleanItakuraDistance(m_cleanItakuraDistance.begin(),m_cleanItakuraDistance.end());
-    double sid = mean(double_m_cleanItakuraDistance) + 4*standardDeviation(double_m_cleanItakuraDistance);
+    double sid = mean(double_m_cleanItakuraDistance) + 2.5*standardDeviation(double_m_cleanItakuraDistance);
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -2034,20 +2045,27 @@ void MBT_MainQC::MBT_qualityChecker(MBT_Matrix<float> inputDataInit)
         std::vector<double> double_m_inputData_row(m_inputData_row.begin(),m_inputData_row.end());
         signal = double_m_inputData_row;
 
+        // Multiply by 10^6 (to be in uV)
+        for (unsigned int v=0;v<signal.size();v++)
+        {
+            signal[v] = signal[v]*pow(10,6);
+        }
+
         int len = signal.size();
+
 
         // Check if signal is constant
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         int counter = 0;
         for (t1=0;t1<len-1;t1++)
         {
-            if ((signal[t1+1]- signal[t1])<(double)1e-6)
+            if (abs((double)signal[t1+1]- (double)signal[t1])<(double)0.5) // Fanny Grosselin 2017/10/13
             {
                 counter = counter + 1;
             }
         }
-        cstce = (100*counter)/len;
-        if (cstce > 70)
+        cstce = (100*counter)/(len-1);
+        if (cstce > 35) // Fanny Grosselin 2017/10/13
         {
             m_predictedClass[t] = (float)0;
             m_probaClass[t] = (float)inf;
@@ -2069,6 +2087,20 @@ void MBT_MainQC::MBT_qualityChecker(MBT_Matrix<float> inputDataInit)
                 m_probaClass[t] = (float)inf;
                 //std::cout<<"The signal no"<<t<<" has a too high amplitude."<<std::endl;
             }
+            else
+            {
+                // Test of the amplitude between max and min of the signal
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                double min_signal = *std::min_element(signal.begin(),signal.end());
+                double max_signal = *std::max_element(signal.begin(),signal.end());
+                double dist_min_max = sqrt(pow((max_signal - min_signal),2));
+                if (dist_min_max > (double)350)
+                {
+                    m_predictedClass[t] = (float)0;
+                    m_probaClass[t] = (float)inf;
+                    //std::cout<<"The signal no"<<t<<" has a too high amplitude."<<std::endl;
+                }
+            }
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         }
 
@@ -2076,6 +2108,76 @@ void MBT_MainQC::MBT_qualityChecker(MBT_Matrix<float> inputDataInit)
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if (m_predictedClass[t] == (float)0)
         {
+            // Copy attributes in order to don't erase them
+            // --------------------------------------------
+            std::vector<float> copy_m_predictedClass = m_predictedClass;
+            std::vector<float> copy_m_probaClass = m_probaClass;
+            MBT_Matrix<float> copy_m_trainingFeaturesFirst(m_trainingFeatures.size().first, m_trainingFeatures.size().second);
+            for (int n =0; n<copy_m_trainingFeaturesFirst.size().first; n++)
+            {
+                for (int n1 = 0; n1<copy_m_trainingFeaturesFirst.size().second;n1++)
+                {
+                    copy_m_trainingFeaturesFirst(n,n1)= m_trainingFeatures(n,n1);
+                }
+            }
+            std::vector<float> copy_m_trainingClasses = m_trainingClasses;
+            std::vector<float> copy_m_w = m_w;
+            std::vector<float> copy_m_mu = m_mu;
+            std::vector<float> copy_m_sigma = m_sigma;
+            MBT_Matrix<float> copy_m_costClass(m_costClass.size().first, m_costClass.size().second);
+            for (int n =0; n<copy_m_costClass.size().first; n++)
+            {
+                for (int n1 = 0; n1<copy_m_costClass.size().second;n1++)
+                {
+                    copy_m_costClass(n,n1)= m_costClass(n,n1);
+                }
+            }
+            MBT_Matrix<float> copy_m_testFeatures(m_testFeatures.size().first, m_testFeatures.size().second);
+            for (int n =0; n<copy_m_testFeatures.size().first; n++)
+            {
+                for (int n1 = 0; n1<copy_m_testFeatures.size().second;n1++)
+                {
+                    copy_m_testFeatures(n,n1)= m_testFeatures(n,n1);
+                }
+            }
+            // ------------------------------------------------------------------------
+
+            // Change the attributes to classify into 2 bad classes (bad EEG or no EEG signal)
+            // -------------------------------------------------------------------------------
+            m_trainingFeatures = m_trainingFeaturesBad;
+            m_trainingClasses = m_trainingClassesBad;
+            m_w = m_wBad;
+            m_mu = m_muBad;
+            m_sigma = m_sigmaBad;
+            m_costClass = m_costClassBad;
+            MBT_Matrix<float> tmp_m_testFeatures(1,m_testFeatures.size().second);
+            for (int n1 = 0; n1<m_testFeatures.size().second;n1++)
+            {
+                tmp_m_testFeatures(0,n1)= m_testFeatures(t,n1);
+            }
+            m_testFeatures = tmp_m_testFeatures;
+            // --------------------------------------------------------------------------------
+
+            // Classify into 2 bad classes
+            // ---------------------------
+            MBT_knn(); // change m_probaClass and m_predictedClass
+            copy_m_predictedClass[t] = m_predictedClass[0];
+            copy_m_probaClass[t] = m_probaClass[0];
+            // ---------------------------------------------------
+
+            // Get the initial attributes
+            // --------------------------
+            m_predictedClass = copy_m_predictedClass;
+            m_probaClass = copy_m_probaClass;
+            m_trainingFeatures = copy_m_trainingFeaturesFirst;
+            m_trainingClasses = copy_m_trainingClasses;
+            m_w = copy_m_w;
+            m_mu = copy_m_mu;
+            m_sigma = copy_m_sigma;
+            m_costClass = copy_m_costClass;
+            m_testFeatures = copy_m_testFeatures;
+            // --------------------------
+
             std::vector<double> signalRem = MBT_remove(signal);
             signal = signalRem;
             for (t1=0;t1<m_inputData.size().second;t1++) // we keep NaN values because the signal is bad
@@ -2091,18 +2193,18 @@ void MBT_MainQC::MBT_qualityChecker(MBT_Matrix<float> inputDataInit)
             //std::cout<<"The itakura distance of signal no"<<t<<" is : "<<itak<<std::endl;
             if ((double)itak >= sid)
             {
-                //m_predictedClass[t] = 0.25; <-- do that when we will use muscular artifacts
-                m_predictedClass[t] = (float)0.5;
+                m_predictedClass[t] = (float)0.25; //<-- do that when we will use muscular artifacts
+                //m_predictedClass[t] = (float)0.5;
                 // Puis detrend et/ou bandpass % ########################
                 //std::cout<<"The signal no"<<t<<" is a muscular artifact."<<std::endl;
             }
 
-            else
+            /*else
             {
                 //std::vector<float> signalCorr = MBT_correctArtifact(signal);
                 //signal = signalCorr;
                 //std::cout<<"The signal no"<<t<<" has been corrected."<<std::endl;
-            }
+            }*/
             for (t1=0;t1<m_inputData.size().second;t1++) // we get the original signal, not the interpolated one
             {
                 m_inputData(t,t1)=(float)signalInit[t1];
@@ -2263,6 +2365,36 @@ int MBT_MainQC::MBT_get_m_kppv()
 MBT_Matrix<float> MBT_MainQC::MBT_get_m_costClass()
 {
     return m_costClass;
+}
+
+MBT_Matrix<float> MBT_MainQC::MBT_get_m_trainingFeaturesBad()
+{
+    return m_trainingFeaturesBad;
+}
+
+std::vector<float> MBT_MainQC::MBT_get_m_trainingClassesBad()
+{
+    return m_trainingClassesBad;
+}
+
+std::vector<float> MBT_MainQC::MBT_get_m_wBad()
+{
+    return m_wBad;
+}
+
+std::vector<float> MBT_MainQC::MBT_get_m_muBad()
+{
+    return m_muBad;
+}
+
+std::vector<float> MBT_MainQC::MBT_get_m_sigmaBad()
+{
+    return m_sigmaBad;
+}
+
+MBT_Matrix<float> MBT_MainQC::MBT_get_m_costClassBad()
+{
+    return m_costClassBad;
 }
 
 std::vector< std::vector<float> > MBT_MainQC::MBT_get_m_potTrainingFeatures()

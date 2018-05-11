@@ -21,7 +21,7 @@ public class MBTEEGPacket: Object {
     public var qualities = List<Quality>()
     
     /// The timestamp in milliseconds when this packet is created.
-    public  dynamic var timestamp: Int = Int(NSDate().timeIntervalSince1970)
+    @objc public  dynamic var timestamp: Int = Int(NSDate().timeIntervalSince1970)
     
     /// The values from all channels.
     public var channelsData = List<ChannelDatas>()
@@ -154,7 +154,7 @@ public class MBTEEGPacket: Object {
 /// One quality value for one channel.
 public class Quality: Object {
     /// Value property of the *Quality*.
-    public dynamic var value: Float = 0
+    @objc public dynamic var value: Float = 0
     
     /// Special init with the value of *Quality*.
     public convenience init(data: Float) {
@@ -166,7 +166,7 @@ public class Quality: Object {
 /// One EEG value from one channel.
 public class ChannelData: Object {
     /// Value property of a *Channel*.
-    public dynamic var value: Float = 0
+    @objc public dynamic var value: Float = 0
     
     /// Special init with the value of *ChannelData*.
     public convenience init(data: Float) {
@@ -300,9 +300,8 @@ class EEGPacketManager: MBTRealmEntityManager {
         return JSON(eegDatas)
     }
     
-    class func getJSONEEGDatas(_ eegPackets:Results<MBTEEGPacket>,eegPacketLength:Int) -> JSON {
+    class func getJSONEEGDatas(_ eegPackets:[MBTEEGPacket],eegPacketLength:Int) -> JSON {
         var eegDatas = [[Float?]]()
-        let eegPackets = EEGPacketManager.getEEGPackets()
         for eegPacket in eegPackets {
             for channelNumber in 0 ..< eegPacket.channelsData.count {
                 if eegDatas.count < channelNumber + 1 {
@@ -338,7 +337,7 @@ class EEGPacketManager: MBTRealmEntityManager {
         return JSON(qualities)
     }
     
-    class func getJSONQualities(_ eegPackets:Results<MBTEEGPacket>) -> JSON {
+    class func getJSONQualities(_ eegPackets:[MBTEEGPacket]) -> JSON {
         var qualities = [Float]()
         
         for eegPacket in eegPackets {
@@ -360,7 +359,6 @@ class EEGPacketManager: MBTRealmEntityManager {
         }
         return arrayEEGPackets
     }
-    
     /// Delete all EEGPacket saved in Realm DB.
     class func removeAllEEGPackets() {
         let packets = RealmManager.realm.objects(MBTEEGPacket.self)

@@ -29,7 +29,7 @@ public class MelomindEngine {
     /// the Signal Processing Library (via the bridge).
     internal let signalProcessingManager:MBTSignalProcessingManager
     
-    internal var recordInfo:MBTRecordInfo?
+    internal var recordInfo:MBTRecordInfo = MBTRecordInfo()
     
     public static var main:MelomindEngine = MelomindEngine()
     
@@ -100,7 +100,12 @@ public class MelomindEngine {
     /// Send JSON File
     public func sendEEGFile(_ urlFile:URL, accessTokens:String) {
         MBTBrainWebHelper.accessTokens = accessTokens
-        MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, completion: {(finished)in})
+        MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, completion: {
+            (finished)in
+            if finished {
+                let _ = MBTJSONHelper.removeFile(urlFile)
+            }
+        })
     }
     
 
@@ -109,13 +114,17 @@ public class MelomindEngine {
     ///   - idUser: A *Int* instance of the id user
     ///   - comments: A *[String]* instance of comments
     ///   - completion : A *URL* instance of the saved file, or nil if file is not created and save
-    public func saveRecordingOnFile(_ idUser:Int?, comments:[String] = [String](), completion:((URL?)->())? = nil){
+    public func saveRecordingOnFile(_ idUser:Int, comments:[String] = [String](), completion:@escaping (URL?)->()){
         self.eegAcqusitionManager.saveRecordingOnFile(idUser, comments: comments, completion: completion)
-
-
+      
     }
     
     //MARK: - Getters
+    
+    
+    public func getBatteryLevel() -> Int? {
+        return DeviceManager.getCurrentDevice()?.batteryLevel
+    }
     
     /// Getter for device informations of the MBT headset.
     /// - Returns: A *MBTDeviceInformations* instance of the connected headset, or nil if no instance yet.
@@ -131,12 +140,12 @@ public class MelomindEngine {
         return DeviceManager.connectedDeviceName
     }
     
-    /// Getter for the session JSON.
-    /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
-    public func getSessionJSON() -> Data? {
-        return MBTJSONHelper.getSessionData()
-    }
-    
+//    /// Getter for the session JSON.
+//    /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
+//    public func getSessionJSON() -> Data? {
+//        return MBTJSONHelper.getSessionData()
+//    }
+//    
     /// Getter Names of all regitered devices
     /// - Returns: A *[String]* instance of array of deviceName
     public func getRegisteredDevices() -> [String]{
@@ -188,11 +197,11 @@ public class MelomindEngine {
     ///     - recordingType : Change the session's type
     public func startRecording(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) {
         if let _ = DeviceManager.connectedDeviceName {
-            if newRecord || recordInfo == nil {
+            if newRecord {
                 recordInfo = MBTRecordInfo()
-                recordInfo?.recordingType = recordingType
-            } else if let currentId = recordInfo?.recordId {
-                recordInfo = MBTRecordInfo(currentId,recordingType:recordingType)
+                recordInfo.recordingType = recordingType
+            } else {
+                recordInfo.recordingType = recordingType
             }
             
             eegAcqusitionManager.isRecording = true

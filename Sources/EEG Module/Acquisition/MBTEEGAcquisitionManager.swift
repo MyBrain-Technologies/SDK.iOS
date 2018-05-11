@@ -1,3 +1,4 @@
+
 //
 //  AcquisitionManager.swift
 //  MyBrainTechnologiesSDK
@@ -22,7 +23,10 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     static let NEGATIVE_MASK_MELOMIND: Int32 = (0xFFFFFFF << (32 - SHIFT_MELOMIND))
     static let POSITIVE_MASK_MELOMIND: Int32 = (~NEGATIVE_MASK_MELOMIND)
     static let divider = 2
-    static var previousIndex : Int16 = -1
+    var previousIndex : Int16 = -1
+    
+    
+    var isFinish = true
     
     /// Singleton declaration
     static let shared = MBTEEGAcquisitionManager()
@@ -79,38 +83,53 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         }
     }
     
-    func saveRecordingOnFile(_ idUser:Int? = nil, comments:[String] = [String](), completion: ((URL?) ->())? = nil) {
+    func saveRecordingOnFile(_ idUser:Int, comments:[String] = [String](), completion: @escaping (URL?) ->()) {
         guard let device = DeviceManager.getCurrentDevice() else {
-            completion?(nil)
+            completion(nil)
             return
         }
         
-        let deviceRef = ThreadSafeReference(to: device)
-        let eegPacketsRef = ThreadSafeReference(to: EEGPacketManager.getEEGPackets())
-        let packetsToSave = EEGPacketManager.getArrayEEGPackets()
-        MBTJSONHelper.uuid = UUID()
-        // Collect data for the JSON.
+        let deviceTSR = ThreadSafeReference(to: device)
+        let packetToRemove = EEGPacketManager.getArrayEEGPackets()
+        var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
+        
+        for eegPacket in packetToRemove {
+            packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
+        }
+    
+            // Collect data for the JSON.
         ///let allPackets = EEGPacketManager.getEEGPackets()
         
-        let config = EEGPacketManager.RealmManager.realm.configuration
+//        let config = EEGPacketManager.RealmManager.realm.configuration
         
-        DispatchQueue.global(qos: .background).async {
-            let realm = try! Realm(configuration: config)
-            
-            if let resDevice = realm.resolve(deviceRef),let resEEGPackets = realm.resolve(eegPacketsRef){
+        DispatchQueue(label: "MelomindSaveProcess").async {
+            if let realm = try? Realm() {
+                var resPacketsToSave = [MBTEEGPacket]()
                 
+                for eegPacket in packetsToSaveTSR {
+                    if let resEEGPacket = realm.resolve(eegPacket) {
+                        resPacketsToSave.append(resEEGPacket)
+                    }
+                }
                 
-                if let jsonObject = self.getJSONRecord(resDevice, eegPackets: resEEGPackets,recordInfo:MelomindEngine.main.recordInfo ?? MBTRecordInfo(), comments: comments) {
-                    // Save JSON with EEG data received.
-                    let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idDevice: device.deviceInfos!.deviceId!, idUser: idUser, with: {
-                        // Then delete all MBTEEGPacket saved.
-                        EEGPacketManager.removePackets(packetsToSave)
-                    })
-                    completion?(fileURL)
+                if let resDevice = realm.resolve(deviceTSR), resPacketsToSave.count == packetsToSaveTSR.count {
                     
-                } else {
-                    completion?(nil)
-                    
+                    if let jsonObject = self.getJSONRecord(resDevice, eegPackets: resPacketsToSave,recordInfo:MelomindEngine.main.recordInfo, comments: comments) {
+                        // Save JSON with EEG data received.
+                        let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idDevice: resDevice.deviceInfos!.deviceId!, idUser: idUser, with: {
+                            // Then delete all MBTEEGPacket saved.
+                            DispatchQueue.main.async {
+                                EEGPacketManager.removePackets(packetToRemove)
+
+                            }
+
+                        })
+                        completion(fileURL)
+                        
+                    } else {
+                        completion(nil)
+                        
+                    }
                 }
             }
         }
@@ -136,18 +155,16 @@ internal class MBTEEGAcquisitionManager: NSObject  {
             // Get the EEG values modified by the *QC* according to the *Quality* values.
             let correctedValues = MBTSignalProcessingManager.shared.getModifiedEEGValues()
             packetComplete.addModifiedChannelsData(correctedValues,nbChannels: self.nbChannels,sampRate: self.sampRate)
-            //            print("FinishaddModifiedChannelsData ")
+            //            print("#57685 - FinishaddModifiedChannelsData ")
            
             
         }
-        DispatchQueue.main.async {
-            self.delegate.onReceivingPackage?(packetComplete)
-            print("Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)")
-            self.timeIntervalPerf = Date().timeIntervalSince1970
-            
-            if self.isRecording {
-                let _ = EEGPacketManager.saveEEGPacket(packetComplete)
-            }
+        self.delegate.onReceivingPackage?(packetComplete)
+        print("#57685 - Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)")
+        self.timeIntervalPerf = Date().timeIntervalSince1970
+        
+        if self.isRecording {
+            let _ = EEGPacketManager.saveEEGPacket(packetComplete)
         }
         
         
@@ -155,23 +172,11 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     
     /// Collecting the session datas and create the JSON.
     /// - Returns: The *JSON* created with the session datas.
-    func getJSONRecord(_ device:MBTDevice,eegPackets:Results<MBTEEGPacket> ,recordInfo:MBTRecordInfo, comments:[String] = [String]() ) -> JSON?  {
-        
-        guard let _ = device.deviceInfos else {
-            return nil
-        }
-        
-
-//        var acquisitions: [String] = Array()
-//        for acquisition in device.acquisitionLocations {
-//            acquisitions.append("\(acquisition.type)")
-//        }
-        
-        
+    func getJSONRecord(_ device:MBTDevice,eegPackets:[MBTEEGPacket],recordInfo:MBTRecordInfo, comments:[String] = [String]() ) -> JSON?  {
      
         // Create the session JSON.
         var jsonObject = JSON()
-        jsonObject["uuidJsonFile"].stringValue = MBTJSONHelper.uuid.uuidString
+        jsonObject["uuidJsonFile"].stringValue = UUID().uuidString
         jsonObject["header"] = device.getJSON(comments)
 
         var jsonRecord = JSON()
@@ -209,20 +214,25 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         (data as NSData).getBytes(&bytesArray, length: count * MemoryLayout<UInt8>.size)
         let currentIndex : Int16 = Int16(bytesArray[0] & 0xff) << 8 | Int16(bytesArray[1] & 0xff)
         
-        if MBTEEGAcquisitionManager.previousIndex == -1 {
-            MBTEEGAcquisitionManager.previousIndex = currentIndex - 1
+        if currentIndex == 0 {
+            previousIndex = 0
         }
         
-        let diff = currentIndex - MBTEEGAcquisitionManager.previousIndex
+        if previousIndex == -1 {
+            previousIndex = currentIndex - 1
+        }
+        
+        
+        let diff:Int32 = (Int32(currentIndex - previousIndex))
 
         if diff != 1 {
-            print("diff is \(diff)")
+            print("#57685 - diff is \(diff)")
         }
-//        print("CurrentIndex : \(currentIndex)")
+//        print("#57685 - CurrentIndex : \(currentIndex)")
         
         // Lost packets management.
         if diff != 1 && diff > 0 {
-            print("lost \(diff) packet(s)")
+            print("#57685 - lost \(diff) packet(s)")
             for _ in 0 ..< diff {
                 for _ in 0 ..< count - 2 {
                     buffByte.append(0xFF)
@@ -235,11 +245,11 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         
 //        for i in 0 ..< bytesArray.count / 2 {
 //            if bytesArray[i * 2] == bytesArray[i * 2 + 1] && bytesArray[i * 2] == 0xFF {
-//                print("Oui")
+//                print("#57685 - Oui")
 //            }
 //        }
         
-        MBTEEGAcquisitionManager.previousIndex = currentIndex
+        previousIndex = currentIndex
         
         let limitBuffCount = eegPacketLength * 2 * 2
         
@@ -248,9 +258,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
             for _ in 0 ... (limitBuffCount - 1)  {
                 byteArray.append(buffByte.removeFirst())
             }
-            DispatchQueue.global(qos: .background).async {
-                self.manageCompleteStreamEEGPacket(self.process(byteArray))
-            }
+            self.manageCompleteStreamEEGPacket(self.process(byteArray))
         }
     }
     

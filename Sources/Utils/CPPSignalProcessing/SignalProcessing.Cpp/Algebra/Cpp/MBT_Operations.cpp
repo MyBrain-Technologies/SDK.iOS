@@ -17,6 +17,8 @@
 //         Fanny Grosselin on 27/03/2017 --> Fix all the warnings (in particular in ShiftVector function).
 //         Fanny Grosselin 2017/05/22 --> Fix the memory leaks because of the creation of an object without deleting it.
 // Update: Katerina Pandremmenou on 19/09/2017 --> Change to explicit type casting from implicit type casting in function ConvCentralPart
+// Update: Fanny Grosselin on 2017/12/01 --> Add a function to compute derivative
+// Update: Fanny Grosselin on 2017/12/06 --> Fix issues about comparison between signed and unsigned integer expressions.
 
 #include <complex>
 #include <iostream>
@@ -27,6 +29,18 @@
 #include <fftw3.h>
 #include "../Headers/MBT_Operations.h"
 #include "../../Transformations/Headers/MBT_Fourier_fftw3.h"
+
+std::vector<double> derivative(std::vector<double> const& input, const int hstep)
+{
+    std::vector<double> D;
+    D.assign(input.size()-1,0.0);
+    for (unsigned int d=0; d<D.size();d++)
+    {
+        D[d] = (input[d+hstep] - input[d])/(double)hstep;
+    }
+
+    return D;
+}
 
 double median(std::vector<double> const& input)
 {

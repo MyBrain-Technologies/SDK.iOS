@@ -234,13 +234,16 @@ vector<double> MBT_OutliersToNan (vector<double> SignalWithOutliers, vector<doub
 
 MBT_Matrix<float> MBT_InterpolateBetweenChannels(MBT_Matrix<float> MatricesToInterpolate)
 {
-    for (unsigned int i = 0 ; i < (unsigned) MatricesToInterpolate.size().second; i++)
-    {
-        if (isnan(MatricesToInterpolate(0,i)) && !isnan(MatricesToInterpolate(1,i)))
-            MatricesToInterpolate(0,i) = MatricesToInterpolate(1,i);
-        else if (!isnan(MatricesToInterpolate(0,i)) && isnan(MatricesToInterpolate(1,i)))
-            MatricesToInterpolate(1,i) = MatricesToInterpolate(0,i);
+    if(MatricesToInterpolate.size().first >= 2){
+        for (unsigned int i = 0 ; i < (unsigned) MatricesToInterpolate.size().second; i++)
+        {
+            if (isnan(MatricesToInterpolate(0,i)) && !isnan(MatricesToInterpolate(1,i)))
+                MatricesToInterpolate(0,i) = MatricesToInterpolate(1,i);
+            else if (!isnan(MatricesToInterpolate(0,i)) && isnan(MatricesToInterpolate(1,i)))
+                MatricesToInterpolate(1,i) = MatricesToInterpolate(0,i);
+        }
     }
+
     return MatricesToInterpolate;
 }
 

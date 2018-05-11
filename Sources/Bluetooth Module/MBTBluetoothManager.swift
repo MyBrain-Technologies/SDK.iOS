@@ -32,6 +32,16 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
+    var isConnectedA2DP:Bool = {
+        let output = AVAudioSession.sharedInstance().currentRoute.outputs.first
+        
+        if let deviceName = DeviceManager.connectedDeviceName {
+            return output?.portName == deviceName && output?.portType == AVAudioSessionPortBluetoothA2DP
+        }
+        
+        return false
+    }()
+    
     var inc = 0
     
     // Time Out Timer
@@ -152,14 +162,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                         //                            try session.setCategory(AVAudioSessionCategoryPlayback,
                         //                                                    with: AVAudioSessionCategoryOptions.allowAirPlay)
                     } catch let error {
-                        print("[MyBrainTechnologiesSDK] Error while setting category for A2DP Bluetooth : \(error.localizedDescription)")
+                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for A2DP Bluetooth : \(error.localizedDescription)")
                     }
                 } else {
                     do {
                         try session.setCategory(AVAudioSessionCategoryPlayback,
                                                 with: AVAudioSessionCategoryOptions.allowBluetooth)
                     } catch let error {
-                        print("[MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
+                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
                     }
                 }
             }
@@ -379,7 +389,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func peripheral(_ peripheral: CBPeripheral,
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
-        let notifiedData = characteristic.value!
+        guard let notifiedData = characteristic.value else {
+            return
+        }
         // Get the device information characteristics UUIDs.
         let characsUUIDS = MBTBluetoothLEHelper.getDeviceInfoCharacteristicsUUIDS()
         
@@ -398,7 +410,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         switch uuidCharacteristic {
         case MBTBluetoothLEHelper.brainActivityMeasurementUUID :
-            DispatchQueue.global(qos: .background).sync {
+            DispatchQueue.main.async {
                 [weak self] in
                 if self?.isListeningToEEG ?? false {
                     //                    print(self?.inc)
@@ -446,7 +458,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     /// Audio A2DP changing route output handler.
     /// - Parameter notif : The *notification* received when audio route output changed.
-    func audioChangedRoute(_ notif:Notification) {
+    @objc func audioChangedRoute(_ notif:Notification) {
         // Get the Reason why the audio route change
         guard let userInfo = notif.userInfo,
             let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,

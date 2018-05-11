@@ -12,7 +12,7 @@
 //          Fanny Grosselin 2017/03/28 --> Create a member function MBT_MainQC::MBT_ComputeQuality() to call the others functions.
 //          Fanny Grosselin 2017/09/05 --> Change the paths
 //          Fanny Grosselin 2017/09/19 --> In MBT_MainQC::MBT_qualityChecker, change the output signal after QualityChecker: keep NaN signal if the quality is 0, or get the original signal (no the interpolated ones).
-
+//          Fanny Grosselin 2018/02/22 --> Add a classifier after the first detection of qualities, in order to distinguish two different types of bad data (bad EEG vs no recorded EEG).
 #ifndef MBT_MAINQC_H
 #define MBT_MAINQC_H
 
@@ -44,7 +44,7 @@ class MBT_MainQC
     public:
         // Constructor
         // Method which computes the quality
-        MBT_MainQC(const float sampRate,MBT_Matrix<float> trainingFeatures, std::vector<float> trainingClasses, std::vector<float> w, std::vector<float> mu, std::vector<float> sigma, unsigned int const& kppv, MBT_Matrix<float> const& costClass, std::vector< std::vector<float> > potTrainingFeatures, std::vector< std::vector<float> > dataClean, std::vector<float> spectrumClean, std::vector<float> cleanItakuraDistance, float accuracy);
+        MBT_MainQC(const float sampRate,MBT_Matrix<float> trainingFeatures, std::vector<float> trainingClasses, std::vector<float> w, std::vector<float> mu, std::vector<float> sigma, unsigned int const& kppv, MBT_Matrix<float> const& costClass, std::vector< std::vector<float> > potTrainingFeatures, std::vector< std::vector<float> > dataClean, std::vector<float> spectrumClean, std::vector<float> cleanItakuraDistance, float accuracy, MBT_Matrix<float> trainingFeaturesBad, std::vector<float> trainingClassesBad, std::vector<float> wBad, std::vector<float> muBad, std::vector<float> sigmaBad, MBT_Matrix<float> const& costClassBad);
 
         // Destructor
         ~MBT_MainQC();
@@ -60,6 +60,12 @@ class MBT_MainQC
         std::vector<float> MBT_get_m_sigma(); // Method which returns m_sigma
         int MBT_get_m_kppv(); // Method which returns m_kppv
         MBT_Matrix<float> MBT_get_m_costClass(); // Method which returns m_costClass
+        MBT_Matrix<float> MBT_get_m_trainingFeaturesBad(); // Method which returns m_trainingFeaturesBad
+        std::vector<float> MBT_get_m_trainingClassesBad(); // Method which returns m_trainingClassesBad
+        std::vector<float> MBT_get_m_wBad(); // Method which returns m_wBad
+        std::vector<float> MBT_get_m_muBad(); // Method which returns m_muBad
+        std::vector<float> MBT_get_m_sigmaBad(); // Method which returns m_sigmaBad
+        MBT_Matrix<float> MBT_get_m_costClassBad(); // Method which returns m_costClassBad
         std::vector< std::vector<float> > MBT_get_m_potTrainingFeatures(); // Method which returns m_potTrainingFeatures
         std::vector< std::vector<float> > MBT_get_m_dataClean(); // Method which returns m_dataClean
         std::vector<float> MBT_get_m_spectrumClean(); // Method which returns m_spectrumClean
@@ -92,12 +98,12 @@ class MBT_MainQC
         float m_sampRate; // the sampling rate
         MBT_Matrix<float> m_trainingFeatures; // array which contains the values of each features for the training dataset
         std::vector<float> m_trainingClasses; // vector which contains the classes of each observation (of the training dataset)
-        std::vector<float> m_w; // vector which contains prior probabilitie for each observation in the training dataset.
-                                 // In general, the prior probabilty for each observation = 1
+        std::vector<float> m_w; // vector which contains prior probabilities for each observation in the training dataset.
+                                 // In general, the prior probability for each observation = 1
         std::vector<float> m_mu; // vector which contains mean of each feature (of the training dataset)
         std::vector<float> m_sigma; // vector which contains standard deviation of each feature (of the training dataset)
         unsigned int m_kppv; // number of nearest neighbors
-        MBT_Matrix<float> m_costClass; // square matrix with y rows and k colomns (number of y = number of k)
+        MBT_Matrix<float> m_costClass; // square matrix with y rows and k columns (number of y = number of k)
                                         // It is the cost of classifying an observation as y when its true class is k.
         std::vector< std::vector<float> > m_potTrainingFeatures; // array which contains the probability of classification (1st colomn), the
                                                   // predicted class (2nd column) and the (non-normalized) features (3 to m+3th columns)
@@ -110,6 +116,14 @@ class MBT_MainQC
         std::vector<float> m_cleanItakuraDistance; // which contains Itakura distances between each "clean" observations (quality = 1)
                                                     // and the averaged spectrum of "clean" observations (quality = 1).
         float m_accuracy; // Performance of the classification with the stored Training set (after 10-fold cross validation)
+        MBT_Matrix<float> m_trainingFeaturesBad; // array which contains the values of each features for the training dataset of bad data
+        std::vector<float> m_trainingClassesBad; // vector which contains the classes of each observation (of the training dataset of bad data)
+        std::vector<float> m_wBad; // vector which contains prior probabilities for each observation in the training dataset of bad data.
+                                 // In general, the prior probability for each observation = 1
+        std::vector<float> m_muBad; // vector which contains mean of each feature (of the training dataset of bad data)
+        std::vector<float> m_sigmaBad; // vector which contains standard deviation of each feature (of the training dataset of bad data)
+        MBT_Matrix<float> m_costClassBad; // square matrix with y rows and k columns (number of y = number of k) for the training set of bad data.
+                                        // It is the cost of classifying an observation as y when its true class is k.
         MBT_Matrix<float> m_inputData; // array which contains the EEG values of each observation.
 
         MBT_Matrix<float> m_testFeatures; // array which contains the values of each feature for the test dataset

@@ -13,89 +13,110 @@
 //                                               interpolate the nan values between the channels, interpolate each channel across itself,
 //                                               remove possible remaining nan values in the beginning or the end of an MBT_Matrix.
 //                                               Change all implicit type castings to explicit ones
-//          Katerina Pandremmenou 2017/09/28 --> Put all the block with outliers to nan, interpolatation between and across channels, 
+//          Katerina Pandremmenou 2017/09/28 --> Put all the block with outliers to nan, interpolatation between and across channels,
 //                                               in the case where the calibration is good.
 //                                           --> Put outliers of BOTH channels to NaN. Put in comments the function for ignoring remaining nan values. (This is done in MBT_ComputeSNR file).
+//          Fanny Grosselin 2017/10/10 --> Remove the preprocessing of the outliers because it will be done in MBT_ComputeSNR.
+//          Fanny Grosselin 2017/10/16 --> Compute SNR on the other channel each time we have 4 consecutive seconds with a quality of 0 in the best channel.
+//          Fanny Grosselin 2017/12/05 --> Add histFreq (the vector containing the previous frequencies) in input.
+//          Fanny Grosselin 2017/12/14 --> Set in input error messages instead of a dictionnary of parameters from calibration.
+//          Fanny Grosselin 2017/12/14 --> Change the code to compute SNR from both channels.
+//          Fanny Grosselin 2017/12/22 --> Add raw SNR values in the map holding parameters of the session.
+//          Fanny Grosselin 2017/12/22 --> Put all the keys of maps in camelcase.
+//          Fanny Grosselin 2018/01/24 --> Optimize the way we use histFreq.
+
+//          Etienne GARIN   2018/01/26 --> Fixed input and output as map is no longer required here
 
 #include "../Headers/MBT_ComputeRelaxIndex.h"
 
-float MBT_ComputeRelaxIndex(MBT_Matrix<float> sessionPacket, std::map<std::string, std::vector<float> > parametersFromCalibration, const float sampRate, const float IAFinf, const float IAFsup)
+float MBT_ComputeRelaxIndex(MBT_Matrix<float> sessionPacket, std::vector<float>errorMsg, const float sampRate, double IAFinf, double IAFsup, std::vector<float> &histFreq)
 {
-    // Get BestChannel from the calibration
-    std::vector<float> bestChannelVector = parametersFromCalibration["BestChannel"];
-    std::vector<float> tmp_Bounds = parametersFromCalibration["Bounds_For_Outliers"]; // Fanny Grosselin 2017/02/03
-    std::vector<double> Bounds(tmp_Bounds.begin(), tmp_Bounds.end());
-    std::vector<double> BoundsPerChan;
-
-    int bestChannel = (int) round(bestChannelVector[0]);
-
-    double relaxIndex;
-    
-    if ((sessionPacket.size().first>0) & (sessionPacket.size().second>0) & (bestChannel != -2) & (bestChannel != -1))
+    MBT_Matrix<double> sessionPacketdouble(sessionPacket.size().first,sessionPacket.size().second);
+    for (int sample = 0; sample < sessionPacket.size().second; sample++)
     {
-        for (int r1 = 0 ; r1 < sessionPacket.size().first; r1++)
+        for (int ch = 0;ch < sessionPacket.size().first; ch++)
         {
-            vector<float> NewsessionPacket = sessionPacket.row(r1);
-            vector<double> CopysessionPacket(NewsessionPacket.begin(), NewsessionPacket.end());
-    
-            // set the outliers to NaN based on the bounds found from calibration
-            // bounds for the specific channel
-            BoundsPerChan.push_back(Bounds[2*r1]);
-            BoundsPerChan.push_back(Bounds[2*r1+1]);
-
-            vector<double> InterpolatedsessionPacket = MBT_OutliersToNan(CopysessionPacket, BoundsPerChan);
-            for (unsigned int t = 0 ; t < InterpolatedsessionPacket.size(); t++)
-                sessionPacket(r1,t) = (float) InterpolatedsessionPacket[t];
+                sessionPacketdouble(ch,sample) = (double) sessionPacket(ch,sample);
         }
-    
-        // interpolate the nan values between the channels
-        MBT_Matrix<float> InterpolatedsessionPacket = MBT_InterpolateBetweenChannels(sessionPacket);
-        // interpolate the nan values across each channel
-        MBT_Matrix<float> InterpolatedAcrossChannelssessionPackets = MBT_InterpolateAcrossChannels(InterpolatedsessionPacket);
-        // remove the nan if there still exist in the beginning or the end of the MBT_Matrix
-        //MBT_Matrix<float> DataWithoutNaN = RemoveNaNIfAny(InterpolatedAcrossChannelssessionPackets);
-    
-        // Get  SNR vector from the calibration
-        //std::vector<double> SNRCalib = parametersFromCalibration["SNRCalib_ofBestChannel"];
-        MBT_Matrix<double> packetBestChannel(1,InterpolatedAcrossChannelssessionPackets.size().second);
-        for (int sample = 0; sample < InterpolatedAcrossChannelssessionPackets.size().second; sample++)
+    }
+
+
+
+    std::map<std::string, std::vector<float> > sessionParameters;
+
+    //std::vector<float> SNRSession;
+    float snr = 0;
+
+    if ((sessionPacket.size().first>0) & (sessionPacket.size().second>0) & (errorMsg[0] != -2) & (errorMsg[0] != -1))
+    {
+        // Compute SNR
+        std::map<std::string, std::vector<double> >  computeSNRSession = MBT_ComputeSNR(sessionPacketdouble, double(sampRate), IAFinf, IAFsup, histFreq); // there is only one value but this is a vector
+        std::vector<double> SNRSessionPacket = computeSNRSession["snr"];
+        std::vector<double> qualitySNR = computeSNRSession["qualitySnr"];
+
+
+        // Combine SNR from both channel, according to the quality of the alpha peak:
+        // compute general SNR from both channel, derived by qualitySNR of both
+        // channel and the SNRSessionPacket of both channel
+        // WARNING : THIS CODE IS CORRECT ONLY IF 2 CHANNELS !!!!!!!
+        // -------------------------------------------------------------------
+        std::vector<int> QFNaN;
+        std::vector<int> goodPeak;
+        double sumQf = 0.0;
+        for (unsigned int cq = 0; cq<qualitySNR.size(); cq++)
         {
-            packetBestChannel(0,sample) = nan(" ");
-            if (!std::isnan(InterpolatedAcrossChannelssessionPackets(bestChannel,sample)))
+            if (std::isnan(qualitySNR[cq]))
             {
-                packetBestChannel(0,sample) = InterpolatedAcrossChannelssessionPackets(bestChannel,sample);
+                QFNaN.push_back(cq);
+            }
+            else
+            {
+                sumQf = sumQf + qualitySNR[cq];
+            }
+            if (SNRSessionPacket[cq]>1) // find what are the channels with SNR>1
+            {
+                goodPeak.push_back(cq);
             }
         }
-
-        std::vector<double> SNRSession;
-
-        std::vector<double> packetBestChannelVector = packetBestChannel.row(0); // get the vector inside the matrix to test if all the element are NaN
-        if (std::all_of(packetBestChannelVector.begin(), packetBestChannelVector.end(), [](double testNaN){return std::isnan(testNaN);}) )
+        if (!QFNaN.empty()) // if at least one channel has qualitySNR=NaN (nb peaks = 0 or >1), we don't weight the average of SNR
         {
-            SNRSession.push_back(nan(" "));
+            if (goodPeak.empty()) // if all channels have SNR=1 (no peak in both channels)
+            {
+                // we average the SNR of both channel: = (1+1)/2 = 1
+                //SNRSession.push_back((float)1.0);
+                snr = 1.0f;
+            }
+            else if ((!goodPeak.empty()) && (goodPeak.size()==1)) // if one channel has SNR>1 (no peak in 1 channel and 1 dominant peak in the other channel)
+            {
+                // we keep the SNR value of this channel
+                //SNRSession.push_back((float)SNRSessionPacket[goodPeak[0]]);
+                snr = (float)SNRSessionPacket[goodPeak[0]];
+            }
+            else if ((!goodPeak.empty()) && (goodPeak.size()==2)) // if both channel has SNR>1 (1 dominant peak in both channels)
+            {
+                // we average the SNR values of both channels
+                double tmp_s = (SNRSessionPacket[goodPeak[0]] + SNRSessionPacket[goodPeak[1]])/2;
+                //SNRSession.push_back((float)tmp_s);
+                snr = (float) tmp_s;
+            }
         }
-        else
+        else // both channels have QFNaN~=NaN (1 dominant peak in each channel)
         {
-            // Compute SNR
-            SNRSession = MBT_ComputeSNR(packetBestChannel, double(sampRate), double(IAFinf), double(IAFsup)); // there is only one value but this is a vector
-        }
+            // we weight the SNR of each channel by its QFNaN
+            double tmp_s = SNRSessionPacket[0]*(qualitySNR[0]/sumQf) + SNRSessionPacket[1]*(qualitySNR[1]/sumQf);
+            //SNRSession.push_back((float)tmp_s);
+            snr = (float) tmp_s;
 
-        // Normalize SNR
-        /*double meanSNRCalib = mean(SNRCalib);
-        double stdSNRCalib = standardDeviation(SNRCalib);
-        relaxIndex = SNRSession[0] - meanSNRCalib;
-        if (stdSNRCalib != 0)
-        {
-            relaxIndex = relaxIndex/stdSNRCalib;
-        }*/
-        relaxIndex = SNRSession[0];
+        }
     }
     else
     {
         // Store values to be handled in case of problem into MBT_ComputeRelaxIndex
-        relaxIndex = std::numeric_limits<double>::infinity();
+        //SNRSession.push_back(std::numeric_limits<float>::infinity());
+        snr = std::numeric_limits<float>::infinity();
         errno = EINVAL;
         perror("ERROR: MBT_COMPUTERELAXINDEX CANNOT PROCESS WITHOUT GOOD INPUTS");
     }
-    return (float) relaxIndex;
+    //return sessionParameters;
+    return snr;
 }

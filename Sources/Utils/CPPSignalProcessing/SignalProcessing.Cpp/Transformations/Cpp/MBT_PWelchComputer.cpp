@@ -24,57 +24,61 @@
 //          Fanny Grosselin 2017/03/27 --> Fix all the warnings (in particular in MBT_PWelchComputer::computeWindow).
 //          Fanny Grosselin 2017/05/22 --> Fix the memory leaks because of the creation of an object without deleting it.
 //          Fanny Grosselin 2017/07/19 --> Change the way we complete each window by some zeros.
-//          Katerina Pandremmenou 2017/09/19 --> Change all implicit type castings to explicit ones
+//          Katerina Pandremmenou 2017/09/19 --> Change all implicit type castings to explicit ones.
+//          Fanny Grosselin 2017/11/30 --> Add some parameters (the length of the window, the overlap and the length of zero-padding) in input.
 
 #include "../Headers/MBT_PWelchComputer.h"
 
 void MBT_PWelchComputer::computePSD()
 {
-    const int signalLength = m_inputData.size().second;
 
     // ~~~ I. compute FFT on overlapped/windowed data ~~~
-
-    // Get windowing size
-    const int windowNumber = m_nbrWindows;
-    const double tempWindowLength = signalLength / (windowNumber * (1 - m_overlap) + m_overlap);
-    const int windowLength = (int) floor(tempWindowLength);
-
     std::vector<MBT_Matrix<double> > segmentedSignal;
-    segmentedSignal.assign(m_nbChannel, MBT_Matrix<double>(windowNumber, windowLength));
-    // Padding to maximum between 256 and power of two
-    int tmp_powerOfTwoLength = (int) pow(2, ceil(log(2 * windowLength - 1)/log(2))); // Fanny Grosselin 2017/01/17
-    int powerOfTwoLength = std::max(256,tmp_powerOfTwoLength); // Fanny Grosselin 2017/01/17
+    segmentedSignal.assign(m_nbChannel, MBT_Matrix<double>(m_nbrWindows, m_windowLength));
+
+    // Padding to maximum between 256 and power of two or by the predefined length chosen by the user
+    int powerOfTwoLength = 0;
+    if (m_zeropadding==0)
+    {
+        int tmp_powerOfTwoLength = (int) pow(2, ceil(log(2 * m_windowLength - 1)/log(2))); // Fanny Grosselin 2017/01/17
+        powerOfTwoLength = std::max(256,tmp_powerOfTwoLength); // Fanny Grosselin 2017/01/17
+    }
+    else
+    {
+        int tmp_powerOfTwoLength = (int) pow(2, ceil(log(2 * m_zeropadding - 1)/log(2))); // Fanny Grosselin 2017/01/17
+        powerOfTwoLength = std::max(256,tmp_powerOfTwoLength); // Fanny Grosselin 2017/01/17
+    }
 
     std::vector<MBT_Matrix<std::complex<double> > > complexSignal;
-    //complexSignal.assign(m_nbChannel, MBT_Matrix<std::complex<double> >(windowNumber, windowLength));
-    complexSignal.assign(m_nbChannel, MBT_Matrix<std::complex<double> >(windowNumber, powerOfTwoLength)); // Fanny Grosselin 2017/01/17
+    //complexSignal.assign(m_nbChannel, MBT_Matrix<std::complex<double> >(m_nbrWindows, m_windowLength));
+    complexSignal.assign(m_nbChannel, MBT_Matrix<std::complex<double> >(m_nbrWindows, powerOfTwoLength)); // Fanny Grosselin 2017/01/17
 
     std::vector<double> WindowSignal; // Fanny Grosselin 2017/01/17
-    WindowSignal.assign(windowLength,0); // Fanny Grosselin 2017/01/17
+    WindowSignal.assign(m_windowLength,0); // Fanny Grosselin 2017/01/17
     // Fanny Grosselin 2017/01/17
     double U = 0;
-    for (int i = 0; i < windowLength; i++)
+    for (int i = 0; i < m_windowLength; i++)
     {
-        WindowSignal[i] = computeWindow(windowLength, i);
+        WindowSignal[i] = computeWindow(m_windowLength, i);
         U = U + WindowSignal[i]*WindowSignal[i]; // compute the power of the window
     }
 
     //Cut the input data into m_nbrWindow segments
     for (int channel = 0; channel < m_nbChannel; channel++)
     {
-        for (int window = 0; window < windowNumber; window++)
+        for (int window = 0; window < m_nbrWindows; window++)
         {
-            const int starting_index = (int) floor(window * windowLength * (1.0 - m_overlap));
+            const int starting_index = (int) floor(window * m_windowLength * (1.0 - m_overlap));
 
-            for (int i = 0; i < windowLength; i++)
+            for (int i = 0; i < m_windowLength; i++)
             {
                 segmentedSignal[channel](window, i) = m_inputData(channel, starting_index + i);
-                //complexSignal[channel](window, i) = segmentedSignal[channel](window, i) * computeWindow(windowLength, window);
-                complexSignal[channel](window, i) = segmentedSignal[channel](window, i) * computeWindow(windowLength, i); // Fanny Grosselin 2017/01/12 because "n" of computeWindow should be in [0:windowLength-1];
+                //complexSignal[channel](window, i) = segmentedSignal[channel](window, i) * computeWindow(m_windowLength, window);
+                complexSignal[channel](window, i) = segmentedSignal[channel](window, i) * computeWindow(m_windowLength, i); // Fanny Grosselin 2017/01/12 because "n" of computeWindow should be in [0:windowLength-1];
             }
             // Fanny Grosselin 2017/01/17
-            //for (int i = powerOfTwoLength - windowLength + 1; i < powerOfTwoLength; i++)
-            for (int i = windowLength; i < powerOfTwoLength; i++) // Fanny Grosselin 2017/07/19
+            //for (int i = powerOfTwoLength - m_windowLength + 1; i < powerOfTwoLength; i++)
+            for (int i = m_windowLength; i < powerOfTwoLength; i++) // Fanny Grosselin 2017/07/19
             {
                 complexSignal[channel](window, i) = 0;
             }
@@ -82,7 +86,7 @@ void MBT_PWelchComputer::computePSD()
     }
 
     // compute FFT in place
-    for (int window = 0; window < windowNumber; window++)
+    for (int window = 0; window < m_nbrWindows; window++)
     {
         for (int channel = 0; channel < m_nbChannel; channel++)
         {
@@ -103,13 +107,13 @@ void MBT_PWelchComputer::computePSD()
     }
 
     // ~~~ II. compute PSD ~~~
-    //m_psd = MBT_Matrix<double>(m_nbChannel + 1, windowLength); //Freq, Pchannel1, Pchannel2...
+    //m_psd = MBT_Matrix<double>(m_nbChannel + 1, m_windowLength); //Freq, Pchannel1, Pchannel2...
     m_psd = MBT_Matrix<double>(m_nbChannel + 1, powerOfTwoLength); //Freq, Pchannel1, Pchannel2... // Fanny Grosselin 2017/01/17
 
-    //for (int i = 0; i < windowLength; i++)
+    //for (int i = 0; i < m_windowLength; i++)
     for (int i = 0; i < powerOfTwoLength; i++) // Fanny Grosselin 2017/01/17
     {
-        //m_psd(0, i) = (double)(i) * (m_sampRate / windowLength);
+        //m_psd(0, i) = (double)(i) * (m_sampRate / m_windowLength);
         m_psd(0, i) = (double)(i) * (m_sampRate / powerOfTwoLength); // Fanny Grosselin 2017/01/17
 
 
@@ -117,15 +121,15 @@ void MBT_PWelchComputer::computePSD()
         {
             m_psd(channel, i) = 0;
 
-            for (int window = 0; window < windowNumber; window++)
+            for (int window = 0; window < m_nbrWindows; window++)
             {
                 //m_psd(channel, i) += pow(std::abs(complexSignal[channel - 1](window, i)), 2.0);
                 m_psd(channel, i) += (pow(std::abs(complexSignal[channel - 1](window, i)), 2.0))/U; // Fanny Grosselin 2017/01/17 // Compensate for the power of the window
             }
 
             // Average the sum of the periodograms
-            //m_psd(channel, i) = 10 * log10(m_psd(channel, i) / windowNumber);
-            m_psd(channel, i) = (m_psd(channel, i) / windowNumber);// Fanny Grosselin 2016/08/26
+            //m_psd(channel, i) = 10 * log10(m_psd(channel, i) / m_nbrWindows);
+            m_psd(channel, i) = (m_psd(channel, i) / m_nbrWindows);// Fanny Grosselin 2016/08/26
         }
     }
 
@@ -232,6 +236,12 @@ double MBT_PWelchComputer::computeWindow(int windowLength, int n) const
 
 MBT_PWelchComputer::MBT_PWelchComputer(MBT_Matrix<double> const& inputData, const double sampRate, std::string windowType)
 {
+    const int signalLength = inputData.size().second;
+
+    // Get windowing size
+    const double tempWindowLength = signalLength / (m_nbrWindows * (1 - m_overlap) + m_overlap);
+    m_windowLength = (int) floor(tempWindowLength);
+
     //Initialize input parameters.
     m_sampRate = sampRate;
     if (windowType == "RECT")
@@ -257,6 +267,40 @@ MBT_PWelchComputer::MBT_PWelchComputer(MBT_Matrix<double> const& inputData, cons
     computePSD();
 }
 
+MBT_PWelchComputer::MBT_PWelchComputer(MBT_Matrix<double> const& inputData, const double sampRate, std::string windowType, const int windowLength, const double overlapLength, const int zeropaddingLength)
+{
+    const int signalLength = inputData.size().second;
+
+    // Get windowing size
+    m_zeropadding = zeropaddingLength;
+    m_windowLength = windowLength;
+    m_overlap = overlapLength/(double)windowLength;
+    m_nbrWindows = (int) floor(((signalLength/m_windowLength)-m_overlap)/(1-m_overlap));
+
+    //Initialize input parameters.
+    m_sampRate = sampRate;
+    if (windowType == "RECT")
+    {
+        m_windowType = RECT;
+    }
+    else if (windowType == "HANN")
+    {
+        m_windowType = HANN;
+    }
+    else if (windowType == "HAMMING")
+    {
+        m_windowType = HAMMING;
+    }
+    else
+    {
+        std::cerr << "WARNING: UNKNOWN WINDOW TYPE, USING DEFAULT" << std::endl;
+    }
+    m_inputData = inputData;
+    m_nbChannel = m_inputData.size().first;
+
+    //Compute the PSD
+    computePSD();
+}
 
 MBT_PWelchComputer::~MBT_PWelchComputer()
 {

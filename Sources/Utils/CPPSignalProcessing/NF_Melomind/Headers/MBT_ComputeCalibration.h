@@ -7,6 +7,9 @@
 //
 //  Update: Fanny Grosselin : 2017/02/03 Add in inputs and for MBT_ComputeSNR, the Bounds to detect the outliers of the signal.
 //          Fanny Grosselin : 2017/09/05 Change the pathes.
+//          Fanny Grosselin : 2017/10/10 Remove the Bounds from the inputs of MBT_ComputeCalibration and from CalibrationParameters.
+//          Fanny Grosselin : 2017/12/05 Add histFreq (the vector containing the previous frequencies) in input.
+//          Fanny Grosselin : 2017/12/06 Set in output a dictionnary.
 
 #ifndef MBT_COMPUTECALIBRATION_H_INCLUDED
 #define MBT_COMPUTECALIBRATION_H_INCLUDED
@@ -35,12 +38,12 @@
  * @param packetLength The number of data points in a packet.
  * @param IAFinf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
  * @param IAFsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
- * @param Bounds A MBT_Matrix of float which holds the thresholds (low and up) to detect the outliers of each channel of the signal. Number of row = number of channel.
+ * @param histFreq Vector containing the previous frequencies.
  * @return A dictionnary with the value for the various parameters.
  * @todo Use an enum for the output parameters?
  * @warning Works with any number of channels, but only keeps the best channel.
  */
-std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup, MBT_Matrix<float> Bounds);
+std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup);
 
 
 #endif // MBT_COMPUTECALIBRATION_H_INCLUDED

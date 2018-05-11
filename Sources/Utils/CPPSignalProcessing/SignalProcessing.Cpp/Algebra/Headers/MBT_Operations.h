@@ -12,6 +12,8 @@
 //          b) Change on the protocol for the naive convolution method
 //  Updated: Fanny Grosselin on 23/03/2017 --> Change float by double
 //  Updated: Katerina Pandremmenou on 28/04/2017 --> Inclusion of the function "sort_indexes"
+//  Updated: Katerina Pandremmenou on 08/11/2017 --> Change the type of the vector in function sort_indexes (<size_t>) and add a library
+//  Update: Fanny Grosselin on 2017/12/01 --> Add a function to compute derivative
 
 #ifndef __MBT_iOS__MBT_Operations__
 #define __MBT_iOS__MBT_Operations__
@@ -30,6 +32,14 @@ typedef complex <float> ComplexFloat;
 typedef vector <ComplexFloat> CFVector;
 typedef complex <double> ComplexDouble;
 typedef vector <ComplexDouble> CDVector;
+
+/*
+ * @brief Compute the derivative of a vector of double with a step of hstep.
+ * @param The input vector of double.
+ * @param The input integer hstep.
+ * @return The derivative vector.
+ */
+std::vector<double> derivative(std::vector<double> const& input, const int hstep);
 
 /*
  * @brief Compute the median of a vector of double.
@@ -135,15 +145,15 @@ MBT_Matrix<double> mergeArrays(MBT_Matrix<double> contourc, MBT_Matrix<double> t
 
 // this function is used to find the order of the indexes after having sorted the values
 template <typename T>
-vector<unsigned long> sort_indexes(const vector<T> &v)
+vector<size_t> sort_indexes(const vector<T> &v)
 {
   // initialize original index locations
-  vector<unsigned long> idx(v.size());
+  vector<size_t> idx(v.size());
   iota(idx.begin(), idx.end(), 0);
 
   // sort indexes based on comparing values in v
   sort(idx.begin(), idx.end(),
-       [&v](T i1, T i2) {return v[i1] < v[i2];});
+       [&v](size_t i1, size_t i2) {return v[i1] < v[i2];});
 
   return idx;
 }

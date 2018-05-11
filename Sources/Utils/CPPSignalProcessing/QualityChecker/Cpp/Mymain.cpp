@@ -26,8 +26,8 @@ int main()
     //MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_BrainAmp.txt");
     //MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data480trainingQC.txt");
     //MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data420trainingQC.txt");
-    //MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data630GuidedtrainingQC.txt");
-    MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data570UnguidedtrainingQC.txt");
+    //MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data420UnguidedtrainingQC.txt");
+    MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data570UnguidedtrainingQCNEW4.txt");
     //MBT_Matrix<float> trainingFeatures = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data900trainingQC.txt");
 
     // Construction de trainingClasses
@@ -35,8 +35,8 @@ int main()
     //std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses_BrainAmp.txt");
     //std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses _Data480trainingQC.txt");
     //std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses_Data420trainingQC.txt");
-    //std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses_Data630GuidedtrainingQC.txt");
-    std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses _Data570UnguidedtrainingQC.txt");
+    //std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses_Data420UnguidedtrainingQC.txt");
+    std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses _Data570UnguidedtrainingQCNEW4.txt");
     //std::vector<std::complex<float> > tmp_trainingClasses = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses _Data900trainingQC.txt");
     std::vector<float> trainingClasses;
     trainingClasses.assign(tmp_trainingClasses.size(),0);
@@ -49,9 +49,9 @@ int main()
     //std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/w.txt");
     //std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_BrainAmp.txt");
     //std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data480trainingQC.txt");
+    //std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data420UnguidedtrainingQC.txt");
     //std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data420trainingQC.txt");
-    //std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data630GuidedtrainingQC.txt");
-    std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data570UnguidedtrainingQC.txt");
+    std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data570UnguidedtrainingQCNEW4.txt");
     //std::vector<std::complex<float> > tmp_w = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data900trainingQC.txt");
     std::vector<float> w;
     w.assign(tmp_w.size(),0);
@@ -65,8 +65,8 @@ int main()
     //std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_BrainAmp.txt");
     //std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data480trainingQC.txt");
     //std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data420trainingQC.txt");
-    //std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data630GuidedtrainingQC.txt");
-    std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data570UnguidedtrainingQC.txt");
+    //std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data420UnguidedtrainingQC.txt");
+    std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data570UnguidedtrainingQCNEW4.txt");
     //std::vector<std::complex<float> > tmp_mu = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data900trainingQC.txt");
     std::vector<float> mu;
     mu.assign(tmp_mu.size(),0);
@@ -80,8 +80,8 @@ int main()
     //std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_BrainAmp.txt");
     //std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data480trainingQC.txt");
     //std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data420trainingQC.txt");
-    //std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data630GuidedtrainingQC.txt");
-    std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data570UnguidedtrainingQC.txt");
+    //std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data420UnguidedtrainingQC.txt");
+    std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data570UnguidedtrainingQCNEW4.txt");
     //std::vector<std::complex<float> > tmp_sigma = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data900trainingQC.txt");
     std::vector<float> sigma;
     sigma.assign(tmp_sigma.size(),0);
@@ -91,7 +91,7 @@ int main()
     }
 
     // Construction de kppv
-    unsigned int kppv = 10;
+    unsigned int kppv = 19;
 
     // Construction de costClass
     MBT_Matrix<float> costClass(3,3);
@@ -117,7 +117,8 @@ int main()
     std::vector< std::vector<float> > dataClean;
 
     // Construction de spectrumClean
-    std::vector<std::complex<float> > tmp_spectrumClean = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/spectrumClean.txt");
+//    std::vector<std::complex<float> > tmp_spectrumClean = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/spectrumClean.txt");
+    std::vector<std::complex<float> > tmp_spectrumClean = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/spectrumClean_Data570UnguidedtrainingQCNEW4.txt");
     std::vector<float> spectrumClean;
     spectrumClean.assign(tmp_spectrumClean.size(),0);
     for (unsigned int t=0;t<tmp_spectrumClean.size();t++)
@@ -126,7 +127,8 @@ int main()
     }
 
     // Construction de cleanItakuraDistance
-    std::vector<std::complex<float> > tmp_cleanItakuraDistance = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/cleanItakuraDistance.txt");
+//    std::vector<std::complex<float> > tmp_cleanItakuraDistance = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/cleanItakuraDistance.txt");
+    std::vector<std::complex<float> > tmp_cleanItakuraDistance = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt");
     std::vector<float> cleanItakuraDistance;
     cleanItakuraDistance.assign(tmp_cleanItakuraDistance.size(),0);
     for (unsigned int t=0;t<tmp_cleanItakuraDistance.size();t++)
@@ -138,22 +140,94 @@ int main()
     // Construction de accuracy
     float accuracy = (float)0.85;
 
+
+
+
+
+    // ###############################
+    // # TRAINING DETECTION BAD DATA #
+    // ###############################
+    // Construction de trainingFeaturesBad
+    MBT_Matrix<float> trainingFeaturesBad = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingFeatures_Data300BadQCNEW4.txt");
+
+    // Construction de trainingClassesBad
+    std::vector<std::complex<float> > tmp_trainingClassesBad = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingClasses _Data300BadQCNEW4.txt");
+    std::vector<float> trainingClassesBad;
+    trainingClassesBad.assign(tmp_trainingClassesBad.size(),0);
+    for (unsigned int t=0;t<tmp_trainingClassesBad.size();t++)
+    {
+        trainingClassesBad[t] = tmp_trainingClassesBad[t].real();
+    }
+
+    // Construction de wBad
+    std::vector<std::complex<float> > tmp_wBad = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingW_Data300BadQCNEW4.txt");
+    std::vector<float> wBad;
+    wBad.assign(tmp_wBad.size(),0);
+    for (unsigned int t=0;t<tmp_wBad.size();t++)
+    {
+        wBad[t] = tmp_wBad[t].real();
+    }
+
+    // Construction de muBad
+    std::vector<std::complex<float> > tmp_muBad = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingMu_Data300BadQCNEW4.txt");
+    std::vector<float> muBad;
+    muBad.assign(tmp_muBad.size(),0);
+    for (unsigned int t=0;t<tmp_muBad.size();t++)
+    {
+        muBad[t] = tmp_muBad[t].real();
+    }
+
+    // Construction de sigmaBad
+    std::vector<std::complex<float> > tmp_sigmaBad = MBT_readVector("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingSigma_Data300BadQCNEW4.txt");
+    std::vector<float> sigmaBad;
+    sigmaBad.assign(tmp_sigmaBad.size(),0);
+    for (unsigned int t=0;t<tmp_sigmaBad.size();t++)
+    {
+        sigmaBad[t] = tmp_sigmaBad[t].real();
+    }
+
+    // Construction de costClassBad
+    MBT_Matrix<float> costClassBad(2,2);
+    for (int t=0;t<costClassBad.size().first;t++)
+    {
+        for (int t1=0;t1<costClassBad.size().second;t1++)
+        {
+            if (t == t1)
+            {
+                costClassBad(t,t1) = 0;
+            }
+            else
+            {
+                costClassBad(t,t1) = 1;
+            }
+        }
+    }
+
+
+
+
+
+
     // Construction de inputData
     //MBT_Matrix<float> inputData = MBT_readMatrix("inputData.txt");
     //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData2.txt");
     //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/trainingInputData_BrainAmpVolt.txt");
     //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/testBad_MM_NOEL_KEV2_P3.txt");
     //MBT_Matrix<float> inputData = MBT_readMatrix("inputData3.txt");
-    //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData150TestingQC.txt");
+    //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData422MMHeadsetOnTable.txt");
     //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData150TestingQCbis.txt");
     //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputDataTestChangeQC19092017.txt");
-    MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData630GuidedTestingQC.txt");
+//    MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData_1200RSEC_BrainAmpTesting.txt");
     //MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData300TestingQC.txt");
+//    MBT_Matrix<float> inputData = MBT_readMatrix("../Data/testEEG.txt"); // for the call from Matlab
+//    MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/inputData570UnguidedTestingQC.txt");
+    MBT_Matrix<float> inputData = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Files/toRemove.txt");
+
 
 
     clock_t msecs;
     msecs = clock();
-    MBT_MainQC mainQC(sampRate,trainingFeatures,trainingClasses,w,mu,sigma,kppv,costClass,potTrainingFeatures,dataClean,spectrumClean,cleanItakuraDistance,accuracy);
+    MBT_MainQC mainQC(sampRate,trainingFeatures,trainingClasses,w,mu,sigma,kppv,costClass,potTrainingFeatures,dataClean,spectrumClean,cleanItakuraDistance,accuracy,trainingFeaturesBad,trainingClassesBad,wBad,muBad,sigmaBad,costClassBad);
     mainQC.MBT_ComputeQuality(inputData);
     std::cout << "Execution time of the quality checker = "<< ((float((clock()-msecs))) / CLOCKS_PER_SEC) << std::endl;
 
@@ -167,35 +241,36 @@ int main()
     //MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality2_Cplusplus.txt");
     //MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality_MM_NOEL_KEV2_P3.txt");
     //MBT_writeVector(quality_Cplusplus, "quality3_Cplusplus.txt");
-    //MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality_Data150TestingQC.txt");
+    //MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality_Data422MMHeadsetOnTable.txt");
     //MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality_Data150TestingQCbis.txt");
     //MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality_AfterChangeQC19092017.txt");
-    MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality_Data630GuidedTestingQC.txt");
+//    MBT_writeVector(quality_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/quality_Data_1200RSEC_BrainAmpTesting.txt");
+    MBT_writeVector(quality_Cplusplus, "../Results/qualityTesting.txt");// for the call from Matlab
 
     MBT_Matrix<float> outputData_Cplusplus = mainQC.MBT_get_m_inputData();
     //MBT_writeMatrix (outputData_Cplusplus, "outputData_Cplusplus.txt");
     //MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData2_Cplusplus.txt");
     //MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData_MM_NOEL_KEV2_P3.txt");
     //MBT_writeMatrix (outputData_Cplusplus, "outputData3_Cplusplus.txt");
-    //MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData_Data150TestingQC.txt");
+    //MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData_Data422MMHeadsetOnTable.txt");
     //MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData_Data150TestingQCbis.txt");
     //MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData_AfterChangeQC19092017.txt");
-    MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData_Data630GuidedTestingQC.txt");
+    /*MBT_writeMatrix (outputData_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/outputData_Data630GuidedTestingQC.txt");
 
     std::vector<float> tmp_probaClass_Cplusplus = mainQC.MBT_get_m_probaClass();
     std::vector<std::complex<float> > probaClass_Cplusplus;
     for (unsigned int ki=0;ki<tmp_probaClass_Cplusplus.size();ki++)
     {
         probaClass_Cplusplus.push_back(std::complex<float>(tmp_probaClass_Cplusplus[ki], 0));
-    }
+    }*/
     //MBT_writeVector(probaClass_Cplusplus, "probaClass_Cplusplus.txt");
     //MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass2_Cplusplus.txt");
     //MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass_MM_NOEL_KEV2_P3.txt");
     //MBT_writeVector(probaClass_Cplusplus, "probaClass3_Cplusplus.txt");
-    //MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass_Data150TestingQC.txt");
+    //MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass_Data422MMHeadsetOnTable.txt");
     //MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass_Data150TestingQCbis.txt");
     //MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass_AfterChangeQC19092017.txt");
-    MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass_Data630GuidedTestingQC.txt");
+    //MBT_writeVector(probaClass_Cplusplus, "C:/Users/Fanny/Documents/Melomind.Algorithms/QualityChecker/Results/probaClass_Data630GuidedTestingQC.txt");
 
 
     MBT_Matrix<float> Copy_testFeatures = mainQC.MBT_get_m_testFeatures();
