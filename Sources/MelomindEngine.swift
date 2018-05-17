@@ -148,11 +148,11 @@ public class MelomindEngine {
 //    
     /// Getter Names of all regitered devices
     /// - Returns: A *[String]* instance of array of deviceName
-    public func getRegisteredDevices() -> [String]{
-        var tabDeviceName = [String]()
+    public func getRegisteredDevices() -> [MBTDevice]{
+        var tabDeviceName = [MBTDevice]()
         
         for device in DeviceManager.getRegisteredDevices() {
-            tabDeviceName.append(device.deviceName)
+            tabDeviceName.append(device)
         }
         
         return tabDeviceName

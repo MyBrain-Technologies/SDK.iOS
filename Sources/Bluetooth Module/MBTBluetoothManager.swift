@@ -98,10 +98,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
         
-//        if centralManager.state == .poweredOn {
-//            centralManager.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
-//        }
-//
+        if #available(iOS 9.0, *) {
+            if centralManager != nil && centralManager!.state == .poweredOn && !centralManager!.isScanning {
+                centralManager!.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+
         if let deviceName = deviceName {
             DeviceManager.connectedDeviceName = deviceName
         }
@@ -118,6 +122,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         if blePeripheral != nil {
             centralManager?.cancelPeripheralConnection(blePeripheral!)
         }
+        centralManager?.delegate = nil
         centralManager = nil
         blePeripheral = nil
         eventDelegate = nil
@@ -197,6 +202,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
         else {
             isConnected = false
+            disconnect()
         }
     }
     
@@ -263,12 +269,12 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         error: Error?)
     {
         isConnected = false
-        
         if error != nil {
             eventDelegate?.onConnectionOff?(error)
         } else {
             central.scanForPeripherals(withServices: nil, options: nil)
         }
+        disconnect()
     }
     
     /// If connection failed, call the event delegate
@@ -281,7 +287,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func centralManager(_ central: CBCentralManager,
                         didFailToConnect peripheral: CBPeripheral,
                         error: Error?) {
-        disconnect()
         eventDelegate?.onConnectionFailed?(error)
     }
     
@@ -293,7 +298,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         centralManager?.stopScan()
         let error = NSError(domain: "Time Out", code: 999, userInfo: [NSLocalizedDescriptionKey : "Time Out Connection Melomind"]) as Error
         eventDelegate?.onConnectionFailed?(error)
-        disconnect()
     }
     
     //  Method Request Update Status Battery

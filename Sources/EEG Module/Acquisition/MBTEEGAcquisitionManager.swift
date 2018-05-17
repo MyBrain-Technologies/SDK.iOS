@@ -222,6 +222,10 @@ internal class MBTEEGAcquisitionManager: NSObject  {
             previousIndex = currentIndex - 1
         }
         
+        if previousIndex >= 32767 {
+            previousIndex = 0
+        }
+        
         
         let diff:Int32 = (Int32(currentIndex - previousIndex))
 

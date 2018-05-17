@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 /// Model to store data about the Headset connected.
-class MBTDevice: Object {
+public class MBTDevice: Object {
     
     /// Device Name
     @objc dynamic public var deviceName: String = ""
@@ -42,7 +42,7 @@ class MBTDevice: Object {
     ///
     /// - Parameter comments: user's comments
     /// - Returns: A *JSON* instance of MBTDevice
-    func getJSON(_ comments:[String]) -> JSON {
+    internal func getJSON(_ comments:[String]) -> JSON {
         var jsonHeader = JSON()
         
         var finalsArrayComment = comments
