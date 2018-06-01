@@ -58,6 +58,7 @@ public class MelomindEngine {
     
     public func setEEGAndA2DPDelegate(_ delegate:MelomindEngineDelegate) {
         // Add the Acquisition delegate to the Acquisition manager
+        
         initAcquisitionManager(with: delegate)
         
         // Add the BluetoothEventDelegate and A2DPDelegate
@@ -120,6 +121,10 @@ public class MelomindEngine {
     }
     
     //MARK: - Getters
+    
+    public func getDeviceNameA2DP() -> String? {
+       return bluetoothManager.getDeviceNameA2DP()
+    }
     
     
     public func getBatteryLevel() -> Int? {
@@ -237,7 +242,7 @@ public class MelomindEngine {
     
     //MARK: - Upload
     
-    /// Remove a specific Device
+    /// Remove a specific Device    
     /// parameters :
     ///     - deviceName : The Device name which will be remove from DB
     public func removeDevice(_ deviceName:String) -> Bool {

@@ -35,7 +35,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     var shouldUseQualityChecker: Bool?
     
     /// The MBTBluetooth Event Delegate.
-    var delegate: MBTEEGAcquisitionDelegate!
+    weak var delegate: MBTEEGAcquisitionDelegate?
     
     
     /// Constant to decod EEG data
@@ -79,6 +79,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     func streamHasStopped() {
         // Dealloc mainQC.
         if let shouldUseQualityChecker = shouldUseQualityChecker, shouldUseQualityChecker {
+            self.shouldUseQualityChecker = false
             MBTSignalProcessingManager.shared.deinitQualityChecker()
         }
     }
@@ -159,7 +160,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
            
             
         }
-        self.delegate.onReceivingPackage?(packetComplete)
+        self.delegate?.onReceivingPackage?(packetComplete)
         print("#57685 - Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)")
         self.timeIntervalPerf = Date().timeIntervalSince1970
         

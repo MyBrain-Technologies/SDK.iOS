@@ -42,6 +42,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         return false
     }()
     
+    
     var inc = 0
     
     // Time Out Timer
@@ -74,11 +75,11 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
         
     /// The MBTBluetooth Event Delegate.
-    var eventDelegate: MBTBluetoothEventDelegate?
+    weak var eventDelegate: MBTBluetoothEventDelegate?
     
     /// The MBT Audio A2DP Delegate.
     /// Tell developers when audio connect / disconnect
-    var audioA2DPDelegate: MBTBluetoothA2DPDelegate?
+    weak var audioA2DPDelegate: MBTBluetoothA2DPDelegate?
 
     //MARK: - Connect and Disconnect MBT Headset Methods
     
@@ -87,7 +88,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     ///     - deviceName : The name of the device to connect (Bluetooth profile).
     ///     - eventDelegate: The delegate which whill handle Bluetooth events.
     ///     - audioA2DPDelegate: The audio A2DP protocol delegate to monitor A2DP connection state. Can be nil.
-    public func connectTo(_ deviceName:String? = nil) {
+    func connectTo(_ deviceName:String? = nil) {
         // Check if a current device is already saved in the DB, and delete it
         //DeviceManager.deleteCurrentDevice()
         if let _ = DeviceManager.connectedDeviceName {
@@ -102,8 +103,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             if centralManager != nil && centralManager!.state == .poweredOn && !centralManager!.isScanning {
                 centralManager!.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
             }
-        } else {
-            // Fallback on earlier versions
         }
 
         if let deviceName = deviceName {
@@ -113,7 +112,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     /// Disconnect centralManager, and remove session's values.
-    public func disconnect() {
+    func disconnect() {
         centralManager?.stopScan()
         stopTimerUpdateBatteryLevel()
         MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = nil
@@ -130,6 +129,15 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Remove current device saved
         //DeviceManager.deleteCurrentDevice()
         DeviceManager.connectedDeviceName = nil
+    }
+    
+    func getDeviceNameA2DP() -> String? {
+        if let output = AVAudioSession.sharedInstance().currentRoute.outputs.first, output.portType == AVAudioSessionPortBluetoothA2DP && output.portName.lowercased().range(of: "melo_") != nil {
+            return output.portName
+            
+        }
+        
+        return nil
     }
     
     func stopTimerUpdateBatteryLevel() {

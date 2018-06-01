@@ -16,7 +16,7 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
     static let shared = MBTDeviceAcquisitionManager()
     
     /// The MBTBluetooth Event Delegate.
-    var delegate: MBTDeviceAcquisitionDelegate!
+    weak var delegate: MBTDeviceAcquisitionDelegate?
     
     /// The multiplicative constant.
 
@@ -60,9 +60,9 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
             let tabByte = [UInt8](characteristic.value!)
             if tabByte.count > 0 {
                 let batteryLevel = Int(tabByte[0])
-                if DeviceManager.getCurrentDevice()!.batteryLevel != batteryLevel || !(delegate.receiveBatteryLevelOnUpdate?() ?? false) {
+                if DeviceManager.getCurrentDevice()!.batteryLevel != batteryLevel || !(delegate?.receiveBatteryLevelOnUpdate?() ?? false) {
                     DeviceManager.updateDeviceBatteryLevel(batteryLevel)
-                    delegate.onReceivingBatteryLevel?(batteryLevel)
+                    delegate?.onReceivingBatteryLevel?(batteryLevel)
                 }
             }
         }
@@ -74,7 +74,7 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
             if tabByte[0] == 1 {
                 DispatchQueue.main.async {
                     [weak self] in
-                    self?.delegate.onReceivingSaturationStatus?(Int(tabByte[1]))
+                    self?.delegate?.onReceivingSaturationStatus?(Int(tabByte[1]))
                 }
             } else {
                 //print(tabByte)
