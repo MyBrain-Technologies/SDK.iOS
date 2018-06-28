@@ -34,4 +34,18 @@ import Foundation
     /// returns -> schedules timerUpdateBatteryLevel with this timeInterval
     @objc optional func timeIntervalOnReceiveBattery() -> TimeInterval
     
+    @objc optional func onDeviceReady()
+    
+    @objc optional func onProgressUpdate(_ progress:Float)
+    
+    @objc optional func onOADComplete()
+    
+    /// Called When a OAD process fail
+    ///
+    /// - Parameter status: *Int* give status fail
+    /// 0 : CurrentVersion > Latest Bin Version
+    /// 1 : OTA_MODE_EVT FAIL (0)
+    /// 2 : OTA_STATUS_EVT FAIL (0)
+    /// 3 : After Melomind Reboot, Latest Bin Version > CurrentVersion
+    @objc optional func onOADFail(_ status:Int)
 }

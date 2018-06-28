@@ -108,6 +108,12 @@ public class MBTDeviceInformations: Object {
         
         return jsonDevice
     }
+    
+ 
+    
+    func isDeviceInfoNotNil() -> Bool {
+        return productName != nil && deviceId != nil && hardwareVersion != nil && firmwareVersion != nil
+    }
 }
 
 //MARK: -
@@ -235,6 +241,17 @@ class DeviceManager: MBTRealmEntityManager {
     /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
     class func getDeviceEEGPacketLength() -> Int {
         return getCurrentDevice()!.eegPacketLength
+    }
+    
+    class func resetDeviceInfo() {
+        if let currentDevice = DeviceManager.getCurrentDevice() {
+            try! RealmManager.realm.write {
+                currentDevice.deviceInfos?.productName = nil
+                currentDevice.deviceInfos?.deviceId = nil
+                currentDevice.deviceInfos?.hardwareVersion = nil
+                currentDevice.deviceInfos?.firmwareVersion = nil
+            }
+        }
     }
     
     /// Remove the current device from Realm DB

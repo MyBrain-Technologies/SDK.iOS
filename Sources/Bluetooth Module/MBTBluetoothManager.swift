@@ -43,7 +43,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }()
     
     
-    var inc = 0
+//    var inc = 0
     
     // Time Out Timer
     var timerTimeOut : Timer?
@@ -73,6 +73,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             )
         }
     }
+    
+    var isDownloadingFW = false
+    
+    var OADManager:MBTOADManager!
         
     /// The MBTBluetooth Event Delegate.
     weak var eventDelegate: MBTBluetoothEventDelegate?
@@ -124,19 +128,18 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         centralManager?.delegate = nil
         centralManager = nil
         blePeripheral = nil
-        eventDelegate = nil
-        audioA2DPDelegate = nil
+//        eventDelegate = nil
+//        audioA2DPDelegate = nil
         // Remove current device saved
         //DeviceManager.deleteCurrentDevice()
         DeviceManager.connectedDeviceName = nil
+        isDownloadingFW = false
     }
     
     func getDeviceNameA2DP() -> String? {
         if let output = AVAudioSession.sharedInstance().currentRoute.outputs.first, output.portType == AVAudioSessionPortBluetoothA2DP && output.portName.lowercased().range(of: "melo_") != nil {
             return output.portName
-            
         }
-        
         return nil
     }
     
@@ -169,22 +172,30 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             } else {
                 // Try to set Category to help device to connect
                 // to the MBT A2DP profile
-                if #available(iOS 10.0, *) {
-                    do {
-                        try session.setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault, options: AVAudioSessionCategoryOptions.allowBluetoothA2DP)
-                        //                            try session.setCategory(AVAudioSessionCategoryPlayback,
-                        //                                                    with: AVAudioSessionCategoryOptions.allowAirPlay)
-                    } catch let error {
-                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for A2DP Bluetooth : \(error.localizedDescription)")
-                    }
-                } else {
-                    do {
-                        try session.setCategory(AVAudioSessionCategoryPlayback,
-                                                with: AVAudioSessionCategoryOptions.allowBluetooth)
-                    } catch let error {
-                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
-                    }
+                
+                do {
+                    try session.setCategory(AVAudioSessionCategoryPlayback,
+                                            with: AVAudioSessionCategoryOptions.allowBluetooth)
+                } catch let error {
+                    print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
                 }
+                
+//                if #available(iOS 10.0, *) {
+//                    do {
+//                        try session.setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault, options: AVAudioSessionCategoryOptions.allowBluetoothA2DP)
+//                        //                            try session.setCategory(AVAudioSessionCategoryPlayback,
+//                        //                                                    with: AVAudioSessionCategoryOptions.allowAirPlay)
+//                    } catch let error {
+//                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for A2DP Bluetooth : \(error.localizedDescription)")
+//                    }
+//                } else {
+//                    do {
+//                        try session.setCategory(AVAudioSessionCategoryPlayback,
+//                                                with: AVAudioSessionCategoryOptions.allowBluetooth)
+//                    } catch let error {
+//                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
+//                    }
+//                }
             }
             
             // Register to Audio Session output / input changes
@@ -196,6 +207,113 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
+    func getFileNameLatestVersionBin() -> String? {
+        var fileNameLatestVersionBin:String? = nil
+
+        let bundle = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")
+        
+        if let currentFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion,
+            let tabURLSBinary = bundle?.urls(forResourcesWithExtension: "bin", subdirectory: nil) {
+            let tabURLSBinarySort = try? tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
+            
+            if let latestURLBinary = tabURLSBinarySort?.last {
+                let fwVersion = latestURLBinary.relativeString.components(separatedBy: ".").first!.components(separatedBy: "-")[2]
+                
+                let newTabVersion = fwVersion.components(separatedBy: "_")
+                let currTabVersion = currentFWVersion.components(separatedBy: ".")
+                
+                for i in 0 ..< 3 {
+                    if let intNewCompVersion = Int(newTabVersion[i]) ,
+                        let intCurrCompVersion = Int(currTabVersion[i]),
+                        intNewCompVersion > intCurrCompVersion {
+                        fileNameLatestVersionBin = latestURLBinary.relativeString.components(separatedBy: ".").first
+                    }
+                }
+            }
+
+        }
+        
+        
+      
+        
+        return fileNameLatestVersionBin
+    }
+    func startTestOAD() {
+        // Disconnect A2DP
+        
+        let bundle = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")!
+        let tabURLSBinary = bundle.urls(forResourcesWithExtension: "bin", subdirectory: nil)!
+        let tabURLSBinarySort = try! tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
+        
+        
+        
+        OADManager = MBTOADManager(tabURLSBinarySort.first!.relativeString.components(separatedBy: ".").first!)
+        
+        stopTimerUpdateBatteryLevel()
+        
+        blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
+        
+        isDownloadingFW = true
+        
+        sendFWVersionPlusLength()
+        
+    }
+    
+    func startOAD() {
+        // Disconnect A2DP
+       
+        if let fileName = getFileNameLatestVersionBin() {
+            OADManager = MBTOADManager(fileName)
+            
+            stopTimerUpdateBatteryLevel()
+            
+            blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
+            
+            isDownloadingFW = true
+            
+            sendFWVersionPlusLength()
+        } else {
+            eventDelegate?.onOADFail?(0)
+        }
+        
+     
+    }
+    
+    func sendOADBuffer() {
+        DispatchQueue.global().async {
+            var oldProgress = -1
+            while self.OADManager.mProgInfo.iBlock < self.OADManager.mOadBuffer.count {
+                usleep(6000)
+//                print(self.OADManager.mProgInfo.iBlock)
+                self.blePeripheral?.writeValue(self.OADManager.getNextOADBufferData(), for: MBTBluetoothLEHelper.oadTransferCharacteristic, type: .withoutResponse)
+                DispatchQueue.main.async {
+                    let progress = Int(Float(self.OADManager.mProgInfo.iBlock) / Float(self.OADManager.mOadBuffer.count) * 100)
+                    if progress != oldProgress {
+                        
+                        self.eventDelegate?.onProgressUpdate?(Float(progress + 12) / 120)
+                        oldProgress = progress
+                    }
+                }
+            }
+        }
+        
+       
+    }
+    
+    func sendFWVersionPlusLength() {
+        var bytesArray = [UInt8](repeating: 0, count: 5)
+        
+        bytesArray[0] = MailBoxEvents.MBX_START_OTA_TXF.rawValue
+        bytesArray[1] = OADManager.getFWVersionAsByteArray()[0]
+        bytesArray[2] = OADManager.getFWVersionAsByteArray()[1]
+        bytesArray[3] = ConversionUtils.loUInt16(v: OADManager.mProgInfo.nBlock)
+        bytesArray[4] = ConversionUtils.hiUInt16(v: OADManager.mProgInfo.nBlock)
+        
+        blePeripheral?.writeValue( Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
+        self.eventDelegate?.onProgressUpdate?(0.05)
+
+    }
+
     
     //MARK: Central Manager Delegate Methods
     
@@ -259,9 +377,19 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func centralManager(_ central: CBCentralManager,
                                     didConnect peripheral: CBPeripheral)
     {
+        connectA2DP()
+        MBTBluetoothLEHelper.deviceInfoCharacteristic.removeAll()
         isConnected = true
         peripheral.discoverServices(nil)
+        
+        if isDownloadingFW {
+            DeviceManager.resetDeviceInfo()
+            requestUpdateDeviceInfo()
+        } else {
+            eventDelegate?.onConnectionEstablished?()
+        }
     }
+
     
     /// If disconnected by error, start searching again,
     /// else let event delegate know that headphones
@@ -276,13 +404,20 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         didDisconnectPeripheral peripheral: CBPeripheral,
         error: Error?)
     {
-        isConnected = false
-        if error != nil {
-            eventDelegate?.onConnectionOff?(error)
+        if isDownloadingFW {
+            eventDelegate?.onProgressUpdate?(0.95)
+            centralManager?.connect(blePeripheral!, options: nil)
         } else {
-            central.scanForPeripherals(withServices: nil, options: nil)
+            disconnect()
+            isConnected = false
+            
+            if error != nil {
+                eventDelegate?.onConnectionOff?(error)
+            } else {
+                central.scanForPeripherals(withServices: nil, options: nil)
+            }
         }
-        disconnect()
+     
     }
     
     /// If connection failed, call the event delegate
@@ -312,6 +447,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     @objc func requestUpdateBatteryLevel() {
         if blePeripheral != nil && MBTBluetoothLEHelper.deviceStateCharacteristic != nil   {
             blePeripheral?.readValue(for: MBTBluetoothLEHelper.deviceStateCharacteristic)
+        }
+    }
+    
+    func requestUpdateDeviceInfo() {
+        if blePeripheral != nil && MBTBluetoothLEHelper.deviceInfoCharacteristic.count != 0 {
+            for characteristic in MBTBluetoothLEHelper.deviceInfoCharacteristic {
+                blePeripheral?.readValue(for: characteristic)
+            }
         }
     }
     
@@ -353,7 +496,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             let thisCharacteristic = characteristic as CBCharacteristic
             
             // MyBrainService's Characteristics
-            if CBUUID(data: thisCharacteristic.uuid.data) == MBTBluetoothLEHelper.brainActivityMeasurementUUID {
+            if MBTBluetoothLEHelper.brainActivityMeasurementUUID  == CBUUID(data: thisCharacteristic.uuid.data)  {
                 // Enable Sensor Notification and read the current value
                 MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = thisCharacteristic
 
@@ -362,6 +505,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             
             // Device info's Characteristics
             if characsUUIDS.contains(CBUUID(data: thisCharacteristic.uuid.data)) {
+                MBTBluetoothLEHelper.deviceInfoCharacteristic.append(thisCharacteristic)
                 self.blePeripheral?.readValue(for: thisCharacteristic)
             }
             
@@ -375,14 +519,20 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             if MBTBluetoothLEHelper.headsetStatusUUID == CBUUID(data: thisCharacteristic.uuid.data)  {
                 MBTBluetoothLEHelper.headsetStatusCharacteristic = thisCharacteristic
             }
+            
+            if MBTBluetoothLEHelper.mailBoxUUID == CBUUID(data: thisCharacteristic.uuid.data) {
+                MBTBluetoothLEHelper.mailBoxCharacteristic = thisCharacteristic
+            }
+            if MBTBluetoothLEHelper.oadTransferUUID  == CBUUID(data: thisCharacteristic.uuid.data) {
+                MBTBluetoothLEHelper.oadTransferCharacteristic = thisCharacteristic
+            }
         }
 
         
         // Check if characteristics have been discovered and set
         if MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic != nil {
             // Tell the event delegate that the connection is established
-            connectA2DP()
-            eventDelegate?.onConnectionEstablished?()
+          
             
             MelomindEngine.main.eegAcqusitionManager.setUpWith(device: DeviceManager.getCurrentDevice()!)
         }
@@ -439,11 +589,60 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             MelomindEngine.main.deviceAcqusitionManager.processDeviceBatteryStatus(characteristic)
         case let uuid where characsUUIDS.contains(uuid) :
             MelomindEngine.main.deviceAcqusitionManager.processDeviceInformations(characteristic)
+            if let currentDeviceInfo = DeviceManager.getCurrentDevice()?.deviceInfos, isDownloadingFW && currentDeviceInfo.isDeviceInfoNotNil() {
+                if currentDeviceInfo.firmwareVersion == OADManager.fwVersion {
+                    eventDelegate?.onProgressUpdate?(1.0)
+                    isDownloadingFW = false
+                } else {
+                    eventDelegate?.onOADFail?(3)
+                }
+            }
+        case MBTBluetoothLEHelper.mailBoxUUID :
+            if let data = characteristic.value {
+                var bytesArray = [UInt8](repeating: 0, count: data.count)
+                (data as NSData).getBytes(&bytesArray, length: data.count * MemoryLayout<UInt8>.size)
+                switch MailBoxEvents.getMailBoxEvent(v: bytesArray[0]) {
+                case .MBX_OTA_MODE_EVT :
+                    print("MBX_OTA_MODE_EVT bytesArray : \(bytesArray.description)")
+                    if bytesArray[1] == 0x01 {
+                        eventDelegate?.onDeviceReady?()
+                        eventDelegate?.onProgressUpdate?(0.1)
+                        sendOADBuffer()
+                    } else {
+                        isDownloadingFW = false
+                        blePeripheral?.setNotifyValue(false, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
+                        startTimerUpdateBatteryLevel()
+                        eventDelegate?.onOADFail?(1)
+                    }
+                case .MBX_OTA_IDX_RESET_EVT :
+                    print("MBX_OTA_IDX_RESET_EVT bytesArray : \(bytesArray.description)")
+                 
+                    DispatchQueue.global().async {
+                        self.OADManager.mProgInfo.iBlock = Int16((bytesArray[2] & 0xFF)) << 8 | Int16(bytesArray[1] & 0xFF)
+                    }
+                    
+                case .MBX_OTA_STATUS_EVT :
+                    print("MBX_OTA_STATUS_EVT bytesArray : \(bytesArray.description)")
+                    if bytesArray[1] == 1 {
+                        eventDelegate?.onOADComplete?()
+                    } else {
+                        eventDelegate?.onOADFail?(2)
+                    }
 
+                    eventDelegate?.onProgressUpdate?(0.9)
+                default:
+                    print("Default")
+                }
+            }
         default:
             break
         }
 
+        
+    }
+    
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
         
     }
     

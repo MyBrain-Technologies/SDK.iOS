@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2DF07D20E36E55004FE1E4 /* mm-ota-1_6_0.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2B2DF07B20E36E53004FE1E4 /* mm-ota-1_6_0.bin */; };
+		2B2DF07E20E36E55004FE1E4 /* mm-ota-1_5_15.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */; };
 		2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
+		2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B631ED220E0E85F00880B8E /* MBTOADManager.swift */; };
 		2B6B5DA2205139D900928F1F /* MBTBrainWebHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5D98205139D800928F1F /* MBTBrainWebHelper.swift */; };
 		2B6B5DA3205139D900928F1F /* MBTEEGAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */; };
 		2B6B5DA4205139D900928F1F /* MBTEEGAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5D9A205139D800928F1F /* MBTEEGAcquisitionManager.swift */; };
@@ -160,6 +163,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2B2DF07B20E36E53004FE1E4 /* mm-ota-1_6_0.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_0.bin"; sourceTree = "<group>"; };
+		2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_5_15.bin"; sourceTree = "<group>"; };
+		2B631ED220E0E85F00880B8E /* MBTOADManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTOADManager.swift; sourceTree = "<group>"; };
 		2B6B5D98205139D800928F1F /* MBTBrainWebHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTBrainWebHelper.swift; sourceTree = "<group>"; };
 		2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTEEGAcquisitionDelegate.swift; sourceTree = "<group>"; };
 		2B6B5D9A205139D800928F1F /* MBTEEGAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTEEGAcquisitionManager.swift; sourceTree = "<group>"; };
@@ -823,6 +829,8 @@
 		3549BB541DA38A4000C63030 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */,
+				2B2DF07B20E36E53004FE1E4 /* mm-ota-1_6_0.bin */,
 				F4A235FB1F0178FF00A0145A /* Utils */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
@@ -1058,6 +1066,7 @@
 				F420E9A11EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift */,
 				F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */,
 				F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */,
+				2B631ED220E0E85F00880B8E /* MBTOADManager.swift */,
 			);
 			name = "Bluetooth Module";
 			sourceTree = "<group>";
@@ -1347,12 +1356,14 @@
 				2BAF7F17208F63FB007D9EAB /* trainingMu_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F18208F63FB007D9EAB /* trainingSigma_Data300BadQCNEW4.txt in Resources */,
 				2BAF7F16208F63FB007D9EAB /* trainingMu_Data300BadQCNEW4.txt in Resources */,
+				2B2DF07E20E36E55004FE1E4 /* mm-ota-1_5_15.bin in Resources */,
 				2BAF7F10208F63FB007D9EAB /* cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F1B208F63FB007D9EAB /* trainingW_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F14208F63FB007D9EAB /* trainingFeatures_Data300BadQCNEW4.txt in Resources */,
 				2BAF7F11208F63FB007D9EAB /* spectrumClean_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F19208F63FB007D9EAB /* trainingSigma_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F1A208F63FB007D9EAB /* trainingW_Data300BadQCNEW4.txt in Resources */,
+				2B2DF07D20E36E55004FE1E4 /* mm-ota-1_6_0.bin in Resources */,
 				2BAF7F15208F63FB007D9EAB /* trainingFeatures_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F13208F63FB007D9EAB /* trainingClasses _Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F12208F63FB007D9EAB /* trainingClasses _Data300BadQCNEW4.txt in Resources */,
@@ -1434,6 +1445,7 @@
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
 				2BAF7EF5208F63FB007D9EAB /* MBT_ReadInputOrWriteOutput.cpp in Sources */,
 				2BAF7F23208F63FB007D9EAB /* MBT_TF_map.cpp in Sources */,
+				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MelomindEngine.swift in Sources */,
@@ -1666,7 +1678,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fembed-bitcode-marker";
-				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "";
@@ -1712,7 +1724,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode";
-				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "";

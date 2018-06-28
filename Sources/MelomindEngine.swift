@@ -47,6 +47,18 @@ public class MelomindEngine {
         signalProcessingManager = MBTSignalProcessingManager.shared
     }
     
+    public func isNewVersionMelomindAvailable() -> Bool {
+        return bluetoothManager.getFileNameLatestVersionBin() != nil
+    }
+    
+    public func startOADTransfer() {
+       bluetoothManager.startOAD()
+    }
+    
+    public func testOADTransfer() {
+        bluetoothManager.startTestOAD()
+    }
+    
     public func setEEGDelegate(_ delegate:MelomindEngineDelegate) {
         
         // Add the Acquisition delegate to the Acquisition manager
@@ -235,7 +247,7 @@ public class MelomindEngine {
     /// Stop streaming headSet Data from MelomindEngineDelegate.
     /// - Remark: a JSON will be created with all the MBTEEGPacket.
     public func stopStream() {
-        bluetoothManager.isListeningToHeadsetStatus = false
+//        bluetoothManager.isListeningToHeadsetStatus = false
         bluetoothManager.isListeningToEEG = false
         eegAcqusitionManager.streamHasStopped()
     }
