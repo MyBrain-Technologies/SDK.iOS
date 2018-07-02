@@ -121,7 +121,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                             // Then delete all MBTEEGPacket saved.
                             DispatchQueue.main.async {
                                 EEGPacketManager.removePackets(packetToRemove)
-
                             }
 
                         })

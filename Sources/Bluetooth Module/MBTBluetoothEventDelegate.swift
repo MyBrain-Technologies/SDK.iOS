@@ -47,5 +47,5 @@ import Foundation
     /// 1 : OTA_MODE_EVT FAIL (0)
     /// 2 : OTA_STATUS_EVT FAIL (0)
     /// 3 : After Melomind Reboot, Latest Bin Version > CurrentVersion
-    @objc optional func onOADFail(_ status:Int)
+    @objc optional func didOADFailWithError (_ error:Error)
 }
