@@ -76,7 +76,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
-    var isDownloadingFW = false
+    var isDownloadingFW = false 
+    var isDownLoadingFWCompleted = false
     
     var OADManager:MBTOADManager!
         
@@ -101,6 +102,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             disconnect()
         }
         
+        timerTimeOutConnection?.invalidate()
+        timerTimeOutConnection = nil
         timerTimeOutConnection = Timer.scheduledTimer(timeInterval: 20.0, target: self, selector: #selector(connectionMelominTimeOut), userInfo: nil, repeats: false)
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
@@ -247,26 +250,54 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         let tabURLSBinary = bundle.urls(forResourcesWithExtension: "bin", subdirectory: nil)!
         let tabURLSBinarySort = try! tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
         
+        if !isConnected {
+            if let blePeripheral = blePeripheral {
+                centralManager?.connect(blePeripheral, options: nil)
+            } else if let deviceName = DeviceManager.connectedDeviceName {
+                connectTo(deviceName)
+            }
+        }
         
         
-        OADManager = MBTOADManager(tabURLSBinarySort.first!.relativeString.components(separatedBy: ".").first!)
+        timerTimeOutOAD?.invalidate()
+        timerTimeOutOAD = nil
+        timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(oadTransferTimeOut), userInfo: nil, repeats: false)
         
-        print("install FW : \(OADManager.fwVersion)")
         
-        stopTimerUpdateBatteryLevel()
-        
-        blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
-        
-        isDownloadingFW = true
-        
-        sendFWVersionPlusLength()
+        if true {
+            OADManager = MBTOADManager(tabURLSBinarySort.first!.relativeString.components(separatedBy: ".").first!)
+
+            stopTimerUpdateBatteryLevel()
+            
+            blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
+            
+            isDownloadingFW = true
+            isDownLoadingFWCompleted = false
+            
+            sendFWVersionPlusLength()
+        } else {
+            let error = NSError(domain: "OAD Transfer", code: 903, userInfo: [NSLocalizedDescriptionKey : "Bundle do not contains Firmware Version"]) as Error
+            eventDelegate?.didOADFailWithError?(error)
+            timerTimeOutOAD?.invalidate()
+        }
         
     }
     
     func startOAD() {
         // Disconnect A2DP
+        
+        if !isConnected {
+            if let blePeripheral = blePeripheral {
+                centralManager?.connect(blePeripheral, options: nil)
+            } else if let deviceName = DeviceManager.connectedDeviceName {
+                connectTo(deviceName)
+            }
+        }
        
+        timerTimeOutOAD?.invalidate()
+        timerTimeOutOAD = nil
         timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(oadTransferTimeOut), userInfo: nil, repeats: false)
+        
         
         if let fileName = getFileNameLatestVersionBin() {
             OADManager = MBTOADManager(fileName)
@@ -276,15 +307,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
             
             isDownloadingFW = true
-            
+            isDownLoadingFWCompleted = false
+
             sendFWVersionPlusLength()
         } else {
             let error = NSError(domain: "OAD Transfer", code: 903, userInfo: [NSLocalizedDescriptionKey : "Bundle do not contains Firmware Version"]) as Error
             eventDelegate?.didOADFailWithError?(error)
             timerTimeOutOAD?.invalidate()
         }
-        
-     
     }
     
     func sendOADBuffer() {
@@ -292,6 +322,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             var oldProgress = -1
             while self.OADManager.mProgInfo.iBlock < self.OADManager.mOadBuffer.count {
                 usleep(6000)
+                if !self.isConnected {
+                   break
+                }
 //                print(self.OADManager.mProgInfo.iBlock)
                 self.blePeripheral?.writeValue(self.OADManager.getNextOADBufferData(), for: MBTBluetoothLEHelper.oadTransferCharacteristic, type: .withoutResponse)
                 DispatchQueue.main.async {
@@ -395,6 +428,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             requestUpdateDeviceInfo()
         } else {
             eventDelegate?.onConnectionEstablished?()
+            DeviceManager.resetDeviceInfo()
         }
     }
 
@@ -413,8 +447,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         error: Error?)
     {
         if isDownloadingFW {
-            eventDelegate?.onProgressUpdate?(0.95)
-            centralManager?.connect(blePeripheral!, options: nil)
+            if isDownLoadingFWCompleted {
+                eventDelegate?.onProgressUpdate?(0.95)
+                centralManager?.connect(blePeripheral!, options: nil)
+            } else {
+                let error = NSError(domain: "OAD Transfer", code: 907, userInfo: [NSLocalizedDescriptionKey : "Lost Connection BLE"]) as Error
+                eventDelegate?.didOADFailWithError?(error)
+                isConnected = false
+            }
         } else {
             disconnect()
             isConnected = false
@@ -645,6 +685,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 case .MBX_OTA_STATUS_EVT :
                     print("MBX_OTA_STATUS_EVT bytesArray : \(bytesArray.description)")
                     if bytesArray[1] == 1 {
+                        isDownLoadingFWCompleted = true
                         eventDelegate?.onProgressUpdate?(0.9)
                         eventDelegate?.onOADComplete?()
                     } else {
