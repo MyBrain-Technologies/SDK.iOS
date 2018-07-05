@@ -52,12 +52,12 @@ public class MelomindEngine {
     }
     
     public func startOADTransfer() {
-       bluetoothManager.startOAD()
+       bluetoothManager.prepareStartOAD()
     }
-    
-    public func testOADTransfer() {
-        bluetoothManager.startTestOAD()
-    }
+//    
+//    public func testOADTransfer() {
+//        bluetoothManager.prepareStartOAD(true)
+//    }
     
     public func setEEGDelegate(_ delegate:MelomindEngineDelegate) {
         
@@ -292,6 +292,11 @@ public class MelomindEngine {
     ///   - threshold:
     /// - Returns:
     public func computeSessionStatistics(_ inputSNR:[Float], threshold:Float) -> [String:Float] {
-        return signalProcessingManager.analyseSession(inputSNR, threshold: threshold)
+        
+        if let _ = DeviceManager.connectedDeviceName, inputSNR.count > 3 {
+            signalProcessingManager.analyseSession(inputSNR, threshold: threshold)
+        }
+        
+        return [String:Float]()
     }
 }

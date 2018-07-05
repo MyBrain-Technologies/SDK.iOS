@@ -96,6 +96,7 @@
 		2BAF7F37208F63FB007D9EAB /* MBT_SmoothRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE9208F63FA007D9EAB /* MBT_SmoothRelaxIndex.h */; };
 		2BAF7F38208F63FB007D9EAB /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EEA208F63FA007D9EAB /* version.h */; };
 		2BC4F64F208F6F5E00F0B366 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */; };
+		2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3549BB511DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3549BB521DA38A2100C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -262,6 +263,7 @@
 		2BAF7EE9208F63FA007D9EAB /* MBT_SmoothRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_SmoothRelaxIndex.h; sourceTree = "<group>"; };
 		2BAF7EEA208F63FA007D9EAB /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Utils/CPPSignalProcessing/version.h; sourceTree = "<group>"; };
 		2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MBTBridgeConstants.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.mm"; sourceTree = "<group>"; };
+		2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_2.bin"; sourceTree = "<group>"; };
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -831,6 +833,7 @@
 			children = (
 				2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */,
 				2B2DF07B20E36E53004FE1E4 /* mm-ota-1_6_0.bin */,
+				2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */,
 				F4A235FB1F0178FF00A0145A /* Utils */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
@@ -1357,6 +1360,7 @@
 				2BAF7F18208F63FB007D9EAB /* trainingSigma_Data300BadQCNEW4.txt in Resources */,
 				2BAF7F16208F63FB007D9EAB /* trainingMu_Data300BadQCNEW4.txt in Resources */,
 				2B2DF07E20E36E55004FE1E4 /* mm-ota-1_5_15.bin in Resources */,
+				2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */,
 				2BAF7F10208F63FB007D9EAB /* cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F1B208F63FB007D9EAB /* trainingW_Data570UnguidedtrainingQCNEW4.txt in Resources */,
 				2BAF7F14208F63FB007D9EAB /* trainingFeatures_Data300BadQCNEW4.txt in Resources */,
@@ -1708,6 +1712,7 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = "$(OBJROOT)/UninstalledProducts/include";
 				INFOPLIST_FILE = Sources/Info.plist;
