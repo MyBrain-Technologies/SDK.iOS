@@ -263,7 +263,7 @@ class EEGPacketManager: MBTRealmEntityManager {
     ///     - n : Number of *MBTEEGPackets* wanted.
     /// - Returns : The last n *MBTEEGPacket*.
     class func getLastNPacketsComplete(_ n:Int) -> [MBTEEGPacket] {
-        return [MBTEEGPacket](EEGPacketManager.getEEGPackets().suffix(30))
+        return [MBTEEGPacket](EEGPacketManager.getEEGPackets().suffix(n))
     }
     
     
