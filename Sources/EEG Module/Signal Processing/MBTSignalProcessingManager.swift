@@ -170,23 +170,30 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
         // Get the last N packets.
         let packets = EEGPacketManager.getLastNPacketsComplete(4)
         
+        if packets.count < 4 || calibrationComputed == nil {
+            return 0
+        }
+        
         let sampRate = Int(DeviceManager.getDeviceSampRate())
         let nbChannels: Int = DeviceManager.getChannelsCount()
         
-        var calibrationData = [List<ChannelDatas>]()
+        var arrayModifiedChannelData = [List<ChannelDatas>]()
         for i in 0 ..< packets.count {
-            calibrationData.append(packets[i].modifiedChannelsData
-            )
+            arrayModifiedChannelData.append(packets[i].modifiedChannelsData)
         }
-        
+
         // Transform the input data into the format needed by the Obj-C bridge
         var dataArray = [Float]()
-        for listChannelData in calibrationData {
+        for listChannelData in arrayModifiedChannelData {
             for datasForChannel in listChannelData {
                 for data in datasForChannel.value {
                     dataArray.append(data.value)
                 }
             }
+        }
+        
+        if dataArray.count < 2000 {
+            return 0
         }
         
         //Perform the computation
