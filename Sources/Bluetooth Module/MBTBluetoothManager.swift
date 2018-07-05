@@ -243,78 +243,106 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         return fileNameLatestVersionBin
     }
-    func startTestOAD() {
-        // Disconnect A2DP
-        
-        let bundle = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")!
-        let tabURLSBinary = bundle.urls(forResourcesWithExtension: "bin", subdirectory: nil)!
-        let tabURLSBinarySort = try! tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
-        
-        if !isConnected {
-            if let blePeripheral = blePeripheral {
-                centralManager?.connect(blePeripheral, options: nil)
+    
+    
+//    func startTestOAD() {
+//        // Disconnect A2DP
+//
+//        let bundle = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")!
+//        let tabURLSBinary = bundle.urls(forResourcesWithExtension: "bin", subdirectory: nil)!
+//        let tabURLSBinarySort = try! tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
+//
+//
+//        timerTimeOutOAD?.invalidate()
+//        timerTimeOutOAD = nil
+//        timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(oadTransferTimeOut), userInfo: nil, repeats: false)
+//
+//
+//        if true {
+//            OADManager = MBTOADManager(tabURLSBinarySort.first!.relativeString.components(separatedBy: ".").first!)
+//
+//            stopTimerUpdateBatteryLevel()
+//
+//            blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
+//
+//            isDownloadingFW = true
+//            isDownLoadingFWCompleted = false
+//
+//            sendFWVersionPlusLength()
+//        } else {
+//            let error = NSError(domain: "OAD Transfer", code: 903, userInfo: [NSLocalizedDescriptionKey : "Last FirmwareVersion Installed"]) as Error
+//            eventDelegate?.didOADFailWithError?(error)
+//            timerTimeOutOAD?.invalidate()
+//        }
+//
+//    }
+    
+    func prepareStartOAD() {
+        if !self.isConnected {
+            if let blePeripheral = self.blePeripheral {
+                self.centralManager?.connect(blePeripheral, options: nil)
             } else if let deviceName = DeviceManager.connectedDeviceName {
-                connectTo(deviceName)
+                self.connectTo(deviceName)
+            } else {
+                return
             }
         }
         
-        
-        timerTimeOutOAD?.invalidate()
-        timerTimeOutOAD = nil
-        timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(oadTransferTimeOut), userInfo: nil, repeats: false)
-        
-        
-        if true {
-            OADManager = MBTOADManager(tabURLSBinarySort.first!.relativeString.components(separatedBy: ".").first!)
-
-            stopTimerUpdateBatteryLevel()
+        DispatchQueue.global().async {
+            self.requestUpdateDeviceInfo()
+            var firmwareVersion = ""
+            var indexLoop = 0.0
+            while self.blePeripheral == nil || firmwareVersion == "" || MBTBluetoothLEHelper.mailBoxCharacteristic == nil {
+                print("sleep")
+                usleep(500000)
+                
+                DispatchQueue.main.sync {
+                    firmwareVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion ?? ""
+                }
+                indexLoop += 0.5
+                if indexLoop > 25 {
+                    return
+                }
+            }
             
-            blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
-            
-            isDownloadingFW = true
-            isDownLoadingFWCompleted = false
-            
-            sendFWVersionPlusLength()
-        } else {
-            let error = NSError(domain: "OAD Transfer", code: 903, userInfo: [NSLocalizedDescriptionKey : "Bundle do not contains Firmware Version"]) as Error
-            eventDelegate?.didOADFailWithError?(error)
-            timerTimeOutOAD?.invalidate()
+            DispatchQueue.main.sync {
+//                if test {
+//                    self.startTestOAD()
+//                } else {
+                    self.startOAD()
+//                }
+            }
+           
         }
-        
     }
     
     func startOAD() {
         // Disconnect A2DP
         
-        if !isConnected {
-            if let blePeripheral = blePeripheral {
-                centralManager?.connect(blePeripheral, options: nil)
-            } else if let deviceName = DeviceManager.connectedDeviceName {
-                connectTo(deviceName)
+            
+            self.timerTimeOutOAD?.invalidate()
+            self.timerTimeOutOAD = nil
+            self.timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(self.oadTransferTimeOut), userInfo: nil, repeats: false)
+            
+            
+            if let fileName = self.getFileNameLatestVersionBin() {
+                self.OADManager = MBTOADManager(fileName)
+                print("Firmware Version : \(self.OADManager.fwVersion)")
+                
+                self.stopTimerUpdateBatteryLevel()
+                
+                self.blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
+                
+                self.isDownloadingFW = true
+                self.isDownLoadingFWCompleted = false
+                
+                self.sendFWVersionPlusLength()
+            } else {
+                let error = NSError(domain: "OAD Transfer", code: 903, userInfo: [NSLocalizedDescriptionKey : "Last FirmwareVersion Installed"]) as Error
+                self.eventDelegate?.didOADFailWithError?(error)
+                self.timerTimeOutOAD?.invalidate()
             }
-        }
-       
-        timerTimeOutOAD?.invalidate()
-        timerTimeOutOAD = nil
-        timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(oadTransferTimeOut), userInfo: nil, repeats: false)
         
-        
-        if let fileName = getFileNameLatestVersionBin() {
-            OADManager = MBTOADManager(fileName)
-            
-            stopTimerUpdateBatteryLevel()
-            
-            blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
-            
-            isDownloadingFW = true
-            isDownLoadingFWCompleted = false
-
-            sendFWVersionPlusLength()
-        } else {
-            let error = NSError(domain: "OAD Transfer", code: 903, userInfo: [NSLocalizedDescriptionKey : "Bundle do not contains Firmware Version"]) as Error
-            eventDelegate?.didOADFailWithError?(error)
-            timerTimeOutOAD?.invalidate()
-        }
     }
     
     func sendOADBuffer() {
@@ -387,6 +415,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         rssi RSSI: NSNumber)
     {
         guard let nameOfDeviceFound = advertisementData[CBAdvertisementDataLocalNameKey] as? String else { return }
+        
         
         
         if let array = advertisementData[CBAdvertisementDataServiceUUIDsKey] as? Array<CBUUID>,
