@@ -228,19 +228,19 @@ class DeviceManager: MBTRealmEntityManager {
     /// Get EEG data samp rate of the connected device.
     /// - Returns: The *sampRate* of the current *MBTDevice*.
     class func getDeviceSampRate() -> Float {
-        return Float(getCurrentDevice()?.sampRate ?? 0)
+        return Float(getCurrentDevice()?.sampRate ?? 250)
     }
     
     /// Get the number of channels of the connected device.
     /// - Returns: The *nbChannels* of the current *MBTDevice*.
     class func getChannelsCount() -> Int {
-        return getCurrentDevice()?.nbChannels ?? 0
+        return getCurrentDevice()?.nbChannels ?? 2
     }
     
     /// Get EEGPacket length of the connected device.
     /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
     class func getDeviceEEGPacketLength() -> Int {
-        return getCurrentDevice()!.eegPacketLength
+        return getCurrentDevice()?.eegPacketLength ?? 250
     }
     
     class func resetDeviceInfo() {
