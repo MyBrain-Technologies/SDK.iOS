@@ -294,7 +294,7 @@ public class MelomindEngine {
     public func computeSessionStatistics(_ inputSNR:[Float], threshold:Float) -> [String:Float] {
         
         if let _ = DeviceManager.connectedDeviceName, inputSNR.count > 3 {
-            signalProcessingManager.analyseSession(inputSNR, threshold: threshold)
+            return signalProcessingManager.analyseSession(inputSNR, threshold: threshold)
         }
         
         return [String:Float]()
