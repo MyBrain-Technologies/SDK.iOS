@@ -244,6 +244,51 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         return fileNameLatestVersionBin
     }
     
+    func prepareTestStartOAD() {
+        self.isDownloadingFW = true
+        self.isDownLoadingFWCompleted = false
+        
+        if !self.isConnected {
+            if let blePeripheral = self.blePeripheral {
+                self.centralManager?.connect(blePeripheral, options: nil)
+            } else if let deviceName = DeviceManager.connectedDeviceName {
+                self.connectTo(deviceName)
+            } else {
+                self.isDownloadingFW = false
+                let error = NSError(domain: "OAD Transfer", code: 910, userInfo: [NSLocalizedDescriptionKey : "Device Not Connected"]) as Error
+                self.eventDelegate?.didOADFailWithError?(error)
+                return
+            }
+        }
+        
+        DispatchQueue.global().async {
+            self.requestUpdateDeviceInfo()
+            var firmwareVersion = ""
+            var indexLoop = 0.0
+            while self.blePeripheral == nil || firmwareVersion == "" || MBTBluetoothLEHelper.mailBoxCharacteristic == nil || !self.isConnected {
+                print("sleep")
+                usleep(500000)
+                
+                DispatchQueue.main.sync {
+                    firmwareVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion ?? ""
+                }
+                indexLoop += 0.5
+                if indexLoop > 120 {
+                    self.timerTimeOutOAD?.invalidate()
+                    self.timerTimeOutConnection?.invalidate()
+                    let error = NSError(domain: "OAD Transfer", code: 908, userInfo: [NSLocalizedDescriptionKey : "Time Out Waiting Connection"]) as Error
+                    self.isDownloadingFW = false
+                    self.eventDelegate?.didOADFailWithError?(error)
+                    return
+                }
+            }
+            
+            DispatchQueue.main.sync {
+                self.startTestOAD()
+            }
+            
+        }
+    }
     
     func startTestOAD() {
         // Disconnect A2DP
@@ -312,11 +357,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             }
             
             DispatchQueue.main.sync {
-//                if test {
-//                    self.startTestOAD()
-//                } else {
                     self.startOAD()
-//                }
             }
            
         }
@@ -328,7 +369,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             
             self.timerTimeOutOAD?.invalidate()
             self.timerTimeOutOAD = nil
-            self.timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 600, target: self, selector: #selector(self.oadTransferTimeOut), userInfo: nil, repeats: false)
+            self.timerTimeOutOAD = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.oadTransferTimeOut), userInfo: nil, repeats: false)
             
             
             if let fileName = self.getFileNameLatestVersionBin() {
@@ -354,21 +395,25 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func sendOADBuffer() {
         DispatchQueue.global().async {
             var oldProgress = -1
+            self.OADManager.mProgInfo.iBlock = 0
             while self.OADManager.mProgInfo.iBlock < self.OADManager.mOadBuffer.count {
                 usleep(6000)
                 if !self.isConnected {
                    break
                 }
 //                print(self.OADManager.mProgInfo.iBlock)
-                self.blePeripheral?.writeValue(self.OADManager.getNextOADBufferData(), for: MBTBluetoothLEHelper.oadTransferCharacteristic, type: .withoutResponse)
-                DispatchQueue.main.async {
-                    let progress = Int(Float(self.OADManager.mProgInfo.iBlock) / Float(self.OADManager.mOadBuffer.count) * 100)
-                    if progress != oldProgress {
-                        
-                        self.eventDelegate?.onProgressUpdate?(Float(progress + 12) / 120)
-                        oldProgress = progress
+                if self.OADManager.mProgInfo.iBlock < self.OADManager.mOadBuffer.count {
+                    self.blePeripheral?.writeValue(self.OADManager.getNextOADBufferData(), for: MBTBluetoothLEHelper.oadTransferCharacteristic, type: .withoutResponse)
+                    DispatchQueue.main.async {
+                        let progress = Int(Float(self.OADManager.mProgInfo.iBlock) / Float(self.OADManager.mOadBuffer.count) * 100)
+                        if progress != oldProgress {
+                            
+                            self.eventDelegate?.onProgressUpdate?(Float(progress + 12) / 120)
+                            oldProgress = progress
+                        }
                     }
                 }
+                
             }
         }
         
@@ -534,10 +579,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     @objc func oadTransferTimeOut() {
         centralManager?.stopScan()
+        timerTimeOutOAD?.invalidate()
         let error = NSError(domain: "Time Out", code: 902, userInfo: [NSLocalizedDescriptionKey : "Time Out OADTransfer"]) as Error
         isDownloadingFW = false
         eventDelegate?.didOADFailWithError?(error)
-        timerTimeOutOAD?.invalidate()
     }
     
     //  Method Request Update Status Battery
@@ -548,6 +593,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     func requestUpdateDeviceInfo() {
+        DeviceManager.resetDeviceInfo()
         if blePeripheral != nil && MBTBluetoothLEHelper.deviceInfoCharacteristic.count != 0 {
             for characteristic in MBTBluetoothLEHelper.deviceInfoCharacteristic {
                 blePeripheral?.readValue(for: characteristic)

@@ -54,10 +54,10 @@ public class MelomindEngine {
     public func startOADTransfer() {
        bluetoothManager.prepareStartOAD()
     }
-//    
-//    public func testOADTransfer() {
-//        bluetoothManager.prepareStartOAD(true)
-//    }
+    
+    public func testOADTransfer() {
+        bluetoothManager.prepareTestStartOAD()
+    }
     
     public func setEEGDelegate(_ delegate:MelomindEngineDelegate) {
         
