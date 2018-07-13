@@ -31,7 +31,6 @@
 
 #include "version.h"
 
-
 /// Signal Processing Bridge helper methods,
 /// to help converting format between C++ and Obj-C++.
 @interface MBTSignalProcessingHelper: NSObject
@@ -188,7 +187,6 @@ static MBT_MainQC *mainQC;
                             trainingClassesBad,
                             wBad,muBad,sigmaBad,costClassBad);
     
-    
 }
 
 /// Dealloc MBT_MainQC instance when session is finished, for memory safety.
@@ -221,6 +219,10 @@ static MBT_MainQC *mainQC;
     MBT_Matrix<float> modifiedData = mainQC->MBT_get_m_inputData();
 
     return [MBTSignalProcessingHelper fromMatrixToNSArray:modifiedData];
+}
+
++ (NSString*) getVersion {
+    return @VERSION;
 }
 
 @end

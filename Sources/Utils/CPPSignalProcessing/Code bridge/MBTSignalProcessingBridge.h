@@ -26,6 +26,8 @@
 
 + (NSArray*) getModifiedEEGData;
 
++ (NSString*) getVersion;
+
 @end
 
 
