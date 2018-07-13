@@ -80,7 +80,7 @@ struct MBTBrainWebHelper {
                                 upload.responseJSON { response in
                                     debugPrint("#57685 - sendALLJsonToBrainWeb response : \(response)")
                                     if response.response?.statusCode == 201 {
-                                        MBTJSONHelper.removeFile(fileURL)
+                                        let _ = MBTJSONHelper.removeFile(fileURL)
                                         completion(true)
                                     }
                                     completion(false)

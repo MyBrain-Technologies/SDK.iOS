@@ -311,6 +311,7 @@ class EEGPacketManager: MBTRealmEntityManager {
                     for packetIndex in 0 ..< eegPacketLength{
                         if eegPacket.channelsData[channelNumber].value[packetIndex].value.isNaN {
                             eegDatas[channelNumber].append(nil)
+                            print("#34567 - nan")
                         } else {
                             eegDatas[channelNumber].append(eegPacket.channelsData[channelNumber].value[packetIndex].value)
                         }
@@ -318,7 +319,7 @@ class EEGPacketManager: MBTRealmEntityManager {
                 }
             }
         }
-        
+        print("#34567 - \(eegDatas.compactMap({$0.contains(Float.nan) || $0.contains(Float.signalingNaN)}))")
         return JSON(eegDatas)
     }
     

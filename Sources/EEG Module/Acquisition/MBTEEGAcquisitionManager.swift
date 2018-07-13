@@ -93,7 +93,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let deviceTSR = ThreadSafeReference(to: device)
         let packetToRemove = EEGPacketManager.getArrayEEGPackets()
         var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
-        
+        let currentRecordInfo = MBTRecordInfo.init(MelomindEngine.main.recordInfo.recordId, recordingType: MelomindEngine.main.recordInfo.recordingType)
+        print("#78922 - \(currentRecordInfo)")
+
         for eegPacket in packetToRemove {
             packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
         }
@@ -115,7 +117,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                 
                 if let resDevice = realm.resolve(deviceTSR), resPacketsToSave.count == packetsToSaveTSR.count {
                     
-                    if let jsonObject = self.getJSONRecord(resDevice, eegPackets: resPacketsToSave,recordInfo:MelomindEngine.main.recordInfo, comments: comments) {
+                    if let jsonObject = self.getJSONRecord(resDevice, eegPackets: resPacketsToSave,recordInfo:currentRecordInfo, comments: comments) {
                         // Save JSON with EEG data received.
                         let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idDevice: resDevice.deviceInfos!.deviceId!, idUser: idUser, with: {
                             // Then delete all MBTEEGPacket saved.
