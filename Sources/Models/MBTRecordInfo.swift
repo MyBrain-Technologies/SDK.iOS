@@ -46,8 +46,7 @@ public class MBTRecordingType {
     public var recordType:MBTRecordType
     
     /// Signal Processing Version
-    internal var spVersion:String = "2.3.0"
-    
+    internal var spVersion:String = ""
     /// Data Source cf enum *MBTDataSource*
     public var source:MBTDataSource
     
@@ -63,6 +62,7 @@ public class MBTRecordingType {
         recordType = .RAWDATA
         source = .DEFAULT
         dataType = .DEFAULT
+        spVersion = MBTQualityCheckerBridge.getVersion()
     }
     
     /// Create a *MBTRecordingType* with provided RecordType, spVersion, Source, dataType
@@ -70,6 +70,7 @@ public class MBTRecordingType {
         self.recordType = recordType
         self.source = source
         self.dataType = dataType
+        self.spVersion = MBTQualityCheckerBridge.getVersion()
     }
     
     /// get a JSON
