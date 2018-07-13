@@ -262,6 +262,10 @@
 		2BAF7EE8208F63FA007D9EAB /* MBT_RelaxIndexToVolum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_RelaxIndexToVolum.h; sourceTree = "<group>"; };
 		2BAF7EE9208F63FA007D9EAB /* MBT_SmoothRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_SmoothRelaxIndex.h; sourceTree = "<group>"; };
 		2BAF7EEA208F63FA007D9EAB /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Utils/CPPSignalProcessing/version.h; sourceTree = "<group>"; };
+		2BC2D54620F8A2CE001CC2CE /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
+		2BC2D54720F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BC2D55120F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
+		2BC2D55320F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MBTBridgeConstants.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.mm"; sourceTree = "<group>"; };
 		2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_2.bin"; sourceTree = "<group>"; };
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -785,11 +789,31 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */ = {
+			isa = PBXGroup;
+			children = (
+				2BC2D54620F8A2CE001CC2CE /* MyBrainTechnologiesSDK.h */,
+				2BC2D54720F8A2CE001CC2CE /* Info.plist */,
+			);
+			path = MyBrainTechnologiesSDK;
+			sourceTree = "<group>";
+		};
+		2BC2D55020F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				2BC2D55120F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests.swift */,
+				2BC2D55320F8A2CE001CC2CE /* Info.plist */,
+			);
+			path = MyBrainTechnologiesSDKTests;
+			sourceTree = "<group>";
+		};
 		3549BAFB1DA387DB00C63030 = {
 			isa = PBXGroup;
 			children = (
 				3549BB161DA3890B00C63030 /* Sources */,
 				3549BB191DA3890B00C63030 /* Tests */,
+				2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */,
+				2BC2D55020F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests */,
 				3549BB061DA387DB00C63030 /* Products */,
 				35CA2AD51E12933000147290 /* Configuration */,
 				357D954B1DA3F2B400AEC55F /* Frameworks */,
@@ -1288,7 +1312,7 @@
 		3549BAFC1DA387DB00C63030 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = MyBrainTechnologies;
 				TargetAttributes = {
