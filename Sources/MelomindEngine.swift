@@ -111,11 +111,11 @@ public class MelomindEngine {
     }
     
     /// Send JSON File
-    public func sendEEGFile(_ urlFile:URL, accessTokens:String) {
+    public func sendEEGFile(_ urlFile:URL,removeFile:Bool, accessTokens:String) {
         MBTBrainWebHelper.accessTokens = accessTokens
         MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, completion: {
-            (finished)in
-            if finished {
+            (success)in
+            if success && removeFile {
                 let _ = MBTJSONHelper.removeFile(urlFile)
             }
         })
