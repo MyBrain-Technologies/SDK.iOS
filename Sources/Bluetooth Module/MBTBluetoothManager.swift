@@ -219,9 +219,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         if let currentFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion,
             let tabURLSBinary = bundle?.urls(forResourcesWithExtension: "bin", subdirectory: nil) {
-            let tabURLSBinarySort = try? tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
+            let tabURLSBinarySort = tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
             
-            if let latestURLBinary = tabURLSBinarySort?.last {
+            if let latestURLBinary = tabURLSBinarySort.last {
                 let fwVersion = latestURLBinary.relativeString.components(separatedBy: ".").first!.components(separatedBy: "-")[2]
                 
                 let newTabVersion = fwVersion.components(separatedBy: "_")
@@ -261,8 +261,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             }
         }
         
+        self.requestUpdateDeviceInfo()
+
+        
         DispatchQueue.global().async {
-            self.requestUpdateDeviceInfo()
             var firmwareVersion = ""
             var indexLoop = 0.0
             while self.blePeripheral == nil || firmwareVersion == "" || MBTBluetoothLEHelper.mailBoxCharacteristic == nil || !self.isConnected {
@@ -303,8 +305,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
 
         let bundle = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")!
         let tabURLSBinary = bundle.urls(forResourcesWithExtension: "bin", subdirectory: nil)!
-        let tabURLSBinarySort = try! tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
-        OADManager = MBTOADManager(tabURLSBinarySort.first!.relativeString.components(separatedBy: ".").first!)
+        let tabURLSBinarySort = tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
+        
+        OADManager = MBTOADManager((tabURLSBinarySort.first!.relativeString.components(separatedBy: ".").first!))
         
         stopTimerUpdateBatteryLevel()
         
@@ -334,8 +337,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             }
         }
         
+        self.requestUpdateDeviceInfo()
+
         DispatchQueue.global().async {
-            self.requestUpdateDeviceInfo()
             var firmwareVersion = ""
             var indexLoop = 0.0
             while self.blePeripheral == nil || firmwareVersion == "" || MBTBluetoothLEHelper.mailBoxCharacteristic == nil || !self.isConnected {
