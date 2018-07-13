@@ -24,8 +24,11 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     ///
     internal var eegPacketLength:Int = 0
     
+    ///
+    internal var version = MBTQualityCheckerBridge.getVersion()
+    
     /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-    func initializeQualityChecker()  {
+    func initializeQualityChecker() {
         // Getting connected MBTDevice *sampRate*.
         let sampRate = DeviceManager.getDeviceSampRate()
         MBTQualityCheckerBridge.initializeMainQualityChecker(sampRate, accuracy: 0.85)
