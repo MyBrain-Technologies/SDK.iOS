@@ -32,6 +32,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
     }
     
+    var counterServicesDiscover = 0
+    
     var isConnectedA2DP:Bool = {
         let output = AVAudioSession.sharedInstance().currentRoute.outputs.first
         
@@ -320,7 +322,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
 
     }
     
-    func prepareStartOAD() {
+    func prepareStartWithDeviceInfo(completion:@escaping ()->()) {
         self.isDownloadingFW = true
         self.isDownLoadingFWCompleted = false
         
@@ -361,7 +363,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             }
             
             DispatchQueue.main.sync {
-                    self.startOAD()
+                completion()
             }
            
         }
@@ -511,7 +513,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             DeviceManager.resetDeviceInfo()
             requestUpdateDeviceInfo()
         } else {
-            eventDelegate?.onConnectionEstablished?()
             DeviceManager.resetDeviceInfo()
         }
     }
@@ -622,8 +623,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             // Check if manager should look at this service characteristics
             if servicesUUID.contains(CBUUID(data: service.uuid.data)) {
                 peripheral.discoverCharacteristics(nil, for: currentService)
+                counterServicesDiscover += 1
             }
         }
+        
     }
     
     /// Enable notification and sensor for desired characteristic of valid service.
@@ -635,6 +638,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func peripheral(_ peripheral: CBPeripheral,
                                 didDiscoverCharacteristicsFor service: CBService,
                                 error: Error?) {
+        counterServicesDiscover -= 1
         // Get the device information characteristics UUIDs.
         let characsUUIDS = MBTBluetoothLEHelper.getDeviceInfoCharacteristicsUUIDS()
         
@@ -676,12 +680,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
 
         
-        // Check if characteristics have been discovered and set
-        if MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic != nil {
-            // Tell the event delegate that the connection is established
-          
-            
+        if counterServicesDiscover <= 0 {
             MelomindEngine.main.eegAcqusitionManager.setUpWith(device: DeviceManager.getCurrentDevice()!)
+            eventDelegate?.onConnectionEstablished?()
         }
     }
 

@@ -47,12 +47,16 @@ public class MelomindEngine {
         signalProcessingManager = MBTSignalProcessingManager.shared
     }
     
-    public func isNewVersionMelomindAvailable() -> Bool {
-        return bluetoothManager.getFileNameLatestVersionBin() != nil
+    public func isNewVersionMelomindAvailable(completion:@escaping (Bool)->()) {
+        bluetoothManager.prepareStartWithDeviceInfo {
+            completion(self.bluetoothManager.getFileNameLatestVersionBin() != nil)
+        }
     }
     
     public func startOADTransfer() {
-       bluetoothManager.prepareStartOAD()
+        bluetoothManager.prepareStartWithDeviceInfo {
+            self.bluetoothManager.startOAD()
+        }
     }
     
     public func testOADTransfer() {
