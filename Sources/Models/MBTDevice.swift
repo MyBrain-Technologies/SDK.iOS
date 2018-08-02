@@ -47,9 +47,9 @@ public class MBTDevice: Object {
         
         var finalsArrayComment = comments
         finalsArrayComment.insert("\(Date().timeIntervalSince1970)", at: 0)
-        var acquisitions: [String] = Array()
+        var acquisitions =  [String]()
         for acquisition in acquisitionLocations {
-            acquisitions.append("\(acquisition.type)")
+            acquisitions.append("\(acquisition.type.stringValue)")
         }
         
         jsonHeader["deviceInfo"]                = deviceInfos!.getJSON()
@@ -60,12 +60,17 @@ public class MBTDevice: Object {
         jsonHeader["nbChannels"].intValue       = nbChannels
         jsonHeader["acquisitionLocation"]       = JSON(acquisitions)
         
-        jsonHeader["referencesLocation"].arrayObject = [
-            "\(referencesLocations.first!.type)"
-        ]
-        jsonHeader["groundsLocation"].arrayObject = [
-            "\(groundsLocations.first!.type)"
-        ]
+        var stringReferencesLocations = [String]()
+        for referencesLocation in referencesLocations {
+            stringReferencesLocations.append(referencesLocation.type.stringValue)
+        }
+        jsonHeader["referencesLocation"] = JSON(stringReferencesLocations)
+        
+        var stringGroundsLocations = [String]()
+        for groundsLocation in groundsLocations {
+            stringGroundsLocations.append(groundsLocation.type.stringValue)
+        }
+        jsonHeader["groundsLocation"] = JSON(stringGroundsLocations)
         
         return jsonHeader
     }
@@ -149,7 +154,11 @@ class DeviceManager: MBTRealmEntityManager {
         if let device = getCurrentDevice() {
             // Save the new battery status to Realm Database
             try! RealmManager.realm.write {
-                device.batteryLevel = batteryLevel
+                if batteryLevel >= 0 && batteryLevel <= 6 {
+                    device.batteryLevel = batteryLevel
+                } else {
+                    device.batteryLevel = -1
+                }
             }
         }
     }
@@ -195,19 +204,20 @@ class DeviceManager: MBTRealmEntityManager {
     /// - Returns: The DB-saved *MBTDevice* instance.
     class func getCurrentDevice() -> MBTDevice? {
         // If no device saved in DB, then create it.
-        if let deviceName = connectedDeviceName {
-            guard let device = RealmManager.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceName).first else {
-                let newDevice = MBTDevice()
-                newDevice.deviceName = deviceName
+        if let deviceName = connectedDeviceName, !deviceName.isEmpty {
+            if  let device = RealmManager.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceName).first {
+                return device
+            } else {
+                    let newDevice = MBTDevice()
+                    newDevice.deviceName = deviceName
+                    
+                    try! RealmManager.realm.write {
+                        RealmManager.realm.add(newDevice)
+                    }
                 
-                try! RealmManager.realm.write {
-                    RealmManager.realm.add(newDevice)
-                }
                 return newDevice
             }
-            return device
         }
-        
         return nil
     }
     
@@ -227,20 +237,20 @@ class DeviceManager: MBTRealmEntityManager {
     
     /// Get EEG data samp rate of the connected device.
     /// - Returns: The *sampRate* of the current *MBTDevice*.
-    class func getDeviceSampRate() -> Float {
-        return Float(getCurrentDevice()?.sampRate ?? 250)
+    class func getDeviceSampRate() -> Int? {
+        return getCurrentDevice()?.sampRate
     }
     
     /// Get the number of channels of the connected device.
     /// - Returns: The *nbChannels* of the current *MBTDevice*.
-    class func getChannelsCount() -> Int {
-        return getCurrentDevice()?.nbChannels ?? 2
+    class func getChannelsCount() -> Int? {
+        return getCurrentDevice()?.nbChannels
     }
     
     /// Get EEGPacket length of the connected device.
     /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
-    class func getDeviceEEGPacketLength() -> Int {
-        return getCurrentDevice()?.eegPacketLength ?? 250
+    class func getDeviceEEGPacketLength() -> Int? {
+        return getCurrentDevice()?.eegPacketLength
     }
     
     class func resetDeviceInfo() {
@@ -404,6 +414,107 @@ enum ElectrodeLocation: Int {
     case NULL1
     case NULL2
     case NULL3
+    
+    var stringValue:String {
+        switch self {
+        case .Fpz : return "Fpz"
+        case .Fp1 : return "Fp1"
+        case .Fp2 : return "Fp2"
+            
+        case .AF7 : return "AF7"
+        case .AF3 : return "AF3"
+        case .AFz : return "AFz"
+        case .AF4 : return "AF4"
+        case .AD8 : return "AD8"
+            
+        case .F9 : return "F9"
+        case .F7 : return "F7"
+        case .F5 : return "F5"
+        case .F3 : return "F3"
+        case .F1 : return "F1"
+        case .Fz : return "Fz"
+        case .F2 : return "F2"
+        case .F4 : return "F4"
+        case .F6 : return "F6"
+        case .F8 : return "F8"
+        case .F10 : return "F10"
+            
+        case .FT9 : return "FT9"
+        case .FT7 : return "FT7"
+        case .FC5 : return "FC5"
+        case .FC3 : return "FC3"
+        case .FC1 : return "FC1"
+        case .FCz : return "FCz"
+        case .FC2 : return "FC2"
+        case .FC4 : return "FC4"
+        case .FC6 : return "FC6"
+        case .FT8 : return "FT8"
+        case .FT10 : return "FT10"
+            
+        case .T7 : return "T7"
+        case .C5 : return "C5"
+        case .C3 : return "C3"
+        case .C1 : return "C1"
+        case .Cz : return "Cz"
+        case .C2 : return "C2"
+        case .C4 : return "C4"
+        case .C6 : return "C6"
+        case .T8 : return "T8"
+            
+        case .TP9 : return "TP9"
+        case .TP7 : return "TP7"
+        case .CP5 : return "CP5"
+        case .CP3 : return "CP3"
+        case .CP1 : return "CP1"
+        case .CPz : return "CPz"
+        case .CP2 : return "CP2"
+        case .CP4 : return "CP4"
+        case .CP6 : return "CP6"
+        case .TP8 : return "TP8"
+        case .TP10 : return "TP10"
+            
+        case .P9 : return "P9"
+        case .P7 : return "P7"
+        case .P5 : return "P5"
+        case .P3 : return "P3"
+        case .P1 : return "P1"
+        case .Pz : return "Pz"
+        case .P2 : return "P2"
+        case .P4 : return "P4"
+        case .P6 : return "P6"
+        case .P8 : return "P8"
+        case .P10 : return "P10"
+            
+        case .PO3 : return "PO3"
+        case .POz : return "POz"
+        case .PO4 : return "PO4"
+            
+        case .PO7 : return "PO7"
+        case .O1 : return "O1"
+        case .Oz : return "Oz"
+        case .O2 : return "O2"
+        case .PO8 : return "PO8"
+            
+        case .PO9 : return "PO9"
+        case .O9 : return "O9"
+        case .Iz : return "Iz"
+        case .O10 : return "O10"
+        case .PO10 : return "PO10"
+            
+        case .M1 : return "M1" // Mastoid 1
+        case .M2 : return "M2"  // Mastoid 2
+            
+        case .ACC : return "ACC"
+            
+        case .EXT1 : return "EXT1"
+        case .EXT2 : return "EXT2"
+        case .EXT3 : return "EXT3"
+            
+        case .NULL1 : return "NULL1"
+        case .NULL2 : return "NULL2"
+        case .NULL3 : return "NULL3"
+        }
+    }
 }
 
 

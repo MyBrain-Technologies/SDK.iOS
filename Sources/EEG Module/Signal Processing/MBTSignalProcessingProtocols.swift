@@ -13,7 +13,7 @@ import RealmSwift
 protocol MBTQualityComputer {
     
     /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-    func initializeQualityChecker()
+    func initializeQualityChecker() -> Bool
     
     /// Returns an array of "quality" values for a data matrix of an acquisition packet.
     /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
@@ -43,7 +43,7 @@ protocol MBTRelaxIndexComputer {
     /// - parameter parametersFromCalibration: A dictionary with the parameters computed from the calibration data.
     /// - parameter sampRate: The data sampling rate.
     /// - returns: The relaxation index for the packet.
-    func computeRelaxIndex() -> Float
+    func computeRelaxIndex() -> Float?
 }
 
 protocol MBTSessionAnalysisComputer {

@@ -28,10 +28,14 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     internal var version = MBTQualityCheckerBridge.getVersion()
     
     /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-    func initializeQualityChecker() {
+    func initializeQualityChecker() -> Bool {
         // Getting connected MBTDevice *sampRate*.
-        let sampRate = DeviceManager.getDeviceSampRate()
-        MBTQualityCheckerBridge.initializeMainQualityChecker(sampRate, accuracy: 0.85)
+        guard let sampRate = DeviceManager.getDeviceSampRate() else {
+            return false
+        }
+        MBTQualityCheckerBridge.initializeMainQualityChecker(Float(sampRate), accuracy: 0.85)
+        
+        return true
     }
     
     /// Delete MBT_MainQC instance once acquisition phase is over.
@@ -111,9 +115,11 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
     ///     - packetsCount: Number of packets to get, from the last one.
     /// - Returns: A dictionnary with calibration datas from the CPP Signal Processing.
     func computeCalibration(_ packetsCount: Int) -> [String: [Float]] {
-        let packetLength = DeviceManager.getDeviceEEGPacketLength()
-        let sampRate = Int(DeviceManager.getDeviceSampRate())
-        let nbChannel = DeviceManager.getChannelsCount()
+        guard let sampRate = DeviceManager.getDeviceSampRate(),
+            let nbChannel = DeviceManager.getChannelsCount(),
+            let packetLength = DeviceManager.getDeviceEEGPacketLength() else {
+            return [String: [Float]]()
+        }
         
         // Get the last N packets.
         let packets = EEGPacketManager.getLastNPacketsComplete(packetsCount)
@@ -168,7 +174,7 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
 
 extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     //Implementing MBT_RelaxIndexComputer
-    func computeRelaxIndex() -> Float {
+    func computeRelaxIndex() -> Float? {
         
         // Get the last N packets.
         let packets = EEGPacketManager.getLastNPacketsComplete(4)
@@ -177,8 +183,10 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
             return 0
         }
         
-        let sampRate = Int(DeviceManager.getDeviceSampRate())
-        let nbChannels: Int = DeviceManager.getChannelsCount()
+        guard let sampRate = DeviceManager.getDeviceSampRate(),
+            let nbChannels = DeviceManager.getChannelsCount() else {
+                return nil
+        }
         
         var arrayModifiedChannelData = [List<ChannelDatas>]()
         for i in 0 ..< packets.count {
