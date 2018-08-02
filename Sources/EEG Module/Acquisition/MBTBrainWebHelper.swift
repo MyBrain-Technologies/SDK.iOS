@@ -14,13 +14,13 @@ struct MBTBrainWebHelper {
     
     static var accessTokens = ""
     
-    static var path = "https://api.preprodz.mybraintech.com/v1.0.2/ingest-legacy"
+    static var path = "/ingest-legacy"
     
     /// Send JSON to medical BrainWeb server.
-    static func sendJSONToBrainWeb(_ fileURL: URL, completion: @escaping (Bool)->() ) {
+    static func sendJSONToBrainWeb(_ fileURL: URL, baseURL: String , completion: @escaping (Bool)->() ) {
         
-        let url                 = URL(string: MBTBrainWebHelper.path)!
-        var urlRequest          = URLRequest(url: url)
+        let url                 = URL(string: baseURL)!
+        var urlRequest          = URLRequest(url: url.appendingPathComponent(MBTBrainWebHelper.path))
         urlRequest.httpMethod = HTTPMethod.post.rawValue
         urlRequest.timeoutInterval = TimeInterval(20)
         urlRequest.setValue("Bearer " + accessTokens, forHTTPHeaderField: "Authorization")
@@ -47,10 +47,10 @@ struct MBTBrainWebHelper {
         }
     }
     /// Send ALL JSON to medical BrainWeb server.
-    static func sendAllJSONToBrainWeb(completion: @escaping (Bool)->() ) {
+    static func sendAllJSONToBrainWeb(_ baseURL: String, completion: @escaping (Bool)->() ) {
         
-        let url                 = URL(string: MBTBrainWebHelper.path)!
-        var urlRequest          = URLRequest(url: url)
+        let url                 = URL(string: baseURL)!
+        var urlRequest          = URLRequest(url: url.appendingPathComponent(MBTBrainWebHelper.path))
         urlRequest.httpMethod = HTTPMethod.post.rawValue
         urlRequest.timeoutInterval = TimeInterval(20)
         urlRequest.setValue("Bearer " + accessTokens, forHTTPHeaderField: "Authorization")
