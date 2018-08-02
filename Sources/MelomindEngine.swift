@@ -48,13 +48,13 @@ public class MelomindEngine {
     }
     
     public func isNewVersionMelomindAvailable(completion:@escaping (Bool)->()) {
-        bluetoothManager.prepareStartWithDeviceInfo {
+        bluetoothManager.prepareDeviceWithInfo {
             completion(self.bluetoothManager.getFileNameLatestVersionBin() != nil)
         }
     }
     
     public func startOADTransfer() {
-        bluetoothManager.prepareStartWithDeviceInfo {
+        bluetoothManager.prepareDeviceWithInfo {
             self.bluetoothManager.startOAD()
         }
     }
@@ -64,7 +64,6 @@ public class MelomindEngine {
     }
     
     public func setEEGDelegate(_ delegate:MelomindEngineDelegate) {
-        
         // Add the Acquisition delegate to the Acquisition manager
         initAcquisitionManager(with: delegate)
         
@@ -115,9 +114,9 @@ public class MelomindEngine {
     }
     
     /// Send JSON File
-    public func sendEEGFile(_ urlFile:URL,removeFile:Bool, accessTokens:String) {
+    public func sendEEGFile(_ urlFile:URL, baseUrl:String,removeFile:Bool, accessTokens:String) {
         MBTBrainWebHelper.accessTokens = accessTokens
-        MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, completion: {
+        MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, baseURL: baseUrl, completion: {
             (success)in
             if success && removeFile {
                 let _ = MBTJSONHelper.removeFile(urlFile)
@@ -240,10 +239,9 @@ public class MelomindEngine {
     /// Start streaming headSet Data from HeadsetStatus Characteristic.
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
     public func startStream(_ shouldUseQualityChecker: Bool) {
-        eegAcqusitionManager.streamHasStarted(shouldUseQualityChecker)
+         eegAcqusitionManager.streamHasStarted(shouldUseQualityChecker)
         bluetoothManager.isListeningToEEG = true
         bluetoothManager.isListeningToHeadsetStatus = true
-
     }
     
     
