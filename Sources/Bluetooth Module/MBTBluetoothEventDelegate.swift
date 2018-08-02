@@ -38,6 +38,10 @@ import Foundation
     
     @objc optional func onProgressUpdate(_ progress:Float)
     
+    @objc optional func didRequireToRebootBluetooth()
+    
+    @objc optional func didRebootBluetooth()
+
     @objc optional func onOADComplete()
     
     /// Called When a OAD process fail
@@ -48,4 +52,6 @@ import Foundation
     /// 2 : OTA_STATUS_EVT FAIL (0)
     /// 3 : After Melomind Reboot, Latest Bin Version > CurrentVersion
     @objc optional func didOADFailWithError (_ error:Error)
+    
+    
 }
