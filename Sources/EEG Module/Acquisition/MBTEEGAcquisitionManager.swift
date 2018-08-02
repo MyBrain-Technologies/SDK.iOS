@@ -11,8 +11,6 @@ import Foundation
 import CoreBluetooth
 import RealmSwift
 
-typealias ArrayStreamEEGPacketToSend = (current:[[Float]]?,complete:[[Float]]?)
-
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...
 internal class MBTEEGAcquisitionManager: NSObject  {
@@ -23,10 +21,8 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     static let NEGATIVE_MASK_MELOMIND: Int32 = (0xFFFFFFF << (32 - SHIFT_MELOMIND))
     static let POSITIVE_MASK_MELOMIND: Int32 = (~NEGATIVE_MASK_MELOMIND)
     static let divider = 2
+    
     var previousIndex : Int16 = -1
-    
-    
-    var isFinish = true
     
     /// Singleton declaration
     static let shared = MBTEEGAcquisitionManager()
@@ -69,8 +65,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     func streamHasStarted(_ useQualityChecker:Bool) {
         // Start mainQualityChecker.
         if useQualityChecker {
-            MBTSignalProcessingManager.shared.initializeQualityChecker()
-            shouldUseQualityChecker = useQualityChecker
+            shouldUseQualityChecker = MBTSignalProcessingManager.shared.initializeQualityChecker()
         }
     }
     
@@ -116,26 +111,23 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                 }
                 
                 if let resDevice = realm.resolve(deviceTSR), resPacketsToSave.count == packetsToSaveTSR.count {
-                    
-                    if let jsonObject = self.getJSONRecord(resDevice, eegPackets: resPacketsToSave,recordInfo:currentRecordInfo, comments: comments) {
-                        // Save JSON with EEG data received.
-                        let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idDevice: resDevice.deviceInfos!.deviceId!, idUser: idUser, with: {
-                            // Then delete all MBTEEGPacket saved.
-                            DispatchQueue.main.async {
-                                EEGPacketManager.removePackets(packetToRemove)
-                            }
-
-                        })
-                        completion(fileURL)
+                    let jsonObject = self.getJSONRecord(resDevice,idUser: idUser ,eegPackets: resPacketsToSave,recordInfo:currentRecordInfo, comments: comments)
+                    // Save JSON with EEG data received.
+                    let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idDevice: resDevice.deviceInfos!.deviceId!, idUser: idUser, with: {
+                        // Then delete all MBTEEGPacket saved.
+                        DispatchQueue.main.async {
+                            EEGPacketManager.removePackets(packetToRemove)
+                        }
                         
-                    } else {
-                        completion(nil)
-                        
-                    }
+                    })
+                    completion(fileURL)
+                } else {
+                    completion(nil)
                 }
+            } else {
+                completion(nil)
             }
         }
-    
     }
   
     
@@ -166,7 +158,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         self.timeIntervalPerf = Date().timeIntervalSince1970
         
         if self.isRecording {
-            let _ = EEGPacketManager.saveEEGPacket(packetComplete)
+            EEGPacketManager.saveEEGPacket(packetComplete)
         }
         
         
@@ -174,12 +166,17 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     
     /// Collecting the session datas and create the JSON.
     /// - Returns: The *JSON* created with the session datas.
-    func getJSONRecord(_ device:MBTDevice,eegPackets:[MBTEEGPacket],recordInfo:MBTRecordInfo, comments:[String] = [String]() ) -> JSON?  {
+    func getJSONRecord(_ device:MBTDevice,idUser:Int, eegPackets:[MBTEEGPacket],recordInfo:MBTRecordInfo, comments:[String] = [String]()) -> JSON  {
      
         // Create the session JSON.
         var jsonObject = JSON()
         jsonObject["uuidJsonFile"].stringValue = UUID().uuidString
         jsonObject["header"] = device.getJSON(comments)
+        
+        var jsonContext = JSON()
+        jsonContext["ownerId"].intValue = idUser
+        jsonObject["context"] = jsonContext
+        
 
         var jsonRecord = JSON()
         jsonRecord["recordID"].stringValue = recordInfo.recordId.uuidString
@@ -188,7 +185,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         jsonRecord["nbPackets"].intValue = eegPackets.count
         jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ? eegPackets.index(of: eegPackets.first! )! : 0
         jsonRecord["qualities"] = EEGPacketManager.getJSONQualities(eegPackets)
-        jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets, eegPacketLength: device.eegPacketLength)
+        jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets)
         jsonRecord["statusData"].arrayObject = [Any]()
         jsonRecord["recordingParameters"].arrayObject = [Any]()
         
@@ -306,7 +303,80 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         
         let dataArray = [P3DatasArray, P4DatasArray]
         
+//        writeToFile(bytesArray, tabArray: dataArray)
+        
         return dataArray
     }
+    
+//
+//    func writeToFile(_ tabBytes:[UInt8], tabArray:[[Float]]) {
+//
+//        do {
+//            let documentDirectory = try FileManager.default.url(
+//                for: .documentDirectory,
+//                in: .userDomainMask,
+//                appropriateFor:nil,
+//                create:false
+//            )
+//
+//            let fileNameBytes = "inputDataToManage.txt"
+//            let pathBytes = documentDirectory.appendingPathComponent(fileNameBytes)
+//
+////            if !FileManager.default.fileExists(atPath: pathBytes.absoluteString) {
+////                try "".write(to: pathBytes, atomically: true, encoding: .utf8)
+////            }
+//
+////            let fileNameData = "inputDataTesting1.txt"
+////            let pathData = documentDirectory.appendingPathComponent(fileNameData)
+//
+////            if !FileManager.default.fileExists(atPath: pathData.absoluteString) {
+////                try "".write(to: pathData, atomically: true, encoding: .utf8)
+////            }
+////
+//            var stringBytes = try String(contentsOf: pathBytes)
+//
+//
+//            for i in 0 ..< (tabBytes.count - 1) {
+//                if tabBytes[i] <= 255 {
+//                    stringBytes = stringBytes + "\(tabBytes[i])" + ";"
+//                }
+//            }
+//
+//            stringBytes = stringBytes + "\(tabBytes[tabBytes.count - 1])"
+//
+////
+////            var stringEEGPacketData = try String(contentsOf: pathData)
+////
+////
+////            for i in 0 ..< tabArray[0].count {
+////                if i != (tabArray[0].count - 1) {
+////                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i]) + ";"
+////                } else {
+////                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i])
+////                }
+////
+////            }
+////            stringEEGPacketData += "$"
+////
+////            for i in 0 ..< tabArray[0].count {
+////                if i != (tabArray[0].count - 1) {
+////                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i]) + ";"
+////                } else {
+////                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i])
+////                }
+////
+////            }
+////
+////            stringBytes += "\n"
+////            stringEEGPacketData += "\n"
+//
+//            try stringBytes.write(to: pathBytes, atomically: true, encoding: .utf8)
+//
+//
+////            try stringEEGPacketData.write(to: pathData, atomically: true, encoding: .utf8)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
 }
 
