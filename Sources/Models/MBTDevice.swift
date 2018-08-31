@@ -78,11 +78,11 @@ public class MBTDevice: Object {
 
 //MARK: -
 
-/// Files Names
-
-public class FileName: Object {
-    @objc public dynamic var value:String = ""
-}
+///// Files Names
+//
+//public class FileName: Object {
+//    @objc public dynamic var value:String = ""
+//}
 
 //MARK: -
 
@@ -116,6 +116,9 @@ public class MBTDeviceInformations: Object {
     
  
     
+    /// Allows to know if all properties have been initialized
+    ///
+    /// - Returns: A *Bool* instance which test if one of the four properties is nil
     func isDeviceInfoNotNil() -> Bool {
         return productName != nil && deviceId != nil && hardwareVersion != nil && firmwareVersion != nil
     }
@@ -253,6 +256,7 @@ class DeviceManager: MBTRealmEntityManager {
         return getCurrentDevice()?.eegPacketLength
     }
     
+    /// Deinit all properties of deviceInfos
     class func resetDeviceInfo() {
         if let currentDevice = DeviceManager.getCurrentDevice() {
             try! RealmManager.realm.write {
@@ -265,7 +269,6 @@ class DeviceManager: MBTRealmEntityManager {
     }
     
     /// Remove the current device from Realm DB
-    
     class func removeCurrentDevice() -> Bool {
         guard let deviceToDelete = connectedDeviceName else {
             return false
