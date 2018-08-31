@@ -213,7 +213,7 @@ public class MBTClient {
     /// Start saving EEGPacket on DB    /// - Parameters :
     ///     - newRecord : Create a new recordId on the JSON File
     ///     - recordingType : Change the session's type
-    public func startRecording(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) {
+    public func startRecording(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) -> UUID? {
         if let _ = DeviceManager.connectedDeviceName {
             if newRecord {
                 recordInfo = MBTRecordInfo()
@@ -223,7 +223,10 @@ public class MBTClient {
             }
             
             eegAcqusitionManager.isRecording = true
+            
+            return recordInfo.recordId
         }
+        return nil
     }
     
     /// Stop saving EEGPacket on DB
