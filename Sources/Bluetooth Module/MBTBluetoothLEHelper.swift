@@ -24,7 +24,7 @@ struct MBTBluetoothLEHelper {
     static let headsetStatusUUID = CBUUID(string: "0xB2A3")
     
     /// The *UUID* of OAD Transfer
-    static let oadTransferUUID = CBUUID(string: "0xB2A6")
+    static let oadTransfertUUID = CBUUID(string: "0xB2A6")
     
     /// The *UUID* of mail box
     static let mailBoxUUID = CBUUID(string: "0xB2A4")
@@ -57,7 +57,7 @@ struct MBTBluetoothLEHelper {
     
     static var mailBoxCharacteristic: CBCharacteristic!
     
-    static var oadTransferCharacteristic: CBCharacteristic!
+    static var oadTransfertCharacteristic: CBCharacteristic!
     //MARK: - Bluetooth LE Methods
     
     /// Getter of Bluetooth LE Services UUIDs.
