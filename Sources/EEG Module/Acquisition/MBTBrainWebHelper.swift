@@ -34,7 +34,7 @@ struct MBTBrainWebHelper {
                     case .success(let upload, _, _):
                         upload.responseJSON { response in
                             debugPrint("#57685 - sendJSONToBrainWeb response :\(response)")
-                            if response.response?.statusCode >= 200 && response.response?.statusCode < 300 {
+                            if let statusCode = response.response?.statusCode, statusCode >= 200 && statusCode < 300 {
                                 completion(true)
                             }
                         }
