@@ -14,34 +14,37 @@ import RealmSwift
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...
 internal class MBTEEGAcquisitionManager: NSObject  {
+    
+    
     /// Mandatory 8 to switch from 24 bits to 32 bits + variable part which fits fw config.
     static let SHIFT_MELOMIND: Int32 = 8+4
+    
     // Constantes to get EEG values from bluetooth.
     static let CHECK_SIGN_MELOMIND: Int32 = (0x80 << SHIFT_MELOMIND)
     static let NEGATIVE_MASK_MELOMIND: Int32 = (0xFFFFFFF << (32 - SHIFT_MELOMIND))
     static let POSITIVE_MASK_MELOMIND: Int32 = (~NEGATIVE_MASK_MELOMIND)
     static let divider = 2
     
-    var previousIndex : Int16 = -1
+    /// Constant to decod EEG data
+    let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 8
     
     /// Singleton declaration
     static let shared = MBTEEGAcquisitionManager()
     
-    /// Bool to know if developer wants to use QC or not.
-    var shouldUseQualityChecker: Bool?
-    
     /// The MBTBluetooth Event Delegate.
     weak var delegate: MBTEEGAcquisitionDelegate?
     
+    /// Bool to know if developer wants to use QC or not.
+    var shouldUseQualityChecker: Bool?
     
-    /// Constant to decod EEG data
-    let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 8
+    /// Previous Index Data Blutooth
+    var previousIndex : Int16 = -1
     
-    
+    /// Buffer Data Byte
+    var buffByte = [UInt8]()
+
+    /// if the sdk record in DB EEGPacket
     var isRecording:Bool = false
-    
-    var timeIntervalPerf = Date().timeIntervalSince1970
-    
     
     var eegPacketLength = 0
     
@@ -49,7 +52,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     
     var sampRate = 0
     
-    var buffByte = [UInt8]()
+    /// Test Variable
+    var timeIntervalPerf = Date().timeIntervalSince1970
+    
     
     func setUpWith(device:MBTDevice) {
         eegPacketLength = device.eegPacketLength
@@ -88,7 +93,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let deviceTSR = ThreadSafeReference(to: device)
         let packetToRemove = EEGPacketManager.getArrayEEGPackets()
         var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
-        let currentRecordInfo = MBTRecordInfo.init(MelomindEngine.main.recordInfo.recordId, recordingType: MelomindEngine.main.recordInfo.recordingType)
+        let currentRecordInfo = MBTRecordInfo.init(MBTClient.main.recordInfo.recordId, recordingType: MBTClient.main.recordInfo.recordingType)
         print("#78922 - \(currentRecordInfo)")
 
         for eegPacket in packetToRemove {
@@ -146,6 +151,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
             let qualities = MBTSignalProcessingManager.shared.computeQualityValue(packetComplete.channelsData,sampRate:self.sampRate, eegPacketLength: eegPacketLength)
             packetComplete.addQualities(qualities)
             
+            //MARK: To Remove
+//            writeQualities(qualities)
+            
             // Get the EEG values modified by the *QC* according to the *Quality* values.
             let correctedValues = MBTSignalProcessingManager.shared.getModifiedEEGValues()
             packetComplete.addModifiedChannelsData(correctedValues,nbChannels: self.nbChannels,sampRate: self.sampRate)
@@ -153,6 +161,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
            
             
         }
+        
         self.delegate?.onReceivingPackage?(packetComplete)
         print("#57685 - Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)")
         self.timeIntervalPerf = Date().timeIntervalSince1970
@@ -319,61 +328,96 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 //                create:false
 //            )
 //
-//            let fileNameBytes = "inputDataToManage.txt"
+//            let fileNameBytes = "inputBytes.txt"
 //            let pathBytes = documentDirectory.appendingPathComponent(fileNameBytes)
 //
 ////            if !FileManager.default.fileExists(atPath: pathBytes.absoluteString) {
 ////                try "".write(to: pathBytes, atomically: true, encoding: .utf8)
 ////            }
 //
-////            let fileNameData = "inputDataTesting1.txt"
-////            let pathData = documentDirectory.appendingPathComponent(fileNameData)
+//            let fileNameData = "inputData.txt"
+//            let pathData = documentDirectory.appendingPathComponent(fileNameData)
 //
 ////            if !FileManager.default.fileExists(atPath: pathData.absoluteString) {
 ////                try "".write(to: pathData, atomically: true, encoding: .utf8)
 ////            }
-////
+//
 //            var stringBytes = try String(contentsOf: pathBytes)
 //
 //
 //            for i in 0 ..< (tabBytes.count - 1) {
 //                if tabBytes[i] <= 255 {
-//                    stringBytes = stringBytes + "\(tabBytes[i])" + ";"
+//                    stringBytes += "\(tabBytes[i])" + ";"
 //                }
 //            }
 //
 //            stringBytes = stringBytes + "\(tabBytes[tabBytes.count - 1])"
 //
-////
-////            var stringEEGPacketData = try String(contentsOf: pathData)
-////
-////
-////            for i in 0 ..< tabArray[0].count {
-////                if i != (tabArray[0].count - 1) {
-////                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i]) + ";"
-////                } else {
-////                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i])
-////                }
-////
-////            }
-////            stringEEGPacketData += "$"
-////
-////            for i in 0 ..< tabArray[0].count {
-////                if i != (tabArray[0].count - 1) {
-////                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i]) + ";"
-////                } else {
-////                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i])
-////                }
-////
-////            }
-////
-////            stringBytes += "\n"
-////            stringEEGPacketData += "\n"
+//
+//            var stringEEGPacketData = try String(contentsOf: pathData)
+//
+//
+//            for i in 0 ..< tabArray[0].count {
+//                if i != (tabArray[0].count - 1) {
+//                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i]) + ";"
+//                } else {
+//                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i])
+//                }
+//
+//            }
+//            stringEEGPacketData += "$"
+//
+//            for i in 0 ..< tabArray[0].count {
+//                if i != (tabArray[0].count - 1) {
+//                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i]) + ";"
+//                } else {
+//                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i])
+//                }
+//
+//            }
+//
+//            stringBytes += "|"
+//            stringEEGPacketData += "|"
 //
 //            try stringBytes.write(to: pathBytes, atomically: true, encoding: .utf8)
+//            try stringEEGPacketData.write(to: pathData, atomically: true, encoding: .utf8)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
+    
 //
+//    func writeQualities(_ qualities:[Float]) {
+//        do {
+//            let documentDirectory = try FileManager.default.url(
+//                for: .documentDirectory,
+//                in: .userDomainMask,
+//                appropriateFor:nil,
+//                create:false
+//            )
 //
-////            try stringEEGPacketData.write(to: pathData, atomically: true, encoding: .utf8)
+//            let fileNameQualities = "inputQualities.txt"
+//            let pathQualities = documentDirectory.appendingPathComponent(fileNameQualities)
+//
+////            if !FileManager.default.fileExists(atPath: pathQualities.absoluteString) {
+////                try "".write(to: pathQualities, atomically: true, encoding: .utf8)
+////            }
+//
+//            var stringQualities = try String(contentsOf: pathQualities)
+//
+//            for i in 0 ..< qualities.count {
+//                stringQualities  += "\(qualities[i])"
+//
+//                if i != qualities.count - 1 {
+//                    stringQualities += ","
+//                }
+//
+//            }
+//
+//            stringQualities += ";"
+//
+//            try stringQualities.write(to: pathQualities, atomically: true, encoding: .utf8)
+//
 //        } catch {
 //            print(error.localizedDescription)
 //        }
