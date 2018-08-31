@@ -12,21 +12,9 @@ import Foundation
 /// with the session data.
 struct MBTJSONHelper {
     
-    /// Parameters received to start a session.
-    //static var sessionParameters:[String: Any]!
-    
-    /// JSON UUID (for BrainWeb) and also JSON file's name.
-//    static var uuid: UUID!
-    
-    /// File URL of the saved JSON.
-    //static var fileURL: URL?
-    
     /// Save the JSON on the iDevice.
     static func saveJSONOnDevice(_ json: JSON,idDevice:String ,idUser:Int, with completion: ()->()) -> URL? {
         let fileManager = FileManager.default
-//        guard let json = getDataJSON(jsonObject) else {
-//            return nil
-//        }
         
         do {
             // Getting the url to save the json.
@@ -85,41 +73,4 @@ struct MBTJSONHelper {
         
         return true
     }
-    
-//    /// Remove the JSON saved on the iDevice.
-//    static func deleteJSONFromDevice() {
-//        if MBTJSONHelper.doesJSONExist() {
-//            let fileManager = FileManager.default
-//
-//            do {
-//                try fileManager.removeItem(at: MBTJSONHelper.fileURL!)
-//            } catch {
-//                debugPrint("[MyBrainTechnologiesSDK] Error while deleting previous JSON : \(error)")
-//            }
-//        }
-//    }
-//
-//    /// Getter for the session JSON.
-//    static func getSessionData() -> Data? {
-//        if MBTJSONHelper.doesJSONExist() {
-//            let fileManager = FileManager.default
-//
-//            return fileManager.contents(atPath: MBTJSONHelper.fileURL!.path)
-//        }
-//
-//        return nil
-//    }
-    
-    /// Check if a file URL has been saved,
-    /// and if the json still exists.
-//    static func doesJSONExist() -> Bool {
-//        guard let fileURL = MBTJSONHelper.fileURL else {
-//            debugPrint("[MyBrainTechnologiesSDK] Error no JSON exists. Try to startStream() / stopStream() first.")
-//
-//            return false
-//        }
-//
-//        let fileManager = FileManager.default
-//        return  fileManager.fileExists(atPath: fileURL.path)
-//    }
 }
