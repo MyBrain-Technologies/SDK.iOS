@@ -21,7 +21,7 @@ public class MBTEEGPacket: Object {
     public var qualities = List<Quality>()
     
     /// The timestamp in milliseconds when this packet is created.
-    @objc public  dynamic var timestamp: Int = Int(NSDate().timeIntervalSince1970)
+    @objc public  dynamic var timestamp: Int = Int(NSDate().timeIntervalSince1970 * 1000)
     
     /// The values from all channels.
     public var channelsData = List<ChannelDatas>()
