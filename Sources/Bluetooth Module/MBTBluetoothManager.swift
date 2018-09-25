@@ -153,13 +153,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         if timerTimeOutConnection?.isValid ?? false  {
             timerTimeOutConnection?.invalidate()
-            timerTimeOutConnection = nil
         }
-        
+        timerTimeOutConnection = nil
+
         if timerTimeOutOAD?.isValid ?? false {
             timerTimeOutOAD?.invalidate()
-            timerTimeOutOAD = nil
         }
+        timerTimeOutOAD = nil
+
         
 //        eventDelegate = nil
 //        audioA2DPDelegate = nil
@@ -190,6 +191,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             timerUpdateBatteryLevel?.invalidate()
         }
         timerUpdateBatteryLevel = Timer.scheduledTimer(timeInterval: eventDelegate?.timeIntervalOnReceiveBattery?() ?? 120, target: self, selector: #selector(requestUpdateBatteryLevel), userInfo: nil, repeats: true)
+        requestUpdateBatteryLevel()
     }
     
     
