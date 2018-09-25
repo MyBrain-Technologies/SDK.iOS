@@ -9,7 +9,7 @@
 
 #include "../Headers/MBT_SmoothRelaxIndex.h"
 
-float MBT_SmoothRelaxIndex(std::vector<float> tmp_pastRelaxIndexes)
+float MBT_SmoothRelaxIndex(std::vector<float> tmp_pastRelaxIndexes, int smoothingDuration)
 {
     double smoothedRelaxIndex;
 	std::vector<double> pastRelaxIndexes(tmp_pastRelaxIndexes.begin(),tmp_pastRelaxIndexes.end());
@@ -18,178 +18,60 @@ float MBT_SmoothRelaxIndex(std::vector<float> tmp_pastRelaxIndexes)
 
     if (sizePastRelaxIndexes > 0)
     {
-        if (sizePastRelaxIndexes == 1)
+        int N = smoothingDuration;
+        if (sizePastRelaxIndexes<smoothingDuration)
         {
-            if (pastRelaxIndexes[sizePastRelaxIndexes-1] == std::numeric_limits<double>::infinity())
+            N = sizePastRelaxIndexes;
+        }
+
+        // count the number of inf and nan
+        int counterInf = 0;
+        int counterNaN = 0;
+        std::vector<double> pastRelaxIndexesWithoutInfNaN;
+        for (int t=0; t<N; t++)
+        {
+            if (isinf(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
             {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = std::numeric_limits<double>::infinity();
-                errno = EINVAL;
-                perror("ERROR: MBT_SMOOTHRELAXINDEX CANNOT PROCESS WITHOUT GOOD PASTRELAXINDEX IN INPUT");
+                counterInf = counterInf +1;
             }
-            else if (isnan(pastRelaxIndexes[pastRelaxIndexes.size()-1]))
+            else if (isnan(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
             {
-                smoothedRelaxIndex = nan(" ");
-                std::cout<<"Four consecutive EEG packet of 1s have bad quality."<<std::endl;
+                counterNaN = counterNaN +1;
             }
             else
             {
-                smoothedRelaxIndex = mean(pastRelaxIndexes);
+                pastRelaxIndexesWithoutInfNaN.push_back(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]);
             }
         }
-        else if (sizePastRelaxIndexes == 2)
+
+        // if only Inf data
+        if (counterInf == N)
         {
-            // count the number of inf and nan
-            int counterInf = 0;
-            int counterNaN = 0;
-            std::vector<double> pastRelaxIndexesWithoutInfNaN;
-            for (int t=0; t<2; t++)
-            {
-                if (isinf(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
-                {
-                    counterInf = counterInf +1;
-                }
-                else if (isnan(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
-                {
-                    counterNaN = counterNaN +1;
-                }
-                else
-                {
-                    pastRelaxIndexesWithoutInfNaN.push_back(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]);
-                }
-            }
-
-            // if only Inf data
-            if (counterInf == 2)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = std::numeric_limits<double>::infinity();
-                errno = EINVAL;
-                perror("ERROR: MBT_SMOOTHRELAXINDEX CANNOT PROCESS WITHOUT GOOD PASTRELAXINDEX IN INPUT");
-            }
-            // if only NaN data
-            else if (counterNaN == 2)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = nan(" ");
-                std::cout<<"Five consecutive EEG packet of 1s have bad quality."<<std::endl;
-            }
-
-            // if there is only NaN and Inf data
-            else if (counterInf + counterNaN == 2)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = nan(" ");
-            }
-
-            // if there are some "good" values, we compute smoothedRelaxIndex with the average of these "good" values
-            else
-            {
-                smoothedRelaxIndex = mean(pastRelaxIndexesWithoutInfNaN);
-            }
+            // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
+            smoothedRelaxIndex = std::numeric_limits<double>::infinity();
+            errno = EINVAL;
+            perror("ERROR: MBT_SMOOTHRELAXINDEX CANNOT PROCESS WITHOUT GOOD PASTRELAXINDEX IN INPUT");
         }
-        else if (sizePastRelaxIndexes == 3)
+        // if only NaN data
+        else if (counterNaN == N)
         {
-            // count the number of inf and nan
-            int counterInf = 0;
-            int counterNaN = 0;
-            std::vector<double> pastRelaxIndexesWithoutInfNaN;
-            for (int t=0; t<3; t++)
-            {
-                if (isinf(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
-                {
-                    counterInf = counterInf +1;
-                }
-                else if (isnan(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
-                {
-                    counterNaN = counterNaN +1;
-                }
-                else
-                {
-                    pastRelaxIndexesWithoutInfNaN.push_back(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]);
-                }
-            }
-
-            // if only Inf data
-            if (counterInf == 3)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = std::numeric_limits<double>::infinity();
-                errno = EINVAL;
-                perror("ERROR: MBT_SMOOTHRELAXINDEX CANNOT PROCESS WITHOUT GOOD PASTRELAXINDEX IN INPUT");
-            }
-            // if only NaN data
-            else if (counterNaN == 3)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = nan(" ");
-                std::cout<<"Six consecutive EEG packet of 1s have bad quality."<<std::endl;
-            }
-
-            // if there is only NaN and Inf data
-            else if (counterInf + counterNaN == 3)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = nan(" ");
-            }
-
-            // if there are some "good" values, we compute smoothedRelaxIndex with the average of these "good" values
-            else
-            {
-                smoothedRelaxIndex = mean(pastRelaxIndexesWithoutInfNaN);
-            }
+            // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
+            smoothedRelaxIndex = nan(" ");
         }
-        else if (sizePastRelaxIndexes >= 4)
+
+        // if there is only NaN and Inf data
+        else if (counterInf + counterNaN == N)
         {
-            // count the number of inf and nan
-            int counterInf = 0;
-            int counterNaN = 0;
-            std::vector<double> pastRelaxIndexesWithoutInfNaN;
-            for (int t=0; t<4; t++)
-            {
-                if (isinf(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
-                {
-                    counterInf = counterInf +1;
-                }
-                else if (isnan(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]))
-                {
-                    counterNaN = counterNaN +1;
-                }
-                else
-                {
-                    pastRelaxIndexesWithoutInfNaN.push_back(pastRelaxIndexes[sizePastRelaxIndexes-1 -t]);
-                }
-            }
-
-            // if only Inf data
-            if (counterInf == 4)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = std::numeric_limits<double>::infinity();
-                errno = EINVAL;
-                perror("ERROR: MBT_SMOOTHRELAXINDEX CANNOT PROCESS WITHOUT GOOD PASTRELAXINDEX IN INPUT");
-            }
-            // if only NaN data
-            else if (counterNaN == 4)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = nan(" ");
-                std::cout<<"At least seven consecutive EEG packet of 1s have bad quality."<<std::endl;
-            }
-
-            // if there is only NaN and Inf data
-            else if (counterInf + counterNaN == 4)
-            {
-                // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
-                smoothedRelaxIndex = nan(" ");
-            }
-
-            // if there are some "good" values, we compute smoothedRelaxIndex with the average of these "good" values
-            else
-            {
-                smoothedRelaxIndex = mean(pastRelaxIndexesWithoutInfNaN);
-            }
+            // Store values to be handled in case of problem into MBT_SmoothRelaxIndex
+            smoothedRelaxIndex = nan(" ");
         }
+
+        // if there are some "good" values, we compute smoothedRelaxIndex with the average of these "good" values
+        else
+        {
+            smoothedRelaxIndex = mean(pastRelaxIndexesWithoutInfNaN);
+        }
+
     }
     else
     {

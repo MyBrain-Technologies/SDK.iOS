@@ -6,7 +6,7 @@
 #include <string>
 
 
-#include "..\..\DataManipulation\Headers\MBT_Matrix.h"
+#include "..\..\DataManipulation\Headers\MBT_Matrix.h" // use of the class MBT_Matrix
 #include "..\..\DataManipulation\Headers\MBT_ReadInputOrWriteOutput.h" // use of the class MBT_ReadInputOrWriteOutput
 #include "..\Headers\MBT_PWelchComputer.h" // use of the class MBT_PWelchComputer
 

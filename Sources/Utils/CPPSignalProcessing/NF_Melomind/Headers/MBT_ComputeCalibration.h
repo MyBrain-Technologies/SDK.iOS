@@ -39,11 +39,14 @@
  * @param IAFinf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
  * @param IAFsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
  * @param histFreq Vector containing the previous frequencies.
+ * @param smoothingDuration Integer that gives the number of relaxation indexes we have to take into account to
+          smooth the current one. For instance smoothingDuration=2 means we average the current relaxationIndex
+          with the previous one.
  * @return A dictionnary with the value for the various parameters.
  * @todo Use an enum for the output parameters?
  * @warning Works with any number of channels, but only keeps the best channel.
  */
-std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup);
+std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup, int smoothingDuration);
 
 
 #endif // MBT_COMPUTECALIBRATION_H_INCLUDED

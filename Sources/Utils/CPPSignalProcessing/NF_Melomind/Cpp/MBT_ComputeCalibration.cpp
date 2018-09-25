@@ -37,7 +37,7 @@
 #define GENERAL_QUALITY_THRESHOLD 0.5
 #define CHANNEL_QUALITY_THRESHOLD 0.75
 
-std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup)
+std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup, int smoothingDuration)
 {
     std::vector<float> histFreq;
     std::map<std::string, std::vector<float> > calibrationParameters;
@@ -206,7 +206,7 @@ std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<flo
             }
             // -------------------------------------------------------------------
             calibrationParameters["rawSnrCalib"] = SNRCalib;
-            SmoothedSNRCalib.push_back(MBT_SmoothRelaxIndex(SNRCalib)); // we smooth the SNR from calibration
+            SmoothedSNRCalib.push_back(MBT_SmoothRelaxIndex(SNRCalib, smoothingDuration)); // we smooth the SNR from calibration
         }
 
         std::vector<float> errorMsg;

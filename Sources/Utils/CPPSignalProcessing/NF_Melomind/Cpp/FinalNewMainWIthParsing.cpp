@@ -11,6 +11,7 @@
 //  best channel are NaN. Indeed, we have not anymore the notion of best channel because we compute SNR on both channel and not only on the best channel.
 
 
+#include "boost/program_options.hpp"
 #include <iostream>
 #include <stdio.h>
 #include <vector>
@@ -32,6 +33,7 @@
 #include "../../version.h" // version.h of NF_Melomind
 
 using namespace std;
+namespace po = boost::program_options;
 
 //Here are defined the alpha band limits
 #define IAFinf 6 // warning: it's 6 and not 7
@@ -46,20 +48,17 @@ using namespace std;
 // packetLength: [int] the number of eeg data per eegPacket
 // calibrationRecordings: [MBT_Matrix<float>] the EEG signals as it's returned by the QualityChecker (number of rows = number of channels)
 // calibrationRecordingsQualities: [MBT_Matrix<float>] the quality of each EEG signal as it's returned by the QualityChecker (number of rows = number of channels)
-// smoothingDuration: Integer that gives the number of relaxation indexes we have to take into account to
-//                    smooth the current one. For instance smoothingDuration=2 means we average the current relaxationIndex
-//                    with the previous one.
 //
 // OUTPUTS:
 // -------
 // the calibration map
 
-std::map<string, std::vector<float>> main_calibration(float sampRate, unsigned int packetLength, MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, int smoothingDuration)
+std::map<string, std::vector<float>> main_calibration(float sampRate, unsigned int packetLength, MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality)
 {
     std::vector<float> histFreq;
 
     // Calibration-----------------------------------
-    std::map<std::string, std::vector<float> > paramCalib = MBT_ComputeCalibration(calibrationRecordings,calibrationRecordingsQuality, sampRate, packetLength, IAFinf, IAFsup, smoothingDuration);
+    std::map<std::string, std::vector<float> > paramCalib = MBT_ComputeCalibration(calibrationRecordings,calibrationRecordingsQuality, sampRate, packetLength, IAFinf, IAFsup);
 
     return paramCalib;
 }
@@ -76,9 +75,6 @@ std::map<string, std::vector<float>> main_calibration(float sampRate, unsigned i
 //            If it's the first packet of the session: get histFreq from paramCalib --> histFreq = paramCalib["HistFrequencies"];
 //            else: get histFreq from session -->  histFreq = paramSession["HistFrequencies"];
 // pastRelaxIndex: [vector of float] containing the previous relax index computed during the session (not smoothed).
-// smoothingDuration: Integer that gives the number of relaxation indexes we have to take into account to
-//                    smooth the current one. For instance smoothingDuration=2 means we average the current relaxationIndex
-//                    with the previous one.
 //
 // OUTPUT:
 // ------
@@ -97,7 +93,7 @@ float main_relaxIndex(const float sampRate, std::map<std::string, std::vector<fl
 
     //TODO pastRelaxIndex could also be passed as reference in MBT_ComputeRelaxIndex. See if it is relevant to do so
     pastRelaxIndex.push_back(snrValue); // incrementation of pastRelaxIndex
-    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex,smoothingDuration);
+    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex, smoothingDuration);
     float volum = MBT_RelaxIndexToVolum(smoothedRelaxIndex, snrCalib); // warning it's not the same inputs than previously
 
     //resultSmoothedSNR.assign(1,smoothedRelaxIndex);
@@ -111,27 +107,42 @@ float main_relaxIndex(const float sampRate, std::map<std::string, std::vector<fl
 }
 
 
-int main()
+int main(int argc, char** argv)
 {
+    // Add Parsing
+
+    po::options_description desc("Options");
+    desc.add_options()
+            ("eeg_calib", po::value<std::string>(), "Filename of EEG during calibration")
+            ("eeg_calib_qc", po::value<std::string>(), "Filename of EEG quality during calibration")
+            ("eeg_session", po::value<std::string>(), "Filename of EEG during session")
+            ("hist_freq_calib", po::value<std::string>(), "Filename of hist freq during calibration")
+            ("error_msg", po::value<std::string>(), "Filename of error message during calibration")
+            ("smoothed_snr_calib", po::value<std::string>(), "Filename of Smoothed SNR during calibration")
+            ("raw_snr_calib", po::value<std::string>(), "Filename of Raw SNR during calibration")
+            ("hist_freq_session", po::value<std::string>(), "Filename of hist freq during session")
+            ("raw_snr_session", po::value<std::string>(), "Filename of RAW SNR during session")
+            ("smoothed_snr_session", po::value<std::string>(), "Filename of Smoothed SNR during session")
+            ("volume_session", po::value<std::string>(), "Filename of Volume during session");
+
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+
     // Calibration
     // ----------------------------------------------------------------------------------------------------------------------------------------------
     std::cout<<"CALIBRATION"<<std::endl;
     float sampRate = 250;
     unsigned int packetLength = 250;
-    int smoothingDuration = 2;
-
     std::cout<<"Reading file..."<<std::endl;
-    MBT_Matrix<float> calibrationRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/trueCalibrationRecordings.txt");
-    MBT_Matrix<float> calibrationRecordingsQuality = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/trueCalibrationRecordingsQuality.txt");
+//    MBT_Matrix<float> calibrationRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/trueCalibrationRecordings.txt");
+//    MBT_Matrix<float> calibrationRecordingsQuality = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/trueCalibrationRecordingsQuality.txt");
 //    MBT_Matrix<float> calibrationRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/PbCalibrationRecordings.txt");
 //    MBT_Matrix<float> calibrationRecordingsQuality = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/PbCalibrationRecordingsQuality.txt");
-//    MBT_Matrix<float> calibrationRecordings = MBT_readMatrix("../Data/CalibrationRecordings.txt"); // absolute path for calling the executable with matlab
-//    MBT_Matrix<float> calibrationRecordingsQuality = MBT_readMatrix("../Data/CalibrationRecordingsQuality.txt"); // absolute path for calling the executable with matlab
-//    MBT_Matrix<float> calibrationRecordings = MBT_readMatrix("CalibrationRecordings.txt"); // absolute path for calling the executable with python
-//    MBT_Matrix<float> calibrationRecordingsQuality = MBT_readMatrix("CalibrationRecordingsQuality.txt"); // absolute path for calling the executable with python
+    MBT_Matrix<float> calibrationRecordings = MBT_readMatrix(vm["eeg_calib"].as<std::string>()); // absolute path for calling the executable with matlab
+    MBT_Matrix<float> calibrationRecordingsQuality = MBT_readMatrix(vm["eeg_calib_qc"].as<std::string>()); // absolute path for calling the executable with matlab
     std::cout<<"End of reading"<<std::endl;
 
-    std::map<string, std::vector<float>> paramCalib = main_calibration(sampRate, packetLength, calibrationRecordings, calibrationRecordingsQuality, smoothingDuration);
+    std::map<string, std::vector<float>> paramCalib = main_calibration(sampRate, packetLength, calibrationRecordings, calibrationRecordingsQuality);
 
 
 
@@ -146,30 +157,27 @@ int main()
     {
         w_histFreq.push_back(std::complex<float>(histFreq[ki], 0));
     }
-    MBT_writeVector (w_histFreq, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/histFreqCalib.txt");
+//    MBT_writeVector (w_histFreq, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/histFreqCalib.txt");
 //    MBT_writeVector (w_histFreq, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PbhistFreqCalib.txt");
-//    MBT_writeVector (w_histFreq, "../Results/histFreqCalib.txt"); // absolute path for calling the executable with matlab
-//    MBT_writeVector (w_histFreq, "histFreqCalib.txt"); // absolute path for calling the executable with python
+    MBT_writeVector (w_histFreq, vm["hist_freq_calib"].as<std::string>()); // absolute path for calling the executable with matlab
 
     std::vector<std::complex<float> > errorMsg;
     for (unsigned int ki=0;ki<tmp_errorMsg.size();ki++)
     {
         errorMsg.push_back(std::complex<float>(tmp_errorMsg[ki], 0));
     }
-    MBT_writeVector (errorMsg, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/errorMsg.txt");
+//    MBT_writeVector (errorMsg, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/errorMsg.txt");
 //    MBT_writeVector (errorMsg, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PberrorMsg.txt");
-//    MBT_writeVector (errorMsg, "../Results/errorMsg.txt"); // absolute path for calling the executable with matlab
-//    MBT_writeVector (errorMsg, "errorMsg.txt"); // absolute path for calling the executable with python
+    MBT_writeVector (errorMsg, vm["error_msg"].as<std::string>()); // absolute path for calling the executable with matlab
 
     std::vector<std::complex<float> > SNRCalib;
     for (unsigned int ki=0;ki<tmp_SNRCalib.size();ki++)
     {
         SNRCalib.push_back(std::complex<float>(tmp_SNRCalib[ki], 0));
     }
-    MBT_writeVector (SNRCalib, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/SNRCalib.txt");
+//    MBT_writeVector (SNRCalib, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/SNRCalib.txt");
 //    MBT_writeVector (SNRCalib, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PbSNRCalib.txt");
-//    MBT_writeVector (SNRCalib, "../Results/snrCalib.txt"); // absolute path for calling the executable with matlab
-//    MBT_writeVector (SNRCalib, "snrCalib.txt"); // absolute path for calling the executable with python
+    MBT_writeVector (SNRCalib, vm["smoothed_snr_calib"].as<std::string>()); // absolute path for calling the executable with matlab
 
 
     std::vector<std::complex<float> > RawSNRCalib;
@@ -177,10 +185,9 @@ int main()
     {
         RawSNRCalib.push_back(std::complex<float>(tmp_RawSNRCalib[ki], 0));
     }
-    MBT_writeVector (RawSNRCalib, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/RawSNRCalib.txt");
+//    MBT_writeVector (RawSNRCalib, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/RawSNRCalib.txt");
 //    MBT_writeVector (RawSNRCalib, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PbRawSNRCalib.txt");
-//    MBT_writeVector (RawSNRCalib, "../Results/rawSnrCalib.txt"); // absolute path for calling the executable with matlab
-//    MBT_writeVector (RawSNRCalib, "rawSnrCalib.txt"); // absolute path for calling the executable with python
+    MBT_writeVector (RawSNRCalib, vm["raw_snr_calib"].as<std::string>()); // absolute path for calling the executable with matlab
 
 
     // Session
@@ -193,10 +200,9 @@ int main()
     std::vector<float> volum;
 
     std::cout<<"Reading file..."<<std::endl;
-    MBT_Matrix<float> sessionRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/trueSessionRecordings814.txt");
+//    MBT_Matrix<float> sessionRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/trueSessionRecordings814.txt");
 //    MBT_Matrix<float> sessionRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/NewRelease/PbSessionRecordings.txt");
-//    MBT_Matrix<float> sessionRecordings = MBT_readMatrix("../Data/SessionRecordings.txt"); // absolute path for calling the executable with matlab
-//    MBT_Matrix<float> sessionRecordings = MBT_readMatrix("SessionRecordings.txt"); // absolute path for calling the executable with python
+    MBT_Matrix<float> sessionRecordings = MBT_readMatrix(vm["eeg_session"].as<std::string>()); // absolute path for calling the executable with matlab
     std::cout<<"End of reading"<<std::endl;
 
     unsigned int nbPacket = (unsigned int) (sessionRecordings.size().second/(sampRate)-3);
@@ -212,7 +218,7 @@ int main()
             sessionPacket(1,sample) = sessionRecordings(1,indPacket*(int)sampRate+sample);
         }
         //Volum value to return to the application
-        float newVolum = main_relaxIndex(sampRate, paramCalib, sessionPacket, histFreq, pastRelaxIndex, smoothedRelaxIndex, volum, smoothingDuration);
+        float newVolum = main_relaxIndex(sampRate, paramCalib, sessionPacket, histFreq, pastRelaxIndex, smoothedRelaxIndex, volum);
 
 
         // get histFreq please! (in.json)
@@ -238,40 +244,36 @@ int main()
     {
         w2_histFreq.push_back(std::complex<float>(histFreq[ki], 0));
     }
-    MBT_writeVector (w2_histFreq, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/histFreqSession.txt");
+//    MBT_writeVector (w2_histFreq, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/histFreqSession.txt");
 //    MBT_writeVector (w2_histFreq, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PbhistFreqSession.txt");
-//    MBT_writeVector (w2_histFreq, "../Results/histFreqSession.txt");// absolute path for calling the executable with matlab
-//    MBT_writeVector (w2_histFreq, "histFreqSession.txt");// absolute path for calling the executable with python
+    MBT_writeVector (w2_histFreq, vm["hist_freq_session"].as<std::string>());// absolute path for calling the executable with matlab
 
     std::vector<std::complex<float> > RawSNRSession;
     for (unsigned int ki=0;ki<pastRelaxIndex.size();ki++)
     {
         RawSNRSession.push_back(std::complex<float>(pastRelaxIndex[ki], 0));
     }
-    MBT_writeVector (RawSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/RawSNRSession.txt");
+//    MBT_writeVector (RawSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/RawSNRSession.txt");
 //    MBT_writeVector (RawSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PbRawSNRSession.txt");
-//    MBT_writeVector (RawSNRSession, "../Results/rawSnrSession.txt");// absolute path for calling the executable with matlab
-//    MBT_writeVector (RawSNRSession, "rawSnrSession.txt");// absolute path for calling the executable with python
+    MBT_writeVector (RawSNRSession, vm["raw_snr_session"].as<std::string>());// absolute path for calling the executable with matlab
 
     std::vector<std::complex<float> > SmoothedSNRSession;
     for (unsigned int ki=0;ki<smoothedRelaxIndex.size();ki++)
     {
         SmoothedSNRSession.push_back(std::complex<float>(smoothedRelaxIndex[ki], 0));
     }
-    MBT_writeVector (SmoothedSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/SmoothedSNRSession.txt");
+//    MBT_writeVector (SmoothedSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/SmoothedSNRSession.txt");
 //    MBT_writeVector (SmoothedSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PbSmoothedSNRSession.txt");
-//    MBT_writeVector (SmoothedSNRSession, "../Results/smoothedSnrSession.txt"); // absolute path for calling the executable with matlab
-//    MBT_writeVector (SmoothedSNRSession, "smoothedSnrSession.txt"); // absolute path for calling the executable with python
+    MBT_writeVector (SmoothedSNRSession, vm["smoothed_snr_session"].as<std::string>()); // absolute path for calling the executable with matlab
 
     std::vector<std::complex<float> > VolumSmoothedSNRSession;
     for (unsigned int ki=0;ki<volum.size();ki++)
     {
         VolumSmoothedSNRSession.push_back(std::complex<float>(volum[ki], 0));
     }
-    MBT_writeVector (VolumSmoothedSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/VolumSmoothedSNRSession.txt");
+//    MBT_writeVector (VolumSmoothedSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/VolumSmoothedSNRSession.txt");
 //    MBT_writeVector (VolumSmoothedSNRSession, "C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Results/NewRelease/PbVolumSmoothedSNRSession.txt");
-//    MBT_writeVector (VolumSmoothedSNRSession, "../Results/volumSmoothedSnrSession.txt"); // absolute path for calling the executable with matlab
-//    MBT_writeVector (VolumSmoothedSNRSession, "volumSmoothedSnrSession.txt"); // absolute path for calling the executable with python
+    MBT_writeVector (VolumSmoothedSNRSession, vm["volume_session"].as<std::string>()); // absolute path for calling the executable with matlab
 
     std::cout<<"VERSION_SP = "<<VERSION_SP<<std::endl;
     std::cout<<"VERSION = "<<VERSION<<std::endl;

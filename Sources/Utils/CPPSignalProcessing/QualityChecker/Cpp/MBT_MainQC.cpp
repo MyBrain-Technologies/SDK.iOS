@@ -32,6 +32,7 @@
 //          Fanny Grosselin 2018/02/21 --> In MBT_MainQC::MBT_qualityChecker, provide the detection of muscle artifacts.
 //          Fanny Grosselin 2018/02/22 --> Add a classifier after the first detection of qualities, in order to distinguish two different types of bad data (bad EEG vs no recorded EEG).
 //          Fanny Grosselin 2018/02/27 --> In MBT_MainQC::MBT_featuresQualityChecker(), UNcorrect the way we compute nb_max_min because it classifies better.
+//          Aeiocha Li 2018/05/09 --> In MBT_Matrix<float> MBT_MainQC::MBT_compute_data_to_display(MBT_Matrix<float> const &inputData, float firstBound, float secondBound), we compute a processed data for displaying purpose, and add the possibility to add a bandpass to imitate the former firmware filters in MBT_MainQC::MBT_featuresQualityChecker() and MBT_MainQC::MBT_ComputeQuality()
 
 #include "../Headers/MBT_MainQC.h"
 #include "../../SignalProcessing.Cpp/Transformations/Headers/MBT_Fourier_fftw3.h"
@@ -75,7 +76,7 @@ MBT_MainQC::MBT_MainQC(const float sampRate,MBT_Matrix<float> trainingFeatures, 
 
 
 
-void MBT_MainQC::MBT_ComputeQuality(MBT_Matrix<float> const& inputData)
+void MBT_MainQC::MBT_ComputeQuality(MBT_Matrix<float> const& inputData, bool bandpassProcess, float firstBound, float secondBound)
 {
     if ((inputData.size().first > 0) & (inputData.size().second > 0) & (m_correctInput==true))
     {
@@ -87,11 +88,11 @@ void MBT_MainQC::MBT_ComputeQuality(MBT_Matrix<float> const& inputData)
 		m_predictedClass.assign(m_inputData.size().first, 0);
 		std::vector<float> m_quality;
 		m_quality.assign(m_inputData.size().first, 0);
+
 		MBT_interpBTpacketLost();// Try to interpolate the possible NaN values inside inputData thanks to rawInterpData
-        MBT_featuresQualityChecker(); // change m_testFeatures
+        MBT_featuresQualityChecker(bandpassProcess, firstBound, secondBound); // change m_testFeatures
         MBT_knn(); // change m_probaClass and m_predictedClass
         //MBT_addTraining(); // change m_potTrainingFeatures and m_dataClean
-
         MBT_qualityChecker(inputData); // change m_predictedClass and m_quality
 
     }
@@ -253,7 +254,7 @@ void MBT_MainQC::MBT_interpBTpacketLost()
     // -----------------------------------------------------------------
 }
 
-void MBT_MainQC::MBT_featuresQualityChecker()
+void MBT_MainQC::MBT_featuresQualityChecker(bool bandpassProcess, float firstBound, float secondBound)
 {
     //this->m_testFeatures = m_testFeatures;
 
@@ -277,6 +278,13 @@ void MBT_MainQC::MBT_featuresQualityChecker()
         {
             std::vector<double> tmp_tmp_signal(tmp_signal.begin(),tmp_signal.end());
             std::vector<double> signal = RemoveDC(tmp_tmp_signal); // Remove DC
+            // Add the possibility to do a bandpass filter
+            if(bandpassProcess){
+                std::vector<double> freqBounds;
+                freqBounds.push_back(firstBound);
+                freqBounds.push_back(secondBound);
+                signal = BandPassFilter(signal, freqBounds);
+            }
             for (unsigned int v=0;v<signal.size();v++)
             {
                 signal[v] = signal[v]*pow(10,6);
@@ -1814,9 +1822,6 @@ void MBT_MainQC::MBT_knn()
             {
                 norm_m_testFeatures[t1] = ((double)m_testFeatures(t,t1) - (double)m_mu[t1])/(double)m_sigma[t1];
             }
-            //std::cout<<"norm_m_testFeatures "<<std::endl;
-            //std::cout<<norm_m_testFeatures[0]<<" "<<norm_m_testFeatures[1]<<" "<<norm_m_testFeatures[2]<<" "<<norm_m_testFeatures[3]<<" "<<norm_m_testFeatures[4]<<" "<<norm_m_testFeatures[5]<<" "<<norm_m_testFeatures[6]<<" "<<norm_m_testFeatures[7]<<" "<<norm_m_testFeatures[8]<<" "<<norm_m_testFeatures[9]<<std::endl;
-
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             // Find the k nearest neighbors of the new observation on the training dataset
@@ -2321,6 +2326,74 @@ float MBT_MainQC::MBT_itakuraDistance(std::vector<float> data)
     return (float)itakuraDistance;
 }
 
+// Method to compute a processed data for display purpose
+// The given process is:
+// Get the index where we have NaN
+// Interpolate linearly the NaN
+// Delete the NaN that can't be interpolated
+// Do the processing: RemoveDC and BandPassFilter
+// Put back the NaN to the processed data
+MBT_Matrix<float> MBT_MainQC::MBT_compute_data_to_display(MBT_Matrix<float> const &inputData, float firstBound,
+                                                          float secondBound) {
+    std::vector<double> freqBounds;
+    freqBounds.push_back((double)firstBound);
+    freqBounds.push_back((double)secondBound);
+    std::vector<std::vector<float>> dataToDisplay;
+
+    // Interpolate the NaN
+    for (int ch = 0; ch<inputData.size().first; ch++)
+    {
+        std::vector<float> tmpInputDataRow= inputData.row(ch); // get inputData for a specific channel
+        std::vector<double> inputDataRow(tmpInputDataRow.begin(),tmpInputDataRow.end()); // transform in double
+
+        std::vector<double> x, y, xInterp;
+        std::vector<int> nanIndex;
+
+        for (unsigned int tmp = 0 ; tmp < inputDataRow.size(); tmp++)
+        {
+            if (std::isnan(inputDataRow[tmp]) )
+            {
+                xInterp.push_back(tmp);
+                nanIndex.push_back(tmp);
+            }
+            else
+            {
+                x.push_back(tmp);
+                y.push_back(inputDataRow[tmp]);
+            }
+        }
+        std::vector<double> InterpolatedData = MBT_linearInterp(x, y, xInterp);
+        for (unsigned int d = 0; d<InterpolatedData.size(); d++)
+        {
+            inputDataRow[(unsigned int)xInterp[d]] = InterpolatedData[d];
+        }
+
+        // Remove the NaN that are not interpolated
+        inputDataRow.erase(std::remove_if(inputDataRow.begin(), inputDataRow.end(),[](double testNaN){return std::isnan(testNaN);}),inputDataRow.end()); // remove NaN values
+
+        // Process the data
+        inputDataRow = RemoveDC(inputDataRow);
+        inputDataRow = BandPassFilter(inputDataRow, freqBounds);
+
+        // Put back the NaN in the processed data
+        std::vector<float> processedData;
+        std::vector<double>::iterator iteratorInputData;
+        iteratorInputData = inputDataRow.begin();
+        for (int tmp = 0; tmp<tmpInputDataRow.size(); tmp++){
+            if(std::find(nanIndex.begin(), nanIndex.end(), tmp) != nanIndex.end()) {
+                processedData.push_back(NAN);
+            } else {
+
+                processedData.push_back((float)*iteratorInputData);
+                iteratorInputData++;
+            }
+        }
+        dataToDisplay.push_back(processedData);
+    }
+    MBT_Matrix<float> matrixToDisplay = MBT_Matrix<float>(inputData.size().first, inputData.size().second, dataToDisplay);
+
+    return matrixToDisplay;
+}
 
 
 // Destructor

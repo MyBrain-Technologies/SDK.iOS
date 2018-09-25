@@ -53,8 +53,11 @@
 //V2.3.0 : FG: The quality checker is able to discriminate muscle artifacts from other artifacts.
 //             It is also able to discriminate bad EEG signal from no EEG signal (headset on the table or headset on the head without electrodes).
 //             This release also remodified the feature that decreases the performance of the Quality Checker (nb_max_min).
-//
+//V2.3.1 : FG & AL : 1) Add the smoothing length of the relax index in input in order to be able to choose the time length.
+//					 2) Manage a possible exception in the detection of the bounds of the alpha peak in MBT_ComputeSNR.cpp
+//					 3) Manage the case where the spectrum is NaN (may happen when the signal is constant) in MBT_ComputeSNR.cpp
+//					 4) Add a possibility to filter the data (bandpass) in the Quality Checker process.
 #include "SignalProcessing.Cpp/version.h"  // version.h of the submodule SignalProcessing.cpp
 #define VERSION_SP SP_VERSION
-#define VERSION "2.3.0"
+#define VERSION "2.3.1"
 

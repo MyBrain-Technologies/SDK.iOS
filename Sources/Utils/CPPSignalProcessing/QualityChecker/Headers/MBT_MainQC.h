@@ -50,7 +50,7 @@ class MBT_MainQC
         ~MBT_MainQC();
 
         // A member function to call the others functions.
-        void MBT_ComputeQuality(MBT_Matrix<float> const& inputData);
+        void MBT_ComputeQuality(MBT_Matrix<float> const& inputData, bool bandpassProcess = false, float firstBound = 2.0, float secondBound = 30.0);
 
         // Declaration of the prototypes of the methods
         MBT_Matrix<float> MBT_get_m_trainingFeatures(); // Method which returns m_trainingFeatures
@@ -77,13 +77,13 @@ class MBT_MainQC
         std::vector<float> MBT_get_m_probaClass(); // Method which returns m_probaClass
         std::vector<float> MBT_get_m_predictedClass(); // Method which returns m_predictedClass
         std::vector<float> MBT_get_m_quality(); // Method which returns m_quality
-
+        MBT_Matrix<float> MBT_compute_data_to_display(MBT_Matrix<float> const& inputData, float firstBound = 2.0, float secondBound = 30.0); // Method to compute a processed data for display purpose
 
     private:
 
         // Declaration of the prototypes of the methods
         void MBT_interpBTpacketLost(); // method to try to interpolate the possible NaN values inside inputData thanks to rawInterpData
-        void MBT_featuresQualityChecker(); // Method which calculates features of each EEG observation
+        void MBT_featuresQualityChecker(bool bandpassProcess = false, float firstBound= 2.0, float secondBound = 30.0); // Method which calculates features of each EEG observation
         void MBT_knn(); // Method which is a k-nearest neighbors classifier
         void MBT_addTraining(); // Method which prepares variables to add eventual data in the cloud storage
         void MBT_qualityChecker(MBT_Matrix<float> inputData); // Method which gives the final quality of each observation and prepare each observation

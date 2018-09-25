@@ -31,6 +31,9 @@
 
 #include "version.h"
 
+#define SMOOTHINGDURATION 2
+
+
 /// Signal Processing Bridge helper methods,
 /// to help converting format between C++ and Obj-C++.
 @interface MBTSignalProcessingHelper: NSObject
@@ -292,11 +295,12 @@ static MBT_MainQC *mainQC;
     
     // Getting the map.
     std::map<std::string, std::vector<float>> paramCalib = MBT_ComputeCalibration(calibrationRecordings,
-                                                                                   calibrationRecordingsQuality,
+                                                                                  calibrationRecordingsQuality,
                                                                                    (int)sampRate,
                                                                                    (int)packetLength,
                                                                                    IAFinf,
-                                                                                   IAFsup);
+                                                                                   IAFsup,
+                                                                                  SMOOTHINGDURATION);
     
     // Save calibration parameters received.
     [MBTSignalProcessingHelper setCalibrationParameters:paramCalib];
@@ -361,7 +365,7 @@ static float main_relaxIndex(const float sampRate, std::map<std::string, std::ve
     float snrValue = MBT_ComputeRelaxIndex(sessionPacket, errorMsg, sampRate, IAFinf, IAFsup, histFreq);
     
     pastRelaxIndex.push_back(snrValue); // incrementation of pastRelaxIndex
-    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex);
+    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex,SMOOTHINGDURATION);
     float volum = MBT_RelaxIndexToVolum(smoothedRelaxIndex, snrCalib); // warning it's not the same inputs than previously
     
     //resultSmoothedSNR.assign(1,smoothedRelaxIndex);

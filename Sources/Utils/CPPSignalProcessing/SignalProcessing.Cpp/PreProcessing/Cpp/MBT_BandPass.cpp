@@ -304,6 +304,7 @@ vector<float> BandPassFilter(vector<float> RawSignal, vector<float> freqBounds)
     	MirroredHhelp.push_back(MirroredHelp[i]*Hhelp[i]);
     }
 
+
 	MirroredTrans -> inverseBluesteinFFT(MirroredHhelp);
 
     for(int i = 0; i < MirroredHhelp.size(); i++)

@@ -58,18 +58,6 @@
 		2BAF7F0C208F63FB007D9EAB /* MBT_PWelchComputer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EB0208F63F9007D9EAB /* MBT_PWelchComputer.h */; };
 		2BAF7F0D208F63FB007D9EAB /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EB1208F63F9007D9EAB /* version.h */; };
 		2BAF7F0E208F63FB007D9EAB /* MBT_MainQC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EB4208F63F9007D9EAB /* MBT_MainQC.cpp */; };
-		2BAF7F10208F63FB007D9EAB /* cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EB7208F63F9007D9EAB /* cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt */; };
-		2BAF7F11208F63FB007D9EAB /* spectrumClean_Data570UnguidedtrainingQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EB8208F63F9007D9EAB /* spectrumClean_Data570UnguidedtrainingQCNEW4.txt */; };
-		2BAF7F12208F63FB007D9EAB /* trainingClasses _Data300BadQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EB9208F63F9007D9EAB /* trainingClasses _Data300BadQCNEW4.txt */; };
-		2BAF7F13208F63FB007D9EAB /* trainingClasses _Data570UnguidedtrainingQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EBA208F63F9007D9EAB /* trainingClasses _Data570UnguidedtrainingQCNEW4.txt */; };
-		2BAF7F14208F63FB007D9EAB /* trainingFeatures_Data300BadQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EBB208F63F9007D9EAB /* trainingFeatures_Data300BadQCNEW4.txt */; };
-		2BAF7F15208F63FB007D9EAB /* trainingFeatures_Data570UnguidedtrainingQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EBC208F63F9007D9EAB /* trainingFeatures_Data570UnguidedtrainingQCNEW4.txt */; };
-		2BAF7F16208F63FB007D9EAB /* trainingMu_Data300BadQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EBD208F63F9007D9EAB /* trainingMu_Data300BadQCNEW4.txt */; };
-		2BAF7F17208F63FB007D9EAB /* trainingMu_Data570UnguidedtrainingQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EBE208F63F9007D9EAB /* trainingMu_Data570UnguidedtrainingQCNEW4.txt */; };
-		2BAF7F18208F63FB007D9EAB /* trainingSigma_Data300BadQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EBF208F63F9007D9EAB /* trainingSigma_Data300BadQCNEW4.txt */; };
-		2BAF7F19208F63FB007D9EAB /* trainingSigma_Data570UnguidedtrainingQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EC0208F63F9007D9EAB /* trainingSigma_Data570UnguidedtrainingQCNEW4.txt */; };
-		2BAF7F1A208F63FB007D9EAB /* trainingW_Data300BadQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EC1208F63F9007D9EAB /* trainingW_Data300BadQCNEW4.txt */; };
-		2BAF7F1B208F63FB007D9EAB /* trainingW_Data570UnguidedtrainingQCNEW4.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF7EC2208F63F9007D9EAB /* trainingW_Data570UnguidedtrainingQCNEW4.txt */; };
 		2BAF7F1C208F63FB007D9EAB /* MBT_MainQC.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EC4208F63F9007D9EAB /* MBT_MainQC.h */; };
 		2BAF7F1E208F63FB007D9EAB /* MBT_SNR_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EC9208F63FA007D9EAB /* MBT_SNR_Stats.cpp */; };
 		2BAF7F1F208F63FB007D9EAB /* MBT_SNR_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7ECB208F63FA007D9EAB /* MBT_SNR_Stats.h */; };
@@ -1391,21 +1379,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BAF7F17208F63FB007D9EAB /* trainingMu_Data570UnguidedtrainingQCNEW4.txt in Resources */,
-				2BAF7F18208F63FB007D9EAB /* trainingSigma_Data300BadQCNEW4.txt in Resources */,
-				2BAF7F16208F63FB007D9EAB /* trainingMu_Data300BadQCNEW4.txt in Resources */,
 				2B2DF07E20E36E55004FE1E4 /* mm-ota-1_5_15.bin in Resources */,
 				2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */,
-				2BAF7F10208F63FB007D9EAB /* cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt in Resources */,
-				2BAF7F1B208F63FB007D9EAB /* trainingW_Data570UnguidedtrainingQCNEW4.txt in Resources */,
-				2BAF7F14208F63FB007D9EAB /* trainingFeatures_Data300BadQCNEW4.txt in Resources */,
-				2BAF7F11208F63FB007D9EAB /* spectrumClean_Data570UnguidedtrainingQCNEW4.txt in Resources */,
-				2BAF7F19208F63FB007D9EAB /* trainingSigma_Data570UnguidedtrainingQCNEW4.txt in Resources */,
-				2BAF7F1A208F63FB007D9EAB /* trainingW_Data300BadQCNEW4.txt in Resources */,
 				2B2DF07D20E36E55004FE1E4 /* mm-ota-1_6_0.bin in Resources */,
-				2BAF7F15208F63FB007D9EAB /* trainingFeatures_Data570UnguidedtrainingQCNEW4.txt in Resources */,
-				2BAF7F13208F63FB007D9EAB /* trainingClasses _Data570UnguidedtrainingQCNEW4.txt in Resources */,
-				2BAF7F12208F63FB007D9EAB /* trainingClasses _Data300BadQCNEW4.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
