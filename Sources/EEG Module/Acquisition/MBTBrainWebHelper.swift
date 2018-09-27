@@ -36,6 +36,8 @@ struct MBTBrainWebHelper {
                             debugPrint("#57685 - sendJSONToBrainWeb response :\(response)")
                             if let statusCode = response.response?.statusCode, statusCode >= 200 && statusCode < 300 {
                                 completion(true)
+                            } else {
+                                completion(false)
                             }
                         }
                     case .failure(let encodingError):

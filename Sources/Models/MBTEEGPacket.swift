@@ -242,14 +242,11 @@ class EEGPacketManager: MBTRealmEntityManager {
     
     class func getJSONQualities(_ eegPackets:[MBTEEGPacket]) -> JSON {
         var qualities = [[Float]]()
-        
-        
         for eegPacket in eegPackets {
             for indexQuality in 0 ..< eegPacket.qualities.count {
                 if qualities.count < indexQuality + 1 {
                     qualities.append([Float]())
                 }
-                
                 qualities[indexQuality].append(eegPacket.qualities[indexQuality].value)
             }
         }
