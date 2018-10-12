@@ -66,7 +66,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         let output = AVAudioSession.sharedInstance().currentRoute.outputs.first
         
         if let deviceName = DeviceManager.connectedDeviceName {
-            return output?.portName == deviceName && output?.portType == AVAudioSessionPortBluetoothA2DP
+            return output?.portName == deviceName && output?.portType == AVAudioSession.Port.bluetoothA2DP
         }
         
         return false
@@ -173,7 +173,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     func getDeviceNameA2DP() -> String? {
-        if let output = AVAudioSession.sharedInstance().currentRoute.outputs.first, output.portType == AVAudioSessionPortBluetoothA2DP && output.portName.lowercased().range(of: "melo_") != nil {
+        if let output = AVAudioSession.sharedInstance().currentRoute.outputs.first, output.portType == AVAudioSession.Port.bluetoothA2DP && output.portName.lowercased().range(of: "melo_") != nil {
             return output.portName
         }
         return nil
@@ -201,7 +201,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             let output = session.currentRoute.outputs.first
             
             if let deviceName = DeviceManager.connectedDeviceName, output?.portName == deviceName
-                && output?.portType == AVAudioSessionPortBluetoothA2DP {
+                && output?.portType == AVAudioSession.Port.bluetoothA2DP {
                 // Save the UUID of the concerned headset
                 MBTBluetoothA2DPHelper.uid = output?.uid
                 // A2DP Audio is connected
@@ -211,8 +211,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 // to the MBT A2DP profile
                 
                 do {
-                    try session.setCategory(AVAudioSessionCategoryPlayback,
-                                            with: AVAudioSessionCategoryOptions.allowBluetooth)
+                    if #available(iOS 10.0, *) {
+                        try session.setCategory(.playback, mode: .default, options: .allowBluetooth)
+                    }
                 } catch let error {
                     print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
                 }
@@ -239,7 +240,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             // to monitor the A2DP connection status
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(audioChangedRoute(_:)),
-                                                   name:Notification.Name.AVAudioSessionRouteChange,
+                                                   name:AVAudioSession.routeChangeNotification,
                                                    object: nil)
         }
     }
@@ -902,7 +903,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         // Get the Reason why the audio route change
         guard let userInfo = notif.userInfo,
             let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
-            let reason = AVAudioSessionRouteChangeReason(rawValue:reasonValue) else {
+            let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else {
                 return
         }
         // Get the last audio output route used
@@ -918,7 +919,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         switch reason {
         case .newDeviceAvailable:
             if let deviceName = DeviceManager.connectedDeviceName, output?.portName == deviceName
-                && output?.portType == AVAudioSessionPortBluetoothA2DP {
+                && output?.portType == AVAudioSession.Port.bluetoothA2DP {
                 // Save the UUID of the concerned headset
                 MBTBluetoothA2DPHelper.uid = output?.uid
                 // A2DP Audio is connected
