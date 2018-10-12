@@ -190,7 +190,6 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         if timerUpdateBatteryLevel != nil {
             timerUpdateBatteryLevel?.invalidate()
         }
-        
         timerUpdateBatteryLevel = Timer.scheduledTimer(timeInterval: (eventDelegate?.timeIntervalOnReceiveBattery?() ?? 120) - 5, target: self, selector: #selector(requestUpdateBatteryLevel), userInfo: nil, repeats: true)
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(requestUpdateBatteryLevel), userInfo: nil, repeats: false)
     }
