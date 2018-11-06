@@ -31,31 +31,31 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     /// A *Bool* which indicate if the headset is connected or not to BLE.
     /// - Remark: Sends a notification when changed (on *willSet*).
-    var isConnected = false {
-        didSet {
-            if isConnected != oldValue {
-                eventDelegate?.onBluetoothStatusUpdate?(isConnected)
-            }
-        }
+    var isConnected:Bool {
+        return blePeripheral != nil
     }
     
     /// A *Bool* which enable or disable headset EEG notifications.
     var isListeningToEEG = false {
         didSet {
-            self.blePeripheral?.setNotifyValue(
-                isListeningToEEG,
-                for: MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic
-            )
+            if MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic != nil {
+                self.blePeripheral?.setNotifyValue(
+                    isListeningToEEG,
+                    for: MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic
+                )
+            }
         }
     }
     
     /// A *Bool* which enable or disable headset saturation notifications.
     var isListeningToHeadsetStatus = false {
         didSet {
-            self.blePeripheral?.setNotifyValue(
-                isListeningToHeadsetStatus,
-                for: MBTBluetoothLEHelper.headsetStatusCharacteristic
-            )
+            if MBTBluetoothLEHelper.headsetStatusCharacteristic != nil {
+                self.blePeripheral?.setNotifyValue(
+                    isListeningToHeadsetStatus,
+                    for: MBTBluetoothLEHelper.headsetStatusCharacteristic
+                )
+            }
         }
     }
     
@@ -76,7 +76,15 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     var centralManager : CBCentralManager?
     
     /// The BLE peripheral with which a connection has been established.
-    var blePeripheral : CBPeripheral?
+    var blePeripheral : CBPeripheral? {
+        didSet {
+            if let _ = blePeripheral {
+                eventDelegate?.onHeadsetStatusUpdate?(true)
+            } else {
+                eventDelegate?.onHeadsetStatusUpdate?(false)
+            }
+        }
+    }
     
     /// A counter which allows to know if all the characteristics have been discovered
     var counterServicesDiscover = 0
@@ -113,64 +121,65 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func connectTo(_ deviceName:String? = nil) {
         // Check if a current device is already saved in the DB, and delete it
         //DeviceManager.deleteCurrentDevice()
-        if let _ = DeviceManager.connectedDeviceName {
+        if let _ = blePeripheral {
             disconnect()
         }
+        if let deviceName = deviceName {
+            DeviceManager.connectedDeviceName = deviceName
+        } else {
+            DeviceManager.connectedDeviceName = ""
+        }
         
-        counterServicesDiscover = 0
+        initConnectionBluetooth()
+
+        stopTimerTimeOutConnection()
+        timerTimeOutConnection = Timer.scheduledTimer(timeInterval: 20.0, target: self, selector: #selector(connectionMelomindTimeOut), userInfo: nil, repeats: false)
+    
+       
+        
+    }
+    
+    func initConnectionBluetooth() {
+        // Download Init
+        
+        print("#1234543211#" + AVAudioSession.sharedInstance().currentRoute.outputs.debugDescription)
         isDownloadingFW = false
         isDownLoadingFWCompleted = false
         
-        timerTimeOutConnection?.invalidate()
-        timerTimeOutConnection = nil
-        timerTimeOutConnection = Timer.scheduledTimer(timeInterval: 20.0, target: self, selector: #selector(connectionMelomindTimeOut), userInfo: nil, repeats: false)
+        // Connection Init
+        counterServicesDiscover = 0
+        isConnectedA2DP = false
+        isListeningToEEG = false
+        isListeningToHeadsetStatus = false
+
+        // CentralManager Init
+        centralManager = nil
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
-
-        if let deviceName = deviceName {
-            DeviceManager.connectedDeviceName = deviceName
-        }
-        
+        connectA2DP()
+        // Characteristic Init
+        MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = nil
+        MBTBluetoothLEHelper.deviceStateCharacteristic = nil
     }
     
     /// Disconnect centralManager, and remove session's values.
     func disconnect() {
+        // Disconnect CentralManager
         centralManager?.stopScan()
-        stopTimerUpdateBatteryLevel()
-        isConnectedA2DP = false
-        isListeningToEEG = false
-        isListeningToHeadsetStatus = false
-        counterServicesDiscover = 0
-        MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = nil
-        MBTBluetoothLEHelper.deviceStateCharacteristic = nil 
-        isConnected = false
         
-        if blePeripheral != nil {
-            centralManager?.cancelPeripheralConnection(blePeripheral!)
+        if let blePeripheral = blePeripheral {
+            centralManager?.cancelPeripheralConnection(blePeripheral)
         }
-        centralManager = nil
+        
         blePeripheral = nil
-        
-        if timerTimeOutConnection?.isValid ?? false  {
-            timerTimeOutConnection?.invalidate()
-        }
-        timerTimeOutConnection = nil
-
-        if timerTimeOutOAD?.isValid ?? false {
-            timerTimeOutOAD?.invalidate()
-        }
-        timerTimeOutOAD = nil
-
-        
-//        eventDelegate = nil
-//        audioA2DPDelegate = nil
-        // Remove current device saved
-        //DeviceManager.deleteCurrentDevice()
         DeviceManager.connectedDeviceName = nil
-        isDownloadingFW = false
-        isDownLoadingFWCompleted = false
-        tabHistoBluetoothState.removeAll()
+
+        // Invalid Timer
+        stopTimerUpdateBatteryLevel()
+        stopTimerTimeOutConnection()
+        stopTimerTimeOutOAD()
     }
+    
     
     func getDeviceNameA2DP() -> String? {
         if let output = AVAudioSession.sharedInstance().currentRoute.outputs.first, output.portType == AVAudioSessionPortBluetoothA2DP && output.portName.lowercased().range(of: "melo_") != nil {
@@ -180,11 +189,26 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     }
     
     func stopTimerUpdateBatteryLevel() {
-        if timerUpdateBatteryLevel != nil {
-            timerUpdateBatteryLevel?.invalidate()
-            timerUpdateBatteryLevel = nil
+        if let timerUpdateBatteryLevel = timerUpdateBatteryLevel, timerUpdateBatteryLevel.isValid {
+            timerUpdateBatteryLevel.invalidate()
         }
+        timerUpdateBatteryLevel = nil
     }
+    
+    func stopTimerTimeOutConnection() {
+        if let timerTimeOutConnection = timerTimeOutConnection, timerTimeOutConnection.isValid {
+            timerTimeOutConnection.invalidate()
+        }
+        timerTimeOutConnection = nil
+    }
+    
+    func stopTimerTimeOutOAD() {
+        if let timerTimeOutOAD = timerTimeOutOAD, timerTimeOutOAD.isValid {
+            timerTimeOutOAD.invalidate()
+        }
+        timerTimeOutOAD = nil
+    }
+    
     
     func startTimerUpdateBatteryLevel() {
         if timerUpdateBatteryLevel != nil {
@@ -196,6 +220,10 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
     
     func connectA2DP() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(audioChangedRoute(_:)),
+                                               name:Notification.Name.AVAudioSessionRouteChange,
+                                               object: nil)
         if audioA2DPDelegate != nil {
             let session = AVAudioSession.sharedInstance()
             let output = session.currentRoute.outputs.first
@@ -215,33 +243,13 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                                             with: AVAudioSessionCategoryOptions.allowBluetooth)
 
                 } catch let error {
-                    print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
+                    print("#57685# - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
                 }
-                
-//                if #available(iOS 10.0, *) {
-//                    do {
-//                        try session.setCategory(AVAudioSessionCategoryPlayback, mode: AVAudioSessionModeDefault, options: AVAudioSessionCategoryOptions.allowBluetoothA2DP)
-//                        //                            try session.setCategory(AVAudioSessionCategoryPlayback,
-//                        //                                                    with: AVAudioSessionCategoryOptions.allowAirPlay)
-//                    } catch let error {
-//                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for A2DP Bluetooth : \(error.localizedDescription)")
-//                    }
-//                } else {
-//                    do {
-//                        try session.setCategory(AVAudioSessionCategoryPlayback,
-//                                                with: AVAudioSessionCategoryOptions.allowBluetooth)
-//                    } catch let error {
-//                        print("#57685 - [MyBrainTechnologiesSDK] Error while setting category for bluetooth : \(error)")
-//                    }
-//                }
             }
             
             // Register to Audio Session output / input changes
             // to monitor the A2DP connection status
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(audioChangedRoute(_:)),
-                                                   name:Notification.Name.AVAudioSessionRouteChange,
-                                                   object: nil)
+            
         }
     }
     
@@ -301,7 +309,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             var firmwareVersion = ""
             var indexLoop = 0.0
             while self.blePeripheral == nil || firmwareVersion == "" || MBTBluetoothLEHelper.mailBoxCharacteristic == nil || !self.isConnected {
-                print("sleep")
+                print("#57685# - PrepareTestStartOAD sleep")
                 usleep(500000)
                 
                 DispatchQueue.main.sync {
@@ -374,7 +382,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
             var deviceInfoNotComplete = true
             var indexLoop = 0.0
             while self.blePeripheral == nil || deviceInfoNotComplete || MBTBluetoothLEHelper.mailBoxCharacteristic == nil || !self.isConnected {
-                print("sleep")
+                print("#57685# - PrepareDeviceWithInfo sleep")
                 usleep(500000)
                 
                 DispatchQueue.main.sync {
@@ -417,7 +425,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     
         if let fileName = getFileNameLatestVersionBin() {
             OADManager = MBTOADManager(fileName)
-            print("Firmware Version : \(OADManager.fwVersion)")
+            print("#57685# - Start OAD Firmware Version : \(OADManager.fwVersion)")
             
             stopTimerUpdateBatteryLevel()
             
@@ -524,11 +532,14 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     ///     - central: The central manager whose state has changed.
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         
-        print(#function)
+        print("#57685#" + #function)
         if central.state == .poweredOn {
             print("Broadcasting...")
             // Scan for peripherals if BLE is turned on
-            centralManager?.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
+            if let _ = DeviceManager.connectedDeviceName {
+                centralManager?.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
+            }
+            
             tabHistoBluetoothState.append(true)
         } else if central.state == .poweredOff {
             if !isDownloadingFW {
@@ -558,8 +569,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         if tabHistoBluetoothState.count == 3 && tabHistoBluetoothState[0] == true && isDownloadingFW {
             eventDelegate?.didRebootBluetooth?()
             centralManager?.connect(blePeripheral!, options: nil)
-
         }
+        
+        eventDelegate?.didBluetoothStateChange?(tabHistoBluetoothState.last ?? false)
     }
     
     
@@ -582,7 +594,8 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         
         if let array = advertisementData[CBAdvertisementDataServiceUUIDsKey] as? Array<CBUUID>,
             array.contains(MBTBluetoothLEHelper.myBrainServiceUUID) && nameOfDeviceFound.lowercased().range(of: "melo_") != nil {
-            if DeviceManager.connectedDeviceName == nil {
+            
+            if DeviceManager.connectedDeviceName == "" {
                 DeviceManager.connectedDeviceName = nameOfDeviceFound
             }
             
@@ -609,9 +622,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     func centralManager(_ central: CBCentralManager,
                                     didConnect peripheral: CBPeripheral)
     {
-        connectA2DP()
         MBTBluetoothLEHelper.deviceInfoCharacteristic.removeAll()
-        isConnected = true
         peripheral.discoverServices(nil)
         
         if isDownloadingFW {
@@ -649,12 +660,9 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 let error = NSError(domain: "Bluetooth Manager", code: 911, userInfo: [NSLocalizedDescriptionKey : "Lost Connection BLE during OAD"]) as Error
                 isDownloadingFW = false
                 eventDelegate?.didOADFailWithError?(error)
-                isConnected = false
             }
         } else {
             disconnect()
-            isConnected = false
-            
             if error != nil {
                 eventDelegate?.onConnectionOff?(error)
             } else {
@@ -827,7 +835,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                 (data as NSData).getBytes(&bytesArray, length: data.count * MemoryLayout<UInt8>.size)
                 switch MailBoxEvents.getMailBoxEvent(v: bytesArray[0]) {
                 case .MBX_OTA_MODE_EVT :
-                    print("MBX_OTA_MODE_EVT bytesArray : \(bytesArray.description)")
+                    print("#57685# - MBX_OTA_MODE_EVT bytesArray : \(bytesArray.description)")
                     if bytesArray[1] == 0x01 {
                         eventDelegate?.onDeviceReady?()
                         eventDelegate?.onProgressUpdate?(0.1)
@@ -842,7 +850,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                         timerTimeOutOAD?.invalidate()
                     }
                 case .MBX_OTA_IDX_RESET_EVT :
-                    print("MBX_OTA_IDX_RESET_EVT bytesArray : \(bytesArray.description)")
+                    print("#57685# - MBX_OTA_IDX_RESET_EVT bytesArray : \(bytesArray.description)")
                     let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .barrier) {
                         self.OADManager.mProgInfo.iBlock = Int16((bytesArray[2] & 0xFF)) << 8 | Int16(bytesArray[1] & 0xFF)
                     }
@@ -850,7 +858,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                     DispatchQueue.global().async(execute: dispatchWorkItem)
                     
                 case .MBX_OTA_STATUS_EVT :
-                    print("MBX_OTA_STATUS_EVT bytesArray : \(bytesArray.description)")
+                    print("#57685# - MBX_OTA_STATUS_EVT bytesArray : \(bytesArray.description)")
                     if bytesArray[1] == 1 {
                         isDownLoadingFWCompleted = true
                         eventDelegate?.onProgressUpdate?(0.9)
@@ -861,7 +869,7 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
                         timerTimeOutOAD?.invalidate()
                     }
                 default:
-                    print("Default")
+                    print("#57685# - Default")
                 }
             }
         default:
@@ -913,27 +921,19 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
         }
         // Get the actual route used
         let session = AVAudioSession.sharedInstance()
-        let output = session.currentRoute.outputs.first
-        
-        
-        switch reason {
-        case .newDeviceAvailable:
-            if let deviceName = DeviceManager.connectedDeviceName, output?.portName == deviceName
-                && output?.portType == AVAudioSessionPortBluetoothA2DP {
-                // Save the UUID of the concerned headset
-                MBTBluetoothA2DPHelper.uid = output?.uid
-                // A2DP Audio is connected
-                audioA2DPDelegate?.audioA2DPDidConnect?()
+        if let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first {
+            MBTBluetoothA2DPHelper.uid = output.uid
+            // A2DP Audio is connected
+            DispatchQueue.main.async {
+                self.audioA2DPDelegate?.audioA2DPDidConnect?()
+                self.connectTo(output.portName)
             }
-        case .oldDeviceUnavailable:
-            // if the old device is the MBT headset
-            if lastOutput?.uid == MBTBluetoothA2DPHelper.uid {
-                // Erase the A2DP audio uid saved
-                MBTBluetoothA2DPHelper.uid = nil
-                // MBT A2DP audio is disconnected
-                audioA2DPDelegate?.audioA2DPDidDisconnect?()
+        } else if lastOutput != nil {
+            MBTBluetoothA2DPHelper.uid = nil
+            // MBT A2DP audio is disconnected
+            DispatchQueue.main.async {
+                self.audioA2DPDelegate?.audioA2DPDidDisconnect?()
             }
-        default: ()
         }
     }
 }
