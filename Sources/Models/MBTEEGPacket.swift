@@ -150,8 +150,8 @@ class EEGPacketManager: MBTRealmEntityManager {
     ///     - eegPacket : *MBTEEGPacket* freshly created, soon db-saved.
     /// - Returns: The *MBTEEGPacket* saved in Realm-db.
     class func saveEEGPacket(_ eegPacket: MBTEEGPacket) {
-        try! RealmManager.realm.write {
-            RealmManager.realm.add(eegPacket)
+        try! RealmManager.shared.realm.write {
+            RealmManager.shared.realm.add(eegPacket)
         }
     }
     
@@ -174,7 +174,7 @@ class EEGPacketManager: MBTRealmEntityManager {
     /// Get all *MBTEEGPacket* saved in Realm DB.
     /// - Returns: All *MBTEEGPacket* db-saved from Realm query.
     class func getEEGPackets() -> Results<MBTEEGPacket> {
-        return RealmManager.realm.objects(MBTEEGPacket.self)
+        return RealmManager.shared.realm.objects(MBTEEGPacket.self)
     }
     
     /// Get Data Channel for eegPackets
@@ -266,10 +266,10 @@ class EEGPacketManager: MBTRealmEntityManager {
     }
     /// Delete all EEGPacket saved in Realm DB.
     class func removeAllEEGPackets() {
-        let packets = RealmManager.realm.objects(MBTEEGPacket.self)
+        let packets = RealmManager.shared.realm.objects(MBTEEGPacket.self)
         
-        try! RealmManager.realm.write {
-            RealmManager.realm.delete(packets)
+        try! RealmManager.shared.realm.write {
+            RealmManager.shared.realm.delete(packets)
         }
 
     }
@@ -278,8 +278,8 @@ class EEGPacketManager: MBTRealmEntityManager {
     ///
     /// - Parameter packets: A *Array* instance of packets to remove from DataBase
     class func removePackets(_ packets:[MBTEEGPacket]) {
-        try! RealmManager.realm.write {
-            RealmManager.realm.delete(packets)
+        try! RealmManager.shared.realm.write {
+            RealmManager.shared.realm.delete(packets)
         }
     }
 

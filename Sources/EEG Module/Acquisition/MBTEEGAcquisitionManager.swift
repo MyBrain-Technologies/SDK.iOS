@@ -103,10 +103,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
             // Collect data for the JSON.
         ///let allPackets = EEGPacketManager.getEEGPackets()
         
-//        let config = EEGPacketManager.RealmManager.realm.configuration
+//        let config = EEGPacketManager.
         
         DispatchQueue(label: "MelomindSaveProcess").async {
-            if let realm = try? Realm() {
+            let config = MBTRealmEntityManager.RealmManager.shared.config
+            
+            if let realm = try? Realm(configuration:config) {
                 var resPacketsToSave = [MBTEEGPacket]()
                 
                 for eegPacket in packetsToSaveTSR {
