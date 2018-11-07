@@ -909,16 +909,16 @@ internal class MBTBluetoothManager: NSObject, CBCentralManagerDelegate, CBPeriph
     /// - Parameter notif : The *notification* received when audio route output changed.
     @objc func audioChangedRoute(_ notif:Notification) {
         // Get the Reason why the audio route change
-        guard let userInfo = notif.userInfo,
-            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
-            let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else {
-                return
-        }
+//        guard let userInfo = notif.userInfo,
+//            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+//            let reason = AVAudioSession. else {
+//                return
+//        }
         // Get the last audio output route used
         var lastOutput: AVAudioSessionPortDescription! = nil
-        if let previousRoute = userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
-            lastOutput = previousRoute.outputs[0]
-        }
+//        if let previousRoute = userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
+//            lastOutput = previousRoute.outputs[0]
+//        }
         // Get the actual route used
         let session = AVAudioSession.sharedInstance()
         if let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first {
