@@ -18,7 +18,7 @@ import Foundation
     /// With a *Bool* informing if headset is connected or not
     /// to the iDevice.
     /// - Parameter isConnected : *Bool* to know if BLE isConnected or not.
-    @objc optional func onBluetoothStatusUpdate(_ isConnected:Bool)
+    @objc optional func onHeadsetStatusUpdate(_ isConnected:Bool)
     
     /// Called if the SDK can't connect to the MBT Headset,
     /// with the error.
@@ -41,6 +41,8 @@ import Foundation
     @objc optional func didRequireToRebootBluetooth()
     
     @objc optional func didRebootBluetooth()
+    
+    @objc optional func didBluetoothStateChange(_ isBluetoothOn:Bool)
 
     @objc optional func onOADComplete()
     

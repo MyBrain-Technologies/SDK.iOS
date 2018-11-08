@@ -33,6 +33,9 @@ public class MBTClient {
     
     public static var main:MBTClient = MBTClient()
     
+    public var isBluetoothOn:Bool {
+        return bluetoothManager.tabHistoBluetoothState.last ?? false
+    }
     
     public var isConnected:Bool {
         return bluetoothManager.isConnected
@@ -40,6 +43,10 @@ public class MBTClient {
     
     private init() {
         bluetoothManager = MBTBluetoothManager.shared
+        bluetoothManager.initConnectionBluetooth()
+        if let deviceName = bluetoothManager.getDeviceNameA2DP(), !bluetoothManager.isConnected {
+            bluetoothManager.connectTo(deviceName)
+        }
         eegAcqusitionManager = MBTEEGAcquisitionManager.shared
         deviceAcqusitionManager = MBTDeviceAcquisitionManager.shared
         signalProcessingManager = MBTSignalProcessingManager.shared
@@ -124,6 +131,10 @@ public class MBTClient {
         }
         
         return tabDeviceName
+    }
+    
+    public func getBluetoothState() -> Bool? {
+        return bluetoothManager.tabHistoBluetoothState.last
     }
     
     //MARK: - JSON EEG
@@ -214,6 +225,7 @@ public class MBTClient {
     ///     - newRecord : Create a new recordId on the JSON File
     ///     - recordingType : Change the session's type
     public func startRecording(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) -> UUID? {
+        EEGPacketManager.removeAllEEGPackets()
         if let _ = DeviceManager.connectedDeviceName {
             if newRecord {
                 recordInfo = MBTRecordInfo()
