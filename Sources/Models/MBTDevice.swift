@@ -140,7 +140,7 @@ class DeviceManager: MBTRealmEntityManager {
         // Get the myBrainTechnologies device connected.
         if let device = getCurrentDevice() {
             // Save the new device infos to Realm Database
-            try! RealmManager.realm.write {
+            try! RealmManager.shared.realm.write {
                 device.deviceInfos!.productName = deviceInfos.productName ?? device.deviceInfos!.productName
                 device.deviceInfos!.deviceId = deviceInfos.deviceId ?? device.deviceInfos!.deviceId
                 device.deviceInfos!.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos!.hardwareVersion
@@ -156,7 +156,7 @@ class DeviceManager: MBTRealmEntityManager {
         // Get the myBrainTechnologies device connected.
         if let device = getCurrentDevice() {
             // Save the new battery status to Realm Database
-            try! RealmManager.realm.write {
+            try! RealmManager.shared.realm.write {
                 if batteryLevel >= 0 && batteryLevel <= 6 {
                     device.batteryLevel = batteryLevel
                 } else {
@@ -185,7 +185,7 @@ class DeviceManager: MBTRealmEntityManager {
         
         // Save Melomind info to DB
         if let device = getCurrentDevice() {
-            try! RealmManager.realm.write {
+            try! RealmManager.shared.realm.write {
                 device.sampRate = 250
                 device.nbChannels = 2
                 device.eegPacketLength = 250
@@ -208,14 +208,14 @@ class DeviceManager: MBTRealmEntityManager {
     class func getCurrentDevice() -> MBTDevice? {
         // If no device saved in DB, then create it.
         if let deviceName = connectedDeviceName, !deviceName.isEmpty {
-            if  let device = RealmManager.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceName).first {
+            if  let device = RealmManager.shared.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceName).first {
                 return device
             } else {
                     let newDevice = MBTDevice()
                     newDevice.deviceName = deviceName
                     
-                    try! RealmManager.realm.write {
-                        RealmManager.realm.add(newDevice)
+                    try! RealmManager.shared.realm.write {
+                        RealmManager.shared.realm.add(newDevice)
                     }
                 
                 return newDevice
@@ -227,7 +227,7 @@ class DeviceManager: MBTRealmEntityManager {
     /// Get Register Device
     /// - Returns : The array DB-saved *[MBTDevice]* instance
     class func getRegisteredDevices() -> [MBTDevice] {
-        return [MBTDevice](RealmManager.realm.objects(MBTDevice.self))
+        return [MBTDevice](RealmManager.shared.realm.objects(MBTDevice.self))
     }
 
     
@@ -259,7 +259,7 @@ class DeviceManager: MBTRealmEntityManager {
     /// Deinit all properties of deviceInfos
     class func resetDeviceInfo() {
         if let currentDevice = DeviceManager.getCurrentDevice() {
-            try! RealmManager.realm.write {
+            try! RealmManager.shared.realm.write {
                 currentDevice.deviceInfos?.productName = nil
                 currentDevice.deviceInfos?.deviceId = nil
                 currentDevice.deviceInfos?.hardwareVersion = nil
@@ -283,9 +283,9 @@ class DeviceManager: MBTRealmEntityManager {
         
         let deviceNameToDelete:String! = deviceName
         
-        if let device = RealmManager.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceNameToDelete).first {
-            try! RealmManager.realm.write {
-                RealmManager.realm.delete(device)
+        if let device = RealmManager.shared.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceNameToDelete).first {
+            try! RealmManager.shared.realm.write {
+                RealmManager.shared.realm.delete(device)
             }
             
             return true
