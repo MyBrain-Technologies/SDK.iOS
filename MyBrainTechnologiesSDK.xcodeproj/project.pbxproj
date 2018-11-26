@@ -85,6 +85,9 @@
 		2BAF7F37208F63FB007D9EAB /* MBT_SmoothRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE9208F63FA007D9EAB /* MBT_SmoothRelaxIndex.h */; };
 		2BAF7F38208F63FB007D9EAB /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EEA208F63FA007D9EAB /* version.h */; };
 		2BC4F64F208F6F5E00F0B366 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */; };
+		2BD1014521A95053002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
+		2BD1014621A9510D002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
+		2BF214B121A3EF2F00C91A0A /* mm-ota-1_6_7_a.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2BF214B021A3EF2E00C91A0A /* mm-ota-1_6_7_a.bin */; };
 		2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3549BB511DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,6 +261,8 @@
 		2BC2D55120F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
 		2BC2D55320F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MBTBridgeConstants.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.mm"; sourceTree = "<group>"; };
+		2BD1014421A95053002C3C1A /* PrettyPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrettyPrinter.swift; sourceTree = "<group>"; };
+		2BF214B021A3EF2E00C91A0A /* mm-ota-1_6_7_a.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_7_a.bin"; sourceTree = "<group>"; };
 		2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_2.bin"; sourceTree = "<group>"; };
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
@@ -772,6 +777,14 @@
 			path = MyBrainTechnologiesSDKTests;
 			sourceTree = "<group>";
 		};
+		2BD1014321A95039002C3C1A /* PrettyPrinter */ = {
+			isa = PBXGroup;
+			children = (
+				2BD1014421A95053002C3C1A /* PrettyPrinter.swift */,
+			);
+			path = PrettyPrinter;
+			sourceTree = "<group>";
+		};
 		2BEB4981211DAF010076C270 /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,10 +842,11 @@
 		3549BB541DA38A4000C63030 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F4A235FB1F0178FF00A0145A /* Utils */,
 				2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */,
 				2B2DF07B20E36E53004FE1E4 /* mm-ota-1_6_0.bin */,
 				2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */,
-				F4A235FB1F0178FF00A0145A /* Utils */,
+				2BF214B021A3EF2E00C91A0A /* mm-ota-1_6_7_a.bin */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
 				3549BB551DA38A5E00C63030 /* Info-tvOS.plist */,
@@ -976,6 +990,7 @@
 		F4A235FB1F0178FF00A0145A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2BD1014321A95039002C3C1A /* PrettyPrinter */,
 				2B6B5DAC20513A1C00928F1F /* SwiftyJSON */,
 				F40E03FF1F6C17C40055E296 /* fftw3 */,
 				F40E00FF1F6C14110055E296 /* CPPSignalProcessing */,
@@ -1257,6 +1272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B2DF07E20E36E55004FE1E4 /* mm-ota-1_5_15.bin in Resources */,
+				2BF214B121A3EF2F00C91A0A /* mm-ota-1_6_7_a.bin in Resources */,
 				2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */,
 				2B2DF07D20E36E55004FE1E4 /* mm-ota-1_6_0.bin in Resources */,
 			);
@@ -1341,6 +1357,7 @@
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MBTClient.swift in Sources */,
+				2BD1014521A95053002C3C1A /* PrettyPrinter.swift in Sources */,
 				2B6B5DA4205139D900928F1F /* MBTEEGAcquisitionManager.swift in Sources */,
 				2BAF7F2A208F63FB007D9EAB /* MBT_ComputeCalibration.cpp in Sources */,
 				2BAF7F2D208F63FB007D9EAB /* MBT_ComputeSNR.cpp in Sources */,
@@ -1388,6 +1405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BD1014621A9510D002C3C1A /* PrettyPrinter.swift in Sources */,
 				3549BB8B1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

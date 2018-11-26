@@ -126,3 +126,49 @@ class ConversionUtils {
     }
 }
 
+public enum OADStateType:Int {
+    case DISABLE = -1
+    case START_OAD = 0
+    case READY = 1
+    case IN_PROGRESS = 2
+    case OAD_COMPLETE = 3
+    case REBOOT_BLUETOOTH = 4
+    case CONNECT = 5
+    
+    
+    var description:String {
+        switch self {
+        case .DISABLE :
+            return "OAD disable"
+        case .START_OAD :
+            return "Start to process OAD"
+        case .READY :
+            return "Melomind is ready to transfert OAD"
+        case .IN_PROGRESS :
+            return "OAD is in progress"
+        case .OAD_COMPLETE :
+            return "OAD is complete"
+        case .REBOOT_BLUETOOTH :
+            return "need to reboot bluetooth Device"
+        case .CONNECT :
+            return "try to reconnect the Melomind"
+        }
+    }
+}
+
+
+func >(f:OADStateType,s:OADStateType) -> Bool {
+    return f.rawValue > s.rawValue
+}
+
+func <(f:OADStateType,s:OADStateType) -> Bool {
+    return f.rawValue < s.rawValue
+}
+
+func >=(f:OADStateType,s:OADStateType) -> Bool {
+    return f.rawValue > s.rawValue || f.rawValue == s.rawValue
+}
+
+func <=(f:OADStateType,s:OADStateType) -> Bool {
+    return f.rawValue < s.rawValue || f.rawValue == s.rawValue
+}

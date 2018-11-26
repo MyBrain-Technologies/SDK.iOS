@@ -43,7 +43,6 @@ public class MBTClient {
     
     private init() {
         bluetoothManager = MBTBluetoothManager.shared
-        bluetoothManager.initConnectionBluetooth()
         if let deviceName = bluetoothManager.getDeviceNameA2DP(), !bluetoothManager.isConnected {
             bluetoothManager.connectTo(deviceName)
         }
@@ -80,7 +79,7 @@ public class MBTClient {
     
     /// Disconnect the iDevice from the headset
     /// - Remark: The audio can't be disconnect from code.
-    public func disconnect() {
+    public func cancelConnection() {
         bluetoothManager.disconnect()
     }
     
@@ -269,22 +268,18 @@ public class MBTClient {
     
     /// Start the OAD process
     public func startOADTransfer() {
-        bluetoothManager.prepareDeviceWithInfo {
-            self.bluetoothManager.startOAD()
-        }
+        self.bluetoothManager.startOAD()
     }
     
     public func testOADTransfer() {
-        bluetoothManager.prepareTestStartOAD()
+        bluetoothManager.startTestOAD()
     }
     
     /// To know if a new headset firmware version is available
     /// Asynchrone fonction call a block completion with an boolean argument
     /// - Parameter completion: block completion call after getting melomind info with boolean argument
-    public func isNewVersionMelomindAvailable(completion:@escaping (Bool)->()) {
-        bluetoothManager.prepareDeviceWithInfo {
-            completion(self.bluetoothManager.getFileNameLatestVersionBin() != nil)
-        }
+    public func isMelomindNeedToBeUpdate() -> Bool? {
+        return bluetoothManager.isMelomindNeedToBeUpdate()
     }
     
     //MARK: - Upload
