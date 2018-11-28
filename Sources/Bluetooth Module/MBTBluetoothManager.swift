@@ -230,6 +230,7 @@ internal class MBTBluetoothManager: NSObject {
         guard let currentDevice = DeviceManager.getCurrentDevice(), let deviceFWVersion = currentDevice.deviceInfos?.firmwareVersion else {
             let error = NSError(domain: "Bluetooth Manager", code: 916, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Device Not Connected"]) as Error
             eventDelegate?.onConnectionFailed?(error)
+            prettyPrint(log.error(error as NSError))
             return
         }
         
