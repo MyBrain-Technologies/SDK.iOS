@@ -39,17 +39,18 @@ internal class MBTBluetoothManager: NSObject {
     /// - Remark: Sends a notification when changed (on *willSet*).
     var isConnected:Bool {
         
-        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion else {
+        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion
+             else {
             return false
         }
         let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
         let A2DPMBVersionArray = A2DP_MB_FIRMWARE_VERSION.components(separatedBy: ".")
         
         if audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
-            && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0 {
-            return blePeripheral != nil && DeviceManager.connectedDeviceName == getDeviceNameA2DP()
+            && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0 && isConnectedBLE {
+            return DeviceManager.connectedDeviceName == getDeviceNameA2DP()
         } else {
-            return blePeripheral != nil
+            return isConnectedBLE
         }
     }
     
@@ -112,7 +113,6 @@ internal class MBTBluetoothManager: NSObject {
     var blePeripheral : CBPeripheral? {
         didSet {
             if let _ = blePeripheral {
-                stopTimerTimeOutConnection()
                 eventDelegate?.onHeadsetStatusUpdate?(true)
             } else {
                 eventDelegate?.onHeadsetStatusUpdate?(false)
@@ -263,6 +263,7 @@ internal class MBTBluetoothManager: NSObject {
         let A2DPMBVersionArray = A2DP_MB_FIRMWARE_VERSION.components(separatedBy: ".")
         
         if !isOADInProgress {
+            stopTimerTimeOutConnection()
             if (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
                 && getDeviceNameA2DP() != DeviceManager.connectedDeviceName
                 && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0 {
@@ -860,7 +861,6 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     {
         processBatteryLevel = false
         if isOADInProgress {
-
             if OADState == .OAD_COMPLETE {
                 eventDelegate?.onProgressUpdate?(0.95)
                 eventDelegate?.requireToRebootBluetooth?()
@@ -1172,8 +1172,9 @@ extension MBTBluetoothManager {
     @objc func audioChangedRoute(_ notif:Notification) {
         // Get the Reason why the audio route change
         guard let userInfo = notif.userInfo,
-            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
-            let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue)  else {
+            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt
+//            ,let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue)
+            else {
                 return
         }
         
@@ -1193,7 +1194,7 @@ extension MBTBluetoothManager {
             // A2DP Audio is connected
             DispatchQueue.main.async {
                 self.audioA2DPDelegate?.audioA2DPDidConnect?()
-                if output.portName == DeviceManager.connectedDeviceName {
+                if self.isConnected {
                     if !self.isOADInProgress {
                         self.stopTimerTimeOutA2DPConnection()
                         self.eventDelegate?.onConnectionEstablished?()

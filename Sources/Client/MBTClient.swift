@@ -31,7 +31,7 @@ public class MBTClient {
     
     internal var recordInfo:MBTRecordInfo = MBTRecordInfo()
     
-    public static var main:MBTClient = MBTClient()
+    public static let main:MBTClient = MBTClient()
     
     public var isBluetoothOn:Bool {
         return bluetoothManager.tabHistoBluetoothState.last ?? false
