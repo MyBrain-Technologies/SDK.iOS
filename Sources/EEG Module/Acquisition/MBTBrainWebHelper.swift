@@ -33,7 +33,7 @@ struct MBTBrainWebHelper {
                     switch encodingResult {
                     case .success(let upload, _, _):
                         upload.responseJSON { response in
-                            debugPrint("#57685 - sendJSONToBrainWeb response :\(response)")
+                            prettyPrint(log.url("sendJSONToBrainWeb response : \n \(response)"))
                             if let statusCode = response.response?.statusCode, statusCode >= 200 && statusCode < 300 {
                                 completion(true)
                             } else {
@@ -41,7 +41,7 @@ struct MBTBrainWebHelper {
                             }
                         }
                     case .failure(let encodingError):
-                        print("#57685 - sendJSONToBrainWeb failure : \(encodingError)")
+                        prettyPrint(log.url("sendJSONToBrainWeb failure : \(encodingError)"))
                         completion(false)
                     }
             })
@@ -79,7 +79,7 @@ struct MBTBrainWebHelper {
                             switch encodingResult {
                             case .success(let upload, _, _):
                                 upload.responseJSON { response in
-                                    debugPrint("#57685 - sendALLJsonToBrainWeb response : \(response)")
+                                    prettyPrint(log.url("sendALLJsonToBrainWeb - response : \n\(response)"))
                                     if response.response?.statusCode == 201 {
                                         let _ = MBTJSONHelper.removeFile(fileURL)
                                         completion(true)
@@ -87,7 +87,7 @@ struct MBTBrainWebHelper {
                                     completion(false)
                                 }
                             case .failure(let encodingError):
-                                print("#57685 - sendAllJSONToBrainWeb failure : \(encodingError)")
+                                prettyPrint(log.url("sendAllJSONToBrainWeb - failure : \(encodingError)"))
                                 completion(false)
                             }
                     })
@@ -95,7 +95,8 @@ struct MBTBrainWebHelper {
             }
             
         } catch {
-            debugPrint("#57685 - [MyBrainTechnologiesSDK] Error while saving JSON on device : \(error)")
+            prettyPrint(log.ln("sendAllJSONToBrainWeb - "))
+            prettyPrint(log.error(error as NSError))
             completion(false)
         }
         

@@ -73,7 +73,6 @@ struct MBTBluetoothLEHelper {
     }
 }
 
-
 enum MailBoxEvents :UInt8 {
     
     case MBX_SET_ADS_CONFIG = 0
@@ -93,6 +92,7 @@ enum MailBoxEvents :UInt8 {
     case MBX_GET_EEG_CONFIG = 14      // Get the current configuration of the Notch filter, the bandpass filter, and the amplifier gain.
     case MBX_P300_ENABLE = 15        // Enable or disable the p300 functionnality of the melomind.
     case MBX_DCOFFSET_ENABLE = 16
+    case MBX_CONNECT_IN_A2DP = 17
     case MBX_BAD_EVT = 0xFF
     
    static func getMailBoxEvent(v:UInt8) -> MailBoxEvents{
@@ -100,5 +100,39 @@ enum MailBoxEvents :UInt8 {
             return mbe
         }
         return .MBX_BAD_EVT
+    }
+}
+
+enum MailBoxA2DPResponse : UInt8 {
+    case CMD_CODE_IN_PROGRESS = 0x01
+    case CMD_CODE_FAILED_BAD_BDADDR = 0x02
+    case CMD_CODE_FAILED_ALREADY_CONNECTED = 0x04
+    case CMD_CODE_FAILED_TIME_OUT = 0x08
+    case CMD_CODE_LINKKEY_INVALID = 0x10
+    case CMD_CODE_SUCCESS = 0x80
+    
+    
+    static func getArrayCaseEnum() -> [MailBoxA2DPResponse] {
+        return [
+            .CMD_CODE_IN_PROGRESS,
+            .CMD_CODE_FAILED_BAD_BDADDR,
+            .CMD_CODE_FAILED_ALREADY_CONNECTED,
+            .CMD_CODE_FAILED_TIME_OUT,
+            CMD_CODE_LINKKEY_INVALID,
+            CMD_CODE_SUCCESS
+        ]
+    }
+    
+    static func getA2DPResponseFromUint8(_ uint8: UInt8) -> [MailBoxA2DPResponse] {
+        var arrayResponse = [MailBoxA2DPResponse]()
+        let arrayCaseEnum = MailBoxA2DPResponse.getArrayCaseEnum()
+        
+        for caseEnum in arrayCaseEnum {
+            if uint8 & caseEnum.rawValue == caseEnum.rawValue {
+                arrayResponse.append(caseEnum)
+            }
+        }
+        
+        return arrayResponse
     }
 }

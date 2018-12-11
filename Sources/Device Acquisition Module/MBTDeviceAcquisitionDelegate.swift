@@ -16,13 +16,6 @@ import Foundation
     /// - Parameter battery level : *batteryLevel* received.
     @objc optional func onReceivingBatteryLevel(_ levelBattery:Int)
     
-    
-    /// Permit to set up the onReceivingBatteryLevel event when the batteryLevelChange or not
-    ///
-    /// Remarks : Default value is false
-    /// - returns : A *Bool* instance of onReceivingBatteryLevel if batteryLevel Change
-    @objc optional func receiveBatteryLevelOnUpdate() -> Bool
-    
     /// Called when
     ///
     /// - Parameter status: A *Int* of the saturation headset
