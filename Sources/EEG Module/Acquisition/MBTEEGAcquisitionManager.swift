@@ -127,12 +127,18 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                         }
                         
                     })
-                    completion(fileURL)
+                    DispatchQueue.main.async {
+                        completion(fileURL)
+                    }
                 } else {
-                    completion(nil)
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
                 }
             } else {
-                completion(nil)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
         }
     }
