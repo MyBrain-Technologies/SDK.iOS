@@ -169,11 +169,9 @@ internal class MBTBluetoothManager: NSObject {
 
     //MARK: - Connect and Disconnect MBT Headset Methods
     
-    /// Intialize *centralManager*, *deviceName* and *eventDelegate*.
+    /// Start the connection process.
     /// - Parameters:
     ///     - deviceName : The name of the device to connect (Bluetooth profile).
-    ///     - eventDelegate: The delegate which whill handle Bluetooth events.
-    ///     - audioA2DPDelegate: The audio A2DP delegate to monitor A2DP connection state. Can be nil.
     func connectTo(_ deviceName:String? = nil) {
         // Check if a current device is already saved in the DB, and delete it
         //DeviceManager.deleteCurrentDevice()
