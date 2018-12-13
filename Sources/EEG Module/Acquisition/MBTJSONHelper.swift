@@ -37,12 +37,13 @@ struct MBTJSONHelper {
             // Saving JSON in device.
             try json.rawString([.castNilToNSNull:true])?.write(to: fileURL, atomically: true, encoding: .utf8)
 //            MBTJSONHelper.fileURL = fileURL
-            print("#57685 - json saved here : \(fileURL)")
+            prettyPrint(log.ln("saveJSONOnDevice - json saved here : \(fileURL)"))
             
             completion()
             return fileURL
         } catch {
-            debugPrint("#57685 - [MyBrainTechnologiesSDK] Error while saving JSON on device : \(error)")
+            prettyPrint(log.ln("saveJSONOnDevice - Error while saving JSON on device :"))
+            prettyPrint(log.error(error as Error as NSError))
         }
         
         return nil
@@ -67,7 +68,8 @@ struct MBTJSONHelper {
         do {
             try fileManager.removeItem(atPath: urlFile.path)
         } catch {
-            print("#57685 - Can't remove File : \(urlFile.path) \n \(error)")
+            prettyPrint(log.ln("getFileName - Can't remove File : \(urlFile.path)"))
+            prettyPrint(log.error(error as NSError))
             return false
         }
         

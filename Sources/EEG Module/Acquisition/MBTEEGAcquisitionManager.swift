@@ -94,7 +94,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let packetToRemove = EEGPacketManager.getArrayEEGPackets()
         var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
         let currentRecordInfo = MBTRecordInfo.init(MBTClient.main.recordInfo.recordId, recordingType: MBTClient.main.recordInfo.recordingType)
-        print("#78922 - \(currentRecordInfo)")
+        prettyPrint(log.ln(" saveRecordingOnFile - \(currentRecordInfo)"))
 
         for eegPacket in packetToRemove {
             packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
@@ -103,10 +103,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
             // Collect data for the JSON.
         ///let allPackets = EEGPacketManager.getEEGPackets()
         
-//        let config = EEGPacketManager.RealmManager.realm.configuration
+//        let config = EEGPacketManager.
         
         DispatchQueue(label: "MelomindSaveProcess").async {
-            if let realm = try? Realm() {
+            let config = MBTRealmEntityManager.RealmManager.shared.config
+            
+            if let realm = try? Realm(configuration:config) {
                 var resPacketsToSave = [MBTEEGPacket]()
                 
                 for eegPacket in packetsToSaveTSR {
@@ -125,12 +127,18 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                         }
                         
                     })
-                    completion(fileURL)
+                    DispatchQueue.main.async {
+                        completion(fileURL)
+                    }
                 } else {
-                    completion(nil)
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
                 }
             } else {
-                completion(nil)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
         }
     }
@@ -163,7 +171,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         }
         
         self.delegate?.onReceivingPackage?(packetComplete)
-        print("#57685 - Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)")
+        prettyPrint(log.ln("manageCompleteStreamEEGPacket - Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)"))
         self.timeIntervalPerf = Date().timeIntervalSince1970
         
         if self.isRecording {
@@ -238,13 +246,13 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let diff:Int32 = (Int32(currentIndex - previousIndex))
 
         if diff != 1 {
-            print("#57685 - diff is \(diff)")
+            prettyPrint(log.ln("#processBrainActivityData - diff is \(diff)"))
         }
 //        print("#57685 - CurrentIndex : \(currentIndex)")
         
         // Lost packets management.
         if diff != 1 && diff > 0 {
-            print("#57685 - lost \(diff) packet(s)")
+            prettyPrint(log.ln("#processBrainActivityData - lost \(diff) packet(s)"))
             for _ in 0 ..< diff {
                 for _ in 0 ..< count - 2 {
                     buffByte.append(0xFF)

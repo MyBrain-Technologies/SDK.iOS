@@ -60,10 +60,8 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
             let tabByte = [UInt8](characteristic.value!)
             if tabByte.count > 0 {
                 let batteryLevel = Int(tabByte[0])
-                if DeviceManager.getCurrentDevice()!.batteryLevel != batteryLevel || !(delegate?.receiveBatteryLevelOnUpdate?() ?? false) {
-                    DeviceManager.updateDeviceBatteryLevel(batteryLevel)
-                    delegate?.onReceivingBatteryLevel?(batteryLevel)
-                }
+                DeviceManager.updateDeviceBatteryLevel(batteryLevel)
+                delegate?.onReceivingBatteryLevel?(batteryLevel)
             }
         }
     }

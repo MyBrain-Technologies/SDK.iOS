@@ -31,8 +31,11 @@ public class MBTClient {
     
     internal var recordInfo:MBTRecordInfo = MBTRecordInfo()
     
-    public static var main:MBTClient = MBTClient()
+    public static let main:MBTClient = MBTClient()
     
+    public var isBluetoothOn:Bool {
+        return bluetoothManager.tabHistoBluetoothState.last ?? false
+    }
     
     public var isConnected:Bool {
         return bluetoothManager.isConnected
@@ -40,6 +43,9 @@ public class MBTClient {
     
     private init() {
         bluetoothManager = MBTBluetoothManager.shared
+        if let deviceName = bluetoothManager.getDeviceNameA2DP(), !bluetoothManager.isConnected {
+            bluetoothManager.connectTo(deviceName)
+        }
         eegAcqusitionManager = MBTEEGAcquisitionManager.shared
         deviceAcqusitionManager = MBTDeviceAcquisitionManager.shared
         signalProcessingManager = MBTSignalProcessingManager.shared
@@ -73,7 +79,7 @@ public class MBTClient {
     
     /// Disconnect the iDevice from the headset
     /// - Remark: The audio can't be disconnect from code.
-    public func disconnect() {
+    public func cancelConnection() {
         bluetoothManager.disconnect()
     }
     
@@ -124,6 +130,10 @@ public class MBTClient {
         }
         
         return tabDeviceName
+    }
+    
+    public func getBluetoothState() -> Bool? {
+        return bluetoothManager.tabHistoBluetoothState.last
     }
     
     //MARK: - JSON EEG
@@ -214,6 +224,7 @@ public class MBTClient {
     ///     - newRecord : Create a new recordId on the JSON File
     ///     - recordingType : Change the session's type
     public func startRecording(_ newRecord:Bool, recordingType:MBTRecordingType = MBTRecordingType()) -> UUID? {
+        EEGPacketManager.removeAllEEGPackets()
         if let _ = DeviceManager.connectedDeviceName {
             if newRecord {
                 recordInfo = MBTRecordInfo()
@@ -257,22 +268,18 @@ public class MBTClient {
     
     /// Start the OAD process
     public func startOADTransfer() {
-        bluetoothManager.prepareDeviceWithInfo {
-            self.bluetoothManager.startOAD()
-        }
+        self.bluetoothManager.startOAD()
     }
     
     public func testOADTransfer() {
-        bluetoothManager.prepareTestStartOAD()
+        bluetoothManager.startTestOAD()
     }
     
     /// To know if a new headset firmware version is available
     /// Asynchrone fonction call a block completion with an boolean argument
     /// - Parameter completion: block completion call after getting melomind info with boolean argument
-    public func isNewVersionMelomindAvailable(completion:@escaping (Bool)->()) {
-        bluetoothManager.prepareDeviceWithInfo {
-            completion(self.bluetoothManager.getFileNameLatestVersionBin() != nil)
-        }
+    public func isMelomindNeedToBeUpdate() -> Bool? {
+        return bluetoothManager.isMelomindNeedToBeUpdate()
     }
     
     //MARK: - Upload
