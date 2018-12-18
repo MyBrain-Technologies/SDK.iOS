@@ -750,6 +750,22 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
                     prettyPrint(log.error(error as NSError))
                 }
                 disconnect()
+            } else {
+                centralManager?.stopScan()
+                if let blePeripheral = blePeripheral {
+                    centralManager?.cancelPeripheralConnection(blePeripheral)
+                }
+                blePeripheral = nil
+                if OADState >= .OAD_COMPLETE {
+                    let error = NSError(domain: "Bluetooth Manager", code: 908, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Impossible reconnect the Melomoind"]) as Error
+                    OADState = .CONNECT
+                    eventDelegate?.onUpdateFailWithError?(error)
+                } else {
+                    let error = NSError(domain: "Bluetooth Manager", code: 911, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Lost Connection BLE during OAD"]) as Error
+                    isOADInProgress = false
+                    OADState = .DISABLE
+                    eventDelegate?.onUpdateFailWithError?(error)
+                }
             }
            
         } else if central.state == .unsupported {
