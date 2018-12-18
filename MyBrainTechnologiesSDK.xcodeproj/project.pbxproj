@@ -87,6 +87,9 @@
 		2BC4F64F208F6F5E00F0B366 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */; };
 		2BD1014521A95053002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
 		2BD1014621A9510D002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
+		2BD94E6421C7E0C200A567EE /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6221C7E0C100A567EE /* Realm.framework */; };
+		2BD94E6521C7E0C200A567EE /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6321C7E0C200A567EE /* RealmSwift.framework */; };
+		2BD94E6721C8CE7700A567EE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3549BB511DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -110,9 +113,6 @@
 		F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */; };
 		F4A0BD801F73FFBC00488038 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; };
 		F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */; };
-		FE3820C81F741BD200764A5F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44849CE1F2B3EC200006A04 /* Alamofire.framework */; };
-		FE3820C91F741BD200764A5F /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD401F040CB700755BD1 /* Realm.framework */; };
-		FE3820CA1F741BD200764A5F /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BD311F040CB400755BD1 /* RealmSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +261,9 @@
 		2BC2D55320F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MBTBridgeConstants.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.mm"; sourceTree = "<group>"; };
 		2BD1014421A95053002C3C1A /* PrettyPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrettyPrinter.swift; sourceTree = "<group>"; };
+		2BD94E6221C7E0C100A567EE /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		2BD94E6321C7E0C200A567EE /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		2BD94E6621C8CE7700A567EE /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_2.bin"; sourceTree = "<group>"; };
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
@@ -290,11 +293,8 @@
 		F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothEventDelegate.swift; path = "Bluetooth Module/MBTBluetoothEventDelegate.swift"; sourceTree = "<group>"; };
 		F420E9A11EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothLEHelper.swift; path = "Bluetooth Module/MBTBluetoothLEHelper.swift"; sourceTree = "<group>"; };
 		F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothManager.swift; path = "Bluetooth Module/MBTBluetoothManager.swift"; sourceTree = "<group>"; };
-		F44849CE1F2B3EC200006A04 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		F45837381EC5C21000C5D596 /* MBTClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTClient.swift; sourceTree = "<group>"; };
 		F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPDelegate.swift; path = "Bluetooth Module/MBTBluetoothA2DPDelegate.swift"; sourceTree = "<group>"; };
-		F495BD311F040CB400755BD1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
-		F495BD401F040CB700755BD1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		F49C74191F824C920033262E /* MBTBridgeConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBTBridgeConstants.h; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.h"; sourceTree = "<group>"; };
 		F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngineDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -304,14 +304,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BD94E6721C8CE7700A567EE /* Alamofire.framework in Frameworks */,
 				2B6B5DC120513B5700928F1F /* libfftw3_x86_64.a in Frameworks */,
 				2B6B5DC020513B4400928F1F /* libfftw3_i386.a in Frameworks */,
 				2B6B5DBF20513B2C00928F1F /* libfftw3_armv7s.a in Frameworks */,
+				2BD94E6421C7E0C200A567EE /* Realm.framework in Frameworks */,
 				2B6B5DBE20513B1F00928F1F /* libfftw3_armv7.a in Frameworks */,
+				2BD94E6521C7E0C200A567EE /* RealmSwift.framework in Frameworks */,
 				2B6B5DBD20513B0D00928F1F /* libfftw3_arm64.a in Frameworks */,
-				FE3820C81F741BD200764A5F /* Alamofire.framework in Frameworks */,
-				FE3820C91F741BD200764A5F /* Realm.framework in Frameworks */,
-				FE3820CA1F741BD200764A5F /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,10 +874,8 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2BD94E6621C8CE7700A567EE /* Alamofire.framework */,
 				2B6B5DB120513AFD00928F1F /* fftw3 */,
-				F44849CE1F2B3EC200006A04 /* Alamofire.framework */,
-				F495BD401F040CB700755BD1 /* Realm.framework */,
-				F495BD311F040CB400755BD1 /* RealmSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -987,6 +985,8 @@
 		F4A235FB1F0178FF00A0145A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2BD94E6221C7E0C100A567EE /* Realm.framework */,
+				2BD94E6321C7E0C200A567EE /* RealmSwift.framework */,
 				2BD1014321A95039002C3C1A /* PrettyPrinter */,
 				2B6B5DAC20513A1C00928F1F /* SwiftyJSON */,
 				F40E03FF1F6C17C40055E296 /* fftw3 */,
@@ -1562,6 +1562,7 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Sources",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -1579,7 +1580,7 @@
 					"$(PROJECT_DIR)/Sources/Utils/fftw3/x86_64",
 				);
 				MACH_O_TYPE = mh_dylib;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode-marker";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
@@ -1588,6 +1589,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = arm64;
 			};
 			name = Debug;
 		};
@@ -1609,6 +1611,7 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/Mac",
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Sources",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
@@ -1625,7 +1628,7 @@
 					"$(PROJECT_DIR)/Sources/Utils/fftw3/i386",
 					"$(PROJECT_DIR)/Sources/Utils/fftw3/x86_64",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
 				PRODUCT_NAME = MyBrainTechnologiesSDK;

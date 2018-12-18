@@ -438,7 +438,8 @@ internal class MBTBluetoothManager: NSObject {
         let tabURLSBinarySort = tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
         
         
-        OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
+//        OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
+        OADManager = MBTOADManager("mm-ota-1_6_2")
         
         stopTimerUpdateBatteryLevel()
         
