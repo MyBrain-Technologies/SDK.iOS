@@ -309,7 +309,7 @@ class MBTAcquistionLocation: Object {
             return ElectrodeLocation(rawValue: rawType)!
         }
         set {
-            rawType = newValue.hashValue
+            rawType = newValue.rawValue
         }
     }
     
