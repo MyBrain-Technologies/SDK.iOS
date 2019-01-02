@@ -173,12 +173,16 @@ internal class MBTBluetoothManager: NSObject {
     /// - Parameters:
     ///     - deviceName : The name of the device to connect (Bluetooth profile).
     func connectTo(_ deviceName:String? = nil) {
+       
+        
         // Check if a current device is already saved in the DB, and delete it
         //DeviceManager.deleteCurrentDevice()
         if let lastBluetoothState = tabHistoBluetoothState.last ,
                 OADState == .CONNECT
                 && lastBluetoothState
                 {
+                    stopTimerTimeOutConnection()
+
                     centralManager?.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
 
             return
@@ -190,15 +194,16 @@ internal class MBTBluetoothManager: NSObject {
      
      
         initBluetoothManager()
-        stopTimerTimeOutConnection()
         
         if let deviceName = deviceName {
             DeviceManager.connectedDeviceName = deviceName
         } else {
             DeviceManager.connectedDeviceName = ""
         }
+        stopTimerTimeOutConnection()
         
         timerTimeOutConnection = Timer.scheduledTimer(timeInterval: TIMEOUT_CONNECTION, target: self, selector: #selector(connectionMelomindTimeOut), userInfo: nil, repeats: false)
+
     }
     
     /// Initialise or Re-initialise the BluetoothManager [Prepare all variable for the connection]
@@ -438,7 +443,8 @@ internal class MBTBluetoothManager: NSObject {
         let tabURLSBinarySort = tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
         
         
-        OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
+//        OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
+        OADManager = MBTOADManager("mm-ota-1_6_2")
         
         stopTimerUpdateBatteryLevel()
         
@@ -749,6 +755,24 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
                     prettyPrint(log.error(error as NSError))
                 }
                 disconnect()
+            } else if OADState != .REBOOT_BLUETOOTH {
+                centralManager?.stopScan()
+                if let blePeripheral = blePeripheral {
+                    centralManager?.cancelPeripheralConnection(blePeripheral)
+                }
+                blePeripheral = nil
+                if OADState > .OAD_COMPLETE {                    let error = NSError(domain: "Bluetooth Manager", code: 908, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Impossible reconnect the Melomoind"]) as Error
+                    OADState = .CONNECT
+                    prettyPrint(log.ble("centralManagerDidUpdateState - "))
+                    prettyPrint(log.error(error as NSError))
+                    eventDelegate?.onUpdateFailWithError?(error)
+                } else {                    let error = NSError(domain: "Bluetooth Manager", code: 911, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Lost Connection BLE during OAD"]) as Error
+                    isOADInProgress = false
+                    prettyPrint(log.ble("centralManagerDidUpdateState - "))
+                    prettyPrint(log.error(error as NSError))
+                    OADState = .DISABLE
+                    eventDelegate?.onUpdateFailWithError?(error)
+                }
             }
            
         } else if central.state == .unsupported {
@@ -872,11 +896,15 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
                 if OADState >= .OAD_COMPLETE {
                     let error = NSError(domain: "Bluetooth Manager", code: 908, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Impossible reconnect the Melomoind"]) as Error
                     OADState = .CONNECT
+                    
+                    prettyPrint(log.error(error as NSError))
                     eventDelegate?.onUpdateFailWithError?(error)
                 } else {
                     let error = NSError(domain: "Bluetooth Manager", code: 911, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Lost Connection BLE during OAD"]) as Error
                     isOADInProgress = false
                     OADState = .DISABLE
+                    
+                    prettyPrint(log.error(error as NSError))
                     eventDelegate?.onUpdateFailWithError?(error)
                 }
 //                let error = NSError(domain: "Bluetooth Manager", code: 911, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Lost Connection BLE during OAD"]) as Error
@@ -888,6 +916,8 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
         } else {
             if let _ = timerTimeOutConnection {
                 let error = NSError(domain: "Bluetooth Manager", code: 921, userInfo: [NSLocalizedDescriptionKey : "Lost Connection : User refuse to paire the Melomind in BLE"]) as Error
+                
+                prettyPrint(log.error(error as NSError))
                 isOADInProgress = false
                 eventDelegate?.onConnectionFailed?(error)
             } else {
@@ -1194,9 +1224,13 @@ extension MBTBluetoothManager {
                 self.audioA2DPDelegate?.audioA2DPDidConnect?()
                 if self.isConnected {
                     if !self.isOADInProgress {
-                        self.stopTimerTimeOutA2DPConnection()
-                        self.eventDelegate?.onConnectionEstablished?()
-                        self.startTimerUpdateBatteryLevel()
+                        if DeviceManager.connectedDeviceName == output.portName {
+                            self.stopTimerTimeOutA2DPConnection()
+                            self.eventDelegate?.onConnectionEstablished?()
+                            self.startTimerUpdateBatteryLevel()
+                        } else {
+                            self.connectTo(output.portName)
+                        }
                     } else {
                         if let _ = self.blePeripheral, self.isOADInProgress {
                             prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : deviceVersion -> \( DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion)"))
