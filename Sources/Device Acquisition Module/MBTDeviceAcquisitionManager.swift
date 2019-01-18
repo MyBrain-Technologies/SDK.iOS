@@ -78,6 +78,6 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
                 //print(tabByte)
             }
         }
-        
     }
+    
 }

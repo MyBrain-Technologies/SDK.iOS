@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B0004E521C14E12009BA45F /* mm-ota-1_6_9.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2B0004E421C14E11009BA45F /* mm-ota-1_6_9.bin */; };
-		2B07C46421DCDAE700A4E875 /* mm-ota-1_7_0.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2B07C46321DCDAE700A4E875 /* mm-ota-1_7_0.bin */; };
 		2B2DF07E20E36E55004FE1E4 /* mm-ota-1_5_15.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */; };
+		2B3EE80D21EF6DEB00E37D94 /* mm-ota-1_7_0.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2B3EE80C21EF6DEB00E37D94 /* mm-ota-1_7_0.bin */; };
 		2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
 		2B55C49E20FCD4D9002CBD74 /* MyBrainTechnologiesSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B631ED220E0E85F00880B8E /* MBTOADManager.swift */; };
@@ -159,8 +159,8 @@
 
 /* Begin PBXFileReference section */
 		2B0004E421C14E11009BA45F /* mm-ota-1_6_9.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_9.bin"; sourceTree = "<group>"; };
-		2B07C46321DCDAE700A4E875 /* mm-ota-1_7_0.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_0.bin"; sourceTree = "<group>"; };
 		2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_5_15.bin"; sourceTree = "<group>"; };
+		2B3EE80C21EF6DEB00E37D94 /* mm-ota-1_7_0.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_0.bin"; sourceTree = "<group>"; };
 		2B631ED220E0E85F00880B8E /* MBTOADManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTOADManager.swift; sourceTree = "<group>"; };
 		2B6B5D98205139D800928F1F /* MBTBrainWebHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTBrainWebHelper.swift; sourceTree = "<group>"; };
 		2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTEEGAcquisitionDelegate.swift; sourceTree = "<group>"; };
@@ -846,7 +846,7 @@
 				2B2DF07C20E36E54004FE1E4 /* mm-ota-1_5_15.bin */,
 				2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */,
 				2B0004E421C14E11009BA45F /* mm-ota-1_6_9.bin */,
-				2B07C46321DCDAE700A4E875 /* mm-ota-1_7_0.bin */,
+				2B3EE80C21EF6DEB00E37D94 /* mm-ota-1_7_0.bin */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
 				3549BB551DA38A5E00C63030 /* Info-tvOS.plist */,
@@ -1272,7 +1272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B2DF07E20E36E55004FE1E4 /* mm-ota-1_5_15.bin in Resources */,
-				2B07C46421DCDAE700A4E875 /* mm-ota-1_7_0.bin in Resources */,
+				2B3EE80D21EF6DEB00E37D94 /* mm-ota-1_7_0.bin in Resources */,
 				2B0004E521C14E12009BA45F /* mm-ota-1_6_9.bin in Resources */,
 				2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */,
 			);
