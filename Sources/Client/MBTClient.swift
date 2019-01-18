@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 /// MBT engine to implement to work with the headset.
 public class MBTClient {
@@ -72,7 +71,7 @@ public class MBTClient {
     /// settings, on the first time is using it.
     /// - Parameters:
     ///     - delegate : The Melomind Engine Delegate which allow communication with the Headset.
-    public  func connectEEGAndA2DP(_ deviceName:String? = nil ,withDelegate delegate: MelomindEngineDelegate) {
+    public func connectEEGAndA2DP(_ deviceName:String? = nil ,withDelegate delegate: MelomindEngineDelegate) {
         setEEGAndA2DPDelegate(delegate)
         bluetoothManager.connectTo(deviceName)
     }
@@ -130,10 +129,6 @@ public class MBTClient {
         }
         
         return tabDeviceName
-    }
-    
-    public func getBluetoothState() -> Bool? {
-        return bluetoothManager.tabHistoBluetoothState.last
     }
     
     //MARK: - JSON EEG
