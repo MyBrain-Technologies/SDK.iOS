@@ -351,8 +351,12 @@ internal class MBTBluetoothManager: NSObject {
     ///
     /// - Returns: A *String* value which is the current name of the Melomind connected in A2DP Protocol else nil if it is not a Melomind
     func getDeviceNameA2DP() -> String? {
-        if let output = AVAudioSession.sharedInstance().currentRoute.outputs.first, output.portType == AVAudioSessionPortBluetoothA2DP && output.portName.lowercased().range(of: "melo_") != nil {
-            return output.portName
+        let session = AVAudioSession.sharedInstance()
+        let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "audio_") != nil)}).first ?? session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first
+        
+        if let output = output,
+            let serialNumber = output.portName.components(separatedBy: "_").last {
+            return "melo_\(serialNumber)"
         }
         return nil
     }
@@ -792,11 +796,12 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
                 && isOADInProgress
                 && OADState == .REBOOT_BLUETOOTH {
             eventDelegate?.onRebootBluetooth?()
-            OADState = .CONNECT
             if let connectedDeviceName = DeviceManager.connectedDeviceName,
                 connectedDeviceName != "" {
                 blePeripheral = nil
+                DeviceManager.resetDeviceInfo()
                 centralManager?.scanForPeripherals(withServices: [MBTBluetoothLEHelper.myBrainServiceUUID], options: nil)
+                OADState = .CONNECT
             } else {
                 let error = NSError(domain: "Bluetooth Manager", code: 908, userInfo:[NSLocalizedDescriptionKey : "OAD Error : Impossible de reconnect the Melomoind"])
                 eventDelegate?.onUpdateFailWithError?(error)
@@ -1215,8 +1220,14 @@ extension MBTBluetoothManager {
         prettyPrint(log.ble("audioChangedRoute - LastOutput PortName : \(lastOutput.portName)"))
         // Get the actual route used
         let session = AVAudioSession.sharedInstance()
-        if let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first, lastOutput.portName != output.portName {
-            prettyPrint(log.ble("audioChangedRoute - NewOutput PortName : \(output.portName)"))
+        let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "audio_") != nil)}).first ?? session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first
+        if  let output = output,
+            let serialNumber = output.portName.components(separatedBy: "_").last,
+            let lastSerialNumber = lastOutput.portName.components(separatedBy: "_").last,
+            serialNumber != lastSerialNumber {
+            
+            let meloName = "melo_\(serialNumber)"
+            prettyPrint(log.ble("audioChangedRoute - NewOutput PortName : \(meloName)"))
 
             MBTBluetoothA2DPHelper.uid = output.uid
             // A2DP Audio is connected
@@ -1224,12 +1235,12 @@ extension MBTBluetoothManager {
                 self.audioA2DPDelegate?.audioA2DPDidConnect?()
                 if self.isConnected {
                     if !self.isOADInProgress {
-                        if DeviceManager.connectedDeviceName == output.portName {
+                        if DeviceManager.connectedDeviceName == meloName {
                             self.stopTimerTimeOutA2DPConnection()
                             self.eventDelegate?.onConnectionEstablished?()
                             self.startTimerUpdateBatteryLevel()
                         } else {
-                            self.connectTo(output.portName)
+                            self.connectTo(meloName)
                         }
                     } else {
                         if let _ = self.blePeripheral, self.isOADInProgress {
@@ -1240,7 +1251,7 @@ extension MBTBluetoothManager {
                                 self.isOADInProgress = false
                                 self.OADState = .DISABLE
 
-                            } else {
+                            } else if self.OADState != .REBOOT_BLUETOOTH {
                                 let error = NSError(domain: "Bluetooth Manager", code: 915, userInfo: [NSLocalizedDescriptionKey : "OAD Error : headset firmware version does not match to the update"]) as Error
                                 self.isOADInProgress = false
                                 self.OADState = .DISABLE
@@ -1249,11 +1260,11 @@ extension MBTBluetoothManager {
                                 prettyPrint(log.error(error as NSError))
                             }
                         } else {
-                            self.connectTo(output.portName)
+                            self.connectTo(meloName)
                         }
                     }
                 } else {
-                    self.connectTo(output.portName)
+                    self.connectTo(meloName)
                 }
             }
         } else if lastOutput != nil {

@@ -86,12 +86,6 @@ class MBTOADManager {
         return data
     }
     
-//    func getFileLengthAsByteArray() -> [UInt8] {
-//        var bytesArray = [UInt8]()
-//
-//        return bytesArray
-//    }
-    
     func getFWVersionAsByteArray() -> [UInt8] {
         var bytesArray = [UInt8]()
         for i in 0 ..< 2 {
