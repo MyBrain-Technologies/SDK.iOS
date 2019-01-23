@@ -33,7 +33,7 @@ struct MBTBluetoothLEHelper {
     static let deviceInfoServiceUUID = CBUUID(string: "0x180A")
     
     /// The *UUID* of Model Number String service.
-    static let productNameUUID = CBUUID(string: "0x2A24")
+    static let externalNameUUID = CBUUID(string: "0x2A24")
     
     /// The *UUID* of Serial Number String service.
     static let serialNumberUUID = CBUUID(string: "0x2A25")
@@ -69,7 +69,7 @@ struct MBTBluetoothLEHelper {
     /// Getter of BLE device informations characteristics UUIDs.
     /// - Returns : *Array* of device information characteristics UUIDs.
     static func getDeviceInfoCharacteristicsUUIDS() -> [CBUUID] {
-        return [productNameUUID, serialNumberUUID, hardwareRevisionUUID, firmwareRevisionUUID]
+        return [externalNameUUID, serialNumberUUID, hardwareRevisionUUID, firmwareRevisionUUID]
     }
 }
 

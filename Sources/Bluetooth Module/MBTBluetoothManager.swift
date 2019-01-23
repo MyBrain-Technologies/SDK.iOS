@@ -39,15 +39,8 @@ internal class MBTBluetoothManager: NSObject {
     /// - Remark: Sends a notification when changed (on *willSet*).
     var isConnected:Bool {
         
-        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion
-             else {
-            return false
-        }
-        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
-        let A2DPMBVersionArray = A2DP_MB_FIRMWARE_VERSION.components(separatedBy: ".")
-        
         if audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
-            && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0 && isConnectedBLE {
+            && firmwareVersionIncludeA2DP() && isConnectedBLE {
             return DeviceManager.connectedDeviceName == getDeviceNameA2DP()
         } else {
             return isConnectedBLE
@@ -85,13 +78,7 @@ internal class MBTBluetoothManager: NSObject {
     }
     
     /// Flag switch to the first reading charasteristic to finalize Connection or to process the receiving Battery Level
-    var processBatteryLevel:Bool = false {
-        didSet {
-            if processBatteryLevel {
-                finalizeConnectionMelomind()
-            }
-        }
-    }
+    var processBatteryLevel:Bool = false
     
     //MARK: Private variable
 
@@ -253,7 +240,7 @@ internal class MBTBluetoothManager: NSObject {
     /// Finalize the connection
     func finalizeConnectionMelomind() {
         stopTimerFinalizeConnectionMelomind()
-        guard let currentDevice = DeviceManager.getCurrentDevice(), let deviceFWVersion = currentDevice.deviceInfos?.firmwareVersion else {
+        guard let currentDevice = DeviceManager.getCurrentDevice() else {
             let error = NSError(domain: "Bluetooth Manager", code: 916, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Device Not Connected"]) as Error
             eventDelegate?.onConnectionFailed?(error)
             prettyPrint(log.error(error as NSError))
@@ -261,15 +248,10 @@ internal class MBTBluetoothManager: NSObject {
         }
         
         MBTClient.main.eegAcqusitionManager.setUpWith(device: currentDevice)
-        
-        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
-        let A2DPMBVersionArray = A2DP_MB_FIRMWARE_VERSION.components(separatedBy: ".")
-        
+
         if !isOADInProgress {
             stopTimerTimeOutConnection()
-            if (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
-                && getDeviceNameA2DP() != DeviceManager.connectedDeviceName
-                && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0 {
+            if shouldRequestA2DPConnection() {
                 requestConnectA2DP()
 
             } else {
@@ -278,9 +260,7 @@ internal class MBTBluetoothManager: NSObject {
 
             }
         } else {
-            if (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
-                && getDeviceNameA2DP() != DeviceManager.connectedDeviceName
-                && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0  {
+            if shouldRequestA2DPConnection() {
                 requestConnectA2DP()
             } else {
                 prettyPrint(log.ble("finalizeConnectionMelomind - RequestDeviceInfo : deviceVersion -> \(String(describing:  DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion))"))
@@ -395,6 +375,26 @@ internal class MBTBluetoothManager: NSObject {
             // to monitor the A2DP connection status
             
         }
+    }
+    
+    /// Compare the firmware version to determine if it's high enough to include the A2DP implementation
+    ///
+    /// - Returns: A *Bool* value which is true if the firmware contain A2DP implementation, false otherwise
+    private func firmwareVersionIncludeA2DP() -> Bool {
+        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion else {
+            return false
+        }
+        
+        let A2DPMBVersionArray = A2DP_MB_FIRMWARE_VERSION.components(separatedBy: ".")
+        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
+        
+        return (compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0)
+    }
+    
+    private func shouldRequestA2DPConnection() -> Bool {
+        return ((audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
+                && getDeviceNameA2DP() != DeviceManager.connectedDeviceName
+                && firmwareVersionIncludeA2DP())
     }
     
     //MARK: - OAD Methods
@@ -1078,6 +1078,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
             } else {
                 prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - fake finalize connection"))
                 processBatteryLevel = true
+                finalizeConnectionMelomind()
             }
         case let uuid where characsUUIDS.contains(uuid) :
             MBTClient.main.deviceAcqusitionManager.processDeviceInformations(characteristic)
@@ -1244,8 +1245,8 @@ extension MBTBluetoothManager {
                         }
                     } else {
                         if let _ = self.blePeripheral, self.isOADInProgress {
-                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : deviceVersion -> \( DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion)"))
-                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : OadVersion -> \( self.OADManager?.fwVersion)"))
+                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : deviceVersion -> \(String(describing:  DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion))"))
+                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : OadVersion -> \(String(describing: self.OADManager?.fwVersion))"))
                             if let currentDeviceInfo = DeviceManager.getCurrentDevice()?.deviceInfos , self.OADManager != nil && currentDeviceInfo.firmwareVersion?.contains(self.OADManager!.fwVersion) ?? false {
                                 self.eventDelegate?.onProgressUpdate?(1.0)
                                 self.isOADInProgress = false

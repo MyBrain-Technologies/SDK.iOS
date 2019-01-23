@@ -37,8 +37,8 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
         let deviceInfos = MBTDeviceInformations()
         
         switch CBUUID(data: characteristic.uuid.data) {
-        case MBTBluetoothLEHelper.productNameUUID:
-            deviceInfos.productName = dataString
+        case MBTBluetoothLEHelper.externalNameUUID:
+            deviceInfos.externalName = dataString
         case MBTBluetoothLEHelper.serialNumberUUID:
             deviceInfos.deviceId = dataString
         case MBTBluetoothLEHelper.hardwareRevisionUUID:
