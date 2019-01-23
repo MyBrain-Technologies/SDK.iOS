@@ -17,6 +17,8 @@ let TIMER_BATTERY_LEVEL = 120.0
 let TIMER_A2DP = 10.0
 /// The first firmware version which integrate the A2DP connection mail box request
 let A2DP_MB_FIRMWARE_VERSION = "1.6.7"
+// The firmware version wich change the melomind device name
+let CHANGE_MODEL_NUMBER_FIRMWARE_VERSION = "1.7.0"
 
 /// Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).
 internal class MBTBluetoothManager: NSObject {
