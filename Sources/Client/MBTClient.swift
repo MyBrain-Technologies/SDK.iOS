@@ -42,7 +42,7 @@ public class MBTClient {
     
     private init() {
         bluetoothManager = MBTBluetoothManager.shared
-        if let deviceName = bluetoothManager.getDeviceNameA2DP(), !bluetoothManager.isConnected {
+        if let deviceName = bluetoothManager.getBLENameFromA2DP(), !bluetoothManager.isConnected {
             bluetoothManager.connectTo(deviceName)
         }
         eegAcqusitionManager = MBTEEGAcquisitionManager.shared
@@ -88,7 +88,7 @@ public class MBTClient {
     ///
     /// - Returns: A *String* instance of A2DP device Name or nil if no melomind is connected (A2DP)
     public func getDeviceNameA2DP() -> String? {
-       return bluetoothManager.getDeviceNameA2DP()
+       return bluetoothManager.getBLENameFromA2DP()
     }
     
     
