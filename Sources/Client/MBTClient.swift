@@ -42,7 +42,7 @@ public class MBTClient {
     
     private init() {
         bluetoothManager = MBTBluetoothManager.shared
-        if let deviceName = bluetoothManager.getBLENameFromA2DP(), !bluetoothManager.isConnected {
+        if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(), !bluetoothManager.isConnected {
             bluetoothManager.connectTo(deviceName)
         }
         eegAcqusitionManager = MBTEEGAcquisitionManager.shared
@@ -84,13 +84,19 @@ public class MBTClient {
     
     //MARK: - Getters
     
+    /// Get BLE device Name
+    ///
+    /// - Returns: A *String* instance of BLE device Name or nil if no melomind is connected (BLE)
+    public func getDeviceNameBLE() -> String? {
+       return bluetoothManager.getBLEDeviceNameFromA2DP()
+    }
+
     /// Get A2DP device Name
     ///
     /// - Returns: A *String* instance of A2DP device Name or nil if no melomind is connected (A2DP)
     public func getDeviceNameA2DP() -> String? {
-       return bluetoothManager.getBLENameFromA2DP()
+        return bluetoothManager.getA2DPDeviceName()
     }
-    
     
     /// Get the latest battery level saved in DB
     ///

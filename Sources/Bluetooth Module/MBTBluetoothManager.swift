@@ -19,8 +19,10 @@ let TIMER_A2DP = 10.0
 let A2DP_DEVICE_NAME_PREFIX_LEGACY = "melo_"
 let A2DP_DEVICE_NAME_PREFIX = "audio_"
 
+let BLE_DEVICE_NAME_PREFIX = "melo_"
+
 let MBT_DEVICE_NAME_QR_PREFIX = "MM"
-let MBT_DEVICE_NAME_QR_LENGTH: Int = 10
+let MBT_DEVICE_NAME_QR_LENGTH = 10
 
 enum MBTFirmwareVersion: String {
     case A2DP_FROM_HEADSET          = "1.6.7"
@@ -50,7 +52,7 @@ internal class MBTBluetoothManager: NSObject {
         
         if audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
             && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET) && isConnectedBLE {
-            return DeviceManager.connectedDeviceName == getBLENameFromA2DP()
+            return DeviceManager.connectedDeviceName == getBLEDeviceNameFromA2DP()
         } else {
             return isConnectedBLE
         }
@@ -261,16 +263,21 @@ internal class MBTBluetoothManager: NSObject {
         MBTClient.main.eegAcqusitionManager.setUpWith(device: currentDevice)
 
         if !isOADInProgress {
+            print("---- no OAD in progress")
             stopTimerTimeOutConnection()
+            print("---- stop Timer Out Connection")
             if shouldRequestA2DPConnection() {
+                print ("--- request A2DP Connection")
                 requestConnectA2DP()
-
             } else {
+                print ("--- A2DP Connection OK")
                 eventDelegate?.onConnectionEstablished?()
                 startTimerUpdateBatteryLevel()
             }
         } else {
+            print("---- OAD in progress")
             if shouldRequestA2DPConnection() {
+                print ("--- request A2DP Connection")
                 requestConnectA2DP()
             } else {
                 prettyPrint(log.ble("finalizeConnectionMelomind - RequestDeviceInfo : deviceVersion -> \(String(describing:  DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion))"))
@@ -340,36 +347,39 @@ internal class MBTBluetoothManager: NSObject {
     /// Get the Device Name from the current outpus audio
     ///
     /// - Returns: A *String* value which is the current name of the Melomind connected in A2DP Protocol else nil if it is not a Melomind
-    func getBLENameFromA2DP() -> String? {
-        if let output = getA2DPDeviceName() {
-            if let serialNumber = output.portName.components(separatedBy: "_").last {
-                return "\(A2DP_DEVICE_NAME_PREFIX_LEGACY)\(serialNumber)"
+    func getBLEDeviceNameFromA2DP() -> String? {
+        if let nameA2DP = getA2DPDeviceName() {
+            if !isQrCode(nameA2DP), let serialNumber = nameA2DP.components(separatedBy: "_").last {
+                return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
             } else {
-                let qrCode = output.portName
-                let serialNumber = MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)!
-                return "\(A2DP_DEVICE_NAME_PREFIX_LEGACY)\(serialNumber)"
+                let serialNumber = MBTQRCodeSerial(qrCodeisKey: true).value(for: nameA2DP)!
+                return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
             }
         }
         return nil
     }
     
-    func getA2DPDeviceName() -> AVAudioSessionPortDescription? {
+    func getA2DPDeviceName() -> String? {
         let session = AVAudioSession.sharedInstance()
         let outputs = session.currentRoute.outputs
         
         if let output = outputs.filter({($0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX_LEGACY) != nil)}).first {
-            return output
+            return output.portName
         }
         
         if let output = outputs.filter({($0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX) != nil)}).first {
-            return output
+            return output.portName
         }
         
-        if let output = outputs.filter({($0.portName.lowercased().range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil)}).first,
-            output.portName.count > MBT_DEVICE_NAME_QR_LENGTH {
-                return output
+        print (MBT_DEVICE_NAME_QR_LENGTH)
+        if let output = outputs.filter({(isQrCode($0.portName))}).first {
+                return output.portName
         }
         return nil
+    }
+    
+    func isQrCode(_ string: String) -> Bool {
+        return string.range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil && string.count == MBT_DEVICE_NAME_QR_LENGTH
     }
     
     /// Listen to the AVAudioSessionRouteChange Notification
@@ -410,7 +420,7 @@ internal class MBTBluetoothManager: NSObject {
     
     private func shouldRequestA2DPConnection() -> Bool {
         return (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false) == true
-                && getBLENameFromA2DP() != DeviceManager.connectedDeviceName
+                && getBLEDeviceNameFromA2DP() != DeviceManager.connectedDeviceName
                 && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET)
     }
     
@@ -1141,8 +1151,13 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                 prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - fake finalize connection"))
                 processBatteryLevel = true
                 if shouldUpdateDeviceExternalName() {
+                    print ("---- update device external name")
                     if let name = getDeviceExternalName() {
+                        print ("---- new device name : \(name)")
                         sendDeviceExternalName(name)
+                    } else {
+                        print ("---- cannot get new device name, finalize connection")
+                        finalizeConnectionMelomind()
                     }
                 } else {
                     finalizeConnectionMelomind()
@@ -1207,7 +1222,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                     }
                     if bytesArrayA2DPStatus.contains(.CMD_CODE_SUCCESS) {
                         prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - A2DP Connection Success"))
-                    }else {
+                    } else {
                         var error:Error?
                         if bytesArrayA2DPStatus.contains(.CMD_CODE_FAILED_BAD_BDADDR) {
                             error = NSError(domain: "Bluetooth Manager", code: 925, userInfo: [NSLocalizedDescriptionKey : "Failed to connect A2DP cause: BAD BDADDR"]) as Error
