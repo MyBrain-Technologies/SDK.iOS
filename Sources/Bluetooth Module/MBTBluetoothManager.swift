@@ -19,12 +19,12 @@ let TIMER_A2DP = 10.0
 let A2DP_DEVICE_NAME_PREFIX_LEGACY = "melo_"
 let A2DP_DEVICE_NAME_PREFIX = "audio_"
 
-let A2DP_DEVICE_NAME_QR_PREFIX = "MM"
-let AD2P_DEVICE_NAME_QR_LENGTH: Int = 10
+let MBT_DEVICE_NAME_QR_PREFIX = "MM"
+let MBT_DEVICE_NAME_QR_LENGTH: Int = 10
 
 enum MBTFirmwareVersion: String {
-    case A2DP_FROM_HEADSET = "1.6.7"
-    case REGISTER_EXTERNAL_NAME = "1.7.0" // TEMP
+    case A2DP_FROM_HEADSET          = "1.6.7"
+    case REGISTER_EXTERNAL_NAME     = "1.7.1"
 }
 
 /// Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).
@@ -124,7 +124,7 @@ internal class MBTBluetoothManager: NSObject {
     
     var timerTimeOutA2DPConnection : Timer?
     
-    var timerTimeOutSetExternalName : Timer?
+    var timerTimeOutSendExternalName : Timer?
     
     /// the timer for the battery level update
     var timerUpdateBatteryLevel: Timer?
@@ -365,8 +365,8 @@ internal class MBTBluetoothManager: NSObject {
             return output
         }
         
-        if let output = outputs.filter({($0.portName.lowercased().range(of: A2DP_DEVICE_NAME_QR_PREFIX) != nil)}).first,
-            output.portName.count > AD2P_DEVICE_NAME_QR_LENGTH {
+        if let output = outputs.filter({($0.portName.lowercased().range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil)}).first,
+            output.portName.count > MBT_DEVICE_NAME_QR_LENGTH {
                 return output
         }
         return nil
@@ -409,9 +409,22 @@ internal class MBTBluetoothManager: NSObject {
     }
     
     private func shouldRequestA2DPConnection() -> Bool {
-        return ((audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
+        return (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false) == true
                 && getBLENameFromA2DP() != DeviceManager.connectedDeviceName
-                && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET))
+                && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET)
+    }
+    
+    private func shouldUpdateDeviceExternalName() -> Bool {
+        return DeviceManager.getDeviceInfos()?.externalName == MBTDevice.defaultModelExternalName
+                && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME)
+    }
+    
+    private func getDeviceExternalName() -> String? {
+        if let deviceId = DeviceManager.getDeviceInfos()?.deviceId,
+            let name = MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
+            return name
+        }
+        return nil
     }
     
     //MARK: - OAD Methods
@@ -626,10 +639,10 @@ internal class MBTBluetoothManager: NSObject {
         timerFinalizeConnectionMelomind = nil
     }
     
-    func stopTimerSetExternalName() {
-        if let timerTimeOutSetExternalName = timerTimeOutSetExternalName,
-            timerTimeOutSetExternalName.isValid {
-            timerTimeOutSetExternalName.invalidate()
+    func stopTimerSendExternalName() {
+        if let timerTimeOutSendExternalName = timerTimeOutSendExternalName,
+            timerTimeOutSendExternalName.isValid {
+            timerTimeOutSendExternalName.invalidate()
         }
     }
     
@@ -666,7 +679,7 @@ internal class MBTBluetoothManager: NSObject {
             eventDelegate?.onConnectionFailed?(error)
         }
     }
-    @objc func setExternalNameTimeOut() {
+    @objc func sendExternalNameTimeOut() {
         prettyPrint(log.ble(#function))
     }
     
@@ -696,8 +709,8 @@ internal class MBTBluetoothManager: NSObject {
         blePeripheral?.writeValue( Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
     }
     
-    func sendExternalName(_ name: String) {
-        timerTimeOutSetExternalName = Timer.scheduledTimer(timeInterval: TIMER_A2DP, target: self, selector: #selector(setExternalNameTimeOut), userInfo: nil, repeats: false)
+    func sendDeviceExternalName(_ name: String) {
+        timerTimeOutSendExternalName = Timer.scheduledTimer(timeInterval: TIMER_A2DP, target: self, selector: #selector(sendExternalNameTimeOut), userInfo: nil, repeats: false)
         let bytesArray:[UInt8] = [MailBoxEvents.MBX_SET_SERIAL_NUMBER.rawValue, 0xAB, 0x21] + [UInt8](name.utf8)
         blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
         blePeripheral?.writeValue(Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
@@ -1048,7 +1061,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
             let thisCharacteristic = characteristic as CBCharacteristic
             
             // MyBrainService's Characteristics
-            if MBTBluetoothLEHelper.brainActivityMeasurementUUID  == CBUUID(data: thisCharacteristic.uuid.data)  {
+            if MBTBluetoothLEHelper.brainActivityMeasurementUUID  == CBUUID(data: thisCharacteristic.uuid.data) {
                 // Enable Sensor Notification and read the current value
                 MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = thisCharacteristic
             }
@@ -1126,9 +1139,9 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
             } else {
                 prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - fake finalize connection"))
                 processBatteryLevel = true
-                if DeviceManager.getDeviceInfos()?.externalName == MBTDevice.defaultModelName && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
-                    if let deviceId = DeviceManager.getDeviceInfos()?.deviceId, let name = MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
-                        sendExternalName(name)
+                if shouldUpdateDeviceExternalName() {
+                    if let name = getDeviceExternalName() {
+                        sendDeviceExternalName(name)
                     }
                 } else {
                     finalizeConnectionMelomind()
@@ -1218,9 +1231,8 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                         }
                     }
                 case .MBX_SET_SERIAL_NUMBER:
-                    print("receive \(bytesArray.description)")
-                    stopTimerSetExternalName()
-                    // check if success
+                    prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - SET SERIAL NUMBER bytes:\(bytesArray.description)"))
+                    stopTimerSendExternalName()
                     finalizeConnectionMelomind()
                 default:
                     prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - Unknow MBX Response"))

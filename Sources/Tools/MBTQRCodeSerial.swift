@@ -13,12 +13,9 @@ public class MBTQRCodeSerial : NSObject {
     private static var serialFile = "qrcodeSerial"
     
     private var qrCodesTable: [String:String] = [:]
-    private var qrCodeIsMainKey: Bool = true
     
     public convenience init(qrCodeisKey: Bool = true) {
         self.init()
-        
-        qrCodeIsMainKey = qrCodeisKey
         
         guard let filepath = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")?.path(forResource: MBTQRCodeSerial.serialFile, ofType: "csv") else { return }
         
@@ -26,7 +23,7 @@ public class MBTQRCodeSerial : NSObject {
         for pair in data {
             let qrCode = pair[0]
             let serialNumber = pair[1]
-            if qrCodeIsMainKey {
+            if qrCodeisKey {
                 qrCodesTable[qrCode] = serialNumber
             } else {
                 qrCodesTable[serialNumber] = qrCode
