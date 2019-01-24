@@ -478,7 +478,8 @@ internal class MBTBluetoothManager: NSObject {
         
         
 //        OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
-        OADManager = MBTOADManager("mm-ota-1_6_2")
+//        OADManager = MBTOADManager("mm-ota-1_6_2")
+        OADManager = MBTOADManager("mm-ota-1_7_1")
         
         stopTimerUpdateBatteryLevel()
         
@@ -496,7 +497,7 @@ internal class MBTBluetoothManager: NSObject {
     /// - didOADFailWithError : 916 | Device Not connected
     /// - didOADFailWithError : 909 | Device Infos is not available
     /// - didOADFailWithError : 910 | Latest firmware already installed
-    /// - didOADFailWithErro : 912 | Time Out OAD Transfert
+    /// - didOADFailWithError : 912 | Time Out OAD Transfert
     /// - onProgressUpdate
     func startOAD() {
         // Disconnect A2DP
