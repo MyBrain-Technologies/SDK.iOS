@@ -23,9 +23,7 @@ let A2DP_DEVICE_NAME_QR_PREFIX = "MM"
 let AD2P_DEVICE_NAME_QR_LENGTH: Int = 10
 
 enum MBTFirmwareVersion: String {
-    /// The first firmware version which integrate the A2DP connection mail box request
     case A2DP_FROM_HEADSET = "1.6.7"
-    // The firmware version wich change the melomind device name
     case REGISTER_EXTERNAL_NAME = "1.7.0" // TEMP
 }
 
@@ -51,7 +49,7 @@ internal class MBTBluetoothManager: NSObject {
     var isConnected:Bool {
         
         if audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
-            && firmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET) && isConnectedBLE {
+            && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET) && isConnectedBLE {
             return DeviceManager.connectedDeviceName == getBLENameFromA2DP()
         } else {
             return isConnectedBLE
@@ -345,11 +343,11 @@ internal class MBTBluetoothManager: NSObject {
     func getBLENameFromA2DP() -> String? {
         if let output = getA2DPDeviceName() {
             if let serialNumber = output.portName.components(separatedBy: "_").last {
-                return "melo_\(serialNumber)"
+                return "\(A2DP_DEVICE_NAME_PREFIX_LEGACY)\(serialNumber)"
             } else {
                 let qrCode = output.portName
-                let serialNumber = MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)! // TEMP
-                return "melo_\(serialNumber)"
+                let serialNumber = MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)!
+                return "\(A2DP_DEVICE_NAME_PREFIX_LEGACY)\(serialNumber)"
             }
         }
         return nil
@@ -410,24 +408,10 @@ internal class MBTBluetoothManager: NSObject {
         }
     }
     
-    /// Compare the firmware version to determine if it's high enough to include the A2DP implementation
-    ///
-    /// - Returns: A *Bool* value which is true if the firmware contain A2DP implementation, false otherwise
-    private func firmwareVersion(isHigherOrEqualThan version: MBTFirmwareVersion) -> Bool {
-        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion else {
-            return false
-        }
-        
-        let A2DPMBVersionArray = version.rawValue.components(separatedBy: ".")
-        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
-        
-        return (compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0)
-    }
-    
     private func shouldRequestA2DPConnection() -> Bool {
         return ((audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
                 && getBLENameFromA2DP() != DeviceManager.connectedDeviceName
-                && firmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET))
+                && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET))
     }
     
     //MARK: - OAD Methods
@@ -752,6 +736,20 @@ internal class MBTBluetoothManager: NSObject {
         
         return 0
         
+    }
+    
+    /// Compare the firmware version to determine if it's equal or higher to another version
+    ///
+    /// - Returns: A *Bool* value which is true if the firmware version is same or higher than the parameter
+    private func deviceFirmwareVersion(isHigherOrEqualThan version: MBTFirmwareVersion) -> Bool {
+        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion else {
+            return false
+        }
+        
+        let A2DPMBVersionArray = version.rawValue.components(separatedBy: ".")
+        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
+        
+        return (compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0)
     }
 
 }
@@ -1128,7 +1126,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
             } else {
                 prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - fake finalize connection"))
                 processBatteryLevel = true
-                if DeviceManager.getDeviceInfos()?.externalName == MBTDevice.defaultModelName && firmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
+                if DeviceManager.getDeviceInfos()?.externalName == MBTDevice.defaultModelName && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
                     if let deviceId = DeviceManager.getDeviceInfos()?.deviceId, let name = MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
                         sendExternalName(name)
                     }
