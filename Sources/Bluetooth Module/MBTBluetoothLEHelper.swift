@@ -95,7 +95,7 @@ enum MailBoxEvents :UInt8 {
     case MBX_CONNECT_IN_A2DP = 17
     case MBX_BAD_EVT = 0xFF
     
-   static func getMailBoxEvent(v:UInt8) -> MailBoxEvents{
+   static func getMailBoxEvent(v:UInt8) -> MailBoxEvents {
         if let mbe = MailBoxEvents(rawValue: v){
             return mbe
         }

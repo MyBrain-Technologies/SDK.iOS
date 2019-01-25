@@ -98,6 +98,10 @@ public class MBTClient {
         return bluetoothManager.getA2DPDeviceName()
     }
     
+    public func getUnpairedDeviceNameA2DP() -> String? {
+        return bluetoothManager.getA2DPDeviceNameFromBLE()
+    }
+    
     /// Get the latest battery level saved in DB
     ///
     /// - Returns: A *Int* instance of latest battery level saved in DB or nil if no melomind is connected (BLE)

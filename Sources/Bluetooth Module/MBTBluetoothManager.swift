@@ -263,21 +263,15 @@ internal class MBTBluetoothManager: NSObject {
         MBTClient.main.eegAcqusitionManager.setUpWith(device: currentDevice)
 
         if !isOADInProgress {
-            print("---- no OAD in progress")
             stopTimerTimeOutConnection()
-            print("---- stop Timer Out Connection")
             if shouldRequestA2DPConnection() {
-                print ("--- request A2DP Connection")
                 requestConnectA2DP()
             } else {
-                print ("--- A2DP Connection OK")
                 eventDelegate?.onConnectionEstablished?()
                 startTimerUpdateBatteryLevel()
             }
         } else {
-            print("---- OAD in progress")
             if shouldRequestA2DPConnection() {
-                print ("--- request A2DP Connection")
                 requestConnectA2DP()
             } else {
                 prettyPrint(log.ble("finalizeConnectionMelomind - RequestDeviceInfo : deviceVersion -> \(String(describing:  DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion))"))
@@ -376,6 +370,18 @@ internal class MBTBluetoothManager: NSObject {
                 return output.portName
         }
         return nil
+    }
+    
+    func getA2DPDeviceNameFromBLE() -> String? {
+        if deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
+            if let externalName = DeviceManager.getDeviceInfos()?.externalName,
+                externalName != MBTDevice.defaultModelExternalName {
+                return externalName
+            } else if let deviceId = DeviceManager.getDeviceInfos()?.deviceId {
+                return "\(A2DP_DEVICE_NAME_PREFIX)\(deviceId)"
+            }
+        }
+        return DeviceManager.connectedDeviceName
     }
     
     func isQrCode(_ string: String) -> Bool {
@@ -488,8 +494,8 @@ internal class MBTBluetoothManager: NSObject {
         
         
 //        OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
-//        OADManager = MBTOADManager("mm-ota-1_6_2")
-        OADManager = MBTOADManager("mm-ota-1_7_1")
+        OADManager = MBTOADManager("mm-ota-1_6_2")
+//        OADManager = MBTOADManager("mm-ota-1_7_1")
         
         stopTimerUpdateBatteryLevel()
         
@@ -1151,12 +1157,9 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                 prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - fake finalize connection"))
                 processBatteryLevel = true
                 if shouldUpdateDeviceExternalName() {
-                    print ("---- update device external name")
                     if let name = getDeviceExternalName() {
-                        print ("---- new device name : \(name)")
                         sendDeviceExternalName(name)
                     } else {
-                        print ("---- cannot get new device name, finalize connection")
                         finalizeConnectionMelomind()
                     }
                 } else {
