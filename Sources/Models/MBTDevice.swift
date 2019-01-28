@@ -141,7 +141,6 @@ class DeviceManager: MBTRealmEntityManager {
     /// The headset bluetooth profile name to connect to.
     static var connectedDeviceName: String?
     
-    
     /// Update *deviceInformations* of the newly connected device record in the DB.
     /// - Parameters:
     ///     - deviceInfos: *MBTDeviceInformations* from BLE to record.
