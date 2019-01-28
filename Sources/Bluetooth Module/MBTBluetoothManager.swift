@@ -365,7 +365,6 @@ internal class MBTBluetoothManager: NSObject {
             return output.portName
         }
         
-        print (MBT_DEVICE_NAME_QR_LENGTH)
         if let output = outputs.filter({(isQrCode($0.portName))}).first {
                 return output.portName
         }
@@ -375,7 +374,7 @@ internal class MBTBluetoothManager: NSObject {
     func getA2DPDeviceNameFromBLE() -> String? {
         if deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
             if let productName = DeviceManager.getDeviceInfos()?.productName,
-                productName != MBTDevice.defaultModelExternalName {
+                productName != MBTDevice.defaultProductName {
                 return productName
             } else if let deviceId = DeviceManager.getDeviceInfos()?.deviceId {
                 return "\(A2DP_DEVICE_NAME_PREFIX)\(deviceId)"
@@ -431,7 +430,7 @@ internal class MBTBluetoothManager: NSObject {
     }
     
     private func shouldUpdateDeviceExternalName() -> Bool {
-        return DeviceManager.getDeviceInfos()?.productName == MBTDevice.defaultModelExternalName
+        return DeviceManager.getDeviceInfos()?.productName == MBTDevice.defaultProductName
                 && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME)
     }
     

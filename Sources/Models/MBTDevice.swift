@@ -12,7 +12,7 @@ import RealmSwift
 /// Model to store data about the Headset connected.
 public class MBTDevice: Object {
     
-    static let defaultModelExternalName = "melomind"
+    static let defaultProductName = "melomind"
     
     /// Device Name
     @objc dynamic public var deviceName: String = ""
