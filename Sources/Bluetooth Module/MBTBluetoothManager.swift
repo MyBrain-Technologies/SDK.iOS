@@ -374,9 +374,9 @@ internal class MBTBluetoothManager: NSObject {
     
     func getA2DPDeviceNameFromBLE() -> String? {
         if deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
-            if let externalName = DeviceManager.getDeviceInfos()?.externalName,
-                externalName != MBTDevice.defaultModelExternalName {
-                return externalName
+            if let productName = DeviceManager.getDeviceInfos()?.productName,
+                productName != MBTDevice.defaultModelExternalName {
+                return productName
             } else if let deviceId = DeviceManager.getDeviceInfos()?.deviceId {
                 return "\(A2DP_DEVICE_NAME_PREFIX)\(deviceId)"
             }
@@ -431,7 +431,7 @@ internal class MBTBluetoothManager: NSObject {
     }
     
     private func shouldUpdateDeviceExternalName() -> Bool {
-        return DeviceManager.getDeviceInfos()?.externalName == MBTDevice.defaultModelExternalName
+        return DeviceManager.getDeviceInfos()?.productName == MBTDevice.defaultModelExternalName
                 && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME)
     }
     

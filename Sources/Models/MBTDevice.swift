@@ -98,7 +98,7 @@ public class MBTDevice: Object {
 /// Device Informations model.
 public class MBTDeviceInformations: Object {
     /// The commercial name of the device.
-    @objc public dynamic var externalName:String? = nil
+    @objc public dynamic var productName:String? = nil
     
     /// The product specific serial number.
     @objc public dynamic var deviceId:String? = nil
@@ -115,7 +115,7 @@ public class MBTDeviceInformations: Object {
     func getJSON() -> JSON {
         var jsonDevice = JSON()
        
-        jsonDevice["productName"].stringValue               = externalName ?? ""
+        jsonDevice["productName"].stringValue               = productName ?? ""
         jsonDevice["hardwareVersion"].stringValue           = hardwareVersion ?? ""
         jsonDevice["firmwareVersion"].stringValue           = firmwareVersion ?? ""
         jsonDevice["uniqueDeviceIdentifier"].stringValue    = deviceId ?? ""
@@ -129,7 +129,7 @@ public class MBTDeviceInformations: Object {
     ///
     /// - Returns: A *Bool* instance which test if one of the four properties is nil
     func isDeviceInfoNotNil() -> Bool {
-        return externalName != nil && deviceId != nil && hardwareVersion != nil && firmwareVersion != nil
+        return productName != nil && deviceId != nil && hardwareVersion != nil && firmwareVersion != nil
     }
 }
 
@@ -149,7 +149,7 @@ class DeviceManager: MBTRealmEntityManager {
         if let device = getCurrentDevice() {
             // Save the new device infos to Realm Database
             try! RealmManager.shared.realm.write {
-                device.deviceInfos!.externalName = deviceInfos.externalName ?? device.deviceInfos!.externalName
+                device.deviceInfos!.productName = deviceInfos.productName ?? device.deviceInfos!.productName
                 device.deviceInfos!.deviceId = deviceInfos.deviceId ?? device.deviceInfos!.deviceId
                 device.deviceInfos!.hardwareVersion = deviceInfos.hardwareVersion ?? device.deviceInfos!.hardwareVersion
                 device.deviceInfos!.firmwareVersion = deviceInfos.firmwareVersion ?? device.deviceInfos!.firmwareVersion
@@ -272,7 +272,7 @@ class DeviceManager: MBTRealmEntityManager {
     class func resetDeviceInfo() {
         if let currentDevice = DeviceManager.getCurrentDevice() {
             try! RealmManager.shared.realm.write {
-                currentDevice.deviceInfos?.externalName = nil
+                currentDevice.deviceInfos?.productName = nil
                 currentDevice.deviceInfos?.deviceId = nil
                 currentDevice.deviceInfos?.hardwareVersion = nil
                 currentDevice.deviceInfos?.firmwareVersion = nil
