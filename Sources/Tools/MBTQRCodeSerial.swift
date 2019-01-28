@@ -29,7 +29,6 @@ public class MBTQRCodeSerial : NSObject {
                 qrCodesTable[serialNumber] = qrCode
             }
         }
-        print(qrCodesTable)
     }
     
     public func value(for key: String) -> String? {

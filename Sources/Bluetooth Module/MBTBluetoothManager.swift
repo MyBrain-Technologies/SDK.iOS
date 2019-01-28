@@ -354,19 +354,23 @@ internal class MBTBluetoothManager: NSObject {
     }
     
     func getA2DPDeviceName() -> String? {
+        return getA2DPDeviceOutput()?.portName
+    }
+    
+    func getA2DPDeviceOutput() -> AVAudioSessionPortDescription? {
         let session = AVAudioSession.sharedInstance()
         let outputs = session.currentRoute.outputs
         
         if let output = outputs.filter({($0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX_LEGACY) != nil)}).first {
-            return output.portName
+            return output
         }
         
         if let output = outputs.filter({($0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX) != nil)}).first {
-            return output.portName
+            return output
         }
         
         if let output = outputs.filter({(isQrCode($0.portName))}).first {
-                return output.portName
+            return output
         }
         return nil
     }
@@ -385,6 +389,14 @@ internal class MBTBluetoothManager: NSObject {
     
     func isQrCode(_ string: String) -> Bool {
         return string.range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil && string.count == MBT_DEVICE_NAME_QR_LENGTH
+    }
+    
+    func getSerialNumberFrom(deviceName: String) -> String? {
+        if (isQrCode(deviceName)) {
+            return MBTQRCodeSerial(qrCodeisKey: true).value(for: deviceName)
+        } else {
+            return deviceName.components(separatedBy: "_").last
+        }
     }
     
     /// Listen to the AVAudioSessionRouteChange Notification
@@ -428,6 +440,8 @@ internal class MBTBluetoothManager: NSObject {
                 && getBLEDeviceNameFromA2DP() != DeviceManager.connectedDeviceName
                 && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET)
     }
+    
+    // MARK: - External Name / Product Name methods
     
     private func shouldUpdateDeviceExternalName() -> Bool {
         return DeviceManager.getDeviceInfos()?.productName == MBTDevice.defaultProductName
@@ -1309,14 +1323,12 @@ extension MBTBluetoothManager {
         }
         prettyPrint(log.ble("audioChangedRoute - LastOutput PortName : \(lastOutput.portName)"))
         // Get the actual route used
-        let session = AVAudioSession.sharedInstance()
-        let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "audio_") != nil)}).first ?? session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first
-        if  let output = output,
-            let serialNumber = output.portName.components(separatedBy: "_").last,
-            let lastSerialNumber = lastOutput.portName.components(separatedBy: "_").last,
+        if let output = getA2DPDeviceOutput(),
+            let serialNumber = getSerialNumberFrom(deviceName: output.portName),
+            let lastSerialNumber = getSerialNumberFrom(deviceName: lastOutput.portName),
             serialNumber != lastSerialNumber {
             
-            let meloName = "melo_\(serialNumber)"
+            let meloName = "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
             prettyPrint(log.ble("audioChangedRoute - NewOutput PortName : \(meloName)"))
 
             MBTBluetoothA2DPHelper.uid = output.uid
