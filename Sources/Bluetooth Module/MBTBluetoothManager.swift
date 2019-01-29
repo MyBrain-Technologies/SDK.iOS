@@ -379,11 +379,14 @@ internal class MBTBluetoothManager: NSObject {
         if deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
             if let productName = DeviceManager.getDeviceInfos()?.productName,
                 productName != MBTDevice.defaultProductName {
+                print("---- return product name")
                 return productName
             } else if let deviceId = DeviceManager.getDeviceInfos()?.deviceId {
+                print("---- return combined name")
                 return "\(A2DP_DEVICE_NAME_PREFIX)\(deviceId)"
             }
         }
+        print("---- return connected device name")
         return DeviceManager.connectedDeviceName
     }
     
@@ -789,10 +792,11 @@ internal class MBTBluetoothManager: NSObject {
             return false
         }
         
-        let A2DPMBVersionArray = version.rawValue.components(separatedBy: ".")
+        print ("device firmware version \(deviceFWVersion)")
+        let versionArray = version.rawValue.components(separatedBy: ".")
         let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
         
-        return (compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0)
+        return (compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: versionArray) >= 0)
     }
 
 }
