@@ -105,6 +105,9 @@ public class MBTClient {
         return bluetoothManager.getA2DPDeviceNameFromBLE()
     }
     
+    /// Get the QRCode of the current connected device
+    ///
+    /// - Returns: A *String* instance of connected device's QR Code
     public func getDeviceQrCode() -> String? {
         return DeviceManager.getDeviceQrCode()
     }
@@ -121,7 +124,6 @@ public class MBTClient {
     public func getDeviceInformations() -> MBTDeviceInformations? {
         return DeviceManager.getDeviceInfos()
     }
-    
     
     /// Getter for Device Name of the MBT headset
     ///
