@@ -16,7 +16,12 @@ struct MBTBrainWebHelper {
     
     static var path = "/ingest-legacy"
     
-    /// Send JSON to medical BrainWeb server.
+    /// Send JSON to BrainWeb server.
+    ///
+    /// - Parameters:
+    ///   - fileURL: A *URL* of the file which sends
+    ///   - baseURL: A *String* of BrainWeb base url (without the endpoint)
+    ///   - completion: A block which is execute after the success or the failure of the request
     static func sendJSONToBrainWeb(_ fileURL: URL, baseURL: String , completion: @escaping (Bool)->() ) {
         
         let url                 = URL(string: baseURL)!
@@ -47,7 +52,12 @@ struct MBTBrainWebHelper {
             })
         }
     }
-    /// Send ALL JSON to medical BrainWeb server.
+    
+    /// Send ALL JSON to BrainWeb server.
+    ///
+    /// - Parameters:
+    ///   - baseURL: A *String* of BrainWeb base url (without the endpoint)
+    ///   - completion: A block which is execute after the success or the failure of the request
     static func sendAllJSONToBrainWeb(_ baseURL: String, completion: @escaping (Bool)->() ) {
         
         let url                 = URL(string: baseURL)!

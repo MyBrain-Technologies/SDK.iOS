@@ -8,8 +8,12 @@
 
 import Foundation
 
+//MARK:- MBTRecordInfo
+
 /// *MBTRecordInfo* Informations saved On JSON File
 public class MBTRecordInfo {
+    
+    //MARK: Variable
     
     /// Id Record
     public var recordId:UUID
@@ -17,6 +21,7 @@ public class MBTRecordInfo {
     /// Recording Type
     public var recordingType:MBTRecordingType
     
+    //MARK: Init Methods
     
     /// Create a Default *MBTRecordInfo*
     /// recordId -> Random UUID
@@ -39,8 +44,11 @@ public class MBTRecordInfo {
     }
 }
 
+//MARK:- MBTRecordingType
 
 public class MBTRecordingType {
+    
+    //MARK: Variable
     
     /// Record Type cf enum *MBTRecordType*
     public var recordType:MBTRecordType
@@ -52,6 +60,8 @@ public class MBTRecordingType {
     
     /// Data type cf enum *MBTDataType*
     public var dataType:MBTDataType
+    
+    //MARK: Init Methods
     
     /// Create a *MBTRecordingType* with
     /// - recordType = .RAWDATA
@@ -72,6 +82,8 @@ public class MBTRecordingType {
         self.dataType = dataType
         self.spVersion = MBTQualityCheckerBridge.getVersion()
     }
+    
+    //MARK: MBTRecordingType Methods
     
     /// get a JSON
     ///

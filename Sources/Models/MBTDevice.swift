@@ -9,11 +9,14 @@
 import Foundation
 import RealmSwift
 
+//MARK: - MBTDevice
+
 /// Model to store data about the Headset connected.
 public class MBTDevice: Object {
     
     static let defaultProductName = "melomind"
     
+    //MARK: Variable
     /// Device Name
     @objc dynamic public var deviceName: String = ""
     
@@ -46,6 +49,8 @@ public class MBTDevice: Object {
     
     /// Locations of the ground electrodes.
     let groundsLocations = List<MBTAcquistionLocation>()
+    
+    //MARK: MBTDevice Methods
     
     /// Helper Function to get JSON
     ///
@@ -85,18 +90,19 @@ public class MBTDevice: Object {
     }
 }
 
-//MARK: -
-
 ///// Files Names
 //
 //public class FileName: Object {
 //    @objc public dynamic var value:String = ""
 //}
 
-//MARK: -
+//MARK: - MBTDeviceInformations
 
 /// Device Informations model.
 public class MBTDeviceInformations: Object {
+    
+    //MARK: Variable
+    
     /// The commercial name of the device.
     @objc public dynamic var productName:String? = nil
     
@@ -109,6 +115,8 @@ public class MBTDeviceInformations: Object {
     /// The product firmware version.
     @objc public dynamic var firmwareVersion:String? = nil
     
+    //MARK: MBTDeviceInformations Methods
+
     /// Helper Function to get JSON
     ///
     /// - Returns: A *JSON* instance of MBTDeviceInformations
@@ -133,13 +141,16 @@ public class MBTDeviceInformations: Object {
     }
 }
 
-//MARK: -
+//MARK: - DeviceManager
 
 /// *MBTDevice* model DB Manager.
 class DeviceManager: MBTRealmEntityManager {
     
+    //MARK: Variable
     /// The headset bluetooth profile name to connect to.
     static var connectedDeviceName: String?
+    
+    //MARK: Methods
     
     /// Update *deviceInformations* of the newly connected device record in the DB.
     /// - Parameters:
@@ -308,10 +319,13 @@ class DeviceManager: MBTRealmEntityManager {
 
 }
 
-//MARK: -
+//MARK: - MBTAcquistionLocation
 
 /// Electrode location model.
 class MBTAcquistionLocation: Object {
+    
+    //MARK: Variable
+    
     /// Value (in the enum) of the electrode, for Realm.
     @objc fileprivate dynamic var rawType = -1
     
@@ -325,11 +339,14 @@ class MBTAcquistionLocation: Object {
         }
     }
     
+    //MARK: Override Methods
     /// Properties to ignore (Realm won't persist these).
     override public static func ignoredProperties() -> [String] {
         return ["type"]
     }
 }
+
+//MARK: - enum ElectrodeLocation
 
 /// Enum of differents electrodes possible locations.
 enum ElectrodeLocation: Int {

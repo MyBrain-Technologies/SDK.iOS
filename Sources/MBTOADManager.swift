@@ -11,8 +11,13 @@ import Foundation
 
 class MBTOADManager {
     
+    //MARK: - Variable
+    
+    ///Prefix Binary
     static let BINARY_HOOK = "mm-ota-"
+    ///Extension Binary
     static let BINARY_FORMAT = ".bin"
+    ///Version separation component
     static let FWVERSION_REGEX = "_"
     
     let OAD_BLOCK_SIZE = 18
@@ -24,13 +29,23 @@ class MBTOADManager {
     let OAD_BUFFER_SIZE:Int
     static let FILE_BUFFER_SIZE = 256000
 
+    ///The data of the Bin
     var mFileBuffer = [UInt8]()
+    ///the Array of data in Array of OAD_BLOCK_SIZE
     var mOadBuffer = [[UInt8]]()
+    ///The metadata of OAD Progress
     let mProgInfo = ProgInfo()
     
+    ///Length of the mFileBuffer
     var mFileLength:Int = 0
+    ///Version of the binary
     var fwVersion:String
     
+    
+    //MARK: - Init Methods
+    /// Init the OADManager which prepare for send the Binary to the Melomind
+    ///
+    /// - Parameter fileName: the file name of the binary
     init(_ fileName:String) {
         OAD_BUFFER_SIZE = 2 + OAD_BLOCK_SIZE
         if let filePath = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")?.path(forResource: fileName, ofType: MBTOADManager.BINARY_FORMAT),
@@ -52,6 +67,9 @@ class MBTOADManager {
     }
     
     
+    //MARK: - OADManager Methods
+    
+    /// Prepare the buffer and the progress info
     func createBufferFromBinaryFile() {
         mProgInfo.reset(mFileLength,OAD_BLOCK_SIZE: OAD_BLOCK_SIZE)
         var tempBuffer:[UInt8]
@@ -79,6 +97,9 @@ class MBTOADManager {
         mProgInfo.reset(mFileLength,OAD_BLOCK_SIZE: OAD_BLOCK_SIZE)
     }
     
+    /// get the data to be send at the Melomind and increase the counter
+    ///
+    /// - Returns: A *Data* object which need to be send to the Melomind
     func getNextOADBufferData() -> Data {
         let block = mOadBuffer[Int(mProgInfo.iBlock)]
         let data = Data(bytes: block)
@@ -86,6 +107,9 @@ class MBTOADManager {
         return data
     }
     
+    /// Get firmware version in octets
+    ///
+    /// - Returns: An Array of *UInt8* which is the firmware version in octets
     func getFWVersionAsByteArray() -> [UInt8] {
         var bytesArray = [UInt8]()
         for i in 0 ..< 2 {
@@ -94,11 +118,18 @@ class MBTOADManager {
         return bytesArray
     }
     
+    //MARK: - Progess OAD info
+
     class ProgInfo {
         var iBytes:Int = 0
         var iBlock:Int16 = 0
         var nBlock:Int16 = 0
         
+        /// Reset the ProgInfo
+        ///
+        /// - Parameters:
+        ///   - mFileLength: A *Int* instance which is the size of mFileBuffer
+        ///   - OAD_BLOCK_SIZE: A *Int* instance which is the size of one block send to Melomind
         func reset(_ mFileLength:Int, OAD_BLOCK_SIZE:Int) {
             iBytes = 0
             iBlock = 0
@@ -120,16 +151,25 @@ class ConversionUtils {
     }
 }
 
+/// State of the OAD
 public enum OADStateType:Int {
+    /// The process has not started
     case DISABLE = -1
+    /// The process has started
     case START_OAD = 0
+    /// The Melomind is ready to receive the binary
     case READY = 1
+    /// The SDK is sending the binary
     case IN_PROGRESS = 2
+    /// The Melomind has received all the binary
     case OAD_COMPLETE = 3
+    /// The SDK needs that the bluetooth device reboot
     case REBOOT_BLUETOOTH = 4
+    /// The SDK try to reconnect the Melomind
     case CONNECT = 5
     
     
+    /// Decription Error
     var description:String {
         switch self {
         case .DISABLE :
@@ -149,7 +189,6 @@ public enum OADStateType:Int {
         }
     }
 }
-
 
 func >(f:OADStateType,s:OADStateType) -> Bool {
     return f.rawValue > s.rawValue
