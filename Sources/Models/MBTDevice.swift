@@ -12,6 +12,8 @@ import RealmSwift
 /// Model to store data about the Headset connected.
 public class MBTDevice: Object {
     
+    static let defaultProductName = "melomind"
+    
     /// Device Name
     @objc dynamic public var deviceName: String = ""
     
@@ -28,6 +30,13 @@ public class MBTDevice: Object {
     @objc dynamic var eegPacketLength: Int = 0
     
     @objc dynamic var batteryLevel: Int = 0
+    
+    var qrCode: String? {
+        if let deviceId = deviceInfos?.deviceId {
+            return MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId)
+        }
+        return nil
+    }
     
     /// Locations of the acquisition electrodes.
     let acquisitionLocations = List<MBTAcquistionLocation>()
@@ -131,7 +140,6 @@ class DeviceManager: MBTRealmEntityManager {
     
     /// The headset bluetooth profile name to connect to.
     static var connectedDeviceName: String?
-    
     
     /// Update *deviceInformations* of the newly connected device record in the DB.
     /// - Parameters:
@@ -254,6 +262,10 @@ class DeviceManager: MBTRealmEntityManager {
     /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
     class func getDeviceEEGPacketLength() -> Int? {
         return getCurrentDevice()?.eegPacketLength
+    }
+    
+    class func getDeviceQrCode() -> String? {
+        return getCurrentDevice()?.qrCode
     }
     
     /// Deinit all properties of deviceInfos
