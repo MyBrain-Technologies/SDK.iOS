@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-let HISTORY_SIZE = 0
+let HISTORY_SIZE = 1
 
 /// Holds the current implementation of the signal processing protocols.
 internal class MBTSignalProcessingManager: MBTQualityComputer {

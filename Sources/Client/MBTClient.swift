@@ -323,7 +323,7 @@ public class MBTClient {
     ///
     /// - Returns: RelaxIndex
     public func computeRelaxIndex() -> Float? {
-        if let _ = DeviceManager.connectedDeviceName, EEGPacketManager.getEEGPackets().count > HISTORY_SIZE {
+        if let _ = DeviceManager.connectedDeviceName, EEGPacketManager.getEEGPackets().count >= HISTORY_SIZE {
             return signalProcessingManager.computeRelaxIndex()
         }
         return nil
