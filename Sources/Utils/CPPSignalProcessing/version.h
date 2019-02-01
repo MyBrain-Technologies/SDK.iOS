@@ -50,14 +50,21 @@
 //V2.2.1 : GF&EG : Optimize the way we use histFreq.  Optimized the way we compute calibration and relax index. Added references in input to avoid
 //				   too many collections manipulations
 //V2.2.2 : FG : Fix a problem of none kept packet even if good calibration when the rule "at least one channel has an averaged quality >= 0.5" is satisfied.
-//V2.3.0 : FG: The quality checker is able to discriminate muscle artifacts from other artifacts.
-//             It is also able to discriminate bad EEG signal from no EEG signal (headset on the table or headset on the head without electrodes).
-//             This release also remodified the feature that decreases the performance of the Quality Checker (nb_max_min).
-//V2.3.1 : FG & AL : 1) Add the smoothing length of the relax index in input in order to be able to choose the time length.
-//					 2) Manage a possible exception in the detection of the bounds of the alpha peak in MBT_ComputeSNR.cpp
-//					 3) Manage the case where the spectrum is NaN (may happen when the signal is constant) in MBT_ComputeSNR.cpp
-//					 4) Add a possibility to filter the data (bandpass) in the Quality Checker process.
+//V2.3.0 : FG:  The quality checker is able to discriminate muscle artifacts from other artifacts.
+//              It is also able to discriminate bad EEG signal from no EEG signal (headset on the table or headset on the head without electrodes).
+//              This release also remodified the feature that decreases the performance of the Quality Checker (nb_max_min).
+//V2.3.1 : FG:  1) Add the smoothing length of the relax index in input in order to be able to choose the time length.
+//			    2) Manage a possible exception in the detection of the bounds of the alpha peak in MBT_ComputeSNR.cpp
+//			    3) Manage the case where the spectrum is NaN (may happen when the signal is constant) in MBT_ComputeSNR.cpp
+//			    4) Add a possibility to filter the data (bandpass) in the Quality Checker process.
+// V2.4.0 : XN  1) Use 1 second buffer
+//              2) Compute RMS on band-pass filtered signal (7-13Hz) instead of computing SNR
+//              3) Smoothing by averaging current RMS with previous one
+// V2.4.1 : XN  1) Computation of SNR normalization optimized (computed right after the calibration)
+//              2) Normaization criterion changed. Using 1.5*mean(calibSNR) and 0.9min(calibSNR) to perform scaling instead of sigmup
+// V2.4.1 : F&X 1) Find IAF using the alpha peak detector during calibration to optimize RMS
+
 #include "SignalProcessing.Cpp/version.h"  // version.h of the submodule SignalProcessing.cpp
 #define VERSION_SP SP_VERSION
-#define VERSION "2.3.1"
+#define VERSION "2.5.0"
 

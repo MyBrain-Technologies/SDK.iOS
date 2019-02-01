@@ -29,6 +29,9 @@
 //         Fanny Grosselin : 2018/02/14 Fix a problem of kept packets (when the quality was bad in only one channel, we didn't get the corresponding second! Now we kept the second if at least one channel has a quality >=0.5).
 //         Fanny Grosselin : 2018/02/21 Consider a quality of 0.25 as a quality of 0.5.
 //         Fanny Grosselin : 2018/02/28 Consider a quality of -1 as a quality of 0.
+//         Fanny Grosselin : 2018/08/20 Compute the snr on a spectrum of 2s instead of 4s.
+//         Xavier Navarro  : 2018/08/21 Major changes concerning the SNR computation (use of alpha bandpass filter)
+//         Xavier Navarro  : 2018/09/14 Use of alpha peak detector during calibration (MBT_ComputeIAFCalibration.cpp) for version 2.5.0
 
 #include "../Headers/MBT_ComputeCalibration.h"
 
@@ -37,10 +40,11 @@
 #define GENERAL_QUALITY_THRESHOLD 0.5
 #define CHANNEL_QUALITY_THRESHOLD 0.75
 
-std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, const float IAFinf, const float IAFsup, int smoothingDuration)
+std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<float> calibrationRecordings, MBT_Matrix<float> calibrationRecordingsQuality, const float sampRate, const int packetLength, float IAFminf, float IAFmsup, int smoothingDuration)
 {
     std::vector<float> histFreq;
     std::map<std::string, std::vector<float> > calibrationParameters;
+    std::cout<<"IAFminf = "<<IAFminf<<std::endl;
     if ((calibrationRecordings.size().first > 0) & (calibrationRecordings.size().second > 0) & (calibrationRecordingsQuality.size().first > 0) & (calibrationRecordingsQuality.size().second > 0) & (calibrationRecordings.size().first == calibrationRecordingsQuality.size().first) & (calibrationRecordings.size().second == calibrationRecordingsQuality.size().second*packetLength))
     {
 
@@ -104,29 +108,28 @@ std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<flo
         if (counter<meanQualities.size())
         {
             // Store values to be handled in case of problem into MBT_ComputeCalibration
-            std::vector<float> SNRCalib;
-            SNRCalib.push_back(std::numeric_limits<float>::infinity());
-            std::vector<float> SmoothedSNRCalib;
-            SmoothedSNRCalib.push_back(std::numeric_limits<float>::infinity());
+            std::vector<float> RMSCalib;
+            RMSCalib.push_back(std::numeric_limits<float>::infinity());
+            std::vector<float> SmoothedRMSCalib;
+            SmoothedRMSCalib.push_back(std::numeric_limits<float>::infinity());
             std::vector<float> errorMsg;
             errorMsg.push_back(-2);
-            calibrationParameters["rawSnrCalib"] = SNRCalib;
+            calibrationParameters["rawSnrCalib"] = RMSCalib;
             calibrationParameters["histFrequencies"] = histFreq;
             calibrationParameters["errorMsg"] = errorMsg;
-            calibrationParameters["snrCalib"] = SmoothedSNRCalib;
+            calibrationParameters["snrCalib"] = SmoothedRMSCalib;
             errno = EINVAL;
             perror("ERROR: MBT_COMPUTECALIBRATION CANNOT PROCESS WITH ONLY BAD QUALITY SIGNALS");
 
             return calibrationParameters;
         }
 
-        std::vector<float> SNRCalib;
-        std::vector<float> SmoothedSNRCalib;
+        std::vector<float> RMSCalib;
+        std::vector<float> SmoothedRMSCalib;
         //Creating a new matrix with only the data values for the packets with a good quality value of the channel with the best mean quality value.
-        int Buffer = 4 * (int) sampRate;
-        int SlidWin = Buffer/4;
+        int Buffer = 1 * (int) sampRate;
+        int SlidWin = Buffer;
         MBT_Matrix<double> goodCalibrationRecordings(channelNb, Buffer);
-
         // Get the EEG data corresponding to the packetsToKeepIndex
         MBT_Matrix<double> entireGoodCalibrationRecordings(channelNb, packetsToKeepIndex.size()*sampRate);
         for (unsigned int p=0; p<packetsToKeepIndex.size(); p++)
@@ -151,71 +154,84 @@ std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<flo
                     goodCalibrationRecordings(ccc, dataPointInPacketIndex-tmp1) = entireGoodCalibrationRecordings(ccc, dataPointInPacketIndex);
                 }
             }
-            std::map<std::string, std::vector<double> >  computeSNR = MBT_ComputeSNR(goodCalibrationRecordings, double(sampRate), double(IAFinf), double(IAFsup), histFreq); // there is only one value into the vector SNRCalib because packetOfGoodCalibrationRecordings contains one segment of 4 seconds of values of only the best channel and we apply a sliding window of 1s.
-            std::vector<double> SNRCalibPacket = computeSNR["snr"];
-            std::vector<double> qualitySNR = computeSNR["qualitySnr"];
+            std::map<std::string, std::vector<double> >  computeRMS = MBT_ComputeRMS(goodCalibrationRecordings, double(sampRate), double(IAFminf), double(IAFmsup), histFreq); // there is only one value into the vector RMSCalib because packetOfGoodCalibrationRecordings contains one segment of 4 seconds of values of only the best channel and we apply a sliding window of 1s.
+            std::vector<double> RMSCalibPacket = computeRMS["rms"];
+            std::vector<double> qualityRMS = computeRMS["qualityRms"];
+            std::cout<<"Compute cal : l160 "<<std::endl;
 
-
-            // Combine SNR from both channel, according to the quality of the alpha peak:
-            // compute general SNR from both channel, derived by qualitySNR of both
-            // channel and the SNRCalibPacket of both channel
+            // Combine RMS from both channel, according to the quality of the alpha peak:
+            // compute general RMS from both channel, derived by qualityRMS of both
+            // channel and the RMSCalibPacket of both channel
             // WARNING : THIS CODE IS CORRECT ONLY IF 2 CHANNELS !!!!!!!
             // -------------------------------------------------------------------
             std::vector<int> QFNaN;
             std::vector<int> goodPeak;
             double sumQf = 0.0;
-            for (unsigned int cq = 0; cq<qualitySNR.size(); cq++)
+            for (unsigned int cq = 0; cq<qualityRMS.size(); cq++)
             {
-                if (std::isnan(qualitySNR[cq]))
+                if (std::isnan(qualityRMS[cq]))
                 {
                     QFNaN.push_back(cq);
                 }
                 else
                 {
-                    sumQf = sumQf + qualitySNR[cq];
+                    sumQf = sumQf + qualityRMS[cq];
                 }
-                if (SNRCalibPacket[cq]>1) // find what are the channels with SNR>1
+                if (RMSCalibPacket[cq]>1) // find what are the channels with RMS>1
                 {
                     goodPeak.push_back(cq);
                 }
             }
-            if (!QFNaN.empty()) // if at least one channel has qualitySNR=NaN (nb peaks = 0 or >1), we don't weight the average of SNR
+            std::cout<<"Compute cal : l185 "<<std::endl;
+            
+            if (!QFNaN.empty()) // if at least one channel has qualityRMS=NaN (nb peaks = 0 or >1), we don't weight the average of RMS
             {
-                if (goodPeak.empty()) // if all channels have SNR=1 (no peak in both channels)
+                std::cout<<"Compute cal : l189 "<<std::endl;
+                if (goodPeak.empty()) // if all channels have RMS=1 (no peak in both channels)
                 {
-                    // we average the SNR of both channel: = (1+1)/2 = 1
-                    SNRCalib.push_back((float)1.0);
+                    // we average the RMS of both channel: = (1+1)/2 = 1
+                    RMSCalib.push_back((float)1.0);
                 }
-                else if ((!goodPeak.empty()) && (goodPeak.size()==1)) // if one channel has SNR>1 (no peak in 1 channel and 1 dominant peak in the other channel)
+                else if ((!goodPeak.empty()) && (goodPeak.size()==1)) // if one channel has RMS>1 (no peak in 1 channel and 1 dominant peak in the other channel)
                 {
-                    // we keep the SNR value of this channel
-                    SNRCalib.push_back((float)SNRCalibPacket[goodPeak[0]]);
+                    // we keep the RMS value of this channel
+                    RMSCalib.push_back((float)RMSCalibPacket[goodPeak[0]]);
                 }
-                else if ((!goodPeak.empty()) && (goodPeak.size()==2)) // if both channel has SNR>1 (1 dominant peak in both channels)
+                else if ((!goodPeak.empty()) && (goodPeak.size()==2)) // if both channel has RMS>1 (1 dominant peak in both channels)
                 {
-                    // we average the SNR values of both channels
-                    double tmp_s = (SNRCalibPacket[goodPeak[0]] + SNRCalibPacket[goodPeak[1]])/2;
-                    SNRCalib.push_back((float)tmp_s);
+                    // we average the RMS values of both channels
+                    double tmp_s = (RMSCalibPacket[goodPeak[0]] + RMSCalibPacket[goodPeak[1]])/2;
+                    RMSCalib.push_back((float)tmp_s);
                 }
             }
             else // both channels have QFNaN~=NaN (1 dominant peak in each channel)
             {
-                // we weight the SNR of each channel by its QFNaN
-                double tmp_s = SNRCalibPacket[0]*(qualitySNR[0]/sumQf) + SNRCalibPacket[1]*(qualitySNR[1]/sumQf);
-                SNRCalib.push_back((float)tmp_s);
+                // we weight the RMS of each channel by its QFNaN
+                std::cout<<"Compute cal : l210 "<<std::endl;
+                std::cout<<"RMSCalibPacket[0]"<<RMSCalibPacket[0]<<std::endl;
+                std::cout<<"qualityRMS[0]"<<qualityRMS[0]<<std::endl;
+                std::cout<<"sumQf"<<sumQf<<std::endl;
+                std::cout<<"RMSCalibPacket[1]"<<RMSCalibPacket[1]<<std::endl;
+                std::cout<<"qualityRMS[1]"<<qualityRMS[1]<<std::endl;
+                
+                double tmp_s = RMSCalibPacket[0]*(qualityRMS[0]/sumQf) + RMSCalibPacket[1]*(qualityRMS[1]/sumQf);
+                RMSCalib.push_back((float)tmp_s);
             }
+            std::cout<<"Compute cal : l212 "<<std::endl;
             // -------------------------------------------------------------------
-            calibrationParameters["rawSnrCalib"] = SNRCalib;
-            SmoothedSNRCalib.push_back(MBT_SmoothRelaxIndex(SNRCalib, smoothingDuration)); // we smooth the SNR from calibration
+            calibrationParameters["rawSnrCalib"] = RMSCalib;
+            SmoothedRMSCalib.push_back(MBT_SmoothRelaxIndex(RMSCalib, smoothingDuration)); // we smooth the RMS from calibration
         }
 
         std::vector<float> errorMsg;
         errorMsg.push_back(0);
 
+        
+        
         // Store the parameters into calibrationParameters
         calibrationParameters["histFrequencies"] = histFreq;
         calibrationParameters["errorMsg"] = errorMsg;
-        calibrationParameters["snrCalib"] = SmoothedSNRCalib;
+        calibrationParameters["snrCalib"] = SmoothedRMSCalib;
 
         return calibrationParameters;
     }
@@ -223,16 +239,16 @@ std::map<std::string, std::vector<float> > MBT_ComputeCalibration(MBT_Matrix<flo
     else
     {
         // Store values to be handled in case of problem into MBT_ComputeCalibration
-        std::vector<float> SNRCalib;
-        SNRCalib.push_back(std::numeric_limits<float>::infinity());
-        std::vector<float> SmoothedSNRCalib;
-        SmoothedSNRCalib.push_back(std::numeric_limits<float>::infinity());
+        std::vector<float> RMSCalib;
+        RMSCalib.push_back(std::numeric_limits<float>::infinity());
+        std::vector<float> SmoothedRMSCalib;
+        SmoothedRMSCalib.push_back(std::numeric_limits<float>::infinity());
         std::vector<float> errorMsg;
         errorMsg.push_back(-1);
-        calibrationParameters["rawSnrCalib"] = SNRCalib;
+        calibrationParameters["rawSnrCalib"] = RMSCalib;
         calibrationParameters["histFrequencies"] = histFreq;
         calibrationParameters["errorMsg"] = errorMsg;
-        calibrationParameters["snrCalib"] = SmoothedSNRCalib;
+        calibrationParameters["snrCalib"] = SmoothedRMSCalib;
         errno = EINVAL;
         perror("ERROR: MBT_COMPUTECALIBRATION CANNOT PROCESS WITHOUT GOOD INPUTS");
 

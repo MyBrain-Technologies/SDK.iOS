@@ -3,7 +3,7 @@
 //
 //  Created by Fanny Grosselin on 01/12/2017.
 //  Copyright (c) 2017 myBrain Technologies. All rights reserved.
-//
+//  Xavier Navarri : 14/09/2018 --> No changes here ; In RMS based NF version, this is computed only during calibration 
 
 
 #include <numeric>

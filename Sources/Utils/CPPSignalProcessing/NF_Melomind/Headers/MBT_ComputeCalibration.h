@@ -10,6 +10,7 @@
 //          Fanny Grosselin : 2017/10/10 Remove the Bounds from the inputs of MBT_ComputeCalibration and from CalibrationParameters.
 //          Fanny Grosselin : 2017/12/05 Add histFreq (the vector containing the previous frequencies) in input.
 //          Fanny Grosselin : 2017/12/06 Set in output a dictionnary.
+//          Xavier Navarro  : 2018/09/14 Modified to include MBT_ComputeRMS.h
 
 #ifndef MBT_COMPUTECALIBRATION_H_INCLUDED
 #define MBT_COMPUTECALIBRATION_H_INCLUDED
@@ -19,7 +20,7 @@
 #include <map>
 #include <string>
 #include <errno.h>
-#include "MBT_ComputeSNR.h"
+#include "MBT_ComputeRMS.h"
 #include "MBT_SmoothRelaxIndex.h"
 #include <limits>
 #include "../../SignalProcessing.Cpp/Transformations/Headers/MBT_PWelchComputer.h"
