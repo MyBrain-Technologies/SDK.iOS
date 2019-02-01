@@ -66,6 +66,9 @@ internal class MBTDeviceAcquisitionManager: NSObject  {
         }
     }
     
+    /// Process the headset status : OffSet or Saturation
+    ///
+    /// - Parameter characteristic:A *Data* received from status info Melomind.
     func processHeadsetStatus(_ characteristic: CBCharacteristic) {
         if let value = characteristic.value {
             let tabByte = [UInt8](value)

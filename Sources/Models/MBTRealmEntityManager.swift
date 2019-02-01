@@ -36,7 +36,6 @@ class MBTRealmEntityManager: Object {
                 return (totalBytes > oneHundredMB) && (Double(usedBytes) / Double(totalBytes)) < 0.5
             }
             
-            
             realm = try! Realm(configuration: config)
         }
     }
