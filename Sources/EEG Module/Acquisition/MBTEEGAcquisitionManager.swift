@@ -56,6 +56,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     var timeIntervalPerf = Date().timeIntervalSince1970
     
     
+    /// Set up the EEGAcquisitionManager
+    ///
+    /// - Parameter device: A *MBTDevice* of the connected Melomind
     func setUpWith(device:MBTDevice) {
         eegPacketLength = device.eegPacketLength
         nbChannels = device.nbChannels
@@ -84,6 +87,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         }
     }
     
+    /// Save the EEGPackets recorded
+    ///
+    /// - Parameters:
+    ///   - idUser: A *Int* id of the connected user
+    ///   - comments: An array of *String* contains Optional Comments
+    ///   - completion: A block which execute after create the file or fail to create
     func saveRecordingOnFile(_ idUser:Int, comments:[String] = [String](), completion: @escaping (URL?) ->()) {
         guard let device = DeviceManager.getCurrentDevice() else {
             completion(nil)
@@ -159,9 +168,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
             let qualities = MBTSignalProcessingManager.shared.computeQualityValue(packetComplete.channelsData,sampRate:self.sampRate, eegPacketLength: eegPacketLength)
             packetComplete.addQualities(qualities)
             
-            //MARK: To Remove
-//            writeQualities(qualities)
-            
             // Get the EEG values modified by the *QC* according to the *Quality* values.
             let correctedValues = MBTSignalProcessingManager.shared.getModifiedEEGValues()
             packetComplete.addModifiedChannelsData(correctedValues,nbChannels: self.nbChannels,sampRate: self.sampRate)
@@ -181,8 +187,16 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         
     }
     
-    /// Collecting the session datas and create the JSON.
-    /// - Returns: The *JSON* created with the session datas.
+    
+    /// Create the EEG JSON
+    ///
+    /// - Parameters:
+    ///   - device: A *MBTDevice* of the connected Melomind
+    ///   - idUser: A *Int* id of the connected user
+    ///   - eegPackets: An array of *MBTEEGPacket* of the relaxIndexes
+    ///   - recordInfo: A *MBTRecordInfo* of the session metadata
+    ///   - comments: An array of *String* contains Optional Comments
+    /// - Returns: return an instance of *JSON*
     func getJSONRecord(_ device:MBTDevice,idUser:Int, eegPackets:[MBTEEGPacket],recordInfo:MBTRecordInfo, comments:[String] = [String]()) -> JSON  {
      
         // Create the session JSON.
@@ -282,6 +296,10 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         }
     }
     
+    /// Convert the data brut in RelaxIndex
+    ///
+    /// - Parameter bytesArray: An array of *UInt8*
+    /// - Returns: return the RelaxIndexes
     func process(_ bytesArray:[UInt8]) -> [[Float]] {
         
         var values = [Float]()
@@ -319,116 +337,8 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         }
         
         let dataArray = [P3DatasArray, P4DatasArray]
-        
-//        writeToFile(bytesArray, tabArray: dataArray)
-        
+
         return dataArray
     }
-    
-//
-//    func writeToFile(_ tabBytes:[UInt8], tabArray:[[Float]]) {
-//
-//        do {
-//            let documentDirectory = try FileManager.default.url(
-//                for: .documentDirectory,
-//                in: .userDomainMask,
-//                appropriateFor:nil,
-//                create:false
-//            )
-//
-//            let fileNameBytes = "inputBytes.txt"
-//            let pathBytes = documentDirectory.appendingPathComponent(fileNameBytes)
-//
-////            if !FileManager.default.fileExists(atPath: pathBytes.absoluteString) {
-////                try "".write(to: pathBytes, atomically: true, encoding: .utf8)
-////            }
-//
-//            let fileNameData = "inputData.txt"
-//            let pathData = documentDirectory.appendingPathComponent(fileNameData)
-//
-////            if !FileManager.default.fileExists(atPath: pathData.absoluteString) {
-////                try "".write(to: pathData, atomically: true, encoding: .utf8)
-////            }
-//
-//            var stringBytes = try String(contentsOf: pathBytes)
-//
-//
-//            for i in 0 ..< (tabBytes.count - 1) {
-//                if tabBytes[i] <= 255 {
-//                    stringBytes += "\(tabBytes[i])" + ";"
-//                }
-//            }
-//
-//            stringBytes = stringBytes + "\(tabBytes[tabBytes.count - 1])"
-//
-//
-//            var stringEEGPacketData = try String(contentsOf: pathData)
-//
-//
-//            for i in 0 ..< tabArray[0].count {
-//                if i != (tabArray[0].count - 1) {
-//                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i]) + ";"
-//                } else {
-//                    stringEEGPacketData += String(format: "%.11f", tabArray[0][i])
-//                }
-//
-//            }
-//            stringEEGPacketData += "$"
-//
-//            for i in 0 ..< tabArray[0].count {
-//                if i != (tabArray[0].count - 1) {
-//                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i]) + ";"
-//                } else {
-//                    stringEEGPacketData += String(format: "%.11f", tabArray[1][i])
-//                }
-//
-//            }
-//
-//            stringBytes += "|"
-//            stringEEGPacketData += "|"
-//
-//            try stringBytes.write(to: pathBytes, atomically: true, encoding: .utf8)
-//            try stringEEGPacketData.write(to: pathData, atomically: true, encoding: .utf8)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
-    
-//
-//    func writeQualities(_ qualities:[Float]) {
-//        do {
-//            let documentDirectory = try FileManager.default.url(
-//                for: .documentDirectory,
-//                in: .userDomainMask,
-//                appropriateFor:nil,
-//                create:false
-//            )
-//
-//            let fileNameQualities = "inputQualities.txt"
-//            let pathQualities = documentDirectory.appendingPathComponent(fileNameQualities)
-//
-////            if !FileManager.default.fileExists(atPath: pathQualities.absoluteString) {
-////                try "".write(to: pathQualities, atomically: true, encoding: .utf8)
-////            }
-//
-//            var stringQualities = try String(contentsOf: pathQualities)
-//
-//            for i in 0 ..< qualities.count {
-//                stringQualities  += "\(qualities[i])"
-//
-//                if i != qualities.count - 1 {
-//                    stringQualities += ","
-//                }
-//
-//            }
-//
-//            stringQualities += ";"
-//
-//            try stringQualities.write(to: pathQualities, atomically: true, encoding: .utf8)
-//
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
 }
 

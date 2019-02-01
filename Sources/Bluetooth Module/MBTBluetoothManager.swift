@@ -15,8 +15,19 @@ let TIMEOUT_CONNECTION = 20.0
 let TIMEOUT_OAD = 600.0
 let TIMER_BATTERY_LEVEL = 120.0
 let TIMER_A2DP = 10.0
-/// The first firmware version which integrate the A2DP connection mail box request
-let A2DP_MB_FIRMWARE_VERSION = "1.6.7"
+
+let A2DP_DEVICE_NAME_PREFIX_LEGACY = "melo_"
+let A2DP_DEVICE_NAME_PREFIX = "audio_"
+
+let BLE_DEVICE_NAME_PREFIX = "melo_"
+
+let MBT_DEVICE_NAME_QR_PREFIX = "MM"
+let MBT_DEVICE_NAME_QR_LENGTH = 10
+
+enum MBTFirmwareVersion: String {
+    case A2DP_FROM_HEADSET          = "1.6.7"
+    case REGISTER_EXTERNAL_NAME     = "1.7.1"
+}
 
 /// Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).
 internal class MBTBluetoothManager: NSObject {
@@ -39,16 +50,9 @@ internal class MBTBluetoothManager: NSObject {
     /// - Remark: Sends a notification when changed (on *willSet*).
     var isConnected:Bool {
         
-        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion
-             else {
-            return false
-        }
-        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
-        let A2DPMBVersionArray = A2DP_MB_FIRMWARE_VERSION.components(separatedBy: ".")
-        
         if audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
-            && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0 && isConnectedBLE {
-            return DeviceManager.connectedDeviceName == getDeviceNameA2DP()
+            && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET) && isConnectedBLE {
+            return DeviceManager.connectedDeviceName == getBLEDeviceNameFromA2DP()
         } else {
             return isConnectedBLE
         }
@@ -85,13 +89,7 @@ internal class MBTBluetoothManager: NSObject {
     }
     
     /// Flag switch to the first reading charasteristic to finalize Connection or to process the receiving Battery Level
-    var processBatteryLevel:Bool = false {
-        didSet {
-            if processBatteryLevel {
-                finalizeConnectionMelomind()
-            }
-        }
-    }
+    var processBatteryLevel:Bool = false
     
     //MARK: Private variable
 
@@ -127,6 +125,8 @@ internal class MBTBluetoothManager: NSObject {
     var timerTimeOutConnection : Timer?
     
     var timerTimeOutA2DPConnection : Timer?
+    
+    var timerTimeOutSendExternalName : Timer?
     
     /// the timer for the battery level update
     var timerUpdateBatteryLevel: Timer?
@@ -253,7 +253,7 @@ internal class MBTBluetoothManager: NSObject {
     /// Finalize the connection
     func finalizeConnectionMelomind() {
         stopTimerFinalizeConnectionMelomind()
-        guard let currentDevice = DeviceManager.getCurrentDevice(), let deviceFWVersion = currentDevice.deviceInfos?.firmwareVersion else {
+        guard let currentDevice = DeviceManager.getCurrentDevice() else {
             let error = NSError(domain: "Bluetooth Manager", code: 916, userInfo: [NSLocalizedDescriptionKey : "OAD Error : Device Not Connected"]) as Error
             eventDelegate?.onConnectionFailed?(error)
             prettyPrint(log.error(error as NSError))
@@ -261,26 +261,17 @@ internal class MBTBluetoothManager: NSObject {
         }
         
         MBTClient.main.eegAcqusitionManager.setUpWith(device: currentDevice)
-        
-        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
-        let A2DPMBVersionArray = A2DP_MB_FIRMWARE_VERSION.components(separatedBy: ".")
-        
+
         if !isOADInProgress {
             stopTimerTimeOutConnection()
-            if (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
-                && getDeviceNameA2DP() != DeviceManager.connectedDeviceName
-                && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0 {
+            if shouldRequestA2DPConnection() {
                 requestConnectA2DP()
-
             } else {
                 eventDelegate?.onConnectionEstablished?()
                 startTimerUpdateBatteryLevel()
-
             }
         } else {
-            if (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false ) == true
-                && getDeviceNameA2DP() != DeviceManager.connectedDeviceName
-                && compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: A2DPMBVersionArray) >= 0  {
+            if shouldRequestA2DPConnection() {
                 requestConnectA2DP()
             } else {
                 prettyPrint(log.ble("finalizeConnectionMelomind - RequestDeviceInfo : deviceVersion -> \(String(describing:  DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion))"))
@@ -350,15 +341,65 @@ internal class MBTBluetoothManager: NSObject {
     /// Get the Device Name from the current outpus audio
     ///
     /// - Returns: A *String* value which is the current name of the Melomind connected in A2DP Protocol else nil if it is not a Melomind
-    func getDeviceNameA2DP() -> String? {
-        let session = AVAudioSession.sharedInstance()
-        let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "audio_") != nil)}).first ?? session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first
-        
-        if let output = output,
-            let serialNumber = output.portName.components(separatedBy: "_").last {
-            return "melo_\(serialNumber)"
+    func getBLEDeviceNameFromA2DP() -> String? {
+        if let nameA2DP = getA2DPDeviceName() {
+            if !isQrCode(nameA2DP), let serialNumber = nameA2DP.components(separatedBy: "_").last {
+                return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
+            } else {
+                let serialNumber = MBTQRCodeSerial(qrCodeisKey: true).value(for: nameA2DP)!
+                return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
+            }
         }
         return nil
+    }
+    
+    func getA2DPDeviceName() -> String? {
+        return getA2DPDeviceOutput()?.portName
+    }
+    
+    func getA2DPDeviceOutput() -> AVAudioSessionPortDescription? {
+        let session = AVAudioSession.sharedInstance()
+        let outputs = session.currentRoute.outputs
+        
+        if let output = outputs.filter({($0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX_LEGACY) != nil)}).first {
+            return output
+        }
+        
+        if let output = outputs.filter({($0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX) != nil)}).first {
+            return output
+        }
+        
+        if let output = outputs.filter({(isQrCode($0.portName))}).first {
+            return output
+        }
+        return nil
+    }
+    
+    func getA2DPDeviceNameFromBLE() -> String? {
+        if deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
+            if let productName = DeviceManager.getDeviceInfos()?.productName,
+                productName != MBTDevice.defaultProductName {
+                print("---- return product name")
+                return productName
+            } else if let deviceId = DeviceManager.getDeviceInfos()?.deviceId {
+                print("---- return combined name")
+                return "\(A2DP_DEVICE_NAME_PREFIX)\(deviceId)"
+            }
+        }
+        print("---- return connected device name")
+        return DeviceManager.connectedDeviceName
+    }
+    
+    func isQrCode(_ string: String) -> Bool {
+        return string.range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil && string.count == MBT_DEVICE_NAME_QR_LENGTH
+    }
+    
+    func getSerialNumberFrom(deviceName: String) -> String? {
+        if (isQrCode(deviceName)) {
+            return MBTQRCodeSerial(qrCodeisKey: true).value(for: deviceName)
+        } else {
+            return deviceName.components(separatedBy: "_").last
+        }
     }
     
     /// Listen to the AVAudioSessionRouteChange Notification
@@ -395,6 +436,27 @@ internal class MBTBluetoothManager: NSObject {
             // to monitor the A2DP connection status
             
         }
+    }
+    
+    private func shouldRequestA2DPConnection() -> Bool {
+        return (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false) == true
+                && getBLEDeviceNameFromA2DP() != DeviceManager.connectedDeviceName
+                && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET)
+    }
+    
+    // MARK: - External Name / Product Name methods
+    
+    private func shouldUpdateDeviceExternalName() -> Bool {
+        return DeviceManager.getDeviceInfos()?.productName == MBTDevice.defaultProductName
+                && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME)
+    }
+    
+    private func getDeviceExternalName() -> String? {
+        if let deviceId = DeviceManager.getDeviceInfos()?.deviceId,
+            let name = MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
+            return name
+        }
+        return nil
     }
     
     //MARK: - OAD Methods
@@ -449,6 +511,7 @@ internal class MBTBluetoothManager: NSObject {
         
 //        OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
         OADManager = MBTOADManager("mm-ota-1_6_2")
+//        OADManager = MBTOADManager("mm-ota-1_7_1")
         
         stopTimerUpdateBatteryLevel()
         
@@ -466,7 +529,7 @@ internal class MBTBluetoothManager: NSObject {
     /// - didOADFailWithError : 916 | Device Not connected
     /// - didOADFailWithError : 909 | Device Infos is not available
     /// - didOADFailWithError : 910 | Latest firmware already installed
-    /// - didOADFailWithErro : 912 | Time Out OAD Transfert
+    /// - didOADFailWithError : 912 | Time Out OAD Transfert
     /// - onProgressUpdate
     func startOAD() {
         // Disconnect A2DP
@@ -609,6 +672,13 @@ internal class MBTBluetoothManager: NSObject {
         timerFinalizeConnectionMelomind = nil
     }
     
+    func stopTimerSendExternalName() {
+        if let timerTimeOutSendExternalName = timerTimeOutSendExternalName,
+            timerTimeOutSendExternalName.isValid {
+            timerTimeOutSendExternalName.invalidate()
+        }
+    }
+    
     /// Start Update Battery Level Timer that will send event receiveBatteryLevelOnUpdate
     func startTimerUpdateBatteryLevel() {
         stopTimerUpdateBatteryLevel()
@@ -642,6 +712,9 @@ internal class MBTBluetoothManager: NSObject {
             eventDelegate?.onConnectionFailed?(error)
         }
     }
+    @objc func sendExternalNameTimeOut() {
+        prettyPrint(log.ble(#function))
+    }
     
     /// Method Call Time Out Connection Protocol
     @objc func oadTransfertTimeOut() {
@@ -667,6 +740,13 @@ internal class MBTBluetoothManager: NSObject {
         let bytesArray:[UInt8] = [MailBoxEvents.MBX_CONNECT_IN_A2DP.rawValue,0x25,0xA2]
         blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
         blePeripheral?.writeValue( Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
+    }
+    
+    func sendDeviceExternalName(_ name: String) {
+        timerTimeOutSendExternalName = Timer.scheduledTimer(timeInterval: TIMER_A2DP, target: self, selector: #selector(sendExternalNameTimeOut), userInfo: nil, repeats: false)
+        let bytesArray:[UInt8] = [MailBoxEvents.MBX_SET_SERIAL_NUMBER.rawValue, 0xAB, 0x21] + [UInt8](name.utf8)
+        blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
+        blePeripheral?.writeValue(Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
     }
     
     //  Method Request Update Status Battery
@@ -702,6 +782,21 @@ internal class MBTBluetoothManager: NSObject {
         
         return 0
         
+    }
+    
+    /// Compare the firmware version to determine if it's equal or higher to another version
+    ///
+    /// - Returns: A *Bool* value which is true if the firmware version is same or higher than the parameter
+    private func deviceFirmwareVersion(isHigherOrEqualThan version: MBTFirmwareVersion) -> Bool {
+        guard let deviceFWVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion else {
+            return false
+        }
+        
+        print ("device firmware version \(deviceFWVersion)")
+        let versionArray = version.rawValue.components(separatedBy: ".")
+        let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
+        
+        return (compareArrayVersion(arrayA: deviceFWVersionArray, isGreaterThan: versionArray) >= 0)
     }
 
 }
@@ -1000,7 +1095,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
             let thisCharacteristic = characteristic as CBCharacteristic
             
             // MyBrainService's Characteristics
-            if MBTBluetoothLEHelper.brainActivityMeasurementUUID  == CBUUID(data: thisCharacteristic.uuid.data)  {
+            if MBTBluetoothLEHelper.brainActivityMeasurementUUID  == CBUUID(data: thisCharacteristic.uuid.data) {
                 // Enable Sensor Notification and read the current value
                 MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = thisCharacteristic
             }
@@ -1078,6 +1173,15 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
             } else {
                 prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - fake finalize connection"))
                 processBatteryLevel = true
+                if shouldUpdateDeviceExternalName() {
+                    if let name = getDeviceExternalName() {
+                        sendDeviceExternalName(name)
+                    } else {
+                        finalizeConnectionMelomind()
+                    }
+                } else {
+                    finalizeConnectionMelomind()
+                }
             }
         case let uuid where characsUUIDS.contains(uuid) :
             MBTClient.main.deviceAcqusitionManager.processDeviceInformations(characteristic)
@@ -1138,7 +1242,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                     }
                     if bytesArrayA2DPStatus.contains(.CMD_CODE_SUCCESS) {
                         prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - A2DP Connection Success"))
-                    }else {
+                    } else {
                         var error:Error?
                         if bytesArrayA2DPStatus.contains(.CMD_CODE_FAILED_BAD_BDADDR) {
                             error = NSError(domain: "Bluetooth Manager", code: 925, userInfo: [NSLocalizedDescriptionKey : "Failed to connect A2DP cause: BAD BDADDR"]) as Error
@@ -1162,6 +1266,10 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                             disconnect()
                         }
                     }
+                case .MBX_SET_SERIAL_NUMBER:
+                    prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - SET SERIAL NUMBER bytes:\(bytesArray.description)"))
+                    stopTimerSendExternalName()
+                    finalizeConnectionMelomind()
                 default:
                     prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - Unknow MBX Response"))
                 }
@@ -1219,14 +1327,12 @@ extension MBTBluetoothManager {
         }
         prettyPrint(log.ble("audioChangedRoute - LastOutput PortName : \(lastOutput.portName)"))
         // Get the actual route used
-        let session = AVAudioSession.sharedInstance()
-        let output = session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "audio_") != nil)}).first ?? session.currentRoute.outputs.filter({($0.portName.lowercased().range(of: "melo_") != nil)}).first
-        if  let output = output,
-            let serialNumber = output.portName.components(separatedBy: "_").last,
-            let lastSerialNumber = lastOutput.portName.components(separatedBy: "_").last,
+        if let output = getA2DPDeviceOutput(),
+            let serialNumber = getSerialNumberFrom(deviceName: output.portName),
+            let lastSerialNumber = getSerialNumberFrom(deviceName: lastOutput.portName),
             serialNumber != lastSerialNumber {
             
-            let meloName = "melo_\(serialNumber)"
+            let meloName = "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
             prettyPrint(log.ble("audioChangedRoute - NewOutput PortName : \(meloName)"))
 
             MBTBluetoothA2DPHelper.uid = output.uid
@@ -1244,8 +1350,8 @@ extension MBTBluetoothManager {
                         }
                     } else {
                         if let _ = self.blePeripheral, self.isOADInProgress {
-                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : deviceVersion -> \( DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion)"))
-                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : OadVersion -> \( self.OADManager?.fwVersion)"))
+                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : deviceVersion -> \(String(describing:  DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion))"))
+                            prettyPrint(log.ble("audioChangedRoute - RequestDeviceInfo : OadVersion -> \(String(describing: self.OADManager?.fwVersion))"))
                             if let currentDeviceInfo = DeviceManager.getCurrentDevice()?.deviceInfos , self.OADManager != nil && currentDeviceInfo.firmwareVersion?.contains(self.OADManager!.fwVersion) ?? false {
                                 self.eventDelegate?.onProgressUpdate?(1.0)
                                 self.isOADInProgress = false

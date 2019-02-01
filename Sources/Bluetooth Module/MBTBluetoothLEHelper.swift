@@ -55,8 +55,10 @@ struct MBTBluetoothLEHelper {
     /// The *characteristic* of the Headset Status
     static var headsetStatusCharacteristic: CBCharacteristic!
     
+    /// The *characteristic* of the mail box
     static var mailBoxCharacteristic: CBCharacteristic!
     
+    /// The *characteristic* of the OAD transfert
     static var oadTransfertCharacteristic: CBCharacteristic!
     //MARK: - Bluetooth LE Methods
     
@@ -95,7 +97,7 @@ enum MailBoxEvents :UInt8 {
     case MBX_CONNECT_IN_A2DP = 17
     case MBX_BAD_EVT = 0xFF
     
-   static func getMailBoxEvent(v:UInt8) -> MailBoxEvents{
+   static func getMailBoxEvent(v:UInt8) -> MailBoxEvents {
         if let mbe = MailBoxEvents(rawValue: v){
             return mbe
         }
@@ -103,6 +105,7 @@ enum MailBoxEvents :UInt8 {
     }
 }
 
+///Mail Box Response of A2DP Connection
 enum MailBoxA2DPResponse : UInt8 {
     case CMD_CODE_IN_PROGRESS = 0x01
     case CMD_CODE_FAILED_BAD_BDADDR = 0x02

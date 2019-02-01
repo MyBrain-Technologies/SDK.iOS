@@ -9,10 +9,12 @@
 import Foundation
 import RealmSwift
 
-//typealias StreamEEGPacketToSend = (current:MBTEEGPacket?,complete:MBTEEGPacket?)
+//MARK: - MBTEEGPacket
 
 /// Model to store processed data of an EEG Packet.
 public class MBTEEGPacket: Object {
+    
+    //MARK: Variable
     
     /// The qualities stored in a list. The list size
     /// should be equal to the number of channels if there is
@@ -29,6 +31,7 @@ public class MBTEEGPacket: Object {
     /// The values updated by the *Quality Checker* from all channels.
     public var modifiedChannelsData = List<ChannelDatas>()
     
+    //MARK: MBTEEGPacket Methods
     
     /// Create a new MBTEEGPacket
     ///
@@ -61,19 +64,6 @@ public class MBTEEGPacket: Object {
         
         return newPacket
     }
-    
-    /// Add *ChannelData* values to a *MBTEEGPacket*.
-    /// - Parameters:
-    ///     - values : *ChannelData* by channel in an array.
-    ///     - eegPacket : The *MBTEEGPacket* to add the datas to.
-//    func addValues(_ values: [[ChannelData]],nbChannel:Int) {
-//        //print("addValues")
-//        for index in 0 ..< nbChannel {
-//            for sample in values[index] {
-//                self.channelsData[index].value.append(sample)
-//            }
-//        }
-//    }
     
     /// Add *Quality* values, calculated by the Quality Checker, to a *MBTEEGPacket*.
     /// - Parameters:
@@ -109,9 +99,10 @@ public class MBTEEGPacket: Object {
     
 }
 
-//MARK: -
+//MARK: - Quality
 /// One quality value for one channel.
 public class Quality: Object {
+    
     /// Value property of the *Quality*.
     @objc public dynamic var value: Float = 0
     
@@ -121,6 +112,8 @@ public class Quality: Object {
         self.value = data
     }
 }
+
+//MARK: - ChannelData
 
 /// One EEG value from one channel.
 public class ChannelData: Object {
@@ -134,6 +127,8 @@ public class ChannelData: Object {
     }
 }
 
+//MARK: - ChannelDatas
+
 /// All values from one channel.
 public class ChannelDatas: Object {
     /// *RLMArray* of *ChannelData*.
@@ -141,7 +136,7 @@ public class ChannelDatas: Object {
 }
 
 
-//MARK: -
+//MARK: - EEGPacketManager
 /// *MBTEEGPacket* model DB Manager.
 class EEGPacketManager: MBTRealmEntityManager {
     
@@ -177,6 +172,10 @@ class EEGPacketManager: MBTRealmEntityManager {
         return RealmManager.shared.realm.objects(MBTEEGPacket.self)
     }
     
+    /// Get EEGPackets in JSON Object
+    ///
+    /// - Parameter eegPackets: An Array of *MBTEEGPacket*
+    /// - Returns: A *JSON* instance which contains the array of *MBTEEGPacket*
     class func getJSONEEGDatas(_ eegPackets:[MBTEEGPacket]) -> JSON {
         var eegDatas = [[Float?]]()
         for eegPacket in eegPackets {
@@ -199,6 +198,10 @@ class EEGPacketManager: MBTRealmEntityManager {
         return JSON(eegDatas)
     }
 
+    /// Get qualities of EEGPackets in JSON Object
+    ///
+    /// - Parameter eegPackets: An Array of *MBTEEGPacket*
+    /// - Returns: A *JSON* instance which contains the qualities of an array of *MBTEEGPacket*
     class func getJSONQualities(_ eegPackets:[MBTEEGPacket]) -> JSON {
         var qualities = [[Float]]()
         for eegPacket in eegPackets {
@@ -223,6 +226,7 @@ class EEGPacketManager: MBTRealmEntityManager {
         }
         return arrayEEGPackets
     }
+    
     /// Delete all EEGPacket saved in Realm DB.
     class func removeAllEEGPackets() {
         let packets = RealmManager.shared.realm.objects(MBTEEGPacket.self)

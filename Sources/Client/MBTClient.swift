@@ -42,7 +42,7 @@ public class MBTClient {
     
     private init() {
         bluetoothManager = MBTBluetoothManager.shared
-        if let deviceName = bluetoothManager.getDeviceNameA2DP(), !bluetoothManager.isConnected {
+        if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(), !bluetoothManager.isConnected {
             bluetoothManager.connectTo(deviceName)
         }
         eegAcqusitionManager = MBTEEGAcquisitionManager.shared
@@ -84,13 +84,33 @@ public class MBTClient {
     
     //MARK: - Getters
     
+    /// Get BLE device Name
+    ///
+    /// - Returns: A *String* instance of BLE device Name or nil if no melomind is connected (BLE)
+    public func getDeviceNameBLE() -> String? {
+       return bluetoothManager.getBLEDeviceNameFromA2DP()
+    }
+
     /// Get A2DP device Name
     ///
     /// - Returns: A *String* instance of A2DP device Name or nil if no melomind is connected (A2DP)
     public func getDeviceNameA2DP() -> String? {
-       return bluetoothManager.getDeviceNameA2DP()
+        return bluetoothManager.getA2DPDeviceName()
     }
     
+    /// GET A2DP Device Name for an unpaired device (not connected in A2DP)
+    ///
+    /// - Returns: A *String* instance of A2DP device Name for an unpaired device or nil if no melomind is connected in BLE
+    public func getUnpairedDeviceNameA2DP() -> String? {
+        return bluetoothManager.getA2DPDeviceNameFromBLE()
+    }
+    
+    /// Get the QRCode of the current connected device
+    ///
+    /// - Returns: A *String* instance of connected device's QR Code
+    public func getDeviceQrCode() -> String? {
+        return DeviceManager.getDeviceQrCode()
+    }
     
     /// Get the latest battery level saved in DB
     ///
@@ -104,7 +124,6 @@ public class MBTClient {
     public func getDeviceInformations() -> MBTDeviceInformations? {
         return DeviceManager.getDeviceInfos()
     }
-    
     
     /// Getter for Device Name of the MBT headset
     ///
