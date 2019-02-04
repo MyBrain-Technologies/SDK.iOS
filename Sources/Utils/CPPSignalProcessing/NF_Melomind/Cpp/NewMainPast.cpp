@@ -135,7 +135,6 @@ int main()
     std::vector<float> SmoothedRelaxIndex;
     std::vector<float> NormalizedRelaxIndex;
     std::vector<float> Volum;
-    int smoothingDuration = 2;
 
     //MBT_Matrix<float> sessionRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/TestFiles/trueSessionRecordings.txt");
     //MBT_Matrix<float> sessionRecordings = MBT_readMatrix("C:/Users/Fanny/Documents/Melomind.Algorithms/NF_Melomind/Files/TestFiles/sessionRecordingswithNaN.txt");
@@ -155,7 +154,7 @@ int main()
         }
         float RelaxationIndex = MBT_ComputeRelaxIndex(sessionPacket, paramCalib, sampRate, IAFinf, IAFsup);
         pastRelaxIndex.push_back(RelaxationIndex);
-        float tmp_SmoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex,smoothingDuration);
+        float tmp_SmoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex);
         SmoothedRelaxIndex.push_back(tmp_SmoothedRelaxIndex);
         float tmp_NormalizedRelaxIndex = MBT_NormalizeRelaxIndex(tmp_SmoothedRelaxIndex, tmp_SNRCalib);
         NormalizedRelaxIndex.push_back(tmp_NormalizedRelaxIndex);

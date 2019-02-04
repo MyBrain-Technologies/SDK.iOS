@@ -10,18 +10,21 @@
 //           Fanny Grosselin on 11/10/2017 --> Change the value of the volum to 1 when smoothedRelaxIndex=infinity.
 //           Fanny Grosselin on 14/12/2017 --> Change one of the call of the map parametersFromCalibration.
 //           Fanny Grosselin on 18/12/2017 --> Change one input by another (the map of parameters from calibration to the vector of relax index from calibration).
+//           Xavier Navarro on 23/08/2018  --> Change on inputs: two values (min_val, max_val) instead of the whole vector of SNRs. To optimize, scale values are computed in main function
 
 #include "../Headers/MBT_RelaxIndexToVolum.h"
 
-float MBT_RelaxIndexToVolum(const float smoothedRelaxIndex, std::vector<float> SNRCalib)
+float MBT_RelaxIndexToVolum(const float smoothedRelaxIndex, const float min_val, const float max_val)
 {
     float volum;
+    float rescale=0;
+    
     if (smoothedRelaxIndex == std::numeric_limits<float>::infinity())
     {
         // Store values to be handled in case of problem into MBT_RelaxIndexToVolum
         volum = 1.0;
         errno = EINVAL;
-        perror("ERROR: MBT_RELAXINDEXTOVOLUM CANNOT PROCESS WITHOUT SMOOTHEDRELAXINDEX IN INPUT");
+        perror("ERROR: MBT_RelaxIndexToVolum CANNOT PROCESS WITHOUT SMOOTHEDRELAXINDEX IN INPUT");
     }
     else if (isnan(smoothedRelaxIndex))
     {
@@ -31,27 +34,17 @@ float MBT_RelaxIndexToVolum(const float smoothedRelaxIndex, std::vector<float> S
     }
     else
     {
-        vector<double> Copy_SNRCalib(SNRCalib.begin(), SNRCalib.end()); // convert vector of float in vector of double
-        std::vector<double> quants = Quantile(Copy_SNRCalib);
-        double range = quants.back() - 1;
-        double slope = quants.back() + 1.5 * range - 1;
-        slope = slope/4;
-        slope = 1/slope;
-        double center = 1 + (quants.back() + 1.5 * range - 1)/2;
-        float rescale = 0;
-        if (smoothedRelaxIndex <= 1)
+        rescale = (smoothedRelaxIndex - min_val) / (max_val - min_val);
+        if (rescale > 1)
+        {
+            rescale = 1;
+        }
+        if (rescale < 0)
         {
             rescale = 0;
         }
-        else if (smoothedRelaxIndex <= (float) center )
-        {
-            rescale = (0.5/((float) center-1))*smoothedRelaxIndex-(0.5/((float) center-1));
-        }
-        else
-        {
-            rescale = 1/(1 + exp(-(float)slope*(smoothedRelaxIndex- (float)center)));
-        }
         volum = 1 - rescale;
+        std::cout << "vol : " << volum << '\n';
     }
     return volum;
 }

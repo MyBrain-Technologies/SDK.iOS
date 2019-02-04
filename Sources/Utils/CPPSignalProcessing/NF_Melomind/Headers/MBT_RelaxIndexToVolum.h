@@ -29,7 +29,7 @@
  * @param SNRCalib A vector holding the relax index from calibration.
  * @return The volum value which corresponds to the normalized smoothed relaxation index value.
  */
-float MBT_RelaxIndexToVolum(const float smoothedRelaxIndex, std::vector<float> SNRCalib);
+float MBT_RelaxIndexToVolum(const float smoothedRelaxIndex, const float min_val, const float max_val);
 
 
 #endif // MBT_RELAXINDEXTOVOLUM_H_INCLUDED

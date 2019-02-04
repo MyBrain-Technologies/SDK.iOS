@@ -19,13 +19,15 @@
 #include "MBT_BandPass_fftw3.h"
 
 #include "MBT_FindClosest.h"
-#include "MBT_ComputeSNR.h"
 #include "MBT_ComputeCalibration.h"
 #include "MBT_ComputeRelaxIndex.h"
 #include "MBT_SmoothRelaxIndex.h"
 #include "MBT_NormalizeRelaxIndex.h"
 #include "MBT_RelaxIndexToVolum.h"
 #include "MBT_PreProcessing.h"
+#include "MBT_ComputeIAFCalibration.h"
+#include "MBT_ComputeRMS.h"
+#include "MBT_ComputeIAF.h"
 
 #include "MBT_SNR_Stats.h"
 
@@ -55,7 +57,7 @@ extern const float IAFsup;
 @implementation MBTSignalProcessingHelper
 static NSString* versionCPP = @VERSION;
 
-const float IAFinf = 7;
+const float IAFinf = 6;
 const float IAFsup = 13;
 
 static std::map<std::string, std::vector<float>> calibParams;
@@ -255,53 +257,22 @@ static MBT_MainQC *mainQC;
                                                                                           andHeight:height
                                                                                            andWidth:(int)packetsCount];
     
-    // Set the thresholds for the outliers
-//    // -----------------------------------
-//    MBT_Matrix<float> Bounds(calibrationRecordings.size().first,2);
-//    MBT_Matrix<float> Test(calibrationRecordings.size().first, calibrationRecordings.size().second);
-//
-//    for (int ch=0; ch<calibrationRecordings.size().first; ch++)
-//    {
-//        vector<float> signal_ch = calibrationRecordings.row(ch);
-//
-//        if (all_of(signal_ch.begin(), signal_ch.end(), [](double testNaN){return isnan(testNaN);}) )
-//        {
-//            errno = EINVAL;
-//            perror("ERROR: BAD CALIBRATION - WE HAVE ONLY NAN VALUES");
-//        }
-//
-//        // skip the NaN values in order to calculate the Bounds
-//        vector<float>tmp_signal_ch = SkipNaN(signal_ch);
-//
-//        // find the bounds
-//        vector<float> tmp_Bounds = CalculateBounds(tmp_signal_ch); // Set the thresholds for outliers
-//        Bounds(ch,0) = tmp_Bounds[0];
-//        Bounds(ch,1) = tmp_Bounds[1];
-//
-//        // basically, we convert from vector<float> to vector<double>
-//        vector<double> CopySignal_ch(signal_ch.begin(), signal_ch.end());
-//        vector<double> Copytmp_Bounds(tmp_Bounds.begin(), tmp_Bounds.end());
-//
-//        // set outliers to nan
-//        vector<double> InterCopySignal_ch = MBT_OutliersToNan(CopySignal_ch, Copytmp_Bounds);
-//        for (unsigned int t = 0 ; t < InterCopySignal_ch.size(); t++)
-//            Test(ch,t) = (float) InterCopySignal_ch[t];
-//    }
-    
-    // interpolate the nan values between the channels
-//    MBT_Matrix<float> FullyInterpolatedTest = MBT_InterpolateBetweenChannels(Test);
-    // interpolate the nan values across each channel
-//    MBT_Matrix<float> InterpolatedAcrossChannels = MBT_InterpolateAcrossChannels(FullyInterpolatedTest);
-    
     // Getting the map.
-    std::map<std::string, std::vector<float>> paramCalib = MBT_ComputeCalibration(calibrationRecordings,
-                                                                                  calibrationRecordingsQuality,
-                                                                                   (int)sampRate,
-                                                                                   (int)packetLength,
-                                                                                   IAFinf,
-                                                                                   IAFsup,
-                                                                                  SMOOTHINGDURATION);
-    
+    std::vector<float> iafMedian = MBT_ComputeIAFCalibration(calibrationRecordings,
+                                                             calibrationRecordingsQuality,
+                                                             sampRate,
+                                                             packetLength,
+                                                             IAFinf,
+                                                             IAFsup);
+
+    std::map<std::string, std::vector<float> > paramCalib = MBT_ComputeCalibration(calibrationRecordings,calibrationRecordingsQuality,
+                                                                                   sampRate,
+                                                                                   packetLength,
+                                                                                   iafMedian[0],
+                                                                                   iafMedian[1],
+                                                                                   SMOOTHINGDURATION);
+    paramCalib["iafCalib"] = iafMedian;
+
     // Save calibration parameters received.
     [MBTSignalProcessingHelper setCalibrationParameters:paramCalib];
     
@@ -343,7 +314,6 @@ static vector<float>histFreq;
                                                                            andWidth:width];
     
     std::map<std::string, std::vector<float>> calibrationParams = [MBTSignalProcessingHelper getCalibrationParameters];
-//    std::vector<float> calibrationParameters = calibrationParams["SNRCalib_ofBestChannel"];
     
     if (histFreq.size() == 0) {
         histFreq = calibrationParams["histFrequencies"];
@@ -355,25 +325,48 @@ static vector<float>histFreq;
 }
     
 static float main_relaxIndex(const float sampRate, std::map<std::string, std::vector<float> > paramCalib,
-                             const MBT_Matrix<float> &sessionPacket, std::vector<float> &histFreq, std::vector<float> &pastRelaxIndex, std::vector<float> &resultSmoothedSNR, std::vector<float> &resultVolum)
+                             const MBT_Matrix<float> &sessionPacket, std::vector<float> &histFreq, std::vector<float> &pastRelaxIndex, std::vector<float> &resultSmoothedRMS, std::vector<float> &resultVolum)
 {
     
     std::vector<float> errorMsg = paramCalib["errorMsg"];
     std::vector<float> snrCalib = paramCalib["snrCalib"];
+    std::vector<float> iafMedian = paramCalib["iafCalib"];
     
     // Session-----------------------------------
-    float snrValue = MBT_ComputeRelaxIndex(sessionPacket, errorMsg, sampRate, IAFinf, IAFsup, histFreq);
+    float rmsValue = MBT_ComputeRelaxIndex(sessionPacket,
+                                           errorMsg,
+                                           sampRate, iafMedian[0], iafMedian[1], histFreq);
     
-    pastRelaxIndex.push_back(snrValue); // incrementation of pastRelaxIndex
-    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex,SMOOTHINGDURATION);
-    float volum = MBT_RelaxIndexToVolum(smoothedRelaxIndex, snrCalib); // warning it's not the same inputs than previously
+    pastRelaxIndex.push_back(rmsValue); // incrementation of pastRelaxIndex
+    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex, SMOOTHINGDURATION);
     
-    //resultSmoothedSNR.assign(1,smoothedRelaxIndex);
-    resultSmoothedSNR.push_back(smoothedRelaxIndex);
+    float sum = 0.0;
+    float avg = 0.0;
+    long indMax = 0.0;
+    long indMin = 0.0;
+    float minVal = 0.0;
+    float maxVal = 0.0;
     
-    //resultVolum.assign(1,volum);
+    std::vector<float>::iterator result;
+    result = std::max_element(snrCalib.begin(), snrCalib.end());
+    indMax = std::distance(snrCalib.begin(), result);
+    result = std::min_element(snrCalib.begin(), snrCalib.end());
+    indMin = std::distance(snrCalib.begin(), result);
+    
+    for(int i = 0; i < snrCalib.size(); i++){
+        sum += snrCalib[i];
+    }
+    avg = sum / snrCalib.size();
+    
+    maxVal = avg*1.5f;
+    
+    minVal = snrCalib[indMin]*0.9f;
+    
+    float volum = MBT_RelaxIndexToVolum(smoothedRelaxIndex, minVal, maxVal); // warning it's not the same inputs than previously
+    
+    resultSmoothedRMS.push_back(smoothedRelaxIndex);
+    
     resultVolum.push_back(volum);
-    // WARNING: If it's possible, I would like to save in the .json file, pastRelaxIndex and smoothedRelaxIndex (both)
     
     return volum;
 }
@@ -387,9 +380,9 @@ static float main_relaxIndex(const float sampRate, std::map<std::string, std::ve
     
     parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:smoothedRelaxIndex];
     [dicoMetadata setObject:parameterValue forKey:@"smoothedRelaxIndex"];
-    
-    parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:volume];
-    [dicoMetadata setObject:parameterValue forKey:@"volume"];
+
+//    parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:volume];
+//    [dicoMetadata setObject:parameterValue forKey:@"volume"];
     
     parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:histFreq];
     [dicoMetadata setObject:parameterValue forKey:@"histFrequencies"];

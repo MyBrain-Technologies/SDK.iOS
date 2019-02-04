@@ -5,7 +5,7 @@
 //  Copyright (c) 2017 myBrain Technologies. All rights reserved.
 //
 // 	Update: Fanny Grosselin on 2017/03/23 --> Change float by double for the functions not directly used by Androïd. For the others, keep inputs and outputs in double, but do the steps with double
-
+//          Xavier Navarro on 2018/09/14  --> Adaptation to RMS (Substitute SNR by RMS)
 
 #include "../Headers/MBT_NormalizeRelaxIndex.h"
 
@@ -16,13 +16,13 @@ float MBT_NormalizeRelaxIndex(float relaxIndexSession, std::vector<float> relaxI
     double NormalizedVector;
     if (tmp_relaxIndexCalibration.size()> 0)
     {
-        double meanSNRCalib = mean(tmp_relaxIndexCalibration);
-        double stdSNRCalib = standardDeviation(tmp_relaxIndexCalibration);
+        double meanRMSCalib = mean(tmp_relaxIndexCalibration);
+        double stdRMSCalib = standardDeviation(tmp_relaxIndexCalibration);
 
-        NormalizedVector = double(relaxIndexSession) - meanSNRCalib;
-        if (stdSNRCalib != 0)
+        NormalizedVector = double(relaxIndexSession) - meanRMSCalib;
+        if (stdRMSCalib != 0)
         {
-            NormalizedVector = NormalizedVector/stdSNRCalib;
+            NormalizedVector = NormalizedVector/stdRMSCalib;
         }
     }
 

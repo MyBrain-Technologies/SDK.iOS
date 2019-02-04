@@ -82,7 +82,7 @@ std::map<string, std::vector<float>> main_calibration(float sampRate, unsigned i
 //TODO maybe pass a map in input that is filled each time this is called instead of recreating temp vectors
 //TODO paramCalib could also be a reference
 float main_relaxIndex(const float sampRate, std::map<std::string, std::vector<float> > paramCalib,
-                                                     const MBT_Matrix<float> &sessionPacket, std::vector<float> &histFreq, std::vector<float> &pastRelaxIndex, std::vector<float> &resultSmoothedSNR, std::vector<float> &resultVolum, int smoothingDuration)
+                                                     const MBT_Matrix<float> &sessionPacket, std::vector<float> &histFreq, std::vector<float> &pastRelaxIndex, std::vector<float> &resultSmoothedSNR, std::vector<float> &resultVolum)
 {
 
     std::vector<float> errorMsg = paramCalib["errorMsg"];
@@ -93,7 +93,7 @@ float main_relaxIndex(const float sampRate, std::map<std::string, std::vector<fl
 
     //TODO pastRelaxIndex could also be passed as reference in MBT_ComputeRelaxIndex. See if it is relevant to do so
     pastRelaxIndex.push_back(snrValue); // incrementation of pastRelaxIndex
-    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex, smoothingDuration);
+    float smoothedRelaxIndex = MBT_SmoothRelaxIndex(pastRelaxIndex);
     float volum = MBT_RelaxIndexToVolum(smoothedRelaxIndex, snrCalib); // warning it's not the same inputs than previously
 
     //resultSmoothedSNR.assign(1,smoothedRelaxIndex);
