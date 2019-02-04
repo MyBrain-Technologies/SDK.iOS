@@ -19,7 +19,6 @@ public class MBTClient {
     /// data from the MBT Headset.
     internal let eegAcqusitionManager:MBTEEGAcquisitionManager
     
-    
     /// Init a MBTDeviceAcquisitionManager, which deals with
     /// data from the MBT Headset.
     internal let deviceAcqusitionManager:MBTDeviceAcquisitionManager
@@ -30,7 +29,12 @@ public class MBTClient {
     
     internal var recordInfo:MBTRecordInfo = MBTRecordInfo()
     
+    //MARK: - Static variables
+    /// Singleton of MBTClient
     public static let main:MBTClient = MBTClient()
+    
+    /// Size in seconds between two relaxIndexes
+    public static let HISTORY_SIZE = 1
     
     public var isBluetoothOn:Bool {
         return bluetoothManager.tabHistoBluetoothState.last ?? false
@@ -323,7 +327,7 @@ public class MBTClient {
     ///
     /// - Returns: RelaxIndex
     public func computeRelaxIndex() -> Float? {
-        if let _ = DeviceManager.connectedDeviceName, EEGPacketManager.getEEGPackets().count >= HISTORY_SIZE {
+        if let _ = DeviceManager.connectedDeviceName, EEGPacketManager.getEEGPackets().count >= MBTClient.HISTORY_SIZE {
             return signalProcessingManager.computeRelaxIndex()
         }
         return nil
