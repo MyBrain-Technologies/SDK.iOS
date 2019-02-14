@@ -3,7 +3,7 @@ Release notes - Melomind.iOS
 
 ## [Released]
 
-## [0.0.11] - 2019-02-01
+## [0.0.12] - 2019-02-14
 
 ## Task
 
