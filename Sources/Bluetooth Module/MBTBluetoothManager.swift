@@ -377,16 +377,10 @@ internal class MBTBluetoothManager: NSObject {
     
     func getA2DPDeviceNameFromBLE() -> String? {
         if deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
-            if let productName = DeviceManager.getDeviceInfos()?.productName,
-                productName != MBTDevice.defaultProductName {
-                print("---- return product name")
-                return productName
-            } else if let deviceId = DeviceManager.getDeviceInfos()?.deviceId {
-                print("---- return combined name")
-                return "\(A2DP_DEVICE_NAME_PREFIX)\(deviceId)"
+            if let qrCode = DeviceManager.getDeviceQrCode() {
+                return qrCode
             }
         }
-        print("---- return connected device name")
         return DeviceManager.connectedDeviceName
     }
     
