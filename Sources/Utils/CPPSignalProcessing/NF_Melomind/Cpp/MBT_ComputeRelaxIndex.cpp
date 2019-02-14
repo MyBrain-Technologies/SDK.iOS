@@ -24,8 +24,8 @@
 //          Fanny Grosselin 2017/12/22 --> Add raw SNR values in the map holding parameters of the session.
 //          Fanny Grosselin 2017/12/22 --> Put all the keys of maps in camelcase.
 //          Fanny Grosselin 2018/01/24 --> Optimize the way we use histFreq.
-
 //          Etienne GARIN   2018/01/26 --> Fixed input and output as map is no longer required here
+//          Xavier Navarro  2018/09/14 --> Adapted to RMS computation (SNR names substituted by RMS)
 
 #include "../Headers/MBT_ComputeRelaxIndex.h"
 
@@ -44,79 +44,79 @@ float MBT_ComputeRelaxIndex(MBT_Matrix<float> sessionPacket, std::vector<float>e
 
     std::map<std::string, std::vector<float> > sessionParameters;
 
-    //std::vector<float> SNRSession;
-    float snr = 0;
+    //std::vector<float> RMSSession;
+    float rms = 0;
 
     if ((sessionPacket.size().first>0) & (sessionPacket.size().second>0) & (errorMsg[0] != -2) & (errorMsg[0] != -1))
     {
-        // Compute SNR
-        std::map<std::string, std::vector<double> >  computeSNRSession = MBT_ComputeSNR(sessionPacketdouble, double(sampRate), IAFinf, IAFsup, histFreq); // there is only one value but this is a vector
-        std::vector<double> SNRSessionPacket = computeSNRSession["snr"];
-        std::vector<double> qualitySNR = computeSNRSession["qualitySnr"];
+        // Compute RMS
+        std::map<std::string, std::vector<double> >  computeRMSSession = MBT_ComputeRMS(sessionPacketdouble, double(sampRate), IAFinf, IAFsup, histFreq); // there is only one value but this is a vector
+        std::vector<double> RMSSessionPacket = computeRMSSession["rms"];
+        std::vector<double> qualityRMS = computeRMSSession["qualityRms"];
 
 
-        // Combine SNR from both channel, according to the quality of the alpha peak:
-        // compute general SNR from both channel, derived by qualitySNR of both
-        // channel and the SNRSessionPacket of both channel
+        // Combine RMS from both channel, according to the quality of the alpha peak:
+        // compute general RMS from both channel, derived by qualityRMS of both
+        // channel and the RMSSessionPacket of both channel
         // WARNING : THIS CODE IS CORRECT ONLY IF 2 CHANNELS !!!!!!!
         // -------------------------------------------------------------------
         std::vector<int> QFNaN;
         std::vector<int> goodPeak;
         double sumQf = 0.0;
-        for (unsigned int cq = 0; cq<qualitySNR.size(); cq++)
+        for (unsigned int cq = 0; cq<qualityRMS.size(); cq++)
         {
-            if (std::isnan(qualitySNR[cq]))
+            if (std::isnan(qualityRMS[cq]))
             {
                 QFNaN.push_back(cq);
             }
             else
             {
-                sumQf = sumQf + qualitySNR[cq];
+                sumQf = sumQf + qualityRMS[cq];
             }
-            if (SNRSessionPacket[cq]>1) // find what are the channels with SNR>1
+            if (RMSSessionPacket[cq]>1) // find what are the channels with RMS>1
             {
                 goodPeak.push_back(cq);
             }
         }
-        if (!QFNaN.empty()) // if at least one channel has qualitySNR=NaN (nb peaks = 0 or >1), we don't weight the average of SNR
+        if (!QFNaN.empty()) // if at least one channel has qualityRMS=NaN (nb peaks = 0 or >1), we don't weight the average of RMS
         {
-            if (goodPeak.empty()) // if all channels have SNR=1 (no peak in both channels)
+            if (goodPeak.empty()) // if all channels have RMS=1 (no peak in both channels)
             {
-                // we average the SNR of both channel: = (1+1)/2 = 1
-                //SNRSession.push_back((float)1.0);
-                snr = 1.0f;
+                // we average the RMS of both channel: = (1+1)/2 = 1
+                //RMSSession.push_back((float)1.0);
+                rms = 1.0f;
             }
-            else if ((!goodPeak.empty()) && (goodPeak.size()==1)) // if one channel has SNR>1 (no peak in 1 channel and 1 dominant peak in the other channel)
+            else if ((!goodPeak.empty()) && (goodPeak.size()==1)) // if one channel has RMS>1 (no peak in 1 channel and 1 dominant peak in the other channel)
             {
-                // we keep the SNR value of this channel
-                //SNRSession.push_back((float)SNRSessionPacket[goodPeak[0]]);
-                snr = (float)SNRSessionPacket[goodPeak[0]];
+                // we keep the RMS value of this channel
+                //RMSSession.push_back((float)RMSSessionPacket[goodPeak[0]]);
+                rms = (float)RMSSessionPacket[goodPeak[0]];
             }
-            else if ((!goodPeak.empty()) && (goodPeak.size()==2)) // if both channel has SNR>1 (1 dominant peak in both channels)
+            else if ((!goodPeak.empty()) && (goodPeak.size()==2)) // if both channel has RMS>1 (1 dominant peak in both channels)
             {
-                // we average the SNR values of both channels
-                double tmp_s = (SNRSessionPacket[goodPeak[0]] + SNRSessionPacket[goodPeak[1]])/2;
-                //SNRSession.push_back((float)tmp_s);
-                snr = (float) tmp_s;
+                // we average the RMS values of both channels
+                double tmp_s = (RMSSessionPacket[goodPeak[0]] + RMSSessionPacket[goodPeak[1]])/2;
+                //RMSSession.push_back((float)tmp_s);
+                rms = (float) tmp_s;
             }
         }
         else // both channels have QFNaN~=NaN (1 dominant peak in each channel)
         {
-            // we weight the SNR of each channel by its QFNaN
-            double tmp_s = SNRSessionPacket[0]*(qualitySNR[0]/sumQf) + SNRSessionPacket[1]*(qualitySNR[1]/sumQf);
-            //SNRSession.push_back((float)tmp_s);
-            snr = (float) tmp_s;
+            // we weight the RMS of each channel by its QFNaN
+            double tmp_s = RMSSessionPacket[0]*(qualityRMS[0]/sumQf) + RMSSessionPacket[1]*(qualityRMS[1]/sumQf);
+            //RMSSession.push_back((float)tmp_s);
+            rms = (float) tmp_s;
 
         }
     }
     else
     {
         // Store values to be handled in case of problem into MBT_ComputeRelaxIndex
-        //SNRSession.push_back(std::numeric_limits<float>::infinity());
-        snr = std::numeric_limits<float>::infinity();
+        //RMSSession.push_back(std::numeric_limits<float>::infinity());
+        rms = std::numeric_limits<float>::infinity();
         errno = EINVAL;
         perror("ERROR: MBT_COMPUTERELAXINDEX CANNOT PROCESS WITHOUT GOOD INPUTS");
     }
     //return sessionParameters;
-    return snr;
+    return rms;
 }

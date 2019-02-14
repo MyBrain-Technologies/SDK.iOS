@@ -4,12 +4,13 @@
 //  Created by Fanny Grosselin on 06/01/2017.
 //  Copyright (c) 2017 myBrain Technologies. All rights reserved.
 //
-//  Update: 2017/03/23 by Fanny Grosselin --> Change float by double for the functions not directly used by Andro�d.
+//  Update: 2017/03/23 by Fanny Grosselin --> Change float by double for the functions not directly used by Android.
 //          Fanny Grosselin : 2017/09/05 Change the pathes.
 //          Fanny Grosselin : 2017/12/05 Add histFreq (the vector containing the previous frequencies) in input.
 //          Fanny Grosselin : 2017/12/07 Set in output a dictionnary.
 //          Fanny Grosselin : 2017/12/14 Set in input error messages instead of a dictionnary of parameters from calibration.
 //          Fanny Grosselin : 2017/01/24 Optimize the way we use histFreq.
+//          Xavier Navarro  : 2018/09/14 Modified to include MBT_ComputeRMS.h
 
 #ifndef MBT_COMPUTERELAXINDEX_H_INCLUDED
 #define MBT_COMPUTERELAXINDEX_H_INCLUDED
@@ -24,7 +25,7 @@
 #include <limits>
 #include <algorithm>
 #include "../../SignalProcessing.Cpp/DataManipulation/Headers/MBT_Matrix.h"
-#include "MBT_ComputeSNR.h"
+#include "MBT_ComputeRMS.h"
 
 
 /*

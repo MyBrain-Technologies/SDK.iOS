@@ -4,7 +4,7 @@
 //  Created by Fanny Grosselin on 09/01/2017.
 //  Copyright (c) 2017 myBrain Technologies. All rights reserved.
 //
-// 	Update: Fanny Grosselin on 2017/03/23 --> Change float by double for the functions not directly used by Androïd. For the others, keep inputs and outputs in double, but do the steps with double
+// 	Update: Fanny Grosselin on 2017/03/23 --> Change float by double for the functions not directly used by Android. For the others, keep inputs and outputs in double, but do the steps with double
 
 
 #include "../Headers/MBT_SmoothRelaxIndex.h"
