@@ -10,7 +10,9 @@ import Foundation
 
 /// MBT engine to implement to work with the headset.
 public class MBTClient {
+    
     //MARK: - Variables
+    
     /// Init a MBTBluetoothManager, which deals with
     /// the MBT headset bluetooth.
     internal let bluetoothManager:MBTBluetoothManager
@@ -18,7 +20,6 @@ public class MBTClient {
     /// Init a MBTEEGAcquisitionManager, which deals with
     /// data from the MBT Headset.
     internal let eegAcqusitionManager:MBTEEGAcquisitionManager
-    
     
     /// Init a MBTDeviceAcquisitionManager, which deals with
     /// data from the MBT Headset.
@@ -30,7 +31,15 @@ public class MBTClient {
     
     internal var recordInfo:MBTRecordInfo = MBTRecordInfo()
     
+    //MARK: Static variables
+    
+    /// Singleton of MBTClient
     public static let main:MBTClient = MBTClient()
+    
+    /// Size in seconds between two relaxIndexes
+    public static let HISTORY_SIZE = 1
+    
+    //MARK: Computed variables
     
     public var isBluetoothOn:Bool {
         return bluetoothManager.tabHistoBluetoothState.last ?? false
@@ -40,6 +49,7 @@ public class MBTClient {
         return bluetoothManager.isConnected
     }
     
+    //MARK: Initialization
     private init() {
         bluetoothManager = MBTBluetoothManager.shared
         if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(), !bluetoothManager.isConnected {
@@ -323,7 +333,7 @@ public class MBTClient {
     ///
     /// - Returns: RelaxIndex
     public func computeRelaxIndex() -> Float? {
-        if let _ = DeviceManager.connectedDeviceName, EEGPacketManager.getEEGPackets().count > 3 {
+        if let _ = DeviceManager.connectedDeviceName, EEGPacketManager.getEEGPackets().count >= MBTClient.HISTORY_SIZE {
             return signalProcessingManager.computeRelaxIndex()
         }
         return nil
