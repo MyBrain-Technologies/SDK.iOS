@@ -206,6 +206,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         
         var jsonContext = JSON()
         jsonContext["ownerId"].intValue = idUser
+        jsonContext["riAlgo"].stringValue = MBTSignalProcessingManager.shared.relaxIndexAlgorithm.rawValue
         jsonObject["context"] = jsonContext
         
 
