@@ -179,8 +179,8 @@ public class MBTClient {
     ///   - idUser: A *Int* instance of the id user
     ///   - comments: A *[String]* instance of comments
     ///   - completion : A *URL* instance of the saved file, or nil if file is not created and save
-    public func saveRecordingOnFile(_ idUser:Int, comments:[String] = [String](), completion:@escaping (URL?)->()){
-        self.eegAcqusitionManager.saveRecordingOnFile(idUser, comments: comments, completion: completion)
+    public func saveRecordingOnFile(_ idUser:Int, algo: String? = nil, comments:[String] = [String](), completion:@escaping (URL?)->()){
+      self.eegAcqusitionManager.saveRecordingOnFile(idUser, algo: algo, comments: comments, completion: completion)
         
     }
     
