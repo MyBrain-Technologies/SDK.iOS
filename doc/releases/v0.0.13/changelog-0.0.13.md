@@ -8,7 +8,6 @@ Release notes - SDK.iOS
 
 ## Task
 
+*   [[SDK-103](https://mybrain.atlassian.net/browse/SDK-103)] - Add a key in json eeg context named "riAlgo" that contains either "SNR" or "RMS" (enum)
 
 ## Bug
-
-*   [[SDK-103](https://mybrain.atlassian.net/browse/SDK-103)] - Add a key in json eeg context named "riAlgo" that contains either "SNR" or "RMS" (enum)
