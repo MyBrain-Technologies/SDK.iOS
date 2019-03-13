@@ -93,7 +93,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     ///   - idUser: A *Int* id of the connected user
     ///   - comments: An array of *String* contains Optional Comments
     ///   - completion: A block which execute after create the file or fail to create
-    func saveRecordingOnFile(_ idUser:Int, comments:[String] = [String](), completion: @escaping (URL?) ->()) {
+    func saveRecordingOnFile(_ idUser:Int, algo: String?, comments:[String] = [String](), completion: @escaping (URL?) ->()) {
         guard let device = DeviceManager.getCurrentDevice() else {
             completion(nil)
             return
@@ -127,7 +127,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                 }
                 
                 if let resDevice = realm.resolve(deviceTSR), resPacketsToSave.count == packetsToSaveTSR.count {
-                    let jsonObject = self.getJSONRecord(resDevice,idUser: idUser ,eegPackets: resPacketsToSave,recordInfo:currentRecordInfo, comments: comments)
+                    let jsonObject = self.getJSONRecord(resDevice, idUser: idUser, algo: algo, eegPackets: resPacketsToSave,recordInfo:currentRecordInfo, comments: comments)
                     // Save JSON with EEG data received.
                     let fileURL = MBTJSONHelper.saveJSONOnDevice(jsonObject, idDevice: resDevice.deviceInfos!.deviceId!, idUser: idUser, with: {
                         // Then delete all MBTEEGPacket saved.
@@ -197,19 +197,16 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     ///   - recordInfo: A *MBTRecordInfo* of the session metadata
     ///   - comments: An array of *String* contains Optional Comments
     /// - Returns: return an instance of *JSON*
-    func getJSONRecord(_ device:MBTDevice,idUser:Int, eegPackets:[MBTEEGPacket],recordInfo:MBTRecordInfo, comments:[String] = [String]()) -> JSON  {
+  func getJSONRecord(_ device:MBTDevice,idUser:Int, algo: String?, eegPackets:[MBTEEGPacket],recordInfo:MBTRecordInfo, comments:[String] = [String]()) -> JSON  {
      
-        // Create the session JSON.
-        var jsonObject = JSON()
-        jsonObject["uuidJsonFile"].stringValue = UUID().uuidString
-        jsonObject["header"] = device.getJSON(comments)
-        
         var jsonContext = JSON()
         jsonContext["ownerId"].intValue = idUser
-        jsonContext["riAlgo"].stringValue = MBTSignalProcessingManager.shared.relaxIndexAlgorithm.rawValue
-        jsonObject["context"] = jsonContext
-        
-
+        if let algo = algo {
+          jsonContext["riAlgo"].stringValue = algo
+        }
+    
+        print("jsonContext : \(jsonContext)") 
+      
         var jsonRecord = JSON()
         jsonRecord["recordID"].stringValue = recordInfo.recordId.uuidString
         jsonRecord["recordingType"] = recordInfo.recordingType.getJsonRecordInfo()
@@ -220,7 +217,13 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets)
         jsonRecord["statusData"].arrayObject = [Any]()
         jsonRecord["recordingParameters"].arrayObject = [Any]()
-        
+      
+        // Create the session JSON.
+        var jsonObject = JSON()
+        jsonObject["uuidJsonFile"].stringValue = UUID().uuidString
+        jsonObject["header"] = device.getJSON(comments)
+      
+        jsonObject["context"] = jsonContext
         jsonObject["recording"] = jsonRecord
         
         return jsonObject
