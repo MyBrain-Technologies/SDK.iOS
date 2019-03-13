@@ -95,7 +95,7 @@ public enum Type: Int {
 
 // MARK: - JSON Base
 
-public struct JSON {
+struct JSON {
 
 	/**
 	 Creates a JSON using the data.
@@ -339,8 +339,8 @@ public enum Index<T: Any>: Comparable {
     }
 }
 
-public typealias JSONIndex = Index<JSON>
-public typealias JSONRawIndex = Index<Any>
+typealias JSONIndex = Index<JSON>
+typealias JSONRawIndex = Index<Any>
 
 extension JSON: Swift.Collection {
 
@@ -1284,7 +1284,7 @@ extension JSON {
 
 extension JSON: Swift.Comparable {}
 
-public func == (lhs: JSON, rhs: JSON) -> Bool {
+func == (lhs: JSON, rhs: JSON) -> Bool {
 
     switch (lhs.type, rhs.type) {
     case (.number, .number):
@@ -1304,7 +1304,7 @@ public func == (lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func <= (lhs: JSON, rhs: JSON) -> Bool {
+func <= (lhs: JSON, rhs: JSON) -> Bool {
 
     switch (lhs.type, rhs.type) {
     case (.number, .number):
@@ -1324,7 +1324,7 @@ public func <= (lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func >= (lhs: JSON, rhs: JSON) -> Bool {
+func >= (lhs: JSON, rhs: JSON) -> Bool {
 
     switch (lhs.type, rhs.type) {
     case (.number, .number):
@@ -1344,7 +1344,7 @@ public func >= (lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func > (lhs: JSON, rhs: JSON) -> Bool {
+func > (lhs: JSON, rhs: JSON) -> Bool {
 
     switch (lhs.type, rhs.type) {
     case (.number, .number):
@@ -1356,7 +1356,7 @@ public func > (lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func < (lhs: JSON, rhs: JSON) -> Bool {
+func < (lhs: JSON, rhs: JSON) -> Bool {
 
     switch (lhs.type, rhs.type) {
     case (.number, .number):

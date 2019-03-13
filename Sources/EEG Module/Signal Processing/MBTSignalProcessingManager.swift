@@ -26,6 +26,8 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     
     ///
     internal var version = MBTQualityCheckerBridge.getVersion()
+  
+    internal var relaxIndexAlgorithm = MBTRelaxIndexAlgorithm.algorithm(fromSDKVersion: MBTQualityCheckerBridge.getVersion()!)
     
     /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
     func initializeQualityChecker() -> Bool {
