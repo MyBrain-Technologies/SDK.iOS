@@ -26,6 +26,7 @@ let MBT_DEVICE_NAME_QR_LENGTH = 10
 
 let MBT_DEVICE_NAME_QR_PREFIX_BATCH2 = "MM1B2"
 let MBT_DEVICE_NAME_QR_LENGTH_BATCH2 = 9
+let MBT_DEVICE_BATCH_2_END_CHARACTER = "."
 
 enum MBTFirmwareVersion: String {
   case A2DP_FROM_HEADSET = "1.6.7"
@@ -388,20 +389,34 @@ internal class MBTBluetoothManager: NSObject {
   }
   
   func isQrCode(_ string: String) -> Bool {
-    let isQrCodeBatch1 = string.range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil
+    return isQrCodeBatch1(string) || isQrCodeBatch2(string)
+  }
+  
+  func isQrCodeBatch1(_ string: String) -> Bool {
+    return string.range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil
       && string.count == MBT_DEVICE_NAME_QR_LENGTH
-    let isQrCodeBatch2 = string.range(of: MBT_DEVICE_NAME_QR_PREFIX_BATCH2) != nil
+  }
+  
+  func isQrCodeBatch2(_ string: String) -> Bool {
+    return string.range(of: MBT_DEVICE_NAME_QR_PREFIX_BATCH2) != nil
       && string.count == MBT_DEVICE_NAME_QR_LENGTH_BATCH2
-    return isQrCodeBatch1 || isQrCodeBatch2
   }
   
   func getSerialNumberFrom(deviceName: String) -> String? {
     print("device name \(deviceName) is Qr Code ? \(isQrCode(deviceName))")
     if (isQrCode(deviceName)) {
-      return MBTQRCodeSerial(qrCodeisKey: true).value(for: deviceName)
+      return getSerialNumber(fromQrCode: deviceName)
     } else {
       return deviceName.components(separatedBy: "_").last
     }
+  }
+  
+  func getSerialNumber(fromQrCode qrCode: String) -> String? {
+    var qrCode = qrCode
+    if isQrCodeBatch2(qrCode) {
+      qrCode.append(MBT_DEVICE_BATCH_2_END_CHARACTER)
+    }
+    return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
   }
   
   /// Listen to the AVAudioSessionRouteChange Notification
