@@ -1,0 +1,11 @@
+prefix=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK
+exec_prefix=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK
+libdir=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK/lib
+includedir=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK/include
+
+Name: FFTW
+Description: fast Fourier transform library
+Version: 3.3.7
+Libs: -L${libdir} -lfftw3 
+Libs.private: -lm
+Cflags: -I${includedir}
