@@ -102,7 +102,7 @@ internal class MBTBluetoothManager: NSObject {
     let output = AVAudioSession.sharedInstance().currentRoute.outputs.first
     
     if let deviceName = DeviceManager.connectedDeviceName {
-      return output?.portName == deviceName && output?.portType == AVAudioSessionPortBluetoothA2DP
+      return output?.portName == deviceName && output?.portType == AVAudioSession.Port.bluetoothA2DP
     }
     
     return false
@@ -423,14 +423,14 @@ internal class MBTBluetoothManager: NSObject {
   func connectA2DP() {
     NotificationCenter.default.addObserver(self,
                          selector: #selector(audioChangedRoute(_:)),
-                         name:Notification.Name.AVAudioSessionRouteChange,
+                         name:AVAudioSession.routeChangeNotification,
                          object: nil)
     if audioA2DPDelegate != nil {
       let session = AVAudioSession.sharedInstance()
       let output = session.currentRoute.outputs.first
       
-      if let deviceName = DeviceManager.connectedDeviceName, output?.portName == deviceName
-        && output?.portType == AVAudioSessionPortBluetoothA2DP {
+      if let deviceName = DeviceManager.connectedDeviceName,
+        output?.portName == deviceName && output?.portType == .bluetoothA2DP {
         // Save the UUID of the concerned headset
         MBTBluetoothA2DPHelper.uid = output?.uid
         // A2DP Audio is connected
@@ -440,8 +440,7 @@ internal class MBTBluetoothManager: NSObject {
         // to the MBT A2DP profile
         
         do {
-          try session.setCategory(AVAudioSessionCategoryPlayback,
-                      with: AVAudioSessionCategoryOptions.allowBluetooth)
+          try session.setCategory(.playback, options: .allowBluetooth)
 
         } catch {
           prettyPrint(log.ble("connectA2DP - "))
@@ -523,7 +522,7 @@ internal class MBTBluetoothManager: NSObject {
 
     let bundle = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")!
     let tabURLSBinary = bundle.urls(forResourcesWithExtension: "bin", subdirectory: nil)!
-    let tabURLSBinarySort = tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
+    _ = tabURLSBinary.sorted(by: {$0.relativeString < $1.relativeString})
     
     
 //    OADManager = MBTOADManager((tabURLSBinarySort[2].relativeString.components(separatedBy: ".").first!))
@@ -1330,7 +1329,7 @@ extension MBTBluetoothManager {
   @objc func audioChangedRoute(_ notif:Notification) {
     // Get the Reason why the audio route change
     guard let userInfo = notif.userInfo,
-      let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt
+      let _ = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt
 //      ,let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue)
       else {
         return
