@@ -744,13 +744,13 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Sources",
-					/Users/laurent/Clones/SDK.iOS/Sources/signalProcessingSDK/lib,
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(OBJROOT)/UninstalledProducts/include",
-					"/Users/laurent/Clones/SDK.iOS/Sources/signalProcessingSDK/include/**",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/include/**",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -794,13 +794,13 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Sources",
-					/Users/laurent/Clones/SDK.iOS/Sources/signalProcessingSDK/lib,
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(OBJROOT)/UninstalledProducts/include",
-					"/Users/laurent/Clones/SDK.iOS/Sources/signalProcessingSDK/include/**",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/include/**",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
