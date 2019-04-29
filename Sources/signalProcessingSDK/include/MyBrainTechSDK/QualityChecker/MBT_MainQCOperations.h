@@ -14,6 +14,7 @@
 
 #include <sp-global.h>
 
+#ifndef SP_FLOAT_OR_NOT_LEGACY
 /**
  * @brief Check wether a signal contains only NaN values
  * 
@@ -22,6 +23,7 @@
  * @return false 
  */
 bool hasOnlyNan(SP_FloatVector const& input);
+#endif
 
 /**
  * @brief Check wether a signal contains only NaN values
