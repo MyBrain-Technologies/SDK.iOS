@@ -9,32 +9,28 @@
 #import "MBTSignalProcessingBridge.h"
 #import "MBTBridgeConstants.h"
 
-#include "MBT_Matrix.h" // use of the class MBT_Matrix
-#include "MBT_MainQC.h" // use of the class MBT_Matrix
-#include "MBT_ReadInputOrWriteOutput.h" // use of the class MBT_ReadInputOrWriteOutput
+#include <DataManipulation/MBT_Matrix.h>
+#include <DataManipulation/MBT_ReadInputOrWriteOutput.h>
+#include <Transformations/MBT_PWelchComputer.h>
+#include <Algebra/MBT_Operations.h>
+#include <Algebra/MBT_FindClosest.h>
+#include <PreProcessing/MBT_BandPass_fftw3.h>
+#include <PreProcessing/MBT_PreProcessing.h>
 
-#include "MBT_PWelchComputer.h" // use of the class MBT_PWelchComputer
-#include "MBT_Operations.h"
-
-#include "MBT_BandPass_fftw3.h"
-
-#include "MBT_FindClosest.h"
-#include "MBT_ComputeCalibration.h"
-#include "MBT_ComputeRelaxIndex.h"
-#include "MBT_SmoothRelaxIndex.h"
-#include "MBT_NormalizeRelaxIndex.h"
-#include "MBT_RelaxIndexToVolum.h"
-#include "MBT_PreProcessing.h"
-#include "MBT_ComputeIAFCalibration.h"
-#include "MBT_ComputeRMS.h"
-#include "MBT_ComputeIAF.h"
-
-#include "MBT_SNR_Stats.h"
+#include <NF_Melomind/MBT_ComputeCalibration.h>
+#include <NF_Melomind/MBT_ComputeRelaxIndex.h>
+#include <NF_Melomind/MBT_SmoothRelaxIndex.h>
+#include <NF_Melomind/MBT_NormalizeRelaxIndex.h>
+#include <NF_Melomind/MBT_RelaxIndexToVolum.h>
+#include <NF_Melomind/MBT_ComputeIAFCalibration.h>
+#include <NF_Melomind/MBT_ComputeRMS.h>
+#include <NF_Melomind/MBT_ComputeIAF.h>
+#include <SNR/MBT_SNR_Stats.h>
+#include <QualityChecker/MBT_MainQC.h>
 
 #include "version.h"
 
 #define SMOOTHINGDURATION 2
-
 
 /// Signal Processing Bridge helper methods,
 /// to help converting format between C++ and Obj-C++.

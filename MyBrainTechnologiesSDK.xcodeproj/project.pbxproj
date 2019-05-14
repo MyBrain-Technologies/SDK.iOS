@@ -23,91 +23,37 @@
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
 		2B6B5DAF20513A1D00928F1F /* SwiftyJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */; };
 		2B6B5DB020513A1D00928F1F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */; };
-		2B6B5DBD20513B0D00928F1F /* libfftw3_arm64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6B5DB320513AFD00928F1F /* libfftw3_arm64.a */; };
-		2B6B5DBE20513B1F00928F1F /* libfftw3_armv7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6B5DB520513AFD00928F1F /* libfftw3_armv7.a */; };
-		2B6B5DBF20513B2C00928F1F /* libfftw3_armv7s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6B5DB720513AFD00928F1F /* libfftw3_armv7s.a */; };
-		2B6B5DC020513B4400928F1F /* libfftw3_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6B5DBA20513AFD00928F1F /* libfftw3_i386.a */; };
-		2B6B5DC120513B5700928F1F /* libfftw3_x86_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6B5DBC20513AFD00928F1F /* libfftw3_x86_64.a */; };
-		2BAF7EEC208F63FB007D9EAB /* MBT_FindClosest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7E86208F63F9007D9EAB /* MBT_FindClosest.cpp */; };
-		2BAF7EED208F63FB007D9EAB /* MBT_Interpolation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7E87208F63F9007D9EAB /* MBT_Interpolation.cpp */; };
-		2BAF7EEE208F63FB007D9EAB /* MBT_kmeans.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7E88208F63F9007D9EAB /* MBT_kmeans.cpp */; };
-		2BAF7EEF208F63FB007D9EAB /* MBT_Operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7E89208F63F9007D9EAB /* MBT_Operations.cpp */; };
-		2BAF7EF0208F63FB007D9EAB /* MBT_FindClosest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7E8B208F63F9007D9EAB /* MBT_FindClosest.h */; };
-		2BAF7EF1208F63FB007D9EAB /* MBT_Interpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7E8C208F63F9007D9EAB /* MBT_Interpolation.h */; };
-		2BAF7EF2208F63FB007D9EAB /* MBT_kmeans.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7E8D208F63F9007D9EAB /* MBT_kmeans.h */; };
-		2BAF7EF3208F63FB007D9EAB /* MBT_Operations.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7E8E208F63F9007D9EAB /* MBT_Operations.h */; };
-		2BAF7EF4208F63FB007D9EAB /* MBT_Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7E91208F63F9007D9EAB /* MBT_Matrix.cpp */; };
-		2BAF7EF6208F63FB007D9EAB /* MBT_Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7E94208F63F9007D9EAB /* MBT_Matrix.h */; };
-		2BAF7EF7208F63FB007D9EAB /* MBT_ReadInputOrWriteOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7E95208F63F9007D9EAB /* MBT_ReadInputOrWriteOutput.h */; };
-		2BAF7EFC208F63FB007D9EAB /* MBT_BandPass_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7E9C208F63F9007D9EAB /* MBT_BandPass_fftw3.cpp */; };
-		2BAF7EFD208F63FB007D9EAB /* MBT_PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7E9D208F63F9007D9EAB /* MBT_PreProcessing.cpp */; };
-		2BAF7EFE208F63FB007D9EAB /* Biquad.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7E9F208F63F9007D9EAB /* Biquad.h */; };
-		2BAF7EFF208F63FB007D9EAB /* MBT_BandPass.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EA0208F63F9007D9EAB /* MBT_BandPass.h */; };
-		2BAF7F00208F63FB007D9EAB /* MBT_BandPass_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EA1208F63F9007D9EAB /* MBT_BandPass_fftw3.h */; };
-		2BAF7F01208F63FB007D9EAB /* MBT_PreProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EA2208F63F9007D9EAB /* MBT_PreProcessing.h */; };
-		2BAF7F04208F63FB007D9EAB /* MBT_FindPeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EA7208F63F9007D9EAB /* MBT_FindPeak.cpp */; };
-		2BAF7F06208F63FB007D9EAB /* MBT_Fourier_fftw3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EA9208F63F9007D9EAB /* MBT_Fourier_fftw3.cpp */; };
-		2BAF7F07208F63FB007D9EAB /* MBT_PWelchComputer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EAA208F63F9007D9EAB /* MBT_PWelchComputer.cpp */; };
-		2BAF7F08208F63FB007D9EAB /* MBT_FFTReal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EAC208F63F9007D9EAB /* MBT_FFTReal.h */; };
-		2BAF7F09208F63FB007D9EAB /* MBT_FindPeak.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EAD208F63F9007D9EAB /* MBT_FindPeak.h */; };
-		2BAF7F0A208F63FB007D9EAB /* MBT_Fourier.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EAE208F63F9007D9EAB /* MBT_Fourier.h */; };
-		2BAF7F0B208F63FB007D9EAB /* MBT_Fourier_fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EAF208F63F9007D9EAB /* MBT_Fourier_fftw3.h */; };
-		2BAF7F0C208F63FB007D9EAB /* MBT_PWelchComputer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EB0208F63F9007D9EAB /* MBT_PWelchComputer.h */; };
-		2BAF7F0D208F63FB007D9EAB /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EB1208F63F9007D9EAB /* version.h */; };
-		2BAF7F0E208F63FB007D9EAB /* MBT_MainQC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EB4208F63F9007D9EAB /* MBT_MainQC.cpp */; };
-		2BAF7F1C208F63FB007D9EAB /* MBT_MainQC.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EC4208F63F9007D9EAB /* MBT_MainQC.h */; };
-		2BAF7F1E208F63FB007D9EAB /* MBT_SNR_Stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EC9208F63FA007D9EAB /* MBT_SNR_Stats.cpp */; };
-		2BAF7F1F208F63FB007D9EAB /* MBT_SNR_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7ECB208F63FA007D9EAB /* MBT_SNR_Stats.h */; };
-		2BAF7F25208F63FB007D9EAB /* MBT_Contour.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7ED4208F63FA007D9EAB /* MBT_Contour.h */; };
-		2BAF7F26208F63FB007D9EAB /* MBT_FinalClustering.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7ED5208F63FA007D9EAB /* MBT_FinalClustering.h */; };
-		2BAF7F27208F63FB007D9EAB /* MBT_TF_map.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7ED6208F63FA007D9EAB /* MBT_TF_map.h */; };
-		2BAF7F28208F63FB007D9EAB /* MBT_TF_Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7ED7208F63FA007D9EAB /* MBT_TF_Stats.h */; };
-		2BAF7F2A208F63FB007D9EAB /* MBT_ComputeCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EDB208F63FA007D9EAB /* MBT_ComputeCalibration.cpp */; };
-		2BAF7F2B208F63FB007D9EAB /* MBT_ComputeNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EDC208F63FA007D9EAB /* MBT_ComputeNoise.cpp */; };
-		2BAF7F2C208F63FB007D9EAB /* MBT_ComputeRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EDD208F63FA007D9EAB /* MBT_ComputeRelaxIndex.cpp */; };
-		2BAF7F2E208F63FB007D9EAB /* MBT_NormalizeRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EDF208F63FA007D9EAB /* MBT_NormalizeRelaxIndex.cpp */; };
-		2BAF7F2F208F63FB007D9EAB /* MBT_RelaxIndexToVolum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EE0208F63FA007D9EAB /* MBT_RelaxIndexToVolum.cpp */; };
-		2BAF7F30208F63FB007D9EAB /* MBT_SmoothRelaxIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BAF7EE1208F63FA007D9EAB /* MBT_SmoothRelaxIndex.cpp */; };
-		2BAF7F31208F63FB007D9EAB /* MBT_ComputeCalibration.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE3208F63FA007D9EAB /* MBT_ComputeCalibration.h */; };
-		2BAF7F32208F63FB007D9EAB /* MBT_ComputeNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE4208F63FA007D9EAB /* MBT_ComputeNoise.h */; };
-		2BAF7F33208F63FB007D9EAB /* MBT_ComputeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE5208F63FA007D9EAB /* MBT_ComputeRelaxIndex.h */; };
-		2BAF7F35208F63FB007D9EAB /* MBT_NormalizeRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE7208F63FA007D9EAB /* MBT_NormalizeRelaxIndex.h */; };
-		2BAF7F36208F63FB007D9EAB /* MBT_RelaxIndexToVolum.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE8208F63FA007D9EAB /* MBT_RelaxIndexToVolum.h */; };
-		2BAF7F37208F63FB007D9EAB /* MBT_SmoothRelaxIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EE9208F63FA007D9EAB /* MBT_SmoothRelaxIndex.h */; };
-		2BAF7F38208F63FB007D9EAB /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BAF7EEA208F63FA007D9EAB /* version.h */; };
-		2BC4F64F208F6F5E00F0B366 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */; };
 		2BD1014521A95053002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
 		2BD1014621A9510D002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
-		2BD94E6421C7E0C200A567EE /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6221C7E0C100A567EE /* Realm.framework */; };
-		2BD94E6521C7E0C200A567EE /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6321C7E0C200A567EE /* RealmSwift.framework */; };
 		2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3549BB511DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3549BB521DA38A2100C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3549BB531DA38A2200C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3549BB751DA38AEF00C63030 /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB481DA389F300C63030 /* MyBrainTechnologiesSDK.framework */; };
-		3549BB841DA38B0000C63030 /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB3B1DA389E800C63030 /* MyBrainTechnologiesSDK.framework */; };
 		3549BB8B1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
-		3549BB8C1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
-		3549BB8D1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
+		4D6B3BA92264D25800B9A29F /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9C2264CCE800B9A29F /* libAlgebra.a */; };
+		4D6B3BAA2264D25800B9A29F /* libDataManipulation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9D2264CCE800B9A29F /* libDataManipulation.a */; };
+		4D6B3BAB2264D25800B9A29F /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9F2264CCE900B9A29F /* libfftw3.a */; };
+		4D6B3BAC2264D25800B9A29F /* libNF_Melomind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B972264CCE800B9A29F /* libNF_Melomind.a */; };
+		4D6B3BAD2264D25800B9A29F /* libPreProcessing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B982264CCE800B9A29F /* libPreProcessing.a */; };
+		4D6B3BAE2264D25800B9A29F /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9A2264CCE800B9A29F /* libQualityChecker.a */; };
+		4D6B3BAF2264D25800B9A29F /* libSNR.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B992264CCE800B9A29F /* libSNR.a */; };
+		4D6B3BB02264D25800B9A29F /* libTimeFrequency.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9B2264CCE800B9A29F /* libTimeFrequency.a */; };
+		4D6B3BB12264D25800B9A29F /* libTransformations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9E2264CCE800B9A29F /* libTransformations.a */; };
+		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
+		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
+		4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */; };
+		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */; };
+		4DD985AC2265D50D00E788F2 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985AB2265D50D00E788F2 /* version.h */; };
 		B51B94982239481000FD1F12 /* MyBrainTechnologiesSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		B53717E521F9C01D001F85F8 /* mm-ota-1_7_1.bin in Resources */ = {isa = PBXBuildFile; fileRef = B53717E421F9C01C001F85F8 /* mm-ota-1_7_1.bin */; };
 		B5378D0921F8B8A4007F12DA /* CSVConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5378D0821F8B8A4007F12DA /* CSVConverter.swift */; };
 		B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */; };
 		B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */ = {isa = PBXBuildFile; fileRef = B53A0976220490CB00DAD321 /* qrcodeSerial.csv */; };
-		B53A097B220492BE00DAD321 /* MBT_ComputeRMS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B53A0978220492BD00DAD321 /* MBT_ComputeRMS.cpp */; };
-		B53A097C220492BE00DAD321 /* MBT_ComputeIAF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B53A0979220492BD00DAD321 /* MBT_ComputeIAF.cpp */; };
-		B53A097D220492BE00DAD321 /* MBT_ComputeIAFCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B53A097A220492BD00DAD321 /* MBT_ComputeIAFCalibration.cpp */; };
-		B53A09812204942700DAD321 /* MBT_ComputeRMS.h in Headers */ = {isa = PBXBuildFile; fileRef = B53A097E2204942600DAD321 /* MBT_ComputeRMS.h */; };
-		B53A09822204942700DAD321 /* MBT_ComputeIAFCalibration.h in Headers */ = {isa = PBXBuildFile; fileRef = B53A097F2204942600DAD321 /* MBT_ComputeIAFCalibration.h */; };
-		B53A09832204942700DAD321 /* MBT_ComputeIAF.h in Headers */ = {isa = PBXBuildFile; fileRef = B53A09802204942700DAD321 /* MBT_ComputeIAF.h */; };
 		B551D3A6223950020086B90D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		B58CD104223934A50006EDEA /* MyBrainTechnologiesSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2D55120F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests.swift */; };
 		B58CD108223941850006EDEA /* FormatedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58CD107223941850006EDEA /* FormatedVersionTests.swift */; };
 		B5ADB75D22381B83009150AD /* MBTRelaxIndexAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ADB75C22381B83009150AD /* MBTRelaxIndexAlgorithm.swift */; };
-		F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F40E04181F6C26F50055E296 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40E04171F6C26F50055E296 /* MBTSignalProcessingBridge.mm */; };
 		F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
@@ -117,26 +63,8 @@
 		F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */; };
 		F458373D1EC5C21000C5D596 /* MBTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45837381EC5C21000C5D596 /* MBTClient.swift */; };
 		F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */; };
-		F4A0BD801F73FFBC00488038 /* fftw3.h in Headers */ = {isa = PBXBuildFile; fileRef = F40E04061F6C17C40055E296 /* fftw3.h */; };
 		F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		3549BB761DA38AEF00C63030 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3549BB471DA389F300C63030;
-			remoteInfo = "MyBrainTechnologiesSDK-tvOS";
-		};
-		3549BB851DA38B0000C63030 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3549BB3A1DA389E800C63030;
-			remoteInfo = "MyBrainTechnologiesSDK-macOS";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2B439B7720A1E663005C12A6 /* Copy Files */ = {
@@ -178,93 +106,10 @@
 		2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTRecordInfo.swift; path = Models/MBTRecordInfo.swift; sourceTree = "<group>"; };
 		2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
 		2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		2B6B5DB320513AFD00928F1F /* libfftw3_arm64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_arm64.a; sourceTree = "<group>"; };
-		2B6B5DB520513AFD00928F1F /* libfftw3_armv7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_armv7.a; sourceTree = "<group>"; };
-		2B6B5DB720513AFD00928F1F /* libfftw3_armv7s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_armv7s.a; sourceTree = "<group>"; };
-		2B6B5DB820513AFD00928F1F /* fftw3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fftw3.h; sourceTree = "<group>"; };
-		2B6B5DBA20513AFD00928F1F /* libfftw3_i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_i386.a; sourceTree = "<group>"; };
-		2B6B5DBC20513AFD00928F1F /* libfftw3_x86_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3_x86_64.a; sourceTree = "<group>"; };
-		2BAF7E85208F63F9007D9EAB /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2BAF7E86208F63F9007D9EAB /* MBT_FindClosest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindClosest.cpp; sourceTree = "<group>"; };
-		2BAF7E87208F63F9007D9EAB /* MBT_Interpolation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Interpolation.cpp; sourceTree = "<group>"; };
-		2BAF7E88208F63F9007D9EAB /* MBT_kmeans.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_kmeans.cpp; sourceTree = "<group>"; };
-		2BAF7E89208F63F9007D9EAB /* MBT_Operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Operations.cpp; sourceTree = "<group>"; };
-		2BAF7E8B208F63F9007D9EAB /* MBT_FindClosest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindClosest.h; sourceTree = "<group>"; };
-		2BAF7E8C208F63F9007D9EAB /* MBT_Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Interpolation.h; sourceTree = "<group>"; };
-		2BAF7E8D208F63F9007D9EAB /* MBT_kmeans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_kmeans.h; sourceTree = "<group>"; };
-		2BAF7E8E208F63F9007D9EAB /* MBT_Operations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Operations.h; sourceTree = "<group>"; };
-		2BAF7E91208F63F9007D9EAB /* MBT_Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Matrix.cpp; sourceTree = "<group>"; };
-		2BAF7E92208F63F9007D9EAB /* MBT_ReadInputOrWriteOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ReadInputOrWriteOutput.cpp; sourceTree = "<group>"; };
-		2BAF7E94208F63F9007D9EAB /* MBT_Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Matrix.h; sourceTree = "<group>"; };
-		2BAF7E95208F63F9007D9EAB /* MBT_ReadInputOrWriteOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ReadInputOrWriteOutput.h; sourceTree = "<group>"; };
-		2BAF7E98208F63F9007D9EAB /* Biquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Biquad.cpp; sourceTree = "<group>"; };
-		2BAF7E99208F63F9007D9EAB /* MBT_BandPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass.cpp; sourceTree = "<group>"; };
-		2BAF7E9A208F63F9007D9EAB /* MBT_BandPass_Arma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma.cpp; sourceTree = "<group>"; };
-		2BAF7E9B208F63F9007D9EAB /* MBT_BandPass_Arma_double.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_Arma_double.cpp; sourceTree = "<group>"; };
-		2BAF7E9C208F63F9007D9EAB /* MBT_BandPass_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_BandPass_fftw3.cpp; sourceTree = "<group>"; };
-		2BAF7E9D208F63F9007D9EAB /* MBT_PreProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PreProcessing.cpp; sourceTree = "<group>"; };
-		2BAF7E9F208F63F9007D9EAB /* Biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Biquad.h; sourceTree = "<group>"; };
-		2BAF7EA0208F63F9007D9EAB /* MBT_BandPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass.h; sourceTree = "<group>"; };
-		2BAF7EA1208F63F9007D9EAB /* MBT_BandPass_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_BandPass_fftw3.h; sourceTree = "<group>"; };
-		2BAF7EA2208F63F9007D9EAB /* MBT_PreProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PreProcessing.h; sourceTree = "<group>"; };
-		2BAF7EA5208F63F9007D9EAB /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2BAF7EA6208F63F9007D9EAB /* MBT_FFTReal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FFTReal.cpp; sourceTree = "<group>"; };
-		2BAF7EA7208F63F9007D9EAB /* MBT_FindPeak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FindPeak.cpp; sourceTree = "<group>"; };
-		2BAF7EA8208F63F9007D9EAB /* MBT_Fourier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier.cpp; sourceTree = "<group>"; };
-		2BAF7EA9208F63F9007D9EAB /* MBT_Fourier_fftw3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Fourier_fftw3.cpp; sourceTree = "<group>"; };
-		2BAF7EAA208F63F9007D9EAB /* MBT_PWelchComputer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_PWelchComputer.cpp; sourceTree = "<group>"; };
-		2BAF7EAC208F63F9007D9EAB /* MBT_FFTReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FFTReal.h; sourceTree = "<group>"; };
-		2BAF7EAD208F63F9007D9EAB /* MBT_FindPeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FindPeak.h; sourceTree = "<group>"; };
-		2BAF7EAE208F63F9007D9EAB /* MBT_Fourier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier.h; sourceTree = "<group>"; };
-		2BAF7EAF208F63F9007D9EAB /* MBT_Fourier_fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Fourier_fftw3.h; sourceTree = "<group>"; };
-		2BAF7EB0208F63F9007D9EAB /* MBT_PWelchComputer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_PWelchComputer.h; sourceTree = "<group>"; };
-		2BAF7EB1208F63F9007D9EAB /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		2BAF7EB4208F63F9007D9EAB /* MBT_MainQC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_MainQC.cpp; sourceTree = "<group>"; };
-		2BAF7EB5208F63F9007D9EAB /* Mymain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mymain.cpp; sourceTree = "<group>"; };
-		2BAF7EB7208F63F9007D9EAB /* cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EB8208F63F9007D9EAB /* spectrumClean_Data570UnguidedtrainingQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spectrumClean_Data570UnguidedtrainingQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EB9208F63F9007D9EAB /* trainingClasses _Data300BadQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "trainingClasses _Data300BadQCNEW4.txt"; sourceTree = "<group>"; };
-		2BAF7EBA208F63F9007D9EAB /* trainingClasses _Data570UnguidedtrainingQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "trainingClasses _Data570UnguidedtrainingQCNEW4.txt"; sourceTree = "<group>"; };
-		2BAF7EBB208F63F9007D9EAB /* trainingFeatures_Data300BadQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures_Data300BadQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EBC208F63F9007D9EAB /* trainingFeatures_Data570UnguidedtrainingQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingFeatures_Data570UnguidedtrainingQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EBD208F63F9007D9EAB /* trainingMu_Data300BadQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingMu_Data300BadQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EBE208F63F9007D9EAB /* trainingMu_Data570UnguidedtrainingQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingMu_Data570UnguidedtrainingQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EBF208F63F9007D9EAB /* trainingSigma_Data300BadQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingSigma_Data300BadQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EC0208F63F9007D9EAB /* trainingSigma_Data570UnguidedtrainingQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingSigma_Data570UnguidedtrainingQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EC1208F63F9007D9EAB /* trainingW_Data300BadQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingW_Data300BadQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EC2208F63F9007D9EAB /* trainingW_Data570UnguidedtrainingQCNEW4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainingW_Data570UnguidedtrainingQCNEW4.txt; sourceTree = "<group>"; };
-		2BAF7EC4208F63F9007D9EAB /* MBT_MainQC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_MainQC.h; sourceTree = "<group>"; };
-		2BAF7EC8208F63FA007D9EAB /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2BAF7EC9208F63FA007D9EAB /* MBT_SNR_Stats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_SNR_Stats.cpp; sourceTree = "<group>"; };
-		2BAF7ECB208F63FA007D9EAB /* MBT_SNR_Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_SNR_Stats.h; sourceTree = "<group>"; };
-		2BAF7ECE208F63FA007D9EAB /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2BAF7ECF208F63FA007D9EAB /* MBT_Contour.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_Contour.cpp; sourceTree = "<group>"; };
-		2BAF7ED0208F63FA007D9EAB /* MBT_FinalClustering.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_FinalClustering.cpp; sourceTree = "<group>"; };
-		2BAF7ED1208F63FA007D9EAB /* MBT_TF_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_TF_map.cpp; sourceTree = "<group>"; };
-		2BAF7ED2208F63FA007D9EAB /* MBT_TF_Stats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_TF_Stats.cpp; sourceTree = "<group>"; };
-		2BAF7ED4208F63FA007D9EAB /* MBT_Contour.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_Contour.h; sourceTree = "<group>"; };
-		2BAF7ED5208F63FA007D9EAB /* MBT_FinalClustering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_FinalClustering.h; sourceTree = "<group>"; };
-		2BAF7ED6208F63FA007D9EAB /* MBT_TF_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_TF_map.h; sourceTree = "<group>"; };
-		2BAF7ED7208F63FA007D9EAB /* MBT_TF_Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_TF_Stats.h; sourceTree = "<group>"; };
-		2BAF7EDA208F63FA007D9EAB /* FinalNewMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FinalNewMain.cpp; sourceTree = "<group>"; };
-		2BAF7EDB208F63FA007D9EAB /* MBT_ComputeCalibration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeCalibration.cpp; sourceTree = "<group>"; };
-		2BAF7EDC208F63FA007D9EAB /* MBT_ComputeNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeNoise.cpp; sourceTree = "<group>"; };
-		2BAF7EDD208F63FA007D9EAB /* MBT_ComputeRelaxIndex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeRelaxIndex.cpp; sourceTree = "<group>"; };
-		2BAF7EDF208F63FA007D9EAB /* MBT_NormalizeRelaxIndex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_NormalizeRelaxIndex.cpp; sourceTree = "<group>"; };
-		2BAF7EE0208F63FA007D9EAB /* MBT_RelaxIndexToVolum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_RelaxIndexToVolum.cpp; sourceTree = "<group>"; };
-		2BAF7EE1208F63FA007D9EAB /* MBT_SmoothRelaxIndex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_SmoothRelaxIndex.cpp; sourceTree = "<group>"; };
-		2BAF7EE3208F63FA007D9EAB /* MBT_ComputeCalibration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeCalibration.h; sourceTree = "<group>"; };
-		2BAF7EE4208F63FA007D9EAB /* MBT_ComputeNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeNoise.h; sourceTree = "<group>"; };
-		2BAF7EE5208F63FA007D9EAB /* MBT_ComputeRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeRelaxIndex.h; sourceTree = "<group>"; };
-		2BAF7EE7208F63FA007D9EAB /* MBT_NormalizeRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_NormalizeRelaxIndex.h; sourceTree = "<group>"; };
-		2BAF7EE8208F63FA007D9EAB /* MBT_RelaxIndexToVolum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_RelaxIndexToVolum.h; sourceTree = "<group>"; };
-		2BAF7EE9208F63FA007D9EAB /* MBT_SmoothRelaxIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBT_SmoothRelaxIndex.h; sourceTree = "<group>"; };
-		2BAF7EEA208F63FA007D9EAB /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Utils/CPPSignalProcessing/version.h; sourceTree = "<group>"; };
 		2BC2D54620F8A2CE001CC2CE /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		2BC2D54720F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC2D55120F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
 		2BC2D55320F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MBTBridgeConstants.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.mm"; sourceTree = "<group>"; };
 		2BD1014421A95053002C3C1A /* PrettyPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrettyPrinter.swift; sourceTree = "<group>"; };
 		2BD94E6221C7E0C100A567EE /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		2BD94E6321C7E0C200A567EE /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -273,36 +118,33 @@
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3549BB2E1DA389DB00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3549BB3B1DA389E800C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3549BB481DA389F300C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB551DA38A5E00C63030 /* Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
 		3549BB571DA38A8800C63030 /* Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
 		3549BB581DA38A8800C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB611DA38ADB00C63030 /* MyBrainTechnologiesSDKTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyBrainTechnologiesSDKTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3549BB701DA38AEF00C63030 /* MyBrainTechnologiesSDKTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyBrainTechnologiesSDKTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3549BB7F1DA38B0000C63030 /* MyBrainTechnologiesSDKTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyBrainTechnologiesSDKTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKSpec.swift; sourceTree = "<group>"; };
+		4D6B3B972264CCE800B9A29F /* libNF_Melomind.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libNF_Melomind.a; path = Sources/signalProcessingSDK/lib/libNF_Melomind.a; sourceTree = "<group>"; };
+		4D6B3B982264CCE800B9A29F /* libPreProcessing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPreProcessing.a; path = Sources/signalProcessingSDK/lib/libPreProcessing.a; sourceTree = "<group>"; };
+		4D6B3B992264CCE800B9A29F /* libSNR.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSNR.a; path = Sources/signalProcessingSDK/lib/libSNR.a; sourceTree = "<group>"; };
+		4D6B3B9A2264CCE800B9A29F /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQualityChecker.a; path = Sources/signalProcessingSDK/lib/libQualityChecker.a; sourceTree = "<group>"; };
+		4D6B3B9B2264CCE800B9A29F /* libTimeFrequency.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTimeFrequency.a; path = Sources/signalProcessingSDK/lib/libTimeFrequency.a; sourceTree = "<group>"; };
+		4D6B3B9C2264CCE800B9A29F /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAlgebra.a; path = Sources/signalProcessingSDK/lib/libAlgebra.a; sourceTree = "<group>"; };
+		4D6B3B9D2264CCE800B9A29F /* libDataManipulation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDataManipulation.a; path = Sources/signalProcessingSDK/lib/libDataManipulation.a; sourceTree = "<group>"; };
+		4D6B3B9E2264CCE800B9A29F /* libTransformations.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTransformations.a; path = Sources/signalProcessingSDK/lib/libTransformations.a; sourceTree = "<group>"; };
+		4D6B3B9F2264CCE900B9A29F /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = Sources/signalProcessingSDK/lib/libfftw3.a; sourceTree = "<group>"; };
+		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTSignalProcessingBridge.mm; sourceTree = "<group>"; };
+		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
+		4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTBridgeConstants.h; sourceTree = "<group>"; };
+		4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTBridgeConstants.mm; sourceTree = "<group>"; };
+		4DD985AB2265D50D00E788F2 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		B53717E421F9C01C001F85F8 /* mm-ota-1_7_1.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_1.bin"; sourceTree = "<group>"; };
 		B5378D0821F8B8A4007F12DA /* CSVConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVConverter.swift; sourceTree = "<group>"; };
 		B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTQRCodeSerial.swift; sourceTree = "<group>"; };
 		B53A0976220490CB00DAD321 /* qrcodeSerial.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = qrcodeSerial.csv; sourceTree = "<group>"; };
-		B53A0978220492BD00DAD321 /* MBT_ComputeRMS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeRMS.cpp; sourceTree = "<group>"; };
-		B53A0979220492BD00DAD321 /* MBT_ComputeIAF.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeIAF.cpp; sourceTree = "<group>"; };
-		B53A097A220492BD00DAD321 /* MBT_ComputeIAFCalibration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MBT_ComputeIAFCalibration.cpp; sourceTree = "<group>"; };
-		B53A097E2204942600DAD321 /* MBT_ComputeRMS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeRMS.h; sourceTree = "<group>"; };
-		B53A097F2204942600DAD321 /* MBT_ComputeIAFCalibration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeIAFCalibration.h; sourceTree = "<group>"; };
-		B53A09802204942700DAD321 /* MBT_ComputeIAF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBT_ComputeIAF.h; sourceTree = "<group>"; };
 		B58CD107223941850006EDEA /* FormatedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersionTests.swift; sourceTree = "<group>"; };
 		B5ADB75C22381B83009150AD /* MBTRelaxIndexAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRelaxIndexAlgorithm.swift; sourceTree = "<group>"; };
-		F40E04011F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E04031F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E04051F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E04061F6C17C40055E296 /* fftw3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fftw3.h; sourceTree = "<group>"; };
-		F40E04081F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E040A1F6C17C40055E296 /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
-		F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBTSignalProcessingBridge.h; path = "Utils/CPPSignalProcessing/Code bridge/MBTSignalProcessingBridge.h"; sourceTree = "<group>"; };
-		F40E04171F6C26F50055E296 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MBTSignalProcessingBridge.mm; path = "Utils/CPPSignalProcessing/Code bridge/MBTSignalProcessingBridge.mm"; sourceTree = "<group>"; };
 		F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTRealmEntityManager.swift; path = Models/MBTRealmEntityManager.swift; sourceTree = "<group>"; };
 		F41A6D6D1F05588100092027 /* MBTDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTDevice.swift; path = Models/MBTDevice.swift; sourceTree = "<group>"; };
 		F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTEEGPacket.swift; path = Models/MBTEEGPacket.swift; sourceTree = "<group>"; };
@@ -312,7 +154,6 @@
 		F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothManager.swift; path = "Bluetooth Module/MBTBluetoothManager.swift"; sourceTree = "<group>"; };
 		F45837381EC5C21000C5D596 /* MBTClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTClient.swift; sourceTree = "<group>"; };
 		F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPDelegate.swift; path = "Bluetooth Module/MBTBluetoothA2DPDelegate.swift"; sourceTree = "<group>"; };
-		F49C74191F824C920033262E /* MBTBridgeConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBTBridgeConstants.h; path = "Utils/CPPSignalProcessing/Code bridge/MBTBridgeConstants.h"; sourceTree = "<group>"; };
 		F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MelomindEngineDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -322,34 +163,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */,
-				2B6B5DC120513B5700928F1F /* libfftw3_x86_64.a in Frameworks */,
-				2B6B5DC020513B4400928F1F /* libfftw3_i386.a in Frameworks */,
-				2B6B5DBF20513B2C00928F1F /* libfftw3_armv7s.a in Frameworks */,
-				2BD94E6421C7E0C200A567EE /* Realm.framework in Frameworks */,
-				2B6B5DBE20513B1F00928F1F /* libfftw3_armv7.a in Frameworks */,
-				2BD94E6521C7E0C200A567EE /* RealmSwift.framework in Frameworks */,
-				2B6B5DBD20513B0D00928F1F /* libfftw3_arm64.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB2A1DA389DB00C63030 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB371DA389E800C63030 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB441DA389F300C63030 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */,
+				4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */,
+				4D6B3BA92264D25800B9A29F /* libAlgebra.a in Frameworks */,
+				4D6B3BAA2264D25800B9A29F /* libDataManipulation.a in Frameworks */,
+				4D6B3BAB2264D25800B9A29F /* libfftw3.a in Frameworks */,
+				4D6B3BAC2264D25800B9A29F /* libNF_Melomind.a in Frameworks */,
+				4D6B3BAD2264D25800B9A29F /* libPreProcessing.a in Frameworks */,
+				4D6B3BAE2264D25800B9A29F /* libQualityChecker.a in Frameworks */,
+				4D6B3BAF2264D25800B9A29F /* libSNR.a in Frameworks */,
+				4D6B3BB02264D25800B9A29F /* libTimeFrequency.a in Frameworks */,
+				4D6B3BB12264D25800B9A29F /* libTransformations.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,22 +182,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B551D3A6223950020086B90D /* Alamofire.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB6D1DA38AEF00C63030 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3549BB751DA38AEF00C63030 /* MyBrainTechnologiesSDK.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB7C1DA38B0000C63030 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3549BB841DA38B0000C63030 /* MyBrainTechnologiesSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,357 +236,6 @@
 			path = Utils/SwiftyJSON;
 			sourceTree = "<group>";
 		};
-		2B6B5DB120513AFD00928F1F /* fftw3 */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DB220513AFD00928F1F /* arm64 */,
-				2B6B5DB420513AFD00928F1F /* armv7 */,
-				2B6B5DB620513AFD00928F1F /* armv7s */,
-				2B6B5DB820513AFD00928F1F /* fftw3.h */,
-				2B6B5DB920513AFD00928F1F /* i386 */,
-				2B6B5DBB20513AFD00928F1F /* x86_64 */,
-			);
-			name = fftw3;
-			path = Sources/Utils/fftw3;
-			sourceTree = "<group>";
-		};
-		2B6B5DB220513AFD00928F1F /* arm64 */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DB320513AFD00928F1F /* libfftw3_arm64.a */,
-			);
-			path = arm64;
-			sourceTree = "<group>";
-		};
-		2B6B5DB420513AFD00928F1F /* armv7 */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DB520513AFD00928F1F /* libfftw3_armv7.a */,
-			);
-			path = armv7;
-			sourceTree = "<group>";
-		};
-		2B6B5DB620513AFD00928F1F /* armv7s */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DB720513AFD00928F1F /* libfftw3_armv7s.a */,
-			);
-			path = armv7s;
-			sourceTree = "<group>";
-		};
-		2B6B5DB920513AFD00928F1F /* i386 */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DBA20513AFD00928F1F /* libfftw3_i386.a */,
-			);
-			path = i386;
-			sourceTree = "<group>";
-		};
-		2B6B5DBB20513AFD00928F1F /* x86_64 */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DBC20513AFD00928F1F /* libfftw3_x86_64.a */,
-			);
-			path = x86_64;
-			sourceTree = "<group>";
-		};
-		2BAF7E82208F63F9007D9EAB /* SignalProcessing.Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E83208F63F9007D9EAB /* Algebra */,
-				2BAF7E8F208F63F9007D9EAB /* DataManipulation */,
-				2BAF7E96208F63F9007D9EAB /* PreProcessing */,
-				2BAF7EA3208F63F9007D9EAB /* Transformations */,
-				2BAF7EB1208F63F9007D9EAB /* version.h */,
-			);
-			name = SignalProcessing.Cpp;
-			path = Utils/CPPSignalProcessing/SignalProcessing.Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7E83208F63F9007D9EAB /* Algebra */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E84208F63F9007D9EAB /* Cpp */,
-				2BAF7E8A208F63F9007D9EAB /* Headers */,
-			);
-			path = Algebra;
-			sourceTree = "<group>";
-		};
-		2BAF7E84208F63F9007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E85208F63F9007D9EAB /* main.cpp */,
-				2BAF7E86208F63F9007D9EAB /* MBT_FindClosest.cpp */,
-				2BAF7E87208F63F9007D9EAB /* MBT_Interpolation.cpp */,
-				2BAF7E88208F63F9007D9EAB /* MBT_kmeans.cpp */,
-				2BAF7E89208F63F9007D9EAB /* MBT_Operations.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7E8A208F63F9007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E8B208F63F9007D9EAB /* MBT_FindClosest.h */,
-				2BAF7E8C208F63F9007D9EAB /* MBT_Interpolation.h */,
-				2BAF7E8D208F63F9007D9EAB /* MBT_kmeans.h */,
-				2BAF7E8E208F63F9007D9EAB /* MBT_Operations.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		2BAF7E8F208F63F9007D9EAB /* DataManipulation */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E90208F63F9007D9EAB /* Cpp */,
-				2BAF7E93208F63F9007D9EAB /* Headers */,
-			);
-			path = DataManipulation;
-			sourceTree = "<group>";
-		};
-		2BAF7E90208F63F9007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E91208F63F9007D9EAB /* MBT_Matrix.cpp */,
-				2BAF7E92208F63F9007D9EAB /* MBT_ReadInputOrWriteOutput.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7E93208F63F9007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E94208F63F9007D9EAB /* MBT_Matrix.h */,
-				2BAF7E95208F63F9007D9EAB /* MBT_ReadInputOrWriteOutput.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		2BAF7E96208F63F9007D9EAB /* PreProcessing */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E97208F63F9007D9EAB /* Cpp */,
-				2BAF7E9E208F63F9007D9EAB /* Headers */,
-			);
-			path = PreProcessing;
-			sourceTree = "<group>";
-		};
-		2BAF7E97208F63F9007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E98208F63F9007D9EAB /* Biquad.cpp */,
-				2BAF7E99208F63F9007D9EAB /* MBT_BandPass.cpp */,
-				2BAF7E9A208F63F9007D9EAB /* MBT_BandPass_Arma.cpp */,
-				2BAF7E9B208F63F9007D9EAB /* MBT_BandPass_Arma_double.cpp */,
-				2BAF7E9C208F63F9007D9EAB /* MBT_BandPass_fftw3.cpp */,
-				2BAF7E9D208F63F9007D9EAB /* MBT_PreProcessing.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7E9E208F63F9007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7E9F208F63F9007D9EAB /* Biquad.h */,
-				2BAF7EA0208F63F9007D9EAB /* MBT_BandPass.h */,
-				2BAF7EA1208F63F9007D9EAB /* MBT_BandPass_fftw3.h */,
-				2BAF7EA2208F63F9007D9EAB /* MBT_PreProcessing.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		2BAF7EA3208F63F9007D9EAB /* Transformations */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EA4208F63F9007D9EAB /* Cpp */,
-				2BAF7EAB208F63F9007D9EAB /* Headers */,
-			);
-			path = Transformations;
-			sourceTree = "<group>";
-		};
-		2BAF7EA4208F63F9007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EA5208F63F9007D9EAB /* main.cpp */,
-				2BAF7EA6208F63F9007D9EAB /* MBT_FFTReal.cpp */,
-				2BAF7EA7208F63F9007D9EAB /* MBT_FindPeak.cpp */,
-				2BAF7EA8208F63F9007D9EAB /* MBT_Fourier.cpp */,
-				2BAF7EA9208F63F9007D9EAB /* MBT_Fourier_fftw3.cpp */,
-				2BAF7EAA208F63F9007D9EAB /* MBT_PWelchComputer.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7EAB208F63F9007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EAC208F63F9007D9EAB /* MBT_FFTReal.h */,
-				2BAF7EAD208F63F9007D9EAB /* MBT_FindPeak.h */,
-				2BAF7EAE208F63F9007D9EAB /* MBT_Fourier.h */,
-				2BAF7EAF208F63F9007D9EAB /* MBT_Fourier_fftw3.h */,
-				2BAF7EB0208F63F9007D9EAB /* MBT_PWelchComputer.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		2BAF7EB2208F63F9007D9EAB /* QualityChecker */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EB3208F63F9007D9EAB /* Cpp */,
-				2BAF7EB6208F63F9007D9EAB /* FilesForTheRelease */,
-				2BAF7EC3208F63F9007D9EAB /* Headers */,
-			);
-			name = QualityChecker;
-			path = Utils/CPPSignalProcessing/QualityChecker;
-			sourceTree = "<group>";
-		};
-		2BAF7EB3208F63F9007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EB4208F63F9007D9EAB /* MBT_MainQC.cpp */,
-				2BAF7EB5208F63F9007D9EAB /* Mymain.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7EB6208F63F9007D9EAB /* FilesForTheRelease */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EB7208F63F9007D9EAB /* cleanItakuraDistance_Data570UnguidedtrainingQCNEW4.txt */,
-				2BAF7EB8208F63F9007D9EAB /* spectrumClean_Data570UnguidedtrainingQCNEW4.txt */,
-				2BAF7EB9208F63F9007D9EAB /* trainingClasses _Data300BadQCNEW4.txt */,
-				2BAF7EBA208F63F9007D9EAB /* trainingClasses _Data570UnguidedtrainingQCNEW4.txt */,
-				2BAF7EBB208F63F9007D9EAB /* trainingFeatures_Data300BadQCNEW4.txt */,
-				2BAF7EBC208F63F9007D9EAB /* trainingFeatures_Data570UnguidedtrainingQCNEW4.txt */,
-				2BAF7EBD208F63F9007D9EAB /* trainingMu_Data300BadQCNEW4.txt */,
-				2BAF7EBE208F63F9007D9EAB /* trainingMu_Data570UnguidedtrainingQCNEW4.txt */,
-				2BAF7EBF208F63F9007D9EAB /* trainingSigma_Data300BadQCNEW4.txt */,
-				2BAF7EC0208F63F9007D9EAB /* trainingSigma_Data570UnguidedtrainingQCNEW4.txt */,
-				2BAF7EC1208F63F9007D9EAB /* trainingW_Data300BadQCNEW4.txt */,
-				2BAF7EC2208F63F9007D9EAB /* trainingW_Data570UnguidedtrainingQCNEW4.txt */,
-			);
-			path = FilesForTheRelease;
-			sourceTree = "<group>";
-		};
-		2BAF7EC3208F63F9007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EC4208F63F9007D9EAB /* MBT_MainQC.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		2BAF7EC5208F63FA007D9EAB /* Statistics */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EC6208F63FA007D9EAB /* SNR */,
-				2BAF7ECC208F63FA007D9EAB /* TimeFrequency */,
-			);
-			name = Statistics;
-			path = Utils/CPPSignalProcessing/Statistics;
-			sourceTree = "<group>";
-		};
-		2BAF7EC6208F63FA007D9EAB /* SNR */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EC7208F63FA007D9EAB /* Cpp */,
-				2BAF7ECA208F63FA007D9EAB /* Headers */,
-			);
-			path = SNR;
-			sourceTree = "<group>";
-		};
-		2BAF7EC7208F63FA007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EC8208F63FA007D9EAB /* main.cpp */,
-				2BAF7EC9208F63FA007D9EAB /* MBT_SNR_Stats.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7ECA208F63FA007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7ECB208F63FA007D9EAB /* MBT_SNR_Stats.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		2BAF7ECC208F63FA007D9EAB /* TimeFrequency */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7ECD208F63FA007D9EAB /* Cpp */,
-				2BAF7ED3208F63FA007D9EAB /* Headers */,
-			);
-			path = TimeFrequency;
-			sourceTree = "<group>";
-		};
-		2BAF7ECD208F63FA007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7ECE208F63FA007D9EAB /* main.cpp */,
-				2BAF7ECF208F63FA007D9EAB /* MBT_Contour.cpp */,
-				2BAF7ED0208F63FA007D9EAB /* MBT_FinalClustering.cpp */,
-				2BAF7ED1208F63FA007D9EAB /* MBT_TF_map.cpp */,
-				2BAF7ED2208F63FA007D9EAB /* MBT_TF_Stats.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7ED3208F63FA007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7ED4208F63FA007D9EAB /* MBT_Contour.h */,
-				2BAF7ED5208F63FA007D9EAB /* MBT_FinalClustering.h */,
-				2BAF7ED6208F63FA007D9EAB /* MBT_TF_map.h */,
-				2BAF7ED7208F63FA007D9EAB /* MBT_TF_Stats.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		2BAF7ED8208F63FA007D9EAB /* NF_Melomind */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7ED9208F63FA007D9EAB /* Cpp */,
-				2BAF7EE2208F63FA007D9EAB /* Headers */,
-			);
-			name = NF_Melomind;
-			path = Utils/CPPSignalProcessing/NF_Melomind;
-			sourceTree = "<group>";
-		};
-		2BAF7ED9208F63FA007D9EAB /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EDA208F63FA007D9EAB /* FinalNewMain.cpp */,
-				2BAF7EDB208F63FA007D9EAB /* MBT_ComputeCalibration.cpp */,
-				2BAF7EDC208F63FA007D9EAB /* MBT_ComputeNoise.cpp */,
-				2BAF7EDD208F63FA007D9EAB /* MBT_ComputeRelaxIndex.cpp */,
-				2BAF7EDF208F63FA007D9EAB /* MBT_NormalizeRelaxIndex.cpp */,
-				2BAF7EE0208F63FA007D9EAB /* MBT_RelaxIndexToVolum.cpp */,
-				2BAF7EE1208F63FA007D9EAB /* MBT_SmoothRelaxIndex.cpp */,
-				B53A0979220492BD00DAD321 /* MBT_ComputeIAF.cpp */,
-				B53A097A220492BD00DAD321 /* MBT_ComputeIAFCalibration.cpp */,
-				B53A0978220492BD00DAD321 /* MBT_ComputeRMS.cpp */,
-			);
-			path = Cpp;
-			sourceTree = "<group>";
-		};
-		2BAF7EE2208F63FA007D9EAB /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				B53A09802204942700DAD321 /* MBT_ComputeIAF.h */,
-				B53A097F2204942600DAD321 /* MBT_ComputeIAFCalibration.h */,
-				B53A097E2204942600DAD321 /* MBT_ComputeRMS.h */,
-				2BAF7EE3208F63FA007D9EAB /* MBT_ComputeCalibration.h */,
-				2BAF7EE4208F63FA007D9EAB /* MBT_ComputeNoise.h */,
-				2BAF7EE5208F63FA007D9EAB /* MBT_ComputeRelaxIndex.h */,
-				2BAF7EE7208F63FA007D9EAB /* MBT_NormalizeRelaxIndex.h */,
-				2BAF7EE8208F63FA007D9EAB /* MBT_RelaxIndexToVolum.h */,
-				2BAF7EE9208F63FA007D9EAB /* MBT_SmoothRelaxIndex.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
 		2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,12 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */,
-				3549BB2E1DA389DB00C63030 /* MyBrainTechnologiesSDK.framework */,
-				3549BB3B1DA389E800C63030 /* MyBrainTechnologiesSDK.framework */,
-				3549BB481DA389F300C63030 /* MyBrainTechnologiesSDK.framework */,
 				3549BB611DA38ADB00C63030 /* MyBrainTechnologiesSDKTests-iOS.xctest */,
-				3549BB701DA38AEF00C63030 /* MyBrainTechnologiesSDKTests-tvOS.xctest */,
-				3549BB7F1DA38B0000C63030 /* MyBrainTechnologiesSDKTests-macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -901,10 +353,41 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D73CFFD2272FF9500F6D47C /* Realm.framework */,
+				4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */,
+				4D6B3B9C2264CCE800B9A29F /* libAlgebra.a */,
+				4D6B3B9D2264CCE800B9A29F /* libDataManipulation.a */,
+				4D6B3B9F2264CCE900B9A29F /* libfftw3.a */,
+				4D6B3B9A2264CCE800B9A29F /* libQualityChecker.a */,
+				4D6B3B972264CCE800B9A29F /* libNF_Melomind.a */,
+				4D6B3B982264CCE800B9A29F /* libPreProcessing.a */,
+				4D6B3B992264CCE800B9A29F /* libSNR.a */,
+				4D6B3B9B2264CCE800B9A29F /* libTimeFrequency.a */,
+				4D6B3B9E2264CCE800B9A29F /* libTransformations.a */,
 				2BD94E6621C8CE7700A567EE /* Alamofire.framework */,
-				2B6B5DB120513AFD00928F1F /* fftw3 */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				4DD985AB2265D50D00E788F2 /* version.h */,
+				4DD985012265C8D300E788F2 /* Code bridge */,
+			);
+			name = CPPSignalProcessing;
+			path = Utils/CPPSignalProcessing;
+			sourceTree = "<group>";
+		};
+		4DD985012265C8D300E788F2 /* Code bridge */ = {
+			isa = PBXGroup;
+			children = (
+				4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */,
+				4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */,
+				4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */,
+				4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */,
+			);
+			path = "Code bridge";
 			sourceTree = "<group>";
 		};
 		B5378CFF21F8B43E007F12DA /* Ressources */ = {
@@ -923,84 +406,6 @@
 				B5ADB75C22381B83009150AD /* MBTRelaxIndexAlgorithm.swift */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		F40E00FF1F6C14110055E296 /* CPPSignalProcessing */ = {
-			isa = PBXGroup;
-			children = (
-				2BAF7EEA208F63FA007D9EAB /* version.h */,
-				2BAF7ED8208F63FA007D9EAB /* NF_Melomind */,
-				2BAF7EB2208F63F9007D9EAB /* QualityChecker */,
-				2BAF7E82208F63F9007D9EAB /* SignalProcessing.Cpp */,
-				2BAF7EC5208F63FA007D9EAB /* Statistics */,
-				F40E01001F6C176A0055E296 /* Code bridge */,
-			);
-			name = CPPSignalProcessing;
-			sourceTree = "<group>";
-		};
-		F40E01001F6C176A0055E296 /* Code bridge */ = {
-			isa = PBXGroup;
-			children = (
-				2BC4F64E208F6F5D00F0B366 /* MBTBridgeConstants.mm */,
-				F49C74191F824C920033262E /* MBTBridgeConstants.h */,
-				F40E04151F6C26BA0055E296 /* MBTSignalProcessingBridge.h */,
-				F40E04171F6C26F50055E296 /* MBTSignalProcessingBridge.mm */,
-			);
-			name = "Code bridge";
-			sourceTree = "<group>";
-		};
-		F40E03FF1F6C17C40055E296 /* fftw3 */ = {
-			isa = PBXGroup;
-			children = (
-				F40E04001F6C17C40055E296 /* arm64 */,
-				F40E04021F6C17C40055E296 /* armv7 */,
-				F40E04041F6C17C40055E296 /* armv7s */,
-				F40E04061F6C17C40055E296 /* fftw3.h */,
-				F40E04071F6C17C40055E296 /* i386 */,
-				F40E04091F6C17C40055E296 /* x86_64 */,
-			);
-			name = fftw3;
-			path = Utils/fftw3;
-			sourceTree = "<group>";
-		};
-		F40E04001F6C17C40055E296 /* arm64 */ = {
-			isa = PBXGroup;
-			children = (
-				F40E04011F6C17C40055E296 /* libfftw3.a */,
-			);
-			path = arm64;
-			sourceTree = "<group>";
-		};
-		F40E04021F6C17C40055E296 /* armv7 */ = {
-			isa = PBXGroup;
-			children = (
-				F40E04031F6C17C40055E296 /* libfftw3.a */,
-			);
-			path = armv7;
-			sourceTree = "<group>";
-		};
-		F40E04041F6C17C40055E296 /* armv7s */ = {
-			isa = PBXGroup;
-			children = (
-				F40E04051F6C17C40055E296 /* libfftw3.a */,
-			);
-			path = armv7s;
-			sourceTree = "<group>";
-		};
-		F40E04071F6C17C40055E296 /* i386 */ = {
-			isa = PBXGroup;
-			children = (
-				F40E04081F6C17C40055E296 /* libfftw3.a */,
-			);
-			path = i386;
-			sourceTree = "<group>";
-		};
-		F40E04091F6C17C40055E296 /* x86_64 */ = {
-			isa = PBXGroup;
-			children = (
-				F40E040A1F6C17C40055E296 /* libfftw3.a */,
-			);
-			path = x86_64;
 			sourceTree = "<group>";
 		};
 		F41A6D6C1F0557E700092027 /* Models */ = {
@@ -1030,12 +435,11 @@
 		F4A235FB1F0178FF00A0145A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */,
 				2BD94E6221C7E0C100A567EE /* Realm.framework */,
 				2BD94E6321C7E0C200A567EE /* RealmSwift.framework */,
 				2BD1014321A95039002C3C1A /* PrettyPrinter */,
 				2B6B5DAC20513A1C00928F1F /* SwiftyJSON */,
-				F40E03FF1F6C17C40055E296 /* fftw3 */,
-				F40E00FF1F6C14110055E296 /* CPPSignalProcessing */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1047,66 +451,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BAF7EF6208F63FB007D9EAB /* MBT_Matrix.h in Headers */,
-				2BAF7F25208F63FB007D9EAB /* MBT_Contour.h in Headers */,
-				B53A09812204942700DAD321 /* MBT_ComputeRMS.h in Headers */,
-				B53A09822204942700DAD321 /* MBT_ComputeIAFCalibration.h in Headers */,
-				B53A09832204942700DAD321 /* MBT_ComputeIAF.h in Headers */,
-				2BAF7F35208F63FB007D9EAB /* MBT_NormalizeRelaxIndex.h in Headers */,
-				2BAF7EF0208F63FB007D9EAB /* MBT_FindClosest.h in Headers */,
-				2BAF7F00208F63FB007D9EAB /* MBT_BandPass_fftw3.h in Headers */,
+				4DD985AC2265D50D00E788F2 /* version.h in Headers */,
+				4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */,
+				4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */,
 				3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
-				2BAF7F37208F63FB007D9EAB /* MBT_SmoothRelaxIndex.h in Headers */,
-				F40E04161F6C26BA0055E296 /* MBTSignalProcessingBridge.h in Headers */,
-				2BAF7F1C208F63FB007D9EAB /* MBT_MainQC.h in Headers */,
-				2BAF7F26208F63FB007D9EAB /* MBT_FinalClustering.h in Headers */,
-				2BAF7F0D208F63FB007D9EAB /* version.h in Headers */,
 				2B6B5DAF20513A1D00928F1F /* SwiftyJSON.h in Headers */,
-				2BAF7EF3208F63FB007D9EAB /* MBT_Operations.h in Headers */,
-				2BAF7F08208F63FB007D9EAB /* MBT_FFTReal.h in Headers */,
-				2BAF7F33208F63FB007D9EAB /* MBT_ComputeRelaxIndex.h in Headers */,
-				2BAF7F27208F63FB007D9EAB /* MBT_TF_map.h in Headers */,
-				2BAF7F31208F63FB007D9EAB /* MBT_ComputeCalibration.h in Headers */,
-				2BAF7F09208F63FB007D9EAB /* MBT_FindPeak.h in Headers */,
-				2BAF7EF2208F63FB007D9EAB /* MBT_kmeans.h in Headers */,
-				2BAF7F1F208F63FB007D9EAB /* MBT_SNR_Stats.h in Headers */,
-				2BAF7F38208F63FB007D9EAB /* version.h in Headers */,
-				2BAF7F32208F63FB007D9EAB /* MBT_ComputeNoise.h in Headers */,
-				2BAF7EFE208F63FB007D9EAB /* Biquad.h in Headers */,
-				F4A0BD801F73FFBC00488038 /* fftw3.h in Headers */,
-				2BAF7F0A208F63FB007D9EAB /* MBT_Fourier.h in Headers */,
-				2BAF7EF1208F63FB007D9EAB /* MBT_Interpolation.h in Headers */,
-				2BAF7F36208F63FB007D9EAB /* MBT_RelaxIndexToVolum.h in Headers */,
-				2BAF7F0C208F63FB007D9EAB /* MBT_PWelchComputer.h in Headers */,
-				2BAF7EFF208F63FB007D9EAB /* MBT_BandPass.h in Headers */,
-				2BAF7F28208F63FB007D9EAB /* MBT_TF_Stats.h in Headers */,
-				2BAF7EF7208F63FB007D9EAB /* MBT_ReadInputOrWriteOutput.h in Headers */,
-				2BAF7F0B208F63FB007D9EAB /* MBT_Fourier_fftw3.h in Headers */,
-				2BAF7F01208F63FB007D9EAB /* MBT_PreProcessing.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB2B1DA389DB00C63030 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3549BB521DA38A2100C63030 /* MyBrainTechnologiesSDK.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB381DA389E800C63030 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3549BB531DA38A2200C63030 /* MyBrainTechnologiesSDK.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB451DA389F300C63030 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3549BB511DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1132,60 +481,6 @@
 			productReference = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		3549BB2D1DA389DB00C63030 /* MyBrainTechnologiesSDK-watchOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3549BB331DA389DB00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-watchOS" */;
-			buildPhases = (
-				3549BB291DA389DB00C63030 /* Sources */,
-				3549BB2A1DA389DB00C63030 /* Frameworks */,
-				3549BB2B1DA389DB00C63030 /* Headers */,
-				3549BB2C1DA389DB00C63030 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MyBrainTechnologiesSDK-watchOS";
-			productName = "MyBrainTechnologiesSDK-watchOS";
-			productReference = 3549BB2E1DA389DB00C63030 /* MyBrainTechnologiesSDK.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		3549BB3A1DA389E800C63030 /* MyBrainTechnologiesSDK-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3549BB401DA389E800C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-macOS" */;
-			buildPhases = (
-				3549BB361DA389E800C63030 /* Sources */,
-				3549BB371DA389E800C63030 /* Frameworks */,
-				3549BB381DA389E800C63030 /* Headers */,
-				3549BB391DA389E800C63030 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MyBrainTechnologiesSDK-macOS";
-			productName = "MyBrainTechnologiesSDK-macOS";
-			productReference = 3549BB3B1DA389E800C63030 /* MyBrainTechnologiesSDK.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		3549BB471DA389F300C63030 /* MyBrainTechnologiesSDK-tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3549BB4D1DA389F300C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-tvOS" */;
-			buildPhases = (
-				3549BB431DA389F300C63030 /* Sources */,
-				3549BB441DA389F300C63030 /* Frameworks */,
-				3549BB451DA389F300C63030 /* Headers */,
-				3549BB461DA389F300C63030 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "MyBrainTechnologiesSDK-tvOS";
-			productName = "MyBrainTechnologiesSDK-tvOS";
-			productReference = 3549BB481DA389F300C63030 /* MyBrainTechnologiesSDK.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		3549BB601DA38ADB00C63030 /* MyBrainTechnologiesSDKTests-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3549BB691DA38ADB00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests-iOS" */;
@@ -1204,42 +499,6 @@
 			productReference = 3549BB611DA38ADB00C63030 /* MyBrainTechnologiesSDKTests-iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3549BB6F1DA38AEF00C63030 /* MyBrainTechnologiesSDKTests-tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3549BB781DA38AEF00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests-tvOS" */;
-			buildPhases = (
-				3549BB6C1DA38AEF00C63030 /* Sources */,
-				3549BB6D1DA38AEF00C63030 /* Frameworks */,
-				3549BB6E1DA38AEF00C63030 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3549BB771DA38AEF00C63030 /* PBXTargetDependency */,
-			);
-			name = "MyBrainTechnologiesSDKTests-tvOS";
-			productName = "MyBrainTechnologiesSDKTests-tvOS";
-			productReference = 3549BB701DA38AEF00C63030 /* MyBrainTechnologiesSDKTests-tvOS.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		3549BB7E1DA38B0000C63030 /* MyBrainTechnologiesSDKTests-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3549BB871DA38B0000C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests-macOS" */;
-			buildPhases = (
-				3549BB7B1DA38B0000C63030 /* Sources */,
-				3549BB7C1DA38B0000C63030 /* Frameworks */,
-				3549BB7D1DA38B0000C63030 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3549BB861DA38B0000C63030 /* PBXTargetDependency */,
-			);
-			name = "MyBrainTechnologiesSDKTests-macOS";
-			productName = "MyBrainTechnologiesSDKTests-macOS";
-			productReference = 3549BB7F1DA38B0000C63030 /* MyBrainTechnologiesSDKTests-macOS.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1256,31 +515,9 @@
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
-					3549BB2D1DA389DB00C63030 = {
-						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Automatic;
-					};
-					3549BB3A1DA389E800C63030 = {
-						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Automatic;
-					};
-					3549BB471DA389F300C63030 = {
-						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Automatic;
-					};
 					3549BB601DA38ADB00C63030 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 23T8TD424J;
-						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
-					};
-					3549BB6F1DA38AEF00C63030 = {
-						CreatedOnToolsVersion = 8.0;
-						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
-					};
-					3549BB7E1DA38B0000C63030 = {
-						CreatedOnToolsVersion = 8.0;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -1291,6 +528,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1301,11 +539,6 @@
 			targets = (
 				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */,
 				3549BB601DA38ADB00C63030 /* MyBrainTechnologiesSDKTests-iOS */,
-				3549BB3A1DA389E800C63030 /* MyBrainTechnologiesSDK-macOS */,
-				3549BB7E1DA38B0000C63030 /* MyBrainTechnologiesSDKTests-macOS */,
-				3549BB471DA389F300C63030 /* MyBrainTechnologiesSDK-tvOS */,
-				3549BB6F1DA38AEF00C63030 /* MyBrainTechnologiesSDKTests-tvOS */,
-				3549BB2D1DA389DB00C63030 /* MyBrainTechnologiesSDK-watchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1324,42 +557,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3549BB2C1DA389DB00C63030 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB391DA389E800C63030 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB461DA389F300C63030 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		3549BB5F1DA38ADB00C63030 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB6E1DA38AEF00C63030 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB7D1DA38B0000C63030 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1373,29 +571,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B53A097B220492BE00DAD321 /* MBT_ComputeRMS.cpp in Sources */,
-				B53A097C220492BE00DAD321 /* MBT_ComputeIAF.cpp in Sources */,
-				B53A097D220492BE00DAD321 /* MBT_ComputeIAFCalibration.cpp in Sources */,
-				2BAF7EED208F63FB007D9EAB /* MBT_Interpolation.cpp in Sources */,
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
-				2BAF7F0E208F63FB007D9EAB /* MBT_MainQC.cpp in Sources */,
 				2B6B5DA2205139D900928F1F /* MBTBrainWebHelper.swift in Sources */,
 				2B6B5DB020513A1D00928F1F /* SwiftyJSON.swift in Sources */,
-				2BAF7EFC208F63FB007D9EAB /* MBT_BandPass_fftw3.cpp in Sources */,
 				F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */,
-				2BAF7EEC208F63FB007D9EAB /* MBT_FindClosest.cpp in Sources */,
-				2BAF7F1E208F63FB007D9EAB /* MBT_SNR_Stats.cpp in Sources */,
-				2BAF7F2B208F63FB007D9EAB /* MBT_ComputeNoise.cpp in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				B5378D0921F8B8A4007F12DA /* CSVConverter.swift in Sources */,
-				F40E04181F6C26F50055E296 /* MBTSignalProcessingBridge.mm in Sources */,
-				2BAF7F2C208F63FB007D9EAB /* MBT_ComputeRelaxIndex.cpp in Sources */,
 				2B6B5DA6205139D900928F1F /* MBTSignalProcessingManager.swift in Sources */,
-				2BAF7F2F208F63FB007D9EAB /* MBT_RelaxIndexToVolum.cpp in Sources */,
 				B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */,
-				2BAF7F06208F63FB007D9EAB /* MBT_Fourier_fftw3.cpp in Sources */,
-				2BAF7F07208F63FB007D9EAB /* MBT_PWelchComputer.cpp in Sources */,
-				2BAF7EFD208F63FB007D9EAB /* MBT_PreProcessing.cpp in Sources */,
 				2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */,
 				2B6B5DA5205139D900928F1F /* MBTJSONHelper.swift in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
@@ -1404,44 +587,17 @@
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MBTClient.swift in Sources */,
 				2BD1014521A95053002C3C1A /* PrettyPrinter.swift in Sources */,
+				4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */,
 				2B6B5DA4205139D900928F1F /* MBTEEGAcquisitionManager.swift in Sources */,
-				2BAF7F2A208F63FB007D9EAB /* MBT_ComputeCalibration.cpp in Sources */,
-				2BAF7EEF208F63FB007D9EAB /* MBT_Operations.cpp in Sources */,
-				2BAF7EEE208F63FB007D9EAB /* MBT_kmeans.cpp in Sources */,
+				4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */,
 				F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */,
 				F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */,
 				B5ADB75D22381B83009150AD /* MBTRelaxIndexAlgorithm.swift in Sources */,
-				2BAF7EF4208F63FB007D9EAB /* MBT_Matrix.cpp in Sources */,
 				2B6B5DA3205139D900928F1F /* MBTEEGAcquisitionDelegate.swift in Sources */,
 				F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */,
-				2BAF7F2E208F63FB007D9EAB /* MBT_NormalizeRelaxIndex.cpp in Sources */,
-				2BAF7F30208F63FB007D9EAB /* MBT_SmoothRelaxIndex.cpp in Sources */,
 				F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */,
-				2BAF7F04208F63FB007D9EAB /* MBT_FindPeak.cpp in Sources */,
 				2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */,
-				2BC4F64F208F6F5E00F0B366 /* MBTBridgeConstants.mm in Sources */,
 				2B6B5DA7205139D900928F1F /* MBTSignalProcessingProtocols.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB291DA389DB00C63030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB361DA389E800C63030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB431DA389F300C63030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1456,36 +612,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3549BB6C1DA38AEF00C63030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3549BB8D1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3549BB7B1DA38B0000C63030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3549BB8C1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3549BB771DA38AEF00C63030 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3549BB471DA389F300C63030 /* MyBrainTechnologiesSDK-tvOS */;
-			targetProxy = 3549BB761DA38AEF00C63030 /* PBXContainerItemProxy */;
-		};
-		3549BB861DA38B0000C63030 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3549BB3A1DA389E800C63030 /* MyBrainTechnologiesSDK-macOS */;
-			targetProxy = 3549BB851DA38B0000C63030 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3549BB0B1DA387DB00C63030 /* Debug */ = {
@@ -1548,6 +675,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1584,6 +712,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
@@ -1615,21 +744,21 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Sources",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				HEADER_SEARCH_PATHS = "$(OBJROOT)/UninstalledProducts/include";
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/include/**",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/arm64",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/armv7",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/armv7s",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/i386",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/x86_64",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1639,7 +768,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = arm64;
 			};
@@ -1665,21 +794,21 @@
 					"$(PROJECT_DIR)/Carthage/Checkouts/xcconfigs/Carthage/Build/tvOS",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Sources",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				HEADER_SEARCH_PATHS = "$(OBJROOT)/UninstalledProducts/include";
+				HEADER_SEARCH_PATHS = (
+					"$(OBJROOT)/UninstalledProducts/include",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/include/**",
+				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/arm64",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/armv7",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/armv7s",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/i386",
-					"$(PROJECT_DIR)/Sources/Utils/fftw3/x86_64",
+					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1688,138 +817,8 @@
 				PRODUCT_NAME = MyBrainTechnologiesSDK;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		3549BB341DA389DB00C63030 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Sources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
-				PRODUCT_NAME = MyBrainTechnologiesSDK;
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Debug;
-		};
-		3549BB351DA389DB00C63030 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Sources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
-				PRODUCT_NAME = MyBrainTechnologiesSDK;
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
-			};
-			name = Release;
-		};
-		3549BB411DA389E800C63030 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Sources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
-				PRODUCT_NAME = MyBrainTechnologiesSDK;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		3549BB421DA389E800C63030 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = Sources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
-				PRODUCT_NAME = MyBrainTechnologiesSDK;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		3549BB4E1DA389F300C63030 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Sources/Info-tvOS.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
-				PRODUCT_NAME = MyBrainTechnologiesSDK;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Debug;
-		};
-		3549BB4F1DA389F300C63030 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Sources/Info-tvOS.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDK;
-				PRODUCT_NAME = MyBrainTechnologiesSDK;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -1843,7 +842,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1864,85 +863,7 @@
 				MACH_O_TYPE = mh_bundle;
 				PRODUCT_BUNDLE_IDENTIFIER = me.brass.MyBrainTechnologiesSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		3549BB791DA38AEF00C63030 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				INFOPLIST_FILE = "Tests/Info-tvOS.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDKTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Debug;
-		};
-		3549BB7A1DA38AEF00C63030 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				INFOPLIST_FILE = "Tests/Info-tvOS.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDKTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Release;
-		};
-		3549BB881DA38B0000C63030 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDKTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		3549BB891DA38B0000C63030 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-				);
-				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = me.b_rass.MyBrainTechnologiesSDKTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1967,56 +888,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3549BB331DA389DB00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-watchOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3549BB341DA389DB00C63030 /* Debug */,
-				3549BB351DA389DB00C63030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3549BB401DA389E800C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3549BB411DA389E800C63030 /* Debug */,
-				3549BB421DA389E800C63030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3549BB4D1DA389F300C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3549BB4E1DA389F300C63030 /* Debug */,
-				3549BB4F1DA389F300C63030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		3549BB691DA38ADB00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3549BB6A1DA38ADB00C63030 /* Debug */,
 				3549BB6B1DA38ADB00C63030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3549BB781DA38AEF00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests-tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3549BB791DA38AEF00C63030 /* Debug */,
-				3549BB7A1DA38AEF00C63030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3549BB871DA38B0000C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3549BB881DA38B0000C63030 /* Debug */,
-				3549BB891DA38B0000C63030 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

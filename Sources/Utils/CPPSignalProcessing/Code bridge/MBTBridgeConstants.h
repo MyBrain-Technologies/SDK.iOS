@@ -9,7 +9,7 @@
 #ifndef MBTBridgeConstants_h
 #define MBTBridgeConstants_h
 
-#import "MBT_Matrix.h"
+#include <DataManipulation/MBT_Matrix.h>
 
 extern const std::vector<float> trainingFeatureList;
 
