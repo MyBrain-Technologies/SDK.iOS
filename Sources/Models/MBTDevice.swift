@@ -306,7 +306,7 @@ class DeviceManager: MBTRealmEntityManager {
         
         let deviceNameToDelete:String! = deviceName
         
-        if let device = RealmManager.shared.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceNameToDelete).first {
+        if let device = RealmManager.shared.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceNameToDelete ?? "").first {
             try! RealmManager.shared.realm.write {
                 RealmManager.shared.realm.delete(device)
             }

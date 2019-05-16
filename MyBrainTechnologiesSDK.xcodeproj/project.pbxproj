@@ -54,6 +54,7 @@
 		B58CD104223934A50006EDEA /* MyBrainTechnologiesSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC2D55120F8A2CE001CC2CE /* MyBrainTechnologiesSDKTests.swift */; };
 		B58CD108223941850006EDEA /* FormatedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58CD107223941850006EDEA /* FormatedVersionTests.swift */; };
 		B5ADB75D22381B83009150AD /* MBTRelaxIndexAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ADB75C22381B83009150AD /* MBTRelaxIndexAlgorithm.swift */; };
+		B5D42F16228DB87500BE07DE /* mm-ota-1_7_4.bin in Resources */ = {isa = PBXBuildFile; fileRef = B5D42F15228DB87500BE07DE /* mm-ota-1_7_4.bin */; };
 		F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
@@ -145,6 +146,7 @@
 		B53A0976220490CB00DAD321 /* qrcodeSerial.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = qrcodeSerial.csv; sourceTree = "<group>"; };
 		B58CD107223941850006EDEA /* FormatedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersionTests.swift; sourceTree = "<group>"; };
 		B5ADB75C22381B83009150AD /* MBTRelaxIndexAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRelaxIndexAlgorithm.swift; sourceTree = "<group>"; };
+		B5D42F15228DB87500BE07DE /* mm-ota-1_7_4.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_4.bin"; sourceTree = "<group>"; };
 		F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTRealmEntityManager.swift; path = Models/MBTRealmEntityManager.swift; sourceTree = "<group>"; };
 		F41A6D6D1F05588100092027 /* MBTDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTDevice.swift; path = Models/MBTDevice.swift; sourceTree = "<group>"; };
 		F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTEEGPacket.swift; path = Models/MBTEEGPacket.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				2B0004E421C14E11009BA45F /* mm-ota-1_6_9.bin */,
 				2B3EE80C21EF6DEB00E37D94 /* mm-ota-1_7_0.bin */,
 				B53717E421F9C01C001F85F8 /* mm-ota-1_7_1.bin */,
+				B5D42F15228DB87500BE07DE /* mm-ota-1_7_4.bin */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
 				3549BB551DA38A5E00C63030 /* Info-tvOS.plist */,
@@ -506,7 +509,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = MyBrainTechnologies;
 				TargetAttributes = {
 					3549BB201DA389CD00C63030 = {
@@ -525,10 +528,9 @@
 			};
 			buildConfigurationList = 3549BAFF1DA387DB00C63030 /* Build configuration list for PBXProject "MyBrainTechnologiesSDK" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -552,6 +554,7 @@
 				2B3EE80D21EF6DEB00E37D94 /* mm-ota-1_7_0.bin in Resources */,
 				2B0004E521C14E12009BA45F /* mm-ota-1_6_9.bin in Resources */,
 				B53717E521F9C01D001F85F8 /* mm-ota-1_7_1.bin in Resources */,
+				B5D42F16228DB87500BE07DE /* mm-ota-1_7_4.bin in Resources */,
 				B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */,
 				2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */,
 			);
@@ -619,20 +622,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -664,7 +676,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -676,20 +688,29 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -715,7 +736,7 @@
 				OTHER_CFLAGS = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = arm64;
