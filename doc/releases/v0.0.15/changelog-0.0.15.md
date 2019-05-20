@@ -17,4 +17,4 @@ Release notes - SDK.iOS
 
 ## Improvement
 
-*   [[SDK-117](https://mybrain.atlassian.net/browse/SDK-117)] - Mise à jour Firmware: v1.2.7
+*   [[SDK-117](https://mybrain.atlassian.net/browse/SDK-117)] - Mise à jour Firmware: v1.7.4
