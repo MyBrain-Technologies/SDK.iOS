@@ -11,7 +11,7 @@ import Foundation
 class CSVConverter {
     static public func data(fromFile filename: String, lineSeparator: String, columnSeparator: String)  -> [[String]] {
         guard let content = try? String(contentsOfFile: filename, encoding: .utf8) else { return [[String]]() }
-        let clearContent = clearInput(content)
+        _ = clearInput(content)
         return CSVConverter.data(fromString:content, lineSeparator: lineSeparator, columnSeparator: columnSeparator)
     }
     

@@ -636,7 +636,7 @@ internal class MBTBluetoothManager: NSObject {
       bytesArray[3] = ConversionUtils.loUInt16(v: OADManager.mProgInfo.nBlock)
       bytesArray[4] = ConversionUtils.hiUInt16(v: OADManager.mProgInfo.nBlock)
       
-      blePeripheral?.writeValue( Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
+      blePeripheral?.writeValue( Data(bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
       eventDelegate?.onProgressUpdate?(0.05)
       OADState = .READY
     }
@@ -755,14 +755,14 @@ internal class MBTBluetoothManager: NSObject {
     timerTimeOutA2DPConnection = Timer.scheduledTimer(timeInterval: TIMER_A2DP, target: self, selector: #selector(connetionA2DPTimeOut), userInfo: nil, repeats: false)
     let bytesArray:[UInt8] = [MailBoxEvents.MBX_CONNECT_IN_A2DP.rawValue,0x25,0xA2]
     blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
-    blePeripheral?.writeValue( Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
+    blePeripheral?.writeValue( Data(bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
   }
   
   func sendDeviceExternalName(_ name: String) {
     timerTimeOutSendExternalName = Timer.scheduledTimer(timeInterval: TIMER_A2DP, target: self, selector: #selector(sendExternalNameTimeOut), userInfo: nil, repeats: false)
     let bytesArray:[UInt8] = [MailBoxEvents.MBX_SET_SERIAL_NUMBER.rawValue, 0xAB, 0x21] + [UInt8](name.utf8)
     blePeripheral?.setNotifyValue(true, for: MBTBluetoothLEHelper.mailBoxCharacteristic)
-    blePeripheral?.writeValue(Data(bytes: bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
+    blePeripheral?.writeValue(Data(bytesArray), for: MBTBluetoothLEHelper.mailBoxCharacteristic, type: .withResponse)
   }
   
   //  Method Request Update Status Battery
