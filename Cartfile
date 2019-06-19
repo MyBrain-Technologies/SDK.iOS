@@ -1,2 +1,2 @@
 github "Alamofire/Alamofire"
-github "realm/realm-cocoa"
+github "realm/realm-cocoa" == 3.15.0
