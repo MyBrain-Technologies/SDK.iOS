@@ -145,18 +145,17 @@ class MBT_MainQC
          * @brief Check if rawInterpData_row contains NaN
          * 
          * @param rawInterpData_row Updated raw interpolated data
-         * @return unsigned int NaN count
+         * @return bool The data contains at least a NaN
          */
-        unsigned int countNaNInterp(const SP_Vector& rawInterpData_row);
+        bool hasNaN(const SP_Vector& rawInterpData_row);
 
         /**
          * @brief Update m_inputData with rawInterpData_row, depending on NaN count
          * 
          * @param ch Channel to update
          * @param rawInterpData_row Updated raw interpolated data
-         * @return unsigned int NaN count
          */
-        void updateInputDataAfterInterpolation(unsigned int ch, const SP_Vector& rawInterpData_row, unsigned int counterNaN);
+        void updateInputDataAfterInterpolation(unsigned int ch, const SP_Vector& rawInterpData_row);
 
         /**
          * @brief Interpolate the possible NaN values inside inputData thanks to rawInterpData
@@ -168,19 +167,23 @@ class MBT_MainQC
          * @brief Calculates time features of an EEG observation
          * 
          * @param signal Signal of the EEG observation
-         * @param ch Current EEG channel index
-         * @param f Current EEG sample index
          */
-        void timeFeaturesQualityChecker(const SP_Vector& signal, int ch, int& f);
+
+        /**
+         * @brief Calculates time features of an EEG observation
+         * 
+         * @param signal Signal of the EEG observation
+         * @return SP_Vector Vector of computed features
+         */
+        SP_Vector timeFeaturesQualityChecker(const SP_Vector& signal);
 
         /**
          * @brief Calculates frequency features of an EEG observation
          * 
          * @param signal Signal of the EEG observation
-         * @param ch Current EEG channel index
-         * @param f Current EEG sample index
+         * @return SP_Vector Vector of computed features
          */
-        void frequencyFeaturesQualityChecker(SP_Vector& signal, int ch, int& f);
+        SP_Vector frequencyFeaturesQualityChecker(SP_Vector& signal);
 
         /**
          * @brief Calculates features of each EEG observation
