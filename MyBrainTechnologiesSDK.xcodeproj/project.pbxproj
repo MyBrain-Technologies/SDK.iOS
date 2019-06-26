@@ -28,22 +28,21 @@
 		2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3549BB8B1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */; };
-		4D6B3BA92264D25800B9A29F /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9C2264CCE800B9A29F /* libAlgebra.a */; };
-		4D6B3BAA2264D25800B9A29F /* libDataManipulation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9D2264CCE800B9A29F /* libDataManipulation.a */; };
-		4D6B3BAB2264D25800B9A29F /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9F2264CCE900B9A29F /* libfftw3.a */; };
-		4D6B3BAC2264D25800B9A29F /* libNF_Melomind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B972264CCE800B9A29F /* libNF_Melomind.a */; };
-		4D6B3BAD2264D25800B9A29F /* libPreProcessing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B982264CCE800B9A29F /* libPreProcessing.a */; };
-		4D6B3BAE2264D25800B9A29F /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9A2264CCE800B9A29F /* libQualityChecker.a */; };
-		4D6B3BAF2264D25800B9A29F /* libSNR.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B992264CCE800B9A29F /* libSNR.a */; };
-		4D6B3BB02264D25800B9A29F /* libTimeFrequency.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9B2264CCE800B9A29F /* libTimeFrequency.a */; };
-		4D6B3BB12264D25800B9A29F /* libTransformations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6B3B9E2264CCE800B9A29F /* libTransformations.a */; };
 		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
 		4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */; };
 		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */; };
-		4DD985AC2265D50D00E788F2 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985AB2265D50D00E788F2 /* version.h */; };
+		A90A1D5022C36B530097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4722C36B520097C1BE /* libfftw3.a */; };
+		A90A1D5122C36B530097C1BE /* libSNR.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4822C36B520097C1BE /* libSNR.a */; };
+		A90A1D5222C36B530097C1BE /* libPreProcessing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4922C36B520097C1BE /* libPreProcessing.a */; };
+		A90A1D5322C36B530097C1BE /* libNF_Melomind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4A22C36B520097C1BE /* libNF_Melomind.a */; };
+		A90A1D5422C36B530097C1BE /* libTimeFrequency.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4B22C36B530097C1BE /* libTimeFrequency.a */; };
+		A90A1D5522C36B530097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4C22C36B530097C1BE /* libAlgebra.a */; };
+		A90A1D5622C36B530097C1BE /* libTransformations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4D22C36B530097C1BE /* libTransformations.a */; };
+		A90A1D5722C36B530097C1BE /* libDataManipulation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4E22C36B530097C1BE /* libDataManipulation.a */; };
+		A90A1D5822C36B530097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D4F22C36B530097C1BE /* libQualityChecker.a */; };
 		B51B94982239481000FD1F12 /* MyBrainTechnologiesSDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		B53717E521F9C01D001F85F8 /* mm-ota-1_7_1.bin in Resources */ = {isa = PBXBuildFile; fileRef = B53717E421F9C01C001F85F8 /* mm-ota-1_7_1.bin */; };
@@ -124,22 +123,21 @@
 		3549BB581DA38A8800C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB611DA38ADB00C63030 /* MyBrainTechnologiesSDKTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MyBrainTechnologiesSDKTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB8A1DA38C0A00C63030 /* MyBrainTechnologiesSDKSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKSpec.swift; sourceTree = "<group>"; };
-		4D6B3B972264CCE800B9A29F /* libNF_Melomind.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libNF_Melomind.a; path = Sources/signalProcessingSDK/lib/libNF_Melomind.a; sourceTree = "<group>"; };
-		4D6B3B982264CCE800B9A29F /* libPreProcessing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPreProcessing.a; path = Sources/signalProcessingSDK/lib/libPreProcessing.a; sourceTree = "<group>"; };
-		4D6B3B992264CCE800B9A29F /* libSNR.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSNR.a; path = Sources/signalProcessingSDK/lib/libSNR.a; sourceTree = "<group>"; };
-		4D6B3B9A2264CCE800B9A29F /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQualityChecker.a; path = Sources/signalProcessingSDK/lib/libQualityChecker.a; sourceTree = "<group>"; };
-		4D6B3B9B2264CCE800B9A29F /* libTimeFrequency.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTimeFrequency.a; path = Sources/signalProcessingSDK/lib/libTimeFrequency.a; sourceTree = "<group>"; };
-		4D6B3B9C2264CCE800B9A29F /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAlgebra.a; path = Sources/signalProcessingSDK/lib/libAlgebra.a; sourceTree = "<group>"; };
-		4D6B3B9D2264CCE800B9A29F /* libDataManipulation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDataManipulation.a; path = Sources/signalProcessingSDK/lib/libDataManipulation.a; sourceTree = "<group>"; };
-		4D6B3B9E2264CCE800B9A29F /* libTransformations.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTransformations.a; path = Sources/signalProcessingSDK/lib/libTransformations.a; sourceTree = "<group>"; };
-		4D6B3B9F2264CCE900B9A29F /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = Sources/signalProcessingSDK/lib/libfftw3.a; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTSignalProcessingBridge.mm; sourceTree = "<group>"; };
 		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
 		4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTBridgeConstants.h; sourceTree = "<group>"; };
 		4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTBridgeConstants.mm; sourceTree = "<group>"; };
-		4DD985AB2265D50D00E788F2 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		A90A1D4722C36B520097C1BE /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfftw3.a; sourceTree = "<group>"; };
+		A90A1D4822C36B520097C1BE /* libSNR.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSNR.a; sourceTree = "<group>"; };
+		A90A1D4922C36B520097C1BE /* libPreProcessing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPreProcessing.a; sourceTree = "<group>"; };
+		A90A1D4A22C36B520097C1BE /* libNF_Melomind.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libNF_Melomind.a; sourceTree = "<group>"; };
+		A90A1D4B22C36B530097C1BE /* libTimeFrequency.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTimeFrequency.a; sourceTree = "<group>"; };
+		A90A1D4C22C36B530097C1BE /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAlgebra.a; sourceTree = "<group>"; };
+		A90A1D4D22C36B530097C1BE /* libTransformations.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTransformations.a; sourceTree = "<group>"; };
+		A90A1D4E22C36B530097C1BE /* libDataManipulation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libDataManipulation.a; sourceTree = "<group>"; };
+		A90A1D4F22C36B530097C1BE /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libQualityChecker.a; sourceTree = "<group>"; };
 		B53717E421F9C01C001F85F8 /* mm-ota-1_7_1.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_1.bin"; sourceTree = "<group>"; };
 		B5378D0821F8B8A4007F12DA /* CSVConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVConverter.swift; sourceTree = "<group>"; };
 		B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTQRCodeSerial.swift; sourceTree = "<group>"; };
@@ -164,18 +162,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A90A1D5222C36B530097C1BE /* libPreProcessing.a in Frameworks */,
+				A90A1D5522C36B530097C1BE /* libAlgebra.a in Frameworks */,
+				A90A1D5722C36B530097C1BE /* libDataManipulation.a in Frameworks */,
+				A90A1D5422C36B530097C1BE /* libTimeFrequency.a in Frameworks */,
+				A90A1D5122C36B530097C1BE /* libSNR.a in Frameworks */,
+				A90A1D5622C36B530097C1BE /* libTransformations.a in Frameworks */,
 				B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */,
 				4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */,
+				A90A1D5022C36B530097C1BE /* libfftw3.a in Frameworks */,
+				A90A1D5322C36B530097C1BE /* libNF_Melomind.a in Frameworks */,
 				4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */,
-				4D6B3BA92264D25800B9A29F /* libAlgebra.a in Frameworks */,
-				4D6B3BAA2264D25800B9A29F /* libDataManipulation.a in Frameworks */,
-				4D6B3BAB2264D25800B9A29F /* libfftw3.a in Frameworks */,
-				4D6B3BAC2264D25800B9A29F /* libNF_Melomind.a in Frameworks */,
-				4D6B3BAD2264D25800B9A29F /* libPreProcessing.a in Frameworks */,
-				4D6B3BAE2264D25800B9A29F /* libQualityChecker.a in Frameworks */,
-				4D6B3BAF2264D25800B9A29F /* libSNR.a in Frameworks */,
-				4D6B3BB02264D25800B9A29F /* libTimeFrequency.a in Frameworks */,
-				4D6B3BB12264D25800B9A29F /* libTransformations.a in Frameworks */,
+				A90A1D5822C36B530097C1BE /* libQualityChecker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,17 +354,17 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A90A1D4C22C36B530097C1BE /* libAlgebra.a */,
+				A90A1D4E22C36B530097C1BE /* libDataManipulation.a */,
+				A90A1D4722C36B520097C1BE /* libfftw3.a */,
+				A90A1D4A22C36B520097C1BE /* libNF_Melomind.a */,
+				A90A1D4922C36B520097C1BE /* libPreProcessing.a */,
+				A90A1D4F22C36B530097C1BE /* libQualityChecker.a */,
+				A90A1D4822C36B520097C1BE /* libSNR.a */,
+				A90A1D4B22C36B530097C1BE /* libTimeFrequency.a */,
+				A90A1D4D22C36B530097C1BE /* libTransformations.a */,
 				4D73CFFD2272FF9500F6D47C /* Realm.framework */,
 				4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */,
-				4D6B3B9C2264CCE800B9A29F /* libAlgebra.a */,
-				4D6B3B9D2264CCE800B9A29F /* libDataManipulation.a */,
-				4D6B3B9F2264CCE900B9A29F /* libfftw3.a */,
-				4D6B3B9A2264CCE800B9A29F /* libQualityChecker.a */,
-				4D6B3B972264CCE800B9A29F /* libNF_Melomind.a */,
-				4D6B3B982264CCE800B9A29F /* libPreProcessing.a */,
-				4D6B3B992264CCE800B9A29F /* libSNR.a */,
-				4D6B3B9B2264CCE800B9A29F /* libTimeFrequency.a */,
-				4D6B3B9E2264CCE800B9A29F /* libTransformations.a */,
 				2BD94E6621C8CE7700A567EE /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -375,7 +373,6 @@
 		4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */ = {
 			isa = PBXGroup;
 			children = (
-				4DD985AB2265D50D00E788F2 /* version.h */,
 				4DD985012265C8D300E788F2 /* Code bridge */,
 			);
 			name = CPPSignalProcessing;
@@ -454,7 +451,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DD985AC2265D50D00E788F2 /* version.h in Headers */,
 				4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */,
 				4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */,
 				3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
@@ -771,6 +767,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(OBJROOT)/UninstalledProducts/include",
+					"/Users/mbt/Dev/Melomind.Algorithms/installSDK/include/**",
 					"$(PROJECT_DIR)/Sources/signalProcessingSDK/include/**",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
@@ -780,6 +777,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
+					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = YES;
@@ -821,6 +819,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(OBJROOT)/UninstalledProducts/include",
+					"/Users/mbt/Dev/Melomind.Algorithms/installSDK/include/**",
 					"$(PROJECT_DIR)/Sources/signalProcessingSDK/include/**",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
@@ -830,6 +829,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
+					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = YES;
