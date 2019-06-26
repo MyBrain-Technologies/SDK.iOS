@@ -20,6 +20,9 @@
 
 #include <map>
 
+#define GENERAL_QUALITY_THRESHOLD 0.5
+#define CHANNEL_QUALITY_THRESHOLD 0.5
+
 //Here are defined the alpha band limits
 const SP_FloatType IAFinf = 6; // warning: it's 6 and not 7
 const SP_FloatType IAFsup = 13;
@@ -114,9 +117,12 @@ void computeSessionRelaxIndex(const MBT_NFConfig& configuration, const std::map<
  * @brief Count mean qualities above fixed thresholds 
  * 
  * @param meanQualities Mean qualities between channels of each packet
+ * @param channelQualityThreshold Channel quality threshold
+ * @param generalQualityThreshold general quality threshold
  * @return int Number of mean qualities above GENERAL_QUALITY_THRESHOLD, if a mean quality is above CHANNEL_QUALITY_THRESHOLD, returns meanQualities size
  */
-int countQualitiesAboveThreshold(const SP_Vector& meanQualities);
+int countQualitiesAboveThreshold(const SP_Vector& meanQualities, SP_RealType channelQualityThreshold = CHANNEL_QUALITY_THRESHOLD,
+                                    SP_RealType generalQualityThreshold = GENERAL_QUALITY_THRESHOLD);
 
 /**
  * @brief Compute mean quality of a calibration recording
