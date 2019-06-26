@@ -74,6 +74,19 @@ std::map<std::string, SP_Vector > computeRMSForCalib(SP_Matrix& goodCalibrationR
                                             const SP_FloatType sampRate, int k);
 
 /**
+ * @brief Weight RMS depending on NaN RMS qualities, good peaks and RMS qualities sum
+ * 
+ * @param RMSCalibPacket Computed RMS
+ * @param qualityRMS Computed RMS quality
+ * @param QFNaN Indexes of NaN qualities into qualityRMS
+ * @param goodPeak Indexes of good peaks into computed RMS
+ * @param sumQf Sum of good RMS qualities
+ * @return SP_FloatVector Weighted RMS
+ */
+SP_FloatVector weightRMS(const SP_Vector& RMSCalibPacket, const SP_Vector& qualityRMS,
+                            const std::vector<int>& QFNaN, const std::vector<int>& goodPeak, SP_RealType sumQf);
+
+/**
  * @brief Compute RMS calibration
  * 
  * @param calibrationRecordings A matrix holding the concatenation of the calibration recordings, one channel per row. (No GPIOs)
