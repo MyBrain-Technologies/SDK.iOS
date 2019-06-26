@@ -1,7 +1,7 @@
-prefix=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK
-exec_prefix=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK
-libdir=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK/lib
-includedir=/Users/laurent/Clones/Melomind.Algorithms/build/installSDK/include
+prefix=/Users/mbt/Dev/Melomind.Algorithms/installSDK
+exec_prefix=/Users/mbt/Dev/Melomind.Algorithms/installSDK
+libdir=/Users/mbt/Dev/Melomind.Algorithms/installSDK/lib
+includedir=/Users/mbt/Dev/Melomind.Algorithms/installSDK/include
 
 Name: FFTW
 Description: fast Fourier transform library

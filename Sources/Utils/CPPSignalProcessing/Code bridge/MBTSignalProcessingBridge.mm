@@ -28,7 +28,7 @@
 #include <SNR/MBT_SNR_Stats.h>
 #include <QualityChecker/MBT_MainQC.h>
 
-#include "version.h"
+#include <mbtsdk-version.h>
 
 #define SMOOTHINGDURATION 2
 
@@ -51,7 +51,7 @@ extern const float IAFsup;
 @end
 
 @implementation MBTSignalProcessingHelper
-static NSString* versionCPP = @VERSION;
+static NSString* versionCPP = @MBT_SDK_VERSION;
 
 const float IAFinf = 6;
 const float IAFsup = 13;
@@ -223,7 +223,7 @@ static MBT_MainQC *mainQC;
 }
 
 + (NSString*) getVersion {
-    return @VERSION;
+    return @MBT_SDK_VERSION;
 }
 
 @end
