@@ -179,9 +179,9 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     func computeRelaxIndex() -> Float? {
         
         // Get the last N packets.
-        let packets = EEGPacketManager.getLastNPacketsComplete(4)
+        let packets = EEGPacketManager.getLastNPacketsComplete(MBTClient.HISTORY_SIZE)
         
-        if packets.count < 4 || calibrationComputed == nil {
+        if packets.count < MBTClient.HISTORY_SIZE || calibrationComputed == nil {
             return 0
         }
         
@@ -203,10 +203,6 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
                     dataArray.append(data.value)
                 }
             }
-        }
-        
-        if dataArray.count < 2000 {
-            return 0
         }
         
         //Perform the computation
