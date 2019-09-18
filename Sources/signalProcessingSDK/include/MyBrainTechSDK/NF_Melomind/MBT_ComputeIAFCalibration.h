@@ -88,6 +88,11 @@ SP_FloatVector computeIAFMedian(SP_FloatMatrix& calibrationRecordings, SP_Matrix
                                     const SP_FloatType IAFinf, const SP_FloatType IAFsup,
                                     std::vector<int>& packetsToKeepIndex, const SP_FloatType sampRate);
 
+class IafCalibrationOutputKeys {
+    public:
+        static const std::string IAF;
+};
+
 /**
  * @brief Takes the data from the calibration recordings and compute the bounds of the IAF based on the calibration segments.
  *          These bounds are computed on each second with segments of 4s with a sliding window of 1s.
