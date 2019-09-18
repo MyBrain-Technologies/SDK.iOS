@@ -61,9 +61,6 @@ extern const float IAFsup;
 @implementation MBTSignalProcessingHelper
 static NSString* versionCPP = @MBT_SDK_VERSION;
 
-const float IAFinf = 6;
-const float IAFsup = 13;
-
 static std::map<std::string, std::vector<float>> calibParams;
 
 /// Converte *vector* to an Objective-C NSArray.
@@ -416,7 +413,7 @@ static vector<float>histFreq;
 
 @implementation MBTMelomindAnalysis
 
-+ (float) sessionMeanAlphPower {
++ (float) sessionMeanAlphaPower {
   return MelomindAnalysisSingleton::getInstance().getSessionMeanAlphaPower();
 }
 

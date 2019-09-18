@@ -65,7 +65,7 @@
 
 @interface MBTMelomindAnalysis: NSObject
 
-+ (float) sessionMeanAlphPower;
++ (float) sessionMeanAlphaPower;
 + (float) sessionMeanRelativeAlphaPower;
 + (float) sessionConfidence;
 

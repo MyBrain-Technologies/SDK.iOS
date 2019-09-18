@@ -281,8 +281,8 @@ extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
 
 extension MBTSignalProcessingManager {
 
-  var sessionMeanAlphPower: Float {
-    return MBTMelomindAnalysis.sessionMeanAlphPower()
+  var sessionMeanAlphaPower: Float {
+    return MBTMelomindAnalysis.sessionMeanAlphaPower()
   }
 
   var sessionMeanRelativeAlphaPower: Float {
