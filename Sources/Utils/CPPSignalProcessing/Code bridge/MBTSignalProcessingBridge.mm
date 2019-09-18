@@ -27,6 +27,7 @@
 #include <NF_Melomind/MBT_ComputeIAF.h>
 #include <NF_Melomind/Utils.h>
 #include <NF_Melomind/MBT_NFConfig.h>
+#include <NF_Melomind/MelomindAnalysisSingleton.h>
 #include <SNR/MBT_SNR_Stats.h>
 #include <QualityChecker/MBT_MainQC.h>
 
@@ -35,9 +36,9 @@
 #define SMOOTHINGDURATION 2
 
 
-//------------------------------------------------------------------------------
-// MARK: - Variables
-//------------------------------------------------------------------------------
+//==============================================================================
+// MARK: - MBTSignalProcessingHelper
+//==============================================================================
 
 /// Signal Processing Bridge helper methods,
 /// to help converting format between C++ and Obj-C++.
@@ -125,9 +126,10 @@ static std::map<std::string, std::vector<float>> calibParams;
 
 @end
 
+//==============================================================================
+// MARK: - MBTQualityCheckerBridge
+//==============================================================================
 
-
-//MARK: -
 /// Quality Checker Bridge methods, for use in Swift.
 @implementation MBTQualityCheckerBridge
 
@@ -235,7 +237,9 @@ static MBT_MainQC *mainQC;
 
 @end
 
-//MARK: -
+//==============================================================================
+// MARK: - MBTCalibrationBridge
+//==============================================================================
 
 /// Bridge methods for calibration calculation, for a group of
 /// *MBTEEGPacket*.
@@ -297,7 +301,7 @@ static MBT_MainQC *mainQC;
 @end
 
 //==============================================================================
-// MARK: - RelaxIndex
+// MARK: - MBTRelaxIndexBridge
 //==============================================================================
 
 /// Bridge method to get the Relax Index
@@ -403,5 +407,45 @@ static vector<float>histFreq;
 
   return resultsDictionnary;
 }
+
+@end
+
+//==============================================================================
+// MARK: - MBTMelomindAnalysis
+//==============================================================================
+
+@implementation MBTMelomindAnalysis
+
++ (float) sessionMeanAlphPower {
+  return MelomindAnalysisSingleton::getInstance().getSessionMeanAlphaPower();
+}
+
++ (float) sessionMeanRelativeAlphaPower {
+  return
+  MelomindAnalysisSingleton::getInstance().getSessionMeanRelativeAlphaPower();
+}
+
++ (float) sessionConfidence {
+  return MelomindAnalysisSingleton::getInstance().getSessionConfidence();
+}
+
++ (NSArray*) sessionAlphaPowers {
+  auto alphaPowers =
+  MelomindAnalysisSingleton::getInstance().getSessionAlphaPowers();
+  return [MBTSignalProcessingHelper fromVectorToNSArray:alphaPowers];
+}
+
++ (NSArray*) sessionRelativeAlphaPowers {
+  auto relativeAlphaPowers =
+  MelomindAnalysisSingleton::getInstance().getSessionRelativeAlphaPowers();
+  return [MBTSignalProcessingHelper fromVectorToNSArray:relativeAlphaPowers];
+}
+
++ (NSArray*) sessionQualities {
+  auto qualities =
+  MelomindAnalysisSingleton::getInstance().getSessionQualities();
+  return [MBTSignalProcessingHelper fromVectorToNSArray:qualities];
+}
+
 
 @end

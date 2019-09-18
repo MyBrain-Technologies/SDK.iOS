@@ -63,4 +63,16 @@
 
 @end
 
+@interface MBTMelomindAnalysis: NSObject
+
++ (float) sessionMeanAlphPower;
++ (float) sessionMeanRelativeAlphaPower;
++ (float) sessionConfidence;
+
++ (NSArray*) sessionAlphaPowers;
++ (NSArray*) sessionRelativeAlphaPowers;
++ (NSArray*) sessionQualities;
+
+@end
+
 #endif /* MBTSignalProcessingBridge_h */
