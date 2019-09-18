@@ -34,9 +34,9 @@ SP_Matrix convertFloatMatrixToMatrix(SP_FloatMatrix& sessionPacket);
  * @brief Combine RMS from both channel and compute general RMS
  * 
  * @param computeRMSSession 
- * @return SP_FloatType RMS computed
+ * @return std::pair<SP_FloatType, SP_FloatType> Absolute and relative combined RMS
  */
-SP_FloatType combineRMS(std::map<std::string, SP_Vector > computeRMSSession);
+std::pair<SP_FloatType, SP_FloatType> combineRMS(std::map<std::string, SP_Vector > computeRMSSession);
 
 /**
  * @brief Compute RMS if at least one channel has qualityRMS=NaN
@@ -56,9 +56,9 @@ SP_FloatType computeRMSForNaNQuality(const SP_Vector& RMSSessionPacket, const st
  * @param IAFinf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
  * @param IAFsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
  * @param histFreq Vector containing the previous frequencies.
-* @return A dictionnary with histFreq and the relax index value.
+* @return std::pair<SP_FloatType, SP_FloatType> Absolute and relative RMS computed
  */
-SP_FloatType MBT_ComputeRelaxIndex(SP_FloatMatrix sessionPacket, SP_FloatVector errorMsg, const SP_FloatType sampRate, SP_RealType IAFinf, SP_RealType IAFsup, SP_FloatVector &histFreq);
+std::pair<SP_FloatType, SP_FloatType> MBT_ComputeRelaxIndex(SP_FloatMatrix sessionPacket, SP_FloatVector errorMsg, const SP_FloatType sampRate, SP_RealType IAFinf, SP_RealType IAFsup, SP_FloatVector &histFreq);
 
 
 #endif // MBT_COMPUTERELAXINDEX_H_INCLUDED
