@@ -66,33 +66,33 @@ public class MBTClient {
 
   /// Get the mean alpha power of the current session.
   /// Also populates sessionConfidence() data.
-  var sessionMeanAlphaPower: Float {
+  public var sessionMeanAlphaPower: Float {
     return signalProcessingManager.sessionMeanAlphaPower
   }
 
-  var sessionMeanRelativeAlphaPower: Float {
+  public var sessionMeanRelativeAlphaPower: Float {
     return signalProcessingManager.sessionMeanRelativeAlphaPower
   }
 
   /// Get the confidence rate of the current session.
-  var sessionConfidence: Float {
+  public var sessionConfidence: Float {
     return signalProcessingManager.sessionConfidence
   }
 
   /// Get the alpha powers of the current session.
-  var sessionAlphaPowers: [Float] {
+  public var sessionAlphaPowers: [Float] {
     return signalProcessingManager.sessionAlphaPowers
   }
 
   /// Get the relative alpha powers of the current session.
-  var sessionRelativeAlphaPowers: [Float] {
+  public var sessionRelativeAlphaPowers: [Float] {
     return signalProcessingManager.sessionRelativeAlphaPowers
   }
 
   /// Get qualities of the current session.
   /// Qualities are multiplexed by channels ([q1c1,q1c2,q2c1,q2c2,q3c1,...])
   /// CALL AFTER `sessionMeanAlphaPower` or `sessionMeanRelativeAlphaPower`.
-  var sessionQualities: [Float] {
+  public var sessionQualities: [Float] {
     return signalProcessingManager.sessionQualities
   }
 
