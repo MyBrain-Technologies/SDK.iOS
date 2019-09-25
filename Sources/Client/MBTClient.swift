@@ -125,6 +125,8 @@ public class MBTClient {
   ///   - deviceName : The device Name Headset which be connect to the BLE
   ///   - delegate : The Melomind Engine Delegate which allow communication with
   ///   the Headset.
+
+  /// NOT USED
   public func connectEEG(_ deviceName:String? = nil,
                          withDelegate delegate: MelomindEngineDelegate) {
     setEEGDelegate(delegate)

@@ -311,7 +311,8 @@ static vector<float>histFreq;
 
 + (float)computeRelaxIndex:(NSArray *)signal
                   sampRate:(NSInteger)sampRate
-                nbChannels: (NSInteger) nbChannels {
+                nbChannels: (NSInteger) nbChannels
+       lastPacketQualities:(NSArray*) lastPacketQualities {
   int width = static_cast<int>(signal.count / nbChannels);
 
   auto signalMatrix =
@@ -338,7 +339,8 @@ static vector<float>histFreq;
                                     minFactor,
                                     maxFactor);
 
-  const auto qualitiesPacket = std::vector<float> { 0 } ;
+  const auto lastPacketQualitiesVector =
+  [MBTSignalProcessingHelper fromNSArraytoVector:lastPacketQualities];
 
   const auto newVolum = main_relaxIndex(configuration,
                                         calibrationParams,
@@ -347,7 +349,7 @@ static vector<float>histFreq;
                                         smoothedRelaxIndex,
                                         volume,
                                         minMaxRmsCalibration,
-                                        qualitiesPacket);
+                                        lastPacketQualitiesVector);
   return newVolum;
 }
 
