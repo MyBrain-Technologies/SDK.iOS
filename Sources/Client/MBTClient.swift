@@ -22,7 +22,7 @@ public class MBTClient {
   //----------------------------------------------------------------------------
 
   /// Singleton of MBTClient
-  public static let main:MBTClient = MBTClient()
+  public static let shared: MBTClient = MBTClient()
 
   /******************** Managers ********************/
 
@@ -41,7 +41,6 @@ public class MBTClient {
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
   internal let signalProcessingManager: MBTSignalProcessingManager
-
 
   /******************** Acquisition ********************/
 
@@ -96,6 +95,16 @@ public class MBTClient {
     return signalProcessingManager.sessionQualities
   }
 
+  /******************** Delegates ********************/
+
+  public var bluetoothEventDelegate: MBTBluetoothEventDelegate?
+  
+  public var bluetoothAudioA2DPDelegate: MBTBluetoothA2DPDelegate?
+
+  public var eegAcqusitionDelegate: MBTEEGAcquisitionDelegate?
+
+  public var deviceAcqusitionDelegate: MBTDeviceAcquisitionDelegate?
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -146,6 +155,13 @@ public class MBTClient {
   public func connectEEGAndA2DP(_ deviceName:String? = nil,
                                 withDelegate delegate: MelomindEngineDelegate) {
     setEEGAndA2DPDelegate(delegate)
+    bluetoothManager.connectTo(deviceName)
+  }
+
+  /// Start the bluetooth connection process.
+  /// - Parameters:
+  ///   - named: The name of the device to connect (Bluetooth profile).
+  public func connectToBlueetooth(named deviceName: String? = nil) {
     bluetoothManager.connectTo(deviceName)
   }
   
@@ -295,7 +311,7 @@ public class MBTClient {
   /// BluetoothManager (eventDelegate & audioA2DPDelegate).
   ///
   /// - Parameter delegate:  new delegate listening Melomind Engine Delegate.
-  public func setEEGAndA2DPDelegate(_ delegate:MelomindEngineDelegate) {
+  public func setEEGAndA2DPDelegate(_ delegate: MelomindEngineDelegate) {
     // Add the Acquisition delegate to the Acquisition manager
     
     initAcquisitionManager(with: delegate)
@@ -346,6 +362,7 @@ public class MBTClient {
   /// Start saving EEGPacket on DB  /// - Parameters :
   ///   - newRecord : Create a new recordId on the JSON File
   ///   - recordingType : Change the session's type
+  @discardableResult
   public func startRecording(
     _ newRecord:Bool,
     recordingType:MBTRecordingType = MBTRecordingType()) -> UUID? {
@@ -393,7 +410,7 @@ public class MBTClient {
   
   /// Start the OAD process
   public func startOADTransfer() {
-    self.bluetoothManager.startOAD()
+    bluetoothManager.startOAD()
   }
   
   public func testOADTransfer() {
