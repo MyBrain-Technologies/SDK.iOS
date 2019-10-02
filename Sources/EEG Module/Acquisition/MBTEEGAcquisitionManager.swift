@@ -102,7 +102,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let deviceTSR = ThreadSafeReference(to: device)
         let packetToRemove = EEGPacketManager.getArrayEEGPackets()
         var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
-        let currentRecordInfo = MBTRecordInfo.init(MBTClient.main.recordInfo.recordId, recordingType: MBTClient.main.recordInfo.recordingType)
+        let currentRecordInfo = MBTRecordInfo.init(MBTClient.shared.recordInfo.recordId, recordingType: MBTClient.shared.recordInfo.recordingType)
         prettyPrint(log.ln(" saveRecordingOnFile - \(currentRecordInfo)"))
 
         for eegPacket in packetToRemove {

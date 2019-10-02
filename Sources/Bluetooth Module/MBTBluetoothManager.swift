@@ -264,7 +264,7 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
     
-    MBTClient.main.eegAcqusitionManager.setUpWith(device: currentDevice)
+    MBTClient.shared.eegAcqusitionManager.setUpWith(device: currentDevice)
 
     if !isOADInProgress {
       stopTimerTimeOutConnection()
@@ -1175,17 +1175,17 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
       DispatchQueue.main.async {
         [weak self] in
         if self?.isListeningToEEG ?? false {
-          MBTClient.main.eegAcqusitionManager.processBrainActivityData(notifiedData)
+          MBTClient.shared.eegAcqusitionManager.processBrainActivityData(notifiedData)
         }
       }
       
     case MBTBluetoothLEHelper.headsetStatusUUID :
       DispatchQueue.global(qos: .background).async {
-        MBTClient.main.deviceAcqusitionManager.processHeadsetStatus(characteristic)
+        MBTClient.shared.deviceAcqusitionManager.processHeadsetStatus(characteristic)
       }
     case MBTBluetoothLEHelper.deviceBatteryStatusUUID :
       if processBatteryLevel {
-        MBTClient.main.deviceAcqusitionManager.processDeviceBatteryStatus(characteristic)
+        MBTClient.shared.deviceAcqusitionManager.processDeviceBatteryStatus(characteristic)
       } else {
         prettyPrint(log.ble("peripheral didUpdateValueFor characteristic - fake finalize connection"))
         processBatteryLevel = true
@@ -1200,7 +1200,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
         }
       }
     case let uuid where characsUUIDS.contains(uuid) :
-      MBTClient.main.deviceAcqusitionManager.processDeviceInformations(characteristic)
+      MBTClient.shared.deviceAcqusitionManager.processDeviceInformations(characteristic)
     case MBTBluetoothLEHelper.mailBoxUUID :
       stopTimerTimeOutA2DPConnection()
       if let data = characteristic.value {
