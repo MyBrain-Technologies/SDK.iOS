@@ -22,7 +22,7 @@ public class MBTClient {
   //----------------------------------------------------------------------------
 
   /// Singleton of MBTClient
-  public static let main:MBTClient = MBTClient()
+  public static let shared: MBTClient = MBTClient()
 
   /******************** Managers ********************/
 
@@ -362,6 +362,7 @@ public class MBTClient {
   /// Start saving EEGPacket on DB  /// - Parameters :
   ///   - newRecord : Create a new recordId on the JSON File
   ///   - recordingType : Change the session's type
+  @discardableResult
   public func startRecording(
     _ newRecord:Bool,
     recordingType:MBTRecordingType = MBTRecordingType()) -> UUID? {
@@ -409,7 +410,7 @@ public class MBTClient {
   
   /// Start the OAD process
   public func startOADTransfer() {
-    self.bluetoothManager.startOAD()
+    bluetoothManager.startOAD()
   }
   
   public func testOADTransfer() {
