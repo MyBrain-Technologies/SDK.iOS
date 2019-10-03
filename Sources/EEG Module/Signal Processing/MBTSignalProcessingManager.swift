@@ -222,7 +222,8 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     let packets =
       EEGPacketManager.getLastNPacketsComplete(MBTClient.HISTORY_SIZE)
 
-    if packets.count < MBTClient.HISTORY_SIZE || calibrationComputed == nil {
+    let packetCount = packets.count
+    if packetCount < MBTClient.HISTORY_SIZE || calibrationComputed == nil {
       return 0
     }
 
@@ -246,11 +247,20 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
       }
     }
 
+    let lastPacket = packets[packetCount - 1]
+    let qualities = lastPacket.qualities
+    var qualitiesArray = [Float]()
+
+    qualities.forEach { quality in
+      qualitiesArray.append(quality.value)
+    }
+
     //Perform the computation
     let relaxIndex =
       MBTRelaxIndexBridge.computeRelaxIndex(dataArray,
                                             sampRate: sampRate,
-                                            nbChannels: nbChannels)
+                                            nbChannels: nbChannels,
+                                            lastPacketQualities: qualitiesArray)
     return relaxIndex
   }
 

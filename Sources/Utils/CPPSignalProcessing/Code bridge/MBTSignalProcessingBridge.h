@@ -51,7 +51,8 @@
 
 + (float)computeRelaxIndex:(NSArray *)signal
                   sampRate:(NSInteger)sampRate
-                nbChannels: (NSInteger) nbChannels;
+                nbChannels: (NSInteger) nbChannels
+                lastPacketQualities:(NSArray*) lastPacketQualities;
 
 @end
 
