@@ -100,6 +100,7 @@
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3549BB551DA38A5E00C63030 /* Info-tvOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
+		4D3940CF234B3B2100D4837A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTSignalProcessingBridge.mm; sourceTree = "<group>"; };
 		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
 		4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTBridgeConstants.h; sourceTree = "<group>"; };
@@ -231,6 +232,7 @@
 		3549BAFB1DA387DB00C63030 = {
 			isa = PBXGroup;
 			children = (
+				4D3940EA234B3E5B00D4837A /* Deployment */,
 				3549BB161DA3890B00C63030 /* Sources */,
 				2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */,
 				3549BB061DA387DB00C63030 /* Products */,
@@ -300,6 +302,14 @@
 				A90A1D6022C373360097C1BE /* libTransformations.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D3940EA234B3E5B00D4837A /* Deployment */ = {
+			isa = PBXGroup;
+			children = (
+				4D3940CF234B3B2100D4837A /* Package.swift */,
+			);
+			name = Deployment;
 			sourceTree = "<group>";
 		};
 		4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */ = {
@@ -423,7 +433,7 @@
 		3549BAFC1DA387DB00C63030 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = MyBrainTechnologies;
 				TargetAttributes = {

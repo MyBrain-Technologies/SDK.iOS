@@ -1,0 +1,25 @@
+import PackageDescription
+
+let package = Package(
+  name: "MyBrainTechnologiesSDK",
+  products: [
+    .library(
+      name: "MyBrainTechnologiesSDK",
+      targets: ["MyBrainTechnologiesSDK"]
+    ),
+  ],
+  platforms: [.iOS(.v9)],
+  dependencies: [
+    // Dependencies declare other packages that this package depends on.
+    // .package(url: /* package url */, from: "1.0.0"),
+    .package(url: "https://github.com/Alamofire/Alamofire", from: "4.9.0"),
+    .package(url: "https://github.com/realm/realm-cocoa", from: "3.19.0"),
+  ],
+  targets: [
+    .target(
+      name: "MyBrainTechnologiesSDK",
+      path: "Sources"
+    )
+  ],
+  swiftLanguageVersions: [.v5]
+)
