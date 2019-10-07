@@ -20,7 +20,11 @@ let package = Package(
   targets: [
     .target(
       name: "MyBrainTechnologiesSDK",
-      path: "Sources"
+      path: "Sources/Swift"
+    ),
+    .target(
+      name: "CPPSignalProcessing",
+      path: "Sources/SupportingFiles/CPPSignalProcessing"
     )
   ],
   swiftLanguageVersions: [.v5]
