@@ -18,13 +18,13 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "MyBrainTechnologiesSDK",
-      dependencies: ["Alamofire", "RealmSwift", "SwiftyJSON"],
-      path: "Sources/Swift"
-    ),
-    .target(
       name: "CPP",
       path: "Sources/CPP"
+    ),
+    .target(
+      name: "MyBrainTechnologiesSDK",
+      dependencies: ["Alamofire", "RealmSwift", "SwiftyJSON", "CPP"],
+      path: "Sources/Swift"
     )
   ],
   swiftLanguageVersions: [.v5]
