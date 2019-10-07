@@ -14,11 +14,12 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/Alamofire/Alamofire", from: "4.9.0"),
     .package(url: "https://github.com/realm/realm-cocoa", from: "3.19.0"),
+    .package(url: "https://github.com/SwiftyJSON/SwiftyJSON", from: "5.0.0")
   ],
   targets: [
     .target(
       name: "MyBrainTechnologiesSDK",
-      dependencies: ["Alamofire", "RealmSwift"],
+      dependencies: ["Alamofire", "RealmSwift", "SwiftyJSON"],
       path: "Sources/Swift"
     ),
     .target(
