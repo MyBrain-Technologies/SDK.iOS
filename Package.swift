@@ -19,7 +19,18 @@ let package = Package(
   targets: [
     .target(
       name: "CPP",
-      path: "Sources/CPP"
+      path: "Sources/CPP",
+      linkerSettings: [
+        .linkLibrary("libNF_Melomind"),
+        .linkLibrary("libSNR"),
+        .linkLibrary("libfftw3"),
+        .linkLibrary("libTransformations"),
+        .linkLibrary("libQualityChecker"),
+        .linkLibrary("libTimeFrequency"),
+        .linkLibrary("libDataManipulation"),
+        .linkLibrary("libPreProcessing"),
+        .linkLibrary("libAlgebra"),
+      ]
     ),
     .target(
       name: "MyBrainTechnologiesSDK",
