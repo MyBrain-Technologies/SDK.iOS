@@ -20,24 +20,13 @@ let package = Package(
     .target(
       name: "CPP",
       path: "Sources/CPP",
-      cSettings: [
-          .headerSearchPath("Sources/CPP/signalProcessingSDK/include"),
-          .headerSearchPath("Sources/CPP/signalProcessingSDK/include/SignalProcessing/DataManipulation")
-      ],
       cxxSettings: [
-        .headerSearchPath("Sources/CPP/signalProcessingSDK/include"),
-        .headerSearchPath("Sources/CPP/signalProcessingSDK/include/SignalProcessing/DataManipulation")
+        .headerSearchPath("signalProcessingSDK/include/SignalProcessing"),
+        .headerSearchPath("signalProcessingSDK/include/MyBrainTechSDK"),
+        .headerSearchPath("./signalProcessingSDK/include")
       ],
       linkerSettings: [
-        .linkedLibrary("libNF_Melomind"),
-        .linkedLibrary("libSNR"),
-        .linkedLibrary("libfftw3"),
-        .linkedLibrary("libTransformations"),
-        .linkedLibrary("libQualityChecker"),
-        .linkedLibrary("libTimeFrequency"),
-        .linkedLibrary("libDataManipulation"),
-        .linkedLibrary("libPreProcessing"),
-        .linkedLibrary("libAlgebra")
+        .unsafeFlags(["-LsignalProcessingSDK/lib"])
       ]
     ),
     .target(
@@ -46,5 +35,6 @@ let package = Package(
       path: "Sources/Swift"
     )
   ],
-  swiftLanguageVersions: [.v5]
+  swiftLanguageVersions: [.v5],
+  cxxLanguageStandard: .gnucxx11
 )
