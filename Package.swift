@@ -23,8 +23,8 @@ let package = Package(
       path: "Sources/Swift"
     ),
     .target(
-      name: "CPPSignalProcessing",
-      path: "Sources/SupportingFiles/CPPSignalProcessing"
+      name: "CPP",
+      path: "Sources/CPP"
     )
   ],
   swiftLanguageVersions: [.v5]
