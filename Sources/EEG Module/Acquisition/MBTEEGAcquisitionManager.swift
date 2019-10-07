@@ -10,6 +10,7 @@
 import Foundation
 import CoreBluetooth
 import RealmSwift
+import SwiftyJSON
 
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...

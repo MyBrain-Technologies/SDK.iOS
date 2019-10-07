@@ -24,11 +24,10 @@
 		2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DA0205139D800928F1F /* MBTDeviceAcquisitionDelegate.swift */; };
 		2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
-		2B6B5DAF20513A1D00928F1F /* SwiftyJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */; };
-		2B6B5DB020513A1D00928F1F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */; };
 		2BD1014521A95053002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
 		2BF87D4820ECC36400333DA0 /* mm-ota-1_6_2.bin in Resources */ = {isa = PBXBuildFile; fileRef = 2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D39410D234B48DB00D4837A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4D39410C234B48DB00D4837A /* SwiftyJSON */; };
 		4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */; };
 		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -88,13 +87,9 @@
 		2B6B5DA0205139D800928F1F /* MBTDeviceAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTDeviceAcquisitionDelegate.swift; sourceTree = "<group>"; };
 		2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTDeviceAcquisitionManager.swift; sourceTree = "<group>"; };
 		2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTRecordInfo.swift; path = Models/MBTRecordInfo.swift; sourceTree = "<group>"; };
-		2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
-		2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		2BC2D54620F8A2CE001CC2CE /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		2BC2D54720F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BD1014421A95053002C3C1A /* PrettyPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrettyPrinter.swift; sourceTree = "<group>"; };
-		2BD94E6221C7E0C100A567EE /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		2BD94E6321C7E0C200A567EE /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		2BF87D4720ECC36400333DA0 /* mm-ota-1_6_2.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_6_2.bin"; sourceTree = "<group>"; };
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
@@ -137,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D39410D234B48DB00D4837A /* SwiftyJSON in Frameworks */,
 				A90A1D6522C373360097C1BE /* libSNR.a in Frameworks */,
 				2445FDE3234A1FD900BB9F4D /* RealmSwift in Frameworks */,
 				A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */,
@@ -191,16 +187,6 @@
 				2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */,
 			);
 			path = "Device Acquisition Module";
-			sourceTree = "<group>";
-		};
-		2B6B5DAC20513A1C00928F1F /* SwiftyJSON */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */,
-				2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */,
-			);
-			name = SwiftyJSON;
-			path = Utils/SwiftyJSON;
 			sourceTree = "<group>";
 		};
 		2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */ = {
@@ -378,10 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */,
-				2BD94E6221C7E0C100A567EE /* Realm.framework */,
-				2BD94E6321C7E0C200A567EE /* RealmSwift.framework */,
 				2BD1014321A95039002C3C1A /* PrettyPrinter */,
-				2B6B5DAC20513A1C00928F1F /* SwiftyJSON */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -396,7 +379,6 @@
 				4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */,
 				4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */,
 				3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
-				2B6B5DAF20513A1D00928F1F /* SwiftyJSON.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +404,7 @@
 				2445FDDD234A1E0A00BB9F4D /* Alamofire */,
 				2445FDE0234A1FD900BB9F4D /* Realm */,
 				2445FDE2234A1FD900BB9F4D /* RealmSwift */,
+				4D39410C234B48DB00D4837A /* SwiftyJSON */,
 			);
 			productName = "MyBrainTechnologiesSDK-iOS";
 			productReference = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */;
@@ -457,6 +440,7 @@
 			packageReferences = (
 				2445FDDC234A1E0A00BB9F4D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				2445FDDF234A1FD900BB9F4D /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				4D39410B234B48DB00D4837A /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = 3549BB061DA387DB00C63030 /* Products */;
 			projectDirPath = "";
@@ -491,7 +475,6 @@
 			files = (
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* MBTBrainWebHelper.swift in Sources */,
-				2B6B5DB020513A1D00928F1F /* SwiftyJSON.swift in Sources */,
 				F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				B5378D0921F8B8A4007F12DA /* CSVConverter.swift in Sources */,
@@ -663,7 +646,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Sources",
 					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
@@ -714,7 +696,6 @@
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Sources",
 					"$(PROJECT_DIR)/Sources/signalProcessingSDK/lib",
 				);
@@ -789,6 +770,14 @@
 				minimumVersion = 3.19.0;
 			};
 		};
+		4D39410B234B48DB00D4837A /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -806,6 +795,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2445FDDF234A1FD900BB9F4D /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
+		};
+		4D39410C234B48DB00D4837A /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D39410B234B48DB00D4837A /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
