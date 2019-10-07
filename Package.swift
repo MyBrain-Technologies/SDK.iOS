@@ -33,7 +33,7 @@ let package = Package(
       dependencies: ["Alamofire", "RealmSwift", "SwiftyJSON", "CPP"],
       path: "Sources/Swift",
       linkerSettings: [
-        .linkedLibrary("CPP/signalProcessingSDK/lib/libAlgebra.a"),
+        .linkedLibrary("../CPP/signalProcessingSDK/lib/libAlgebra.a"),
         .linkedLibrary("CPP/signalProcessingSDK/lib/libDataManipulation.a"),
         .linkedLibrary("CPP/signalProcessingSDK/lib/libfftw3.a"),
         .linkedLibrary("CPP/signalProcessingSDK/lib/libNF_Melomind.a"),
