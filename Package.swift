@@ -26,11 +26,10 @@ let package = Package(
         .headerSearchPath("signalProcessingSDK/include"),
         .headerSearchPath("CPPSignalProcessing/Codebridge"),
         .headerSearchPath("CPPSignalProcessing/SignalProcessing.Cpp")
+      ],
+      linkerSettings: [
+        .unsafeFlags(["-LsignalProcessingSDK/lib", "-llibAlgebra"])
       ]
-//      ,
-//      linkerSettings: [
-//        .unsafeFlags(["-LsignalProcessingSDK/lib"])
-//      ]
     ),
     .target(
       name: "MyBrainTechnologiesSDK",
