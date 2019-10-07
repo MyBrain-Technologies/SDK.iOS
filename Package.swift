@@ -18,8 +18,8 @@ let package = Package(
   targets: [
     .target(
       name: "MyBrainTechnologiesSDK",
-      path: "Sources/Swift",
-      dependencies: ["Alamofire", "Realm"]
+      dependencies: ["Alamofire", "RealmSwift"],
+      path: "Sources/Swift"
     ),
     .target(
       name: "CPP",
