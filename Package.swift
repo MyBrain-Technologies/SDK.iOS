@@ -23,7 +23,9 @@ let package = Package(
       cxxSettings: [
         .headerSearchPath("signalProcessingSDK/include/SignalProcessing"),
         .headerSearchPath("signalProcessingSDK/include/MyBrainTechSDK"),
-        .headerSearchPath("./signalProcessingSDK/include")
+        .headerSearchPath("signalProcessingSDK/include"),
+        .headerSearchPath("CPPSignalProcessing/Codebridge"),
+        .headerSearchPath("CPPSignalProcessing/SignalProcessing.Cpp")
       ],
       linkerSettings: [
         .unsafeFlags(["-LsignalProcessingSDK/lib"])
