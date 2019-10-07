@@ -20,6 +20,9 @@ let package = Package(
     .target(
       name: "CPP",
       path: "Sources/CPP",
+      cSettings: [
+          .headerSearchPath("Sources/CPP/signalProcessingSDK/include")
+      ],
       linkerSettings: [
         .linkedLibrary("libNF_Melomind"),
         .linkedLibrary("libSNR"),
