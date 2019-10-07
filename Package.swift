@@ -21,15 +21,15 @@ let package = Package(
       name: "CPP",
       path: "Sources/CPP",
       linkerSettings: [
-        .linkLibrary("libNF_Melomind"),
-        .linkLibrary("libSNR"),
-        .linkLibrary("libfftw3"),
-        .linkLibrary("libTransformations"),
-        .linkLibrary("libQualityChecker"),
-        .linkLibrary("libTimeFrequency"),
-        .linkLibrary("libDataManipulation"),
-        .linkLibrary("libPreProcessing"),
-        .linkLibrary("libAlgebra"),
+        .linkedLibrary("libNF_Melomind"),
+        .linkedLibrary("libSNR"),
+        .linkedLibrary("libfftw3"),
+        .linkedLibrary("libTransformations"),
+        .linkedLibrary("libQualityChecker"),
+        .linkedLibrary("libTimeFrequency"),
+        .linkedLibrary("libDataManipulation"),
+        .linkedLibrary("libPreProcessing"),
+        .linkedLibrary("libAlgebra")
       ]
     ),
     .target(
