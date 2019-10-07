@@ -28,7 +28,16 @@ let package = Package(
         .headerSearchPath("CPPSignalProcessing/SignalProcessing.Cpp")
       ],
       linkerSettings: [
-        .unsafeFlags(["-LsignalProcessingSDK/lib"])
+      .linkedLibrary("signalProcessingSDK/lib/libAlgebra.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libDataManipulation.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libfftw3.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libNF_Melomind.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libPreProcessing.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libQualityChecker.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libSNR.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libTimeFrequency.a"),
+      .linkedLibrary("signalProcessingSDK/lib/libTransformations.a")
+//        .unsafeFlags(["-LsignalProcessingSDK/lib"])
       ]
     ),
     .target(
