@@ -21,7 +21,12 @@ let package = Package(
       name: "CPP",
       path: "Sources/CPP",
       cSettings: [
-          .headerSearchPath("Sources/CPP/signalProcessingSDK/include")
+          .headerSearchPath("Sources/CPP/signalProcessingSDK/include"),
+          .headerSearchPath("Sources/CPP/signalProcessingSDK/include/SignalProcessing/DataManipulation")
+      ],
+      cxxSettings: [
+        .headerSearchPath("Sources/CPP/signalProcessingSDK/include"),
+        .headerSearchPath("Sources/CPP/signalProcessingSDK/include/SignalProcessing/DataManipulation")
       ],
       linkerSettings: [
         .linkedLibrary("libNF_Melomind"),
