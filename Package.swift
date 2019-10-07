@@ -26,15 +26,15 @@ let package = Package(
         .headerSearchPath("signalProcessingSDK/include"),
         .headerSearchPath("CPPSignalProcessing/Codebridge"),
         .headerSearchPath("CPPSignalProcessing/SignalProcessing.Cpp")
+      ],
+      linkerSettings: [
+        .unsafeFlags(["-LsignalProcessingSDK/lib"])
       ]
     ),
     .target(
       name: "MyBrainTechnologiesSDK",
       dependencies: ["Alamofire", "RealmSwift", "SwiftyJSON", "CPP"],
-      path: "Sources/Swift",
-      linkerSettings: [
-        .unsafeFlags(["-LCPP/signalProcessingSDK/lib"])
-      ]
+      path: "Sources/Swift"
     )
   ],
   swiftLanguageVersions: [.v5],
