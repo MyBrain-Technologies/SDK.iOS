@@ -26,24 +26,24 @@ let package = Package(
         .headerSearchPath("signalProcessingSDK/include"),
         .headerSearchPath("CPPSignalProcessing/Codebridge"),
         .headerSearchPath("CPPSignalProcessing/SignalProcessing.Cpp")
-      ],
-      linkerSettings: [
-      .linkedLibrary("signalProcessingSDK/lib/libAlgebra.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libDataManipulation.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libfftw3.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libNF_Melomind.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libPreProcessing.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libQualityChecker.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libSNR.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libTimeFrequency.a"),
-      .linkedLibrary("signalProcessingSDK/lib/libTransformations.a")
-//        .unsafeFlags(["-LsignalProcessingSDK/lib"])
       ]
     ),
     .target(
       name: "MyBrainTechnologiesSDK",
       dependencies: ["Alamofire", "RealmSwift", "SwiftyJSON", "CPP"],
-      path: "Sources/Swift"
+      path: "Sources/Swift",
+      linkerSettings: [
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libAlgebra.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libDataManipulation.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libfftw3.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libNF_Melomind.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libPreProcessing.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libQualityChecker.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libSNR.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libTimeFrequency.a"),
+        .linkedLibrary("CPP/signalProcessingSDK/lib/libTransformations.a")
+        //        .unsafeFlags(["-LsignalProcessingSDK/lib"])
+      ]
     )
   ],
   swiftLanguageVersions: [.v5],
