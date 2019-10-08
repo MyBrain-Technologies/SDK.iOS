@@ -75,7 +75,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
 
     // Transform the input data into the format needed by the Obj-C++ bridge.
     let nbChannels: Int = data.count
-    let nbDataPoints: Int = data.first!.value.count
+    let packetLength: Int = data.first!.value.count
     var dataArray = [Float]()
     var nbNAN = 0
     for channelDatas in data {
@@ -97,7 +97,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
       MBTQualityCheckerBridge.computeQuality(dataArray,
                                              sampRate: sampRate,
                                              nbChannels: nbChannels,
-                                             nbDataPoints: nbDataPoints)
+                                             packetLength: packetLength)
 
     // Return the quality values.
     let qualitySwift = qualities as! [Float]
@@ -110,7 +110,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
         log.ln("computeQualityValue - dataArray Count : \(dataArray.count)")
       )
       prettyPrint(
-        log.ln("computeQualityValue - nbDataPoints : \(nbDataPoints)")
+        log.ln("computeQualityValue - packet length : \(packetLength)")
       )
     }
 
@@ -233,7 +233,7 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     }
 
     var arrayModifiedChannelData = [List<ChannelDatas>]()
-    for i in 0 ..< packets.count {
+    for i in 0 ..< packetCount {
       arrayModifiedChannelData.append(packets[i].modifiedChannelsData)
     }
 
@@ -317,6 +317,10 @@ extension MBTSignalProcessingManager {
   var sessionQualities: [Float] {
     return 
       MBTMelomindAnalysis.sessionQualities().filter { $0 is Float } as! [Float]
+  }
+
+  func resetSession() {
+    MBTMelomindAnalysis.resetSession()
   }
 
 }

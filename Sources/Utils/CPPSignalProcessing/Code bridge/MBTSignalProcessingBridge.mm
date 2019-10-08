@@ -205,18 +205,21 @@ static MBT_MainQC *mainQC;
 + (NSArray*) computeQuality: (NSArray*) signal
                    sampRate: (NSInteger) sampRate
                  nbChannels: (NSInteger) nbChannels
-               nbDataPoints: (NSInteger) nbDataPoints
+               packetLength: (NSInteger) packetLength
 {
-
   //    printf("Count Signal = %lu",[signal count]);
   // Transform EEG data into MBT_Matrix
-  MBT_Matrix<float> signalMatrix = [MBTSignalProcessingHelper fromNSArrayToMatrix:signal
-                                                                        andHeight:(int)nbChannels
-                                                                         andWidth:(int)nbDataPoints];
+  MBT_Matrix<float> signalMatrix =
+  [MBTSignalProcessingHelper fromNSArrayToMatrix:signal
+                                       andHeight:(int)nbChannels
+                                        andWidth:(int)packetLength];
+
   // Compute Quality
   mainQC->MBT_ComputeQuality(signalMatrix);
+
   // Getting the qualities in a cpp format
   std::vector<float> qualities = mainQC->MBT_get_m_quality();
+
   // Converting the qualities to an Objective-C format.
   return [MBTSignalProcessingHelper fromVectorToNSArray:qualities];
 }
@@ -313,12 +316,12 @@ static vector<float>histFreq;
                   sampRate:(NSInteger)sampRate
                 nbChannels: (NSInteger) nbChannels
        lastPacketQualities:(NSArray*) lastPacketQualities {
-  int width = static_cast<int>(signal.count / nbChannels);
+  const unsigned int packetLength = static_cast<int>(signal.count / nbChannels);
 
   auto signalMatrix =
   [MBTSignalProcessingHelper fromNSArrayToMatrix:signal
                                        andHeight:static_cast<int>(nbChannels)
-                                        andWidth:width];
+                                        andWidth:packetLength];
 
   auto calibrationParams = [MBTSignalProcessingHelper getCalibrationParameters];
 
@@ -327,7 +330,6 @@ static vector<float>histFreq;
   }
 
   const auto sampleRate = static_cast<float>(sampRate);
-  const auto packetLength = 250;
   const auto smoothingDuration = SMOOTHINGDURATION;
   const auto bufferSize = 1;
   const auto configuration =
@@ -415,6 +417,10 @@ static vector<float>histFreq;
 
 @implementation MBTMelomindAnalysis
 
++ (void) resetSession {
+  MelomindAnalysisSingleton::getInstance().resetSession();
+}
+
 + (float) sessionMeanAlphaPower {
   return MelomindAnalysisSingleton::getInstance().getSessionMeanAlphaPower();
 }
@@ -445,6 +451,5 @@ static vector<float>histFreq;
   MelomindAnalysisSingleton::getInstance().getSessionQualities();
   return [MBTSignalProcessingHelper fromVectorToNSArray:qualities];
 }
-
 
 @end

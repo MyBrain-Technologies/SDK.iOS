@@ -22,7 +22,7 @@
 + (NSArray*) computeQuality: (NSArray*) signal
                    sampRate: (NSInteger) sampRate
                  nbChannels: (NSInteger) nbChannels
-               nbDataPoints: (NSInteger) nbDataPoints;
+               packetLength: (NSInteger) packetLength;
 
 + (NSArray*) getModifiedEEGData;
 
@@ -65,6 +65,8 @@
 @end
 
 @interface MBTMelomindAnalysis: NSObject
+
++ (void) resetSession;
 
 + (float) sessionMeanAlphaPower;
 + (float) sessionMeanRelativeAlphaPower;
