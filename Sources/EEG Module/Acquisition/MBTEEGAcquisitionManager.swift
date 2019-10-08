@@ -63,6 +63,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         eegPacketLength = device.eegPacketLength
         nbChannels = device.nbChannels
         sampRate = device.sampRate
+        MBTSignalProcessingManager.shared.resetSession()
     }
     
     //MARK: - Manage streaming datas methods.
