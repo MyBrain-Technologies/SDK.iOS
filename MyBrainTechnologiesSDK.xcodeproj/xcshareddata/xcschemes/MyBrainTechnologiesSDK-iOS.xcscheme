@@ -41,6 +41,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3549BB201DA389CD00C63030"
+            BuildableName = "MyBrainTechnologiesSDK.framework"
+            BlueprintName = "MyBrainTechnologiesSDK-iOS"
+            ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -63,17 +72,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3549BB201DA389CD00C63030"
-            BuildableName = "MyBrainTechnologiesSDK.framework"
-            BlueprintName = "MyBrainTechnologiesSDK-iOS"
-            ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release"
@@ -94,8 +92,6 @@
             ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

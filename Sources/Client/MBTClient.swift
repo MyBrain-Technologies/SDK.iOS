@@ -236,7 +236,8 @@ public class MBTClient {
   }
   
 //  /// Getter for the session JSON.
-//  /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not exist.
+//  /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not
+//  /// exist.
 //  public func getSessionJSON() -> Data? {
 //    return MBTJSONHelper.getSessionData()
 //  }
@@ -365,7 +366,8 @@ public class MBTClient {
   @discardableResult
   public func startRecording(
     _ newRecord:Bool,
-    recordingType:MBTRecordingType = MBTRecordingType()) -> UUID? {
+    recordingType:MBTRecordingType = MBTRecordingType()
+  ) -> UUID? {
     EEGPacketManager.removeAllEEGPackets()
     if let _ = DeviceManager.connectedDeviceName {
       if newRecord {
@@ -397,8 +399,7 @@ public class MBTClient {
     bluetoothManager.isListeningToEEG = true
     bluetoothManager.isListeningToHeadsetStatus = true
   }
-  
-  
+
   /// Stop streaming EEG Data to MelomineEngineDelegate.
   /// Stop streaming headSet Data from MelomindEngineDelegate.
   /// - Remark: a JSON will be created with all the MBTEEGPacket.

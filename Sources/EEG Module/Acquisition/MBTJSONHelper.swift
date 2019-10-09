@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 /// Helper to create and manage a JSON file (kwak format)
 /// with the session data.
