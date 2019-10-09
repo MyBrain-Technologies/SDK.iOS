@@ -18,10 +18,10 @@
 		2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DA0205139D800928F1F /* MBTDeviceAcquisitionDelegate.swift */; };
 		2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
-		2B6B5DAF20513A1D00928F1F /* SwiftyJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */; };
-		2B6B5DB020513A1D00928F1F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */; };
 		2BD1014521A95053002C3C1A /* PrettyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1014421A95053002C3C1A /* PrettyPrinter.swift */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D5EE9DD234E096D00B36DF0 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
+		4D5EE9DE234E096D00B36DF0 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
 		4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */; };
@@ -67,6 +67,17 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D5EE9DF234E096D00B36DF0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4D5EE9DE234E096D00B36DF0 /* SwiftyJSON.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -80,8 +91,6 @@
 		2B6B5DA0205139D800928F1F /* MBTDeviceAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTDeviceAcquisitionDelegate.swift; sourceTree = "<group>"; };
 		2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTDeviceAcquisitionManager.swift; sourceTree = "<group>"; };
 		2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTRecordInfo.swift; path = Models/MBTRecordInfo.swift; sourceTree = "<group>"; };
-		2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
-		2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		2BC2D54620F8A2CE001CC2CE /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		2BC2D54720F8A2CE001CC2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BD1014421A95053002C3C1A /* PrettyPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrettyPrinter.swift; sourceTree = "<group>"; };
@@ -91,6 +100,7 @@
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTSignalProcessingBridge.mm; sourceTree = "<group>"; };
@@ -128,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D5EE9DD234E096D00B36DF0 /* SwiftyJSON.framework in Frameworks */,
 				B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */,
 				A90A1D6522C373360097C1BE /* libSNR.a in Frameworks */,
 				4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */,
@@ -182,16 +193,6 @@
 				2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */,
 			);
 			path = "Device Acquisition Module";
-			sourceTree = "<group>";
-		};
-		2B6B5DAC20513A1C00928F1F /* SwiftyJSON */ = {
-			isa = PBXGroup;
-			children = (
-				2B6B5DAD20513A1C00928F1F /* SwiftyJSON.h */,
-				2B6B5DAE20513A1C00928F1F /* SwiftyJSON.swift */,
-			);
-			name = SwiftyJSON;
-			path = Utils/SwiftyJSON;
 			sourceTree = "<group>";
 		};
 		2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */ = {
@@ -267,6 +268,7 @@
 		357D954B1DA3F2B400AEC55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */,
 				A90A1D5B22C373360097C1BE /* libAlgebra.a */,
 				A90A1D6122C373360097C1BE /* libDataManipulation.a */,
 				A90A1D5922C373350097C1BE /* libfftw3.a */,
@@ -352,7 +354,6 @@
 				4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */,
 				2BD94E6221C7E0C100A567EE /* Realm.framework */,
 				2BD94E6321C7E0C200A567EE /* RealmSwift.framework */,
-				2B6B5DAC20513A1C00928F1F /* SwiftyJSON */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -367,7 +368,6 @@
 				4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */,
 				4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */,
 				3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */,
-				2B6B5DAF20513A1D00928F1F /* SwiftyJSON.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +383,7 @@
 				3549BB1E1DA389CD00C63030 /* Headers */,
 				3549BB1F1DA389CD00C63030 /* Resources */,
 				2B439B7720A1E663005C12A6 /* Copy Files */,
+				4D5EE9DF234E096D00B36DF0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -448,7 +449,6 @@
 			files = (
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* MBTBrainWebHelper.swift in Sources */,
-				2B6B5DB020513A1D00928F1F /* SwiftyJSON.swift in Sources */,
 				F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				B5378D0921F8B8A4007F12DA /* CSVConverter.swift in Sources */,
