@@ -20,19 +20,19 @@
 
 @interface MBTQualityCheckerBridge: NSObject
 
-+ (void)initializeMainQualityChecker:(float) sampRate
-                             accuracy:(float) accuracy;
++ (void)initializeMainQualityChecker:(float)sampRate
+                             accuracy:(float)accuracy;
 
 + (void)deInitializeMainQualityChecker;
 
-+ (NSArray*) computeQuality: (NSArray*) signal
-                   sampRate: (NSInteger) sampRate
-                 nbChannels: (NSInteger) nbChannels
-               packetLength: (NSInteger) packetLength;
++ (NSArray*)computeQuality:(NSArray*) signal
+                   sampRate:(NSInteger)sampRate
+                 nbChannels:(NSInteger)nbChannels
+               packetLength:(NSInteger)packetLength;
 
-+ (NSArray*) getModifiedEEGData;
++ (NSArray*)getModifiedEEGData;
 
-+ (NSString*) getVersion;
++ (NSString*)getVersion;
 
 @end
 
@@ -45,11 +45,11 @@
 
 @interface MBTCalibrationBridge: NSObject
 
-+ (NSDictionary *)computeCalibration: (NSArray *)modifiedChannelsData
-                 qualities: (NSArray *)qualities
-              packetLength: (NSInteger)packetLength
-              packetsCount: (NSInteger)packetsCount
-                  sampRate: (NSInteger)sampRate;
++ (NSDictionary*)computeCalibration:(NSArray*)modifiedChannelsData
+                          qualities:(NSArray*)qualities
+                       packetLength:(NSInteger)packetLength
+                       packetsCount:(NSInteger)packetsCount
+                           sampRate:(NSInteger)sampRate;
 
 @end
 
@@ -62,10 +62,10 @@
 
 @interface MBTRelaxIndexBridge: NSObject
 
-+ (float)computeRelaxIndex:(NSArray *)signal
++ (float)computeRelaxIndex:(NSArray*)signal
                   sampRate:(NSInteger)sampRate
-                nbChannels: (NSInteger) nbChannels
-                lastPacketQualities:(NSArray*) lastPacketQualities;
+                nbChannels:(NSInteger)nbChannels
+                lastPacketQualities:(NSArray*)lastPacketQualities;
 
 @end
 
@@ -78,8 +78,8 @@
 
 @interface MBTSNRStatisticsBridge: NSObject
 
-+ (NSDictionary *)computeSessionStatistics:(NSArray *)inputDataSNR
-                                 threshold:(float)threshold;
++ (NSDictionary*)computeSessionStatistics:(NSArray*)inputDataSNR
+                                threshold:(float)threshold;
 
 @end
 
@@ -92,15 +92,15 @@
 
 @interface MBTMelomindAnalysis: NSObject
 
-+ (void) resetSession;
++ (void)resetSession;
 
-+ (float) sessionMeanAlphaPower;
-+ (float) sessionMeanRelativeAlphaPower;
-+ (float) sessionConfidence;
++ (float)sessionMeanAlphaPower;
++ (float)sessionMeanRelativeAlphaPower;
++ (float)sessionConfidence;
 
-+ (NSArray*) sessionAlphaPowers;
-+ (NSArray*) sessionRelativeAlphaPowers;
-+ (NSArray*) sessionQualities;
++ (NSArray*)sessionAlphaPowers;
++ (NSArray*)sessionRelativeAlphaPowers;
++ (NSArray*)sessionQualities;
 
 @end
 
