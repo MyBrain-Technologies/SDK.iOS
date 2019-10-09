@@ -166,7 +166,7 @@ struct MBTBrainWebHelper {
                     log.url("sendALLJsonToBrainWeb - response : \n\(response)")
                   prettyPrint(logMessage)
                   if response.response?.statusCode == 201 {
-                    let _ = MBTJSONHelper.removeFile(fileURL)
+                    MBTJSONHelper.removeFile(fileURL)
                     completion(true)
                   }
                   completion(false)
