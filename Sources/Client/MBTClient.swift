@@ -46,7 +46,7 @@ public class MBTClient {
 
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
 
-  public var isEegAcqusitionRecordPaused: Bool {
+  public var isEegAcqusitionRecordingPaused: Bool {
     set { eegAcqusitionManager.isRecording = newValue }
     get { return eegAcqusitionManager.isRecording }
   }
