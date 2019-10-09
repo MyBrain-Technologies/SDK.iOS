@@ -1,11 +1,3 @@
-//
-//  MBTBrainWebHelper.swift
-//  MyBrainTechnologiesSDK
-//
-//  Created by Baptiste Rasschaert on 31/07/2017.
-//  Copyright © 2017 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 
@@ -25,7 +17,6 @@ struct MBTBrainWebHelper {
   static var accessTokens = ""
 
   static var path = "/ingest-legacy"
-
 
   //----------------------------------------------------------------------------
   // MARK: - Request
