@@ -135,13 +135,12 @@ static std::map<std::string, std::vector<float>> calibParams;
 static MBT_MainQC *mainQC;
 
 /// Initialize Main_QC, and save it.
-+ (void)initializeMainQualityChecker:(float)sampRate
-                            accuracy:(float)accuracy {
++ (void)initializeMainQualityChecker:(float)sampRate accuracy:(float)accuracy {
   // Construction de kppv
   unsigned int kppv = 19;
 
   // Construction de costClass
-  MBT_Matrix<float> costClass(3,3);
+  auto costClass = MBT_Matrix<float>(3, 3);
   for (int t = 0; t < costClass.size().first;t++) {
     for (int t1 = 0; t1 < costClass.size().second; t1++) {
       if (t == t1) {
@@ -153,13 +152,13 @@ static MBT_MainQC *mainQC;
   }
 
   // Construction de costClassBad
-  MBT_Matrix<float> costClassBad(2,2);
-  for (int t = 0; t < costClass.size().first; t++) {
-    for (int t1 = 0; t1 < costClass.size().second; t1++) {
+  auto costClassBad = MBT_Matrix<float>(2, 2);
+  for (int t = 0; t < costClassBad.size().first; t++) {
+    for (int t1 = 0; t1 < costClassBad.size().second; t1++) {
       if (t == t1) {
-        costClass(t, t1) = 0;
+        costClassBad(t, t1) = 0;
       } else {
-        costClass(t, t1) = 1;
+        costClassBad(t, t1) = 1;
       }
     }
   }
@@ -190,7 +189,6 @@ static MBT_MainQC *mainQC;
                           muBad,
                           sigmaBad,
                           costClassBad);
-
 }
 
 /// Dealloc MBT_MainQC instance when session is finished, for memory safety.
