@@ -11,6 +11,12 @@
 
 #import <Foundation/Foundation.h>
 
+/*******************************************************************************
+ * MBTQualityCheckerBridge
+ *
+ * Bridge methods for quality checker.
+ *
+ ******************************************************************************/
 
 @interface MBTQualityCheckerBridge: NSObject
 
@@ -30,9 +36,12 @@
 
 @end
 
-
-
-
+/*******************************************************************************
+* MBTCalibrationBridge
+*
+* Bridge methods for calibration calculation, for a group of *MBTEEGPacket*.
+*
+*******************************************************************************/
 
 @interface MBTCalibrationBridge: NSObject
 
@@ -44,8 +53,12 @@
 
 @end
 
-
-
+/*******************************************************************************
+* MBTRelaxIndexBridge
+*
+* Bridge methods to get the Relax Index
+*
+*******************************************************************************/
 
 @interface MBTRelaxIndexBridge: NSObject
 
@@ -56,6 +69,12 @@
 
 @end
 
+/*******************************************************************************
+* MBTSNRStatisticsBridge
+*
+* Bridge methods for SNR Statistics
+*
+*******************************************************************************/
 
 @interface MBTSNRStatisticsBridge: NSObject
 
@@ -63,6 +82,13 @@
                                  threshold:(float)threshold;
 
 @end
+
+/*******************************************************************************
+* MBTSNRStatisticsBridge
+*
+* Bridge methods for analysis
+*
+*******************************************************************************/
 
 @interface MBTMelomindAnalysis: NSObject
 
