@@ -214,7 +214,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         jsonRecord["recordingType"] = recordInfo.recordingType.getJsonRecordInfo()
         jsonRecord["recordingTime"].intValue = eegPackets.first?.timestamp ?? 0
         jsonRecord["nbPackets"].intValue = eegPackets.count
-        jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ? eegPackets.index(of: eegPackets.first! )! : 0
+        jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ? eegPackets.firstIndex(of: eegPackets.first! )! : 0
         jsonRecord["qualities"] = EEGPacketManager.getJSONQualities(eegPackets)
         jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets)
         jsonRecord["statusData"].arrayObject = [Any]()
