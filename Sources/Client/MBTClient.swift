@@ -46,6 +46,11 @@ public class MBTClient {
 
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
 
+  public var isEegAcqusitionRecordingPaused: Bool {
+    set { eegAcqusitionManager.isRecording = newValue }
+    get { return eegAcqusitionManager.isRecording }
+  }
+
   /******************** Relax indexes ********************/
 
   /// Size in seconds between two relaxIndexes
@@ -264,14 +269,12 @@ public class MBTClient {
                           removeFile:Bool,
                           accessTokens:String) {
     MBTBrainWebHelper.accessTokens = accessTokens
-    MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, baseURL: baseUrl) {
-      (success) in
+    MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, baseURL: baseUrl) { success in
       if success && removeFile {
-        let _ = MBTJSONHelper.removeFile(urlFile)
+        MBTJSONHelper.removeFile(urlFile)
       }
     }
   }
-  
   
   /// Save the DB recording on file  ///
   /// - Parameters:
@@ -283,11 +286,10 @@ public class MBTClient {
                                   algo: String? = nil,
                                   comments:[String] = [String](),
                                   completion:@escaping (URL?)->()) {
-    self.eegAcqusitionManager.saveRecordingOnFile(idUser,
-                                                  algo: algo,
-                                                  comments: comments,
-                                                  completion: completion)
-    
+    eegAcqusitionManager.saveRecordingOnFile(idUser,
+                                             algo: algo,
+                                             comments: comments,
+                                             completion: completion)
   }
 
   //----------------------------------------------------------------------------
