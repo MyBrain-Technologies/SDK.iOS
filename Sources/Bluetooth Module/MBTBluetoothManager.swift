@@ -336,7 +336,6 @@ internal class MBTBluetoothManager: NSObject {
         
         completion()
       }
-      
     }
   }
   
@@ -350,7 +349,9 @@ internal class MBTBluetoothManager: NSObject {
       if !isQrCode(nameA2DP), let serialNumber = nameA2DP.components(separatedBy: "_").last {
         return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
       } else {
-        let serialNumber = MBTQRCodeSerial(qrCodeisKey: true).value(for: nameA2DP)!
+        guard let serialNumber = MBTQRCodeSerial(qrCodeisKey: true).value(for: nameA2DP) else {
+          return nil
+        }
         return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
       }
     }
