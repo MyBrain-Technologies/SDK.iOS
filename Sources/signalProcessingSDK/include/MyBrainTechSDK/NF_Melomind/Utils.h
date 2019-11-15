@@ -97,7 +97,7 @@ SP_FloatType main_relaxIndex(const SP_FloatType sampRate, std::map<std::string, 
 SP_FloatType main_relaxIndex(MBT_NFConfig configuration, std::map<std::string, SP_FloatVector > paramCalib,
                                 const SP_FloatMatrix &sessionPacket, SP_FloatVector &pastRelaxIndex,
                                 SP_FloatVector &resultSmoothedRMS, SP_FloatVector &resultVolum,
-                                const std::pair<SP_FloatType, SP_FloatType>& minMax);
+                                const std::pair<SP_FloatType, SP_FloatType>& minMax, SP_FloatVector qualities = {});
 
 /**
  * @brief Get minmax values of an RMS calibration
@@ -111,7 +111,7 @@ std::pair<SP_FloatType, SP_FloatType> computeMinMax(SP_FloatVector &tmp_RMSCalib
 
 void computeSessionRelaxIndex(const MBT_NFConfig& configuration, const std::map<std::string, SP_FloatVector >& paramCalib,
                                 SP_FloatMatrix& sessionRecordings, SP_FloatVector& pastRelaxIndex, SP_FloatVector& smoothedRelaxIndex,
-                                SP_FloatVector& volum, const std::pair<SP_FloatType, SP_FloatType>& minMax);
+                                SP_FloatVector& volum, const std::pair<SP_FloatType, SP_FloatType>& minMax, SP_FloatMatrix sessionQualities = SP_FloatMatrix() );
 
 /**
  * @brief Count mean qualities above fixed thresholds 

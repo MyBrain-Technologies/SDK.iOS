@@ -250,6 +250,12 @@ void computeWithoutOutliers(SP_Vector& dataWithoutOutliers, SP_Vector& IAF, SP_V
  */
 void computeIAFValues(SP_Matrix& signal, SP_Vector& IAF, SP_Vector& QF, const SP_RealType sampRate, const SP_RealType IAFinf, const SP_RealType IAFsup, SP_FloatVector &histFreq);
 
+class IafOutputKeys {
+    public:
+        static const std::string IAF;
+        static const std::string QUALITY;
+};
+
 /*
  * @brief Compute the IAF in a specific frequency band thanks to a linear interpolation of the noise.
  *        The IAF is computed each second with segments of n seconds with a sliding window of 1s.
