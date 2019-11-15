@@ -102,7 +102,7 @@ class MBTOADManager {
     /// - Returns: A *Data* object which need to be send to the Melomind
     func getNextOADBufferData() -> Data {
         let block = mOadBuffer[Int(mProgInfo.iBlock)]
-        let data = Data(bytes: block)
+      let data = Data(block)
         mProgInfo.iBlock += 1
         return data
     }

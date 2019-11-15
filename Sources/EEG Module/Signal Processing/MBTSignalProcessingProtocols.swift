@@ -22,6 +22,7 @@ protocol MBTQualityComputer {
     
     /// Delete MBT_MainQC instance once acquisition phase is over.
     func deinitQualityChecker()
+  
 }
 
 protocol MBTCalibrationComputer {
@@ -33,6 +34,7 @@ protocol MBTCalibrationComputer {
     /// - paremeter packetLength: The number of data points in a "packet".
     /// - returns: A dictionary with the parameters computed from the calibration data.
     func computeCalibration(_ packetsCount: Int)-> [String: [Float]]
+
 }
 
 protocol MBTRelaxIndexComputer {
@@ -44,6 +46,7 @@ protocol MBTRelaxIndexComputer {
     /// - parameter sampRate: The data sampling rate.
     /// - returns: The relaxation index for the packet.
     func computeRelaxIndex() -> Float?
+
 }
 
 protocol MBTSessionAnalysisComputer {
@@ -57,5 +60,6 @@ protocol MBTSessionAnalysisComputer {
     /// - paremeter packetLength: The number of data points in a "packet".
     /// - returns: A dictionnary with the output values for the session analysis
     func analyseSession(_ inputDataSNR:[Float], threshold:Float) -> [String:Float]
+
 }
 

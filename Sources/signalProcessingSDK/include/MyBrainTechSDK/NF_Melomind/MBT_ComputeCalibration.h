@@ -36,13 +36,14 @@ std::map<std::string, SP_FloatVector > formatCalibrationParametersForWrongInput(
 /**
  * @brief Format dictionnary output
  * 
- * @param RMSCalib 
+ * @param RMSCalib Absolute RMS calibration value
+ * @param relativeRMSCalib Relative RMS calibration value
  * @param histFreq 
  * @param SmoothedRMSCalib 
  * @param errorValue 
  * @return std::map<std::string, SP_FloatVector > A dictionnary with the value for the various parameters.
  */
-std::map<std::string, SP_FloatVector > formatCalibrationParameters(const SP_FloatVector& RMSCalib, const SP_FloatVector& histFreq,
+std::map<std::string, SP_FloatVector > formatCalibrationParameters(const SP_FloatVector& RMSCalib, const SP_FloatVector& relativeRMSCalib, const SP_FloatVector& histFreq,
                                                                     const SP_FloatVector& SmoothedRMSCalib, int errorValue);
 
 /**
@@ -99,9 +100,9 @@ SP_FloatVector weightRMS(const SP_Vector& RMSCalibPacket, const SP_Vector& quali
  * @param smoothingDuration Integer that gives the number of relaxation indexes we have to take into account to
           smooth the current one. For instance smoothingDuration=2 means we average the current relaxationIndex
           with the previous one.
- * @return SP_FloatVector RMS calibration
+ * @return std::pair<SP_FloatVector, SP_FloatVector> Absolute and relative RMS calibration
  */
-SP_FloatVector computeRMSCalib(SP_FloatMatrix& calibrationRecordings, SP_Matrix& entireGoodCalibrationRecordings,
+std::pair<SP_FloatVector, SP_FloatVector> computeRMSCalib(SP_FloatMatrix& calibrationRecordings, SP_Matrix& entireGoodCalibrationRecordings,
                                 const std::vector<int>& packetsToKeepIndex, SP_FloatVector& histFreq, SP_FloatType IAFminf, SP_FloatType IAFmsup,
                                 const SP_FloatType sampRate,int smoothingDuration);
 
@@ -115,6 +116,15 @@ SP_FloatVector computeRMSCalib(SP_FloatMatrix& calibrationRecordings, SP_Matrix&
  * @return SP_FloatVector Smoothen RMS calibration
  */
 SP_FloatVector computeSmoothedRMSCalib(const SP_FloatVector& RMSCalib, int smoothingDuration);
+
+class CalibrationOutputKeys {
+    public:
+        static const std::string RMS;
+        static const std::string RELATIVE_RMS;
+        static const std::string SMOOTHED_RMS;
+        static const std::string HIST_FREQ;
+        static const std::string ERROR_MSG;
+};
 
 /*
  * @brief Takes the data from the calibration recordings and compute the necessary parameters that is to say the channel

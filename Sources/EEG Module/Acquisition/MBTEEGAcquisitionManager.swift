@@ -10,6 +10,7 @@
 import Foundation
 import CoreBluetooth
 import RealmSwift
+import SwiftyJSON
 
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...
@@ -63,6 +64,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         eegPacketLength = device.eegPacketLength
         nbChannels = device.nbChannels
         sampRate = device.sampRate
+        MBTSignalProcessingManager.shared.resetSession()
     }
     
     //MARK: - Manage streaming datas methods.
@@ -102,7 +104,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let deviceTSR = ThreadSafeReference(to: device)
         let packetToRemove = EEGPacketManager.getArrayEEGPackets()
         var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
-        let currentRecordInfo = MBTRecordInfo.init(MBTClient.main.recordInfo.recordId, recordingType: MBTClient.main.recordInfo.recordingType)
+        let currentRecordInfo = MBTRecordInfo.init(MBTClient.shared.recordInfo.recordId, recordingType: MBTClient.shared.recordInfo.recordingType)
         prettyPrint(log.ln(" saveRecordingOnFile - \(currentRecordInfo)"))
 
         for eegPacket in packetToRemove {
@@ -212,7 +214,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         jsonRecord["recordingType"] = recordInfo.recordingType.getJsonRecordInfo()
         jsonRecord["recordingTime"].intValue = eegPackets.first?.timestamp ?? 0
         jsonRecord["nbPackets"].intValue = eegPackets.count
-        jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ? eegPackets.index(of: eegPackets.first! )! : 0
+        jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ? eegPackets.firstIndex(of: eegPackets.first! )! : 0
         jsonRecord["qualities"] = EEGPacketManager.getJSONQualities(eegPackets)
         jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets)
         jsonRecord["statusData"].arrayObject = [Any]()
