@@ -3,7 +3,7 @@ Release notes - SDK.iOS
 
 ## [Released]
 
-## [0.0.18] - 2019-11-14
+## [0.0.18] - 2019-11-19
 ## C++ [2.14.0]
 
 Notes de publication - SDK.Mobile - Version iOS 0.0.18

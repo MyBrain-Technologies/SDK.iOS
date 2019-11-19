@@ -102,19 +102,19 @@ public class MBTClient {
 
   /******************** Delegates ********************/
 
-  public var bluetoothEventDelegate: MBTBluetoothEventDelegate? {
+  public weak var bluetoothEventDelegate: MBTBluetoothEventDelegate? {
     didSet { bluetoothManager.eventDelegate = bluetoothEventDelegate }
   }
   
-  public var bluetoothAudioA2DPDelegate: MBTBluetoothA2DPDelegate? {
+  public weak var bluetoothAudioA2DPDelegate: MBTBluetoothA2DPDelegate? {
     didSet { bluetoothManager.audioA2DPDelegate = bluetoothAudioA2DPDelegate }
   }
 
-  public var eegAcqusitionDelegate: MBTEEGAcquisitionDelegate? {
+  public weak var eegAcqusitionDelegate: MBTEEGAcquisitionDelegate? {
     didSet { eegAcqusitionManager.delegate = eegAcqusitionDelegate }
   }
 
-  public var deviceAcqusitionDelegate: MBTDeviceAcquisitionDelegate? {
+  public weak var deviceAcqusitionDelegate: MBTDeviceAcquisitionDelegate? {
     didSet { deviceAcqusitionManager.delegate = deviceAcqusitionDelegate }
   }
 
