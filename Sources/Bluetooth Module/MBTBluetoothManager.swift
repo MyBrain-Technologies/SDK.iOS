@@ -498,18 +498,19 @@ internal class MBTBluetoothManager: NSObject {
   ///
   /// - Returns: A *Bool* value which is true if the last binary version is greater than the Melomind firmware version else false but can be nil if Melomind firmware version info is not available or if no file binary is found
   func isMelomindNeedToBeUpdate() -> Bool? {
-    if let deviceFirmwareVersion = DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion,
-      let fileName = getLastFileNameBinaryVersion() {
-      let binaryVersion = fileName.components(separatedBy: ".").first!.components(separatedBy: "-")[2]
-      
-      let binaryVersionArray = binaryVersion.components(separatedBy: "_")
-      let deviceFWVersionArray = deviceFirmwareVersion.components(separatedBy: ".")
-      
-      return compareArrayVersion(arrayA: binaryVersionArray, isGreaterThan: deviceFWVersionArray) == 1
-      
+    guard let deviceFirmwareVersion =
+      DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion,
+      let fileName = BinariesFileFinder().getLastBinaryVersionFileName() else {
+        return nil
     }
-    
-    return nil
+
+    let binaryVersion = fileName.components(separatedBy: ".").first!.components(separatedBy: "-")[2]
+
+    let binaryVersionArray = binaryVersion.components(separatedBy: "_")
+    let deviceFWVersionArray = deviceFirmwareVersion.components(separatedBy: ".")
+
+    return compareArrayVersion(arrayA: binaryVersionArray, isGreaterThan: deviceFWVersionArray) == 1
+
   }
   
   /// Test Function install Start
@@ -572,7 +573,7 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
   
-    if let fileName = getLastFileNameBinaryVersion(),
+    if let fileName = BinariesFileFinder().getLastBinaryVersionFileName(),
       isMelomindNeedToBeUpdate {
       OADState = .START_OAD
       timerTimeOutOAD = Timer.scheduledTimer(timeInterval: TIMEOUT_OAD, target: self, selector: #selector(self.oadTransfertTimeOut), userInfo: nil, repeats: false)

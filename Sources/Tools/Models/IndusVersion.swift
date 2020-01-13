@@ -1,9 +1,17 @@
-//
-//  IndusVersion.swift
-//  MyBrainTechnologiesSDK-iOS
-//
-//  Created by Mathilde Ressier on 13/01/2020.
-//  Copyright © 2020 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
+
+enum IndusVersion {
+  case indus2
+  case indus3
+
+  var binaryPrefix: String {
+    switch self {
+    case .indus2: return "mm-ota-"
+    case .indus3: return "mm-ota-i3-"
+    }
+  }
+
+  var binaryNameRegex: String {
+    return #"\(binaryPrefix)(\d+_){2}\d+.bin"#
+  }
+}
