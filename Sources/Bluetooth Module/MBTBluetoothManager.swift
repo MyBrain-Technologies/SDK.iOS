@@ -504,7 +504,7 @@ internal class MBTBluetoothManager: NSObject {
         return nil
     }
 
-    let binaryVersion = fileName.components(separatedBy: ".").first!.components(separatedBy: "-")[2]
+    let binaryVersion = fileName.withoutExtension.components(separatedBy: "-")[2]
 
     let binaryVersionArray = binaryVersion.components(separatedBy: "_")
     let deviceFWVersionArray = deviceFirmwareVersion.components(separatedBy: ".")

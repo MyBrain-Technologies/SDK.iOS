@@ -6,41 +6,50 @@ class BinariesFileFinder {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  let bundle = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")!
+  /******************** Constants ********************/
 
-  //----------------------------------------------------------------------------
-  // MARK: - Methods
-  //----------------------------------------------------------------------------
+  let bundle: Bundle!
 
-  var binaries: [URL] {
+  /******************** Computed ********************/
+
+  var binariesURL: [URL] {
     return bundle.urls(forResourcesWithExtension: "bin",
                        subdirectory: nil) ?? []
   }
 
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
+  init(bundleIndentifier: String = "com.MyBrainTech.MyBrainTechnologiesSDK") {
+    self.bundle = Bundle(identifier: bundleIndentifier)!
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Binaries urls finder
+  //----------------------------------------------------------------------------
+
   func binaries(forIndusVersion indus: IndusVersion) -> [URL] {
     let pattern = indus.binaryNameRegex
-    guard let regex = try? NSRegularExpression(pattern: pattern,
-                                               options: []) else {
-      return []
-    }
-    return binaries.filter() {
-      let string = $0.relativeString
-      let range = NSRange(location: 0, length: string.count)
-      let matches = regex.matches(in: string, range: range)
-      return matches.count > 0
-    }
+
+    return binariesURL.filter() { $0.relativeString.contains(regex: pattern) }
   }
 
   func getLastBinaryVersionFileName() -> String? {
     let sortedBinaries =
-      binaries.sorted() { $0.relativeString < $1.relativeString }
+      binariesURL.sorted() { $0.relativeString < $1.relativeString }
 
-    guard let latestURLBinary = sortedBinaries.last else { return nil }
+    guard let lastBinaryVersion = sortedBinaries.last else { return nil }
 
-    return latestURLBinary.relativeString.components(separatedBy: ".").first
+    return lastBinaryVersion.relativeString.withoutExtension
   }
-}
 
-extension String {
-  
+  //----------------------------------------------------------------------------
+  // MARK: - Binaries filename interpret
+  //----------------------------------------------------------------------------
+
+  func getBinaryVersion(from filename: String) -> String? {
+    let versionRegex = Constants.binaryVersionRegex
+    return filename.firstMatch(regex: versionRegex)
+  }
 }

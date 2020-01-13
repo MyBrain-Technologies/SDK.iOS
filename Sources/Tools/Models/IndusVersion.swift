@@ -12,6 +12,6 @@ enum IndusVersion {
   }
 
   var binaryNameRegex: String {
-    return #"\(binaryPrefix)(\d+_){2}\d+.bin"#
+    return "\(binaryPrefix)\(Constants.binaryVersionRegex).bin"
   }
 }

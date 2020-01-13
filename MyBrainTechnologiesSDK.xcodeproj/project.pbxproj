@@ -40,6 +40,8 @@
 		A927D58923CCD62100C20734 /* mm-ota-i3-1_7_9.bin in Resources */ = {isa = PBXBuildFile; fileRef = A927D58723CCD62100C20734 /* mm-ota-i3-1_7_9.bin */; };
 		A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */; };
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
+		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
+		A927D59323CCED0900C20734 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59223CCED0900C20734 /* Constants.swift */; };
 		B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		B5378D0921F8B8A4007F12DA /* CSVConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5378D0821F8B8A4007F12DA /* CSVConverter.swift */; };
 		B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */; };
@@ -109,6 +111,8 @@
 		A927D58723CCD62100C20734 /* mm-ota-i3-1_7_9.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_9.bin"; sourceTree = "<group>"; };
 		A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinariesFileFinder.swift; sourceTree = "<group>"; };
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
+		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
+		A927D59223CCED0900C20734 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B5378D0821F8B8A4007F12DA /* CSVConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVConverter.swift; sourceTree = "<group>"; };
 		B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTQRCodeSerial.swift; sourceTree = "<group>"; };
 		B53A0976220490CB00DAD321 /* qrcodeSerial.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = qrcodeSerial.csv; sourceTree = "<group>"; };
@@ -306,6 +310,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		A927D58F23CCE7E800C20734 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A927D59023CCE7F300C20734 /* String+extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		B5378CFF21F8B43E007F12DA /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,12 +329,14 @@
 		B5378D0A21F8B8A8007F12DA /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A927D58F23CCE7E800C20734 /* Extension */,
 				A927D58C23CCDF1E00C20734 /* Models */,
 				2BD1014421A95053002C3C1A /* PrettyPrinter.swift */,
 				B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */,
 				B5378D0821F8B8A4007F12DA /* CSVConverter.swift */,
 				B5ADB75C22381B83009150AD /* MBTRelaxIndexAlgorithm.swift */,
 				A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */,
+				A927D59223CCED0900C20734 /* Constants.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -453,11 +467,13 @@
 				F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				B5378D0921F8B8A4007F12DA /* CSVConverter.swift in Sources */,
+				A927D59323CCED0900C20734 /* Constants.swift in Sources */,
 				2B6B5DA6205139D900928F1F /* MBTSignalProcessingManager.swift in Sources */,
 				B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */,
 				2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */,
 				2B6B5DA5205139D900928F1F /* MBTJSONHelper.swift in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
+				A927D59123CCE7F300C20734 /* String+extension.swift in Sources */,
 				A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */,
 				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
