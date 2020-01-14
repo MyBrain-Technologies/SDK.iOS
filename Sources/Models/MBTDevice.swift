@@ -28,13 +28,6 @@ public class MBTDevice: Object {
 
   @objc dynamic var batteryLevel: Int = 0
 
-  /******************** Computed properties ********************/
-
-  var qrCode: String? {
-    guard let deviceId = deviceInfos?.deviceId else { return nil }
-    return MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId)
-  }
-
   /// Locations of the acquisition electrodes.
   let acquisitionLocations = List<MBTAcquistionLocation>()
 
@@ -43,6 +36,33 @@ public class MBTDevice: Object {
 
   /// Locations of the ground electrodes.
   let groundsLocations = List<MBTAcquistionLocation>()
+
+  /******************** Computed properties ********************/
+
+  var qrCode: String? {
+    guard let deviceId = deviceInfos?.deviceId else { return nil }
+    return MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId)
+  }
+
+  var shouldUpdateFirmware: Bool {
+    guard let deviceFirmwareVersion = deviceInfos?.firmwareVersion else {
+      return false
+    }
+
+    guard let filename = BinariesFileFinder().higherBinaryFilename(for: self),
+      let fileVersion = filename.getVersionNumber(withSeparator: "."),
+      let firmwareVersion = deviceFirmwareVersion.versionNumber else {
+        return false
+    }
+
+    let fileVersionArray = fileVersion.components(separatedBy: ".")
+    let deviceFWVersionArray = firmwareVersion.components(separatedBy: ".")
+
+    return ArrayUtils().compareArrayVersion(
+      arrayA: fileVersionArray,
+      isGreaterThan: deviceFWVersionArray
+      ) == 1
+  }
 
   //----------------------------------------------------------------------------
   // MARK: - Methods

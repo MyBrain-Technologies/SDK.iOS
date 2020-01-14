@@ -42,7 +42,7 @@
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
 		A927D59323CCED0900C20734 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59223CCED0900C20734 /* Constants.swift */; };
-		A974EFB523CE0C0600B9F9BE /* ConversionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB423CE0C0600B9F9BE /* ConversionUtils.swift */; };
+		A974EFB523CE0C0600B9F9BE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB423CE0C0600B9F9BE /* Utils.swift */; };
 		A974EFB723CE0C2100B9F9BE /* OADStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB623CE0C2100B9F9BE /* OADStateType.swift */; };
 		A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB823CE0CB200B9F9BE /* OADProgress.swift */; };
 		A974EFBD23CE298000B9F9BE /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFBC23CE298000B9F9BE /* DeviceManager.swift */; };
@@ -120,7 +120,7 @@
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
 		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		A927D59223CCED0900C20734 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A974EFB423CE0C0600B9F9BE /* ConversionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionUtils.swift; sourceTree = "<group>"; };
+		A974EFB423CE0C0600B9F9BE /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A974EFB623CE0C2100B9F9BE /* OADStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADStateType.swift; sourceTree = "<group>"; };
 		A974EFB823CE0CB200B9F9BE /* OADProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADProgress.swift; sourceTree = "<group>"; };
 		A974EFBC23CE298000B9F9BE /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
@@ -345,6 +345,7 @@
 		A974EFBB23CE297400B9F9BE /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				F41A6D6D1F05588100092027 /* MBTDevice.swift */,
 				A974EFBC23CE298000B9F9BE /* DeviceManager.swift */,
 				A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */,
 			);
@@ -379,7 +380,7 @@
 				B5ADB75C22381B83009150AD /* MBTRelaxIndexAlgorithm.swift */,
 				A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */,
 				A927D59223CCED0900C20734 /* Constants.swift */,
-				A974EFB423CE0C0600B9F9BE /* ConversionUtils.swift */,
+				A974EFB423CE0C0600B9F9BE /* Utils.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -391,7 +392,6 @@
 				A974EFBB23CE297400B9F9BE /* Device */,
 				A974EFBA23CE295300B9F9BE /* OAD */,
 				2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */,
-				F41A6D6D1F05588100092027 /* MBTDevice.swift */,
 				F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */,
 				F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */,
 			);
@@ -542,7 +542,7 @@
 				F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */,
 				2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */,
 				2B6B5DA7205139D900928F1F /* MBTSignalProcessingProtocols.swift in Sources */,
-				A974EFB523CE0C0600B9F9BE /* ConversionUtils.swift in Sources */,
+				A974EFB523CE0C0600B9F9BE /* Utils.swift in Sources */,
 				A974EFC423CE2AD100B9F9BE /* MBTDeviceInformations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

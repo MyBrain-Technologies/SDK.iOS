@@ -433,7 +433,7 @@ public class MBTClient {
   /// - Parameter completion: block completion call after getting melomind info.
   /// with boolean argument.
   public func isMelomindNeedToBeUpdate() -> Bool? {
-    return bluetoothManager.isMelomindNeedToBeUpdate()
+    return DeviceManager.getCurrentDevice()?.shouldUpdateFirmware
   }
 
   //----------------------------------------------------------------------------

@@ -351,7 +351,8 @@ internal class MBTBluetoothManager: NSObject {
       
       
       DispatchQueue.main.sync {
-        if isMelomindNeedToBeUpdate() {
+        if let currentDevice = DeviceManager.getCurrentDevice(),
+          currentDevice.shouldUpdateFirmware {
           self.eventDelegate?.onNeedToUpdate?()
         }
         
@@ -504,30 +505,6 @@ internal class MBTBluetoothManager: NSObject {
     return nil
   }
   
-  /// If the connected Melomind need to be Update
-  ///
-  /// - Returns: A *Bool* value which is true if the last binary version is greater than the Melomind
-  /// firmware version else false but can be nil if Melomind firmware version info is not available
-  /// or if no file binary is found
-  func isMelomindNeedToBeUpdate() -> Bool {
-    guard let device = DeviceManager.getCurrentDevice(),
-      let deviceFirmwareVersion = device.deviceInfos?.firmwareVersion else {
-        return false
-    }
-
-    guard let filename = binariesFinder.higherBinaryFilename(for: device),
-      let fileVersion = filename.getVersionNumber(withSeparator: "."),
-      let firmwareVersion = deviceFirmwareVersion.versionNumber else {
-        return false
-    }
-
-    let fileVersionArray = fileVersion.components(separatedBy: ".")
-    let deviceFWVersionArray = firmwareVersion.components(separatedBy: ".")
-
-    return compareArrayVersion(arrayA: fileVersionArray,
-                               isGreaterThan: deviceFWVersionArray) == 1
-  }
-  
   /// Test Function install Start
   func startTestOAD() {
     // Disconnect A2DP
@@ -581,7 +558,7 @@ internal class MBTBluetoothManager: NSObject {
     isOADInProgress = true
     stopTimerTimeOutOAD()
     
-    guard let isMelomindNeedToBeUpdate = isMelomindNeedToBeUpdate() else {
+    guard let device = DeviceManager.getCurrentDevice() else {
       let message = "OAD Error : Device info is not available"
       let error = NSError(domain: "Bluetooth Manager",
                           code: 909,
@@ -594,7 +571,7 @@ internal class MBTBluetoothManager: NSObject {
     }
 
     guard let fileName = binariesFinder.getLastBinaryVersionFileName(),
-      isMelomindNeedToBeUpdate else {
+      device.shouldUpdateFirmware else {
         let message =
         "OAD Error : Latest FirmwareVersion Installed already installed"
         let error = NSError(domain: "Bluetooth Manager",
@@ -903,28 +880,6 @@ internal class MBTBluetoothManager: NSObject {
     }
   }
   
-  //MARK: - Utlis Methods
-  
-  func compareArrayVersion(arrayA: [String],
-                           isGreaterThan arrayB: [String]) -> Int {
-    let coeffArrayA =
-      Int(arrayA[0])! * 10000 + Int(arrayA[1])! * 100 + Int(arrayA[2])!
-    
-    let coeffArrayB =
-      Int(arrayB[0])! * 10000 + Int(arrayB[1])! * 100 + Int(arrayB[2])!
-    
-    if coeffArrayA > coeffArrayB {
-      return 1
-    }
-    
-    if coeffArrayA < coeffArrayB {
-      return -1
-    }
-    
-    return 0
-    
-  }
-  
   /// Compare the firmware version to determine if it's equal or higher to another version
   ///
   /// - Returns: A *Bool* value which is true if the firmware version is same or higher than
@@ -941,8 +896,10 @@ internal class MBTBluetoothManager: NSObject {
     let versionArray = version.rawValue.components(separatedBy: ".")
     let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
     
-    return (compareArrayVersion(arrayA: deviceFWVersionArray,
-                                isGreaterThan: versionArray) >= 0)
+    return (ArrayUtils().compareArrayVersion(
+      arrayA: deviceFWVersionArray,
+      isGreaterThan: versionArray
+      ) >= 0)
   }
 
 }
