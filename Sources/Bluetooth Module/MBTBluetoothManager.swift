@@ -927,7 +927,8 @@ internal class MBTBluetoothManager: NSObject {
   
   /// Compare the firmware version to determine if it's equal or higher to another version
   ///
-  /// - Returns: A *Bool* value which is true if the firmware version is same or higher than the parameter
+  /// - Returns: A *Bool* value which is true if the firmware version is same or higher than
+  /// the parameter
   private func deviceFirmwareVersion(
     isHigherOrEqualThan version: MBTFirmwareVersion
   ) -> Bool {
@@ -1312,7 +1313,13 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
 
     prepareDeviceWithInfo {
       self.requestUpdateBatteryLevel()
-      self.timerFinalizeConnectionMelomind = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.requestUpdateBatteryLevel), userInfo: nil , repeats: false)
+      self.timerFinalizeConnectionMelomind = Timer.scheduledTimer(
+        timeInterval: 2.0,
+        target: self,
+        selector: #selector(self.requestUpdateBatteryLevel),
+        userInfo: nil,
+        repeats: false
+      )
     }
   }
 
@@ -1413,7 +1420,8 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
           let message =
             "MBX_OTA_IDX_RESET_EVT bytesArray : \(bytesArray.description)"
           prettyPrint(log.ble("\(prefix) - \(message)"))
-          let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .barrier) {
+          let dispatchWorkItem = DispatchWorkItem(qos: .default,
+                                                  flags: .barrier) {
             let iBlock =
               Int16((bytesArray[2] & 0xFF)) << 8 | Int16(bytesArray[1] & 0xFF)
             self.OADManager?.oadProgress.iBlock = iBlock
@@ -1497,7 +1505,8 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
             }
           }
         case .MBX_SET_SERIAL_NUMBER:
-          prettyPrint(log.ble("\(prefix) - SET SERIAL NUMBER bytes:\(bytesArray.description)"))
+          let message = "SET SERIAL NUMBER bytes:\(bytesArray.description)"
+          prettyPrint(log.ble("\(prefix) - \(message)"))
           stopTimerSendExternalName()
           finalizeConnectionMelomind()
         default:
@@ -1607,7 +1616,8 @@ extension MBTBluetoothManager {
         prettyPrint(log.ble("\(prefix) - \(currentMessage)"))
         prettyPrint(log.ble("\(prefix) - \(oadMessage)"))
 
-        if let currentDeviceInfo = DeviceManager.getCurrentDevice()?.deviceInfos,
+        if let currentDeviceInfo =
+          DeviceManager.getCurrentDevice()?.deviceInfos,
           self.OADManager != nil,
           let currentFwVersion = currentDeviceInfo.firmwareVersion,
           currentFwVersion.contains(self.OADManager!.fwVersion) {
