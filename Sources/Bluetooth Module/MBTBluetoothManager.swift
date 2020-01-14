@@ -351,8 +351,7 @@ internal class MBTBluetoothManager: NSObject {
       
       
       DispatchQueue.main.sync {
-        if let isMelomindNeedToBeUdpdate = self.isMelomindNeedToBeUpdate(),
-          isMelomindNeedToBeUdpdate {
+        if isMelomindNeedToBeUpdate() {
           self.eventDelegate?.onNeedToUpdate?()
         }
         
@@ -510,22 +509,23 @@ internal class MBTBluetoothManager: NSObject {
   /// - Returns: A *Bool* value which is true if the last binary version is greater than the Melomind
   /// firmware version else false but can be nil if Melomind firmware version info is not available
   /// or if no file binary is found
-  func isMelomindNeedToBeUpdate() -> Bool? {
-    guard let deviceFirmwareVersion =
-      DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion,
-      let filename = BinariesFileFinder().getLastBinaryVersionFileName() else {
-        return nil
+  func isMelomindNeedToBeUpdate() -> Bool {
+    guard let device = DeviceManager.getCurrentDevice(),
+      let deviceFirmwareVersion = device.deviceInfos?.firmwareVersion else {
+        return false
     }
 
-    guard let binaryVersion = filename.versionNumber else { return nil }
+    guard let filename = binariesFinder.higherBinaryFilename(for: device),
+      let fileVersion = filename.getVersionNumber(withSeparator: "."),
+      let firmwareVersion = deviceFirmwareVersion.versionNumber else {
+        return false
+    }
 
-    let binaryVersionArray = binaryVersion.components(separatedBy: "_")
-    let deviceFWVersionArray =
-      deviceFirmwareVersion.components(separatedBy: ".")
+    let fileVersionArray = fileVersion.components(separatedBy: ".")
+    let deviceFWVersionArray = firmwareVersion.components(separatedBy: ".")
 
-    return compareArrayVersion(arrayA: binaryVersionArray,
+    return compareArrayVersion(arrayA: fileVersionArray,
                                isGreaterThan: deviceFWVersionArray) == 1
-
   }
   
   /// Test Function install Start
@@ -593,7 +593,7 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
 
-    guard let fileName = BinariesFileFinder().getLastBinaryVersionFileName(),
+    guard let fileName = binariesFinder.getLastBinaryVersionFileName(),
       isMelomindNeedToBeUpdate else {
         let message =
         "OAD Error : Latest FirmwareVersion Installed already installed"

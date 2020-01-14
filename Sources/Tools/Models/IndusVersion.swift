@@ -1,6 +1,6 @@
 import Foundation
 
-enum IndusVersion {
+enum IndusVersion: CaseIterable {
   case indus2
   case indus3
 
@@ -13,5 +13,20 @@ enum IndusVersion {
 
   var binaryNameRegex: String {
     return "\(binaryPrefix)\(Constants.binaryVersionRegex).bin"
+  }
+
+  var hardwareVersion: String {
+    switch self {
+    case .indus2: return "1.0.0"
+    case .indus3: return "1.1.0"
+    }
+  }
+
+  init?(fromHardwareVersion hwVersion: String) {
+    let version = IndusVersion.allCases.first() {
+      $0.hardwareVersion == hwVersion
+    }
+    guard let indusVersion = version else { return nil }
+    self = indusVersion
   }
 }

@@ -44,6 +44,26 @@ class BinariesFileFinder {
     return lastBinaryVersion.relativeString.withoutExtension
   }
 
+  func higherBinaryFilename(for device: MBTDevice) -> String? {
+    guard let deviceIndusVersion = device.deviceInfos?.indusVersion else {
+        return nil
+    }
+
+    return higherBinaryFilename(for: deviceIndusVersion)
+  }
+
+  func higherBinaryFilename(for indus: IndusVersion) -> String? {
+    let indusBinaries = binariesURL.filter() {
+      $0.relativePath.contains(regex: indus.binaryNameRegex)
+    }
+
+    let sortedBinaries = indusBinaries.sorted() {
+      $0.relativeString < $1.relativeString
+    }
+
+    return sortedBinaries.last?.relativeString.withoutExtension
+  }
+
   func binary(withFilename filename: String) -> String? {
     return bundle.path(forResource: filename,
                        ofType: Constants.binaryExtension)
