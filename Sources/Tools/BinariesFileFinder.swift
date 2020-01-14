@@ -8,7 +8,7 @@ class BinariesFileFinder {
 
   /******************** Constants ********************/
 
-  let bundle: Bundle!
+  private let bundle: Bundle!
 
   /******************** Computed ********************/
 
@@ -42,6 +42,11 @@ class BinariesFileFinder {
     guard let lastBinaryVersion = sortedBinaries.last else { return nil }
 
     return lastBinaryVersion.relativeString.withoutExtension
+  }
+
+  func binary(withFilename filename: String) -> String? {
+    return bundle.path(forResource: filename,
+                       ofType: Constants.binaryExtension)
   }
 
   //----------------------------------------------------------------------------

@@ -37,23 +37,23 @@ class MBTOADManager {
   /// Init the OADManager which prepare for send the Binary to the Melomind
   ///
   /// - Parameter fileName: the file name of the binary
-  init(_ fileName:String) {
+  init(_ fileName: String) {
     OAD_BUFFER_SIZE = 2 + OAD_BLOCK_SIZE
-    if let filePath = Bundle(identifier: "com.MyBrainTech.MyBrainTechnologiesSDK")?.path(forResource: fileName, ofType: MBTOADManager.BINARY_FORMAT),
-      let data = NSData(contentsOfFile: filePath){
-
-      mFileBuffer = [UInt8](repeating: 0, count: data.length)
-
-      data.getBytes(&mFileBuffer, length: data.length * MemoryLayout<UInt8>.size)
-
-      mFileLength = mFileBuffer.count
-      fwVersion = fileName.components(separatedBy: "-")[2] // mm-ota-x_y_z
-      fwVersion = fwVersion.replacingOccurrences(of: MBTOADManager.FWVERSION_REGEX, with: ".")
-      createBufferFromBinaryFile()
-    } else {
+    guard let filePath = BinariesFileFinder().binary(withFilename: fileName),
+      let data = NSData(contentsOfFile: filePath) else {
       mFileLength = 0
       fwVersion = ""
+      return
     }
+
+    fwVersion = fileName.getVersionNumber(withSeparator: ".") ?? ""
+
+    mFileBuffer = [UInt8](repeating: 0, count: data.length)
+
+    data.getBytes(&mFileBuffer, length: data.length * MemoryLayout<UInt8>.size)
+
+    mFileLength = mFileBuffer.count
+    createBufferFromBinaryFile()
 
   }
 

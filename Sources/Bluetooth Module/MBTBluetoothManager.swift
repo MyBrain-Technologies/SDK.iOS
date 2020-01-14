@@ -500,11 +500,11 @@ internal class MBTBluetoothManager: NSObject {
   func isMelomindNeedToBeUpdate() -> Bool? {
     guard let deviceFirmwareVersion =
       DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion,
-      let fileName = BinariesFileFinder().getLastBinaryVersionFileName() else {
+      let filename = BinariesFileFinder().getLastBinaryVersionFileName() else {
         return nil
     }
 
-    let binaryVersion = fileName.withoutExtension.components(separatedBy: "-")[2]
+    guard let binaryVersion = filename.versionNumber else { return nil }
 
     let binaryVersionArray = binaryVersion.components(separatedBy: "_")
     let deviceFWVersionArray = deviceFirmwareVersion.components(separatedBy: ".")

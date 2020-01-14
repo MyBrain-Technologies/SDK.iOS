@@ -10,6 +10,14 @@ extension String {
     return self.components(separatedBy: ".").first ?? self
   }
 
+  var versionNumber: String? {
+    return firstMatch(regex: Constants.binaryVersionRegex)
+  }
+
+  func getVersionNumber(withSeparator separator: Character) -> String? {
+    return versionNumber?.replacingOccurrences(of: "_", with: "\(separator)")
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Regex
   //----------------------------------------------------------------------------
