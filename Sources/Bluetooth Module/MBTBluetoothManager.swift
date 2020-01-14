@@ -1,11 +1,3 @@
-//
-//  MBTBluetoothManager.swift
-//  MBT_iOS_SDK
-//
-//  Created by Baptiste Rasschaert on 11/05/2017.
-//  Copyright © 2017 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
 import CoreBluetooth
 import AVFoundation
@@ -34,9 +26,11 @@ enum MBTFirmwareVersion: String {
 
 /// Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).
 internal class MBTBluetoothManager: NSObject {
-  
-  //MARK: - Variable
-  
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
   //MARK: Global -> Variable reachable in the client : MelomindEngine
   
   /// Singleton declaration
@@ -174,6 +168,12 @@ internal class MBTBluetoothManager: NSObject {
     connectA2DP()
     initBluetoothManager()
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Internal properties
+  //----------------------------------------------------------------------------
+
+  private let binariesFinder = BinariesFileFinder()
   
 
   //MARK: - Connect and Disconnect MBT Headset Methods
@@ -493,7 +493,7 @@ internal class MBTBluetoothManager: NSObject {
   
   private func shouldUpdateDeviceExternalName() -> Bool {
     let productName = DeviceManager.getDeviceInfos()?.productName
-    return productName == MBTDevice.defaultProductName
+    return productName == Constants.defaultProductName
       && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME)
   }
   
