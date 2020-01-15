@@ -11,7 +11,7 @@ extension String {
   }
 
   var versionNumber: String? {
-    return firstMatch(regex: Constants.binaryVersionRegex)
+    return firstMatch(regex: Constants.versionRegex)
   }
 
   func getVersionNumber(withSeparator separator: Character) -> String? {

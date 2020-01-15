@@ -74,7 +74,7 @@ class BinariesFileFinder {
   //----------------------------------------------------------------------------
 
   func getBinaryVersion(from filename: String) -> String? {
-    let versionRegex = Constants.binaryVersionRegex
+    let versionRegex = Constants.versionRegex
     return filename.firstMatch(regex: versionRegex)
   }
 }
