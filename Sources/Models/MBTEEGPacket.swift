@@ -187,14 +187,14 @@ class EEGPacketManager: MBTRealmEntityManager {
                 for packetIndex in 0 ..< eegPacket.channelsData[channelNumber].value.count {
                     if eegPacket.channelsData[channelNumber].value[packetIndex].value.isNaN {
                         eegDatas[channelNumber].append(nil)
-                        prettyPrint(log.any("getJSONEEGDatat - nan"))
+                        PrettyPrinter.log(.any, "getJSONEEGDatat - nan")
                     } else {
                         eegDatas[channelNumber].append(eegPacket.channelsData[channelNumber].value[packetIndex].value)
                     }
                 }
             }
         }
-        prettyPrint(log.any("getJSONEEGDatat - \(eegDatas.compactMap({$0.contains(Float.nan) || $0.contains(Float.signalingNaN)}))"))
+        PrettyPrinter.log(.any, "getJSONEEGDatat - \(eegDatas.compactMap({$0.contains(Float.nan) || $0.contains(Float.signalingNaN)}))")
         
         return JSON(eegDatas)
     }

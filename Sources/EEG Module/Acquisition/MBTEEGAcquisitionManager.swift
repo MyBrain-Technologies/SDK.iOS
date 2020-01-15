@@ -105,7 +105,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let packetToRemove = EEGPacketManager.getArrayEEGPackets()
         var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
         let currentRecordInfo = MBTRecordInfo.init(MBTClient.shared.recordInfo.recordId, recordingType: MBTClient.shared.recordInfo.recordingType)
-        prettyPrint(log.ln(" saveRecordingOnFile - \(currentRecordInfo)"))
+        PrettyPrinter.writing(" saveRecordingOnFile - \(currentRecordInfo)")
 
         for eegPacket in packetToRemove {
             packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
@@ -179,7 +179,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         }
         
         self.delegate?.onReceivingPackage?(packetComplete)
-        prettyPrint(log.ln("manageCompleteStreamEEGPacket - Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)"))
+        PrettyPrinter.writing("manageCompleteStreamEEGPacket - Timer Perf : \(Date().timeIntervalSince1970 - self.timeIntervalPerf)")
         self.timeIntervalPerf = Date().timeIntervalSince1970
         
         if self.isRecording {
@@ -266,13 +266,13 @@ internal class MBTEEGAcquisitionManager: NSObject  {
         let diff:Int32 = (Int32(currentIndex - previousIndex))
 
         if diff != 1 {
-            prettyPrint(log.ln("#processBrainActivityData - diff is \(diff)"))
+            PrettyPrinter.writing("#processBrainActivityData - diff is \(diff)")
         }
 //        print("#57685 - CurrentIndex : \(currentIndex)")
         
         // Lost packets management.
         if diff != 1 && diff > 0 {
-            prettyPrint(log.ln("#processBrainActivityData - lost \(diff) packet(s)"))
+            PrettyPrinter.writing("#processBrainActivityData - lost \(diff) packet(s)")
             for _ in 0 ..< diff {
                 for _ in 0 ..< count - 2 {
                     buffByte.append(0xFF)
