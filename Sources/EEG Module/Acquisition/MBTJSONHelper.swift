@@ -49,8 +49,8 @@ struct MBTJSONHelper {
     do {
       try FileManager.default.removeItem(atPath: urlFile.path)
     } catch {
-      prettyPrint(log.ln("getFileName - Can't remove File : \(urlFile.path)"))
-      prettyPrint(log.error(error as NSError))
+      let message = "removeFile - Can't remove File \(urlFile.path)"
+      PrettyPrinter.error(.ln, message, error)
       return false
     }
 
@@ -101,14 +101,12 @@ struct MBTJSONHelper {
                                                           atomically: true,
                                                           encoding: .utf8)
 
-      prettyPrint(log.ln("saveJSONOnDevice - json saved here : \(fileURL)"))
+      PrettyPrinter.writing("saveJSONOnDevice - json saved here : \(fileURL)")
       completion()
       return fileURL
     } catch {
-      let logMessage =
-        log.ln("saveJSONOnDevice - Error while saving JSON on device :")
-      prettyPrint(logMessage)
-      prettyPrint(log.error(error as Error as NSError))
+      let message = "saveJSONOnDevice - Error while saving JSON on device :"
+      PrettyPrinter.error(.ln, message, error)
     }
 
     return nil
