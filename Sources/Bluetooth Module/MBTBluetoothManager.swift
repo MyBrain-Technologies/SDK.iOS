@@ -887,7 +887,7 @@ internal class MBTBluetoothManager: NSObject {
     print ("device firmware version \(deviceFWVersion)")
     let versionArray = version.rawValue.components(separatedBy: ".")
     let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
-    
+
     return (ArrayUtils().compareArrayVersion(
       arrayA: deviceFWVersionArray,
       isGreaterThan: versionArray
