@@ -55,10 +55,10 @@ public class MBTDevice: Object {
         return false
     }
 
-    let fileVersionArray =
-      fileVersion.components(separatedBy: Constants.versionSeparators)
+    let characterSet = CharacterSet(charactersIn: Constants.versionSeparators)
+    let fileVersionArray = fileVersion.components(separatedBy: characterSet)
     let deviceFWVersionArray =
-      firmwareVersion.components(separatedBy: Constants.versionSeparators)
+      firmwareVersion.components(separatedBy: characterSet)
 
     return ArrayUtils().compareArrayVersion(
       arrayA: fileVersionArray,

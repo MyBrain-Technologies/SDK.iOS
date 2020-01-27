@@ -326,7 +326,7 @@ internal class MBTBluetoothManager: NSObject {
       var isDeviceInfoNotNil = false
       var indexLoop = 0.0
       while !isDeviceInfoNotNil {
-        PrettyPrinter.bluetooth("\(prefix) - PrepareDeviceWithInfo sleep")
+        PrettyPrinter.bluetooth("\(prefix) - sleep")
         usleep(500000)
         DispatchQueue.main.sync {
           if let currentDevice = DeviceManager.getCurrentDevice(),
@@ -566,7 +566,7 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
 
-    guard let fileName = binariesFinder.getLastBinaryVersionFileName(),
+    guard let filename = BinariesFileFinder().higherBinaryFilename(for: device),
       device.shouldUpdateFirmware else {
         let message =
         "OAD Error : Latest FirmwareVersion Installed already installed"
@@ -589,7 +589,7 @@ internal class MBTBluetoothManager: NSObject {
       repeats: false
     )
 
-    OADManager = MBTOADManager(fileName)
+    OADManager = MBTOADManager(filename)
 
     let fwVersion = String(describing: OADManager?.fwVersion)
     PrettyPrinter.bluetooth("startOAD - Firmware Version : \(fwVersion)")
