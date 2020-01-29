@@ -50,13 +50,15 @@ public class MBTDevice: Object {
     }
 
     guard let filename = BinariesFileFinder().higherBinaryFilename(for: self),
-      let fileVersion = filename.getVersionNumber(withSeparator: "."),
+      let fileVersion = filename.versionNumber,
       let firmwareVersion = deviceFirmwareVersion.versionNumber else {
         return false
     }
 
-    let fileVersionArray = fileVersion.components(separatedBy: ".")
-    let deviceFWVersionArray = firmwareVersion.components(separatedBy: ".")
+    let characterSet = CharacterSet(charactersIn: Constants.versionSeparators)
+    let fileVersionArray = fileVersion.components(separatedBy: characterSet)
+    let deviceFWVersionArray =
+      firmwareVersion.components(separatedBy: characterSet)
 
     return ArrayUtils().compareArrayVersion(
       arrayA: fileVersionArray,

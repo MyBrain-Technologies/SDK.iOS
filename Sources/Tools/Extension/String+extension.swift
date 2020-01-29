@@ -15,7 +15,8 @@ extension String {
   }
 
   func getVersionNumber(withSeparator separator: Character) -> String? {
-    return versionNumber?.replacingOccurrences(of: "_", with: "\(separator)")
+    return versionNumber?.replacingOccurrences(of: Constants.versionSeparators,
+                                               with: "\(separator)")
   }
 
   //----------------------------------------------------------------------------

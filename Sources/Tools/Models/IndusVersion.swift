@@ -12,7 +12,7 @@ enum IndusVersion: CaseIterable {
   }
 
   var binaryNameRegex: String {
-    return "\(binaryPrefix)\(Constants.versionRegex).bin"
+    return "\(binaryPrefix)\(Constants.binaryVersionRegex)"
   }
 
   var hardwareVersion: String {
