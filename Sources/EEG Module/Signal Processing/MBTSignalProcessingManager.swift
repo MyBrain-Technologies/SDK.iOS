@@ -88,9 +88,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
       }
     }
 
-    prettyPrint(
-      log.ln("computeQualityValue - NB NAN dataArray Quality: \(nbNAN)")
-    )
+    PrettyPrinter.writing("computeQualityValue - NB NAN dataArray Quality: \(nbNAN)")
 
     // Perform the computation.
     let qualities =
@@ -103,15 +101,13 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     let qualitySwift = qualities as! [Float]
 
     if qualitySwift.count < 2 {
-      prettyPrint(log.ln("computeQualityValue - Quality Cound inf à 2"))
-      prettyPrint(log.ln("computeQualityValue - NBChannel : \(nbChannels)"))
-      prettyPrint(log.ln("computeQualityValue - sampRate : \(sampRate)"))
-      prettyPrint(
-        log.ln("computeQualityValue - dataArray Count : \(dataArray.count)")
-      )
-      prettyPrint(
-        log.ln("computeQualityValue - packet length : \(packetLength)")
-      )
+      PrettyPrinter.writing("computeQualityValue - Quality Cound inf à 2")
+      PrettyPrinter.writing("computeQualityValue - NBChannel : \(nbChannels)")
+      PrettyPrinter.writing("computeQualityValue - sampRate : \(sampRate)")
+      PrettyPrinter.log(.ln,
+                  "computeQualityValue - dataArray Count : \(dataArray.count)")
+      PrettyPrinter.log(.ln,
+                  "computeQualityValue - packet length : \(packetLength)")
     }
 
     return qualitySwift

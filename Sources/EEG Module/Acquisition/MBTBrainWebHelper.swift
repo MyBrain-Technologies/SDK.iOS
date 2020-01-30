@@ -42,26 +42,25 @@ struct MBTBrainWebHelper {
   //----------------------------------------------------------------------------
 
   private static func generateTableEegPacketsJSONFiles() -> [URL]? {
-     do {
-       let fileManager = FileManager.default
-       let documentDirectory = try fileManager.url(for: .documentDirectory,
-                                                   in: .userDomainMask,
-                                                   appropriateFor: nil,
-                                                   create: false)
-       let eegPacketJSONRecordingsPath =
-         documentDirectory.appendingPathComponent("eegPacketJSONRecordings")
+    do {
+      let fileManager = FileManager.default
+      let documentDirectory = try fileManager.url(for: .documentDirectory,
+                                                  in: .userDomainMask,
+                                                  appropriateFor: nil,
+                                                  create: false)
+      let eegPacketJSONRecordingsPath =
+        documentDirectory.appendingPathComponent("eegPacketJSONRecordings")
 
-       let tableEegPacketsJSONFiles =
-         try fileManager.contentsOfDirectory(at: eegPacketJSONRecordingsPath,
-                                             includingPropertiesForKeys: nil,
-                                             options: .skipsHiddenFiles)
-       return tableEegPacketsJSONFiles
-     } catch {
-       prettyPrint(log.ln("sendAllJSONToBrainWeb - "))
-       prettyPrint(log.error(error as NSError))
-       return nil
-     }
-   }
+      let tableEegPacketsJSONFiles =
+        try fileManager.contentsOfDirectory(at: eegPacketJSONRecordingsPath,
+                                            includingPropertiesForKeys: nil,
+                                            options: .skipsHiddenFiles)
+      return tableEegPacketsJSONFiles
+    } catch {
+      PrettyPrinter.error(.ln, "sendAllJSONToBrainWeb", error)
+      return nil
+    }
+  }
 
   //----------------------------------------------------------------------------
   // MARK: - Upload
@@ -100,24 +99,21 @@ struct MBTBrainWebHelper {
       (SessionManager.MultipartFormDataEncodingResult) -> Void = {
         encodingResult in
         switch encodingResult {
-          case .success(let upload, _, _):
-            upload.responseJSON { response in
-              let logMessage =
-                log.url("sendJSONToBrainWeb response : \n \(response)")
-              prettyPrint(logMessage)
-              if let statusCode = response.response?.statusCode,
-                statusCode >= 200 && statusCode < 300 {
-                completion(true)
-              } else {
-                completion(false)
-              }
+        case .success(let upload, _, _):
+          upload.responseJSON { response in
+            let message = "sendJSONToBrainWeb response : \n \(response)"
+            PrettyPrinter.network(message)
+            if let statusCode = response.response?.statusCode,
+              statusCode >= 200 && statusCode < 300 {
+              completion(true)
+            } else {
+              completion(false)
+            }
           }
 
-          case .failure(let encodingError):
-            let logMessage =
-              log.url("sendJSONToBrainWeb failure : \(encodingError)")
-            prettyPrint(logMessage)
-            completion(false)
+        case .failure(let encodingError):
+          PrettyPrinter.error(.url, "sendJSONToBrainWeb failure", encodingError)
+          completion(false)
         }
     }
 
@@ -160,23 +156,22 @@ struct MBTBrainWebHelper {
           (SessionManager.MultipartFormDataEncodingResult) -> Void = {
             encodingResult in
             switch encodingResult {
-              case .success(let upload, _, _):
-                upload.responseJSON { response in
-                  let logMessage =
-                    log.url("sendALLJsonToBrainWeb - response : \n\(response)")
-                  prettyPrint(logMessage)
-                  if response.response?.statusCode == 201 {
-                    MBTJSONHelper.removeFile(fileURL)
-                    completion(true)
-                  }
-                  completion(false)
+            case .success(let upload, _, _):
+              upload.responseJSON { response in
+                let message =
+                "sendALLJsonToBrainWeb - response : \n\(response)"
+                PrettyPrinter.network(message)
+                if response.response?.statusCode == 201 {
+                  MBTJSONHelper.removeFile(fileURL)
+                  completion(true)
+                }
+                completion(false)
               }
 
-              case .failure(let encodingError):
-                let logMessage =
-                  log.url("sendAllJSONToBrainWeb - failure : \(encodingError)")
-                prettyPrint(logMessage)
-                completion(false)
+            case .failure(let encodingError):
+              let message = "sendAllJSONToBrainWeb - failure"
+              PrettyPrinter.error(.url, message, encodingError)
+              completion(false)
             }
         }
 
