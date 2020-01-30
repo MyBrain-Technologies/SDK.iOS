@@ -52,10 +52,7 @@ class BinariesFileFinder {
     let indusBinaries = binariesURL.filter() {
       $0.relativePath.contains(regex: indus.binaryNameRegex)
     }
-    print(indus)
-    print(indus.binaryNameRegex)
-    print(indusBinaries)
-
+    
     let sortedBinaries = indusBinaries.sorted() {
       $0.relativeString < $1.relativeString
     }
