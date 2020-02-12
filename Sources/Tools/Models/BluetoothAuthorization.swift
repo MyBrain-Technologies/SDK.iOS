@@ -8,9 +8,13 @@ import CoreBluetooth
  *
  ******************************************************************************/
 public enum BluetoothAuthorization {
+  /// App is authorized to use the device bluetooth
   case authorized
+  /// App is not authorized to use the device bluetooth.
   case unauthorized
+  /// App is not yet authorized or unauthorized to use the bluetooth. User will be ask to choose.
   case undetermined
+  /// Current device doesn't support the bluetooth.
   case unsupported
 
   //----------------------------------------------------------------------------
@@ -44,13 +48,14 @@ public enum BluetoothAuthorization {
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
+
   public var stateDescription: String {
     switch self {
     case .authorized:
       return "Bluetooth access is authorized and can be used at any time"
     case .unauthorized: return """
       Bluetooth access is not authorized.
-      It must be authorized by the user from the settings
+      Manual authorization from settings is required.
       """
     case .undetermined: return """
       Bluetooth acces has not be determined yet. It will be asked to the user.
