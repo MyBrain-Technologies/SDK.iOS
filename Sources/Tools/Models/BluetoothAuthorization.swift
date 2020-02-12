@@ -44,24 +44,19 @@ public enum BluetoothAuthorization {
     default: self = .authorized
     }
   }
+}
 
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
+//==============================================================================
+// MARK: - Custom String Convertible
+//==============================================================================
 
-  public var stateDescription: String {
+extension BluetoothAuthorization: CustomStringConvertible {
+  public var description: String {
     switch self {
-    case .authorized:
-      return "Bluetooth access is authorized and can be used at any time"
-    case .unauthorized: return """
-      Bluetooth access is not authorized.
-      Manual authorization from settings is required.
-      """
-    case .undetermined: return """
-      Bluetooth acces has not be determined yet. It will be asked to the user.
-      """
-    case .unsupported:
-      return "The current device does not support bleutooth"
+    case .authorized: return "authorized"
+    case .unauthorized: return " not authorized"
+    case .undetermined: return "not determined"
+    case .unsupported: return "not supported"
     }
   }
 }

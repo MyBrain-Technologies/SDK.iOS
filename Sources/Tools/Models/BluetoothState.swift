@@ -27,21 +27,18 @@ public enum BluetoothState {
     default: self = .undetermined
     }
   }
+}
 
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
+//==============================================================================
+// MARK: - Custom String Convertible
+//==============================================================================
 
-  public var stateDescription: String {
+extension BluetoothState: CustomStringConvertible {
+  public var description: String {
     switch self {
-    case .poweredOn:
-      return "Bluetooth is powered on"
-    case .poweredOff:
-      return "Bluetooth is powered off"
-    case .undetermined:
-      return """
-      Bluetooth powered state cannot be determined. Maybe BT authorization is not given.
-      """
+    case .poweredOff: return "powered off"
+    case .poweredOn: return "powered on"
+    case .undetermined: return "not determined"
     }
   }
 }
