@@ -66,6 +66,14 @@ public class MBTClient {
     return bluetoothManager.isConnected
   }
 
+  public var bluetoothAuthorization: BluetoothAuthorization {
+    return bluetoothManager.bluetoothAuthorization
+  }
+
+  public var bluetoothState: BluetoothState {
+    return bluetoothManager.bluetoothState
+  }
+
   /******************** Signal Processing  ********************/
 
   /// Get the mean alpha power of the current session.
