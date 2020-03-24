@@ -64,6 +64,11 @@ internal class MBTBluetoothManager: NSObject {
   var isConnectedBLE:Bool {
     return blePeripheral != nil
   }
+
+  /// Authorization given to access to bluetooth.
+  var bluetoothAuthorization: BluetoothAuthorization = .undetermined
+
+  var bluetoothState: BluetoothState = .undetermined
   
   /// A *Bool* which enable or disable headset EEG notifications.
   var isListeningToEEG = false {
@@ -108,7 +113,11 @@ internal class MBTBluetoothManager: NSObject {
   }()
   
   /// The BLE central manager.
-  var centralManager : CBCentralManager?
+  var centralManager: CBCentralManager?
+
+  /// An object that manages and advertises peripheral services exposed by this app.
+  /// Use for BLE authorizations.
+  var peripheralManager: CBPeripheralManager?
   
   /// The BLE peripheral with which a connection has been established.
   var blePeripheral : CBPeripheral? {
@@ -227,6 +236,7 @@ internal class MBTBluetoothManager: NSObject {
     // CentralManager Init
     centralManager = nil
     centralManager = CBCentralManager(delegate: self, queue: nil)
+    peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     
     DeviceManager.connectedDeviceName = nil
 
@@ -1021,6 +1031,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
 
     OADState = .CONNECT
   }
+
   
   
   /// Check out the discovered peripherals to find the right device.
