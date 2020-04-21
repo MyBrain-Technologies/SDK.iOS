@@ -44,6 +44,7 @@
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
 		A927D59323CCED0900C20734 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59223CCED0900C20734 /* Constants.swift */; };
+		A95C1A10244F13ED00AB4588 /* FirmwareVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FirmwareVersion.swift */; };
 		A974EFB523CE0C0600B9F9BE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB423CE0C0600B9F9BE /* Utils.swift */; };
 		A974EFB723CE0C2100B9F9BE /* OADStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB623CE0C2100B9F9BE /* OADStateType.swift */; };
 		A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB823CE0CB200B9F9BE /* OADProgress.swift */; };
@@ -125,6 +126,7 @@
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
 		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		A927D59223CCED0900C20734 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A95C1A0F244F13ED00AB4588 /* FirmwareVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareVersion.swift; sourceTree = "<group>"; };
 		A974EFB423CE0C0600B9F9BE /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A974EFB623CE0C2100B9F9BE /* OADStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADStateType.swift; sourceTree = "<group>"; };
 		A974EFB823CE0CB200B9F9BE /* OADProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADProgress.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				A927D58D23CCDF3C00C20734 /* IndusVersion.swift */,
 				A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */,
 				A9D3B5DD23F40740006138E5 /* BluetoothState.swift */,
+				A95C1A0F244F13ED00AB4588 /* FirmwareVersion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				A974EFBD23CE298000B9F9BE /* DeviceManager.swift in Sources */,
 				2B6B5DA4205139D900928F1F /* MBTEEGAcquisitionManager.swift in Sources */,
 				4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */,
+				A95C1A10244F13ED00AB4588 /* FirmwareVersion.swift in Sources */,
 				A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */,
 				A974EFC023CE29BB00B9F9BE /* AcquisitionLocation.swift in Sources */,
 				F420E9A51EFD5F68008C0B08 /* MBTBluetoothLEHelper.swift in Sources */,
