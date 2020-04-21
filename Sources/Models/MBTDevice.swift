@@ -55,15 +55,10 @@ public class MBTDevice: Object {
         return false
     }
 
-    let characterSet = CharacterSet(charactersIn: Constants.versionSeparators)
-    let fileVersionArray = fileVersion.components(separatedBy: characterSet)
-    let deviceFWVersionArray =
-      firmwareVersion.components(separatedBy: characterSet)
+    let fileFirmwareVersion = FirmwareVersion(string: fileVersion)
+    let currentFirmwareVersion = FirmwareVersion(string: firmwareVersion)
 
-    return ArrayUtils().compareArrayVersion(
-      arrayA: fileVersionArray,
-      isGreaterThan: deviceFWVersionArray
-      ) == 1
+    return fileFirmwareVersion != currentFirmwareVersion
   }
 
   //----------------------------------------------------------------------------
