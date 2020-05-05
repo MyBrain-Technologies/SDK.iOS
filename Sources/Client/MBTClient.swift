@@ -1,11 +1,3 @@
-//
-//  MelomindEngine.swift
-//  MBT_iOS_SDK
-//
-//  Created by Baptiste Rasschaert on 09/05/2017.
-//  Copyright © 2017 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
 
 /*******************************************************************************
@@ -430,10 +422,6 @@ public class MBTClient {
   /// Start the OAD process
   public func startOADTransfer() {
     bluetoothManager.startOAD()
-  }
-  
-  public func testOADTransfer() {
-    bluetoothManager.startTestOAD()
   }
   
   /// To know if a new headset firmware version is available.
