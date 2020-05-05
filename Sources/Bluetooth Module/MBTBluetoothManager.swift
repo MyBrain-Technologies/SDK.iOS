@@ -672,8 +672,8 @@ internal class MBTBluetoothManager: NSObject {
       bytesArray[0] = MailBoxEvents.MBX_START_OTA_TXF.rawValue
       bytesArray[1] = OADManager.getFWVersionAsByteArray()[0]
       bytesArray[2] = OADManager.getFWVersionAsByteArray()[1]
-      bytesArray[3] = ConversionUtils.loUInt16(v: OADManager.oadProgress.nBlock)
-      bytesArray[4] = ConversionUtils.hiUInt16(v: OADManager.oadProgress.nBlock)
+      bytesArray[3] = OADManager.oadProgress.nBlock.loUint8
+      bytesArray[4] = OADManager.oadProgress.nBlock.hiUint16
       
       blePeripheral?.writeValue(Data(bytesArray),
                                 for: MBTBluetoothLEHelper.mailBoxCharacteristic,
