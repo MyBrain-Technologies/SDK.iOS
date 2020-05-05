@@ -51,8 +51,8 @@ class MBTOADManager {
 
     while oadProgress.iBlock < oadProgress.nBlock {
       tempBuffer = [UInt8]()
-      tempBuffer.append(ConversionUtils.loUInt16(v: oadProgress.iBlock))
-      tempBuffer.append(ConversionUtils.hiUInt16(v: oadProgress.iBlock))
+      tempBuffer.append(oadProgress.iBlock.loUint8)
+      tempBuffer.append(oadProgress.iBlock.hiUint16)
       if (oadProgress.iBytes + OAD_BLOCK_SIZE) > mFileLength {
         let range = oadProgress.iBytes ..< mFileBuffer.count
         tempBuffer += [UInt8](mFileBuffer[range])
