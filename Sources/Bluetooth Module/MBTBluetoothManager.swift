@@ -270,7 +270,7 @@ internal class MBTBluetoothManager: NSObject {
     stopTimerFinalizeConnectionMelomind()
 
     guard let currentDevice = DeviceManager.getCurrentDevice() else {
-      let error = BluetoothError.deviceNotConnected.error
+      let error = DeviceError.notConnected.error
       PrettyPrinter.error(.ble, error)
 
       eventDelegate?.onConnectionFailed?(error)
@@ -295,7 +295,7 @@ internal class MBTBluetoothManager: NSObject {
         OADState = .DISABLE
 
         guard isDeviceVersionUpToDate() else {
-          let error = OADError.firmwareVersionInvalidAfterUpdate.error
+          let error = FirmwareError.versionInvalidAfterUpdate.error
           PrettyPrinter.error(.ble, error)
 
           eventDelegate?.onUpdateFailWithError?(error as Error)
@@ -350,7 +350,7 @@ internal class MBTBluetoothManager: NSObject {
         
         indexLoop += 0.5
         guard indexLoop <= 120 else {
-          let error = BluetoothError.deviceInfoTimeOut.error
+          let error = DeviceError.retrieveInfoTimeOut.error
           PrettyPrinter.error(.ble, prefix, error)
 
           self.eventDelegate?.onConnectionFailed?(error)
@@ -556,7 +556,7 @@ internal class MBTBluetoothManager: NSObject {
     guard isConnected else {
       self.isOADInProgress = false
 
-      let error = BluetoothError.deviceNotConnected.error
+      let error = DeviceError.notConnected.error
       PrettyPrinter.error(.ble, "startOAD", error)
 
       self.eventDelegate?.onUpdateFailWithError?(error)
@@ -569,7 +569,7 @@ internal class MBTBluetoothManager: NSObject {
     guard let device = DeviceManager.getCurrentDevice() else {
       isOADInProgress = false
 
-      let error = BluetoothError.deviceInfoUnavailable.error
+      let error = DeviceError.infoUnavailable.error
       PrettyPrinter.error(.ble, "startOAD", error)
 
       eventDelegate?.onUpdateFailWithError?(error)
@@ -581,7 +581,7 @@ internal class MBTBluetoothManager: NSObject {
         isOADInProgress = false
         OADState = .DISABLE
 
-        let error = OADError.firmwareAlreadyUpToDate.error
+        let error = FirmwareError.alreadyUpToDate.error
         PrettyPrinter.error(.ble, "startOAD", error)
 
         eventDelegate?.onUpdateFailWithError?(error)
@@ -755,7 +755,7 @@ internal class MBTBluetoothManager: NSObject {
     centralManager?.stopScan()
     stopTimerTimeOutConnection()
 
-    let error = BluetoothError.bluetoothLowEnergyConnectionTimeOut.error
+    let error = BluetoothLowEnergyError.connectionTimeOut.error
     PrettyPrinter.error(.ble, "connectionMelomindTimeOut", error)
 
     if isOADInProgress {
@@ -769,7 +769,7 @@ internal class MBTBluetoothManager: NSObject {
   @objc func connetionA2DPTimeOut() {
     disconnect()
 
-    let error = BluetoothError.audioConnectionTimeOut.error
+    let error = AudioError.audioConnectionTimeOut.error
     PrettyPrinter.error(.ble, "connectionA2DPTimeOut", error)
 
     if isOADInProgress {
@@ -937,8 +937,9 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
       
       if !isOADInProgress {
 
-        let error: BluetoothError =
-          isConnected ? .bluetoothLowEnergyPoweredOff : .bluetoothPoweredOff
+        let error: MBTError = isConnected ?
+          BluetoothLowEnergyError.poweredOff
+          : BluetoothError.poweredOff
 
         PrettyPrinter.error(.ble, prefix, error)
 
@@ -956,7 +957,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
         if OADState > .OAD_COMPLETE {
           OADState = .CONNECT
 
-          let error = OADError.reconnectionAfterUpdateFailed.error
+          let error = OADError.reconnectionAfterTransferFailed.error
           PrettyPrinter.error(.ble, prefix, error)
 
           eventDelegate?.onUpdateFailWithError?(error as Error)
@@ -964,7 +965,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
           isOADInProgress = false
           OADState = .DISABLE
 
-          let error = OADError.bluetoothConnectionLost.error
+          let error = BluetoothError.connectionLost.error
           PrettyPrinter.error(.ble, prefix, error)
 
           eventDelegate?.onUpdateFailWithError?(error as Error)
@@ -992,7 +993,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
 
     guard let connectedDeviceName = DeviceManager.connectedDeviceName,
       connectedDeviceName != "" else {
-        let error = OADError.reconnectionAfterUpdateFailed.error
+        let error = OADError.reconnectionAfterTransferFailed.error
         PrettyPrinter.error(.ble, prefix, error)
         
         eventDelegate?.onUpdateFailWithError?(error)
@@ -1099,7 +1100,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
         if OADState >= .OAD_COMPLETE {
           OADState = .CONNECT
 
-          let error = OADError.reconnectionAfterUpdateFailed.error
+          let error = OADError.reconnectionAfterTransferFailed.error
           PrettyPrinter.error(.ble, error)
 
           eventDelegate?.onUpdateFailWithError?(error)
@@ -1107,7 +1108,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
           isOADInProgress = false
           OADState = .DISABLE
 
-          let error = OADError.bluetoothConnectionLost.error
+          let error = BluetoothError.connectionLost.error
           PrettyPrinter.error(.ble, error)
 
           eventDelegate?.onUpdateFailWithError?(error)
@@ -1117,7 +1118,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
       if timerTimeOutConnection != nil {
         isOADInProgress = false
 
-        let error = BluetoothError.bluetoothPairingDenied.error
+        let error = BluetoothError.pairingDenied.error
         PrettyPrinter.error(.ble, error)
 
         eventDelegate?.onConnectionFailed?(error)
@@ -1387,15 +1388,15 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
           } else {
             var error:Error?
             if bytesArrayA2DPStatus.contains(.CMD_CODE_FAILED_BAD_BDADDR) {
-              error = OADCommandError.badBDAddr.error
+              error = OADError.badBDAddr.error
             } else if bytesArrayA2DPStatus.contains(
               .CMD_CODE_FAILED_ALREADY_CONNECTED
               ) {
-              error = OADCommandError.audioAldreadyConnected.error
+              error = AudioError.audioAldreadyConnected.error
             } else if bytesArrayA2DPStatus.contains(.CMD_CODE_LINKKEY_INVALID) {
-              error = OADCommandError.audioUnpaired.error
+              error = AudioError.audioUnpaired.error
             } else if bytesArrayA2DPStatus.contains(.CMD_CODE_FAILED_TIME_OUT) {
-              error = BluetoothError.audioConnectionTimeOut.error
+              error = AudioError.audioConnectionTimeOut.error
             }
             
             if let error = error {
@@ -1539,7 +1540,7 @@ extension MBTBluetoothManager {
           self.isOADInProgress = false
           self.OADState = .DISABLE
 
-          let error = OADError.firmwareVersionInvalidAfterUpdate.error
+          let error = FirmwareError.versionInvalidAfterUpdate.error
           PrettyPrinter.error(.ble, prefix, error)
 
           self.eventDelegate?.onUpdateFailWithError?(error)
