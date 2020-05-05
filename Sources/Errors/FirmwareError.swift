@@ -1,15 +1,14 @@
 import Foundation
 
 /*******************************************************************************
- * BluetoothError
+ * FirmwareError
  *
- * Represent an error about the bluetooth connection
+ * Represent an error about the devices firmware
  *
  ******************************************************************************/
-enum BluetoothError: Int, MBTError {
-  case connectionLost = 911
-  case poweredOff = 919
-  case pairingDenied = 921
+enum FirmwareError: Int, MBTError {
+  case alreadyUpToDate = 910
+  case versionInvalidAfterUpdate = 915
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -21,10 +20,10 @@ enum BluetoothError: Int, MBTError {
   /// Localized description of the error
   var localizedDescription: String {
     switch self {
-    case .connectionLost: return "Bluetooth connection have been lost"
-    case .poweredOff: return "Bluetooth is powered off"
-    case .pairingDenied:
-      return "Bluetooth pairing demand have been denied"
+    case .alreadyUpToDate:
+      return "Latest firmware version already installed"
+    case .versionInvalidAfterUpdate:
+      return "Headset firmware version is not the one expected after update"
     }
   }
 }

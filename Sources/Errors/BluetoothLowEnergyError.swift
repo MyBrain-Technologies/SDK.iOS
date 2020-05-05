@@ -1,15 +1,14 @@
 import Foundation
 
 /*******************************************************************************
- * BluetoothError
+ * BluetoothLowEnergyError
  *
- * Represent an error about the bluetooth connection
+ * Represent an error about the bluetooth low energy connection
  *
  ******************************************************************************/
-enum BluetoothError: Int, MBTError {
-  case connectionLost = 911
-  case poweredOff = 919
-  case pairingDenied = 921
+enum BluetoothLowEnergyError: Int, MBTError {
+  case connectionTimeOut = 918
+  case poweredOff = 920
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -21,10 +20,10 @@ enum BluetoothError: Int, MBTError {
   /// Localized description of the error
   var localizedDescription: String {
     switch self {
-    case .connectionLost: return "Bluetooth connection have been lost"
-    case .poweredOff: return "Bluetooth is powered off"
-    case .pairingDenied:
-      return "Bluetooth pairing demand have been denied"
+    case .connectionTimeOut:
+      return "Timeout while connecting bluetooth low energy"
+      case .poweredOff:
+      return "Bluetooth low energy is powered off"
     }
   }
 }

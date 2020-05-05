@@ -1,15 +1,15 @@
 import Foundation
 
 /*******************************************************************************
- * BluetoothError
+ * DeviceError
  *
- * Represent an error about the bluetooth connection
+ * Represent an error about a melomind device
  *
  ******************************************************************************/
-enum BluetoothError: Int, MBTError {
-  case connectionLost = 911
-  case poweredOff = 919
-  case pairingDenied = 921
+enum DeviceError: Int, MBTError {
+  case infoUnavailable = 909
+  case notConnected = 916
+  case retrieveInfoTimeOut = 917
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -21,10 +21,9 @@ enum BluetoothError: Int, MBTError {
   /// Localized description of the error
   var localizedDescription: String {
     switch self {
-    case .connectionLost: return "Bluetooth connection have been lost"
-    case .poweredOff: return "Bluetooth is powered off"
-    case .pairingDenied:
-      return "Bluetooth pairing demand have been denied"
+    case .infoUnavailable: return "Device informations are not available"
+    case .notConnected: return "Device not connected"
+    case .retrieveInfoTimeOut: return "Timeout while getting device informations"
     }
   }
 }
