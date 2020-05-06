@@ -55,8 +55,8 @@ public class MBTDevice: Object {
         return false
     }
 
-    let fileFirmwareVersion = FirmwareVersion(string: fileVersion)
-    let currentFirmwareVersion = FirmwareVersion(string: firmwareVersion)
+    let fileFirmwareVersion = FormatedVersion(string: fileVersion)
+    let currentFirmwareVersion = FormatedVersion(string: firmwareVersion)
 
     return fileFirmwareVersion != currentFirmwareVersion
   }

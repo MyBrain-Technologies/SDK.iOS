@@ -318,8 +318,8 @@ internal class MBTBluetoothManager: NSObject {
     log.info("Device current firmware version", context: fwVersionNumber)
     log.info("Expected firmware version", context: oadFwVersionNumber)
 
-    let deviceFwVersion = FirmwareVersion(string: fwVersionNumber)
-    let oadFwVersion = FirmwareVersion(string: oadFwVersionNumber)
+    let deviceFwVersion = FormatedVersion(string: fwVersionNumber)
+    let oadFwVersion = FormatedVersion(string: oadFwVersionNumber)
 
     return deviceFwVersion == oadFwVersion
   }
@@ -853,8 +853,8 @@ internal class MBTBluetoothManager: NSObject {
         return false
     }
 
-    let versionToCompare = FirmwareVersion(string: version.rawValue)
-    let currentVersion = FirmwareVersion(string: deviceFWVersion)
+    let versionToCompare = FormatedVersion(string: version.rawValue)
+    let currentVersion = FormatedVersion(string: deviceFWVersion)
 
     return currentVersion >= versionToCompare
   }

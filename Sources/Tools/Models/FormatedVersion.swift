@@ -1,6 +1,6 @@
 import Foundation
 
-struct FirmwareVersion: Comparable, Equatable {
+struct FormatedVersion: Comparable, Equatable {
   let major: Int
   let minor: Int
   let fix: Int
@@ -18,11 +18,17 @@ struct FirmwareVersion: Comparable, Equatable {
     self.fix = Int(components[2]) ?? 0
   }
 
-  static func < (lhs: FirmwareVersion, rhs: FirmwareVersion) -> Bool {
+  init(major: Int, minor: Int, fix: Int) {
+    self.major = major
+    self.minor = minor
+    self.fix = fix
+  }
+
+  static func < (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
     return lhs.versionValue < rhs.versionValue
   }
 
-  static func == (lhs: FirmwareVersion, rhs: FirmwareVersion) -> Bool {
+  static func == (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
     return lhs.versionValue == rhs.versionValue
   }
 
