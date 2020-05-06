@@ -234,7 +234,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
       jsonContext["riAlgo"].stringValue = algo
     }
 
-    print("jsonContext : \(jsonContext)")
+    log.info("json context", context: jsonContext)
 
     var jsonRecord = JSON()
     jsonRecord["recordID"].stringValue = recordInfo.recordId.uuidString

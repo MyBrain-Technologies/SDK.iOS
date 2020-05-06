@@ -68,9 +68,6 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   /// - returns: The array of computed "quality" values. Each value is the
   /// quality for a channel, in the same order as the row order in data.
   func computeQualityValue(_ data: List<ChannelDatas>) -> [Float] {
-    //        print("computeQualityValue")
-    // Getting connected MBTDevice *sampRate*.
-    //        let sampRate = Int(DeviceManager.getDeviceSampRate())
 
     // Transform the input data into the format needed by the Obj-C++ bridge.
     let nbChannels: Int = data.count

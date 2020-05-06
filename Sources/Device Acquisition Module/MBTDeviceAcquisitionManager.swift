@@ -74,16 +74,14 @@ internal class MBTDeviceAcquisitionManager: NSObject {
   ///
   /// - Parameter characteristic:A *Data* received from status info Melomind.
   func processHeadsetStatus(_ characteristic: CBCharacteristic) {
-    if let value = characteristic.value {
-      let tabByte = [UInt8](value)
-      if tabByte[0] == 1 {
-        DispatchQueue.main.async {
-          [weak self] in
-          self?.delegate?.onReceivingSaturationStatus?(Int(tabByte[1]))
-        }
-      } else {
-        //print(tabByte)
-      }
+    guard let value = characteristic.value else { return }
+
+    let tabByte = [UInt8](value)
+
+    guard tabByte[0] == 1 else { return }
+
+    DispatchQueue.main.async { [weak self] in
+      self?.delegate?.onReceivingSaturationStatus?(Int(tabByte[1]))
     }
   }
 

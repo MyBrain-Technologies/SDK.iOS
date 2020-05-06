@@ -48,7 +48,6 @@ class BinariesFileFinder {
 
   /// Get the binary with the higher version compatible with the given indus version
   func higherBinaryFilename(for indus: IndusVersion) -> String? {
-    print(binariesURL)
     let indusBinaries = binariesURL.filter() {
       $0.relativePath.contains(regex: indus.binaryNameRegex)
     }
