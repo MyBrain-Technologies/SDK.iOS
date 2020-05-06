@@ -330,8 +330,6 @@ internal class MBTBluetoothManager: NSObject {
   /// - onConnectionFailed : 917 | "Time out getting device infos"
   /// - Parameter completion: the block to execute after getting the device infos
   func prepareDeviceWithInfo(completion:@escaping ()->()) {
-    let prefix = "prepareDeviceWithInfo"
-
     requestUpdateDeviceInfo()
     
     DispatchQueue.global().async {
@@ -994,7 +992,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     let localName =
       advertisementData[CBAdvertisementDataLocalNameKey] as? String
     let uuidKeys =
-      advertisementData[CBAdvertisementDataServiceUUIDsKey] as? Array<CBUUID>
+      advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID]
 
     guard let nameOfDeviceFound = localName,
       let serviceArray = uuidKeys else { return }
@@ -1238,9 +1236,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
 
     let eegAcqusition = MBTClient.shared.eegAcqusitionManager
     let deviceAcquisition = MBTClient.shared.deviceAcqusitionManager
-    let prefix = "peripheral didUpdateValueFor characteristic"
-
-
+    
     // Get the device information characteristics UUIDs.
     let characsUUIDS = MBTBluetoothLEHelper.getDeviceInfoCharacteristicsUUIDS()
     let characteristicUUID = CBUUID(data: characteristic.uuid.data)
