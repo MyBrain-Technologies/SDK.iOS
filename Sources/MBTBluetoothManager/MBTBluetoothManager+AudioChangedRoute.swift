@@ -65,20 +65,18 @@ extension MBTBluetoothManager {
           return
         }
 
-        let currentFwVersion =
-          DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion
-        let oadFwVersion = self.OADManager?.fwVersion
+        let currentFwVersion = FormatedVersion(string:
+          DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion ?? ""
+        )
+        let oadFwVersion =
+          FormatedVersion(string: self.OADManager?.fwVersion ?? "")
 
         log.info("📲 Current device firmware version",
                  context: currentFwVersion)
         log.info("📲 Expected firmware version",
                  context: oadFwVersion)
 
-        if let currentDeviceInfo =
-          DeviceManager.getCurrentDevice()?.deviceInfos,
-          self.OADManager != nil,
-          let currentFwVersion = currentDeviceInfo.firmwareVersion,
-          currentFwVersion.contains(self.OADManager!.fwVersion) {
+        if currentFwVersion == oadFwVersion {
 
           self.eventDelegate?.onProgressUpdate?(1.0)
           self.isOADInProgress = false
