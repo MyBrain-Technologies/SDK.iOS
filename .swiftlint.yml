@@ -16,6 +16,7 @@ disabled_rules: # rule identifiers to exclude from running
 # - large_tuple
 # - vertical_whitespace
 # - trailing_whitespace
+# - trailing_newline
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
@@ -25,7 +26,6 @@ disabled_rules: # rule identifiers to exclude from running
   - line_length
   - comma
   - mark
-  - trailing_newline
   - leading_whitespace
   - trailing_semicolon
   - trailing_comma

@@ -366,4 +366,3 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     return dataArray
   }
 }
-

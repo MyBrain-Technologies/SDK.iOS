@@ -60,6 +60,4 @@ protocol MBTSessionAnalysisComputer {
     /// - paremeter packetLength: The number of data points in a "packet".
     /// - returns: A dictionnary with the output values for the session analysis
     func analyseSession(_ inputDataSNR:[Float], threshold:Float) -> [String:Float]
-
 }
-
