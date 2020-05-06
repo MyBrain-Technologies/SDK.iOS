@@ -26,7 +26,7 @@ struct MBTJSONHelper {
     let dateFormater = DateFormatter()
     dateFormater.dateFormat = "yyyy-MM-dd--HH:mm:ss"
     let projectName =
-      Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
+      Bundle.main.infoDictionary![kCFBundleNameKey as String] as? String ?? ""
     let deviceName = "melo_" + idDevice
     let stringIdUser = "\(idUser)"
 

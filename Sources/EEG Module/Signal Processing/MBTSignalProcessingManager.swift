@@ -97,7 +97,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
                                              packetLength: packetLength)
 
     // Return the quality values.
-    let qualitySwift = qualities as! [Float]
+    let qualitySwift = qualities as? [Float] ?? []
 
     if qualitySwift.count < 2 {
       log.info("computeQualityValue - quality count inf à 2")
@@ -123,7 +123,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   /// - returns: The matrix of EEG datas (modified) by channel.
   func getModifiedEEGValues() -> [[Float]] {
     let newEEGValues = MBTQualityCheckerBridge.getModifiedEEGData()
-    let newEEGValuesSwift = newEEGValues as! [[Float]]
+    let newEEGValuesSwift = newEEGValues as? [[Float]] ?? [[]]
 
     return newEEGValuesSwift
   }
@@ -193,7 +193,7 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
                                               packetsCount: packetsCount,
                                               sampRate: sampRate)
     // Transform results in a Swift format.
-    let parameters = parametersFromComputation as! [String: [Float]]
+    let parameters = parametersFromComputation as? [String: [Float]] ?? [:]
     // Save the results.
     calibrationComputed = parameters
     // Return the quality values in a Swift format.
@@ -272,7 +272,7 @@ extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
     let sessionAnalysisValues =
       MBTSNRStatisticsBridge.computeSessionStatistics(inputDataSNR,
                                                       threshold: threshold)
-    let sessionAnalysis = sessionAnalysisValues as! [String: Float]
+    let sessionAnalysis = sessionAnalysisValues as? [String: Float] ?? [:]
     return sessionAnalysis
   }
 
@@ -298,18 +298,18 @@ extension MBTSignalProcessingManager {
 
   var sessionAlphaPowers: [Float] {
     return MBTMelomindAnalysis.sessionAlphaPowers().filter { $0 is Float }
-      as! [Float]
+      as? [Float] ?? []
   }
 
   var sessionRelativeAlphaPowers: [Float] {
     return
       MBTMelomindAnalysis.sessionRelativeAlphaPowers().filter { $0 is Float }
-        as! [Float]
+        as? [Float] ?? []
   }
 
   var sessionQualities: [Float] {
-    return
-      MBTMelomindAnalysis.sessionQualities().filter { $0 is Float } as! [Float]
+    return MBTMelomindAnalysis.sessionQualities().filter { $0 is Float }
+      as? [Float] ?? []
   }
 
   func resetSession() {

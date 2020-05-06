@@ -2,6 +2,9 @@ import Foundation
 import CoreBluetooth
 import AVFoundation
 
+// TEMP: LEGACY CODE
+// swiftlint:disable function_body_length
+
 enum MBTFirmwareVersion: String {
   case a2dpFromHeadset = "1.6.7"
   case registerExternalName = "1.7.1"

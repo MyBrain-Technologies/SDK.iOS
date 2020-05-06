@@ -42,16 +42,16 @@ disabled_rules: # rule identifiers to exclude from running
 # - unused_setter_value
 # - deployment_target
 # - line_length
+# - type_name
+# - function_body_length
+# - force_cast
+  - force_try
+  - type_body_length
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
   - file_length
-  - function_body_length
   - mark
-  - force_cast
-  - type_name
-  - force_try
-  - type_body_length
 ## Some rules custom
 identifier_name:
   min_length: 1
