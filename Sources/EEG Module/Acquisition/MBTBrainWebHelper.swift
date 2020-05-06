@@ -57,7 +57,7 @@ struct MBTBrainWebHelper {
                                             options: .skipsHiddenFiles)
       return tableEegPacketsJSONFiles
     } catch {
-      PrettyPrinter.error(.ln, "sendAllJSONToBrainWeb", error)
+      log.error("Send all jsons to brainweb", context: error)
       return nil
     }
   }
@@ -101,8 +101,7 @@ struct MBTBrainWebHelper {
         switch encodingResult {
         case .success(let upload, _, _):
           upload.responseJSON { response in
-            let message = "sendJSONToBrainWeb response : \n \(response)"
-            PrettyPrinter.network(message)
+            log.info("Send json to brainweb response", response.description)
             if let statusCode = response.response?.statusCode,
               statusCode >= 200 && statusCode < 300 {
               completion(true)
@@ -112,7 +111,7 @@ struct MBTBrainWebHelper {
           }
 
         case .failure(let encodingError):
-          PrettyPrinter.error(.url, "sendJSONToBrainWeb failure", encodingError)
+          log.error("Send JSON to brainweb fail", context: encodingError)
           completion(false)
         }
     }
@@ -158,9 +157,8 @@ struct MBTBrainWebHelper {
             switch encodingResult {
             case .success(let upload, _, _):
               upload.responseJSON { response in
-                let message =
-                "sendALLJsonToBrainWeb - response : \n\(response)"
-                PrettyPrinter.network(message)
+                log.info("Send all JSON to Brainweb response",
+                         context: response)
                 if response.response?.statusCode == 201 {
                   MBTJSONHelper.removeFile(fileURL)
                   completion(true)
@@ -168,9 +166,8 @@ struct MBTBrainWebHelper {
                 completion(false)
               }
 
-            case .failure(let encodingError):
-              let message = "sendAllJSONToBrainWeb - failure"
-              PrettyPrinter.error(.url, message, encodingError)
+            case .failure(let error):
+              log.error("Send all JSON to BrainWeb failure", context: error)
               completion(false)
             }
         }
