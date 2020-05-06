@@ -34,6 +34,9 @@ disabled_rules: # rule identifiers to exclude from running
 # - for_where
 # - class_delegate_protocol
 # - comma
+# - statement_position
+# - duplicate_imports
+# - redundant_string_enum_value
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
@@ -41,9 +44,6 @@ disabled_rules: # rule identifiers to exclude from running
   - function_body_length
   - line_length
   - mark
-  - statement_position
-  - duplicate_imports
-  - redundant_string_enum_value
   - implicit_getter
   - private_over_fileprivate
   - unused_setter_value

@@ -101,25 +101,25 @@ public class MBTRecordingType {
 }
 
 /// enum of Data Source
-public enum MBTDataSource : String {
+public enum MBTDataSource: String {
     case FREESESSION = "FREESESSION"
     case RELAXPROGRAM = "RELAX_PROGRAM"
     case DEFAULT = "DEFAULT"
 }
 
 /// enum of DataType
-public enum MBTDataType : String {
-    case DEFAULT = "DEFAULT"
-    case JOURNEY = "JOURNEY"
-    case SWITCH = "SWITCH"
-    case STABILITY = "STABILITY"
+public enum MBTDataType: String {
+    case DEFAULT
+    case JOURNEY
+    case SWITCH
+    case STABILITY
 }
 
 ///enum of Record Type
-public enum MBTRecordType : String {
-    case ADJUSTMENT = "ADJUSTMENT"
-    case CALIBRATION = "CALIBRATION"
-    case SESSION = "SESSION"
-    case RAWDATA = "RAWDATA"
-    case STUDY = "STUDY"
+public enum MBTRecordType: String {
+    case ADJUSTMENT
+    case CALIBRATION
+    case SESSION
+    case RAWDATA
+    case STUDY
 }
