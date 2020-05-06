@@ -9,19 +9,19 @@ import Foundation
 public enum OADStateType: Int, Equatable, Comparable, CustomStringConvertible {
 
   /// The process has not started
-  case DISABLE = -1
+  case disable = -1
   /// The process has started
-  case START_OAD = 0
+  case started = 0
   /// The Melomind is ready to receive the binary
-  case READY = 1
+  case ready = 1
   /// The SDK is sending the binary
-  case IN_PROGRESS = 2
+  case inProgress = 2
   /// The Melomind has received all the binary
-  case OAD_COMPLETE = 3
+  case completed = 3
   /// The SDK needs that the bluetooth device reboot
-  case REBOOT_BLUETOOTH = 4
+  case rebootRequired = 4
   /// The SDK try to reconnect the Melomind
-  case CONNECT = 5
+  case connected = 5
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -29,20 +29,13 @@ public enum OADStateType: Int, Equatable, Comparable, CustomStringConvertible {
 
   public var description: String {
     switch self {
-    case .DISABLE :
-      return "OAD disable"
-    case .START_OAD :
-      return "Start to process OAD"
-    case .READY :
-      return "Melomind is ready to transfert OAD"
-    case .IN_PROGRESS :
-      return "OAD is in progress"
-    case .OAD_COMPLETE :
-      return "OAD is complete"
-    case .REBOOT_BLUETOOTH :
-      return "need to reboot bluetooth Device"
-    case .CONNECT :
-      return "try to reconnect the Melomind"
+    case .disable: return "OAD disable"
+    case .started: return "Start to process OAD"
+    case .ready: return "Melomind is ready to transfert OAD"
+    case .inProgress: return "OAD is in progress"
+    case .completed: return "OAD is complete"
+    case .rebootRequired: return "need to reboot bluetooth Device"
+    case .connected: return "try to reconnect the Melomind"
     }
   }
 }

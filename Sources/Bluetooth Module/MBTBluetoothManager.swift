@@ -161,9 +161,9 @@ internal class MBTBluetoothManager: NSObject {
   }
   
   /// OAD State (Enum:OADStateType)
-  var OADState:OADStateType = .DISABLE {
+  var OADState:OADStateType = .disable {
     didSet {
-      if OADState == .DISABLE {
+      if OADState == .disable {
         stopTimerTimeOutOAD()
       }
     }
@@ -192,7 +192,7 @@ internal class MBTBluetoothManager: NSObject {
   ///   - deviceName : The name of the device to connect (Bluetooth profile).
   func connectTo(_ deviceName:String? = nil) {
     if let lastBluetoothState = tabHistoBluetoothState.last,
-      OADState == .CONNECT,
+      OADState == .connected,
       lastBluetoothState {
       stopTimerTimeOutConnection()
 
@@ -224,7 +224,7 @@ internal class MBTBluetoothManager: NSObject {
   func initBluetoothManager() {
     // Download Init
     isOADInProgress = false
-    OADState = .DISABLE
+    OADState = .disable
     
     // Connection Init
     counterServicesDiscover = 0
@@ -292,7 +292,7 @@ internal class MBTBluetoothManager: NSObject {
         requestConnectA2DP()
       } else {
         isOADInProgress = false
-        OADState = .DISABLE
+        OADState = .disable
 
         guard isDeviceVersionUpToDate() else {
           let error = FirmwareError.versionInvalidAfterUpdate.error
@@ -548,7 +548,7 @@ internal class MBTBluetoothManager: NSObject {
     guard let filename = BinariesFileFinder().higherBinaryFilename(for: device),
       device.shouldUpdateFirmware else {
         isOADInProgress = false
-        OADState = .DISABLE
+        OADState = .disable
 
         let error = FirmwareError.alreadyUpToDate.error
         log.error("📲 OAD cannot start", context: error)
@@ -557,7 +557,7 @@ internal class MBTBluetoothManager: NSObject {
         return
     }
 
-    OADState = .START_OAD
+    OADState = .started
     timerTimeOutOAD = Timer.scheduledTimer(
       timeInterval: TIMEOUT_OAD,
       target: self,
@@ -592,7 +592,7 @@ internal class MBTBluetoothManager: NSObject {
 
       while oadManager.oadProgress.iBlock < oadManager.mOadBuffer.count {
         usleep(6000)
-        if !self.isConnectedBLE || self.OADState != .IN_PROGRESS {
+        if !self.isConnectedBLE || self.OADState != .inProgress {
           break
         }
 
@@ -639,7 +639,7 @@ internal class MBTBluetoothManager: NSObject {
                                 for: MBTBluetoothLEHelper.mailBoxCharacteristic,
                                 type: .withResponse)
       eventDelegate?.onProgressUpdate?(0.05)
-      OADState = .READY
+      OADState = .ready
     }
   }
   
@@ -756,7 +756,7 @@ internal class MBTBluetoothManager: NSObject {
   @objc func oadTransfertTimeOut() {
     stopTimerTimeOutOAD()
 
-    if OADState < .OAD_COMPLETE {
+    if OADState < .completed {
       isOADInProgress = false
     }
 
@@ -914,14 +914,14 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
           eventDelegate?.onConnectionFailed?(error.error)
 
         disconnect()
-      } else if OADState != .REBOOT_BLUETOOTH {
+      } else if OADState != .rebootRequired {
         centralManager?.stopScan()
         if let blePeripheral = blePeripheral {
           centralManager?.cancelPeripheralConnection(blePeripheral)
         }
         blePeripheral = nil
-        if OADState > .OAD_COMPLETE {
-          OADState = .CONNECT
+        if OADState > .completed {
+          OADState = .connected
 
           let error = OADError.reconnectionAfterTransferFailed.error
           log.error("📲 OAD transfer failed", context: error)
@@ -929,7 +929,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
           eventDelegate?.onUpdateFailWithError?(error)
         } else {
           isOADInProgress = false
-          OADState = .DISABLE
+          OADState = .disable
 
           let error = BluetoothError.connectionLost.error
           log.error("📲 Bluetooth connection interrupter", context: error)
@@ -952,7 +952,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
       tabHistoBluetoothState.count == 3
         && lastBluetoothStatus
         && isOADInProgress
-        && OADState == .REBOOT_BLUETOOTH else { return }
+        && OADState == .rebootRequired else { return }
 
     eventDelegate?.onRebootBluetooth?()
 
@@ -971,7 +971,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     let services = [MBTBluetoothLEHelper.myBrainServiceUUID]
     centralManager?.scanForPeripherals(withServices: services, options: nil)
 
-    OADState = .CONNECT
+    OADState = .connected
   }
 
   
@@ -1000,7 +1000,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     guard serviceArray.contains(MBTBluetoothLEHelper.myBrainServiceUUID)
       && nameOfDeviceFound.lowercased().range(of: "melo_") != nil
       && (timerTimeOutConnection != nil
-        || OADState >= .START_OAD) else { return }
+        || OADState >= .started) else { return }
 
     if DeviceManager.connectedDeviceName == "" {
       DeviceManager.connectedDeviceName = nameOfDeviceFound
@@ -1028,7 +1028,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
   {
     peripheral.discoverServices(nil)
     
-    if isOADInProgress && OADState >= .OAD_COMPLETE {
+    if isOADInProgress && OADState >= .completed {
       MBTBluetoothLEHelper.deviceInfoCharacteristic.removeAll()
       //      requestUpdateDeviceInfo()
     } else {
@@ -1052,18 +1052,18 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
   {
     processBatteryLevel = false
     if isOADInProgress {
-      if OADState == .OAD_COMPLETE {
+      if OADState == .completed {
         eventDelegate?.onProgressUpdate?(0.95)
         eventDelegate?.requireToRebootBluetooth?()
-        OADState = .REBOOT_BLUETOOTH
+        OADState = .rebootRequired
       } else {
         centralManager?.stopScan()
         if let blePeripheral = blePeripheral {
           centralManager?.cancelPeripheralConnection(blePeripheral)
         }
         blePeripheral = nil
-        if OADState >= .OAD_COMPLETE {
-          OADState = .CONNECT
+        if OADState >= .completed {
+          OADState = .connected
 
           let error = OADError.reconnectionAfterTransferFailed.error
           log.error("📲 Bluetooth connection failed", context: error)
@@ -1071,7 +1071,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
           eventDelegate?.onUpdateFailWithError?(error)
         } else {
           isOADInProgress = false
-          OADState = .DISABLE
+          OADState = .disable
 
           let error = BluetoothError.connectionLost.error
           log.error("📲 Bluetooth connection lost", context: error)
@@ -1285,13 +1285,13 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                    context: bytesArray.description)
 
           if bytesArray[1] == 0x01 {
-            OADState = .IN_PROGRESS
+            OADState = .inProgress
             eventDelegate?.onReadyToUpdate?()
             eventDelegate?.onProgressUpdate?(0.1)
             sendOADBuffer()
           } else {
             isOADInProgress = false
-            OADState = .DISABLE
+            OADState = .disable
             if let characteristic = MBTBluetoothLEHelper.mailBoxCharacteristic {
               blePeripheral?.setNotifyValue(false, for: characteristic)
             }
@@ -1318,13 +1318,13 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
                    context: bytesArray.description)
           if bytesArray[1] == 1 {
             stopTimerTimeOutOAD()
-            OADState = .OAD_COMPLETE
+            OADState = .completed
             eventDelegate?.onProgressUpdate?(0.9)
             eventDelegate?.onUpdateComplete?()
           } else {
             startTimerUpdateBatteryLevel()
             isOADInProgress = false
-            OADState = .DISABLE
+            OADState = .disable
 
             let error = OADError.transferInterrupted.error
             log.error("📲 Transfer failed", context: error)
@@ -1487,12 +1487,12 @@ extension MBTBluetoothManager {
 
           self.eventDelegate?.onProgressUpdate?(1.0)
           self.isOADInProgress = false
-          self.OADState = .DISABLE
+          self.OADState = .disable
 
-        } else if self.OADState != .REBOOT_BLUETOOTH {
+        } else if self.OADState != .rebootRequired {
 
           self.isOADInProgress = false
-          self.OADState = .DISABLE
+          self.OADState = .disable
 
           let error = FirmwareError.versionInvalidAfterUpdate.error
           log.error("📲 Bluetooth transfer failed", context: error)
