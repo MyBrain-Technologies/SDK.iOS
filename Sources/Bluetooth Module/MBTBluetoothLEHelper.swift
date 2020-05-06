@@ -56,7 +56,10 @@ struct MBTBluetoothLEHelper {
 
   /// The *characteristic* of the OAD transfert
   static var oadTransfertCharacteristic: CBCharacteristic!
-  //MARK: - Bluetooth LE Methods
+
+  //----------------------------------------------------------------------------
+  // MARK: - Bluetooth Low Energy Methods
+  //----------------------------------------------------------------------------
 
   /// Getter of Bluetooth LE Services UUIDs.
   /// - Returns : *Array* of BLE services UUIDs.
