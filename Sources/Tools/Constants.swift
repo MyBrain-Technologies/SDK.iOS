@@ -18,4 +18,32 @@ struct Constants {
   static let defaultProductName = "melomind"
 
   static let bundleName = "com.MyBrainTech.MyBrainTechnologiesSDK"
+
+  //----------------------------------------------------------------------------
+  // MARK: - Timeouts
+  //----------------------------------------------------------------------------
+
+  struct Timeout {
+    static let connection = 20.0
+    static let oad = 600
+    static let batteryLevel = 120.0
+    static let a2dpConnection = 10.0
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Prefix
+  //----------------------------------------------------------------------------
+
+  struct DeviceName {
+    static let a2dpPrefixLegacy = "melo_"
+    static let a2dpPrefix = "audio_"
+    static let blePrefix = "melo_"
+
+    static let qrCodePrefix = "MM"
+    static let qrCodeLength = 10
+
+    static let qrCodePrefixBatch2 = "MM1B2"
+    static let qrCodeBatch2Length = 9
+    static let qrCodeBatch2EndCharacter = "."
+  }
 }

@@ -2,26 +2,9 @@ import Foundation
 import CoreBluetooth
 import AVFoundation
 
-let TIMEOUT_CONNECTION = 20.0
-let TIMEOUT_OAD = 600.0
-let TIMER_BATTERY_LEVEL = 120.0
-let TIMER_A2DP = 10.0
-
-let A2DP_DEVICE_NAME_PREFIX_LEGACY = "melo_"
-let A2DP_DEVICE_NAME_PREFIX = "audio_"
-
-let BLE_DEVICE_NAME_PREFIX = "melo_"
-
-let MBT_DEVICE_NAME_QR_PREFIX = "MM"
-let MBT_DEVICE_NAME_QR_LENGTH = 10
-
-let MBT_DEVICE_NAME_QR_PREFIX_BATCH2 = "MM1B2"
-let MBT_DEVICE_NAME_QR_LENGTH_BATCH2 = 9
-let MBT_DEVICE_BATCH_2_END_CHARACTER = "."
-
 enum MBTFirmwareVersion: String {
-  case A2DP_FROM_HEADSET = "1.6.7"
-  case REGISTER_EXTERNAL_NAME = "1.7.1"
+  case a2dpFromHeadset = "1.6.7"
+  case registerExternalName = "1.7.1"
 }
 
 /// Manage for the SDK the MBT Headset Bluetooth Part (connection/deconnection).
@@ -50,7 +33,7 @@ internal class MBTBluetoothManager: NSObject {
     let autoConnection =
       audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
     let firmwareIsHigher =
-      deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET)
+      deviceFirmwareVersion(isHigherOrEqualThan: .a2dpFromHeadset)
 
     if autoConnection && firmwareIsHigher && isConnectedBLE {
       return DeviceManager.connectedDeviceName == getBLEDeviceNameFromA2DP()
@@ -211,7 +194,7 @@ internal class MBTBluetoothManager: NSObject {
     stopTimerTimeOutConnection()
     
     timerTimeOutConnection = Timer.scheduledTimer(
-      timeInterval: TIMEOUT_CONNECTION,
+      timeInterval: Constants.Timeout.connection,
       target: self,
       selector: #selector(connectionMelomindTimeOut),
       userInfo: nil,
@@ -379,13 +362,13 @@ internal class MBTBluetoothManager: NSObject {
     if let nameA2DP = getA2DPDeviceName() {
       if !isQrCode(nameA2DP),
         let serialNumber = nameA2DP.components(separatedBy: "_").last {
-        return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
+        return "\(Constants.DeviceName.blePrefix)\(serialNumber)"
       } else {
         guard let serialNumber =
           MBTQRCodeSerial(qrCodeisKey: true).value(for: nameA2DP) else {
             return nil
         }
-        return "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
+        return "\(Constants.DeviceName.blePrefix)\(serialNumber)"
       }
     }
     return nil
@@ -398,9 +381,11 @@ internal class MBTBluetoothManager: NSObject {
   func getA2DPDeviceOutput() -> AVAudioSessionPortDescription? {
     let session = AVAudioSession.sharedInstance()
     let outputs = session.currentRoute.outputs
-    
+    let portNamePrefixLegacy = Constants.DeviceName.a2dpPrefixLegacy
+    let portNamePrefix = Constants.DeviceName.a2dpPrefix
+
     if let output = outputs.filter({
-      $0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX_LEGACY) != nil
+      $0.portName.lowercased().range(of: portNamePrefixLegacy) != nil
     }).first {
       return output
     }
@@ -418,7 +403,7 @@ internal class MBTBluetoothManager: NSObject {
   }
   
   func getA2DPDeviceNameFromBLE() -> String? {
-    if deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME) {
+    if deviceFirmwareVersion(isHigherOrEqualThan: .registerExternalName) {
       if let qrCode = DeviceManager.getDeviceQrCode() {
         return qrCode
       }
@@ -431,13 +416,13 @@ internal class MBTBluetoothManager: NSObject {
   }
   
   func isQrCodeBatch1(_ string: String) -> Bool {
-    return string.range(of: MBT_DEVICE_NAME_QR_PREFIX) != nil
-      && string.count == MBT_DEVICE_NAME_QR_LENGTH
+    return string.range(of: Constants.DeviceName.qrCodePrefix) != nil
+      && string.count == Constants.DeviceName.qrCodeLength
   }
   
   func isQrCodeBatch2(_ string: String) -> Bool {
-    return string.range(of: MBT_DEVICE_NAME_QR_PREFIX_BATCH2) != nil
-      && string.count == MBT_DEVICE_NAME_QR_LENGTH_BATCH2
+    return string.range(of: Constants.DeviceName.qrCodePrefixBatch2) != nil
+      && string.count == Constants.DeviceName.qrCodeBatch2Length
   }
   
   func getSerialNumberFrom(deviceName: String) -> String? {
@@ -452,7 +437,7 @@ internal class MBTBluetoothManager: NSObject {
   func getSerialNumber(fromQrCode qrCode: String) -> String? {
     var qrCode = qrCode
     if isQrCodeBatch2(qrCode) {
-      qrCode.append(MBT_DEVICE_BATCH_2_END_CHARACTER)
+      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
     }
     return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
   }
@@ -493,7 +478,7 @@ internal class MBTBluetoothManager: NSObject {
   private func shouldRequestA2DPConnection() -> Bool {
     return (audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false) == true
       && getBLEDeviceNameFromA2DP() != DeviceManager.connectedDeviceName
-      && deviceFirmwareVersion(isHigherOrEqualThan: .A2DP_FROM_HEADSET)
+      && deviceFirmwareVersion(isHigherOrEqualThan: .a2dpFromHeadset)
   }
   
   // MARK: - External Name / Product Name methods
@@ -501,7 +486,7 @@ internal class MBTBluetoothManager: NSObject {
   private func shouldUpdateDeviceExternalName() -> Bool {
     let productName = DeviceManager.getDeviceInfos()?.productName
     return productName == Constants.defaultProductName
-      && deviceFirmwareVersion(isHigherOrEqualThan: .REGISTER_EXTERNAL_NAME)
+      && deviceFirmwareVersion(isHigherOrEqualThan: .registerExternalName)
   }
   
   private func getDeviceExternalName() -> String? {
@@ -559,7 +544,7 @@ internal class MBTBluetoothManager: NSObject {
 
     OADState = .started
     timerTimeOutOAD = Timer.scheduledTimer(
-      timeInterval: TIMEOUT_OAD,
+      timeInterval: Constants.Timeout.oad,
       target: self,
       selector: #selector(self.oadTransfertTimeOut),
       userInfo: nil,
@@ -700,8 +685,8 @@ internal class MBTBluetoothManager: NSObject {
   func startTimerUpdateBatteryLevel() {
     stopTimerUpdateBatteryLevel()
 
-    let timeInterval =
-      eventDelegate?.timeIntervalOnReceiveBattery?() ?? TIMER_BATTERY_LEVEL
+    let timeInterval = eventDelegate?.timeIntervalOnReceiveBattery?()
+      ?? Constants.Timeout.batteryLevel
     let timeDiff = TimeInterval(5)
 
     timerUpdateBatteryLevel = Timer.scheduledTimer(
@@ -774,7 +759,7 @@ internal class MBTBluetoothManager: NSObject {
   /// - onConnectionFailed : 924 | Time Out Cnnection
   func requestConnectA2DP() {
     timerTimeOutA2DPConnection = Timer.scheduledTimer(
-      timeInterval: TIMER_A2DP,
+      timeInterval: Constants.Timeout.a2dpConnection,
       target: self,
       selector: #selector(connetionA2DPTimeOut),
       userInfo: nil,
@@ -1442,7 +1427,7 @@ extension MBTBluetoothManager {
         return
     }
 
-    let meloName = "\(BLE_DEVICE_NAME_PREFIX)\(serialNumber)"
+    let meloName = "\(Constants.DeviceName.blePrefix)\(serialNumber)"
     log.info("📲 New output port name", context: meloName)
 
     MBTBluetoothA2DPHelper.uid = output.uid
