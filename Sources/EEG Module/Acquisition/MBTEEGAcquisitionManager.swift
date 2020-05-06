@@ -102,7 +102,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   func saveRecordingOnFile(_ idUser:Int,
                            algo: String?,
                            comments: [String] = [],
-                           completion: @escaping (URL?) ->()) {
+                           completion: @escaping (URL?) -> Void) {
     guard let device = DeviceManager.getCurrentDevice() else {
       completion(nil)
       return

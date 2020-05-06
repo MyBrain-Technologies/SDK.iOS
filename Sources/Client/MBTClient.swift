@@ -287,7 +287,7 @@ public class MBTClient {
   public func saveRecordingOnFile(_ idUser:Int,
                                   algo: String? = nil,
                                   comments:[String] = [String](),
-                                  completion:@escaping (URL?)->()) {
+                                  completion:@escaping (URL?) -> Void) {
     eegAcqusitionManager.saveRecordingOnFile(idUser,
                                              algo: algo,
                                              comments: comments,
@@ -333,23 +333,20 @@ public class MBTClient {
   /// Ask to read BatteryStatus
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
   public func readBatteryStatus() {
-    if let _ = DeviceManager.connectedDeviceName {
-      bluetoothManager.requestUpdateBatteryLevel()
-    }
+    guard DeviceManager.connectedDeviceName != nil else { return }
+    bluetoothManager.requestUpdateBatteryLevel()
   }
 
   /// Stop the batteryLevel Event
   public func stopReceiveBatteryLevelEvent() {
-    if let _ = DeviceManager.connectedDeviceName {
-      bluetoothManager.stopTimerUpdateBatteryLevel()
-    }
+    guard DeviceManager.connectedDeviceName != nil else { return }
+    bluetoothManager.stopTimerUpdateBatteryLevel()
   }
 
   /// Start the batteryLevel Event
   public func startReceiveBatteryLevelEvent() {
-    if let _ = DeviceManager.connectedDeviceName {
-      bluetoothManager.startTimerUpdateBatteryLevel()
-    }
+    guard DeviceManager.connectedDeviceName != nil else { return }
+    bluetoothManager.startTimerUpdateBatteryLevel()
   }
 
   //----------------------------------------------------------------------------
@@ -373,33 +370,31 @@ public class MBTClient {
     recordingType:MBTRecordingType = MBTRecordingType()
   ) -> UUID? {
     EEGPacketManager.removeAllEEGPackets()
-    if let _ = DeviceManager.connectedDeviceName {
-      if newRecord {
-        recordInfo = MBTRecordInfo()
-        recordInfo.recordingType = recordingType
-      } else {
-        recordInfo.recordingType = recordingType
-      }
+    guard DeviceManager.connectedDeviceName != nil else { return nil }
 
-      eegAcqusitionManager.isRecording = true
-
-      return recordInfo.recordId
+    if newRecord {
+      recordInfo = MBTRecordInfo()
+      recordInfo.recordingType = recordingType
+    } else {
+      recordInfo.recordingType = recordingType
     }
-    return nil
+
+    eegAcqusitionManager.isRecording = true
+
+    return recordInfo.recordId
   }
 
   /// Stop saving EEGPacket on DB
   public func stopRecording() {
-    if let _ = DeviceManager.connectedDeviceName {
-      eegAcqusitionManager.isRecording = false
-    }
+    guard DeviceManager.connectedDeviceName != nil else { return }
+    eegAcqusitionManager.isRecording = false
   }
 
   /// Start streaming EEG Data from MyBrainActivity Characteristic.
   /// Start streaming headSet Data from HeadsetStatus Characteristic.
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
   public func startStream(_ shouldUseQualityChecker: Bool) {
-     eegAcqusitionManager.streamHasStarted(shouldUseQualityChecker)
+    eegAcqusitionManager.streamHasStarted(shouldUseQualityChecker)
     bluetoothManager.isListeningToEEG = true
     bluetoothManager.isListeningToHeadsetStatus = true
   }
@@ -447,10 +442,9 @@ public class MBTClient {
   /// - Returns: A dictionnary received by the Signal Processing library.
   public func computeCalibration(_ n: Int) -> [String: [Float]]? {
     let eegPacketsCount = EEGPacketManager.getEEGPackets().count
-    guard let _ = DeviceManager.connectedDeviceName, eegPacketsCount >= n else {
-        return nil
+    guard DeviceManager.connectedDeviceName != nil, eegPacketsCount >= n else {
+      return nil
     }
-
     return signalProcessingManager.computeCalibration(n)
   }
 
@@ -460,7 +454,7 @@ public class MBTClient {
   public func computeRelaxIndex() -> Float? {
     let isEegPacketsCountHigherThanHistorySize =
       EEGPacketManager.getEEGPackets().count >= Constants.EEGPackets.historySize
-    guard let _ = DeviceManager.connectedDeviceName,
+    guard DeviceManager.connectedDeviceName != nil,
       isEegPacketsCountHigherThanHistorySize else { return nil }
     return signalProcessingManager.computeRelaxIndex()
   }
@@ -473,8 +467,8 @@ public class MBTClient {
   /// - Returns:
   public func computeSessionStatistics(_ inputSNR:[Float],
                                        threshold:Float) -> [String:Float] {
-    guard let _ = DeviceManager.connectedDeviceName, inputSNR.count > 3 else {
-      return [String:Float]()
+    guard DeviceManager.connectedDeviceName != nil, inputSNR.count > 3 else {
+      return [:]
     }
     return signalProcessingManager.analyseSession(inputSNR,
                                                   threshold: threshold)

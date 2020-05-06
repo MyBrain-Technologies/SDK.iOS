@@ -105,7 +105,7 @@ internal class MBTBluetoothManager: NSObject {
   /// The BLE peripheral with which a connection has been established.
   var blePeripheral : CBPeripheral? {
     didSet {
-      if let _ = blePeripheral {
+      if blePeripheral != nil {
         eventDelegate?.onHeadsetStatusUpdate?(true)
       } else {
         eventDelegate?.onHeadsetStatusUpdate?(false)
@@ -315,7 +315,7 @@ internal class MBTBluetoothManager: NSObject {
   /// - important : Event
   /// - onConnectionFailed : 917 | "Time out getting device infos"
   /// - Parameter completion: the block to execute after getting the device infos
-  func prepareDeviceWithInfo(completion:@escaping ()->()) {
+  func prepareDeviceWithInfo(completion: @escaping () -> Void) {
     requestUpdateDeviceInfo()
 
     DispatchQueue.global().async {
@@ -1105,7 +1105,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
     didDiscoverServices error: Error?
   ) {
     // Check all the services of the connecting peripheral.
-    guard let _ = blePeripheral, let services = peripheral.services else {
+    guard blePeripheral != nil, let services = peripheral.services else {
       return
     }
     counterServicesDiscover = 0
