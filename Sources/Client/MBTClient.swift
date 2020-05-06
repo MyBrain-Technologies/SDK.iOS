@@ -42,6 +42,8 @@ public class MBTClient {
     get { return eegAcqusitionManager.isRecording }
   }
 
+  public let acquisitionhistorySize = Constants.EEGPackets.historySize
+
   /******************** Bluetooth ********************/
 
   public var isBluetoothOn: Bool {
