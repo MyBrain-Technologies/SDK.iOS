@@ -1,6 +1,6 @@
 import Foundation
 
-struct FormatedVersion: Comparable, Equatable {
+struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
   let major: Int
   let minor: Int
   let fix: Int
@@ -8,6 +8,14 @@ struct FormatedVersion: Comparable, Equatable {
   var versionValue: Int {
     return major * 10000 + minor * 100 + fix
   }
+
+  var description: String {
+    return "\(major).\(minor).\(fix)"
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
 
   init(string: String) {
     let characterSet = CharacterSet(charactersIn: Constants.versionSeparators)
@@ -24,9 +32,17 @@ struct FormatedVersion: Comparable, Equatable {
     self.fix = fix
   }
 
+  //----------------------------------------------------------------------------
+  // MARK: - Comparable
+  //----------------------------------------------------------------------------
+
   static func < (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
     return lhs.versionValue < rhs.versionValue
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Equatable
+  //----------------------------------------------------------------------------
 
   static func == (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
     return lhs.versionValue == rhs.versionValue

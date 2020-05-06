@@ -289,11 +289,11 @@ internal class MBTBluetoothManager: NSObject {
       let oadFwVersionNumber =
       self.OADManager?.fwVersion.versionNumber else { return false }
 
-    log.info("Device current firmware version", context: fwVersionNumber)
-    log.info("Expected firmware version", context: oadFwVersionNumber)
-
     let deviceFwVersion = FormatedVersion(string: fwVersionNumber)
     let oadFwVersion = FormatedVersion(string: oadFwVersionNumber)
+
+    log.info("Device current firmware version", context: deviceFwVersion)
+    log.info("Expected firmware version", context: oadFwVersion)
 
     return deviceFwVersion == oadFwVersion
   }
