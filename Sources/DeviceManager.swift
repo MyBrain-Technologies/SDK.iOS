@@ -150,7 +150,7 @@ class DeviceManager: MBTRealmEntityManager {
       }
     }
   }
-  
+
   /// Remove the current device from Realm DB
   class func removeCurrentDevice() -> Bool {
     guard let deviceToDelete = connectedDeviceName else {

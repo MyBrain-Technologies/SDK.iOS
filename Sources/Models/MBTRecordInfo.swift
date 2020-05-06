@@ -13,17 +13,17 @@ import SwiftyJSON
 
 /// *MBTRecordInfo* Informations saved On JSON File
 public class MBTRecordInfo {
-    
+
     //MARK: Variable
-    
+
     /// Id Record
     public var recordId:UUID
-    
+
     /// Recording Type
     public var recordingType:MBTRecordingType
-    
+
     //MARK: Init Methods
-    
+
     /// Create a Default *MBTRecordInfo*
     /// recordId -> Random UUID
     /// recordingType -> Default *MBTRecordingType*
@@ -31,13 +31,13 @@ public class MBTRecordInfo {
         recordId = UUID()
         recordingType = MBTRecordingType()
     }
-    
+
     /// Create a *MBTRecordInfo* with provided Record Id
     public init(_ recordId:UUID) {
         self.recordId = recordId
         recordingType = MBTRecordingType()
     }
-    
+
     /// Create a *MBTRecordInfo* with provided Record Id and RecordingType
     public init(_ recordId:UUID, recordingType:MBTRecordingType) {
         self.recordId = recordId
@@ -48,22 +48,22 @@ public class MBTRecordInfo {
 //MARK:- MBTRecordingType
 
 public class MBTRecordingType {
-    
+
     //MARK: Variable
-    
+
     /// Record Type cf enum *MBTRecordType*
     public var recordType:MBTRecordType
-    
+
     /// Signal Processing Version
     internal var spVersion:String = ""
     /// Data Source cf enum *MBTDataSource*
     public var source:MBTDataSource
-    
+
     /// Data type cf enum *MBTDataType*
     public var dataType:MBTDataType
-    
+
     //MARK: Init Methods
-    
+
     /// Create a *MBTRecordingType* with
     /// - recordType = .RAWDATA
     /// - spVersion = ""
@@ -75,7 +75,7 @@ public class MBTRecordingType {
         dataType = .DEFAULT
         spVersion = MBTQualityCheckerBridge.getVersion()
     }
-    
+
     /// Create a *MBTRecordingType* with provided RecordType, spVersion, Source, dataType
     public init(_ recordType:MBTRecordType, source:MBTDataSource, dataType:MBTDataType) {
         self.recordType = recordType
@@ -83,9 +83,9 @@ public class MBTRecordingType {
         self.dataType = dataType
         self.spVersion = MBTQualityCheckerBridge.getVersion()
     }
-    
+
     //MARK: MBTRecordingType Methods
-    
+
     /// get a JSON
     ///
     /// - Returns: A *JSON* instance of RecordingType
@@ -97,7 +97,7 @@ public class MBTRecordingType {
         jsonRecordType["dataType"].stringValue      = dataType.rawValue
         return jsonRecordType
     }
-    
+
 }
 
 /// enum of Data Source

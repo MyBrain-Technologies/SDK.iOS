@@ -12,10 +12,10 @@ import CoreBluetooth
 struct MBTBluetoothA2DPHelper {
     /// The *UUID* of Audio Sink.
     static let audioSingServiceUUID = CBUUID(string: "0x110B")
-    
+
     /// The *UIID* of the A/V Remote Control.
     static let remoteControlServiceUUID = CBUUID(string: "0x110C")
-    
+
     /// Specific MBT Headset A2DP UID
     static var uid: String! = nil
 }

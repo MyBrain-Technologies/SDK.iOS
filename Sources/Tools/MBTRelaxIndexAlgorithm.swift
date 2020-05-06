@@ -13,7 +13,7 @@ public enum MBTRelaxIndexAlgorithm: String {
   case SNR = "SNR"
   /// RMS algorithm is used in v2.5.0 of the Melomind SDK
   case RMS = "RMS"
-  
+
   public static func algorithm(
     fromSDKVersion version: String
   ) -> MBTRelaxIndexAlgorithm {

@@ -38,7 +38,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
 
   ///
   internal var version = MBTQualityCheckerBridge.getVersion()
-  
+
   internal var relaxIndexAlgorithm = MBTRelaxIndexAlgorithm.algorithm(
     fromSDKVersion: MBTQualityCheckerBridge.getVersion()!
   )
@@ -308,7 +308,7 @@ extension MBTSignalProcessingManager {
   }
 
   var sessionQualities: [Float] {
-    return 
+    return
       MBTMelomindAnalysis.sessionQualities().filter { $0 is Float } as! [Float]
   }
 

@@ -20,15 +20,15 @@ public class MBTClient {
   /// Init a MBTBluetoothManager, which deals with
   /// the MBT headset bluetooth.
   internal let bluetoothManager: MBTBluetoothManager
-  
+
   /// Init a MBTEEGAcquisitionManager, which deals with
   /// data from the MBT Headset.
   internal let eegAcqusitionManager: MBTEEGAcquisitionManager
-  
+
   /// Init a MBTDeviceAcquisitionManager, which deals with
   /// data from the MBT Headset.
   internal let deviceAcqusitionManager: MBTDeviceAcquisitionManager
-  
+
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
   internal let signalProcessingManager: MBTSignalProcessingManager
@@ -47,7 +47,7 @@ public class MBTClient {
   public var isBluetoothOn: Bool {
     return bluetoothManager.tabHistoBluetoothState.last ?? false
   }
-  
+
   public var isConnected: Bool {
     return bluetoothManager.isConnected
   }
@@ -99,7 +99,7 @@ public class MBTClient {
   public weak var bluetoothEventDelegate: MBTBluetoothEventDelegate? {
     didSet { bluetoothManager.eventDelegate = bluetoothEventDelegate }
   }
-  
+
   public weak var bluetoothAudioA2DPDelegate: MBTBluetoothA2DPDelegate? {
     didSet { bluetoothManager.audioA2DPDelegate = bluetoothAudioA2DPDelegate }
   }
@@ -148,7 +148,7 @@ public class MBTClient {
     setEEGDelegate(delegate)
     bluetoothManager.connectTo(deviceName)
   }
-  
+
   /// Connect to the audio part of the MBT Headset (using the A2DP
   /// bluetooth protocol).
   /// - Remark: Audio can't be connected from code. User has to connect to it
@@ -171,7 +171,7 @@ public class MBTClient {
   public func connectToBlueetooth(named deviceName: String? = nil) {
     bluetoothManager.connectTo(deviceName)
   }
-  
+
   /// Disconnect the iDevice from the headset
   /// - Remark: The audio can't be disconnect from code.
   public func cancelConnection() {
@@ -199,7 +199,7 @@ public class MBTClient {
   public func getDeviceNameA2DP() -> String? {
     return bluetoothManager.getA2DPDeviceName()
   }
-  
+
   /// GET A2DP Device Name for an unpaired device (not connected in A2DP).
   ///
   /// - Returns: A *String* instance of A2DP device Name for an unpaired device
@@ -207,18 +207,18 @@ public class MBTClient {
   public func getUnpairedDeviceNameA2DP() -> String? {
     return bluetoothManager.getA2DPDeviceNameFromBLE()
   }
-  
+
   /// Get the QRCode of the current connected device
   ///
   /// - Returns: A *String* instance of connected device's QR Code
   public func getDeviceQrCode() -> String? {
     return DeviceManager.getDeviceQrCode()
   }
-  
+
   public func getDeviceSerialNumber(fromQrCode qrCode: String) -> String? {
     return bluetoothManager.getSerialNumber(fromQrCode: qrCode)
   }
-  
+
   /// Get the latest battery level saved in DB.
   ///
   /// - Returns: A *Int* instance of latest battery level saved in DB or nil if
@@ -226,14 +226,14 @@ public class MBTClient {
   public func getBatteryLevel() -> Int? {
     return DeviceManager.getCurrentDevice()?.batteryLevel
   }
-  
+
   /// Getter for device informations of the MBT headset.
   /// - Returns: A *MBTDeviceInformations* instance of the connected headset if
   /// no melomind is connected (BLE).
   public func getDeviceInformations() -> MBTDeviceInformations? {
     return DeviceManager.getDeviceInfos()
   }
-  
+
   /// Getter for Device Name of the MBT headset.
   ///
   /// - Returns: A *String* instance of the device's name, or nil if no instance
@@ -241,7 +241,7 @@ public class MBTClient {
   public func getDeviceName() -> String? {
     return DeviceManager.connectedDeviceName
   }
-  
+
 //  /// Getter for the session JSON.
 //  /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not
 //  /// exist.
@@ -253,11 +253,11 @@ public class MBTClient {
   /// - Returns: A *[String]* instance of array of deviceName.
   public func getRegisteredDevices() -> [MBTDevice] {
     var tabDeviceName = [MBTDevice]()
-    
+
     for device in DeviceManager.getRegisteredDevices() {
       tabDeviceName.append(device)
     }
-    
+
     return tabDeviceName
   }
 
@@ -277,7 +277,7 @@ public class MBTClient {
       }
     }
   }
-  
+
   /// Save the DB recording on file  ///
   /// - Parameters:
   ///   - idUser: A *Int* instance of the id user
@@ -299,7 +299,7 @@ public class MBTClient {
   //----------------------------------------------------------------------------
 
   // TODO: Use variable.
-  
+
   /// Set delegate to EEGAcquistionManager, DeviceAcquisitionManager &
   /// BluetoothManager (event Delegate).
   ///
@@ -307,20 +307,20 @@ public class MBTClient {
   public func setEEGDelegate(_ delegate:MelomindEngineDelegate) {
     // Add the Acquisition delegate to the Acquisition manager
     initAcquisitionManager(with: delegate)
-    
+
     // Add the BluetoothEventDelegate and A2DPDelegate
     bluetoothManager.eventDelegate = delegate
   }
-  
+
   /// Set delegate to EEGAcquistionManager, DeviceAcquisitionManager &
   /// BluetoothManager (eventDelegate & audioA2DPDelegate).
   ///
   /// - Parameter delegate:  new delegate listening Melomind Engine Delegate.
   public func setEEGAndA2DPDelegate(_ delegate: MelomindEngineDelegate) {
     // Add the Acquisition delegate to the Acquisition manager
-    
+
     initAcquisitionManager(with: delegate)
-    
+
     // Add the BluetoothEventDelegate and A2DPDelegate
     bluetoothManager.eventDelegate = delegate
     bluetoothManager.audioA2DPDelegate = delegate
@@ -337,14 +337,14 @@ public class MBTClient {
       bluetoothManager.requestUpdateBatteryLevel()
     }
   }
-  
+
   /// Stop the batteryLevel Event
   public func stopReceiveBatteryLevelEvent() {
     if let _ = DeviceManager.connectedDeviceName {
       bluetoothManager.stopTimerUpdateBatteryLevel()
     }
   }
-  
+
   /// Start the batteryLevel Event
   public func startReceiveBatteryLevelEvent() {
     if let _ = DeviceManager.connectedDeviceName {
@@ -363,7 +363,7 @@ public class MBTClient {
     eegAcqusitionManager.delegate = delegate
     deviceAcqusitionManager.delegate = delegate
   }
-  
+
   /// Start saving EEGPacket on DB  /// - Parameters :
   ///   - newRecord : Create a new recordId on the JSON File
   ///   - recordingType : Change the session's type
@@ -380,21 +380,21 @@ public class MBTClient {
       } else {
         recordInfo.recordingType = recordingType
       }
-      
+
       eegAcqusitionManager.isRecording = true
-      
+
       return recordInfo.recordId
     }
     return nil
   }
-  
+
   /// Stop saving EEGPacket on DB
   public func stopRecording() {
     if let _ = DeviceManager.connectedDeviceName {
       eegAcqusitionManager.isRecording = false
     }
   }
-  
+
   /// Start streaming EEG Data from MyBrainActivity Characteristic.
   /// Start streaming headSet Data from HeadsetStatus Characteristic.
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
@@ -412,12 +412,12 @@ public class MBTClient {
     bluetoothManager.isListeningToEEG = false
     eegAcqusitionManager.streamHasStopped()
   }
-  
+
   /// Start the OAD process
   public func startOADTransfer() {
     bluetoothManager.startOAD()
   }
-  
+
   /// To know if a new headset firmware version is available.
   /// Asynchrone fonction call a block completion with an boolean argument.
   /// - Parameter completion: block completion call after getting melomind info.
@@ -464,7 +464,7 @@ public class MBTClient {
       isEegPacketsCountHigherThanHistorySize else { return nil }
     return signalProcessingManager.computeRelaxIndex()
   }
-  
+
   /// ComputeSessionStatistics
   ///
   /// - Parameters:
