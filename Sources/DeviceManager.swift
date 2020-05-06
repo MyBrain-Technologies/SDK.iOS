@@ -1,13 +1,23 @@
 import Foundation
 
-/// *MBTDevice* model DB Manager.
+/*******************************************************************************
+ * DeviceManager
+ *
+ * *MBTDevice* model DB Manager.
+ *
+ ******************************************************************************/
 class DeviceManager: MBTRealmEntityManager {
 
-  //MARK: Variable
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
   /// The headset bluetooth profile name to connect to.
   static var connectedDeviceName: String?
 
-  //MARK: Methods
+  //----------------------------------------------------------------------------
+  // MARK: - Methods
+  //----------------------------------------------------------------------------
 
   /// Update *deviceInformations* of the newly connected device record in the DB.
   /// - Parameters:

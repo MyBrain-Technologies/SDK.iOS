@@ -72,7 +72,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     MBTSignalProcessingManager.shared.resetSession()
   }
 
-  //MARK: - Manage streaming datas methods.
+  //----------------------------------------------------------------------------
+  // MARK: - Manage streaming datas methods.
+  //----------------------------------------------------------------------------
 
   /// Method called by MelomindEngine when a new EEG streaming
   /// session has began. Method will make everything ready, acquisition side
@@ -257,7 +259,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     return jsonObject
   }
 
-  //MARK: - Process Received data Methods.
+  //----------------------------------------------------------------------------
+  // MARK: - Process Received data Methods.
+  //----------------------------------------------------------------------------
 
   /// Process the brain activty measurement received and return the processed data.
   /// - Parameters:

@@ -57,6 +57,7 @@
 		A92CA4252462F50D00688CE5 /* MBTBluetoothManager+A2DP.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4242462F50D00688CE5 /* MBTBluetoothManager+A2DP.swift */; };
 		A92CA4272462F78C00688CE5 /* MBTBluetoothManager+Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4262462F78C00688CE5 /* MBTBluetoothManager+Timer.swift */; };
 		A92CA4292462F88800688CE5 /* MBTBluetoothManager+OAD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4282462F88800688CE5 /* MBTBluetoothManager+OAD.swift */; };
+		A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */; };
 		A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */; };
 		A95C1A17244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */; };
 		A95C1A18244F1EC200AB4588 /* mm-ota-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */; };
@@ -153,6 +154,7 @@
 		A92CA4242462F50D00688CE5 /* MBTBluetoothManager+A2DP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTBluetoothManager+A2DP.swift"; sourceTree = "<group>"; };
 		A92CA4262462F78C00688CE5 /* MBTBluetoothManager+Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTBluetoothManager+Timer.swift"; sourceTree = "<group>"; };
 		A92CA4282462F88800688CE5 /* MBTBluetoothManager+OAD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTBluetoothManager+OAD.swift"; sourceTree = "<group>"; };
+		A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRecordingType.swift; sourceTree = "<group>"; };
 		A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersion.swift; sourceTree = "<group>"; };
 		A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_14.bin"; sourceTree = "<group>"; };
 		A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_14.bin"; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 				2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */,
 				F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */,
 				F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */,
+				A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				A918D29624619D2800026F1D /* OADError.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
+				A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */,
 				A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MBTClient.swift in Sources */,
 				4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */,
