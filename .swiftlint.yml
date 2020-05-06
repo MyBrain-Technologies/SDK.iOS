@@ -48,10 +48,10 @@ disabled_rules: # rule identifiers to exclude from running
 # - force_try
 # - type_body_length
 # - file_length
+# - mark
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
-  - mark
 ## Some rules custom
 identifier_name:
   min_length: 1
