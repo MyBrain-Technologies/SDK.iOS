@@ -50,12 +50,11 @@ public class MBTEEGPacket: Object {
   class func createNewEEGPacket(arrayData: [[Float]],
                                 nbChannels: Int) -> MBTEEGPacket {
     let newPacket = MBTEEGPacket.createNewEEGPacket(nbChannels)
+    let count = min(nbChannels, arrayData.count)
 
-    for index in 0 ..< nbChannels {
-      if index < arrayData.count {
-        for sample in arrayData[index] {
-          newPacket.channelsData[index].value.append(ChannelData(data: sample))
-        }
+    for index in 0 ..< count {
+      for sample in arrayData[index] {
+        newPacket.channelsData[index].value.append(ChannelData(data: sample))
       }
     }
 

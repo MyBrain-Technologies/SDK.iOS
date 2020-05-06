@@ -331,7 +331,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
       temp = (Int32(bytesArray[2 * i] & 0xFF) << shift)
         | Int32(bytesArray[2 * i + 1] & 0xFF) << (shift - 8)
 
-      if ((temp & MBTEEGAcquisitionManager.checkSign) > 0) { // negative value
+      if (temp & MBTEEGAcquisitionManager.checkSign) > 0 { // negative value
         temp = Int32(temp | MBTEEGAcquisitionManager.negativeMask )
       } else {
         // value is positive

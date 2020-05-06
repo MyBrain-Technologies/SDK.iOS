@@ -133,12 +133,8 @@ enum MailBoxA2DPResponse: UInt8, CaseIterable {
   case success = 0x80
 
   static func getA2DPResponse(from uint8: UInt8) -> [MailBoxA2DPResponse] {
-    var arrayResponse = [MailBoxA2DPResponse]()
-
-    for caseEnum in allCases {
-      if uint8 & caseEnum.rawValue == caseEnum.rawValue {
-        arrayResponse.append(caseEnum)
-      }
+    let arrayResponse = allCases.filter() {
+      uint8 & $0.rawValue == $0.rawValue
     }
 
     return arrayResponse

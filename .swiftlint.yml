@@ -28,6 +28,10 @@ disabled_rules: # rule identifiers to exclude from running
 # - multiple_closures_with_trailing_closure
 # - unused_closure_parameter
 # - unused_optional_binding
+# - vertical_parameter_alignment
+# - empty_enum_arguments
+# - control_statement
+# - for_where
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
@@ -37,10 +41,6 @@ disabled_rules: # rule identifiers to exclude from running
   - line_length
   - comma
   - mark
-  - vertical_parameter_alignment
-  - empty_enum_arguments
-  - control_statement
-  - for_where
   - statement_position
   - duplicate_imports
   - redundant_string_enum_value

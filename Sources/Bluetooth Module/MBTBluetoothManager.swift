@@ -428,8 +428,7 @@ internal class MBTBluetoothManager: NSObject {
   }
 
   func getSerialNumberFrom(deviceName: String) -> String? {
-    print("device name \(deviceName) is Qr Code ? \(isQrCode(deviceName))")
-    if (isQrCode(deviceName)) {
+    if isQrCode(deviceName) {
       return getSerialNumber(fromQrCode: deviceName)
     } else {
       return deviceName.components(separatedBy: "_").last
