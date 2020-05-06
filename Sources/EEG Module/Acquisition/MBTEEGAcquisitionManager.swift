@@ -1,12 +1,3 @@
-
-//
-//  AcquisitionManager.swift
-//  MyBrainTechnologiesSDK
-//
-//  Created by Baptiste Rasschaert on 23/06/2017.
-//  Copyright © 2017 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
 import CoreBluetooth
 import RealmSwift
