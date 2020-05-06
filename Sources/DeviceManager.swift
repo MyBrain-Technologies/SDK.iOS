@@ -16,7 +16,7 @@ class DeviceManager: MBTRealmEntityManager {
     // Get the myBrainTechnologies device connected.
     if let device = getCurrentDevice() {
       // Save the new device infos to Realm Database
-      try! RealmManager.shared.realm.write {
+      try? RealmManager.shared.realm.write {
         device.deviceInfos!.productName =
           deviceInfos.productName ?? device.deviceInfos!.productName
         device.deviceInfos!.deviceId =
@@ -36,7 +36,7 @@ class DeviceManager: MBTRealmEntityManager {
     // Get the myBrainTechnologies device connected.
     if let device = getCurrentDevice() {
       // Save the new battery status to Realm Database
-      try! RealmManager.shared.realm.write {
+      try? RealmManager.shared.realm.write {
         if batteryLevel >= 0 && batteryLevel <= 6 {
           device.batteryLevel = batteryLevel
         } else {
@@ -65,7 +65,7 @@ class DeviceManager: MBTRealmEntityManager {
 
     // Save Melomind info to DB
     if let device = getCurrentDevice() {
-      try! RealmManager.shared.realm.write {
+      try? RealmManager.shared.realm.write {
         device.sampRate = 250
         device.nbChannels = 2
         device.eegPacketLength = 250
@@ -96,7 +96,7 @@ class DeviceManager: MBTRealmEntityManager {
       let newDevice = MBTDevice()
       newDevice.deviceName = deviceName
 
-      try! RealmManager.shared.realm.write {
+      try? RealmManager.shared.realm.write {
         RealmManager.shared.realm.add(newDevice)
       }
 
@@ -142,7 +142,7 @@ class DeviceManager: MBTRealmEntityManager {
   /// Deinit all properties of deviceInfos
   class func resetDeviceInfo() {
     if let currentDevice = DeviceManager.getCurrentDevice() {
-      try! RealmManager.shared.realm.write {
+      try? RealmManager.shared.realm.write {
         currentDevice.deviceInfos?.productName = nil
         currentDevice.deviceInfos?.deviceId = nil
         currentDevice.deviceInfos?.hardwareVersion = nil
@@ -164,7 +164,7 @@ class DeviceManager: MBTRealmEntityManager {
   class func removeDevice(_ deviceName: String) -> Bool {
     guard let device = getDevice(name: deviceName) else { return false }
 
-    try! RealmManager.shared.realm.write {
+    try? RealmManager.shared.realm.write {
       RealmManager.shared.realm.delete(device)
     }
     return true

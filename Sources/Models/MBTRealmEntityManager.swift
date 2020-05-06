@@ -31,11 +31,13 @@ class MBTRealmEntityManager: Object {
     //--------------------------------------------------------------------------
 
     init() {
-      let documentDirectory =
-        try! FileManager.default.url(for: .documentDirectory,
-                                     in: .userDomainMask,
-                                     appropriateFor: nil,
-                                     create: false)
+      // swiftlint:disable:next force_try
+      let documentDirectory = try! FileManager.default.url(
+        for: .documentDirectory,
+        in: .userDomainMask,
+        appropriateFor: nil,
+        create: false
+      )
       let path = "MyBrainTechnologieSDKDB.realm"
       let url = documentDirectory.appendingPathComponent(path)
 
@@ -53,6 +55,7 @@ class MBTRealmEntityManager: Object {
           && (Double(usedBytes) / Double(totalBytes)) < 0.5
       }
 
+      // swiftlint:disable:next force_try
       realm = try! Realm(configuration: config)
     }
   }

@@ -45,12 +45,12 @@ disabled_rules: # rule identifiers to exclude from running
 # - type_name
 # - function_body_length
 # - force_cast
-  - force_try
-  - type_body_length
+# - force_try
+# - type_body_length
+# - file_length
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
-  - file_length
   - mark
 ## Some rules custom
 identifier_name:
