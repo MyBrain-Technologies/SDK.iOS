@@ -72,7 +72,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
       let characteristicData = CBUUID(data: characteristic.uuid.data)
 
       // MyBrainService's Characteristics
-      if BLEHelper.brainActivityMeasurementUUID == characteristicData {
+      if BluetoothService.brainActivityMeasurement.uuid == characteristicData {
         // Enable Sensor Notification and read the current value
         BLEHelper.brainActivityMeasurementCharacteristic = characteristic
       }
@@ -83,18 +83,18 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
       }
 
       // Device State's Characteristics
-      if BLEHelper.deviceBatteryStatusUUID == characteristicData {
+      if BluetoothService.deviceBatteryStatus.uuid == characteristicData {
         BLEHelper.deviceStateCharacteristic = characteristic
       }
 
-      if BLEHelper.headsetStatusUUID == characteristicData  {
+      if BluetoothService.headsetStatus.uuid == characteristicData  {
         BLEHelper.headsetStatusCharacteristic = characteristic
       }
 
-      if BLEHelper.mailBoxUUID == characteristicData {
+      if BluetoothService.mailBox.uuid == characteristicData {
         BLEHelper.mailBoxCharacteristic = characteristic
       }
-      if BLEHelper.oadTransfertUUID == characteristicData {
+      if BluetoothService.oadTransfert.uuid == characteristicData {
         BLEHelper.oadTransfertCharacteristic = characteristic
       }
     }
@@ -141,18 +141,18 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
     let characteristicUUID = CBUUID(data: characteristic.uuid.data)
 
     switch characteristicUUID {
-    case MBTBluetoothLEHelper.brainActivityMeasurementUUID :
+    case BluetoothService.brainActivityMeasurement.uuid :
       DispatchQueue.main.async { [weak self] in
         guard let isListeningToEEG = self?.isListeningToEEG,
           isListeningToEEG else { return }
         eegAcqusition.processBrainActivityData(notifiedData)
       }
 
-    case MBTBluetoothLEHelper.headsetStatusUUID :
+    case BluetoothService.headsetStatus.uuid :
       DispatchQueue.global(qos: .background).async {
         deviceAcquisition.processHeadsetStatus(characteristic)
       }
-    case MBTBluetoothLEHelper.deviceBatteryStatusUUID :
+    case BluetoothService.deviceBatteryStatus.uuid :
       if processBatteryLevel {
         deviceAcquisition.processDeviceBatteryStatus(characteristic)
       } else {
@@ -171,7 +171,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
       }
     case let uuid where characsUUIDS.contains(uuid) :
       deviceAcquisition.processDeviceInformations(characteristic)
-    case MBTBluetoothLEHelper.mailBoxUUID :
+    case BluetoothService.mailBox.uuid :
       stopTimerTimeOutA2DPConnection()
       if let data = characteristic.value {
         let length = data.count * MemoryLayout<UInt8>.size

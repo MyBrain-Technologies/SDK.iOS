@@ -171,7 +171,7 @@ internal class MBTBluetoothManager: NSObject {
       lastBluetoothState {
       stopTimerTimeOutConnection()
 
-      let services = [MBTBluetoothLEHelper.myBrainServiceUUID]
+      let services = [BluetoothService.myBrainService.uuid]
       centralManager?.scanForPeripherals(withServices: services, options: nil)
 
       return

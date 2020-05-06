@@ -28,7 +28,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
         timerTimeOutConnection != nil {
         log.info("📲 Bluetooth broadcasting")
 
-        let services = [MBTBluetoothLEHelper.myBrainServiceUUID]
+        let services = [BluetoothService.myBrainService.uuid]
         centralManager?.scanForPeripherals(withServices: services, options: nil)
       }
     } else if central.state == .poweredOff {
@@ -109,7 +109,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     blePeripheral = nil
     DeviceManager.resetDeviceInfo()
 
-    let services = [MBTBluetoothLEHelper.myBrainServiceUUID]
+    let services = [BluetoothService.myBrainService.uuid]
     centralManager?.scanForPeripherals(withServices: services, options: nil)
 
     OADState = .connected
@@ -136,7 +136,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     guard let nameOfDeviceFound = localName,
       let serviceArray = uuidKeys else { return }
 
-    guard serviceArray.contains(MBTBluetoothLEHelper.myBrainServiceUUID)
+    guard serviceArray.contains(BluetoothService.myBrainService.uuid)
       && nameOfDeviceFound.lowercased().range(of: "melo_") != nil
       && (timerTimeOutConnection != nil
         || OADState >= .started) else { return }
