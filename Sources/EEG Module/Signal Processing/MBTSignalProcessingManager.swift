@@ -214,10 +214,11 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 
     // Get the last N packets.
     let packets =
-      EEGPacketManager.getLastNPacketsComplete(MBTClient.HISTORY_SIZE)
-
+      EEGPacketManager.getLastNPacketsComplete(Constants.EEGPackets.historySize)
     let packetCount = packets.count
-    if packetCount < MBTClient.HISTORY_SIZE || calibrationComputed == nil {
+
+    if packetCount < Constants.EEGPackets.historySize
+      || calibrationComputed == nil {
       return 0
     }
 

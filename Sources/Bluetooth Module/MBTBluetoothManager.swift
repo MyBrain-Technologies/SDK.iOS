@@ -391,7 +391,7 @@ internal class MBTBluetoothManager: NSObject {
     }
     
     if let output = outputs.filter({
-      $0.portName.lowercased().range(of: A2DP_DEVICE_NAME_PREFIX) != nil
+      $0.portName.lowercased().range(of: portNamePrefix) != nil
     }).first {
       return output
     }
@@ -544,7 +544,7 @@ internal class MBTBluetoothManager: NSObject {
 
     OADState = .started
     timerTimeOutOAD = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.oad,
+      timeInterval: Constants.Timeout.oadTransfer,
       target: self,
       selector: #selector(self.oadTransfertTimeOut),
       userInfo: nil,
@@ -783,7 +783,7 @@ internal class MBTBluetoothManager: NSObject {
   
   func sendDeviceExternalName(_ name: String) {
     timerTimeOutSendExternalName = Timer.scheduledTimer(
-      timeInterval: TIMER_A2DP,
+      timeInterval: Constants.Timeout.a2dpConnection,
       target: self,
       selector: #selector(sendExternalNameTimeOut),
       userInfo: nil,

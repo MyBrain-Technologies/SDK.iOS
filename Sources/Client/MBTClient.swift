@@ -43,11 +43,6 @@ public class MBTClient {
     get { return eegAcqusitionManager.isRecording }
   }
 
-  /******************** Relax indexes ********************/
-
-  /// Size in seconds between two relaxIndexes
-  public static let HISTORY_SIZE = 1
-
   /******************** Bluetooth ********************/
 
   public var isBluetoothOn: Bool {
@@ -466,7 +461,7 @@ public class MBTClient {
   /// - Returns: RelaxIndex
   public func computeRelaxIndex() -> Float? {
     let isEegPacketsCountHigherThanHistorySize =
-      EEGPacketManager.getEEGPackets().count >= MBTClient.HISTORY_SIZE
+      EEGPacketManager.getEEGPackets().count >= Constants.EEGPackets.historySize
     guard let _ = DeviceManager.connectedDeviceName,
       isEegPacketsCountHigherThanHistorySize else { return nil }
     return signalProcessingManager.computeRelaxIndex()

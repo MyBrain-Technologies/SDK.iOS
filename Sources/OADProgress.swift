@@ -9,12 +9,12 @@ class OADProgressInfo {
   ///
   /// - Parameters:
   ///   - mFileLength: A *Int* instance which is the size of mFileBuffer
-  ///   - OAD_BLOCK_SIZE: A *Int* instance which is the size of one block send to Melomind
-  func reset(_ mFileLength: Int, OAD_BLOCK_SIZE: Int) {
+  ///   - blockSize: A *Int* instance which is the size of one block send to Melomind
+  func reset(_ mFileLength: Int, blockSize: Int) {
     iBytes = 0
     iBlock = 0
-    let div = mFileLength / (OAD_BLOCK_SIZE)
-    let rest = mFileLength % OAD_BLOCK_SIZE
+    let div = mFileLength / (blockSize)
+    let rest = mFileLength % blockSize
     nBlock = Int16(div + (rest == 0 ? 0 : 1))
   }
 }

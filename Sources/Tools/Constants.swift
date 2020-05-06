@@ -25,7 +25,7 @@ struct Constants {
 
   struct Timeout {
     static let connection = 20.0
-    static let oad = 600
+    static let oadTransfer = 600.0
     static let batteryLevel = 120.0
     static let a2dpConnection = 10.0
   }
@@ -45,5 +45,13 @@ struct Constants {
     static let qrCodePrefixBatch2 = "MM1B2"
     static let qrCodeBatch2Length = 9
     static let qrCodeBatch2EndCharacter = "."
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Record
+  //----------------------------------------------------------------------------
+
+  struct EEGPackets {
+    static let historySize = 1
   }
 }

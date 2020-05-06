@@ -15,7 +15,7 @@ class MBTOADManager {
 
   ///The data of the Bin
   var mFileBuffer = [UInt8]()
-  ///the Array of data in Array of OAD_BLOCK_SIZE
+  ///the Array of data in Array of blockSize
   var mOadBuffer = [[UInt8]]()
   ///The metadata of OAD Progress
   let oadProgress = OADProgressInfo()
@@ -58,7 +58,7 @@ class MBTOADManager {
   func createBufferFromBinaryFile() {
     var tempBuffer:[UInt8]
 
-    oadProgress.reset(mFileLength, OAD_BLOCK_SIZE: blockSize)
+    oadProgress.reset(mFileLength, blockSize: blockSize)
 
 
     while oadProgress.iBlock < oadProgress.nBlock {
@@ -82,7 +82,7 @@ class MBTOADManager {
       mOadBuffer.append(tempBuffer)
     }
 
-    oadProgress.reset(mFileLength,OAD_BLOCK_SIZE: blockSize)
+    oadProgress.reset(mFileLength,blockSize: blockSize)
   }
 
   /// get the data to be send at the Melomind and increase the counter
