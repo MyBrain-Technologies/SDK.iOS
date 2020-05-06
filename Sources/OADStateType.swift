@@ -1,7 +1,13 @@
 import Foundation
 
-/// State of the OAD
-public enum OADStateType:Int {
+/*******************************************************************************
+ * OADStateType
+ *
+ * State of an Over Air Download transfer
+ *
+ ******************************************************************************/
+public enum OADStateType: Int, Equatable, Comparable, CustomStringConvertible {
+
   /// The process has not started
   case DISABLE = -1
   /// The process has started
@@ -17,9 +23,11 @@ public enum OADStateType:Int {
   /// The SDK try to reconnect the Melomind
   case CONNECT = 5
 
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
 
-  /// Decription Error
-  var description:String {
+  public var description: String {
     switch self {
     case .DISABLE :
       return "OAD disable"
@@ -39,18 +47,18 @@ public enum OADStateType:Int {
   }
 }
 
-func >(f:OADStateType,s:OADStateType) -> Bool {
-  return f.rawValue > s.rawValue
-}
+//==============================================================================
+// MARK: - Comparable
+//==============================================================================
 
-func <(f:OADStateType,s:OADStateType) -> Bool {
+public func < (f: OADStateType, s: OADStateType) -> Bool {
   return f.rawValue < s.rawValue
 }
 
-func >=(f:OADStateType,s:OADStateType) -> Bool {
-  return f.rawValue > s.rawValue || f.rawValue == s.rawValue
-}
+//==============================================================================
+// MARK: - Equatable
+//==============================================================================
 
-func <=(f:OADStateType,s:OADStateType) -> Bool {
-  return f.rawValue < s.rawValue || f.rawValue == s.rawValue
+public func == (f: OADStateType, s: OADStateType) -> Bool {
+  return f.rawValue == s.rawValue
 }
