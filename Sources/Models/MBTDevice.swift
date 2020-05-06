@@ -15,7 +15,8 @@ public class MBTDevice: Object {
   @objc dynamic public var deviceName: String = ""
 
   /// Device informations from MBT Headset Bluetooth LE.
-  @objc dynamic public var deviceInfos: MBTDeviceInformations? = MBTDeviceInformations()
+  @objc dynamic public var deviceInfos: MBTDeviceInformations? =
+    MBTDeviceInformations()
 
   /// The number of active channels in the device.
   @objc dynamic var nbChannels: Int = 0

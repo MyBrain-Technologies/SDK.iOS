@@ -30,7 +30,8 @@ internal class MBTDeviceAcquisitionManager: NSObject {
     let data = characteristic.value!
     let count = 8
     var bytesArray = [UInt8](repeating: 0, count: count)
-    (data as NSData).getBytes(&bytesArray, length: count * MemoryLayout<UInt8>.size)
+    (data as NSData).getBytes(&bytesArray,
+                              length: count * MemoryLayout<UInt8>.size)
 
     guard let dataString = String(data: data, encoding: .ascii) else {
       return

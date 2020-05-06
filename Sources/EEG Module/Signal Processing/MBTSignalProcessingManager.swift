@@ -100,10 +100,10 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     let qualitySwift = qualities as! [Float]
 
     if qualitySwift.count < 2 {
-      log.info("computeQualityValue - Quality Cound inf à 2")
-      log.info("computeQualityValue - NBChannel", context: nbChannels)
-      log.info("computeQualityValue - sampRate", context: sampRate)
-      log.info("computeQualityValue - dataArray Count", context: dataArray.count)
+      log.info("computeQualityValue - quality count inf à 2")
+      log.info("computeQualityValue - nb channels", context: nbChannels)
+      log.info("computeQualityValue - samp rate", context: sampRate)
+      log.info("computeQualityValue - array count", context: dataArray.count)
       log.info("computeQualityValue - packet length", context: packetLength)
     }
 

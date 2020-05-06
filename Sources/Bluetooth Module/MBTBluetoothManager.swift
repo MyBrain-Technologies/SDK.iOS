@@ -1283,11 +1283,12 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
         case .otaIndexResetEvent :
           log.info("📲 MBX_OTA_IDX_RESET_EVT bytesArray",
                    context: bytesArray.description)
-          let dispatchWorkItem = DispatchWorkItem(qos: .default,
-                                                  flags: .barrier) {
-                                                    let iBlock =
-                                                      Int16((bytesArray[2] & 0xFF)) << 8 | Int16(bytesArray[1] & 0xFF)
-                                                    self.OADManager?.oadProgress.iBlock = iBlock
+          let dispatchWorkItem =
+            DispatchWorkItem(qos: .default, flags: .barrier) {
+              let shift1 = Int16((bytesArray[2] & 0xFF)) << 8
+              let shift2 = Int16(bytesArray[1] & 0xFF)
+              let iBlock = shift1 | shift2
+              self.OADManager?.oadProgress.iBlock = iBlock
           }
 
           DispatchQueue.global().async(execute: dispatchWorkItem)

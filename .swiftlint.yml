@@ -37,18 +37,17 @@ disabled_rules: # rule identifiers to exclude from running
 # - statement_position
 # - duplicate_imports
 # - redundant_string_enum_value
+# - implicit_getter
+# - private_over_fileprivate
+# - unused_setter_value
+# - deployment_target
+# - line_length
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
   - file_length
   - function_body_length
-  - line_length
   - mark
-  - implicit_getter
-  - private_over_fileprivate
-  - unused_setter_value
-  - deployment_target
-## error rules not fixed yet
   - force_cast
   - type_name
   - force_try

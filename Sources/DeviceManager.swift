@@ -80,28 +80,28 @@ class DeviceManager: MBTRealmEntityManager {
         device.groundsLocations.append(ground)
       }
     }
-
   }
 
   /// Get the DB-saved device or create one if any.
   /// - Returns: The DB-saved *MBTDevice* instance.
   class func getCurrentDevice() -> MBTDevice? {
     // If no device saved in DB, then create it.
-    if let deviceName = connectedDeviceName, !deviceName.isEmpty {
-      if  let device = RealmManager.shared.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceName).first {
-        return device
-      } else {
-        let newDevice = MBTDevice()
-        newDevice.deviceName = deviceName
-
-        try! RealmManager.shared.realm.write {
-          RealmManager.shared.realm.add(newDevice)
-        }
-
-        return newDevice
-      }
+    guard let deviceName = connectedDeviceName, !deviceName.isEmpty else {
+      return nil
     }
-    return nil
+
+    if let device = getDevice(name: deviceName) {
+      return device
+    } else {
+      let newDevice = MBTDevice()
+      newDevice.deviceName = deviceName
+
+      try! RealmManager.shared.realm.write {
+        RealmManager.shared.realm.add(newDevice)
+      }
+
+      return newDevice
+    }
   }
 
   /// Get Register Device
@@ -162,18 +162,17 @@ class DeviceManager: MBTRealmEntityManager {
 
   /// Remove the device with deviceName == deviceName from Realm DB
   class func removeDevice(_ deviceName: String) -> Bool {
+    guard let device = getDevice(name: deviceName) else { return false }
 
-    let deviceNameToDelete:String! = deviceName
-
-    if let device = RealmManager.shared.realm.objects(MBTDevice.self).filter("deviceName = %@", deviceNameToDelete ?? "").first {
-      try! RealmManager.shared.realm.write {
-        RealmManager.shared.realm.delete(device)
-      }
-
-      return true
+    try! RealmManager.shared.realm.write {
+      RealmManager.shared.realm.delete(device)
     }
+    return true
+  }
 
-    return false
+  class func getDevice(name: String) -> MBTDevice? {
+    let realmObjects = RealmManager.shared.realm.objects(MBTDevice.self)
+    return realmObjects.filter("deviceName = %@", name).first
   }
 
 }

@@ -23,7 +23,8 @@ enum DeviceError: Int, MBTError {
     switch self {
     case .infoUnavailable: return "Device informations are not available"
     case .notConnected: return "Device not connected"
-    case .retrieveInfoTimeOut: return "Timeout while getting device informations"
+    case .retrieveInfoTimeOut:
+      return "Timeout while getting device informations"
     }
   }
 }
