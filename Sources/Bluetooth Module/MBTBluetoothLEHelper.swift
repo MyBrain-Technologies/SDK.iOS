@@ -1,15 +1,11 @@
-//
-//  MBTBluetoothLE.swift
-//  MBT_iOS_SDK
-//
-//  Created by Baptiste Rasschaert on 11/05/2017.
-//  Copyright © 2017 MyBrainTechnologies. All rights reserved.
-//
-
 import CoreBluetooth
 
-
-/// Help MBTBluetoothManager to manage Bluetooth Low Energy ( BLE ).
+/*******************************************************************************
+ * MBTBluetoothLEHelper
+ *
+ * Help MBTBluetoothManager to manage Bluetooth Low Energy ( BLE ).
+ *
+ ******************************************************************************/
 struct MBTBluetoothLEHelper {
   /// The *UUID* of the MyBrainServices.
   static let myBrainServiceUUID = CBUUID(string: "0xB2A0")
@@ -71,69 +67,75 @@ struct MBTBluetoothLEHelper {
   /// Getter of BLE device informations characteristics UUIDs.
   /// - Returns : *Array* of device information characteristics UUIDs.
   static func getDeviceInfoCharacteristicsUUIDS() -> [CBUUID] {
-    return [productNameUUID, serialNumberUUID, hardwareRevisionUUID, firmwareRevisionUUID]
+    return [productNameUUID, serialNumberUUID,
+            hardwareRevisionUUID, firmwareRevisionUUID]
   }
 }
 
-// TEMP: disable - too much variable to rename
-//swiftlint:disable identifier_name
-
+/*******************************************************************************
+ * MailBoxEvents
+ *
+ * Mail box event (communication with headset by BLE)
+ *
+ ******************************************************************************/
 enum MailBoxEvents: UInt8 {
+  case setADSConfig = 0
+  case setAudioconfig = 1
+  /// Product name configuration request
+  case setProductName = 2
+  /// Used by appli to request an OTA update (provides software major and minor in payload)
+  case startOTATFX = 3
+  /// Notifies app of a lead off modification
+  case leadOffEvent = 4
+  /// Notifies appli that we switched to OTA mode
+  case otaModeEvent = 5
+  /// Notifies appli that we request a packet Idx reset
+  case otaIndexResetEvent = 6
+  /// Notifies appli with the status of the OTA transfert.
+  case otaStatusEvent = 7
+  /// allows to retrieve to system global status
+  case systemGetStatus = 8
+  /// trigger a reboot event at disconnection
+  case systemRebootEvent = 9
+  /// Set the melomind serial nb
+  case setSerialNumber = 10
+  /// allows to hotswap the filters' parameters
+  case setNotchFilter = 11
+  /// Set the signal bandwidth by changing the embedded bandpass filter
+  case setBandpassFilter = 12
+  /// Set the eeg signal amplifier gain
+  case setAmplifierSignalGain = 13
+  /// Get the current configuration of the Notch filter, the bandpass filter, and the amplifier gain.
+  case getEEGConfig = 14
+  /// Enable or disable the p300 functionnality of the melomind.
+  case toggleP300 = 15
+  case enableDCOffset = 16
+  case a2dpConnection = 17
+  case unknownEvent = 0xFF
 
-  case MBX_SET_ADS_CONFIG = 0
-  case MBX_SET_AUDIO_CONFIG = 1
-  case MBX_SET_PRODUCT_NAME = 2 // Product name configuration request
-  case MBX_START_OTA_TXF = 3 // Used by appli to request an OTA update (provides software major and minor in payload)
-  case MBX_LEAD_OFF_EVT = 4 // Notifies app of a lead off modification
-  case MBX_OTA_MODE_EVT = 5 // Notifies appli that we switched to OTA mode
-  case MBX_OTA_IDX_RESET_EVT = 6 // Notifies appli that we request a packet Idx reset
-  case MBX_OTA_STATUS_EVT = 7 // Notifies appli with the status of the OTA transfert.
-  case MBX_SYS_GET_STATUS = 8 // allows to retrieve to system global status
-  case MBX_SYS_REBOOT_EVT = 9 // trigger a reboot event at disconnection
-  case MBX_SET_SERIAL_NUMBER = 10 // Set the melomind serial nb
-  case MBX_SET_NOTCH_FILT = 11 // allows to hotswap the filters' parameters
-  case MBX_SET_BANDPASS_FILT = 12 // Set the signal bandwidth by changing the embedded bandpass filter
-  case MBX_SET_AMP_GAIN = 13 // Set the eeg signal amplifier gain
-  case MBX_GET_EEG_CONFIG = 14 // Get the current configuration of the Notch filter, the bandpass filter, and the amplifier gain.
-  case MBX_P300_ENABLE = 15 // Enable or disable the p300 functionnality of the melomind.
-  case MBX_DCOFFSET_ENABLE = 16
-  case MBX_CONNECT_IN_A2DP = 17
-  case MBX_BAD_EVT = 0xFF
-
-  static func getMailBoxEvent(v:UInt8) -> MailBoxEvents {
-    if let mbe = MailBoxEvents(rawValue: v){
-      return mbe
-    }
-    return .MBX_BAD_EVT
+  static func getMailBoxEvent(v: UInt8) -> MailBoxEvents {
+    return MailBoxEvents(rawValue: v) ?? .unknownEvent
   }
 }
 
-///Mail Box Response of A2DP Connection
-enum MailBoxA2DPResponse : UInt8 {
-  case CMD_CODE_IN_PROGRESS = 0x01
-  case CMD_CODE_FAILED_BAD_BDADDR = 0x02
-  case CMD_CODE_FAILED_ALREADY_CONNECTED = 0x04
-  case CMD_CODE_FAILED_TIME_OUT = 0x08
-  case CMD_CODE_LINKKEY_INVALID = 0x10
-  case CMD_CODE_SUCCESS = 0x80
+/*******************************************************************************
+ * MailBoxA2DPResponse
+ *
+ * Mail Box Response of A2DP Connection
+ *
+ ******************************************************************************/
+enum MailBoxA2DPResponse: UInt8, CaseIterable {
+  case inProgress = 0x01
+  case failedBadAdress = 0x02
+  case failedAlreadyConnected = 0x04
+  case failedTimeout = 0x08
+  case linkKeyInvalid = 0x10
+  case success = 0x80
 
-
-  static func getArrayCaseEnum() -> [MailBoxA2DPResponse] {
-    return [
-      .CMD_CODE_IN_PROGRESS,
-      .CMD_CODE_FAILED_BAD_BDADDR,
-      .CMD_CODE_FAILED_ALREADY_CONNECTED,
-      .CMD_CODE_FAILED_TIME_OUT,
-      CMD_CODE_LINKKEY_INVALID,
-      CMD_CODE_SUCCESS
-    ]
-  }
-
-  static func getA2DPResponseFromUint8(_ uint8: UInt8) -> [MailBoxA2DPResponse] {
+  static func getA2DPResponse(from uint8: UInt8) -> [MailBoxA2DPResponse] {
     var arrayResponse = [MailBoxA2DPResponse]()
-    let arrayCaseEnum = MailBoxA2DPResponse.getArrayCaseEnum()
 
-    for caseEnum in arrayCaseEnum {
+    for caseEnum in allCases {
       if uint8 & caseEnum.rawValue == caseEnum.rawValue {
         arrayResponse.append(caseEnum)
       }

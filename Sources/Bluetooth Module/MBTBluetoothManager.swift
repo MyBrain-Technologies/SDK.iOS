@@ -614,7 +614,7 @@ internal class MBTBluetoothManager: NSObject {
     if let OADManager = OADManager {
       var bytesArray = [UInt8](repeating: 0, count: 5)
       
-      bytesArray[0] = MailBoxEvents.MBX_START_OTA_TXF.rawValue
+      bytesArray[0] = MailBoxEvents.startOTATFX.rawValue
       bytesArray[1] = OADManager.getFWVersionAsByteArray()[0]
       bytesArray[2] = OADManager.getFWVersionAsByteArray()[1]
       bytesArray[3] = OADManager.oadProgress.nBlock.loUint8
@@ -767,7 +767,7 @@ internal class MBTBluetoothManager: NSObject {
     )
 
     let bytesArray: [UInt8] = [
-      MailBoxEvents.MBX_CONNECT_IN_A2DP.rawValue,
+      MailBoxEvents.a2dpConnection.rawValue,
       0x25,
       0xA2
     ]
@@ -791,7 +791,7 @@ internal class MBTBluetoothManager: NSObject {
     )
 
     let serialNumberByteArray : [UInt8] = [
-      MailBoxEvents.MBX_SET_SERIAL_NUMBER.rawValue,
+      MailBoxEvents.setSerialNumber.rawValue,
       0xAB,
       0x21
     ]
@@ -1265,7 +1265,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
         (data as NSData).getBytes(&bytesArray, length: length)
 
         switch MailBoxEvents.getMailBoxEvent(v: bytesArray[0]) {
-        case .MBX_OTA_MODE_EVT :
+        case .otaModeEvent :
           log.info("📲 MBX_OTA_MODE_EVT bytesArray",
                    context: bytesArray.description)
 
@@ -1287,7 +1287,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
 
             eventDelegate?.onUpdateFailWithError?(error)
           }
-        case .MBX_OTA_IDX_RESET_EVT :
+        case .otaIndexResetEvent :
           log.info("📲 MBX_OTA_IDX_RESET_EVT bytesArray",
                    context: bytesArray.description)
           let dispatchWorkItem = DispatchWorkItem(qos: .default,
@@ -1298,7 +1298,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
           }
           
           DispatchQueue.global().async(execute: dispatchWorkItem)
-        case .MBX_OTA_STATUS_EVT :
+        case .otaStatusEvent :
           log.info("📲 MBX_OTA_STATUS_EVT bytesArray",
                    context: bytesArray.description)
           if bytesArray[1] == 1 {
@@ -1316,30 +1316,30 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
 
             eventDelegate?.onUpdateFailWithError?(error)
           }
-        case .MBX_CONNECT_IN_A2DP :
+        case .a2dpConnection :
           let bytesResponse = bytesArray[1]
           let bytesArrayA2DPStatus =
-            MailBoxA2DPResponse.getA2DPResponseFromUint8(bytesResponse)
+            MailBoxA2DPResponse.getA2DPResponse(from: bytesResponse)
 
           log.info("📲 A2DP bytes", context: bytesArray.description)
           log.info("📲 A2DP bits", context: bytesArrayA2DPStatus.description)
 
-          if bytesArrayA2DPStatus.contains(.CMD_CODE_IN_PROGRESS) {
+          if bytesArrayA2DPStatus.contains(.inProgress) {
             log.info("📲 A2DP in progress")
           }
-          if bytesArrayA2DPStatus.contains(.CMD_CODE_SUCCESS) {
+          if bytesArrayA2DPStatus.contains(.success) {
             log.info("📲 A2DP connection success")
           } else {
             var error:Error?
-            if bytesArrayA2DPStatus.contains(.CMD_CODE_FAILED_BAD_BDADDR) {
+            if bytesArrayA2DPStatus.contains(.failedBadAdress) {
               error = OADError.badBDAddr.error
             } else if bytesArrayA2DPStatus.contains(
-              .CMD_CODE_FAILED_ALREADY_CONNECTED
+              .failedAlreadyConnected
               ) {
               error = AudioError.audioAldreadyConnected.error
-            } else if bytesArrayA2DPStatus.contains(.CMD_CODE_LINKKEY_INVALID) {
+            } else if bytesArrayA2DPStatus.contains(.linkKeyInvalid) {
               error = AudioError.audioUnpaired.error
-            } else if bytesArrayA2DPStatus.contains(.CMD_CODE_FAILED_TIME_OUT) {
+            } else if bytesArrayA2DPStatus.contains(.failedTimeout) {
               error = AudioError.audioConnectionTimeOut.error
             }
             
@@ -1356,7 +1356,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
               disconnect()
             }
           }
-        case .MBX_SET_SERIAL_NUMBER:
+        case .setSerialNumber:
           log.info("📲 Set serial number bytes",
                    context: bytesArray.description)
 
