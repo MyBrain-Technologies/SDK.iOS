@@ -110,7 +110,6 @@ class DeviceManager: MBTRealmEntityManager {
     return [MBTDevice](RealmManager.shared.realm.objects(MBTDevice.self))
   }
 
-
   /// Get BLE device informations of the connected MBT device.
   /// - Returns: The DB-saved *MBTDeviceInformations* instance.
   class func getDeviceInfos() -> MBTDeviceInformations? {
@@ -160,7 +159,6 @@ class DeviceManager: MBTRealmEntityManager {
 
     return removeDevice(deviceToDelete)
   }
-
 
   /// Remove the device with deviceName == deviceName from Realm DB
   class func removeDevice(_ deviceName: String) -> Bool {

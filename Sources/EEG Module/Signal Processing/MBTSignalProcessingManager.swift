@@ -61,7 +61,6 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     MBTQualityCheckerBridge.deInitializeMainQualityChecker()
   }
 
-
   /// Compute datas in the *Quality Checker* and returns an array of *Quality*
   /// values for a data matrix of an acquisition packet.
   /// - parameter data: The data matrix of the packet. Each row is a channel
@@ -118,7 +117,6 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
   }
-
 
   /// Get an array of the modified EEG datas by the *Quality Checker*, and
   /// return it.

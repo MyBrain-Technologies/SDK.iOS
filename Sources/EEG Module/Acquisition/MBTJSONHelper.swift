@@ -109,5 +109,4 @@ struct MBTJSONHelper {
     return nil
   }
 
-
 }

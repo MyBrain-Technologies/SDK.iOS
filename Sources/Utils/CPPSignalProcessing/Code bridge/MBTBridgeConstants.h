@@ -39,5 +39,4 @@ extern const std::vector<float> muBad;
 
 extern const std::vector<float> wBad;
 
-
 #endif /* MBTBridgeConstants_h */

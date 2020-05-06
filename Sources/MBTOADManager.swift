@@ -60,7 +60,6 @@ class MBTOADManager {
 
     oadProgress.reset(mFileLength, blockSize: blockSize)
 
-
     while oadProgress.iBlock < oadProgress.nBlock {
       tempBuffer = [UInt8]()
       tempBuffer.append(oadProgress.iBlock.loUint8)

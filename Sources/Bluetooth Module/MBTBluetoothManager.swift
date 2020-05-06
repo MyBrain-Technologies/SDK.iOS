@@ -153,8 +153,11 @@ internal class MBTBluetoothManager: NSObject {
   }
   
   var OADManager:MBTOADManager?
-  
-  /// First Init BluetoothManager
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
   override init() {
     super.init()
     connectA2DP()
@@ -166,10 +169,11 @@ internal class MBTBluetoothManager: NSObject {
   //----------------------------------------------------------------------------
 
   private let binariesFinder = BinariesFileFinder()
-  
 
-  //MARK: - Connect and Disconnect MBT Headset Methods
-  
+  //----------------------------------------------------------------------------
+  // MARK: - Connect/Disconnect Methods
+  //----------------------------------------------------------------------------
+
   /// Start the connection process.
   /// - Parameters:
   ///   - deviceName : The name of the device to connect (Bluetooth profile).
@@ -200,7 +204,6 @@ internal class MBTBluetoothManager: NSObject {
       userInfo: nil,
       repeats: false
     )
-
   }
   
   /// Initialise or Re-initialise the BluetoothManager [Prepare all variable for the connection]
@@ -339,8 +342,7 @@ internal class MBTBluetoothManager: NSObject {
           return
         }
       }
-      
-      
+
       DispatchQueue.main.sync {
         if let currentDevice = DeviceManager.getCurrentDevice(),
           currentDevice.shouldUpdateFirmware {
@@ -570,7 +572,6 @@ internal class MBTBluetoothManager: NSObject {
     DispatchQueue.global().async {
       var oldProgress = -1
 
-      
       guard let oadManager = self.OADManager else { return }
 
       oadManager.oadProgress.iBlock = 0
@@ -580,7 +581,6 @@ internal class MBTBluetoothManager: NSObject {
         if !self.isConnectedBLE || self.OADState != .inProgress {
           break
         }
-
 
         let iBlock = Float(oadManager.oadProgress.iBlock)
         let bufferCount = Float(oadManager.mOadBuffer.count)
@@ -959,8 +959,6 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     OADState = .connected
   }
 
-  
-  
   /// Check out the discovered peripherals to find the right device.
   /// Invoked when the central manager discovers a peripheral while scanning.
   /// - Parameters:
@@ -1021,7 +1019,6 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
     }
   }
 
-  
   /// If disconnected by error, start searching again,
   /// else let event delegate know that headphones
   /// are disconnected.
@@ -1124,10 +1121,8 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
         counterServicesDiscover += 1
       }
     }
-    
   }
 
-  
   /// Enable notification and sensor for desired characteristic of valid service.
   /// Invoked when you discover the characteristics of a specified service.
   /// - Parameters:
@@ -1200,7 +1195,6 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
     }
   }
 
-  
   /// Get data values when they are updated.
   /// Invoked when you retrieve a specified characteristic’s value,
   /// or when the peripheral device notifies your app that
@@ -1370,8 +1364,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
       break
     }
   }
-  
-  
+
   func peripheral(_ peripheral: CBPeripheral,
                   didWriteValueFor characteristic: CBCharacteristic,
                   error: Error?) {}
@@ -1394,8 +1387,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
 //MARK: - Audio A2DP method
 
 extension MBTBluetoothManager {
-  
-  
+
   /// Audio A2DP changing route output handler.
   /// - Parameter notif : The *notification* received when audio route output changed.
   @objc func audioChangedRoute(_ notif:Notification) {

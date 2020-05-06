@@ -6,7 +6,6 @@ import Foundation
  * MBT engine to implement to work with the headset.
  *
  ******************************************************************************/
-
 public class MBTClient {
 
   //----------------------------------------------------------------------------
@@ -455,7 +454,6 @@ public class MBTClient {
     return signalProcessingManager.computeCalibration(n)
   }
 
-  
   /// computeRelaxIndex
   ///
   /// - Returns: RelaxIndex

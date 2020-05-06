@@ -24,8 +24,7 @@ enum AudioError: Int, MBTError {
     case .audioUnpaired: return "Audio is not paired to the device"
     case .audioAldreadyConnected:
       return "Audio is already connected to another device"
-
-      case .audioConnectionTimeOut: return "Timeout while connecting audio"
+    case .audioConnectionTimeOut: return "Timeout while connecting audio"
     }
   }
 }

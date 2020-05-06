@@ -9,20 +9,21 @@ disabled_rules: # rule identifiers to exclude from running
   - opening_brace
   - closure_parameter_position
   - colon
+## Fixed
+#  - identifier_name
+#  - switch_case_alignment
+# - legacy_constructor
+# - large_tuple
+# - vertical_whitespace
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
   - file_length
-#  - identifier_name
   - class_delegate_protocol
-  - switch_case_alignment
   - function_body_length
-  - legacy_constructor
-  - large_tuple
   - line_length
   - comma
   - mark
-  - vertical_whitespace
   - trailing_whitespace
   - trailing_newline
   - leading_whitespace
