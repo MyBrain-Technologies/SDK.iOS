@@ -81,7 +81,7 @@ class MBTOADManager {
       mOadBuffer.append(tempBuffer)
     }
 
-    oadProgress.reset(mFileLength,blockSize: blockSize)
+    oadProgress.reset(mFileLength, blockSize: blockSize)
   }
 
   /// get the data to be send at the Melomind and increase the counter

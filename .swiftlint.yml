@@ -32,14 +32,14 @@ disabled_rules: # rule identifiers to exclude from running
 # - empty_enum_arguments
 # - control_statement
 # - for_where
+# - class_delegate_protocol
+# - comma
 ## Rules not fixed yet
   - cyclomatic_complexity
   - todo
   - file_length
-  - class_delegate_protocol
   - function_body_length
   - line_length
-  - comma
   - mark
   - statement_position
   - duplicate_imports
