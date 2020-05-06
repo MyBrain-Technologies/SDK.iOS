@@ -39,8 +39,8 @@ SP_Vector formatVectorForNoiseComputation(const SP_Vector& vector);
  * @brief Compute fitting error
  * 
  * @param t Copy of the vector that contains the frequency values of the spectrum.
- * @param tmp_noisePow1 
- * @param tmp_noisePow2 
+ * @param tmp_noisePow1 temporary noise power 1
+ * @param tmp_noisePow2 temporary noise power 2
  * @return SP_RealType Fitting error
  */
 SP_RealType computeFittingError(const SP_Vector& t, const SP_Vector& tmp_noisePow1, const SP_Vector& tmp_noisePow2);

@@ -40,7 +40,7 @@ const SP_FloatType IAFsup = 13;
  * @return std::map<std::string, SP_FloatVector> The calibration map
  */
 std::map<std::string, SP_FloatVector> main_calibration(SP_FloatType sampRate, unsigned int packetLength, SP_FloatMatrix calibrationRecordings,
-                                                    SP_FloatMatrix calibrationRecordingsQuality, int smoothingDuration);
+                                                       SP_FloatMatrix calibrationRecordingsQuality, int smoothingDuration) OBJC_ISA_AVAILABILITY;
 
 /**
  * @brief Compute the calibration parameters
@@ -65,18 +65,18 @@ std::map<std::string, SP_FloatVector> main_calibration(MBT_NFConfig configuratio
  *                  If it's the first packet of the session: get histFreq from paramCalib --> histFreq = paramCalib["HistFrequencies"];
  *                  else: get histFreq from session -->  histFreq = paramSession["HistFrequencies"];
  * @param pastRelaxIndex Containing the previous relax index computed during the session (not smoothed).
- * @param resultSmoothedRMS 
- * @param resultVolum 
+ * @param resultSmoothedRMS resultSmoothedRMS
+ * @param resultVolum resultVolum
  * @param smoothingDuration Integer that gives the number of relaxation indexes we have to take into account to smooth the current one.
  *                          For instance smoothingDuration=2 means we average the current relaxationIndex with the previous one.
- * @param min_val 
- * @param max_val 
+ * @param min_val min value
+ * @param max_val max value
  * @return SP_FloatType Current session volume computed
  */
 SP_FloatType main_relaxIndex(const SP_FloatType sampRate, std::map<std::string, SP_FloatVector > paramCalib,
                                 const SP_FloatMatrix &sessionPacket, SP_FloatVector &histFreq, SP_FloatVector &pastRelaxIndex,
                                 SP_FloatVector &resultSmoothedRMS, SP_FloatVector &resultVolum, int smoothingDuration,
-                                const SP_FloatType min_val, const SP_FloatType max_val);
+                             const SP_FloatType min_val, const SP_FloatType max_val) OBJC_ISA_AVAILABILITY;
 
 /**
  * @brief Play the session
@@ -84,14 +84,11 @@ SP_FloatType main_relaxIndex(const SP_FloatType sampRate, std::map<std::string, 
  * @param configuration Neurofeedback configuration
  * @param paramCalib The calibration map
  * @param sessionPacket The EEG signals on real-time during session as it's returned by the QualityChecker (number of rows = number of channels)
- * @param histFreq Containing the frequency of the alpha peak detected previously (previously means during calibration and the previous packets of the session)
- *                  If it's the first packet of the session: get histFreq from paramCalib --> histFreq = paramCalib["HistFrequencies"];
- *                  else: get histFreq from session -->  histFreq = paramSession["HistFrequencies"];
  * @param pastRelaxIndex Containing the previous relax index computed during the session (not smoothed).
- * @param resultSmoothedRMS 
- * @param resultVolum 
- * @param min_val 
- * @param max_val 
+ * @param resultSmoothedRMS resultSmoothedRMS
+ * @param resultVolum resultVolum
+ * @param minMax minMax
+ * @param qualities qualities
  * @return SP_FloatType Current session volume computed
  */
 SP_FloatType main_relaxIndex(MBT_NFConfig configuration, std::map<std::string, SP_FloatVector > paramCalib,
@@ -102,9 +99,9 @@ SP_FloatType main_relaxIndex(MBT_NFConfig configuration, std::map<std::string, S
 /**
  * @brief Get minmax values of an RMS calibration
  * 
- * @param tmp_RMSCalib 
- * @param minFactor 
- * @param maxFactor 
+ * @param tmp_RMSCalib tmp_RMSCalib
+ * @param minFactor minFactor
+ * @param maxFactor maxFactor
  * @return std::pair<SP_FloatType, SP_FloatType> 
  */
 std::pair<SP_FloatType, SP_FloatType> computeMinMax(SP_FloatVector &tmp_RMSCalib, SP_FloatType minFactor, SP_FloatType maxFactor);

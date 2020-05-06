@@ -38,9 +38,9 @@ std::map<std::string, SP_FloatVector > formatCalibrationParametersForWrongInput(
  * 
  * @param RMSCalib Absolute RMS calibration value
  * @param relativeRMSCalib Relative RMS calibration value
- * @param histFreq 
- * @param SmoothedRMSCalib 
- * @param errorValue 
+ * @param histFreq hist freq
+ * @param SmoothedRMSCalib smoothed rms calib
+ * @param errorValue error value
  * @return std::map<std::string, SP_FloatVector > A dictionnary with the value for the various parameters.
  */
 std::map<std::string, SP_FloatVector > formatCalibrationParameters(const SP_FloatVector& RMSCalib, const SP_FloatVector& relativeRMSCalib, const SP_FloatVector& histFreq,
@@ -51,7 +51,7 @@ std::map<std::string, SP_FloatVector > formatCalibrationParameters(const SP_Floa
  * with a good quality value of the channel with the best mean quality value.
  * 
  * @param calibrationRecordings A matrix holding the concatenation of the calibration recordings, one channel per row. (No GPIOs)
- * @param packetsToKeepIndex 
+ * @param packetsToKeepIndex  packets to keep index
  * @param sampRate The signal sampling rate.
  * @return SP_Matrix A matrix with only data values of good qualities
  */
@@ -61,11 +61,11 @@ SP_Matrix createGoodCalibrationRecording(SP_FloatMatrix calibrationRecordings, c
 /**
  * @brief Compute RMS for calibration
  * 
- * @param goodCalibrationRecordings 
- * @param entireGoodCalibrationRecordings 
+ * @param goodCalibrationRecordings good calibration recordings
+ * @param entireGoodCalibrationRecordings entire good calibration recordings
  * @param histFreq Vector containing the previous frequencies.
- * @param IAFinf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
- * @param IAFsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
+ * @param IAFminf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
+ * @param IAFmsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
  * @param sampRate The signal sampling rate.
  * @param k Current index
  * @return std::map<std::string, SP_Vector > RMS
@@ -91,11 +91,11 @@ SP_FloatVector weightRMS(const SP_Vector& RMSCalibPacket, const SP_Vector& quali
  * @brief Compute RMS calibration
  * 
  * @param calibrationRecordings A matrix holding the concatenation of the calibration recordings, one channel per row. (No GPIOs)
- * @param entireGoodCalibrationRecordings 
- * @param packetsToKeepIndex 
+ * @param entireGoodCalibrationRecordings  entire good calibration recordings
+ * @param packetsToKeepIndex  packets to keep index
  * @param histFreq Vector containing the previous frequencies.
- * @param IAFinf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
- * @param IAFsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
+ * @param IAFminf Lower bound of the frequency range which will be used to compute SNR. For example IAFinf = 7 to compute SNR alpha.
+ * @param IAFmsup Upper bound of the frequency range which will be used to compute SNR. For example IAFsup = 13 to compute SNR alpha.
  * @param sampRate The signal sampling rate.
  * @param smoothingDuration Integer that gives the number of relaxation indexes we have to take into account to
           smooth the current one. For instance smoothingDuration=2 means we average the current relaxationIndex
