@@ -51,17 +51,17 @@ class DeviceManager: MBTRealmEntityManager {
 
     // Acquisition Electrodes
     let acquisition1 = MBTAcquistionLocation()
-    acquisition1.type = .P3
+    acquisition1.type = .p3
     let acquisition2 = MBTAcquistionLocation()
-    acquisition2.type = .P4
+    acquisition2.type = .p4
 
     // Reference Electrode
     let reference = MBTAcquistionLocation()
-    reference.type = .M1
+    reference.type = .m1
 
     // Ground Electrode
     let ground = MBTAcquistionLocation()
-    ground.type = .M2
+    ground.type = .m2
 
     // Save Melomind info to DB
     if let device = getCurrentDevice() {
