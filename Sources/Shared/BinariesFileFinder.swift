@@ -66,14 +66,4 @@ class BinariesFileFinder {
                        ofType: Constants.binaryExtension)
   }
 
-  //----------------------------------------------------------------------------
-  // MARK: - Binaries filename interpret
-  //----------------------------------------------------------------------------
-
-  /// Extract version from a filename
-  /// - Parameter filename: filename of the binary
-  func getBinaryVersion(from filename: String) -> String? {
-    let versionRegex = Constants.binaryVersionRegex
-    return filename.firstMatch(regex: versionRegex)
-  }
 }

@@ -21,6 +21,13 @@ struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
     let characterSet = CharacterSet(charactersIn: Constants.versionSeparators)
     let components = string.components(separatedBy: characterSet)
 
+    guard components.count >= 3 else {
+      self.major = 0
+      self.minor = 0
+      self.fix = 0
+      return
+    }
+
     self.major = Int(components[0]) ?? 0
     self.minor = Int(components[1]) ?? 0
     self.fix = Int(components[2]) ?? 0
@@ -37,7 +44,11 @@ struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
   //----------------------------------------------------------------------------
 
   static func < (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
-    return lhs.versionValue < rhs.versionValue
+    let values = [(lhs: lhs.major, rhs: rhs.major),
+                  (lhs: lhs.minor, rhs: rhs.minor),
+                  (lhs: lhs.fix, rhs: rhs.fix)]
+    let hasLowerValue = values.first() { $0.lhs < $0.rhs } != nil
+    return hasLowerValue
   }
 
   //----------------------------------------------------------------------------
@@ -45,7 +56,12 @@ struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
   //----------------------------------------------------------------------------
 
   static func == (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
-    return lhs.versionValue == rhs.versionValue
+    let values = [(lhs: lhs.major, rhs: rhs.major),
+                  (lhs: lhs.minor, rhs: rhs.minor),
+                  (lhs: lhs.fix, rhs: rhs.fix)]
+
+    let hasNoDifference = values.first() { $0.lhs != $0.rhs } == nil
+    return hasNoDifference
   }
 
 }
