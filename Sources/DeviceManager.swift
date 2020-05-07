@@ -22,7 +22,7 @@ class DeviceManager: MBTRealmEntityManager {
   /// Update *deviceInformations* of the newly connected device record in the DB.
   /// - Parameters:
   ///     - deviceInfos: *MBTDeviceInformations* from BLE to record.
-  class func updateDeviceInformations(_ deviceInfos:MBTDeviceInformations) {
+  class func updateDeviceInformations(_ deviceInfos: MBTDeviceInformations) {
     // Get the myBrainTechnologies device connected.
     if let device = getCurrentDevice() {
       // Save the new device infos to Realm Database
@@ -42,7 +42,7 @@ class DeviceManager: MBTRealmEntityManager {
   /// Update *deviceBatteryLevel*
   /// - Parameters:
   ///     - batterylevel: *Int* from BLE to record.
-  class func updateDeviceBatteryLevel(_ batteryLevel:Int) {
+  class func updateDeviceBatteryLevel(_ batteryLevel: Int) {
     // Get the myBrainTechnologies device connected.
     if let device = getCurrentDevice() {
       // Save the new battery status to Realm Database
@@ -115,7 +115,7 @@ class DeviceManager: MBTRealmEntityManager {
   }
 
   /// Get Register Device
-  /// - Returns : The array DB-saved *[MBTDevice]* instance
+  /// - Returns: The array DB-saved *[MBTDevice]* instance
   class func getRegisteredDevices() -> [MBTDevice] {
     return [MBTDevice](RealmManager.shared.realm.objects(MBTDevice.self))
   }

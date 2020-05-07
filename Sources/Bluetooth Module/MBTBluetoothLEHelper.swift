@@ -29,14 +29,14 @@ struct MBTBluetoothLEHelper {
   //----------------------------------------------------------------------------
 
   /// Getter of Bluetooth LE Services UUIDs.
-  /// - Returns : *Array* of BLE services UUIDs.
+  /// - Returns: *Array* of BLE services UUIDs.
   static func getServicesUUIDs() -> [CBUUID] {
     return [BluetoothService.myBrainService.uuid,
             BluetoothService.deviceInfoService.uuid]
   }
 
   /// Getter of BLE device informations characteristics UUIDs.
-  /// - Returns : *Array* of device information characteristics UUIDs.
+  /// - Returns: *Array* of device information characteristics UUIDs.
   static func getDeviceInfoCharacteristicsUUIDS() -> [CBUUID] {
     return [BluetoothService.productName.uuid,
             BluetoothService.serialNumber.uuid,

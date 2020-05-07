@@ -23,9 +23,9 @@ extension MBTBluetoothManager {
   //----------------------------------------------------------------------------
 
   /// Request the Melomind to connect A2DP
-  /// important : Event
-  /// - didOADFailWithError : 924 | Time Out Connection
-  /// - onConnectionFailed : 924 | Time Out Cnnection
+  /// important: Event
+  /// - didOADFailWithError: 924 | Time Out Connection
+  /// - onConnectionFailed: 924 | Time Out Cnnection
   func requestConnectA2DP() {
     timerTimeOutA2DPConnection = Timer.scheduledTimer(
       timeInterval: Constants.Timeout.a2dpConnection,
@@ -55,7 +55,7 @@ extension MBTBluetoothManager {
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(audioChangedRoute(_:)),
-      name:AVAudioSession.routeChangeNotification,
+      name: AVAudioSession.routeChangeNotification,
       object: nil
     )
 

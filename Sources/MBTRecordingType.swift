@@ -14,15 +14,15 @@ public class MBTRecordingType {
   //----------------------------------------------------------------------------
 
   /// Record Type cf enum *MBTRecordType*
-  public var recordType:MBTRecordType
+  public var recordType: MBTRecordType
 
   /// Signal Processing Version
-  internal var spVersion:String = ""
+  internal var spVersion: String = ""
   /// Data Source cf enum *MBTDataSource*
-  public var source:MBTDataSource
+  public var source: MBTDataSource
 
   /// Data type cf enum *MBTDataType*
-  public var dataType:MBTDataType
+  public var dataType: MBTDataType
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization

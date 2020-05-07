@@ -3,11 +3,11 @@ import Foundation
 extension MBTBluetoothManager {
 
   /// Start the OAD Process
-  /// - important : Event
-  /// - didOADFailWithError : 916 | Device Not connected
-  /// - didOADFailWithError : 909 | Device Infos is not available
-  /// - didOADFailWithError : 910 | Latest firmware already installed
-  /// - didOADFailWithError : 912 | Time Out OAD Transfert
+  /// - important: Event
+  /// - didOADFailWithError: 916 | Device Not connected
+  /// - didOADFailWithError: 909 | Device Infos is not available
+  /// - didOADFailWithError: 910 | Latest firmware already installed
+  /// - didOADFailWithError: 912 | Time Out OAD Transfert
   /// - onProgressUpdate
   func startOAD() {
     // Disconnect A2DP

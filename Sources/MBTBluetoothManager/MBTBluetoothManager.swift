@@ -85,7 +85,7 @@ internal class MBTBluetoothManager: NSObject {
 
   /// Flag switch to the first reading charasteristic to finalize Connection
   /// or to process the receiving Battery Level
-  var processBatteryLevel:Bool = false
+  var processBatteryLevel: Bool = false
 
   /// The BLE central manager.
   var centralManager: CBCentralManager?
@@ -95,7 +95,7 @@ internal class MBTBluetoothManager: NSObject {
   var peripheralManager: CBPeripheralManager?
 
   /// The BLE peripheral with which a connection has been established.
-  var blePeripheral : CBPeripheral? {
+  var blePeripheral: CBPeripheral? {
     didSet {
       if blePeripheral != nil {
         eventDelegate?.onHeadsetStatusUpdate?(true)
@@ -109,11 +109,11 @@ internal class MBTBluetoothManager: NSObject {
   var counterServicesDiscover = 0
 
   /// the timer for the connection timeout
-  var timerTimeOutConnection : Timer?
+  var timerTimeOutConnection: Timer?
 
-  var timerTimeOutA2DPConnection : Timer?
+  var timerTimeOutA2DPConnection: Timer?
 
-  var timerTimeOutSendExternalName : Timer?
+  var timerTimeOutSendExternalName: Timer?
 
   /// the timer for the battery level update
   var timerUpdateBatteryLevel: Timer?
@@ -131,8 +131,8 @@ internal class MBTBluetoothManager: NSObject {
   /// Flag OAD is enable
   var isOADInProgress = false
 
-  /// OAD State (Enum:OADStateType)
-  var OADState:OADStateType = .disable {
+  /// OAD State (Enum: OADStateType)
+  var OADState: OADStateType = .disable {
     didSet {
       if OADState == .disable {
         stopTimerTimeOutOAD()
@@ -164,8 +164,8 @@ internal class MBTBluetoothManager: NSObject {
 
   /// Start the connection process.
   /// - Parameters:
-  ///   - deviceName : The name of the device to connect (Bluetooth profile).
-  func connectTo(_ deviceName:String? = nil) {
+  ///   - deviceName: The name of the device to connect (Bluetooth profile).
+  func connectTo(_ deviceName: String? = nil) {
     if let lastBluetoothState = tabHistoBluetoothState.last,
       OADState == .connected,
       lastBluetoothState {
@@ -300,8 +300,8 @@ internal class MBTBluetoothManager: NSObject {
 
   /// Run the completion after the device infos is available with a time out
   ///
-  /// - important : Event
-  /// - onConnectionFailed : 917 | "Time out getting device infos"
+  /// - important: Event
+  /// - onConnectionFailed: 917 | "Time out getting device infos"
   /// - Parameter completion: the block to execute after getting the device infos
   func prepareDeviceWithInfo(completion: @escaping () -> Void) {
     requestUpdateDeviceInfo()
@@ -359,7 +359,7 @@ internal class MBTBluetoothManager: NSObject {
   }
 
   /// Send firmware version and the buffer length to the Melomind
-  /// important : Event
+  /// important: Event
   /// - onProgressUpdate
   func sendFWVersionPlusLength() {
     if let OADManager = OADManager {

@@ -25,7 +25,7 @@ internal class MBTDeviceAcquisitionManager: NSObject {
   //----------------------------------------------------------------------------
 
   /// Process the Device Information data
-  /// - Parameter data : *Data* received from Device info MBT Headset.
+  /// - Parameter data: *Data* received from Device info MBT Headset.
   func processDeviceInformations(_ characteristic: CBCharacteristic) {
     let data = characteristic.value!
     let count = 8
@@ -58,7 +58,7 @@ internal class MBTDeviceAcquisitionManager: NSObject {
   }
 
   /// Process the BatteryLevel data
-  /// - Parameter data : *Data* received from Device info MBT Headset.
+  /// - Parameter data: *Data* received from Device info MBT Headset.
   func processDeviceBatteryStatus(_ characteristic: CBCharacteristic) {
     if characteristic.value != nil && DeviceManager.getCurrentDevice() != nil {
       let tabByte = [UInt8](characteristic.value!)
@@ -70,9 +70,9 @@ internal class MBTDeviceAcquisitionManager: NSObject {
     }
   }
 
-  /// Process the headset status : OffSet or Saturation
+  /// Process the headset status: OffSet or Saturation
   ///
-  /// - Parameter characteristic:A *Data* received from status info Melomind.
+  /// - Parameter characteristic: A *Data* received from status info Melomind.
   func processHeadsetStatus(_ characteristic: CBCharacteristic) {
     guard let value = characteristic.value else { return }
 

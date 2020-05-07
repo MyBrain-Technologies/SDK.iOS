@@ -9,9 +9,9 @@
 import Foundation
 
 /// Manage the acquisition data communication outside the SDK.
-@objc public protocol MBTEEGAcquisitionDelegate:class {
+@objc public protocol MBTEEGAcquisitionDelegate: class {
 
     /// Called to each EEG package sent by the BLE.
-    /// - Parameter dataArray : *Dictionnary* of EEG data array.
-    @objc optional func onReceivingPackage(_ eegPacket : MBTEEGPacket)
+    /// - Parameter dataArray: *Dictionnary* of EEG data array.
+    @objc optional func onReceivingPackage(_ eegPacket: MBTEEGPacket)
 }

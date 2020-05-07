@@ -36,7 +36,7 @@ public class MBTEEGPacket: Object {
   /// Create a new MBTEEGPacket
   ///
   /// - Returns: A new *MBTEEGPacket* instance which channelsData are set up
-  class func createNewEEGPacket(_ nbChannels:Int) -> MBTEEGPacket {
+  class func createNewEEGPacket(_ nbChannels: Int) -> MBTEEGPacket {
     let newPacket = MBTEEGPacket()
     for _ in 0 ..< nbChannels {
       newPacket.channelsData.append(ChannelDatas())
@@ -66,11 +66,11 @@ public class MBTEEGPacket: Object {
 
   /// Add *Quality* values, calculated by the Quality Checker, to a *MBTEEGPacket*.
   /// - Parameters:
-  ///     - qualities : Array of *Quality* by channel.
-  ///     - eegPacket : The *MBTEEGPacket* to add the *Quality* values to.
-  func addQualities(_ qualities:[Float]) {
+  ///     - qualities: Array of *Quality* by channel.
+  ///     - eegPacket: The *MBTEEGPacket* to add the *Quality* values to.
+  func addQualities(_ qualities: [Float]) {
     for qualityFloat in qualities {
-      let quality = Quality(data:qualityFloat)
+      let quality = Quality(data: qualityFloat)
       self.qualities.append(quality)
     }
   }
@@ -78,9 +78,9 @@ public class MBTEEGPacket: Object {
   /// Update the *ChannelData* values with the corrected values received
   /// from the Quality Checker.
   /// - Parameters:
-  ///     - eegPacket : The *MBTEEGPacket* to update the EEG values.
-  ///     - modifiedValues : Array of the corrected values, by channel.
-  func addModifiedChannelsData(_ modifiedValues:[[Float]],
+  ///     - eegPacket: The *MBTEEGPacket* to update the EEG values.
+  ///     - modifiedValues: Array of the corrected values, by channel.
+  func addModifiedChannelsData(_ modifiedValues: [[Float]],
                                nbChannels: Int,
                                sampRate: Int) {
     //        print("addModifiedChannelsData")

@@ -137,15 +137,15 @@ public class MBTClient {
   /// Connect to bluetooth LE profile of the MBT headset.
   /// BLE deals with EEG, but also OAD, device information,
   /// battery, etc.
-  /// - Remark : deviceName is optional if deviceName isn't provided the
+  /// - Remark: deviceName is optional if deviceName isn't provided the
   /// MelomindEngine will connect to the first headset detected
   /// - Parameters:
-  ///   - deviceName : The device Name Headset which be connect to the BLE
-  ///   - delegate : The Melomind Engine Delegate which allow communication with
+  ///   - deviceName: The device Name Headset which be connect to the BLE
+  ///   - delegate: The Melomind Engine Delegate which allow communication with
   ///   the Headset.
 
   /// NOT USED
-  public func connectEEG(_ deviceName:String? = nil,
+  public func connectEEG(_ deviceName: String? = nil,
                          withDelegate delegate: MelomindEngineDelegate) {
     setEEGDelegate(delegate)
     bluetoothManager.connectTo(deviceName)
@@ -155,13 +155,13 @@ public class MBTClient {
   /// bluetooth protocol).
   /// - Remark: Audio can't be connected from code. User has to connect to it
   /// through.
-  /// - Remark : deviceName is optional if deviceName isn't provided the
+  /// - Remark: deviceName is optional if deviceName isn't provided the
   /// MelomindEngine will connect to the first headset detected
   /// settings, on the first time is using it.
   /// - Parameters:
-  ///   - delegate : The Melomind Engine Delegate which allow communication with
+  ///   - delegate: The Melomind Engine Delegate which allow communication with
   ///   the Headset.
-  public func connectEEGAndA2DP(_ deviceName:String? = nil,
+  public func connectEEGAndA2DP(_ deviceName: String? = nil,
                                 withDelegate delegate: MelomindEngineDelegate) {
     setEEGAndA2DPDelegate(delegate)
     bluetoothManager.connectTo(deviceName)
@@ -268,10 +268,10 @@ public class MBTClient {
   //----------------------------------------------------------------------------
 
   /// Send JSON File
-  public func sendEEGFile(_ urlFile:URL,
-                          baseUrl:String,
-                          removeFile:Bool,
-                          accessTokens:String) {
+  public func sendEEGFile(_ urlFile: URL,
+                          baseUrl: String,
+                          removeFile: Bool,
+                          accessTokens: String) {
     MBTBrainWebHelper.accessTokens = accessTokens
     MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, baseURL: baseUrl) { success in
       if success && removeFile {
@@ -284,12 +284,12 @@ public class MBTClient {
   /// - Parameters:
   ///   - idUser: A *Int* instance of the id user
   ///   - comments: A *[String]* instance of comments
-  ///   - completion : A *URL* instance of the saved file, or nil if file is not
+  ///   - completion: A *URL* instance of the saved file, or nil if file is not
   ///   created and save
-  public func saveRecordingOnFile(_ idUser:Int,
+  public func saveRecordingOnFile(_ idUser: Int,
                                   algo: String? = nil,
-                                  comments:[String] = [String](),
-                                  completion:@escaping (URL?) -> Void) {
+                                  comments: [String] = [String](),
+                                  completion: @escaping (URL?) -> Void) {
     eegAcqusitionManager.saveRecordingOnFile(idUser,
                                              algo: algo,
                                              comments: comments,
@@ -306,7 +306,7 @@ public class MBTClient {
   /// BluetoothManager (event Delegate).
   ///
   /// - Parameter delegate:  new delegate listening Melomind Engine Delegate.
-  public func setEEGDelegate(_ delegate:MelomindEngineDelegate) {
+  public func setEEGDelegate(_ delegate: MelomindEngineDelegate) {
     // Add the Acquisition delegate to the Acquisition manager
     initAcquisitionManager(with: delegate)
 
@@ -357,19 +357,19 @@ public class MBTClient {
 
   /// Add delegate to Acquisition Manager.
   /// - Parameters:
-  ///   - delegate : The Melomind Engine Delegate to get Headset datas.
+  ///   - delegate: The Melomind Engine Delegate to get Headset datas.
   internal func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
     eegAcqusitionManager.delegate = delegate
     deviceAcqusitionManager.delegate = delegate
   }
 
-  /// Start saving EEGPacket on DB  /// - Parameters :
-  ///   - newRecord : Create a new recordId on the JSON File
-  ///   - recordingType : Change the session's type
+  /// Start saving EEGPacket on DB  /// - Parameters:
+  ///   - newRecord: Create a new recordId on the JSON File
+  ///   - recordingType: Change the session's type
   @discardableResult
   public func startRecording(
-    _ newRecord:Bool,
-    recordingType:MBTRecordingType = MBTRecordingType()
+    _ newRecord: Bool,
+    recordingType: MBTRecordingType = MBTRecordingType()
   ) -> UUID? {
     EEGPacketManager.removeAllEEGPackets()
     guard DeviceManager.connectedDeviceName != nil else { return nil }
@@ -428,9 +428,9 @@ public class MBTClient {
   //----------------------------------------------------------------------------
 
   /// Remove a specific Device.
-  /// parameters :
-  ///   - deviceName : The Device name which will be remove from DB.
-  public func removeDevice(_ deviceName:String) -> Bool {
+  /// parameters:
+  ///   - deviceName: The Device name which will be remove from DB.
+  public func removeDevice(_ deviceName: String) -> Bool {
     return DeviceManager.removeDevice(deviceName)
   }
 
@@ -440,7 +440,7 @@ public class MBTClient {
 
   /// Compute calibration with the last 'n' complete packets.
   /// - Parameters:
-  ///   - n : Number of complete packets to take to compute the calibration.
+  ///   - n: Number of complete packets to take to compute the calibration.
   /// - Returns: A dictionnary received by the Signal Processing library.
   public func computeCalibration(_ n: Int) -> [String: [Float]]? {
     let eegPacketsCount = EEGPacketManager.getEEGPackets().count
@@ -467,8 +467,8 @@ public class MBTClient {
   ///   - inputSNR:
   ///   - threshold:
   /// - Returns:
-  public func computeSessionStatistics(_ inputSNR:[Float],
-                                       threshold:Float) -> [String:Float] {
+  public func computeSessionStatistics(_ inputSNR: [Float],
+                                       threshold: Float) -> [String: Float] {
     guard DeviceManager.connectedDeviceName != nil, inputSNR.count > 3 else {
       return [:]
     }

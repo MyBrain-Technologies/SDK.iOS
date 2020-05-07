@@ -90,7 +90,7 @@ struct MBTJSONHelper {
                                         attributes: nil)
       }
 
-      let fileName:String =
+      let fileName: String =
         MBTJSONHelper.getFileName(idUser, withIdDevice: idDevice)
 
       let fileURL = eegPacketJSONRecordingsPath.appendingPathComponent(fileName)

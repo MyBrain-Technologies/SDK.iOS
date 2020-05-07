@@ -31,10 +31,10 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   internal var calibrationComputed: [String: [Float]]!
 
   ///
-  internal var sampRate:Int = 0
+  internal var sampRate: Int = 0
 
   ///
-  internal var eegPacketLength:Int = 0
+  internal var eegPacketLength: Int = 0
 
   ///
   internal var version = MBTQualityCheckerBridge.getVersion()
@@ -108,8 +108,8 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   }
 
   func computeQualityValue(_ data: List<ChannelDatas>,
-                           sampRate:Int,
-                           eegPacketLength:Int) -> [Float] {
+                           sampRate: Int,
+                           eegPacketLength: Int) -> [Float] {
     self.sampRate = sampRate
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
@@ -263,8 +263,8 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
 
   //Implementing MBT_SessionAnalysisComputer
-  func analyseSession(_ inputDataSNR:[Float],
-                      threshold:Float) -> [String:Float] {
+  func analyseSession(_ inputDataSNR: [Float],
+                      threshold: Float) -> [String: Float] {
     //Perform the computation
     let sessionAnalysisValues =
       MBTSNRStatisticsBridge.computeSessionStatistics(inputDataSNR,

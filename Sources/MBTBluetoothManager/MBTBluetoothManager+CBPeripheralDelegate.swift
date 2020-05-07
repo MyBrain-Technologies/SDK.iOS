@@ -4,7 +4,7 @@ import CoreBluetooth
 // TEMP: LEGACY CODE
 // swiftlint:disable function_body_length
 
-extension MBTBluetoothManager : CBPeripheralDelegate {
+extension MBTBluetoothManager: CBPeripheralDelegate {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -141,18 +141,18 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
     let characteristicUUID = CBUUID(data: characteristic.uuid.data)
 
     switch characteristicUUID {
-    case BluetoothService.brainActivityMeasurement.uuid :
+    case BluetoothService.brainActivityMeasurement.uuid:
       DispatchQueue.main.async { [weak self] in
         guard let isListeningToEEG = self?.isListeningToEEG,
           isListeningToEEG else { return }
         eegAcqusition.processBrainActivityData(notifiedData)
       }
 
-    case BluetoothService.headsetStatus.uuid :
+    case BluetoothService.headsetStatus.uuid:
       DispatchQueue.global(qos: .background).async {
         deviceAcquisition.processHeadsetStatus(characteristic)
       }
-    case BluetoothService.deviceBatteryStatus.uuid :
+    case BluetoothService.deviceBatteryStatus.uuid:
       if processBatteryLevel {
         deviceAcquisition.processDeviceBatteryStatus(characteristic)
       } else {
@@ -171,7 +171,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
       }
     case let uuid where characsUUIDS.contains(uuid) :
       deviceAcquisition.processDeviceInformations(characteristic)
-    case BluetoothService.mailBox.uuid :
+    case BluetoothService.mailBox.uuid:
       stopTimerTimeOutA2DPConnection()
       if let data = characteristic.value {
         let length = data.count * MemoryLayout<UInt8>.size
@@ -179,7 +179,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
         (data as NSData).getBytes(&bytesArray, length: length)
 
         switch MailBoxEvents.getMailBoxEvent(v: bytesArray[0]) {
-        case .otaModeEvent :
+        case .otaModeEvent:
           log.info("📲 MBX_OTA_MODE_EVT bytesArray",
                    context: bytesArray.description)
 
@@ -201,7 +201,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
 
             eventDelegate?.onUpdateFailWithError?(error)
           }
-        case .otaIndexResetEvent :
+        case .otaIndexResetEvent:
           log.info("📲 MBX_OTA_IDX_RESET_EVT bytesArray",
                    context: bytesArray.description)
           let dispatchWorkItem =
@@ -213,7 +213,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
           }
 
           DispatchQueue.global().async(execute: dispatchWorkItem)
-        case .otaStatusEvent :
+        case .otaStatusEvent:
           log.info("📲 MBX_OTA_STATUS_EVT bytesArray",
                    context: bytesArray.description)
           if bytesArray[1] == 1 {
@@ -231,7 +231,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
 
             eventDelegate?.onUpdateFailWithError?(error)
           }
-        case .a2dpConnection :
+        case .a2dpConnection:
           let bytesResponse = bytesArray[1]
           let bytesArrayA2DPStatus =
             MailBoxA2DPResponse.getA2DPResponse(from: bytesResponse)
@@ -245,7 +245,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
           if bytesArrayA2DPStatus.contains(.success) {
             log.info("📲 A2DP connection success")
           } else {
-            var error:Error?
+            var error: Error?
             if bytesArrayA2DPStatus.contains(.failedBadAdress) {
               error = OADError.badBDAddr.error
             } else if bytesArrayA2DPStatus.contains(
@@ -297,7 +297,7 @@ extension MBTBluetoothManager : CBPeripheralDelegate {
   ///   - peripheral: The peripheral that the services belong to.
   ///   - service: The characteristic whose value has been retrieved.
   ///   - error: If an error occurred, the cause of the failure.
-  /// Remark : Absence of this function causes the notifications not to register anymore.
+  /// Remark: Absence of this function causes the notifications not to register anymore.
   func peripheral(
     _ peripheral: CBPeripheral,
     didUpdateNotificationStateFor characteristic: CBCharacteristic,

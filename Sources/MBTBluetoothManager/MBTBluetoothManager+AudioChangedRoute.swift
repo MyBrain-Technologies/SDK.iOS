@@ -7,8 +7,8 @@ import AVFoundation
 extension MBTBluetoothManager {
 
   /// Audio A2DP changing route output handler.
-  /// - Parameter notif : The *notification* received when audio route output changed.
-  @objc func audioChangedRoute(_ notif:Notification) {
+  /// - Parameter notif: The *notification* received when audio route output changed.
+  @objc func audioChangedRoute(_ notif: Notification) {
 
     guard let userInfo = notif.userInfo else { return }
 

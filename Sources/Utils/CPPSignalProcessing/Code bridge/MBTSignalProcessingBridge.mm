@@ -66,8 +66,8 @@ static std::map<std::string, std::vector<float>> calibParams;
 + (NSArray*)fromVectorToNSArray:(std::vector<float>) vector {
   NSMutableArray * array = [[NSMutableArray alloc] init];
   for (int index = 0; index < int(vector.size()); index++) {
-    NSNumber *data = [NSNumber numberWithFloat:vector[index]];
-    [array addObject:data];
+    NSNumber *data = [NSNumber numberWithFloat: vector[index]];
+    [array addObject: data];
   }
 
   return (NSArray*) array;
@@ -78,8 +78,8 @@ static std::map<std::string, std::vector<float>> calibParams;
   NSMutableArray* array = [[NSMutableArray alloc] init];
   for (int index = 0; index < matrix.size().first; index++) {
     NSArray* vectorArray =
-    [MBTSignalProcessingHelper fromVectorToNSArray:matrix.row(index)];
-    [array addObject:vectorArray];
+    [MBTSignalProcessingHelper fromVectorToNSArray: matrix.row(index)];
+    [array addObject: vectorArray];
   }
 
   return (NSArray*)array;
@@ -203,7 +203,7 @@ static MBT_MainQC *mainQC;
   //    printf("Count Signal = %lu",[signal count]);
   // Transform EEG data into MBT_Matrix
   MBT_Matrix<float> signalMatrix =
-  [MBTSignalProcessingHelper fromNSArrayToMatrix:signal
+  [MBTSignalProcessingHelper fromNSArrayToMatrix: signal
                                        andHeight:(int)nbChannels
                                         andWidth:(int)packetLength];
 
@@ -214,14 +214,14 @@ static MBT_MainQC *mainQC;
   std::vector<float> qualities = mainQC->MBT_get_m_quality();
 
   // Converting the qualities to an Objective-C format.
-  return [MBTSignalProcessingHelper fromVectorToNSArray:qualities];
+  return [MBTSignalProcessingHelper fromVectorToNSArray: qualities];
 }
 
 /// Method to get the modified EEG Data, according to the quality value.
 + (NSArray*)getModifiedEEGData {
   MBT_Matrix<float> modifiedData = mainQC->MBT_get_m_inputData();
 
-  return [MBTSignalProcessingHelper fromMatrixToNSArray:modifiedData];
+  return [MBTSignalProcessingHelper fromMatrixToNSArray: modifiedData];
 }
 
 + (NSString*)getVersion {
@@ -247,15 +247,15 @@ static MBT_MainQC *mainQC;
 
   // Put the modified EEG data in a matrix.
   MBT_Matrix<float> calibrationRecordings =
-  [MBTSignalProcessingHelper fromNSArrayToMatrix:modifiedChannelsData
-                                       andHeight:height
-                                        andWidth:width];
+  [MBTSignalProcessingHelper fromNSArrayToMatrix: modifiedChannelsData
+                                       andHeight: height
+                                        andWidth: width];
 
   // Put the qualities in a matrix.
   auto calibrationRecordingsQuality =
-  [MBTSignalProcessingHelper fromNSArrayToMatrix:qualities
-                                       andHeight:height
-                                        andWidth:static_cast<int>(packetCount)];
+  [MBTSignalProcessingHelper fromNSArrayToMatrix: qualities
+                                       andHeight: height
+                                        andWidth: static_cast<int>(packetCount)];
 
   // Getting the map.
   auto iafMedian = MBT_ComputeIAFCalibration(calibrationRecordings,
@@ -275,7 +275,7 @@ static MBT_MainQC *mainQC;
   paramCalib["iafCalib"] = iafMedian;
 
   // Save calibration parameters received.
-  [MBTSignalProcessingHelper setCalibrationParameters:paramCalib];
+  [MBTSignalProcessingHelper setCalibrationParameters: paramCalib];
 
   // Converting the parameters to an Obj-C format
   NSMutableDictionary* parametersDictionnary =
@@ -286,8 +286,8 @@ static MBT_MainQC *mainQC;
     [NSString stringWithCString: parameter.first.c_str()
                        encoding:[NSString defaultCStringEncoding]];
     NSArray *parameterValue =
-    [MBTSignalProcessingHelper fromVectorToNSArray:parameter.second];
-    [parametersDictionnary setObject:parameterValue forKey:parameterName];
+    [MBTSignalProcessingHelper fromVectorToNSArray: parameter.second];
+    [parametersDictionnary setObject: parameterValue forKey: parameterName];
   }
 
   return parametersDictionnary;
@@ -313,9 +313,9 @@ static vector<float>histFreq;
   const unsigned int packetLength = static_cast<int>(signal.count / nbChannels);
 
   auto signalMatrix =
-  [MBTSignalProcessingHelper fromNSArrayToMatrix:signal
-                                       andHeight:static_cast<int>(nbChannels)
-                                        andWidth:packetLength];
+  [MBTSignalProcessingHelper fromNSArrayToMatrix: signal
+                                       andHeight: static_cast<int>(nbChannels)
+                                        andWidth: packetLength];
 
   auto calibrationParams = [MBTSignalProcessingHelper getCalibrationParameters];
 
@@ -336,7 +336,7 @@ static vector<float>histFreq;
                                     maxFactor);
 
   const auto lastPacketQualitiesVector =
-  [MBTSignalProcessingHelper fromNSArraytoVector:lastPacketQualities];
+  [MBTSignalProcessingHelper fromNSArraytoVector: lastPacketQualities];
 
   const auto newVolum = main_relaxIndex(configuration,
                                         calibrationParams,
@@ -353,15 +353,15 @@ static vector<float>histFreq;
   NSMutableDictionary* dicoMetadata = [[NSMutableDictionary alloc]init];
 
   NSArray *parameterValue =
-  [MBTSignalProcessingHelper fromVectorToNSArray:pastRelaxIndex];
-  [dicoMetadata setObject:parameterValue forKey:@"rawRelaxIndexes"];
+  [MBTSignalProcessingHelper fromVectorToNSArray: pastRelaxIndex];
+  [dicoMetadata setObject: parameterValue forKey:@"rawRelaxIndexes"];
 
   parameterValue =
-  [MBTSignalProcessingHelper fromVectorToNSArray:smoothedRelaxIndex];
-  [dicoMetadata setObject:parameterValue forKey:@"smoothedRelaxIndex"];
+  [MBTSignalProcessingHelper fromVectorToNSArray: smoothedRelaxIndex];
+  [dicoMetadata setObject: parameterValue forKey:@"smoothedRelaxIndex"];
 
-  parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray:histFreq];
-  [dicoMetadata setObject:parameterValue forKey:@"histFrequencies"];
+  parameterValue = [MBTSignalProcessingHelper fromVectorToNSArray: histFreq];
+  [dicoMetadata setObject: parameterValue forKey:@"histFrequencies"];
 
   return dicoMetadata;
 }
@@ -384,7 +384,7 @@ static vector<float>histFreq;
 + (NSDictionary*)computeSessionStatistics:(NSArray *)inputDataSNR
                                 threshold:(float)threshold {
   auto inputDataVector =
-  [MBTSignalProcessingHelper fromNSArraytoVector:inputDataSNR];
+  [MBTSignalProcessingHelper fromNSArraytoVector: inputDataSNR];
 
   auto statisticsObj = SNR_Statistics(inputDataVector);
   auto statisticsResults = statisticsObj.CalculateSNRStatistics(inputDataVector,
@@ -396,8 +396,8 @@ static vector<float>histFreq;
     NSString *parameterName =
     [NSString stringWithCString: parameter.first.c_str()
                        encoding:[NSString defaultCStringEncoding]];
-    NSNumber *parameterValue = [NSNumber numberWithFloat:parameter.second];
-    [resultsDictionnary setObject:parameterValue forKey:parameterName];
+    NSNumber *parameterValue = [NSNumber numberWithFloat: parameter.second];
+    [resultsDictionnary setObject: parameterValue forKey: parameterName];
   }
 
   return resultsDictionnary;
@@ -431,19 +431,19 @@ static vector<float>histFreq;
 + (NSArray*)sessionAlphaPowers {
   auto alphaPowers =
   MelomindAnalysisSingleton::getInstance().getSessionAlphaPowers();
-  return [MBTSignalProcessingHelper fromVectorToNSArray:alphaPowers];
+  return [MBTSignalProcessingHelper fromVectorToNSArray: alphaPowers];
 }
 
 + (NSArray*)sessionRelativeAlphaPowers {
   auto relativeAlphaPowers =
   MelomindAnalysisSingleton::getInstance().getSessionRelativeAlphaPowers();
-  return [MBTSignalProcessingHelper fromVectorToNSArray:relativeAlphaPowers];
+  return [MBTSignalProcessingHelper fromVectorToNSArray: relativeAlphaPowers];
 }
 
 + (NSArray*)sessionQualities {
   auto qualities =
   MelomindAnalysisSingleton::getInstance().getSessionQualities();
-  return [MBTSignalProcessingHelper fromVectorToNSArray:qualities];
+  return [MBTSignalProcessingHelper fromVectorToNSArray: qualities];
 }
 
 @end

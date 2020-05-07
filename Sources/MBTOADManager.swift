@@ -21,7 +21,7 @@ class MBTOADManager {
   let oadProgress = OADProgressInfo()
 
   ///Length of the mFileBuffer
-  var mFileLength:Int = 0
+  var mFileLength: Int = 0
   ///Version of the binary
   var fwVersion: String
 
@@ -56,7 +56,7 @@ class MBTOADManager {
 
   /// Prepare the buffer and the progress info
   func createBufferFromBinaryFile() {
-    var tempBuffer:[UInt8]
+    var tempBuffer: [UInt8]
 
     oadProgress.reset(mFileLength, blockSize: blockSize)
 

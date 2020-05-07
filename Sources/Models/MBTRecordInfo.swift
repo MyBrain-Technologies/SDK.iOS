@@ -13,10 +13,10 @@ public class MBTRecordInfo {
   //----------------------------------------------------------------------------
 
   /// Id Record
-  public var recordId:UUID
+  public var recordId: UUID
 
   /// Recording Type
-  public var recordingType:MBTRecordingType
+  public var recordingType: MBTRecordingType
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization

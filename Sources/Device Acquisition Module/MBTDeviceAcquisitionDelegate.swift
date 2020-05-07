@@ -10,13 +10,13 @@ import Foundation
 
   /// Called when receiving batteryLevel from BLE
   ///
-  /// - Parameter battery level : *batteryLevel* received.
+  /// - Parameter battery level: *batteryLevel* received.
   @objc optional func onReceivingBatteryLevel(_ levelBattery: Int)
 
   /// Called when
   ///
   /// - Parameter status: A *Int* of the saturation headset
-  /// - Remarks :
+  /// - Remarks:
   /// 0 -> no saturation,
   /// 1 -> left side saturation,
   /// 2 -> right side Saturation

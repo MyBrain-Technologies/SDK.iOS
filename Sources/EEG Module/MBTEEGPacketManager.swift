@@ -12,7 +12,7 @@ class EEGPacketManager: MBTRealmEntityManager {
 
   /// Method to persist EEGPacket received in the Realm database.
   /// - Parameters:
-  ///     - eegPacket : *MBTEEGPacket* freshly created, soon db-saved.
+  ///     - eegPacket: *MBTEEGPacket* freshly created, soon db-saved.
   /// - Returns: The *MBTEEGPacket* saved in Realm-db.
   class func saveEEGPacket(_ eegPacket: MBTEEGPacket) {
     try? RealmManager.shared.realm.write {
@@ -28,9 +28,9 @@ class EEGPacketManager: MBTRealmEntityManager {
 
   /// Get last n *MBTEEGPackets* from the Realm DB.
   /// - Parameters:
-  ///     - n : Number of *MBTEEGPackets* wanted.
-  /// - Returns : The last n *MBTEEGPacket*.
-  class func getLastNPacketsComplete(_ n:Int) -> [MBTEEGPacket] {
+  ///     - n: Number of *MBTEEGPackets* wanted.
+  /// - Returns: The last n *MBTEEGPacket*.
+  class func getLastNPacketsComplete(_ n: Int) -> [MBTEEGPacket] {
     return [MBTEEGPacket](EEGPacketManager.getEEGPackets().suffix(n))
   }
 
@@ -44,7 +44,7 @@ class EEGPacketManager: MBTRealmEntityManager {
   ///
   /// - Parameter eegPackets: An Array of *MBTEEGPacket*
   /// - Returns: A *JSON* instance which contains the array of *MBTEEGPacket*
-  class func getJSONEEGDatas(_ eegPackets:[MBTEEGPacket]) -> JSON {
+  class func getJSONEEGDatas(_ eegPackets: [MBTEEGPacket]) -> JSON {
     var eegDatas = [[Float?]]()
     for eegPacket in eegPackets {
       for channelNumber in 0 ..< eegPacket.channelsData.count {
@@ -79,7 +79,7 @@ class EEGPacketManager: MBTRealmEntityManager {
   ///
   /// - Parameter eegPackets: An Array of *MBTEEGPacket*
   /// - Returns: A *JSON* instance which contains the qualities of an array of *MBTEEGPacket*
-  class func getJSONQualities(_ eegPackets:[MBTEEGPacket]) -> JSON {
+  class func getJSONQualities(_ eegPackets: [MBTEEGPacket]) -> JSON {
     var qualities = [[Float]]()
     for eegPacket in eegPackets {
       for indexQuality in 0 ..< eegPacket.qualities.count {
@@ -116,7 +116,7 @@ class EEGPacketManager: MBTRealmEntityManager {
   /// Remove the array packets of DataBase
   ///
   /// - Parameter packets: A *Array* instance of packets to remove from DataBase
-  class func removePackets(_ packets:[MBTEEGPacket]) {
+  class func removePackets(_ packets: [MBTEEGPacket]) {
     try? RealmManager.shared.realm.write {
       RealmManager.shared.realm.delete(packets)
     }

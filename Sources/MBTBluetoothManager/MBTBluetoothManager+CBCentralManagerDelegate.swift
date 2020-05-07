@@ -4,7 +4,7 @@ import CoreBluetooth
 // TEMP: LEGACY CODE
 // swiftlint:disable function_body_length
 
-extension MBTBluetoothManager : CBCentralManagerDelegate {
+extension MBTBluetoothManager: CBCentralManagerDelegate {
 
   /// Check status of BLE hardware. Invoked when the central
   /// manager's state is update.
@@ -46,7 +46,7 @@ extension MBTBluetoothManager : CBCentralManagerDelegate {
       if !isOADInProgress {
 
         let error: MBTError = isConnected ?
-          BluetoothLowEnergyError.poweredOff : BluetoothError.poweredOff
+          BluetoothLowEnergyError.poweredOff: BluetoothError.poweredOff
 
         log.error("📲 Bluetooth connection interrupted", context: error)
 

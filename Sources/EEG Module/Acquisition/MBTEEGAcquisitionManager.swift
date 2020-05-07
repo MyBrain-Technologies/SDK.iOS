@@ -29,7 +29,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   //----------------------------------------------------------------------------
 
   /// Constant to decod EEG data
-  let voltageADS1299:Float = ( 0.286 * pow(10, -6)) / 8
+  let voltageADS1299: Float = ( 0.286 * pow(10, -6)) / 8
 
   /// Singleton declaration
   static let shared = MBTEEGAcquisitionManager()
@@ -41,13 +41,13 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   var shouldUseQualityChecker: Bool?
 
   /// Previous Index Data Blutooth
-  var previousIndex : Int16 = -1
+  var previousIndex: Int16 = -1
 
   /// Buffer Data Byte
   var buffByte = [UInt8]()
 
   /// if the sdk record in DB EEGPacket
-  var isRecording:Bool = false
+  var isRecording: Bool = false
 
   var eegPacketLength = 0
 
@@ -65,7 +65,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// Set up the EEGAcquisitionManager
   ///
   /// - Parameter device: A *MBTDevice* of the connected Melomind
-  func setUpWith(device:MBTDevice) {
+  func setUpWith(device: MBTDevice) {
     eegPacketLength = device.eegPacketLength
     nbChannels = device.nbChannels
     sampRate = device.sampRate
@@ -79,7 +79,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// Method called by MelomindEngine when a new EEG streaming
   /// session has began. Method will make everything ready, acquisition side
   /// for the new session.
-  func streamHasStarted(_ useQualityChecker:Bool) {
+  func streamHasStarted(_ useQualityChecker: Bool) {
     // Start mainQualityChecker.
     guard useQualityChecker else { return }
 
@@ -104,7 +104,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///   - idUser: A *Int* id of the connected user
   ///   - comments: An array of *String* contains Optional Comments
   ///   - completion: A block which execute after create the file or fail to create
-  func saveRecordingOnFile(_ idUser:Int,
+  func saveRecordingOnFile(_ idUser: Int,
                            algo: String?,
                            comments: [String] = [],
                            completion: @escaping (URL?) -> Void) {
@@ -129,7 +129,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     DispatchQueue(label: "MelomindSaveProcess").async {
       let config = MBTRealmEntityManager.RealmManager.shared.config
 
-      if let realm = try? Realm(configuration:config) {
+      if let realm = try? Realm(configuration: config) {
         var resPacketsToSave = [MBTEEGPacket]()
 
         for eegPacket in packetsToSaveTSR {
@@ -175,8 +175,8 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
   /// Method to manage a complete *MBTEEGPacket* From streamEEGPacket. Use *Quality Checker*
   /// on it if user asks for it, or just send it via the delegate.
-  /// - Parameter eegPacket : A complete *MBTEEGPacket*.
-  func manageCompleteStreamEEGPacket(_ datasArray:[[Float]]) {
+  /// - Parameter eegPacket: A complete *MBTEEGPacket*.
+  func manageCompleteStreamEEGPacket(_ datasArray: [[Float]]) {
 
     let packetComplete = MBTEEGPacket.createNewEEGPacket(arrayData: datasArray,
                                                          nbChannels: nbChannels)
@@ -265,9 +265,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
   /// Process the brain activty measurement received and return the processed data.
   /// - Parameters:
-  ///     - data : *Data* received from MBT Headset EEGs.
-  /// - Returns: *Dictionnary* with the packet Index (key : "packetIndex") and array of
-  ///     P3 and P4 samples arrays ( key : "packet" )
+  ///     - data: *Data* received from MBT Headset EEGs.
+  /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and array of
+  ///     P3 and P4 samples arrays ( key: "packet" )
 
   func processBrainActivityData(_ data: Data) {
     if data.count == 0 { return }
@@ -328,12 +328,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///
   /// - Parameter bytesArray: An array of *UInt8*
   /// - Returns: return the RelaxIndexes
-  func process(_ bytesArray:[UInt8]) -> [[Float]] {
+  func process(_ bytesArray: [UInt8]) -> [[Float]] {
     let shift = MBTEEGAcquisitionManager.shiftMelomind
     var values = [Float]()
 
     for i in 0 ..< bytesArray.count / MBTEEGAcquisitionManager.divider  {
-      var temp : Int32 = 0x00000000
+      var temp: Int32 = 0x00000000
 
       temp = (Int32(bytesArray[2 * i] & 0xFF) << shift)
         | Int32(bytesArray[2 * i + 1] & 0xFF) << (shift - 8)
