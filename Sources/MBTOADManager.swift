@@ -2,25 +2,33 @@ import Foundation
 
 class MBTOADManager {
 
-  //MARK: - Variable
+  //----------------------------------------------------------------------------
+  // MARK: - Constants
+  //----------------------------------------------------------------------------
 
-  let OAD_BLOCK_SIZE = 18
-  let OAD_FW_VERSION_OFFSET = 0x27C
+  private let blockSize = 18
+  private let firmwareVersionOffset = 0x27C
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
 
   ///The data of the Bin
   var mFileBuffer = [UInt8]()
-  ///the Array of data in Array of OAD_BLOCK_SIZE
+  ///the Array of data in Array of blockSize
   var mOadBuffer = [[UInt8]]()
   ///The metadata of OAD Progress
   let oadProgress = OADProgressInfo()
 
   ///Length of the mFileBuffer
-  var mFileLength:Int = 0
+  var mFileLength: Int = 0
   ///Version of the binary
-  var fwVersion:String
+  var fwVersion: String
 
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
 
-  //MARK: - Init Methods
   /// Init the OADManager which prepare for send the Binary to the Melomind
   ///
   /// - Parameter fileName: the file name of the binary
@@ -42,35 +50,38 @@ class MBTOADManager {
     createBufferFromBinaryFile()
   }
 
-  //MARK: - OADManager Methods
+  //----------------------------------------------------------------------------
+  // MARK: - Methods
+  //----------------------------------------------------------------------------
 
   /// Prepare the buffer and the progress info
   func createBufferFromBinaryFile() {
-    oadProgress.reset(mFileLength,OAD_BLOCK_SIZE: OAD_BLOCK_SIZE)
-    var tempBuffer:[UInt8]
+    var tempBuffer: [UInt8]
+
+    oadProgress.reset(mFileLength, blockSize: blockSize)
 
     while oadProgress.iBlock < oadProgress.nBlock {
       tempBuffer = [UInt8]()
       tempBuffer.append(oadProgress.iBlock.loUint8)
       tempBuffer.append(oadProgress.iBlock.hiUint16)
-      if (oadProgress.iBytes + OAD_BLOCK_SIZE) > mFileLength {
+      if (oadProgress.iBytes + blockSize) > mFileLength {
         let range = oadProgress.iBytes ..< mFileBuffer.count
         tempBuffer += [UInt8](mFileBuffer[range])
 
-        while tempBuffer.count < OAD_BLOCK_SIZE + 2 {
+        while tempBuffer.count < blockSize + 2 {
           tempBuffer.append(UInt8(0xFF))
         }
       } else {
         let iBytes = oadProgress.iBytes
-        tempBuffer += [UInt8](mFileBuffer[iBytes ..< iBytes + OAD_BLOCK_SIZE])
+        tempBuffer += [UInt8](mFileBuffer[iBytes ..< iBytes + blockSize])
       }
 
       oadProgress.iBlock += 1
-      oadProgress.iBytes += OAD_BLOCK_SIZE
+      oadProgress.iBytes += blockSize
       mOadBuffer.append(tempBuffer)
     }
 
-    oadProgress.reset(mFileLength,OAD_BLOCK_SIZE: OAD_BLOCK_SIZE)
+    oadProgress.reset(mFileLength, blockSize: blockSize)
   }
 
   /// get the data to be send at the Melomind and increase the counter
@@ -89,7 +100,7 @@ class MBTOADManager {
   func getFWVersionAsByteArray() -> [UInt8] {
     var bytesArray = [UInt8]()
     for i in 0 ..< 2 {
-      bytesArray.append(mFileBuffer[OAD_FW_VERSION_OFFSET + i])
+      bytesArray.append(mFileBuffer[firmwareVersionOffset + i])
     }
     return bytesArray
   }

@@ -26,7 +26,7 @@ struct MBTJSONHelper {
     let dateFormater = DateFormatter()
     dateFormater.dateFormat = "yyyy-MM-dd--HH:mm:ss"
     let projectName =
-      Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
+      Bundle.main.infoDictionary![kCFBundleNameKey as String] as? String ?? ""
     let deviceName = "melo_" + idDevice
     let stringIdUser = "\(idUser)"
 
@@ -90,8 +90,8 @@ struct MBTJSONHelper {
                                         attributes: nil)
       }
 
-      let fileName:String =
-        MBTJSONHelper.getFileName(idUser,withIdDevice: idDevice)
+      let fileName: String =
+        MBTJSONHelper.getFileName(idUser, withIdDevice: idDevice)
 
       let fileURL = eegPacketJSONRecordingsPath.appendingPathComponent(fileName)
 
@@ -108,6 +108,5 @@ struct MBTJSONHelper {
 
     return nil
   }
-
 
 }

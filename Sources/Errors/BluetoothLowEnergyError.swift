@@ -22,7 +22,7 @@ enum BluetoothLowEnergyError: Int, MBTError {
     switch self {
     case .connectionTimeOut:
       return "Timeout while connecting bluetooth low energy"
-      case .poweredOff:
+    case .poweredOff:
       return "Bluetooth low energy is powered off"
     }
   }

@@ -85,7 +85,7 @@ struct MBTBrainWebHelper {
 
     guard let request =
       try? Alamofire.URLEncoding.default.encode(urlRequest,
-                                                with: [String:String]())
+                                                with: [String: String]())
       else {
         completion(false)
         return
@@ -145,7 +145,7 @@ struct MBTBrainWebHelper {
     for fileURL in tableEegPacketsJSONFiles {
       if let request =
         try? Alamofire.URLEncoding.default.encode(urlRequest,
-                                                  with: [String:String]()) {
+                                                  with: [String: String]()) {
         let multipartFormData: (MultipartFormData) -> Void = {
           multipartFormData in
           multipartFormData.append(fileURL, withName: "eeg")
@@ -172,7 +172,7 @@ struct MBTBrainWebHelper {
             }
         }
 
-        Alamofire.upload(multipartFormData:multipartFormData,
+        Alamofire.upload(multipartFormData: multipartFormData,
                          with: request,
                          encodingCompletion: encodingCompletion)
       }

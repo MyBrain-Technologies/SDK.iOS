@@ -8,7 +8,7 @@ public class MBTQRCodeSerial: NSObject {
 
   private static var serialFile = "qrcodeSerial"
 
-  private var qrCodesTable: [String:String] = [:]
+  private var qrCodesTable: [String: String] = [:]
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization

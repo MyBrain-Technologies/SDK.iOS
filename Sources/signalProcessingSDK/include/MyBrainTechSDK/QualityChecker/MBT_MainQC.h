@@ -43,23 +43,22 @@ class MBT_MainQC
     public:
         /**
          * @brief Construct a new MBT_MainQC object
-         * @deprecated
          */
         MBT_MainQC(const SP_FloatType sampRate,SP_FloatMatrix trainingFeatures, SP_FloatVector trainingClasses, SP_FloatVector w,
                     SP_FloatVector mu, SP_FloatVector sigma, unsigned int const& kppv, SP_FloatMatrix const& costClass,
                     std::vector< SP_FloatVector > potTrainingFeatures, std::vector< SP_FloatVector > dataClean,
                     SP_FloatVector spectrumClean, SP_FloatVector cleanItakuraDistance, SP_FloatType accuracy,
                     SP_FloatMatrix trainingFeaturesBad, SP_FloatVector trainingClassesBad, SP_FloatVector wBad,
-                    SP_FloatVector muBad, SP_FloatVector sigmaBad, SP_FloatMatrix const& costClassBad);
+                   SP_FloatVector muBad, SP_FloatVector sigmaBad, SP_FloatMatrix const& costClassBad);
 
         /**
          * @brief Construct a new MBT_MainQC object
          * 
-         * @param config 
-         * @param goodTrainingData 
-         * @param spectrumClean 
-         * @param cleanItakuraDistance 
-         * @param badTrainingData 
+         * @param config config
+         * @param goodTrainingData goodTrainingData
+         * @param spectrumClean spectrumClean
+         * @param cleanItakuraDistance cleanItakuraDistance
+         * @param badTrainingData badTrainingData
          */
         MBT_MainQC(const MBT_QCConfig& config, const MBT_TrainingData& goodTrainingData, SP_FloatVector spectrumClean,
                     SP_FloatVector cleanItakuraDistance, const MBT_TrainingData& badTrainingData);
@@ -67,10 +66,10 @@ class MBT_MainQC
         /**
          * @brief Compute the quality of the provided signal
          * 
-         * @param inputData 
-         * @param bandpassProcess 
-         * @param firstBound 
-         * @param secondBound 
+         * @param inputData inputData
+         * @param bandpassProcess bandpassProcess
+         * @param firstBound firstBound
+         * @param secondBound secondBound
          */
         void MBT_ComputeQuality(SP_FloatMatrix const& inputData, bool bandpassProcess = false, SP_FloatType firstBound = 2.0, SP_FloatType secondBound = 30.0);
 
@@ -83,9 +82,9 @@ class MBT_MainQC
          * Do the processing: RemoveDC and BandPassFilter
          * Put back the NaN to the processed data
          * 
-         * @param inputData 
-         * @param firstBound 
-         * @param secondBound 
+         * @param inputData inputData
+         * @param firstBound firstBound
+         * @param secondBound secondBound
          * @return SP_FloatMatrix 
          */
         SP_FloatMatrix MBT_compute_data_to_display(SP_FloatMatrix const& inputData, SP_FloatType firstBound = 2.0, SP_FloatType secondBound = 30.0); // Method to compute a processed data for display purpose
@@ -188,9 +187,9 @@ class MBT_MainQC
         /**
          * @brief Calculates features of each EEG observation
          * 
-         * @param bandpassProcess 
-         * @param firstBound 
-         * @param secondBound 
+         * @param bandpassProcess bandpassProcess
+         * @param firstBound firstBound
+         * @param secondBound secondBound
          */
         void MBT_featuresQualityChecker(bool bandpassProcess = false, SP_FloatType firstBound= 2.0, SP_FloatType secondBound = 30.0);
 
@@ -308,7 +307,7 @@ class MBT_MainQC
          * @brief Process a signal with estimated quality equals to 0.5
          * 
          * @param signal Signal converted to uV
-         * @param signalInit 
+         * @param signalInit signalInit
          * @param t Current signal index from input data
          */
         void processMediumSignal(const SP_Vector& signal, const SP_Vector& signalInit, unsigned int t);
@@ -325,7 +324,7 @@ class MBT_MainQC
          * @brief Gives the final quality of each observation and prepare each observation
          * (in function of its quality) to the relaxation index module
          * 
-         * @param inputData 
+         * @param inputData inputData
          */
         void MBT_qualityChecker(SP_FloatMatrix inputData);
 
@@ -334,7 +333,7 @@ class MBT_MainQC
          * between the averaged spectrum of clean data (quality = 1)
          * and the spectrum of each observation of EEG data (between 0 and 40Hz).
          * 
-         * @param data 
+         * @param data data
          * @return SP_FloatType 
          */
         SP_FloatType MBT_itakuraDistance(SP_FloatVector data);
@@ -353,9 +352,9 @@ class MBT_MainQC
          * 
          * @param tmpInputDataRow Signal data
          * @param freqBounds Frequency bounds to bandpass
-         * @param x 
-         * @param y 
-         * @param xInterp 
+         * @param x x
+         * @param y y
+         * @param xInterp xInterp
          * @return SP_Vector Processed input
          */
         SP_Vector processInputDataRow(const SP_FloatVector& tmpInputDataRow, const SP_Vector& freqBounds, SP_Vector& x, SP_Vector& y, SP_Vector& xInterp);
@@ -364,7 +363,7 @@ class MBT_MainQC
          * @brief Process data to display by repushing NaN values as before interpolation
          * 
          * @param inputDataRow Signal data processed
-         * @param xInterp 
+         * @param xInterp xInterp
          * @return SP_FloatVector Filtered data
          */
         SP_FloatVector processDataForDisplay(const SP_Vector& inputDataRow, const SP_Vector& xInterp);

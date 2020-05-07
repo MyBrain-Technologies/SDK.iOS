@@ -1,18 +1,17 @@
-//
-//  String+extension.swift
-//  MyBrainTechnologiesSDK-iOS
-//
-//  Created by Mathilde on 23/01/2019.
-//  Copyright © 2019 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
 
+/*******************************************************************************
+ * CSVConverter
+ *
+ * Read a CSV file and return its content as a nested array of string
+ *
+ ******************************************************************************/
 class CSVConverter {
 
+  /// Read file content and return csv data as a nested array of string
   static public func data(fromFile filename: String,
                           lineSeparator: String,
-                          columnSeparator: String)  -> [[String]] {
+                          columnSeparator: String) -> [[String]] {
     guard let content = try? String(contentsOfFile: filename, encoding: .utf8)
       else {
         return [[String]]()
@@ -20,23 +19,21 @@ class CSVConverter {
 
     clearInput(content)
 
-    return CSVConverter.data(fromString:content,
+    return CSVConverter.data(fromString: content,
                              lineSeparator: lineSeparator,
                              columnSeparator: columnSeparator)
   }
 
+  /// Convert a string representing the content of a CSV as a nested array of string, based on lineSeparator
+  /// and column separator.
   static public func data(fromString string: String,
                           lineSeparator: String,
                           columnSeparator: String) -> [[String]] {
     let clearContent = clearInput(string)
-
     let lines = clearContent.components(separatedBy: lineSeparator)
-    var data = [[String]]()
 
-    for line in lines {
-      if !line.isEmpty {
-        data.append(line.components(separatedBy: columnSeparator))
-      }
+    let data = lines.compactMap() {
+      $0.isEmpty ? nil : $0.components(separatedBy: columnSeparator)
     }
 
     return data
