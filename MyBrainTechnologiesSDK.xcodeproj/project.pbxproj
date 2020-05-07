@@ -74,6 +74,16 @@
 		A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */; };
 		A974EFC423CE2AD100B9F9BE /* MBTDeviceInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */; };
 		A9D3B5DE23F40740006138E5 /* BluetoothState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D3B5DD23F40740006138E5 /* BluetoothState.swift */; };
+		A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */; };
+		A9E3A7BC24643B7700E6A4B9 /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
+		A9E3A7C224643D1000E6A4B9 /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A918D2992461CC2200026F1D /* SwiftyBeaver.framework */; };
+		A9E3A7C324643D1300E6A4B9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
+		A9E3A7C824643E8100E6A4B9 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
+		A9E3A7C924643E8100E6A4B9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
+		A9E3A7CA24643E8100E6A4B9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
+		A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7CB24643F5200E6A4B9 /* CSVConverterTests.swift */; };
+		A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */; };
+		A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */; };
 		B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		B5378D0921F8B8A4007F12DA /* CSVConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5378D0821F8B8A4007F12DA /* CSVConverter.swift */; };
 		B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */; };
@@ -90,6 +100,16 @@
 		F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */; };
 		F4A235ED1F01786200A0145A /* MelomindEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A9E3A7BD24643B7700E6A4B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3549BB201DA389CD00C63030;
+			remoteInfo = "MyBrainTechnologiesSDK-iOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2B439B7720A1E663005C12A6 /* Copy Files */ = {
@@ -177,6 +197,12 @@
 		A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectrodeLocation.swift; sourceTree = "<group>"; };
 		A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTDeviceInformations.swift; sourceTree = "<group>"; };
 		A9D3B5DD23F40740006138E5 /* BluetoothState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothState.swift; sourceTree = "<group>"; };
+		A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyBrainTechnologiesSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
+		A9E3A7BB24643B7700E6A4B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9E3A7CB24643F5200E6A4B9 /* CSVConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVConverterTests.swift; sourceTree = "<group>"; };
+		A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRelaxIndexAlgorithmTests.swift; sourceTree = "<group>"; };
+		A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersionTests.swift; sourceTree = "<group>"; };
 		B5378D0821F8B8A4007F12DA /* CSVConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVConverter.swift; sourceTree = "<group>"; };
 		B5378D0B21F8C0C4007F12DA /* MBTQRCodeSerial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTQRCodeSerial.swift; sourceTree = "<group>"; };
 		B53A0976220490CB00DAD321 /* qrcodeSerial.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = qrcodeSerial.csv; sourceTree = "<group>"; };
@@ -212,6 +238,19 @@
 				A90A1D6622C373360097C1BE /* libNF_Melomind.a in Frameworks */,
 				A90A1D6822C373360097C1BE /* libPreProcessing.a in Frameworks */,
 				4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E3A7B424643B7700E6A4B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9E3A7C824643E8100E6A4B9 /* Realm.framework in Frameworks */,
+				A9E3A7CA24643E8100E6A4B9 /* Alamofire.framework in Frameworks */,
+				A9E3A7C924643E8100E6A4B9 /* RealmSwift.framework in Frameworks */,
+				A9E3A7BC24643B7700E6A4B9 /* MyBrainTechnologiesSDK.framework in Frameworks */,
+				A9E3A7C224643D1000E6A4B9 /* SwiftyBeaver.framework in Frameworks */,
+				A9E3A7C324643D1300E6A4B9 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +320,7 @@
 			children = (
 				3549BB161DA3890B00C63030 /* Sources */,
 				2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */,
+				A9E3A7B824643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
 				3549BB061DA387DB00C63030 /* Products */,
 				357D954B1DA3F2B400AEC55F /* Frameworks */,
 			);
@@ -290,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */,
+				A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -298,7 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				B5378D0A21F8B8A8007F12DA /* Shared */,
-				B5378CFF21F8B43E007F12DA /* Ressources */,
+				B5378CFF21F8B43E007F12DA /* Resources */,
 				2BEB4981211DAF010076C270 /* Client */,
 				3549BB5C1DA38AA500C63030 /* Core */,
 				3549BB541DA38A4000C63030 /* Supporting Files */,
@@ -458,12 +499,32 @@
 			name = Acquisition;
 			sourceTree = "<group>";
 		};
-		B5378CFF21F8B43E007F12DA /* Ressources */ = {
+		A9E3A7B824643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				A9E3A7CD246440D500E6A4B9 /* Shared */,
+				A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */,
+				A9E3A7BB24643B7700E6A4B9 /* Info.plist */,
+			);
+			path = MyBrainTechnologiesSDKTests;
+			sourceTree = "<group>";
+		};
+		A9E3A7CD246440D500E6A4B9 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A9E3A7CB24643F5200E6A4B9 /* CSVConverterTests.swift */,
+				A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */,
+				A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B5378CFF21F8B43E007F12DA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				B53A0976220490CB00DAD321 /* qrcodeSerial.csv */,
 			);
-			path = Ressources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		B5378D0A21F8B8A8007F12DA /* Shared */ = {
@@ -554,13 +615,33 @@
 			productReference = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9E3A7C124643B7700E6A4B9 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests" */;
+			buildPhases = (
+				A9E3A7B324643B7700E6A4B9 /* Sources */,
+				A9E3A7B424643B7700E6A4B9 /* Frameworks */,
+				A9E3A7B524643B7700E6A4B9 /* Resources */,
+				A9E3A7C724643D8E00E6A4B9 /* Carthage copy frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */,
+			);
+			name = MyBrainTechnologiesSDKTests;
+			productName = MyBrainTechnologiesSDKTests;
+			productReference = A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3549BAFC1DA387DB00C63030 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				DefaultBuildSystemTypeForWorkspace = Original;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = MyBrainTechnologies;
 				TargetAttributes = {
@@ -568,6 +649,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 23T8TD424J;
 						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
+					};
+					A9E3A7B624643B7700E6A4B9 = {
+						CreatedOnToolsVersion = 11.3.1;
+						DevelopmentTeam = 23T8TD424J;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -586,6 +672,7 @@
 			projectRoot = "";
 			targets = (
 				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */,
+				A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
 			);
 		};
 /* End PBXProject section */
@@ -598,6 +685,13 @@
 				B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */,
 				A95C1A17244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin in Resources */,
 				A95C1A18244F1EC200AB4588 /* mm-ota-1_7_14.bin in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9E3A7B524643B7700E6A4B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +715,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		A9E3A7C724643D8E00E6A4B9 /* Carthage copy frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyBeaver.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+			);
+			name = "Carthage copy frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -693,7 +810,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A9E3A7B324643B7700E6A4B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */,
+				A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */,
+				A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */,
+				A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			targetProxy = A9E3A7BD24643B7700E6A4B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3549BB0B1DA387DB00C63030 /* Debug */ = {
@@ -799,6 +935,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -836,6 +973,7 @@
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -884,7 +1022,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_TESTABILITY = NO;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -919,6 +1057,59 @@
 			};
 			name = Release;
 		};
+		A9E3A7BF24643B7700E6A4B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23T8TD424J;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MyBrainTechnologiesSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = MathildeRessier.MyBrainTechnologiesSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A9E3A7C024643B7700E6A4B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23T8TD424J;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MyBrainTechnologiesSDKTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = MathildeRessier.MyBrainTechnologiesSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -936,6 +1127,15 @@
 			buildConfigurations = (
 				3549BB271DA389CD00C63030 /* Debug */,
 				3549BB281DA389CD00C63030 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9E3A7C124643B7700E6A4B9 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9E3A7BF24643B7700E6A4B9 /* Debug */,
+				A9E3A7C024643B7700E6A4B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
