@@ -42,6 +42,8 @@ public class MBTClient {
     get { return eegAcqusitionManager.isRecording }
   }
 
+  /// Legacy called history_size. Number of eegpackets used to compute some dark informations
+  /// on the C++ algorithms.
   public let acquisitionhistorySize = Constants.EEGPackets.historySize
 
   /******************** Bluetooth ********************/
