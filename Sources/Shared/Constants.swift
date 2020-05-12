@@ -53,5 +53,7 @@ struct Constants {
 
   struct EEGPackets {
     static let historySize = 1
+    static let recordDirectory = "eegPacketJSONRecordings"
+    static let recordFilename = "eegPacketsRecording"
   }
 }
