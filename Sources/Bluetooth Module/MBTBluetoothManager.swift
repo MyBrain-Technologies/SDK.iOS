@@ -1577,7 +1577,7 @@ extension MBTBluetoothManager {
           DeviceManager.getCurrentDevice()?.deviceInfos,
           self.OADManager != nil,
           let currentFwVersion = currentDeviceInfo.firmwareVersion,
-          currentFwVersion.contains(self.OADManager!.fwVersion) {
+          FirmwareVersion(string: currentFwVersion) == FirmwareVersion(string: oadFwVersion!) {
           self.eventDelegate?.onProgressUpdate?(1.0)
           self.isOADInProgress = false
           self.OADState = .DISABLE
