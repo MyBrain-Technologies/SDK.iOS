@@ -31,7 +31,6 @@ class FormatedVersionTests: XCTestCase {
     XCTAssertEqual(formatedVersion.fix, 2)
   }
 
-
   func testFormatedVersion_FromInvalidString() {
     let version = "hello1.0.2"
 

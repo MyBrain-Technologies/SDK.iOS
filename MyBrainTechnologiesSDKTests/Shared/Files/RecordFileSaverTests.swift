@@ -1,33 +1,56 @@
-//
-//  RecordFileSaverTests.swift
-//  MyBrainTechnologiesSDKTests
-//
-//  Created by Mathilde Ressier on 11/05/2020.
-//  Copyright © 2020 MyBrainTechnologies. All rights reserved.
-//
-
 import XCTest
+@testable import MyBrainTechnologiesSDK
 
 class RecordFileSaverTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+  private let directoryName = "Test"
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+  private lazy var saver: RecordFileSaver = {
+    return RecordFileSaver(fileManager: .default,
+                           directoryName: directoryName)
+  }()
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+  override class func tearDown() {
+    let saver = RecordFileSaver(fileManager: .default,
+                                directoryName: "Test")
+    saver.removeRecordsDirectory()
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Tests
+  //----------------------------------------------------------------------------
+
+  func testSaveFile_directoryExists() {
+    // When
+    saver.removeRecordsDirectory()
+
+    // Then
+    XCTAssertFalse(saver.isRecordsDirectoryExists)
+  }
+
+  func testSaveFile_createDirectoryName() {
+    // When
+    saver.createRecordsDirectory()
+
+    // Then
+    XCTAssertTrue(saver.isRecordsDirectoryExists)
+  }
+
+  func testSaveFile_saveRecord() {
+    let name = "test_save.json"
+
+    // When
+    let file = saver.saveRecord("hello world", at: name)
+
+    // Then
+    XCTAssertNotNil(file)
+    XCTAssertTrue(
+      saver.getSavedRecords().contains(where: { $0.path.contains(name) })
+    )
+  }
 
 }

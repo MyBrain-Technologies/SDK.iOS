@@ -130,6 +130,8 @@ public class MBTClient {
     eegAcqusitionManager = MBTEEGAcquisitionManager.shared
     deviceAcqusitionManager = MBTDeviceAcquisitionManager.shared
     signalProcessingManager = MBTSignalProcessingManager.shared
+
+    initLog(logToFile: false, isDebugMode: false)
   }
 
   //----------------------------------------------------------------------------
