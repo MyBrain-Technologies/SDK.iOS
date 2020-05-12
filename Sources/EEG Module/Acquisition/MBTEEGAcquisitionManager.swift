@@ -147,17 +147,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                                               recordInfo: currentRecordInfo,
                                               comments: comments)
           // Save JSON with EEG data received.
-          let fileURL = MBTJSONHelper.saveJSONOnDevice(
-            jsonObject,
-            idDevice: resDevice.deviceInfos!.deviceId!,
-            idUser: idUser, with: {
-            // Then delete all MBTEEGPacket saved.
-            DispatchQueue.main.async {
-              EEGPacketManager.removePackets(packetToRemove)
-            }
-          })
-
+          let deviceId = resDevice.deviceInfos!.deviceId!
+          let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
+                                                          deviceId: deviceId,
+                                                          userId: idUser)
           DispatchQueue.main.async {
+            EEGPacketManager.removePackets(packetToRemove)
             completion(fileURL)
           }
         } else {

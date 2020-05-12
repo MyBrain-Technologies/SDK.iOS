@@ -42,6 +42,8 @@ public class MBTClient {
     get { return eegAcqusitionManager.isRecording }
   }
 
+  /// Legacy called history_size. Number of eegpackets used to compute some dark informations
+  /// on the C++ algorithms.
   public let acquisitionhistorySize = Constants.EEGPackets.historySize
 
   /******************** Bluetooth ********************/
@@ -128,6 +130,8 @@ public class MBTClient {
     eegAcqusitionManager = MBTEEGAcquisitionManager.shared
     deviceAcqusitionManager = MBTDeviceAcquisitionManager.shared
     signalProcessingManager = MBTSignalProcessingManager.shared
+
+    initLog(logToFile: false, isDebugMode: false)
   }
 
   //----------------------------------------------------------------------------
@@ -244,13 +248,6 @@ public class MBTClient {
     return DeviceManager.connectedDeviceName
   }
 
-//  /// Getter for the session JSON.
-//  /// - Returns: A *Data* JSON, based on *kwak* scheme. Nil if JSON does not
-//  /// exist.
-//  public func getSessionJSON() -> Data? {
-//    return MBTJSONHelper.getSessionData()
-//  }
-//
   /// Getter Names of all regitered devices.
   /// - Returns: A *[String]* instance of array of deviceName.
   public func getRegisteredDevices() -> [MBTDevice] {
@@ -272,11 +269,11 @@ public class MBTClient {
                           baseUrl: String,
                           removeFile: Bool,
                           accessTokens: String) {
-    MBTBrainWebHelper.accessTokens = accessTokens
-    MBTBrainWebHelper.sendJSONToBrainWeb(urlFile, baseURL: baseUrl) { success in
-      if success && removeFile {
-        MBTJSONHelper.removeFile(urlFile)
-      }
+    BrainwebRequest.shared.accessTokens = accessTokens
+    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl)
+    { success in
+      guard success && removeFile else { return }
+      RecordFileSaver.shared.removeRecord(at: urlFile)
     }
   }
 
