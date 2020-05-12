@@ -37,8 +37,8 @@ struct BrainwebRequest {
   func sendJSON(_ fileURL: URL,
                 baseURL: String,
                 completion: @escaping (Bool) -> Void) {
-    let request = BrainwebRequestBuilder().buildIngestPost(fromBase: baseURL,
-                                                           token: accessTokens)
+    let request = BrainwebRequestBuilder.buildIngestPost(fromBase: baseURL,
+                                                         token: accessTokens)
     guard let urlRequest = request else {
       log.error("Cannot build request to brainweb", context: baseURL)
       return completion(false)

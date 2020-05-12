@@ -13,15 +13,15 @@ struct BrainwebRequestBuilder {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  private let path = "/ingest-legacy"
-  private let timeout = TimeInterval(20)
+  private static let path = "/ingest-legacy"
+  private static let timeout = TimeInterval(20)
 
   //----------------------------------------------------------------------------
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
   /// Build a url request from a `baseURL`
-  func build(fromBase baseURL: String) -> URLRequest? {
+  static func build(fromBase baseURL: String) -> URLRequest? {
     guard var url = URL(string: baseURL) else { return nil }
 
     url.appendPathComponent(path)
@@ -30,7 +30,7 @@ struct BrainwebRequestBuilder {
   }
 
   /// Build a POST ingest request on the given brainweb url
-  func buildIngestPost(fromBase baseURL: String,
+  static func buildIngestPost(fromBase baseURL: String,
                        token: String) -> URLRequest? {
     guard var urlRequest = build(fromBase: baseURL) else { return nil }
 
