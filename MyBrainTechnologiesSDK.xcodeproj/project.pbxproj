@@ -42,9 +42,9 @@
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
 		A927D59323CCED0900C20734 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59223CCED0900C20734 /* Constants.swift */; };
+		A92FCD6A246B068000D7DB51 /* mm-ota-i3-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A92FCD68246B068000D7DB51 /* mm-ota-i3-1_7_14.bin */; };
+		A92FCD6B246B068000D7DB51 /* mm-ota-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A92FCD69246B068000D7DB51 /* mm-ota-1_7_14.bin */; };
 		A95C1A10244F13ED00AB4588 /* FirmwareVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FirmwareVersion.swift */; };
-		A95C1A17244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */; };
-		A95C1A18244F1EC200AB4588 /* mm-ota-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */; };
 		A974EFB523CE0C0600B9F9BE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB423CE0C0600B9F9BE /* Utils.swift */; };
 		A974EFB723CE0C2100B9F9BE /* OADStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB623CE0C2100B9F9BE /* OADStateType.swift */; };
 		A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB823CE0CB200B9F9BE /* OADProgress.swift */; };
@@ -124,9 +124,9 @@
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
 		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		A927D59223CCED0900C20734 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A92FCD68246B068000D7DB51 /* mm-ota-i3-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-i3-1_7_14.bin"; path = "doc/firmware_binaries/mm-ota-i3-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
+		A92FCD69246B068000D7DB51 /* mm-ota-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-1_7_14.bin"; path = "doc/firmware_binaries/mm-ota-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
 		A95C1A0F244F13ED00AB4588 /* FirmwareVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwareVersion.swift; sourceTree = "<group>"; };
-		A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_14.bin"; sourceTree = "<group>"; };
-		A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_14.bin"; sourceTree = "<group>"; };
 		A974EFB423CE0C0600B9F9BE /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A974EFB623CE0C2100B9F9BE /* OADStateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADStateType.swift; sourceTree = "<group>"; };
 		A974EFB823CE0CB200B9F9BE /* OADProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADProgress.swift; sourceTree = "<group>"; };
@@ -264,8 +264,8 @@
 		3549BB541DA38A4000C63030 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */,
-				A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */,
+				A92FCD69246B068000D7DB51 /* mm-ota-1_7_14.bin */,
+				A92FCD68246B068000D7DB51 /* mm-ota-i3-1_7_14.bin */,
 				F4A235FB1F0178FF00A0145A /* Utils */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
@@ -507,8 +507,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */,
-				A95C1A17244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin in Resources */,
-				A95C1A18244F1EC200AB4588 /* mm-ota-1_7_14.bin in Resources */,
+				A92FCD6A246B068000D7DB51 /* mm-ota-i3-1_7_14.bin in Resources */,
+				A92FCD6B246B068000D7DB51 /* mm-ota-1_7_14.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
