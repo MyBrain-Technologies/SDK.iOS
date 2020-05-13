@@ -38,8 +38,8 @@ public class MBTClient {
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
 
   public var isEegAcqusitionRecordingPaused: Bool {
-    set { eegAcqusitionManager.isRecording = newValue }
-    get { return eegAcqusitionManager.isRecording }
+    set { eegAcquisitionManager.isRecording = newValue }
+    get { return eegAcquisitionManager.isRecording }
   }
 
   /// Legacy called history_size. Number of eegpackets used to compute some dark informations
@@ -109,11 +109,11 @@ public class MBTClient {
   }
 
   public weak var eegAcqusitionDelegate: MBTEEGAcquisitionDelegate? {
-    didSet { eegAcqusitionManager.delegate = eegAcqusitionDelegate }
+    didSet { eegAcquisitionManager.delegate = eegAcqusitionDelegate }
   }
 
   public weak var deviceAcqusitionDelegate: MBTDeviceAcquisitionDelegate? {
-    didSet { deviceAcqusitionManager.delegate = deviceAcqusitionDelegate }
+    didSet { deviceAcquisitionManager.delegate = deviceAcqusitionDelegate }
   }
 
   //----------------------------------------------------------------------------
@@ -127,8 +127,8 @@ public class MBTClient {
       !bluetoothManager.isConnected {
       bluetoothManager.connectTo(deviceName)
     }
-    eegAcqusitionManager = MBTEEGAcquisitionManager.shared
-    deviceAcqusitionManager = MBTDeviceAcquisitionManager.shared
+    eegAcquisitionManager = MBTEEGAcquisitionManager.shared
+    deviceAcquisitionManager = MBTDeviceAcquisitionManager.shared
     signalProcessingManager = MBTSignalProcessingManager.shared
 
     initLog(logToFile: false, isDebugMode: false)
@@ -287,7 +287,7 @@ public class MBTClient {
                                   algo: String? = nil,
                                   comments: [String] = [String](),
                                   completion: @escaping (URL?) -> Void) {
-    eegAcqusitionManager.saveRecordingOnFile(idUser,
+    eegAcquisitionManager.saveRecordingOnFile(idUser,
                                              algo: algo,
                                              comments: comments,
                                              completion: completion)
@@ -356,8 +356,8 @@ public class MBTClient {
   /// - Parameters:
   ///   - delegate: The Melomind Engine Delegate to get Headset datas.
   internal func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
-    eegAcqusitionManager.delegate = delegate
-    deviceAcqusitionManager.delegate = delegate
+    eegAcquisitionManager.delegate = delegate
+    deviceAcquisitionManager.delegate = delegate
   }
 
   /// Start saving EEGPacket on DB  /// - Parameters:
@@ -378,7 +378,7 @@ public class MBTClient {
       recordInfo.recordingType = recordingType
     }
 
-    eegAcqusitionManager.isRecording = true
+    eegAcquisitionManager.isRecording = true
 
     return recordInfo.recordId
   }
@@ -386,14 +386,14 @@ public class MBTClient {
   /// Stop saving EEGPacket on DB
   public func stopRecording() {
     guard DeviceManager.connectedDeviceName != nil else { return }
-    eegAcqusitionManager.isRecording = false
+    eegAcquisitionManager.isRecording = false
   }
 
   /// Start streaming EEG Data from MyBrainActivity Characteristic.
   /// Start streaming headSet Data from HeadsetStatus Characteristic.
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
   public func startStream(_ shouldUseQualityChecker: Bool) {
-    eegAcqusitionManager.streamHasStarted(shouldUseQualityChecker)
+    eegAcquisitionManager.streamHasStarted(shouldUseQualityChecker)
     bluetoothManager.isListeningToEEG = true
     bluetoothManager.isListeningToHeadsetStatus = true
   }
@@ -404,7 +404,7 @@ public class MBTClient {
   public func stopStream() {
 //    bluetoothManager.isListeningToHeadsetStatus = false
     bluetoothManager.isListeningToEEG = false
-    eegAcqusitionManager.streamHasStopped()
+    eegAcquisitionManager.streamHasStopped()
   }
 
   /// Start the OAD process
