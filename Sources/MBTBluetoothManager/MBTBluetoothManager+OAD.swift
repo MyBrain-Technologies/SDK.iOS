@@ -63,7 +63,7 @@ extension MBTBluetoothManager {
 
     stopTimerUpdateBatteryLevel()
 
-    if let characteristic = MBTBluetoothLEHelper.mailBoxCharacteristic {
+    if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
       blePeripheral?.setNotifyValue(true, for: characteristic)
     }
 
@@ -92,7 +92,7 @@ extension MBTBluetoothManager {
 
         self.blePeripheral?.writeValue(
           oadManager.getNextOADBufferData(),
-          for: MBTBluetoothLEHelper.oadTransfertCharacteristic,
+          for: BluetoothDeviceCharacteristics.shared.oadTransfert,
           type: .withoutResponse
         )
 

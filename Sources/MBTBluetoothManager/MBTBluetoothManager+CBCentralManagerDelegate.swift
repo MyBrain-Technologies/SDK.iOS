@@ -168,7 +168,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     peripheral.discoverServices(nil)
 
     if isOADInProgress && OADState >= .completed {
-      MBTBluetoothLEHelper.deviceInfoCharacteristic.removeAll()
+      BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
       //      requestUpdateDeviceInfo()
     } else {
       DeviceManager.resetDeviceInfo()

@@ -23,11 +23,11 @@ public class MBTClient {
 
   /// Init a MBTEEGAcquisitionManager, which deals with
   /// data from the MBT Headset.
-  internal let eegAcqusitionManager: MBTEEGAcquisitionManager
+  internal let eegAcquisitionManager: MBTEEGAcquisitionManager
 
   /// Init a MBTDeviceAcquisitionManager, which deals with
   /// data from the MBT Headset.
-  internal let deviceAcqusitionManager: MBTDeviceAcquisitionManager
+  internal let deviceAcquisitionManager: MBTDeviceAcquisitionManager
 
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).

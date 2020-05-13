@@ -10,9 +10,12 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  /******************** Typealiases ********************/
 
-  fileprivate typealias BLEHelper = MBTBluetoothLEHelper
+  private var hasDiscoverAllCharacteristics: Bool {
+    return counterServicesDiscover <= 0
+      && BluetoothDeviceCharacteristics.shared.mailBox != nil
+      && BluetoothDeviceCharacteristics.shared.deviceInformations.count == 4
+  }
 
   //----------------------------------------------------------------------------
   // MARK: - Delegate Methods
@@ -36,10 +39,10 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     for service in services {
       let currentService = service as CBService
       // Get the MyBrainService and Device info UUID
-      let servicesUUID = MBTBluetoothLEHelper.getServicesUUIDs()
+      let servicesUUID = BluetoothService.melomindServices.uuids
 
       // Check if manager should look at this service characteristics
-      if servicesUUID.contains(CBUUID(data: service.uuid.data)) {
+      if servicesUUID.contains(service.uuid) {
         peripheral.discoverCharacteristics(nil, for: currentService)
         counterServicesDiscover += 1
       }
@@ -55,55 +58,29 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   func peripheral(_ peripheral: CBPeripheral,
                   didDiscoverCharacteristicsFor service: CBService,
                   error: Error?) {
-
-    guard blePeripheral != nil,
-      let serviceCharacteristics = service.characteristics else {
-        return
-    }
+    log.verbose("🆕 Did discover characteristics")
+    guard blePeripheral != nil, service.characteristics != nil else { return }
 
     counterServicesDiscover -= 1
-    // Get the device information characteristics UUIDs.
-    let characteristicsUUIDS = BLEHelper.getDeviceInfoCharacteristicsUUIDS()
 
-    // check the uuid of each characteristic
-    // to find config and data characteristics
+    updateDeviceCharacteristics(with: service)
+
+    if hasDiscoverAllCharacteristics {
+      prepareDevice()
+    }
+  }
+
+  private func updateDeviceCharacteristics(with service: CBService) {
+    guard let serviceCharacteristics = service.characteristics else { return }
+
     for serviceCharacteristic in serviceCharacteristics {
       let characteristic = serviceCharacteristic as CBCharacteristic
-      let characteristicData = CBUUID(data: characteristic.uuid.data)
-
-      // MyBrainService's Characteristics
-      if BluetoothService.brainActivityMeasurement.uuid == characteristicData {
-        // Enable Sensor Notification and read the current value
-        BLEHelper.brainActivityMeasurementCharacteristic = characteristic
-      }
-
-      // Device info's Characteristics
-      if characteristicsUUIDS.contains(characteristicData) {
-        BLEHelper.deviceInfoCharacteristic.append(characteristic)
-      }
-
-      // Device State's Characteristics
-      if BluetoothService.deviceBatteryStatus.uuid == characteristicData {
-        BLEHelper.deviceStateCharacteristic = characteristic
-      }
-
-      if BluetoothService.headsetStatus.uuid == characteristicData  {
-        BLEHelper.headsetStatusCharacteristic = characteristic
-      }
-
-      if BluetoothService.mailBox.uuid == characteristicData {
-        BLEHelper.mailBoxCharacteristic = characteristic
-      }
-      if BluetoothService.oadTransfert.uuid == characteristicData {
-        BLEHelper.oadTransfertCharacteristic = characteristic
-      }
+      BluetoothDeviceCharacteristics.shared.update(with: characteristic)
     }
+  }
 
-    guard counterServicesDiscover <= 0
-      && BLEHelper.mailBoxCharacteristic != nil
-      && BLEHelper.deviceInfoCharacteristic.count == 4 else { return }
-
-    prepareDeviceWithInfo {
+  private func prepareDevice() {
+    prepareDeviceWithInfo() {
       self.requestUpdateBatteryLevel()
       self.timerFinalizeConnectionMelomind = Timer.scheduledTimer(
         timeInterval: 2.0,
@@ -133,20 +110,27 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
 
     /******************** Quick access ********************/
 
-    let eegAcqusition = MBTClient.shared.eegAcqusitionManager
-    let deviceAcquisition = MBTClient.shared.deviceAcqusitionManager
+    let eegAcqusition = MBTClient.shared.eegAcquisitionManager
+    let deviceAcquisition = MBTClient.shared.deviceAcquisitionManager
 
     // Get the device information characteristics UUIDs.
-    let characsUUIDS = MBTBluetoothLEHelper.getDeviceInfoCharacteristicsUUIDS()
-    let characteristicUUID = CBUUID(data: characteristic.uuid.data)
+    let characsUUIDS = BluetoothService.deviceCharacteristics.uuids
+//    let characteristicUUID = CBUUID(data: characteristic.uuid.data)
+
+    let service = BluetoothService(uuid: characteristic.uuid)
+
+    switch service {
+    case .brainActivityMeasurement: brainActivityService(data: notifiedData)
+
+    }
 
     switch characteristicUUID {
-    case BluetoothService.brainActivityMeasurement.uuid:
-      DispatchQueue.main.async { [weak self] in
-        guard let isListeningToEEG = self?.isListeningToEEG,
-          isListeningToEEG else { return }
-        eegAcqusition.processBrainActivityData(notifiedData)
-      }
+//    case BluetoothService.brainActivityMeasurement.uuid:
+//      DispatchQueue.main.async { [weak self] in
+//        guard let isListeningToEEG = self?.isListeningToEEG,
+//          isListeningToEEG else { return }
+//        eegAcqusition.processBrainActivityData(notifiedData)
+//      }
 
     case BluetoothService.headsetStatus.uuid:
       DispatchQueue.global(qos: .background).async {
@@ -191,7 +175,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
           } else {
             isOADInProgress = false
             OADState = .disable
-            if let characteristic = MBTBluetoothLEHelper.mailBoxCharacteristic {
+            if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
               blePeripheral?.setNotifyValue(false, for: characteristic)
             }
             startTimerUpdateBatteryLevel()
@@ -283,6 +267,20 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
       }
     default:
       break
+    }
+  }
+
+  func brainActivityService(data: Data) {
+    guard isListeningToEEG else { return }
+    DispatchQueue.main.async {
+      MBTClient.shared.eegAcquisitionManager.processBrainActivityData(data)
+    }
+  }
+
+  func headsetStatusService(characteristic: CBCharacteristic) {
+    DispatchQueue.global(qos: .background).async {
+      let aquisitionManager = MBTClient.shared.deviceAcquisitionManager
+      aquisitionManager.processHeadsetStatus(characteristic)
     }
   }
 
