@@ -30,8 +30,12 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     _ peripheral: CBPeripheral,
     didDiscoverServices error: Error?
   ) {
+    log.verbose("🆕 Did discover services")
+
     // Check all the services of the connecting peripheral.
     guard blePeripheral != nil, let services = peripheral.services else {
+      log.error("BLE peripheral is nil ? \(blePeripheral == nil)")
+      log.error("Services peripheral are nil ? \(peripheral.services == nil)")
       return
     }
     counterServicesDiscover = 0
@@ -59,7 +63,10 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
                   didDiscoverCharacteristicsFor service: CBService,
                   error: Error?) {
     log.verbose("🆕 Did discover characteristics")
-    guard blePeripheral != nil, service.characteristics != nil else { return }
+
+    guard blePeripheral != nil, service.characteristics != nil else {
+      return
+    }
 
     counterServicesDiscover -= 1
 
@@ -104,184 +111,310 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   func peripheral(_ peripheral: CBPeripheral,
                   didUpdateValueFor characteristic: CBCharacteristic,
                   error: Error?) {
-    guard let notifiedData = characteristic.value, blePeripheral != nil else {
+    log.verbose("🆕 Did update value for characteristic")
+
+    guard blePeripheral != nil else {
+      log.error("Ble peripheral is not set")
       return
     }
 
     /******************** Quick access ********************/
 
-    let eegAcqusition = MBTClient.shared.eegAcquisitionManager
+//    let eegAcqusition = MBTClient.shared.eegAcquisitionManager
     let deviceAcquisition = MBTClient.shared.deviceAcquisitionManager
 
-    // Get the device information characteristics UUIDs.
-    let characsUUIDS = BluetoothService.deviceCharacteristics.uuids
-//    let characteristicUUID = CBUUID(data: characteristic.uuid.data)
-
-    let service = BluetoothService(uuid: characteristic.uuid)
-
-    switch service {
-    case .brainActivityMeasurement: brainActivityService(data: notifiedData)
-
+    guard let service = BluetoothService(uuid: characteristic.uuid) else {
+      log.error("unknown service", context: characteristic.uuid)
+      return
     }
 
-    switch characteristicUUID {
-//    case BluetoothService.brainActivityMeasurement.uuid:
-//      DispatchQueue.main.async { [weak self] in
-//        guard let isListeningToEEG = self?.isListeningToEEG,
-//          isListeningToEEG else { return }
-//        eegAcqusition.processBrainActivityData(notifiedData)
-//      }
+    let serviceString = service.uuid.uuidString
+    log.verbose("🆕 Did update value for characteristic. (\(serviceString)")
 
-    case BluetoothService.headsetStatus.uuid:
-      DispatchQueue.global(qos: .background).async {
-        deviceAcquisition.processHeadsetStatus(characteristic)
-      }
-    case BluetoothService.deviceBatteryStatus.uuid:
-      if processBatteryLevel {
-        deviceAcquisition.processDeviceBatteryStatus(characteristic)
-      } else {
-        log.info("📲 Fake finalize connection")
+    switch service {
+    case .brainActivityMeasurement: brainActivityService(characteristic)
+    case .headsetStatus: headsetStatusService(characteristic)
+    case .deviceBatteryStatus: deviceBatteryService(characteristic)
+    case .mailBox: mailBoxService(characteristic)
+    default: break
+    }
 
-        processBatteryLevel = true
-        if shouldUpdateDeviceExternalName() {
-          if let name = getDeviceExternalName() {
-            sendDeviceExternalName(name)
-          } else {
-            finalizeConnectionMelomind()
-          }
-        } else {
-          finalizeConnectionMelomind()
-        }
-      }
-    case let uuid where characsUUIDS.contains(uuid) :
+    let deviceCharacteristics = BluetoothService.deviceCharacteristics.uuids
+    if deviceCharacteristics.contains(service.uuid) {
       deviceAcquisition.processDeviceInformations(characteristic)
-    case BluetoothService.mailBox.uuid:
-      stopTimerTimeOutA2DPConnection()
-      if let data = characteristic.value {
-        let length = data.count * MemoryLayout<UInt8>.size
-        var bytesArray = [UInt8](repeating: 0, count: data.count)
-        (data as NSData).getBytes(&bytesArray, length: length)
-
-        switch MailBoxEvents.getMailBoxEvent(v: bytesArray[0]) {
-        case .otaModeEvent:
-          log.info("📲 MBX_OTA_MODE_EVT bytesArray",
-                   context: bytesArray.description)
-
-          if bytesArray[1] == 0x01 {
-            OADState = .inProgress
-            eventDelegate?.onReadyToUpdate?()
-            eventDelegate?.onProgressUpdate?(0.1)
-            sendOADBuffer()
-          } else {
-            isOADInProgress = false
-            OADState = .disable
-            if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
-              blePeripheral?.setNotifyValue(false, for: characteristic)
-            }
-            startTimerUpdateBatteryLevel()
-
-            let error = OADError.transferPreparationFailed.error
-            log.error("📲 Transfer failed", context: error)
-
-            eventDelegate?.onUpdateFailWithError?(error)
-          }
-        case .otaIndexResetEvent:
-          log.info("📲 MBX_OTA_IDX_RESET_EVT bytesArray",
-                   context: bytesArray.description)
-          let dispatchWorkItem =
-            DispatchWorkItem(qos: .default, flags: .barrier) {
-              let shift1 = Int16((bytesArray[2] & 0xFF)) << 8
-              let shift2 = Int16(bytesArray[1] & 0xFF)
-              let iBlock = shift1 | shift2
-              self.OADManager?.oadProgress.iBlock = iBlock
-          }
-
-          DispatchQueue.global().async(execute: dispatchWorkItem)
-        case .otaStatusEvent:
-          log.info("📲 MBX_OTA_STATUS_EVT bytesArray",
-                   context: bytesArray.description)
-          if bytesArray[1] == 1 {
-            stopTimerTimeOutOAD()
-            OADState = .completed
-            eventDelegate?.onProgressUpdate?(0.9)
-            eventDelegate?.onUpdateComplete?()
-          } else {
-            startTimerUpdateBatteryLevel()
-            isOADInProgress = false
-            OADState = .disable
-
-            let error = OADError.transferInterrupted.error
-            log.error("📲 Transfer failed", context: error)
-
-            eventDelegate?.onUpdateFailWithError?(error)
-          }
-        case .a2dpConnection:
-          let bytesResponse = bytesArray[1]
-          let bytesArrayA2DPStatus =
-            MailBoxA2DPResponse.getA2DPResponse(from: bytesResponse)
-
-          log.info("📲 A2DP bytes", context: bytesArray.description)
-          log.info("📲 A2DP bits", context: bytesArrayA2DPStatus.description)
-
-          if bytesArrayA2DPStatus.contains(.inProgress) {
-            log.info("📲 A2DP in progress")
-          }
-          if bytesArrayA2DPStatus.contains(.success) {
-            log.info("📲 A2DP connection success")
-          } else {
-            var error: Error?
-            if bytesArrayA2DPStatus.contains(.failedBadAdress) {
-              error = OADError.badBDAddr.error
-            } else if bytesArrayA2DPStatus.contains(
-              .failedAlreadyConnected
-              ) {
-              error = AudioError.audioAldreadyConnected.error
-            } else if bytesArrayA2DPStatus.contains(.linkKeyInvalid) {
-              error = AudioError.audioUnpaired.error
-            } else if bytesArrayA2DPStatus.contains(.failedTimeout) {
-              error = AudioError.audioConnectionTimeOut.error
-            }
-
-            if let error = error {
-              log.error("📲 Transfer failed", context: error)
-
-              if isOADInProgress {
-                eventDelegate?.onUpdateFailWithError?(error)
-              } else {
-                eventDelegate?.onConnectionFailed?(error)
-              }
-
-              stopTimerTimeOutA2DPConnection()
-              disconnect()
-            }
-          }
-        case .setSerialNumber:
-          log.info("📲 Set serial number bytes",
-                   context: bytesArray.description)
-
-          stopTimerSendExternalName()
-          finalizeConnectionMelomind()
-        default:
-          log.info("📲 Unknown MBX response")
-        }
-      }
-    default:
-      break
     }
   }
 
-  func brainActivityService(data: Data) {
-    guard isListeningToEEG else { return }
+  private func brainActivityService(_ characteristic: CBCharacteristic) {
+    log.verbose("Brain activity service")
+
+    guard let data = characteristic.value, isListeningToEEG else { return }
+
     DispatchQueue.main.async {
       MBTClient.shared.eegAcquisitionManager.processBrainActivityData(data)
     }
   }
 
-  func headsetStatusService(characteristic: CBCharacteristic) {
+  private func headsetStatusService(_ characteristic: CBCharacteristic) {
+    log.verbose("headset status service")
+
     DispatchQueue.global(qos: .background).async {
-      let aquisitionManager = MBTClient.shared.deviceAcquisitionManager
-      aquisitionManager.processHeadsetStatus(characteristic)
+      let acquisitionManager = MBTClient.shared.deviceAcquisitionManager
+      acquisitionManager.processHeadsetStatus(characteristic)
     }
+  }
+
+  private func deviceBatteryService(_ characteristic: CBCharacteristic) {
+    log.verbose("device battery service")
+
+    if processBatteryLevel {
+      let acquisitionManager = MBTClient.shared.deviceAcquisitionManager
+      acquisitionManager.processDeviceBatteryStatus(characteristic)
+    } else {
+      log.info("📲 Fake finalize connection")
+
+      processBatteryLevel = true
+      if shouldUpdateDeviceExternalName() {
+        if let name = getDeviceExternalName() {
+          sendDeviceExternalName(name)
+        } else {
+          finalizeConnectionMelomind()
+        }
+      } else {
+        finalizeConnectionMelomind()
+      }
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Mailbox
+  //----------------------------------------------------------------------------
+
+  private func mailBoxService(_ characteristic: CBCharacteristic) {
+    log.verbose("mailbox service")
+
+    stopTimerTimeOutA2DPConnection()
+
+    guard let data = characteristic.value else { return }
+
+    let length = data.count * MemoryLayout<UInt8>.size
+    var bytesArray = [UInt8](repeating: 0, count: data.count)
+    (data as NSData).getBytes(&bytesArray, length: length)
+    let event = MailBoxEvents.getMailBoxEvent(v: bytesArray[0])
+
+    switch event {
+    case .otaModeEvent: otaMoveEvent(bytes: bytesArray)
+//    case .otaModeEvent:
+//      log.info("📲 MBX_OTA_MODE_EVT bytesArray",
+//               context: bytesArray.description)
+//
+//      if bytesArray[1] == 0x01 {
+//        OADState = .inProgress
+//        eventDelegate?.onReadyToUpdate?()
+//        eventDelegate?.onProgressUpdate?(0.1)
+//        sendOADBuffer()
+//      } else {
+//        isOADInProgress = false
+//        OADState = .disable
+//        if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
+//          blePeripheral?.setNotifyValue(false, for: characteristic)
+//        }
+//        startTimerUpdateBatteryLevel()
+//
+//        let error = OADError.transferPreparationFailed.error
+//        log.error("📲 Transfer failed", context: error)
+//
+//        eventDelegate?.onUpdateFailWithError?(error)
+//      }
+    case .otaIndexResetEvent: otaIndexResetEvent(bytes: bytesArray)
+//      log.info("📲 MBX_OTA_IDX_RESET_EVT bytesArray",
+//               context: bytesArray.description)
+//      let dispatchWorkItem =
+//        DispatchWorkItem(qos: .default, flags: .barrier) {
+//          let shift1 = Int16((bytesArray[2] & 0xFF)) << 8
+//          let shift2 = Int16(bytesArray[1] & 0xFF)
+//          let iBlock = shift1 | shift2
+//          self.OADManager?.oadProgress.iBlock = iBlock
+//      }
+//
+//      DispatchQueue.global().async(execute: dispatchWorkItem)
+    case .otaStatusEvent: otaStatusEvent(bytes: bytesArray)
+//      log.info("📲 MBX_OTA_STATUS_EVT bytesArray",
+//               context: bytesArray.description)
+//      if bytesArray[1] == 1 {
+//        stopTimerTimeOutOAD()
+//        OADState = .completed
+//        eventDelegate?.onProgressUpdate?(0.9)
+//        eventDelegate?.onUpdateComplete?()
+//      } else {
+//        startTimerUpdateBatteryLevel()
+//        isOADInProgress = false
+//        OADState = .disable
+//
+//        let error = OADError.transferInterrupted.error
+//        log.error("📲 Transfer failed", context: error)
+//
+//        eventDelegate?.onUpdateFailWithError?(error)
+//      }
+    case .a2dpConnection: a2dpConnection(bytes: bytesArray)
+//      let bytesResponse = bytesArray[1]
+//      let bytesArrayA2DPStatus =
+//        MailBoxA2DPResponse.getA2DPResponse(from: bytesResponse)
+//
+//      log.info("📲 A2DP bytes", context: bytesArray.description)
+//      log.info("📲 A2DP bits", context: bytesArrayA2DPStatus.description)
+//
+//      if bytesArrayA2DPStatus.contains(.inProgress) {
+//        log.info("📲 A2DP in progress")
+//      }
+//      if bytesArrayA2DPStatus.contains(.success) {
+//        log.info("📲 A2DP connection success")
+//      } else {
+//        var error: Error?
+//        if bytesArrayA2DPStatus.contains(.failedBadAdress) {
+//          error = OADError.badBDAddr.error
+//        } else if bytesArrayA2DPStatus.contains(
+//          .failedAlreadyConnected
+//          ) {
+//          error = AudioError.audioAldreadyConnected.error
+//        } else if bytesArrayA2DPStatus.contains(.linkKeyInvalid) {
+//          error = AudioError.audioUnpaired.error
+//        } else if bytesArrayA2DPStatus.contains(.failedTimeout) {
+//          error = AudioError.audioConnectionTimeOut.error
+//        }
+//
+//        if let error = error {
+//          log.error("📲 Transfer failed", context: error)
+//
+//          if isOADInProgress {
+//            eventDelegate?.onUpdateFailWithError?(error)
+//          } else {
+//            eventDelegate?.onConnectionFailed?(error)
+//          }
+//
+//          stopTimerTimeOutA2DPConnection()
+//          disconnect()
+//        }
+//      }
+    case .setSerialNumber: setSerialNumber(bytes: bytesArray)
+//      log.info("📲 Set serial number bytes",
+//               context: bytesArray.description)
+//
+//      stopTimerSendExternalName()
+//      finalizeConnectionMelomind()
+    default:
+      log.info("📲 Unknown MBX response")
+    }
+  }
+
+  private func otaMoveEvent(bytes: [UInt8]) {
+    log.info("📲 MBX_OTA_MODE_EVT bytesArray", context: bytes.description)
+
+    if bytes[1] == 0x01 {
+      OADState = .inProgress
+      eventDelegate?.onReadyToUpdate?()
+      eventDelegate?.onProgressUpdate?(0.1)
+      sendOADBuffer()
+    } else {
+      isOADInProgress = false
+      OADState = .disable
+      if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
+        blePeripheral?.setNotifyValue(false, for: characteristic)
+      }
+      startTimerUpdateBatteryLevel()
+
+      let error = OADError.transferPreparationFailed.error
+      log.error("📲 Transfer failed", context: error)
+
+      eventDelegate?.onUpdateFailWithError?(error)
+    }
+  }
+
+  private func otaIndexResetEvent(bytes: [UInt8]) {
+    log.info("📲 MBX_OTA_IDX_RESET_EVT bytesArray",
+             context: bytes.description)
+
+    let dispatchWorkItem =
+      DispatchWorkItem(qos: .default, flags: .barrier) {
+        let shift1 = Int16((bytes[2] & 0xFF)) << 8
+        let shift2 = Int16(bytes[1] & 0xFF)
+        let iBlock = shift1 | shift2
+        self.OADManager?.oadProgress.iBlock = iBlock
+    }
+
+    DispatchQueue.global().async(execute: dispatchWorkItem)
+  }
+
+  private func otaStatusEvent(bytes: [UInt8]) {
+    log.info("📲 MBX_OTA_STATUS_EVT bytesArray",
+             context: bytes.description)
+
+    if bytes[1] == 0x01 {
+      stopTimerTimeOutOAD()
+      OADState = .completed
+      eventDelegate?.onProgressUpdate?(0.9)
+      eventDelegate?.onUpdateComplete?()
+    } else {
+      startTimerUpdateBatteryLevel()
+      isOADInProgress = false
+      OADState = .disable
+
+      let error = OADError.transferInterrupted.error
+      log.error("📲 Transfer failed", context: error)
+
+      eventDelegate?.onUpdateFailWithError?(error)
+    }
+  }
+
+  private func a2dpConnection(bytes: [UInt8]) {
+    log.verbose("📲 A2DP connection")
+
+    let bytesResponse = bytes[1]
+    let bytesA2DPStatus =
+      MailBoxA2DPResponse.getA2DPResponse(from: bytesResponse)
+
+    log.info("📲 A2DP bytes", context: bytes.description)
+    log.info("📲 A2DP bits", context: bytesA2DPStatus.description)
+
+    if bytesA2DPStatus.contains(.inProgress) {
+      log.info("📲 A2DP in progress")
+    }
+    if bytesA2DPStatus.contains(.success) {
+      log.info("📲 A2DP connection success")
+    } else {
+      var error: Error?
+      if bytesA2DPStatus.contains(.failedBadAdress) {
+        error = OADError.badBDAddr.error
+      } else if bytesA2DPStatus.contains(
+        .failedAlreadyConnected
+        ) {
+        error = AudioError.audioAldreadyConnected.error
+      } else if bytesA2DPStatus.contains(.linkKeyInvalid) {
+        error = AudioError.audioUnpaired.error
+      } else if bytesA2DPStatus.contains(.failedTimeout) {
+        error = AudioError.audioConnectionTimeOut.error
+      }
+
+      if let error = error {
+        log.error("📲 Transfer failed", context: error)
+
+        if isOADInProgress {
+          eventDelegate?.onUpdateFailWithError?(error)
+        } else {
+          eventDelegate?.onConnectionFailed?(error)
+        }
+
+        stopTimerTimeOutA2DPConnection()
+        disconnect()
+      }
+    }
+  }
+
+  private func setSerialNumber(bytes: [UInt8]) {
+    log.info("📲 Set serial number bytes", context: bytes.description)
+
+    stopTimerSendExternalName()
+    finalizeConnectionMelomind()
   }
 
   func peripheral(_ peripheral: CBPeripheral,

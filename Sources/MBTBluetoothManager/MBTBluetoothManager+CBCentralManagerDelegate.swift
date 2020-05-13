@@ -128,6 +128,8 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     advertisementData: [String: Any],
     rssi RSSI: NSNumber
   ) {
+    log.verbose("🆕 Did discover peripheral")
+
     let localName =
       advertisementData[CBAdvertisementDataLocalNameKey] as? String
     let uuidKeys =
