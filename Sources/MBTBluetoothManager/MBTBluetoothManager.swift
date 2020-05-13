@@ -255,7 +255,7 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
 
-    MBTClient.shared.eegAcqusitionManager.setUpWith(device: currentDevice)
+    MBTClient.shared.eegAcquisitionManager.setUpWith(device: currentDevice)
 
     if !isOADInProgress {
       stopTimerTimeOutConnection()
