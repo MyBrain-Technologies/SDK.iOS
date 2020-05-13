@@ -73,7 +73,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
           OADState = .disable
 
           let error = BluetoothError.connectionLost.error
-          log.error("📲 Bluetooth connection interrupter", context: error)
+          log.error("📲 Bluetooth connection interrupted", context: error)
 
           eventDelegate?.onUpdateFailWithError?(error)
         }
