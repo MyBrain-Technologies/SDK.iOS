@@ -60,12 +60,12 @@ internal class MBTBluetoothManager: NSObject {
   /// A *Bool* which enable or disable headset EEG notifications.
   var isListeningToEEG = false {
     didSet {
-      guard MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic != nil
+      guard BluetoothDeviceCharacteristics.shared.brainActivityMeasurement != nil
         else { return }
 
       self.blePeripheral?.setNotifyValue(
         isListeningToEEG,
-        for: MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic
+        for: BluetoothDeviceCharacteristics.shared.brainActivityMeasurement
       )
     }
   }
@@ -73,12 +73,12 @@ internal class MBTBluetoothManager: NSObject {
   /// A *Bool* which enable or disable headset saturation notifications.
   var isListeningToHeadsetStatus = false {
     didSet {
-      guard MBTBluetoothLEHelper.headsetStatusCharacteristic != nil
+      guard BluetoothDeviceCharacteristics.shared.headsetStatus != nil
         else { return }
 
       self.blePeripheral?.setNotifyValue(
         isListeningToHeadsetStatus,
-        for: MBTBluetoothLEHelper.headsetStatusCharacteristic
+        for: BluetoothDeviceCharacteristics.shared.headsetStatus
       )
     }
   }
@@ -106,7 +106,11 @@ internal class MBTBluetoothManager: NSObject {
   }
 
   /// A counter which allows to know if all the characteristics have been discovered
-  var counterServicesDiscover = 0
+  var counterServicesDiscover = 0 {
+    didSet {
+      log.verbose("🆕 Services discovered count: \(counterServicesDiscover)")
+    }
+  }
 
   /// the timer for the connection timeout
   var timerTimeOutConnection: Timer?
@@ -215,9 +219,9 @@ internal class MBTBluetoothManager: NSObject {
     DeviceManager.connectedDeviceName = nil
 
     // Characteristic Init
-    MBTBluetoothLEHelper.brainActivityMeasurementCharacteristic = nil
-    MBTBluetoothLEHelper.deviceStateCharacteristic = nil
-    MBTBluetoothLEHelper.deviceInfoCharacteristic.removeAll()
+    BluetoothDeviceCharacteristics.shared.brainActivityMeasurement = nil
+    BluetoothDeviceCharacteristics.shared.deviceState = nil
+    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
   }
 
   /// Disconnect centralManager, and remove session's values.
@@ -371,9 +375,11 @@ internal class MBTBluetoothManager: NSObject {
       bytesArray[3] = OADManager.oadProgress.nBlock.loUint8
       bytesArray[4] = OADManager.oadProgress.nBlock.hiUint16
 
-      blePeripheral?.writeValue(Data(bytesArray),
-                                for: MBTBluetoothLEHelper.mailBoxCharacteristic,
-                                type: .withResponse)
+      blePeripheral?.writeValue(
+        Data(bytesArray),
+        for: BluetoothDeviceCharacteristics.shared.mailBox,
+        type: .withResponse
+      )
       eventDelegate?.onProgressUpdate?(0.05)
       OADState = .ready
     }
@@ -400,7 +406,7 @@ internal class MBTBluetoothManager: NSObject {
     let bytesArray = serialNumberByteArray + [UInt8](name.utf8)
 
     guard let characteristic =
-      MBTBluetoothLEHelper.mailBoxCharacteristic else { return }
+      BluetoothDeviceCharacteristics.shared.mailBox else { return }
 
     blePeripheral?.setNotifyValue(true, for: characteristic)
     blePeripheral?.writeValue(Data(bytesArray),
@@ -411,7 +417,7 @@ internal class MBTBluetoothManager: NSObject {
   //  Method Request Update Status Battery
   @objc func requestUpdateBatteryLevel() {
     guard let blePeripheral = blePeripheral,
-      let characteristic = MBTBluetoothLEHelper.deviceStateCharacteristic else {
+      let characteristic = BluetoothDeviceCharacteristics.shared.deviceState else {
         return
     }
 
@@ -423,7 +429,7 @@ internal class MBTBluetoothManager: NSObject {
 
     guard let blePeripheral = blePeripheral else { return }
 
-    for characteristic in MBTBluetoothLEHelper.deviceInfoCharacteristic {
+    for characteristic in BluetoothDeviceCharacteristics.shared.deviceInformations {
       blePeripheral.readValue(for: characteristic)
     }
   }

@@ -42,7 +42,7 @@ extension MBTBluetoothManager {
     ]
 
     guard let characteristic =
-      MBTBluetoothLEHelper.mailBoxCharacteristic else { return }
+      BluetoothDeviceCharacteristics.shared.mailBox else { return }
 
     blePeripheral?.setNotifyValue(true, for: characteristic)
     blePeripheral?.writeValue(Data(bytesArray),
