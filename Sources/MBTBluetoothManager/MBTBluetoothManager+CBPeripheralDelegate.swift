@@ -129,7 +129,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     }
 
     let serviceString = service.uuid.uuidString
-    log.verbose("🆕 Did update value for characteristic. (\(serviceString)")
+    log.verbose("🆕 Did update value for characteristic. (\(serviceString))")
 
     switch service {
     case .brainActivityMeasurement: brainActivityService(characteristic)
