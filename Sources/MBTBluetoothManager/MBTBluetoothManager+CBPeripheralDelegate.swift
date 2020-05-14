@@ -197,7 +197,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     let event = MailBoxEvents.getMailBoxEvent(v: bytesArray[0])
 
     switch event {
-    case .otaModeEvent: otaMoveEvent(bytes: bytesArray)
+    case .otaModeEvent: otaModeEvent(bytes: bytesArray)
     case .otaIndexResetEvent: otaIndexResetEvent(bytes: bytesArray)
     case .otaStatusEvent: otaStatusEvent(bytes: bytesArray)
     case .a2dpConnection: a2dpConnection(bytes: bytesArray)
@@ -210,7 +210,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   // MARK: - Mailbox Events
   //----------------------------------------------------------------------------
 
-  private func otaMoveEvent(bytes: [UInt8]) {
+  private func otaModeEvent(bytes: [UInt8]) {
     log.info("📲 Mailbox OTA_MODE_EVT bytesArray", context: bytes.description)
 
     if bytes[1] == 0x01 {
