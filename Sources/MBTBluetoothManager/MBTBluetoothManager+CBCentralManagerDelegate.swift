@@ -15,12 +15,9 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
       log.info("📲 Bluetooth powered on")
 
       // Scan for peripherals if BLE is turned on
-      if tabHistoBluetoothState.count == 0 {
-        tabHistoBluetoothState.append(true)
-        eventDelegate?.onBluetoothStateChange?(true)
-      } else if let lastBluetoothState = tabHistoBluetoothState.last,
-        !lastBluetoothState {
-        tabHistoBluetoothState.append(true)
+
+      if bluetoothConnectionHistory.isConnected == false {
+        bluetoothConnectionHistory.addState(isConnected: true)
         eventDelegate?.onBluetoothStateChange?(true)
       }
 
@@ -33,12 +30,8 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     } else if central.state == .poweredOff {
       log.info("📲 Bluetooth powered off")
 
-      if tabHistoBluetoothState.count == 0 {
-        tabHistoBluetoothState.append(false)
-        eventDelegate?.onBluetoothStateChange?(false)
-      } else if let lastBluetoothState = tabHistoBluetoothState.last,
-        lastBluetoothState {
-        tabHistoBluetoothState.append(false)
+      if bluetoothConnectionHistory.isConnected {
+        bluetoothConnectionHistory.addState(isConnected: false)
         eventDelegate?.onBluetoothStateChange?(false)
       }
 
@@ -81,15 +74,17 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
       log.info("📲 Bluetooth access not allowed on the application")
     }
 
-    if tabHistoBluetoothState.count > 3 {
-      tabHistoBluetoothState.removeFirst()
-    }
+//    if tabHistoBluetoothState.count > 3 {
+//      tabHistoBluetoothState.removeFirst()
+//    }
 
-    guard let lastBluetoothStatus = tabHistoBluetoothState.last,
-      tabHistoBluetoothState.count == 3
-        && lastBluetoothStatus
-        && isOADInProgress
-        && OADState == .rebootRequired else { return }
+//    guard let lastBluetoothStatus = tabHistoBluetoothState.last,
+//      tabHistoBluetoothState.count == 3
+//        && lastBluetoothStatus
+    guard bluetoothConnectionHistory.isConnected
+      && bluetoothConnectionHistory.historyIsFull
+      && isOADInProgress
+      && OADState == .rebootRequired else { return }
 
     eventDelegate?.onRebootBluetooth?()
 

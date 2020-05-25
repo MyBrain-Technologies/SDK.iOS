@@ -145,7 +145,9 @@ internal class MBTBluetoothManager: NSObject {
   var timerTimeOutOAD: Timer?
 
   // the array which contains the last three states of Blue
-  var tabHistoBluetoothState = [Bool]()
+//  var tabHistoBluetoothState = [Bool]()
+
+  let bluetoothConnectionHistory = BluetoothConnectionHistory()
 
   /// Flag OAD is enable
   var isOADInProgress = false
@@ -185,9 +187,7 @@ internal class MBTBluetoothManager: NSObject {
   /// - Parameters:
   ///   - deviceName: The name of the device to connect (Bluetooth profile).
   func connectTo(_ deviceName: String? = nil) {
-    if let lastBluetoothState = tabHistoBluetoothState.last,
-      OADState == .connected,
-      lastBluetoothState {
+    if OADState == .connected, bluetoothConnectionHistory.isConnected {
       stopTimerTimeOutConnection()
 
       bluetoothConnector.scanForMelomindConnections()
