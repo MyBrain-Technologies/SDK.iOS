@@ -130,13 +130,10 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
   ) {
     log.verbose("🆕 Did discover peripheral")
 
-    let localName =
-      advertisementData[CBAdvertisementDataLocalNameKey] as? String
-    let uuidKeys =
-      advertisementData[CBAdvertisementDataServiceUUIDsKey] as? [CBUUID]
+    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
 
-    guard let nameOfDeviceFound = localName,
-      let serviceArray = uuidKeys else { return }
+    guard let newDeviceName = dataReader.localName,
+      let newDeviceServices = dataReader.uuidKeys else { return }
 
     guard serviceArray.contains(BluetoothService.myBrainService.uuid)
       && nameOfDeviceFound.lowercased().range(of: "melo_") != nil
