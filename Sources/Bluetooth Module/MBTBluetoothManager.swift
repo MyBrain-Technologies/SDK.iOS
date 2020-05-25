@@ -293,18 +293,7 @@ internal class MBTBluetoothManager: NSObject {
       if shouldRequestA2DPConnection() {
         requestConnectA2DP()
       } else {
-        let currentDevice = DeviceManager.getCurrentDevice()
-
-        let prefix = "finalizeConnectionMelomind - RequestDeviceInfo :"
-        let fwVersion = currentDevice?.deviceInfos?.firmwareVersion ?? "?"
-        let oadVersion = self.OADManager?.fwVersion ?? "?"
-        PrettyPrinter.bluetooth("\(prefix) deviceVersion -> \(fwVersion)")
-        PrettyPrinter.bluetooth("\(prefix) : oadVersion -> \(oadVersion)")
-
-        guard let currentDeviceInfo = currentDevice?.deviceInfos,
-          let OADManager = OADManager,
-          let deviceFwVersion = currentDeviceInfo.firmwareVersion,
-          deviceFwVersion.contains(OADManager.fwVersion) else {
+        guard isDeviceVersionUpToDate() else {
             let message = "headset firmware version don't match the update"
             let error = NSError(domain: "Bluetooth Manager",
                                 code: 915,
@@ -320,6 +309,24 @@ internal class MBTBluetoothManager: NSObject {
         eventDelegate?.onProgressUpdate?(1.0)
       }
     }
+  }
+
+  private func isDeviceVersionUpToDate() -> Bool {
+    let prefix = "finalizeConnectionMelomind - RequestDeviceInfo :"
+    let currentDevice = DeviceManager.getCurrentDevice()
+
+    guard let fwVersionNumber =
+      currentDevice?.deviceInfos?.firmwareVersion?.versionNumber,
+    let oadFwVersionNumber =
+      self.OADManager?.fwVersion.versionNumber else { return false }
+
+    PrettyPrinter.bluetooth("\(prefix) deviceVersion -> \(fwVersionNumber)")
+    PrettyPrinter.bluetooth("\(prefix) : oadVersion -> \(oadFwVersionNumber)")
+
+    let deviceFwVersion = FirmwareVersion(string: fwVersionNumber)
+    let oadFwVersion = FirmwareVersion(string: oadFwVersionNumber)
+
+    return deviceFwVersion == oadFwVersion
   }
   
   /// Run the completion after the device infos is available with a time out
@@ -893,15 +900,11 @@ internal class MBTBluetoothManager: NSObject {
       DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion else {
         return false
     }
-    
-    print ("device firmware version \(deviceFWVersion)")
-    let versionArray = version.rawValue.components(separatedBy: ".")
-    let deviceFWVersionArray = deviceFWVersion.components(separatedBy: ".")
 
-    return (ArrayUtils().compareArrayVersion(
-      arrayA: deviceFWVersionArray,
-      isGreaterThan: versionArray
-      ) >= 0)
+    let versionToCompare = FirmwareVersion(string: version.rawValue)
+    let currentVersion = FirmwareVersion(string: deviceFWVersion)
+
+    return currentVersion >= versionToCompare
   }
 
 }
@@ -1574,7 +1577,7 @@ extension MBTBluetoothManager {
           DeviceManager.getCurrentDevice()?.deviceInfos,
           self.OADManager != nil,
           let currentFwVersion = currentDeviceInfo.firmwareVersion,
-          currentFwVersion.contains(self.OADManager!.fwVersion) {
+          FirmwareVersion(string: currentFwVersion) == FirmwareVersion(string: oadFwVersion!) {
           self.eventDelegate?.onProgressUpdate?(1.0)
           self.isOADInProgress = false
           self.OADState = .DISABLE
