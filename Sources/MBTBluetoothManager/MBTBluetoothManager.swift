@@ -20,12 +20,27 @@ internal class MBTBluetoothManager: NSObject {
   /// Singleton declaration
   static let shared = MBTBluetoothManager()
 
+  /******************** Delegate ********************/
+
   /// The MBTBluetooth Event Delegate.
   weak var eventDelegate: MBTBluetoothEventDelegate?
 
   /// The MBT Audio A2DP Delegate.
   /// Tell developers when audio connect / disconnect
   weak var audioA2DPDelegate: MBTBluetoothA2DPDelegate?
+
+  /******************** Connection ********************/
+
+  //swiftlint:disable weak_delegate
+  let centralManagerDelegate = BluetoothCentralManagerDelegate()
+
+  lazy var bluetoothConnector: BluetoothConnector = {
+    let centralManager = CBCentralManager(delegate: self, // TEMP, should be CentralManagerDelegate after
+                                          queue: nil)
+    return BluetoothConnector(centralManager: centralManager)
+  }()
+
+  /******************** Legacy ********************/
 
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   /// - Remark: Sends a notification when changed (on *willSet*).
@@ -87,8 +102,8 @@ internal class MBTBluetoothManager: NSObject {
   /// or to process the receiving Battery Level
   var processBatteryLevel: Bool = false
 
-  /// The BLE central manager.
-  var centralManager: CBCentralManager?
+//  /// The BLE central manager.
+//  var centralManager: CBCentralManager?
 
   /// An object that manages and advertises peripheral services exposed by this app.
   /// Use for BLE authorizations.
@@ -175,8 +190,7 @@ internal class MBTBluetoothManager: NSObject {
       lastBluetoothState {
       stopTimerTimeOutConnection()
 
-      let services = [BluetoothService.myBrainService.uuid]
-      centralManager?.scanForPeripherals(withServices: services, options: nil)
+      bluetoothConnector.scanForMelomindConnections()
 
       return
     }
@@ -211,9 +225,9 @@ internal class MBTBluetoothManager: NSObject {
     isListeningToHeadsetStatus = false
     processBatteryLevel = false
 
-    // CentralManager Init
-    centralManager = nil
-    centralManager = CBCentralManager(delegate: self, queue: nil)
+    bluetoothConnector.centralManager = CBCentralManager(delegate: self,
+                                                         queue: nil)
+
     peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
 
     DeviceManager.connectedDeviceName = nil
@@ -233,12 +247,7 @@ internal class MBTBluetoothManager: NSObject {
     stopTimerTimeOutOAD()
     stopTimerFinalizeConnectionMelomind()
 
-    // Disconnect CentralManager
-    centralManager?.stopScan()
-
-    if let blePeripheral = blePeripheral {
-      centralManager?.cancelPeripheralConnection(blePeripheral)
-    }
+    bluetoothConnector.stopScanningForConnections(on: blePeripheral)
 
     blePeripheral = nil
   }

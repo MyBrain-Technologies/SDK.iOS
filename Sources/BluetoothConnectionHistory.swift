@@ -1,5 +1,5 @@
 //
-//  CentralManagerDelegate.swift
+//  BluetoothHistory.swift
 //  MyBrainTechnologiesSDK-iOS
 //
 //  Created by Mathilde Ressier on 25/05/2020.
@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct BluetoothHistory {
+  
+}

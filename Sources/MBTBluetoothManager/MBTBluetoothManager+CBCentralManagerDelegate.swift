@@ -28,8 +28,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
         timerTimeOutConnection != nil {
         log.info("📲 Bluetooth broadcasting")
 
-        let services = [BluetoothService.myBrainService.uuid]
-        centralManager?.scanForPeripherals(withServices: services, options: nil)
+        bluetoothConnector.scanForMelomindConnections()
       }
     } else if central.state == .poweredOff {
       log.info("📲 Bluetooth powered off")
@@ -56,10 +55,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
 
         disconnect()
       } else if OADState != .rebootRequired {
-        centralManager?.stopScan()
-        if let blePeripheral = blePeripheral {
-          centralManager?.cancelPeripheralConnection(blePeripheral)
-        }
+        bluetoothConnector.stopScanningForConnections(on: blePeripheral)
         blePeripheral = nil
         if OADState > .completed {
           OADState = .connected
@@ -109,8 +105,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     blePeripheral = nil
     DeviceManager.resetDeviceInfo()
 
-    let services = [BluetoothService.myBrainService.uuid]
-    centralManager?.scanForPeripherals(withServices: services, options: nil)
+    bluetoothConnector.scanForMelomindConnections()
 
     OADState = .connected
   }
@@ -135,26 +130,27 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     guard let newDeviceName = dataReader.localName,
       let newDeviceServices = dataReader.uuidKeys else { return }
 
-    guard serviceArray.contains(BluetoothService.myBrainService.uuid)
-      && nameOfDeviceFound.lowercased().range(of: "melo_") != nil
-      && (timerTimeOutConnection != nil
-        || OADState >= .started) else { return }
+    guard bluetoothConnector.isMelomindDevice(deviceName: newDeviceName,
+                                               services: newDeviceServices)
+      && (timerTimeOutConnection != nil || OADState >= .started) else { return }
 
     if DeviceManager.connectedDeviceName == "" {
-      DeviceManager.connectedDeviceName = nameOfDeviceFound
+      DeviceManager.connectedDeviceName = newDeviceName
     }
 
-    guard DeviceManager.connectedDeviceName == nameOfDeviceFound else { return }
+    guard DeviceManager.connectedDeviceName == newDeviceName else { return }
 
-    // Stop scanning
-    centralManager?.stopScan()
+    bluetoothConnector.stopScanningForConnections()
     // Set as the peripheral to use and establish connection
     blePeripheral = peripheral
 
     blePeripheral?.delegate = self
-    centralManager?.connect(peripheral, options: nil)
+
+    bluetoothConnector.connect(to: peripheral)
+
     DeviceManager.updateDeviceToMelomind()
   }
+
 
   /// Discover services of the peripheral.
   /// Invoked when a connection is successfully created with a peripheral.
@@ -194,10 +190,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
         eventDelegate?.requireToRebootBluetooth?()
         OADState = .rebootRequired
       } else {
-        centralManager?.stopScan()
-        if let blePeripheral = blePeripheral {
-          centralManager?.cancelPeripheralConnection(blePeripheral)
-        }
+        bluetoothConnector.stopScanningForConnections(on: blePeripheral)
         blePeripheral = nil
         if OADState >= .completed {
           OADState = .connected

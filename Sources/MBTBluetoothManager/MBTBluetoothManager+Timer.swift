@@ -78,7 +78,7 @@ extension MBTBluetoothManager {
 
   /// Method Call if the Melomind can not connect after 20 Seconds
   @objc func connectionMelomindTimeOut() {
-    centralManager?.stopScan()
+    bluetoothConnector.stopScanningForConnections()
     stopTimerTimeOutConnection()
 
     let error = BluetoothLowEnergyError.connectionTimeOut.error

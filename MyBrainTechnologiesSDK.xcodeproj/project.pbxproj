@@ -469,7 +469,7 @@
 				A92CA4242462F50D00688CE5 /* MBTBluetoothManager+A2DP.swift */,
 				A92CA4262462F78C00688CE5 /* MBTBluetoothManager+Timer.swift */,
 				A92CA4282462F88800688CE5 /* MBTBluetoothManager+OAD.swift */,
-				A9C05686247BCF3400EC8703 /* CentralManagerDelegate.swift */,
+				A9C05686247BCF3400EC8703 /* BluetoothCentralManagerDelegate.swift */,
 			);
 			path = MBTBluetoothManager;
 			sourceTree = "<group>";
@@ -830,7 +830,7 @@
 				A918D28C2461992900026F1D /* MBTError.swift in Sources */,
 				2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */,
 				A92CA4292462F88800688CE5 /* MBTBluetoothManager+OAD.swift in Sources */,
-				A9C05687247BCF3400EC8703 /* CentralManagerDelegate.swift in Sources */,
+				A9C05687247BCF3400EC8703 /* BluetoothCentralManagerDelegate.swift in Sources */,
 				A96EB6F6246989EA00431BA0 /* BrainwebRequestBuilder.swift in Sources */,
 				F47AE4901F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift in Sources */,
 				A927D59123CCE7F300C20734 /* String+extension.swift in Sources */,
