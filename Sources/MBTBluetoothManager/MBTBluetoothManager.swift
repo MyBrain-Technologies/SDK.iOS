@@ -2,9 +2,6 @@ import Foundation
 import CoreBluetooth
 import AVFoundation
 
-// TEMP: LEGACY CODE
-// swiftlint:disable type_body_length
-
 enum MBTFirmwareVersion: String {
   case a2dpFromHeadset = "1.6.7"
   case registerExternalName = "1.7.1"
@@ -31,9 +28,13 @@ internal class MBTBluetoothManager: NSObject {
 
   /******************** Connection ********************/
 
-  lazy var bluetoothConnector: BluetoothConnector = {
+  lazy var bluetoothConnector: BluetoothPeripheralConnector = {
     let centralManager = CBCentralManager(delegate: self, queue: nil)
-    return BluetoothConnector(centralManager: centralManager)
+    return BluetoothPeripheralConnector(centralManager: centralManager)
+  }()
+
+  lazy var peripheralIO: IOBluetoothPeripheral = {
+    return IOBluetoothPeripheral(peripheral: nil)
   }()
 
   /******************** Timers ********************/
@@ -63,7 +64,8 @@ internal class MBTBluetoothManager: NSObject {
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   /// - Remark: Sends a notification when changed (on *willSet*).
   var isConnectedBLE: Bool {
-    return blePeripheral != nil
+    return peripheralIO.peripheral != nil
+//    return blePeripheral != nil
   }
 
   /// A *Bool* which indicate if the headset is connected or not to A2DP.
@@ -77,26 +79,32 @@ internal class MBTBluetoothManager: NSObject {
   /// A *Bool* which enable or disable headset EEG notifications.
   var isListeningToEEG = false {
     didSet {
-      guard BluetoothDeviceCharacteristics.shared.brainActivityMeasurement != nil
-        else { return }
-
-      self.blePeripheral?.setNotifyValue(
-        isListeningToEEG,
-        for: BluetoothDeviceCharacteristics.shared.brainActivityMeasurement
+      peripheralIO.notifyBrainActivityMeasurement(
+        value: isListeningToEEG
       )
+//      guard BluetoothDeviceCharacteristics.shared.brainActivityMeasurement != nil
+//        else { return }
+//
+//      self.blePeripheral?.setNotifyValue(
+//        isListeningToEEG,
+//        for: BluetoothDeviceCharacteristics.shared.brainActivityMeasurement
+//      )
     }
   }
 
   /// A *Bool* which enable or disable headset saturation notifications.
   var isListeningToHeadsetStatus = false {
     didSet {
-      guard BluetoothDeviceCharacteristics.shared.headsetStatus != nil
-        else { return }
-
-      self.blePeripheral?.setNotifyValue(
-        isListeningToHeadsetStatus,
-        for: BluetoothDeviceCharacteristics.shared.headsetStatus
+      peripheralIO.notifyHeadsetStatus(
+        value: isListeningToHeadsetStatus
       )
+//      guard BluetoothDeviceCharacteristics.shared.headsetStatus != nil
+//        else { return }
+//
+//      self.blePeripheral?.setNotifyValue(
+//        isListeningToHeadsetStatus,
+//        for: BluetoothDeviceCharacteristics.shared.headsetStatus
+//      )
     }
   }
 
@@ -111,7 +119,7 @@ internal class MBTBluetoothManager: NSObject {
   /// The BLE peripheral with which a connection has been established.
   var blePeripheral: CBPeripheral? {
     didSet {
-      if blePeripheral != nil {
+      if isConnectedBLE {
         eventDelegate?.onHeadsetStatusUpdate?(true)
       } else {
         eventDelegate?.onHeadsetStatusUpdate?(false)
@@ -174,7 +182,7 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
 
-    if blePeripheral != nil { disconnect() }
+    if isConnectedBLE { disconnect() }
 
     initBluetoothManager()
 
@@ -213,9 +221,12 @@ internal class MBTBluetoothManager: NSObject {
   func disconnect() {
     timers.stopAllTimers()
 
-    bluetoothConnector.stopScanningForConnections(on: blePeripheral)
+    bluetoothConnector.stopScanningForConnections(
+      on: peripheralIO.peripheral
+    )
 
-    blePeripheral = nil
+    peripheralIO.peripheral = nil
+//    blePeripheral = nil
   }
 
   /// Finalize the connection
@@ -342,23 +353,28 @@ internal class MBTBluetoothManager: NSObject {
   /// important: Event
   /// - onProgressUpdate
   func sendFWVersionPlusLength() {
-    if let OADManager = OADManager {
-      var bytesArray = [UInt8](repeating: 0, count: 5)
+    guard let OADManager = OADManager else { return }
+//
+//    var bytesArray = [UInt8](repeating: 0, count: 5)
+//
+//    bytesArray[0] = MailBoxEvents.startOTATFX.rawValue
+//    bytesArray[1] = OADManager.getFWVersionAsByteArray()[0]
+//    bytesArray[2] = OADManager.getFWVersionAsByteArray()[1]
+//    bytesArray[3] = OADManager.oadProgress.nBlock.loUint8
+//    bytesArray[4] = OADManager.oadProgress.nBlock.hiUint16
+//
+//    blePeripheral?.writeValue(
+//      Data(bytesArray),
+//      for: BluetoothDeviceCharacteristics.shared.mailBox,
+//      type: .withResponse
+//    )
+    peripheralIO.write(
+      firmwareVersion: OADManager.getFWVersionAsByteArray(),
+      numberOfBlocks: OADManager.oadProgress.nBlock
+    )
 
-      bytesArray[0] = MailBoxEvents.startOTATFX.rawValue
-      bytesArray[1] = OADManager.getFWVersionAsByteArray()[0]
-      bytesArray[2] = OADManager.getFWVersionAsByteArray()[1]
-      bytesArray[3] = OADManager.oadProgress.nBlock.loUint8
-      bytesArray[4] = OADManager.oadProgress.nBlock.hiUint16
-
-      blePeripheral?.writeValue(
-        Data(bytesArray),
-        for: BluetoothDeviceCharacteristics.shared.mailBox,
-        type: .withResponse
-      )
-      eventDelegate?.onProgressUpdate?(0.05)
-      OADState = .ready
-    }
+    eventDelegate?.onProgressUpdate?(0.05)
+    OADState = .ready
   }
 
   //----------------------------------------------------------------------------
@@ -368,40 +384,44 @@ internal class MBTBluetoothManager: NSObject {
   func sendDeviceExternalName(_ name: String) {
     timers.startSendExternalNameTimer()
 
-    let serialNumberByteArray: [UInt8] = [
-      MailBoxEvents.setSerialNumber.rawValue,
-      0xAB,
-      0x21
-    ]
-    let bytesArray = serialNumberByteArray + [UInt8](name.utf8)
+//    let serialNumberByteArray: [UInt8] = [
+//      MailBoxEvents.setSerialNumber.rawValue,
+//      0xAB,
+//      0x21
+//    ]
+//    let bytesArray = serialNumberByteArray + [UInt8](name.utf8)
+//
+//    let mailBox = BluetoothDeviceCharacteristics.shared.mailBox
 
-    guard let characteristic =
-      BluetoothDeviceCharacteristics.shared.mailBox else { return }
+    peripheralIO.notifyMailBox(value: true)
+    peripheralIO.write(deviceExternalName: name)
 
-    blePeripheral?.setNotifyValue(true, for: characteristic)
-    blePeripheral?.writeValue(Data(bytesArray),
-                              for: characteristic,
-                              type: .withResponse)
+//    blePeripheral?.setNotifyValue(true, for: mailBox)
+//    blePeripheral?.writeValue(Data(bytesArray),
+//                              for: mailBox,
+//                              type: .withResponse)
   }
 
   //  Method Request Update Status Battery
   func requestBatteryLevel() {
-    guard let blePeripheral = blePeripheral,
-      let characteristic = BluetoothDeviceCharacteristics.shared.deviceState else {
-        return
-    }
-
-    blePeripheral.readValue(for: characteristic)
+//    guard let blePeripheral = blePeripheral,
+//      let characteristic = BluetoothDeviceCharacteristics.shared.deviceState else {
+//        return
+//    }
+//
+//    blePeripheral.readValue(for: characteristic)
+    peripheralIO.readDeviceState()
   }
 
   func requestUpdateDeviceInfo() {
     DeviceManager.resetDeviceInfo()
 
-    guard let blePeripheral = blePeripheral else { return }
-
-    for characteristic in BluetoothDeviceCharacteristics.shared.deviceInformations {
-      blePeripheral.readValue(for: characteristic)
-    }
+//    guard let blePeripheral = blePeripheral else { return }
+//
+//    for characteristic in BluetoothDeviceCharacteristics.shared.deviceInformations {
+//      blePeripheral.readValue(for: characteristic)
+//    }
+    peripheralIO.readDeviceInformations()
   }
 
   /// Compare the firmware version to determine if it's equal or higher to another version

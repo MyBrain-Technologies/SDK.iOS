@@ -59,7 +59,7 @@ extension MBTBluetoothManager {
         self.eventDelegate?.onConnectionEstablished?()
         self.startBatteryLevelTimer()
       } else {
-        guard self.blePeripheral != nil, self.isOADInProgress else {
+        guard self.isConnectedBLE, self.isOADInProgress else {
           self.connectTo(meloName)
           return
         }

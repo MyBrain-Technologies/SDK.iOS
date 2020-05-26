@@ -76,8 +76,12 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
   private func didBluetoothPoweredOffDuringOAD() {
     guard OADState != .rebootRequired else { return }
 
-    bluetoothConnector.stopScanningForConnections(on: blePeripheral)
-    blePeripheral = nil
+    bluetoothConnector.stopScanningForConnections(
+      on: peripheralIO.peripheral
+    )
+//    bluetoothConnector.stopScanningForConnections(on: blePeripheral)
+//    blePeripheral = nil
+    peripheralIO.peripheral = nil
 
     if OADState > .completed {
       OADState = .connected
@@ -110,7 +114,8 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
         return
     }
 
-    blePeripheral = nil
+//    blePeripheral = nil
+    peripheralIO.peripheral = nil
     DeviceManager.resetDeviceInfo()
 
     bluetoothConnector.scanForMelomindConnections()
@@ -149,9 +154,11 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
 
     bluetoothConnector.stopScanningForConnections()
     // Set as the peripheral to use and establish connection
-    blePeripheral = peripheral
+//    blePeripheral = peripheral
+    peripheralIO.peripheral = peripheral
 
-    blePeripheral?.delegate = self
+//    blePeripheral?.delegate = self
+    peripheralIO.peripheral?.delegate = self
 
     bluetoothConnector.connect(to: peripheral)
 
@@ -203,8 +210,10 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
       return
     }
 
-    bluetoothConnector.stopScanningForConnections(on: blePeripheral)
-    blePeripheral = nil
+    bluetoothConnector.stopScanningForConnections(
+      on: peripheralIO.peripheral
+    )
+    peripheralIO.peripheral = nil
 
     if OADState >= .completed {
       OADState = .connected

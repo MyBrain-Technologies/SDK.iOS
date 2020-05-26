@@ -50,6 +50,10 @@ enum BluetoothService: String, CaseIterable {
   }
 }
 
+//==============================================================================
+// MARK: - Array extension for Bluetooth Service
+//==============================================================================
+
 extension Array where Element == BluetoothService {
   /// Return BluetoothServices uuids values
   var uuids: [CBUUID] {

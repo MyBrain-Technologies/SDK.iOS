@@ -7,7 +7,7 @@ import CoreBluetooth
  * Handle bluetooth connections
  *
  ******************************************************************************/
-class BluetoothConnector {
+class BluetoothPeripheralConnector {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties

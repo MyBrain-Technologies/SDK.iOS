@@ -33,8 +33,8 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     log.verbose("🆕 Did discover services")
 
     // Check all the services of the connecting peripheral.
-    guard blePeripheral != nil, let services = peripheral.services else {
-      log.error("BLE peripheral is nil ? \(blePeripheral == nil)")
+    guard isConnectedBLE, let services = peripheral.services else {
+      log.error("BLE peripheral is connected ? \(isConnectedBLE)")
       log.error("Services peripheral are nil ? \(peripheral.services == nil)")
       return
     }
@@ -64,7 +64,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
                   error: Error?) {
     log.verbose("🆕 Did discover characteristics")
 
-    guard blePeripheral != nil, service.characteristics != nil else {
+    guard isConnectedBLE, service.characteristics != nil else {
       return
     }
 
@@ -106,7 +106,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   func peripheral(_ peripheral: CBPeripheral,
                   didUpdateValueFor characteristic: CBCharacteristic,
                   error: Error?) {
-    guard blePeripheral != nil else {
+    guard isConnectedBLE else {
       log.error("Ble peripheral is not set")
       return
     }
@@ -216,9 +216,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     } else {
       isOADInProgress = false
       OADState = .disable
-      if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
-        blePeripheral?.setNotifyValue(false, for: characteristic)
-      }
+      peripheralIO.notifyMailBox(value: false)
       startBatteryLevelTimer()
 
       let error = OADError.transferPreparationFailed.error
