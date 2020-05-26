@@ -17,10 +17,6 @@ class BluetoothConnector {
 
   var centralManager: CBCentralManager!
 
-  /******************** Melomind ********************/
-
-  let melomindService = BluetoothService.myBrainService.uuid
-
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -38,7 +34,9 @@ class BluetoothConnector {
   func scanForMelomindConnections() {
     log.verbose("🧭 Start scanning for a melomind device")
 
-    centralManager.scanForPeripherals(withServices: [melomindService],
+    let melomindService = [MelomindBluetoothPeripheral.melomindService]
+
+    centralManager.scanForPeripherals(withServices: melomindService,
                                       options: nil)
   }
 
@@ -57,15 +55,5 @@ class BluetoothConnector {
   func connect(to peripheral: CBPeripheral) {
     log.verbose("🧭 Connection to peripheral \(peripheral)")
     centralManager.connect(peripheral, options: nil)
-  }
-
-  // TODO: this methods should not be here
-  func isMelomindDevice(deviceName: String, services: [CBUUID]) -> Bool {
-    let hasMelomindService = services.contains(melomindService)
-
-    let prefix = Constants.DeviceName.blePrefix
-    let nameContainMelomindPrefix = deviceName.lowercased().starts(with: prefix)
-
-    return hasMelomindService && nameContainMelomindPrefix
   }
 }

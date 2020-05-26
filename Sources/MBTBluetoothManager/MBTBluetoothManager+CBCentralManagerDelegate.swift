@@ -125,9 +125,14 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     guard let newDeviceName = dataReader.localName,
       let newDeviceServices = dataReader.uuidKeys else { return }
 
-    guard bluetoothConnector.isMelomindDevice(deviceName: newDeviceName,
-                                               services: newDeviceServices)
-      && (timers.isBleConnectionTimerInProgress || OADState >= .started) else { return }
+    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
+      deviceName: newDeviceName,
+      services: newDeviceServices
+    )
+    let isConnectingOrUpdating =
+      timers.isBleConnectionTimerInProgress || OADState >= .started
+
+    guard isMelomindDevice && isConnectingOrUpdating else { return }
 
     if DeviceManager.connectedDeviceName == "" {
       DeviceManager.connectedDeviceName = newDeviceName
