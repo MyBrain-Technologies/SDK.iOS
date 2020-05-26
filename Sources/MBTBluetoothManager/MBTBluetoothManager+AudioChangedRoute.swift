@@ -56,9 +56,10 @@ extension MBTBluetoothManager {
           return
         }
 
-        self.stopTimerTimeOutA2DPConnection()
+        self.timers.stopA2DPConnectionTimer()
+        
         self.eventDelegate?.onConnectionEstablished?()
-        self.startTimerUpdateBatteryLevel()
+        self.startBatteryLevelTimer()
       } else {
         guard self.blePeripheral != nil, self.isOADInProgress else {
           self.connectTo(meloName)

@@ -22,7 +22,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
       }
 
       if DeviceManager.connectedDeviceName != nil,
-        timerTimeOutConnection != nil {
+        timers.isBleConnectionTimerInProgress {
         log.info("📲 Bluetooth broadcasting")
 
         bluetoothConnector.scanForMelomindConnections()
@@ -127,7 +127,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
 
     guard bluetoothConnector.isMelomindDevice(deviceName: newDeviceName,
                                                services: newDeviceServices)
-      && (timerTimeOutConnection != nil || OADState >= .started) else { return }
+      && (timers.isBleConnectionTimerInProgress || OADState >= .started) else { return }
 
     if DeviceManager.connectedDeviceName == "" {
       DeviceManager.connectedDeviceName = newDeviceName
@@ -205,7 +205,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
         }
       }
     } else {
-      if timerTimeOutConnection != nil {
+      if timers.isBleConnectionTimerInProgress {
         isOADInProgress = false
 
         let error = BluetoothError.pairingDenied.error

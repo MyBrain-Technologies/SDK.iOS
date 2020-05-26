@@ -27,13 +27,7 @@ extension MBTBluetoothManager {
   /// - didOADFailWithError: 924 | Time Out Connection
   /// - onConnectionFailed: 924 | Time Out Cnnection
   func requestConnectA2DP() {
-    timerTimeOutA2DPConnection = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.a2dpConnection,
-      target: self,
-      selector: #selector(connetionA2DPTimeOut),
-      userInfo: nil,
-      repeats: false
-    )
+    timers.startA2DPConnectionTimer()
 
     let bytesArray: [UInt8] = [
       MailBoxEvents.a2dpConnection.rawValue,

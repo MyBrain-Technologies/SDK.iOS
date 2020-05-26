@@ -82,6 +82,7 @@
 		A9C0568D247BF20700EC8703 /* BluetoothConnectionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0568C247BF20700EC8703 /* BluetoothConnectionHistory.swift */; };
 		A9C05694247BFC3300EC8703 /* mm-ota-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */; };
 		A9C05695247BFC3300EC8703 /* mm-ota-i3-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */; };
+		A9C05697247BFCC900EC8703 /* BluetoothTimers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C05696247BFCC900EC8703 /* BluetoothTimers.swift */; };
 		A9D3B5DE23F40740006138E5 /* BluetoothState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D3B5DD23F40740006138E5 /* BluetoothState.swift */; };
 		A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */; };
 		A9E3A7BC24643B7700E6A4B9 /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
@@ -214,6 +215,7 @@
 		A9C0568C247BF20700EC8703 /* BluetoothConnectionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothConnectionHistory.swift; sourceTree = "<group>"; };
 		A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-1_7_14.bin"; path = "doc/firmware_binaries/mm-ota-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
 		A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-i3-1_7_14.bin"; path = "doc/firmware_binaries/mm-ota-i3-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
+		A9C05696247BFCC900EC8703 /* BluetoothTimers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTimers.swift; sourceTree = "<group>"; };
 		A9D3B5DD23F40740006138E5 /* BluetoothState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothState.swift; sourceTree = "<group>"; };
 		A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyBrainTechnologiesSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 				A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */,
 				A9C0568A247BF10C00EC8703 /* BluetoothConnector.swift */,
 				A9C0568C247BF20700EC8703 /* BluetoothConnectionHistory.swift */,
+				A9C05696247BFCC900EC8703 /* BluetoothTimers.swift */,
 			);
 			name = "Bluetooth Module";
 			sourceTree = "<group>";
@@ -859,6 +862,7 @@
 				A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */,
 				A918D28A24616DCB00026F1D /* BluetoothError.swift in Sources */,
 				A92CA41D2462F24D00688CE5 /* MBTBluetoothManager+CBPeripheralDelegate.swift in Sources */,
+				A9C05697247BFCC900EC8703 /* BluetoothTimers.swift in Sources */,
 				A918D28E246199E000026F1D /* AudioError.swift in Sources */,
 				A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */,
 				A92CA4252462F50D00688CE5 /* MBTBluetoothManager+A2DP.swift in Sources */,

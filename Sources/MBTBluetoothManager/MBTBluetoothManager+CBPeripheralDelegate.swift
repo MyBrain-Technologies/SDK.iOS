@@ -88,14 +88,9 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
 
   private func prepareDevice() {
     prepareDeviceWithInfo() {
-      self.requestUpdateBatteryLevel()
-      self.timerFinalizeConnectionMelomind = Timer.scheduledTimer(
-        timeInterval: 2.0,
-        target: self,
-        selector: #selector(self.requestUpdateBatteryLevel),
-        userInfo: nil,
-        repeats: false
-      )
+      self.requestBatteryLevel()
+
+      self.timers.startFinalizeConnectionTimer()
     }
   }
 
@@ -187,7 +182,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   private func mailBoxService(_ characteristic: CBCharacteristic) {
     log.verbose("Mailbox service")
 
-    stopTimerTimeOutA2DPConnection()
+    timers.stopOADTimer()
 
     guard let data = characteristic.value else { return }
 
@@ -224,7 +219,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
       if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
         blePeripheral?.setNotifyValue(false, for: characteristic)
       }
-      startTimerUpdateBatteryLevel()
+      startBatteryLevelTimer()
 
       let error = OADError.transferPreparationFailed.error
       log.error("📲 Transfer failed", context: error)
@@ -253,12 +248,13 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
              context: bytes.description)
 
     if bytes[1] == 0x01 {
-      stopTimerTimeOutOAD()
+      timers.stopOADTimer()
+      
       OADState = .completed
       eventDelegate?.onProgressUpdate?(0.9)
       eventDelegate?.onUpdateComplete?()
     } else {
-      startTimerUpdateBatteryLevel()
+      startBatteryLevelTimer()
       isOADInProgress = false
       OADState = .disable
 
@@ -307,7 +303,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
           eventDelegate?.onConnectionFailed?(error)
         }
 
-        stopTimerTimeOutA2DPConnection()
+        timers.stopA2DPConnectionTimer()
         disconnect()
       }
     }
@@ -316,7 +312,8 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   private func setSerialNumber(bytes: [UInt8]) {
     log.info("📲 Set serial number bytes", context: bytes.description)
 
-    stopTimerSendExternalName()
+    timers.stopSendExternalNameTimer()
+    
     finalizeConnectionMelomind()
   }
 

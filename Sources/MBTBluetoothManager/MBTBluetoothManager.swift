@@ -40,6 +40,12 @@ internal class MBTBluetoothManager: NSObject {
     return BluetoothConnector(centralManager: centralManager)
   }()
 
+  /******************** Timers ********************/
+
+  lazy var timers: BluetoothTimers = {
+    return BluetoothTimers(delegate: self)
+  }()
+
   /******************** Legacy ********************/
 
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
@@ -102,9 +108,6 @@ internal class MBTBluetoothManager: NSObject {
   /// or to process the receiving Battery Level
   var processBatteryLevel: Bool = false
 
-//  /// The BLE central manager.
-//  var centralManager: CBCentralManager?
-
   /// An object that manages and advertises peripheral services exposed by this app.
   /// Use for BLE authorizations.
   var peripheralManager: CBPeripheralManager?
@@ -127,26 +130,6 @@ internal class MBTBluetoothManager: NSObject {
     }
   }
 
-  /// the timer for the connection timeout
-  var timerTimeOutConnection: Timer?
-
-  var timerTimeOutA2DPConnection: Timer?
-
-  var timerTimeOutSendExternalName: Timer?
-
-  /// the timer for the battery level update
-  var timerUpdateBatteryLevel: Timer?
-
-  var timerFinalizeConnectionMelomind: Timer?
-
-  // OAD Transfert
-
-  // the timer for the OAD timeout
-  var timerTimeOutOAD: Timer?
-
-  // the array which contains the last three states of Blue
-//  var tabHistoBluetoothState = [Bool]()
-
   let bluetoothConnectionHistory = BluetoothConnectionHistory()
 
   /// Flag OAD is enable
@@ -156,7 +139,7 @@ internal class MBTBluetoothManager: NSObject {
   var OADState: OADStateType = .disable {
     didSet {
       if OADState == .disable {
-        stopTimerTimeOutOAD()
+        timers.stopOADTimer()
       }
     }
   }
@@ -188,7 +171,7 @@ internal class MBTBluetoothManager: NSObject {
   ///   - deviceName: The name of the device to connect (Bluetooth profile).
   func connectTo(_ deviceName: String? = nil) {
     if OADState == .connected, bluetoothConnectionHistory.isConnected {
-      stopTimerTimeOutConnection()
+      timers.stopBLEConnectionTimer()
 
       bluetoothConnector.scanForMelomindConnections()
 
@@ -201,15 +184,7 @@ internal class MBTBluetoothManager: NSObject {
 
     DeviceManager.connectedDeviceName = deviceName ?? ""
 
-    stopTimerTimeOutConnection()
-
-    timerTimeOutConnection = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.connection,
-      target: self,
-      selector: #selector(connectionMelomindTimeOut),
-      userInfo: nil,
-      repeats: false
-    )
+    timers.startBLEConnectionTimer()
   }
 
   /// Initialise or Re-initialise the BluetoothManager [Prepare all variable for the connection]
@@ -240,12 +215,7 @@ internal class MBTBluetoothManager: NSObject {
 
   /// Disconnect centralManager, and remove session's values.
   func disconnect() {
-    // Invalid Timer
-    stopTimerTimeOutConnection()
-    stopTimerTimeOutA2DPConnection()
-    stopTimerUpdateBatteryLevel()
-    stopTimerTimeOutOAD()
-    stopTimerFinalizeConnectionMelomind()
+    timers.stopAllTimers()
 
     bluetoothConnector.stopScanningForConnections(on: blePeripheral)
 
@@ -254,7 +224,7 @@ internal class MBTBluetoothManager: NSObject {
 
   /// Finalize the connection
   func finalizeConnectionMelomind() {
-    stopTimerFinalizeConnectionMelomind()
+    timers.stopFinalizeConnectionMelomindTimer()
 
     guard let currentDevice = DeviceManager.getCurrentDevice() else {
       let error = DeviceError.notConnected.error
@@ -267,12 +237,13 @@ internal class MBTBluetoothManager: NSObject {
     MBTClient.shared.eegAcquisitionManager.setUpWith(device: currentDevice)
 
     if !isOADInProgress {
-      stopTimerTimeOutConnection()
+      timers.stopBLEConnectionTimer()
+
       if shouldRequestA2DPConnection() {
         requestConnectA2DP()
       } else {
         eventDelegate?.onConnectionEstablished?()
-        startTimerUpdateBatteryLevel()
+        startBatteryLevelTimer()
       }
     } else {
       if shouldRequestA2DPConnection() {
@@ -399,13 +370,7 @@ internal class MBTBluetoothManager: NSObject {
   //----------------------------------------------------------------------------
 
   func sendDeviceExternalName(_ name: String) {
-    timerTimeOutSendExternalName = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.a2dpConnection,
-      target: self,
-      selector: #selector(sendExternalNameTimeOut),
-      userInfo: nil,
-      repeats: false
-    )
+    timers.startSendExternalNameTimer()
 
     let serialNumberByteArray: [UInt8] = [
       MailBoxEvents.setSerialNumber.rawValue,
@@ -424,7 +389,7 @@ internal class MBTBluetoothManager: NSObject {
   }
 
   //  Method Request Update Status Battery
-  @objc func requestUpdateBatteryLevel() {
+  func requestBatteryLevel() {
     guard let blePeripheral = blePeripheral,
       let characteristic = BluetoothDeviceCharacteristics.shared.deviceState else {
         return

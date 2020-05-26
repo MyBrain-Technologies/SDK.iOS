@@ -36,14 +36,14 @@ class BluetoothConnector {
   /******************** Scan ********************/
 
   func scanForMelomindConnections() {
-    log.info("🧭 Start scanning for a melomind device")
+    log.verbose("🧭 Start scanning for a melomind device")
 
     centralManager.scanForPeripherals(withServices: [melomindService],
                                       options: nil)
   }
 
   func stopScanningForConnections(on peripheral: CBPeripheral? = nil) {
-    log.info("🧭 Stop scanning for a melomind device")
+    log.verbose("🧭 Stop scanning for a melomind device")
 
     centralManager.stopScan()
 
@@ -55,7 +55,7 @@ class BluetoothConnector {
   /******************** Connection ********************/
 
   func connect(to peripheral: CBPeripheral) {
-    log.info("🧭 Connection to peripheral \(peripheral)")
+    log.verbose("🧭 Connection to peripheral \(peripheral)")
     centralManager.connect(peripheral, options: nil)
   }
 

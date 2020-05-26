@@ -333,19 +333,20 @@ public class MBTClient {
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
   public func readBatteryStatus() {
     guard DeviceManager.connectedDeviceName != nil else { return }
-    bluetoothManager.requestUpdateBatteryLevel()
+//    bluetoothManager.requestUpdateBatteryLevel()
+    bluetoothManager.requestBatteryLevel()
   }
 
   /// Stop the batteryLevel Event
   public func stopReceiveBatteryLevelEvent() {
     guard DeviceManager.connectedDeviceName != nil else { return }
-    bluetoothManager.stopTimerUpdateBatteryLevel()
+    bluetoothManager.timers.stopBatteryLevelTimer()
   }
 
   /// Start the batteryLevel Event
   public func startReceiveBatteryLevelEvent() {
     guard DeviceManager.connectedDeviceName != nil else { return }
-    bluetoothManager.startTimerUpdateBatteryLevel()
+    bluetoothManager.startBatteryLevelTimer()
   }
 
   //----------------------------------------------------------------------------

@@ -23,7 +23,7 @@ extension MBTBluetoothManager {
     }
 
     isOADInProgress = true
-    stopTimerTimeOutOAD()
+    timers.stopOADTimer()
 
     guard let device = DeviceManager.getCurrentDevice() else {
       isOADInProgress = false
@@ -48,20 +48,14 @@ extension MBTBluetoothManager {
     }
 
     OADState = .started
-    timerTimeOutOAD = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.oadTransfer,
-      target: self,
-      selector: #selector(self.oadTransfertTimeOut),
-      userInfo: nil,
-      repeats: false
-    )
+    timers.startOADTimer()
 
     OADManager = MBTOADManager(filename)
 
     let fwVersion = String(describing: OADManager?.fwVersion)
     log.info("Update firmware version to version", context: fwVersion)
 
-    stopTimerUpdateBatteryLevel()
+    timers.stopBatteryLevelTimer()
 
     if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
       blePeripheral?.setNotifyValue(true, for: characteristic)
