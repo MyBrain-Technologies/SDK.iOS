@@ -98,13 +98,6 @@ internal class MBTBluetoothManager: NSObject {
       peripheralIO.notifyHeadsetStatus(
         value: isListeningToHeadsetStatus
       )
-//      guard BluetoothDeviceCharacteristics.shared.headsetStatus != nil
-//        else { return }
-//
-//      self.blePeripheral?.setNotifyValue(
-//        isListeningToHeadsetStatus,
-//        for: BluetoothDeviceCharacteristics.shared.headsetStatus
-//      )
     }
   }
 
@@ -226,7 +219,6 @@ internal class MBTBluetoothManager: NSObject {
     )
 
     peripheralIO.peripheral = nil
-//    blePeripheral = nil
   }
 
   /// Finalize the connection
@@ -354,20 +346,7 @@ internal class MBTBluetoothManager: NSObject {
   /// - onProgressUpdate
   func sendFWVersionPlusLength() {
     guard let OADManager = OADManager else { return }
-//
-//    var bytesArray = [UInt8](repeating: 0, count: 5)
-//
-//    bytesArray[0] = MailBoxEvents.startOTATFX.rawValue
-//    bytesArray[1] = OADManager.getFWVersionAsByteArray()[0]
-//    bytesArray[2] = OADManager.getFWVersionAsByteArray()[1]
-//    bytesArray[3] = OADManager.oadProgress.nBlock.loUint8
-//    bytesArray[4] = OADManager.oadProgress.nBlock.hiUint16
-//
-//    blePeripheral?.writeValue(
-//      Data(bytesArray),
-//      for: BluetoothDeviceCharacteristics.shared.mailBox,
-//      type: .withResponse
-//    )
+
     peripheralIO.write(
       firmwareVersion: OADManager.getFWVersionAsByteArray(),
       numberOfBlocks: OADManager.oadProgress.nBlock
@@ -384,43 +363,18 @@ internal class MBTBluetoothManager: NSObject {
   func sendDeviceExternalName(_ name: String) {
     timers.startSendExternalNameTimer()
 
-//    let serialNumberByteArray: [UInt8] = [
-//      MailBoxEvents.setSerialNumber.rawValue,
-//      0xAB,
-//      0x21
-//    ]
-//    let bytesArray = serialNumberByteArray + [UInt8](name.utf8)
-//
-//    let mailBox = BluetoothDeviceCharacteristics.shared.mailBox
-
     peripheralIO.notifyMailBox(value: true)
     peripheralIO.write(deviceExternalName: name)
-
-//    blePeripheral?.setNotifyValue(true, for: mailBox)
-//    blePeripheral?.writeValue(Data(bytesArray),
-//                              for: mailBox,
-//                              type: .withResponse)
   }
 
   //  Method Request Update Status Battery
   func requestBatteryLevel() {
-//    guard let blePeripheral = blePeripheral,
-//      let characteristic = BluetoothDeviceCharacteristics.shared.deviceState else {
-//        return
-//    }
-//
-//    blePeripheral.readValue(for: characteristic)
     peripheralIO.readDeviceState()
   }
 
   func requestUpdateDeviceInfo() {
     DeviceManager.resetDeviceInfo()
 
-//    guard let blePeripheral = blePeripheral else { return }
-//
-//    for characteristic in BluetoothDeviceCharacteristics.shared.deviceInformations {
-//      blePeripheral.readValue(for: characteristic)
-//    }
     peripheralIO.readDeviceInformations()
   }
 

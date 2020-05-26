@@ -57,10 +57,6 @@ extension MBTBluetoothManager {
 
     timers.stopBatteryLevelTimer()
 
-//    if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
-//      blePeripheral?.setNotifyValue(true, for: characteristic)
-//    }
-
     peripheralIO.notifyMailBox(value: true)
 
     sendFWVersionPlusLength()
@@ -88,11 +84,6 @@ extension MBTBluetoothManager {
 
         let buffer = oadManager.getNextOADBuffer()
         self.peripheralIO.write(oadBuffer: buffer)
-//        self.blePeripheral?.writeValue(
-//          oadManager.getNextOADBufferData(),
-//          for: BluetoothDeviceCharacteristics.shared.oadTransfert,
-//          type: .withoutResponse
-//        )
 
         DispatchQueue.main.async {
           let progress = Int(iBlock / bufferCount * 100)
@@ -104,7 +95,6 @@ extension MBTBluetoothManager {
           oldProgress = progress
         }
       }
-
     }
   }
 

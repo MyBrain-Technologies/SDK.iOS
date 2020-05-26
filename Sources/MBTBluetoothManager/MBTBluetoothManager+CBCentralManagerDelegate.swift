@@ -79,8 +79,6 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     bluetoothConnector.stopScanningForConnections(
       on: peripheralIO.peripheral
     )
-//    bluetoothConnector.stopScanningForConnections(on: blePeripheral)
-//    blePeripheral = nil
     peripheralIO.peripheral = nil
 
     if OADState > .completed {
@@ -114,7 +112,6 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
         return
     }
 
-//    blePeripheral = nil
     peripheralIO.peripheral = nil
     DeviceManager.resetDeviceInfo()
 
@@ -153,11 +150,8 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     guard DeviceManager.connectedDeviceName == newDeviceName else { return }
 
     bluetoothConnector.stopScanningForConnections()
-    // Set as the peripheral to use and establish connection
-//    blePeripheral = peripheral
     peripheralIO.peripheral = peripheral
 
-//    blePeripheral?.delegate = self
     peripheralIO.peripheral?.delegate = self
 
     bluetoothConnector.connect(to: peripheral)

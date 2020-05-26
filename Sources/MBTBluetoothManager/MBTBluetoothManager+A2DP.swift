@@ -28,22 +28,9 @@ extension MBTBluetoothManager {
   /// - onConnectionFailed: 924 | Time Out Cnnection
   func requestConnectA2DP() {
     timers.startA2DPConnectionTimer()
-//
-//    let bytesArray: [UInt8] = [
-//      MailBoxEvents.a2dpConnection.rawValue,
-//      0x25,
-//      0xA2
-//    ]
-//
-//    guard let characteristic =
-//      BluetoothDeviceCharacteristics.shared.mailBox else { return }
 
-//    blePeripheral?.setNotifyValue(true, for: characteristic)
     peripheralIO.notifyMailBox(value: true)
     peripheralIO.writeA2DPConnection()
-//    blePeripheral?.writeValue(Data(bytesArray),
-//                              for: characteristic,
-//                              type: .withResponse)
   }
 
   /// Listen to the AVAudioSessionRouteChange Notification
