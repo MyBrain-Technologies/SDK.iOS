@@ -1,6 +1,11 @@
 import Foundation
-import CoreBluetooth
 
+/*******************************************************************************
+ * BluetoothConnectionHistory
+ *
+ * Store and retrieve bluetooth connections states history.
+ *
+ ******************************************************************************/
 class BluetoothConnectionHistory {
 
   //----------------------------------------------------------------------------

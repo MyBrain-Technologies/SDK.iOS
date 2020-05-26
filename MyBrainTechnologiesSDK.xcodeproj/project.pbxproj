@@ -44,6 +44,9 @@
 		A918D29624619D2800026F1D /* OADError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D29524619D2800026F1D /* OADError.swift */; };
 		A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D2972461A9A700026F1D /* MBTClient+log.swift */; };
 		A918D29A2461CC2200026F1D /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A918D2992461CC2200026F1D /* SwiftyBeaver.framework */; };
+		A91BD902247D1EC800603C42 /* BluetoothTimersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD901247D1EC800603C42 /* BluetoothTimersTests.swift */; };
+		A91BD904247D1F6400603C42 /* BluetoothConnectionHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD903247D1F6400603C42 /* BluetoothConnectionHistoryTests.swift */; };
+		A91BD907247D219600603C42 /* BluetoothTimersDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD906247D219600603C42 /* BluetoothTimersDelegateMock.swift */; };
 		A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */; };
 		A92452D023F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92452CF23F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */; };
 		A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */; };
@@ -177,6 +180,9 @@
 		A918D29524619D2800026F1D /* OADError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADError.swift; sourceTree = "<group>"; };
 		A918D2972461A9A700026F1D /* MBTClient+log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTClient+log.swift"; sourceTree = "<group>"; };
 		A918D2992461CC2200026F1D /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
+		A91BD901247D1EC800603C42 /* BluetoothTimersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTimersTests.swift; sourceTree = "<group>"; };
+		A91BD903247D1F6400603C42 /* BluetoothConnectionHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothConnectionHistoryTests.swift; sourceTree = "<group>"; };
+		A91BD906247D219600603C42 /* BluetoothTimersDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTimersDelegateMock.swift; sourceTree = "<group>"; };
 		A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAuthorization.swift; sourceTree = "<group>"; };
 		A92452CF23F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTBluetoothManager+CBPeripheralManagerDelegate.swift"; sourceTree = "<group>"; };
 		A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinariesFileFinder.swift; sourceTree = "<group>"; };
@@ -444,6 +450,24 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		A91BD900247D1EAB00603C42 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				A91BD905247D218600603C42 /* Mocks */,
+				A91BD901247D1EC800603C42 /* BluetoothTimersTests.swift */,
+				A91BD903247D1F6400603C42 /* BluetoothConnectionHistoryTests.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		A91BD905247D218600603C42 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A91BD906247D219600603C42 /* BluetoothTimersDelegateMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		A927D58C23CCDF1E00C20734 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +588,7 @@
 		A9E3A7B824643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				A91BD900247D1EAB00603C42 /* Bluetooth */,
 				A92FCD59246AC70200D7DB51 /* TestsResources */,
 				A9E3A7CD246440D500E6A4B9 /* Shared */,
 				A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */,
@@ -893,10 +918,13 @@
 			files = (
 				A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */,
 				A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */,
+				A91BD902247D1EC800603C42 /* BluetoothTimersTests.swift in Sources */,
 				A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */,
 				A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */,
+				A91BD907247D219600603C42 /* BluetoothTimersDelegateMock.swift in Sources */,
 				A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */,
 				A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */,
+				A91BD904247D1F6400603C42 /* BluetoothConnectionHistoryTests.swift in Sources */,
 				A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

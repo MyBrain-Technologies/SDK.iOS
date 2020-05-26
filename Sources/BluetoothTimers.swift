@@ -81,7 +81,9 @@ class BluetoothTimers {
     updateBatteryLevelTimer = nil
   }
 
-  func startBatteryLevelTimer(timeInterval: TimeInterval? = nil) {
+  func startBatteryLevelTimer(timeInterval: TimeInterval? = nil,
+                              verificationTimeInterval: TimeInterval? = nil,
+                              repeats: Bool = true) {
     stopBatteryLevelTimer()
 
     log.verbose("⏰ Start BatteryTimer for \(String(describing: timeInterval))")
@@ -91,10 +93,10 @@ class BluetoothTimers {
       target: self,
       selector: #selector(batteryLevelHasTimeout),
       userInfo: nil,
-      repeats: true
+      repeats: repeats
     )
 
-    let verification = TimeInterval(5)
+    let verification = verificationTimeInterval ?? TimeInterval(5)
     Timer.scheduledTimer(timeInterval: verification,
                          target: self,
                          selector: #selector(batteryLevelHasTimeout),
@@ -104,18 +106,19 @@ class BluetoothTimers {
 
   @objc private func batteryLevelHasTimeout() {
     log.verbose("⏰ Timeout BatteryTimer")
+
     delegate?.didBatteryLevelTimeout()
   }
 
   /******************** BLE Connection ********************/
 
-  func startBLEConnectionTimer() {
+  func startBLEConnectionTimer(timeInterval: TimeInterval? = nil) {
     stopBLEConnectionTimer()
 
     log.verbose("⏰ Start BLE timer for \(Constants.Timeout.connection)s")
 
     bleConnectionTimer = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.connection,
+      timeInterval: timeInterval ?? Constants.Timeout.connection,
       target: self,
       selector: #selector(bleConnectionTimeOut),
       userInfo: nil,
@@ -147,11 +150,11 @@ class BluetoothTimers {
     oadTimer = nil
   }
 
-  func startOADTimer() {
+  func startOADTimer(timeInterval: TimeInterval? = nil) {
     log.verbose("⏰ Start OAD Timer")
 
     oadTimer = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.oadTransfer,
+      timeInterval: timeInterval ?? Constants.Timeout.oadTransfer,
       target: self,
       selector: #selector(self.oadTimeout),
       userInfo: nil,
@@ -176,11 +179,11 @@ class BluetoothTimers {
     a2dpConnectionTimer = nil
   }
 
-  func startA2DPConnectionTimer() {
+  func startA2DPConnectionTimer(timeInterval: TimeInterval? = nil) {
     log.verbose("⏰ Start A2DP Timer")
 
     a2dpConnectionTimer = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.a2dpConnection,
+      timeInterval: timeInterval ?? Constants.Timeout.a2dpConnection,
       target: self,
       selector: #selector(a2dpConnectionTimeout),
       userInfo: nil,
@@ -191,6 +194,7 @@ class BluetoothTimers {
   @objc private func a2dpConnectionTimeout() {
     log.verbose("⏰ Timeout A2DP Timer")
 
+    stopA2DPConnectionTimer()
     delegate?.didA2DPConnectionTimeout()
   }
 
@@ -203,11 +207,11 @@ class BluetoothTimers {
     finalizeMelomindConnectionTimer = nil
   }
 
-  func startFinalizeConnectionTimer() {
+  func startFinalizeConnectionTimer(timeInterval: TimeInterval? = nil) {
     log.verbose("⏰ Start Finalize Connection Timer")
 
     finalizeMelomindConnectionTimer = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.finalizeConnection,
+      timeInterval: timeInterval ?? Constants.Timeout.finalizeConnection,
       target: self,
       selector: #selector(finalizeConnectionTimeout),
       userInfo: nil,
@@ -218,6 +222,7 @@ class BluetoothTimers {
   @objc private func finalizeConnectionTimeout() {
     log.verbose("⏰ Timeout Finalize Connection Timer")
 
+    stopFinalizeConnectionMelomindTimer()
     delegate?.didFinalizeConnectionTimeout()
   }
 
@@ -230,11 +235,11 @@ class BluetoothTimers {
     sendExternalNameTimer = nil
   }
 
-  func startSendExternalNameTimer() {
+  func startSendExternalNameTimer(timeInterval: TimeInterval? = nil) {
     log.verbose("⏰ Start SendExternalName Timer")
 
     sendExternalNameTimer = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.sendExternalName,
+      timeInterval: timeInterval ?? Constants.Timeout.sendExternalName,
       target: self,
       selector: #selector(sendExternalNameTimeout),
       userInfo: nil,
@@ -244,6 +249,8 @@ class BluetoothTimers {
 
   @objc private func sendExternalNameTimeout() {
     log.verbose("⏰ Timeout SendExternalName Timer")
+
+    stopSendExternalNameTimer()
     delegate?.didSendExternalNameTimeout()
   }
 
