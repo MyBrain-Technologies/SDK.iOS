@@ -31,12 +31,8 @@ internal class MBTBluetoothManager: NSObject {
 
   /******************** Connection ********************/
 
-  //swiftlint:disable weak_delegate
-  let centralManagerDelegate = BluetoothCentralManagerDelegate()
-
   lazy var bluetoothConnector: BluetoothConnector = {
-    let centralManager = CBCentralManager(delegate: self, // TEMP, should be CentralManagerDelegate after
-                                          queue: nil)
+    let centralManager = CBCentralManager(delegate: self, queue: nil)
     return BluetoothConnector(centralManager: centralManager)
   }()
 

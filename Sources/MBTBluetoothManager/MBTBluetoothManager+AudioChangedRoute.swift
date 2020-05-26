@@ -29,7 +29,6 @@ extension MBTBluetoothManager {
       let lastSerialNumber =
       getSerialNumberFrom(deviceName: lastOutput.portName),
       serialNumber != lastSerialNumber else {
-        MBTBluetoothA2DPHelper.uid = nil
         // MBT A2DP audio is disconnected
         DispatchQueue.main.async {
           self.audioA2DPDelegate?.audioA2DPDidDisconnect?()
@@ -40,7 +39,6 @@ extension MBTBluetoothManager {
     let meloName = "\(Constants.DeviceName.blePrefix)\(serialNumber)"
     log.info("📲 New output port name", context: meloName)
 
-    MBTBluetoothA2DPHelper.uid = output.uid
     // A2DP Audio is connected
     DispatchQueue.main.async {
       self.audioA2DPDelegate?.audioA2DPDidConnect?()

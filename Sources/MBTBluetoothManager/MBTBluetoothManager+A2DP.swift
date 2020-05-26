@@ -60,8 +60,6 @@ extension MBTBluetoothManager {
 
     if let deviceName = DeviceManager.connectedDeviceName,
       output?.portName == deviceName && output?.portType == .bluetoothA2DP {
-      // Save the UUID of the concerned headset
-      MBTBluetoothA2DPHelper.uid = output?.uid
       // A2DP Audio is connected
       audioA2DPDelegate?.audioA2DPDidConnect?()
     } else {
