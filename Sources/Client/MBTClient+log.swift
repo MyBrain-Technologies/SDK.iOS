@@ -21,7 +21,9 @@ let log = SwiftyBeaver.self
 
 extension MBTClient {
 
-  public func initLog(logToFile: Bool, isDebugMode: Bool = false) {
+  public func initLog(logToFile: Bool,
+                      isDebugMode: Bool = false,
+                      filters: [FilterType] = []) {
     log.removeAllDestinations()
 
     let destination = logToFile ? FileDestination() : ConsoleDestination()
@@ -30,6 +32,8 @@ extension MBTClient {
     let defaultFormat = "[SDK] $DHH:mm:ss $C$L $M $X"
     destination.format = isDebugMode ? debugFormat : defaultFormat
     destination.minLevel = isDebugMode ? .verbose : .info
+
+    filters.forEach() { destination.addFilter($0) }
     log.addDestination(destination)
   }
 }

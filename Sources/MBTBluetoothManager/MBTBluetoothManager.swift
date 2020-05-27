@@ -54,7 +54,10 @@ internal class MBTBluetoothManager: NSObject {
       deviceFirmwareVersion(isHigherOrEqualThan: .a2dpFromHeadset)
 
     if autoConnection && firmwareIsHigher && isBLEConnected {
-      return DeviceManager.connectedDeviceName == getBLEDeviceNameFromA2DP()
+      guard let connectedDeviceName = DeviceManager.connectedDeviceName,
+        let bleDeviceName = getBLEDeviceNameFromA2DP() else { return false }
+
+      return connectedDeviceName == bleDeviceName
     } else {
       return isBLEConnected
     }
@@ -152,9 +155,7 @@ internal class MBTBluetoothManager: NSObject {
   func connectTo(_ deviceName: String? = nil) {
     if OADState == .connected, bluetoothStatesHistory.isPoweredOn {
       timers.stopBLEConnectionTimer()
-
       bluetoothConnector.scanForMelomindConnections()
-
       return
     }
 
