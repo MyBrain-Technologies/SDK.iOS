@@ -120,7 +120,6 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     OADState = .connected
   }
 
-
   /// Check out the discovered peripherals to find the right device.
   /// Invoked when the central manager discovers a peripheral while scanning.
   func centralManager(_ central: CBCentralManager,

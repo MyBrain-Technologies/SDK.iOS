@@ -1,15 +1,11 @@
 import Foundation
 import CoreBluetooth
 
-// TEMP: LEGACY CODE
-// swiftlint:disable function_body_length
-
 extension MBTBluetoothManager: CBPeripheralDelegate {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
-
 
   private var hasDiscoverAllCharacteristics: Bool {
     return counterServicesDiscover <= 0
@@ -247,7 +243,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
 
     if bytes[1] == 0x01 {
       timers.stopOADTimer()
-      
+
       OADState = .completed
       eventDelegate?.onProgressUpdate?(0.9)
       eventDelegate?.onUpdateComplete?()
@@ -311,7 +307,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     log.info("📲 Set serial number bytes", context: bytes.description)
 
     timers.stopSendExternalNameTimer()
-    
+
     finalizeConnectionMelomind()
   }
 

@@ -15,7 +15,7 @@ class StringSerialNumberTests: XCTestCase {
     XCTAssertEqual("MM10000500".serialNumberFromDeviceName, "1010100500")
     XCTAssertEqual("MM1B20554".serialNumberFromDeviceName, "1010200790")
     XCTAssertEqual("melo_1010100500".serialNumberFromDeviceName, "1010100500")
-    
+
     XCTAssertEqual("melo_".serialNumberFromDeviceName, "")
     XCTAssertEqual("melo".serialNumberFromDeviceName, nil)
     XCTAssertEqual("".serialNumberFromDeviceName, nil)

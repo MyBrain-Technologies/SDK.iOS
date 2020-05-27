@@ -68,7 +68,7 @@ extension MBTBluetoothManager {
         }
 
         self.timers.stopA2DPConnectionTimer()
-        
+
         self.eventDelegate?.onConnectionEstablished?()
         self.startBatteryLevelTimer()
       } else {

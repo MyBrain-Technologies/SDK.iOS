@@ -31,7 +31,7 @@ struct BrainwebRequestBuilder {
 
   /// Build a POST ingest request on the given brainweb url
   static func buildIngestPost(fromBase baseURL: String,
-                       token: String) -> URLRequest? {
+                              token: String) -> URLRequest? {
     guard var urlRequest = build(fromBase: baseURL) else { return nil }
 
     urlRequest.httpMethod = HTTPMethod.post.rawValue

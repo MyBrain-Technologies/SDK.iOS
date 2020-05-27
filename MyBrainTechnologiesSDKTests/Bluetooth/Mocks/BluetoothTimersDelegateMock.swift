@@ -33,5 +33,4 @@ class BluetoothTimersDelegateMock: BluetoothTimersDelegate {
     a2dpConnectionCount += 1
   }
 
-
 }
