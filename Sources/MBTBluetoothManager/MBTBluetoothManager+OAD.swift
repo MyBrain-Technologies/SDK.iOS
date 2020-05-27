@@ -12,7 +12,7 @@ extension MBTBluetoothManager {
   func startOAD() {
     // Disconnect A2DP
 
-    guard isConnected else {
+    guard isAudioAndBLEConnected else {
       self.isOADInProgress = false
 
       let error = DeviceError.notConnected.error
@@ -23,7 +23,7 @@ extension MBTBluetoothManager {
     }
 
     isOADInProgress = true
-    stopTimerTimeOutOAD()
+    timers.stopOADTimer()
 
     guard let device = DeviceManager.getCurrentDevice() else {
       isOADInProgress = false
@@ -48,24 +48,16 @@ extension MBTBluetoothManager {
     }
 
     OADState = .started
-    timerTimeOutOAD = Timer.scheduledTimer(
-      timeInterval: Constants.Timeout.oadTransfer,
-      target: self,
-      selector: #selector(self.oadTransfertTimeOut),
-      userInfo: nil,
-      repeats: false
-    )
+    timers.startOADTimer()
 
     OADManager = MBTOADManager(filename)
 
     let fwVersion = String(describing: OADManager?.fwVersion)
     log.info("Update firmware version to version", context: fwVersion)
 
-    stopTimerUpdateBatteryLevel()
+    timers.stopBatteryLevelTimer()
 
-    if let characteristic = MBTBluetoothLEHelper.mailBoxCharacteristic {
-      blePeripheral?.setNotifyValue(true, for: characteristic)
-    }
+    peripheralIO.notifyMailBox(value: true)
 
     sendFWVersionPlusLength()
   }
@@ -81,7 +73,7 @@ extension MBTBluetoothManager {
 
       while oadManager.oadProgress.iBlock < oadManager.mOadBuffer.count {
         usleep(6000)
-        if !self.isConnectedBLE || self.OADState != .inProgress {
+        if !self.isBLEConnected || self.OADState != .inProgress {
           break
         }
 
@@ -90,11 +82,8 @@ extension MBTBluetoothManager {
 
         guard iBlock < bufferCount else { continue }
 
-        self.blePeripheral?.writeValue(
-          oadManager.getNextOADBufferData(),
-          for: MBTBluetoothLEHelper.oadTransfertCharacteristic,
-          type: .withoutResponse
-        )
+        let buffer = oadManager.getNextOADBuffer()
+        self.peripheralIO.write(oadBuffer: buffer)
 
         DispatchQueue.main.async {
           let progress = Int(iBlock / bufferCount * 100)
@@ -106,7 +95,6 @@ extension MBTBluetoothManager {
           oldProgress = progress
         }
       }
-
     }
   }
 

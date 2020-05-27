@@ -1,6 +1,6 @@
 import Foundation
 
-protocol MBTError: Error {
+protocol MBTError: Error, CustomStringConvertible {
   var error: Error { get }
   var code: Int { get }
 }
@@ -13,5 +13,9 @@ extension MBTError {
       userInfo: [NSLocalizedDescriptionKey: localizedDescription]
     )
     return error as Error
+  }
+
+  var description: String {
+    return localizedDescription
   }
 }

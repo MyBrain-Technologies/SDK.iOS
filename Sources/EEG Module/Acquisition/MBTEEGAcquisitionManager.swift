@@ -3,9 +3,6 @@ import CoreBluetooth
 import RealmSwift
 import SwiftyJSON
 
-// TEMP: LEGACY CODE
-// swiftlint:disable function_body_length
-
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...
 internal class MBTEEGAcquisitionManager: NSObject  {
@@ -147,17 +144,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                                               recordInfo: currentRecordInfo,
                                               comments: comments)
           // Save JSON with EEG data received.
-          let fileURL = MBTJSONHelper.saveJSONOnDevice(
-            jsonObject,
-            idDevice: resDevice.deviceInfos!.deviceId!,
-            idUser: idUser, with: {
-            // Then delete all MBTEEGPacket saved.
-            DispatchQueue.main.async {
-              EEGPacketManager.removePackets(packetToRemove)
-            }
-          })
-
+          let deviceId = resDevice.deviceInfos!.deviceId!
+          let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
+                                                          deviceId: deviceId,
+                                                          userId: idUser)
           DispatchQueue.main.async {
+            EEGPacketManager.removePackets(packetToRemove)
             completion(fileURL)
           }
         } else {
