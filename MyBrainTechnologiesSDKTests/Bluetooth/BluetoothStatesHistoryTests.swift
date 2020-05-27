@@ -1,45 +1,45 @@
 import XCTest
 @testable import MyBrainTechnologiesSDK
 
-class BluetoothConnectionHistoryTests: XCTestCase {
+class BluetoothStatesHistoryTests: XCTestCase {
 
   func testAddState() {
-    let history = BluetoothConnectionHistory(historySize: 3)
+    let history = BluetoothStateHistory(historySize: 3)
 
     // When
     history.addState(isConnected: true)
     // Then
-    XCTAssertTrue(history.isConnected)
+    XCTAssertTrue(history.isPoweredOn)
 
     // When
     history.addState(isConnected: false)
     // Then
-    XCTAssertFalse(history.isConnected)
+    XCTAssertFalse(history.isPoweredOn)
   }
 
   func testAddState_moreThanLimit() {
-    let history = BluetoothConnectionHistory(historySize: 2)
+    let history = BluetoothStateHistory(historySize: 2)
 
     // When
     history.addState(isConnected: true)
     history.addState(isConnected: true)
     // Then
-    XCTAssertTrue(history.isConnected)
+    XCTAssertTrue(history.isPoweredOn)
 
     // When
     history.addState(isConnected: true)
     // Then
-    XCTAssertTrue(history.isConnected)
+    XCTAssertTrue(history.isPoweredOn)
 
     // When
     history.addState(isConnected: false)
     // Then
-    XCTAssertFalse(history.isConnected)
+    XCTAssertFalse(history.isPoweredOn)
     XCTAssertTrue(history.historyIsFull)
   }
 
   func testHistoryIsFull() {
-    let history = BluetoothConnectionHistory(historySize: 2)
+    let history = BluetoothStateHistory(historySize: 2)
 
     // When
     history.addState(isConnected: true)
@@ -54,7 +54,7 @@ class BluetoothConnectionHistoryTests: XCTestCase {
   }
 
   func testHasNoHistory() {
-    let history = BluetoothConnectionHistory(historySize: 2)
+    let history = BluetoothStateHistory(historySize: 2)
 
     // Then
     XCTAssertTrue(history.hasNoHistory)

@@ -1,12 +1,12 @@
 import Foundation
 
 /*******************************************************************************
- * BluetoothConnectionHistory
+ * bluetoothStatesHistory
  *
  * Store and retrieve bluetooth connections states history.
  *
  ******************************************************************************/
-class BluetoothConnectionHistory {
+class BluetoothStateHistory {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -20,7 +20,7 @@ class BluetoothConnectionHistory {
 
   /******************** Interpretation of history ********************/
 
-  var isConnected: Bool {
+  var isPoweredOn: Bool {
     return stateHistory.last ?? false
   }
 

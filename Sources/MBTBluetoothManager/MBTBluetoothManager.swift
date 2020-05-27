@@ -127,7 +127,7 @@ internal class MBTBluetoothManager: NSObject {
     }
   }
 
-  let bluetoothConnectionHistory = BluetoothConnectionHistory()
+  let bluetoothStatesHistory = BluetoothStateHistory()
 
   /// Flag OAD is enable
   var isOADInProgress = false
@@ -167,7 +167,7 @@ internal class MBTBluetoothManager: NSObject {
   /// - Parameters:
   ///   - deviceName: The name of the device to connect (Bluetooth profile).
   func connectTo(_ deviceName: String? = nil) {
-    if OADState == .connected, bluetoothConnectionHistory.isConnected {
+    if OADState == .connected, bluetoothStatesHistory.isPoweredOn {
       timers.stopBLEConnectionTimer()
 
       bluetoothConnector.scanForMelomindConnections()

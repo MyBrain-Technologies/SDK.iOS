@@ -19,8 +19,8 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     default: log.info("📲 Bluetooth state is \(central.state)")
     }
 
-    let hasRebootBluetooth = bluetoothConnectionHistory.isConnected
-      && bluetoothConnectionHistory.historyIsFull
+    let hasRebootBluetooth = bluetoothStatesHistory.isPoweredOn
+      && bluetoothStatesHistory.historyIsFull
 
     if isOADInProgress && OADState == .rebootRequired && hasRebootBluetooth {
       continueOADAfterBluetoothReboot()
@@ -33,8 +33,8 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
 
     // Scan for peripherals if BLE is turned on
 
-    if bluetoothConnectionHistory.isConnected == false {
-      bluetoothConnectionHistory.addState(isConnected: true)
+    if bluetoothStatesHistory.isPoweredOn == false {
+      bluetoothStatesHistory.addState(isConnected: true)
       eventDelegate?.onBluetoothStateChange?(true)
     }
 
@@ -48,8 +48,8 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
   private func didBluetoothPoweredOff() {
     log.info("📲 Bluetooth powered off")
 
-    if bluetoothConnectionHistory.isConnected {
-      bluetoothConnectionHistory.addState(isConnected: false)
+    if bluetoothStatesHistory.isPoweredOn {
+      bluetoothStatesHistory.addState(isConnected: false)
       eventDelegate?.onBluetoothStateChange?(false)
     }
 

@@ -49,7 +49,7 @@ public class MBTClient {
   /******************** Bluetooth ********************/
 
   public var isBluetoothOn: Bool {
-    return bluetoothManager.bluetoothConnectionHistory.isConnected
+    return bluetoothManager.bluetoothStatesHistory.isPoweredOn
   }
 
   public var isConnected: Bool {
