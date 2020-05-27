@@ -61,12 +61,12 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
   }
 
   private func sendBluetoothPoweredOffError() {
-    let error: MBTError = isAudioConnected ?
+    let error: MBTError = isAudioAndBLEConnected ?
       BluetoothLowEnergyError.poweredOff: BluetoothError.poweredOff
 
     log.error("📲 Bluetooth connection interrupted", context: error)
 
-    isAudioConnected ?
+    isAudioAndBLEConnected ?
       eventDelegate?.onConnectionBLEOff?(error.error) :
       eventDelegate?.onConnectionFailed?(error.error)
 

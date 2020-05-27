@@ -53,7 +53,7 @@ public class MBTClient {
   }
 
   public var isConnected: Bool {
-    return bluetoothManager.isAudioConnected
+    return bluetoothManager.isAudioAndBLEConnected
   }
 
   public var bluetoothAuthorization: BluetoothAuthorization {
@@ -124,7 +124,7 @@ public class MBTClient {
     bluetoothManager = MBTBluetoothManager.shared
 
     if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
-      !bluetoothManager.isAudioConnected {
+      !bluetoothManager.isAudioAndBLEConnected {
       bluetoothManager.connectTo(deviceName)
     }
     eegAcquisitionManager = MBTEEGAcquisitionManager.shared

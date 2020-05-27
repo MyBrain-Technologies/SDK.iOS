@@ -47,7 +47,7 @@ internal class MBTBluetoothManager: NSObject {
 
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   /// - Remark: Sends a notification when changed (on *willSet*).
-  var isAudioConnected: Bool {
+  var isAudioAndBLEConnected: Bool {
     let autoConnection =
       audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
     let firmwareIsHigher =

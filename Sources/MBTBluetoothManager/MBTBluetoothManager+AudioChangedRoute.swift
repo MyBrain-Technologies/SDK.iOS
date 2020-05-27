@@ -56,7 +56,7 @@ extension MBTBluetoothManager {
     DispatchQueue.main.async {
       self.audioA2DPDelegate?.audioA2DPDidConnect?()
 
-      guard self.isAudioConnected else {
+      guard self.isAudioAndBLEConnected else {
         self.connectTo(meloName)
         return
       }
