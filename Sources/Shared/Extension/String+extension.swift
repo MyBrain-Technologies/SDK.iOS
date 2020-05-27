@@ -7,7 +7,14 @@ extension String {
   //----------------------------------------------------------------------------
 
   var withoutExtension: String {
-    return self.components(separatedBy: ".").first ?? self
+    let separator = "."
+
+    var components = self.components(separatedBy: separator)
+    if components.count > 1 {
+      _ = components.removeLast()
+    }
+
+    return components.joined(separator: separator)
   }
 
   var versionNumber: String? {
@@ -15,9 +22,55 @@ extension String {
   }
 
   func getVersionNumber(withSeparator separator: Character) -> String? {
-    return versionNumber?.replacingOccurrences(of: Constants.versionSeparators,
-                                               with: "\(separator)")
+    return Constants.versionSeparators.reduce(versionNumber)
+    { result, character in
+      let newResult = result?.replacingOccurrences(of: "\(character)",
+                                                   with: "\(separator)")
+      return newResult
+    }
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - QR Code
+  //----------------------------------------------------------------------------
+
+  var isQrCode: Bool {
+    return isQrCodeBatch1 || isQrCodeBatch2
+  }
+
+  var isQrCodeBatch1: Bool {
+    return starts(with: Constants.DeviceName.qrCodePrefix)
+      && count == Constants.DeviceName.qrCodeLength
+  }
+
+  var isQrCodeBatch2: Bool {
+    return starts(with: Constants.DeviceName.qrCodePrefixBatch2)
+      && count == Constants.DeviceName.qrCodeBatch2Length
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Serial Number
+  //----------------------------------------------------------------------------
+
+  var serialNumberFomQRCode: String? {
+    var qrCode = self
+    if isQrCodeBatch2 {
+      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
+    }
+    return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
+  }
+
+  var serialNumberFromDeviceName: String? {
+    if isQrCode {
+      return serialNumberFomQRCode
+    } else {
+      let values = components(separatedBy: "_")
+      return values.count > 1 ? values.last : nil
+    }
+  }
+}
+
+extension String {
 
   //----------------------------------------------------------------------------
   // MARK: - Regex

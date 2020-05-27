@@ -222,7 +222,7 @@ public class MBTClient {
   }
 
   public func getDeviceSerialNumber(fromQrCode qrCode: String) -> String? {
-    return bluetoothManager.getSerialNumber(fromQrCode: qrCode)
+    return qrCode.serialNumberFomQRCode
   }
 
   /// Get the latest battery level saved in DB.

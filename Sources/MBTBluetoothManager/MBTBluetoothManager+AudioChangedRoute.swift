@@ -9,25 +9,38 @@ extension MBTBluetoothManager {
   /// Audio A2DP changing route output handler.
   /// - Parameter notif: The *notification* received when audio route output changed.
   @objc func audioChangedRoute(_ notif: Notification) {
+    log.verbose("🔊 Audio changed")
+//    guard let userInfo = notif.userInfo else { return }
 
-    guard let userInfo = notif.userInfo else { return }
-
-    //
     // Get the last audio output route used
-    var lastOutput: AVAudioSessionPortDescription! = nil
+//    var lastOutput: AVAudioSessionPortDescription! = nil
 
-    let lastRoute = userInfo[AVAudioSessionRouteChangePreviousRouteKey]
-    if let previousRoute = lastRoute as? AVAudioSessionRouteDescription {
-      lastOutput = previousRoute.outputs[0]
-    }
+//    let lastRoute = userInfo[AVAudioSessionRouteChangePreviousRouteKey]
+//    if let previousRoute = lastRoute as? AVAudioSessionRouteDescription {
+//      lastOutput = previousRoute.outputs[0]
+//    }
+    guard let lastOutput = AudioNotification(notif).lastAudioPort,
+      let output = AudioOutputs().melomindOutput else { return }
 
-    log.info("📲 Last output port name", context: lastOutput.portName)
+    log.info("🔊 Last audio output port name", context: lastOutput.portName)
+
+    print(AudioOutputs().outputs.map() { $0.portName })
+    print(AudioOutputs().melomindOutput?.portName)
+
+//    guard let output = AudioOutputs().melomindOutput,
+//      let serialNumber = output.portName.serialNumberFromDeviceName,
+//      let lastSerialNumber = lastOutput.portName.serialNumberFromDeviceName else {
+//        log.error("current output portName")
+//    }
+
+    let serialNumber = output.portName.serialNumberFromDeviceName ?? ""
+    let lastSerialNumber = lastOutput.portName.serialNumberFromDeviceName ?? ""
 
     // Get the actual route used
-    guard let output = getA2DPDeviceOutput(),
-      let serialNumber = getSerialNumberFrom(deviceName: output.portName),
-      let lastSerialNumber =
-      getSerialNumberFrom(deviceName: lastOutput.portName),
+    guard
+//      let output = AudioOutputs().melomindOutput,
+      //  getSerialNumberFrom(deviceName: output.portName)
+//      getSerialNumberFrom(deviceName: lastOutput.portName),
       serialNumber != lastSerialNumber else {
         // MBT A2DP audio is disconnected
         DispatchQueue.main.async {

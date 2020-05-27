@@ -80,7 +80,7 @@ extension MBTBluetoothManager {
   /// Melomind connected in A2DP Protocol else nil if it is not a Melomind
   func getBLEDeviceNameFromA2DP() -> String? {
     if let nameA2DP = getA2DPDeviceName() {
-      if !isQrCode(nameA2DP),
+      if !nameA2DP.isQrCode,
         let serialNumber = nameA2DP.components(separatedBy: "_").last {
         return "\(Constants.DeviceName.blePrefix)\(serialNumber)"
       } else {
@@ -95,32 +95,32 @@ extension MBTBluetoothManager {
   }
 
   func getA2DPDeviceName() -> String? {
-    return getA2DPDeviceOutput()?.portName
+    return AudioOutputs().melomindOutput?.portName
   }
 
-  func getA2DPDeviceOutput() -> AVAudioSessionPortDescription? {
-    let session = AVAudioSession.sharedInstance()
-    let outputs = session.currentRoute.outputs
-    let portNamePrefixLegacy = Constants.DeviceName.a2dpPrefixLegacy
-    let portNamePrefix = Constants.DeviceName.a2dpPrefix
-
-    if let output = outputs.filter({
-      $0.portName.lowercased().range(of: portNamePrefixLegacy) != nil
-    }).first {
-      return output
-    }
-
-    if let output = outputs.filter({
-      $0.portName.lowercased().range(of: portNamePrefix) != nil
-    }).first {
-      return output
-    }
-
-    if let output = outputs.filter({ isQrCode($0.portName) }).first {
-      return output
-    }
-    return nil
-  }
+//  func getA2DPDeviceOutput() -> AVAudioSessionPortDescription? {
+//    let session = AVAudioSession.sharedInstance()
+//    let outputs = session.currentRoute.outputs
+//    let portNamePrefixLegacy = Constants.DeviceName.a2dpPrefixLegacy
+//    let portNamePrefix = Constants.DeviceName.a2dpPrefix
+//
+//    if let output = outputs.filter({
+//      $0.portName.lowercased().range(of: portNamePrefixLegacy) != nil
+//    }).first {
+//      return output
+//    }
+//
+//    if let output = outputs.filter({
+//      $0.portName.lowercased().range(of: portNamePrefix) != nil
+//    }).first {
+//      return output
+//    }
+//
+//    if let output = outputs.filter({ isQrCode($0.portName) }).first {
+//      return output
+//    }
+//    return nil
+//  }
 
   func getA2DPDeviceNameFromBLE() -> String? {
     if deviceFirmwareVersion(isHigherOrEqualThan: .registerExternalName) {
@@ -130,42 +130,42 @@ extension MBTBluetoothManager {
     }
     return DeviceManager.connectedDeviceName
   }
-
-  //----------------------------------------------------------------------------
-  // MARK: - QR Code
-  //----------------------------------------------------------------------------
-
-  func isQrCode(_ string: String) -> Bool {
-    return isQrCodeBatch1(string) || isQrCodeBatch2(string)
-  }
-
-  func isQrCodeBatch1(_ string: String) -> Bool {
-    return string.range(of: Constants.DeviceName.qrCodePrefix) != nil
-      && string.count == Constants.DeviceName.qrCodeLength
-  }
-
-  func isQrCodeBatch2(_ string: String) -> Bool {
-    return string.range(of: Constants.DeviceName.qrCodePrefixBatch2) != nil
-      && string.count == Constants.DeviceName.qrCodeBatch2Length
-  }
-
-  //----------------------------------------------------------------------------
-  // MARK: - Serial Number
-  //----------------------------------------------------------------------------
-
-  func getSerialNumberFrom(deviceName: String) -> String? {
-    if isQrCode(deviceName) {
-      return getSerialNumber(fromQrCode: deviceName)
-    } else {
-      return deviceName.components(separatedBy: "_").last
-    }
-  }
-
-  func getSerialNumber(fromQrCode qrCode: String) -> String? {
-    var qrCode = qrCode
-    if isQrCodeBatch2(qrCode) {
-      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
-    }
-    return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
-  }
+//
+//  //----------------------------------------------------------------------------
+//  // MARK: - QR Code
+//  //----------------------------------------------------------------------------
+//
+//  func isQrCode(_ string: String) -> Bool {
+//    return isQrCodeBatch1(string) || isQrCodeBatch2(string)
+//  }
+//
+//  func isQrCodeBatch1(_ string: String) -> Bool {
+//    return string.range(of: Constants.DeviceName.qrCodePrefix) != nil
+//      && string.count == Constants.DeviceName.qrCodeLength
+//  }
+//
+//  func isQrCodeBatch2(_ string: String) -> Bool {
+//    return string.range(of: Constants.DeviceName.qrCodePrefixBatch2) != nil
+//      && string.count == Constants.DeviceName.qrCodeBatch2Length
+//  }
+//
+//  //----------------------------------------------------------------------------
+//  // MARK: - Serial Number
+//  //----------------------------------------------------------------------------
+//
+//  func getSerialNumberFrom(deviceName: String) -> String? {
+//    if isQrCode(deviceName) {
+//      return getSerialNumber(fromQrCode: deviceName)
+//    } else {
+//      return deviceName.components(separatedBy: "_").last
+//    }
+//  }
+//
+//  func getSerialNumber(fromQrCode qrCode: String) -> String? {
+//    var qrCode = qrCode
+//    if isQrCodeBatch2(qrCode) {
+//      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
+//    }
+//    return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
+//  }
 }
