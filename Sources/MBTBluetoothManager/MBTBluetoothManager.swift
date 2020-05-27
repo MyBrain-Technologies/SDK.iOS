@@ -47,29 +47,23 @@ internal class MBTBluetoothManager: NSObject {
 
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   /// - Remark: Sends a notification when changed (on *willSet*).
-  var isConnected: Bool {
-
+  var isAudioConnected: Bool {
     let autoConnection =
       audioA2DPDelegate?.autoConnectionA2DPFromBLE?() ?? false
     let firmwareIsHigher =
       deviceFirmwareVersion(isHigherOrEqualThan: .a2dpFromHeadset)
 
-    if autoConnection && firmwareIsHigher && isConnectedBLE {
+    if autoConnection && firmwareIsHigher && isBLEConnected {
       return DeviceManager.connectedDeviceName == getBLEDeviceNameFromA2DP()
     } else {
-      return isConnectedBLE
+      return isBLEConnected
     }
   }
 
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
-  /// - Remark: Sends a notification when changed (on *willSet*).
-  var isConnectedBLE: Bool {
+  var isBLEConnected: Bool {
     return peripheralIO.peripheral != nil
-//    return blePeripheral != nil
   }
-
-  /// A *Bool* which indicate if the headset is connected or not to A2DP.
-  var isConnectedA2DP: Bool = { MBTBluetoothManager.isA2DPConnected() }()
 
   /// Authorization given to access to bluetooth.
   var bluetoothAuthorization: BluetoothAuthorization = .undetermined
@@ -79,25 +73,14 @@ internal class MBTBluetoothManager: NSObject {
   /// A *Bool* which enable or disable headset EEG notifications.
   var isListeningToEEG = false {
     didSet {
-      peripheralIO.notifyBrainActivityMeasurement(
-        value: isListeningToEEG
-      )
-//      guard BluetoothDeviceCharacteristics.shared.brainActivityMeasurement != nil
-//        else { return }
-//
-//      self.blePeripheral?.setNotifyValue(
-//        isListeningToEEG,
-//        for: BluetoothDeviceCharacteristics.shared.brainActivityMeasurement
-//      )
+      peripheralIO.notifyBrainActivityMeasurement(value: isListeningToEEG)
     }
   }
 
   /// A *Bool* which enable or disable headset saturation notifications.
   var isListeningToHeadsetStatus = false {
     didSet {
-      peripheralIO.notifyHeadsetStatus(
-        value: isListeningToHeadsetStatus
-      )
+      peripheralIO.notifyHeadsetStatus(value: isListeningToHeadsetStatus)
     }
   }
 
@@ -112,7 +95,7 @@ internal class MBTBluetoothManager: NSObject {
   /// The BLE peripheral with which a connection has been established.
   var blePeripheral: CBPeripheral? {
     didSet {
-      if isConnectedBLE {
+      if isBLEConnected {
         eventDelegate?.onHeadsetStatusUpdate?(true)
       } else {
         eventDelegate?.onHeadsetStatusUpdate?(false)
@@ -175,7 +158,7 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
 
-    if isConnectedBLE { disconnect() }
+    if isBLEConnected { disconnect() }
 
     initBluetoothManager()
 
@@ -192,7 +175,7 @@ internal class MBTBluetoothManager: NSObject {
 
     // Connection Init
     counterServicesDiscover = 0
-    isConnectedA2DP = false
+//    isConnectedA2DP = false
     isListeningToEEG = false
     isListeningToHeadsetStatus = false
     processBatteryLevel = false

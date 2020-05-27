@@ -56,7 +56,7 @@ extension MBTBluetoothManager {
     DispatchQueue.main.async {
       self.audioA2DPDelegate?.audioA2DPDidConnect?()
 
-      guard self.isConnected else {
+      guard self.isAudioConnected else {
         self.connectTo(meloName)
         return
       }
@@ -72,7 +72,7 @@ extension MBTBluetoothManager {
         self.eventDelegate?.onConnectionEstablished?()
         self.startBatteryLevelTimer()
       } else {
-        guard self.isConnectedBLE, self.isOADInProgress else {
+        guard self.isBLEConnected, self.isOADInProgress else {
           self.connectTo(meloName)
           return
         }

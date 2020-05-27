@@ -12,7 +12,7 @@ extension MBTBluetoothManager {
   func startOAD() {
     // Disconnect A2DP
 
-    guard isConnected else {
+    guard isAudioConnected else {
       self.isOADInProgress = false
 
       let error = DeviceError.notConnected.error
@@ -73,7 +73,7 @@ extension MBTBluetoothManager {
 
       while oadManager.oadProgress.iBlock < oadManager.mOadBuffer.count {
         usleep(6000)
-        if !self.isConnectedBLE || self.OADState != .inProgress {
+        if !self.isBLEConnected || self.OADState != .inProgress {
           break
         }
 

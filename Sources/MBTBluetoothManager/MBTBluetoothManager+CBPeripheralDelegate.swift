@@ -29,8 +29,8 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     log.verbose("🆕 Did discover services")
 
     // Check all the services of the connecting peripheral.
-    guard isConnectedBLE, let services = peripheral.services else {
-      log.error("BLE peripheral is connected ? \(isConnectedBLE)")
+    guard isBLEConnected, let services = peripheral.services else {
+      log.error("BLE peripheral is connected ? \(isBLEConnected)")
       log.error("Services peripheral are nil ? \(peripheral.services == nil)")
       return
     }
@@ -60,7 +60,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
                   error: Error?) {
     log.verbose("🆕 Did discover characteristics")
 
-    guard isConnectedBLE, service.characteristics != nil else {
+    guard isBLEConnected, service.characteristics != nil else {
       return
     }
 
@@ -102,7 +102,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   func peripheral(_ peripheral: CBPeripheral,
                   didUpdateValueFor characteristic: CBCharacteristic,
                   error: Error?) {
-    guard isConnectedBLE else {
+    guard isBLEConnected else {
       log.error("Ble peripheral is not set")
       return
     }

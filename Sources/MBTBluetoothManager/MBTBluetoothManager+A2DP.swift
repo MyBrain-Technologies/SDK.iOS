@@ -4,21 +4,6 @@ import AVFoundation
 extension MBTBluetoothManager {
 
   //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
-
-  /// A *Bool* which indicate if the headset is connected or not to A2DP.
-  static func isA2DPConnected() -> Bool {
-    guard let deviceName = DeviceManager.connectedDeviceName
-      else { return false }
-
-    let output = AVAudioSession.sharedInstance().currentRoute.outputs.first
-
-    return output?.portName == deviceName
-      && output?.portType == AVAudioSession.Port.bluetoothA2DP
-  }
-
-  //----------------------------------------------------------------------------
   // MARK: - Connection
   //----------------------------------------------------------------------------
 
