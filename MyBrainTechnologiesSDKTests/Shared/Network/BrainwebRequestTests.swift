@@ -99,9 +99,7 @@ class BrainwebRequestTests: XCTestCase {
 
     // When
     BrainwebRequest.shared.accessTokens = TestsConstants.token
-    BrainwebRequest.shared.sendJSON(fileURL, baseURL: brainwebURL) {
-      success in
-
+    BrainwebRequest.shared.sendJSON(fileURL, baseURL: brainwebURL) { success in
       // Then
       XCTAssertTrue(success)
 

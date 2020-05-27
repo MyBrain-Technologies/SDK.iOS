@@ -28,6 +28,8 @@ struct Constants {
     static let oadTransfer = 600.0
     static let batteryLevel = 120.0
     static let a2dpConnection = 10.0
+    static let finalizeConnection = 2.0
+    static let sendExternalName = 10.0
   }
 
   //----------------------------------------------------------------------------

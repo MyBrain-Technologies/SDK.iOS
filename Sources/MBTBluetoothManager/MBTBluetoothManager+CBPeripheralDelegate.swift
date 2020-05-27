@@ -1,15 +1,11 @@
 import Foundation
 import CoreBluetooth
 
-// TEMP: LEGACY CODE
-// swiftlint:disable function_body_length
-
 extension MBTBluetoothManager: CBPeripheralDelegate {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
-
 
   private var hasDiscoverAllCharacteristics: Bool {
     return counterServicesDiscover <= 0
@@ -33,8 +29,8 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     log.verbose("🆕 Did discover services")
 
     // Check all the services of the connecting peripheral.
-    guard blePeripheral != nil, let services = peripheral.services else {
-      log.error("BLE peripheral is nil ? \(blePeripheral == nil)")
+    guard isBLEConnected, let services = peripheral.services else {
+      log.error("BLE peripheral is connected ? \(isBLEConnected)")
       log.error("Services peripheral are nil ? \(peripheral.services == nil)")
       return
     }
@@ -64,7 +60,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
                   error: Error?) {
     log.verbose("🆕 Did discover characteristics")
 
-    guard blePeripheral != nil, service.characteristics != nil else {
+    guard isBLEConnected, service.characteristics != nil else {
       return
     }
 
@@ -88,14 +84,9 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
 
   private func prepareDevice() {
     prepareDeviceWithInfo() {
-      self.requestUpdateBatteryLevel()
-      self.timerFinalizeConnectionMelomind = Timer.scheduledTimer(
-        timeInterval: 2.0,
-        target: self,
-        selector: #selector(self.requestUpdateBatteryLevel),
-        userInfo: nil,
-        repeats: false
-      )
+      self.requestBatteryLevel()
+
+      self.timers.startFinalizeConnectionTimer()
     }
   }
 
@@ -111,7 +102,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   func peripheral(_ peripheral: CBPeripheral,
                   didUpdateValueFor characteristic: CBCharacteristic,
                   error: Error?) {
-    guard blePeripheral != nil else {
+    guard isBLEConnected else {
       log.error("Ble peripheral is not set")
       return
     }
@@ -187,7 +178,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   private func mailBoxService(_ characteristic: CBCharacteristic) {
     log.verbose("Mailbox service")
 
-    stopTimerTimeOutA2DPConnection()
+    timers.stopOADTimer()
 
     guard let data = characteristic.value else { return }
 
@@ -221,10 +212,8 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     } else {
       isOADInProgress = false
       OADState = .disable
-      if let characteristic = BluetoothDeviceCharacteristics.shared.mailBox {
-        blePeripheral?.setNotifyValue(false, for: characteristic)
-      }
-      startTimerUpdateBatteryLevel()
+      peripheralIO.notifyMailBox(value: false)
+      startBatteryLevelTimer()
 
       let error = OADError.transferPreparationFailed.error
       log.error("📲 Transfer failed", context: error)
@@ -253,12 +242,13 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
              context: bytes.description)
 
     if bytes[1] == 0x01 {
-      stopTimerTimeOutOAD()
+      timers.stopOADTimer()
+
       OADState = .completed
       eventDelegate?.onProgressUpdate?(0.9)
       eventDelegate?.onUpdateComplete?()
     } else {
-      startTimerUpdateBatteryLevel()
+      startBatteryLevelTimer()
       isOADInProgress = false
       OADState = .disable
 
@@ -307,7 +297,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
           eventDelegate?.onConnectionFailed?(error)
         }
 
-        stopTimerTimeOutA2DPConnection()
+        timers.stopA2DPConnectionTimer()
         disconnect()
       }
     }
@@ -316,7 +306,8 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   private func setSerialNumber(bytes: [UInt8]) {
     log.info("📲 Set serial number bytes", context: bytes.description)
 
-    stopTimerSendExternalName()
+    timers.stopSendExternalNameTimer()
+
     finalizeConnectionMelomind()
   }
 

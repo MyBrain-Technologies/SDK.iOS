@@ -3,9 +3,6 @@ import CoreBluetooth
 import RealmSwift
 import SwiftyJSON
 
-// TEMP: LEGACY CODE
-// swiftlint:disable function_body_length
-
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...
 internal class MBTEEGAcquisitionManager: NSObject  {

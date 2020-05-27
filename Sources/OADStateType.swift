@@ -6,7 +6,7 @@ import Foundation
  * State of an Over Air Download transfer
  *
  ******************************************************************************/
-public enum OADStateType: Int, Equatable, Comparable, CustomStringConvertible {
+public enum OADStateType: Int, Equatable, Comparable {
 
   /// The process has not started
   case disable = -1
@@ -22,10 +22,13 @@ public enum OADStateType: Int, Equatable, Comparable, CustomStringConvertible {
   case rebootRequired = 4
   /// The SDK try to reconnect the Melomind
   case connected = 5
+}
 
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
+//==============================================================================
+// MARK: - CustomStringConvertible
+//==============================================================================
+
+extension OADStateType: CustomStringConvertible {
 
   public var description: String {
     switch self {

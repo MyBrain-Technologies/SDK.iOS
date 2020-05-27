@@ -49,11 +49,11 @@ public class MBTClient {
   /******************** Bluetooth ********************/
 
   public var isBluetoothOn: Bool {
-    return bluetoothManager.tabHistoBluetoothState.last ?? false
+    return bluetoothManager.bluetoothStatesHistory.isPoweredOn
   }
 
   public var isConnected: Bool {
-    return bluetoothManager.isConnected
+    return bluetoothManager.isAudioAndBLEConnected
   }
 
   public var bluetoothAuthorization: BluetoothAuthorization {
@@ -124,7 +124,7 @@ public class MBTClient {
     bluetoothManager = MBTBluetoothManager.shared
 
     if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
-      !bluetoothManager.isConnected {
+      !bluetoothManager.isAudioAndBLEConnected {
       bluetoothManager.connectTo(deviceName)
     }
     eegAcquisitionManager = MBTEEGAcquisitionManager.shared
@@ -222,7 +222,7 @@ public class MBTClient {
   }
 
   public func getDeviceSerialNumber(fromQrCode qrCode: String) -> String? {
-    return bluetoothManager.getSerialNumber(fromQrCode: qrCode)
+    return qrCode.serialNumberFomQRCode
   }
 
   /// Get the latest battery level saved in DB.
@@ -333,19 +333,20 @@ public class MBTClient {
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
   public func readBatteryStatus() {
     guard DeviceManager.connectedDeviceName != nil else { return }
-    bluetoothManager.requestUpdateBatteryLevel()
+//    bluetoothManager.requestUpdateBatteryLevel()
+    bluetoothManager.requestBatteryLevel()
   }
 
   /// Stop the batteryLevel Event
   public func stopReceiveBatteryLevelEvent() {
     guard DeviceManager.connectedDeviceName != nil else { return }
-    bluetoothManager.stopTimerUpdateBatteryLevel()
+    bluetoothManager.timers.stopBatteryLevelTimer()
   }
 
   /// Start the batteryLevel Event
   public func startReceiveBatteryLevelEvent() {
     guard DeviceManager.connectedDeviceName != nil else { return }
-    bluetoothManager.startTimerUpdateBatteryLevel()
+    bluetoothManager.startBatteryLevelTimer()
   }
 
   //----------------------------------------------------------------------------

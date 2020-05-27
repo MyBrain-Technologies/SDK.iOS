@@ -44,6 +44,17 @@
 		A918D29624619D2800026F1D /* OADError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D29524619D2800026F1D /* OADError.swift */; };
 		A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D2972461A9A700026F1D /* MBTClient+log.swift */; };
 		A918D29A2461CC2200026F1D /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A918D2992461CC2200026F1D /* SwiftyBeaver.framework */; };
+		A91BD902247D1EC800603C42 /* BluetoothTimersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD901247D1EC800603C42 /* BluetoothTimersTests.swift */; };
+		A91BD904247D1F6400603C42 /* BluetoothStatesHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD903247D1F6400603C42 /* BluetoothStatesHistoryTests.swift */; };
+		A91BD907247D219600603C42 /* BluetoothTimersDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD906247D219600603C42 /* BluetoothTimersDelegateMock.swift */; };
+		A91BD909247D42A200603C42 /* MelomindBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD908247D42A200603C42 /* MelomindBluetoothPeripheral.swift */; };
+		A91BD90C247D43C500603C42 /* MelomindBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD90A247D433B00603C42 /* MelomindBluetoothPeripheral.swift */; };
+		A91BD910247D65E800603C42 /* IOBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD90D247D656700603C42 /* IOBluetoothPeripheral.swift */; };
+		A91BD915247D69F700603C42 /* AudioNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD913247D696600603C42 /* AudioNotification.swift */; };
+		A91BD918247D6C0100603C42 /* AudioOutputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD916247D6BF600603C42 /* AudioOutputs.swift */; };
+		A91BD91B247D715E00603C42 /* String+FilenameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD91A247D715E00603C42 /* String+FilenameTests.swift */; };
+		A91BD91D247D755E00603C42 /* String+IsQrCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD91C247D755E00603C42 /* String+IsQrCodeTests.swift */; };
+		A91BD91F247D78CD00603C42 /* String+SerialNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD91E247D78CD00603C42 /* String+SerialNumberTests.swift */; };
 		A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */; };
 		A92452D023F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92452CF23F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */; };
 		A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */; };
@@ -67,8 +78,6 @@
 		A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */; };
 		A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A0FF124697D74008AF664 /* RecordFileSaver.swift */; };
 		A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */; };
-		A95C1A17244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */; };
-		A95C1A18244F1EC200AB4588 /* mm-ota-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */; };
 		A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */; };
 		A96EB6F32469854600431BA0 /* RecordFileNameBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96EB6F22469854600431BA0 /* RecordFileNameBuilder.swift */; };
 		A96EB6F6246989EA00431BA0 /* BrainwebRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96EB6F5246989EA00431BA0 /* BrainwebRequestBuilder.swift */; };
@@ -78,6 +87,12 @@
 		A974EFC023CE29BB00B9F9BE /* AcquisitionLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFBF23CE29BB00B9F9BE /* AcquisitionLocation.swift */; };
 		A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */; };
 		A974EFC423CE2AD100B9F9BE /* MBTDeviceInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */; };
+		A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */; };
+		A9C0568B247BF10C00EC8703 /* BluetoothPeripheralConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0568A247BF10C00EC8703 /* BluetoothPeripheralConnector.swift */; };
+		A9C0568D247BF20700EC8703 /* BluetoothStateHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0568C247BF20700EC8703 /* BluetoothStateHistory.swift */; };
+		A9C05694247BFC3300EC8703 /* mm-ota-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */; };
+		A9C05695247BFC3300EC8703 /* mm-ota-i3-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */; };
+		A9C05697247BFCC900EC8703 /* BluetoothTimers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C05696247BFCC900EC8703 /* BluetoothTimers.swift */; };
 		A9D3B5DE23F40740006138E5 /* BluetoothState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D3B5DD23F40740006138E5 /* BluetoothState.swift */; };
 		A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */; };
 		A9E3A7BC24643B7700E6A4B9 /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
@@ -97,7 +112,6 @@
 		F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */; };
 		F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6D1F05588100092027 /* MBTDevice.swift */; };
 		F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */; };
-		F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift */; };
 		F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */; };
 		F420E9A51EFD5F68008C0B08 /* BluetoothDeviceCharacteristics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A11EFD5F68008C0B08 /* BluetoothDeviceCharacteristics.swift */; };
 		F420E9A61EFD5F68008C0B08 /* MBTBluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */; };
@@ -172,6 +186,17 @@
 		A918D29524619D2800026F1D /* OADError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OADError.swift; sourceTree = "<group>"; };
 		A918D2972461A9A700026F1D /* MBTClient+log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTClient+log.swift"; sourceTree = "<group>"; };
 		A918D2992461CC2200026F1D /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
+		A91BD901247D1EC800603C42 /* BluetoothTimersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTimersTests.swift; sourceTree = "<group>"; };
+		A91BD903247D1F6400603C42 /* BluetoothStatesHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStatesHistoryTests.swift; sourceTree = "<group>"; };
+		A91BD906247D219600603C42 /* BluetoothTimersDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTimersDelegateMock.swift; sourceTree = "<group>"; };
+		A91BD908247D42A200603C42 /* MelomindBluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelomindBluetoothPeripheral.swift; sourceTree = "<group>"; };
+		A91BD90A247D433B00603C42 /* MelomindBluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelomindBluetoothPeripheral.swift; sourceTree = "<group>"; };
+		A91BD90D247D656700603C42 /* IOBluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOBluetoothPeripheral.swift; sourceTree = "<group>"; };
+		A91BD913247D696600603C42 /* AudioNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioNotification.swift; sourceTree = "<group>"; };
+		A91BD916247D6BF600603C42 /* AudioOutputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioOutputs.swift; sourceTree = "<group>"; };
+		A91BD91A247D715E00603C42 /* String+FilenameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+FilenameTests.swift"; sourceTree = "<group>"; };
+		A91BD91C247D755E00603C42 /* String+IsQrCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsQrCodeTests.swift"; sourceTree = "<group>"; };
+		A91BD91E247D78CD00603C42 /* String+SerialNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SerialNumberTests.swift"; sourceTree = "<group>"; };
 		A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAuthorization.swift; sourceTree = "<group>"; };
 		A92452CF23F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTBluetoothManager+CBPeripheralManagerDelegate.swift"; sourceTree = "<group>"; };
 		A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinariesFileFinder.swift; sourceTree = "<group>"; };
@@ -195,8 +220,6 @@
 		A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsConstants.swift; sourceTree = "<group>"; };
 		A93A0FF124697D74008AF664 /* RecordFileSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaver.swift; sourceTree = "<group>"; };
 		A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersion.swift; sourceTree = "<group>"; };
-		A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_14.bin"; sourceTree = "<group>"; };
-		A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_14.bin"; sourceTree = "<group>"; };
 		A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaverTests.swift; sourceTree = "<group>"; };
 		A96EB6F22469854600431BA0 /* RecordFileNameBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileNameBuilder.swift; sourceTree = "<group>"; };
 		A96EB6F5246989EA00431BA0 /* BrainwebRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainwebRequestBuilder.swift; sourceTree = "<group>"; };
@@ -206,6 +229,12 @@
 		A974EFBF23CE29BB00B9F9BE /* AcquisitionLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquisitionLocation.swift; sourceTree = "<group>"; };
 		A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectrodeLocation.swift; sourceTree = "<group>"; };
 		A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTDeviceInformations.swift; sourceTree = "<group>"; };
+		A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAdvertisementDataReader.swift; sourceTree = "<group>"; };
+		A9C0568A247BF10C00EC8703 /* BluetoothPeripheralConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralConnector.swift; sourceTree = "<group>"; };
+		A9C0568C247BF20700EC8703 /* BluetoothStateHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHistory.swift; sourceTree = "<group>"; };
+		A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-1_7_14.bin"; path = "doc/firmware_binaries/mm-ota-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
+		A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-i3-1_7_14.bin"; path = "doc/firmware_binaries/mm-ota-i3-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
+		A9C05696247BFCC900EC8703 /* BluetoothTimers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTimers.swift; sourceTree = "<group>"; };
 		A9D3B5DD23F40740006138E5 /* BluetoothState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothState.swift; sourceTree = "<group>"; };
 		A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyBrainTechnologiesSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
@@ -220,7 +249,6 @@
 		F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTRealmEntityManager.swift; path = Models/MBTRealmEntityManager.swift; sourceTree = "<group>"; };
 		F41A6D6D1F05588100092027 /* MBTDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTDevice.swift; path = Models/MBTDevice.swift; sourceTree = "<group>"; };
 		F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTEEGPacket.swift; path = Models/MBTEEGPacket.swift; sourceTree = "<group>"; };
-		F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothA2DPHelper.swift; path = "Bluetooth Module/MBTBluetoothA2DPHelper.swift"; sourceTree = "<group>"; };
 		F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MBTBluetoothEventDelegate.swift; path = "Bluetooth Module/MBTBluetoothEventDelegate.swift"; sourceTree = "<group>"; };
 		F420E9A11EFD5F68008C0B08 /* BluetoothDeviceCharacteristics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothDeviceCharacteristics.swift; path = "Bluetooth Module/BluetoothDeviceCharacteristics.swift"; sourceTree = "<group>"; };
 		F420E9A21EFD5F68008C0B08 /* MBTBluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTBluetoothManager.swift; sourceTree = "<group>"; };
@@ -358,8 +386,8 @@
 		3549BB541DA38A4000C63030 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A95C1A16244F1EC200AB4588 /* mm-ota-1_7_14.bin */,
-				A95C1A15244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin */,
+				A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */,
+				A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */,
 				F4A235FB1F0178FF00A0145A /* Utils */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
@@ -370,6 +398,7 @@
 		3549BB5C1DA38AA500C63030 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A91BD912247D694800603C42 /* Audio */,
 				A918D28824616DAD00026F1D /* Errors */,
 				F41A6D6C1F0557E700092027 /* Models */,
 				2B6B5D9F205139D800928F1F /* Device Acquisition Module */,
@@ -432,6 +461,63 @@
 				A918D29524619D2800026F1D /* OADError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		A91BD900247D1EAB00603C42 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				A91BD905247D218600603C42 /* Mocks */,
+				A91BD901247D1EC800603C42 /* BluetoothTimersTests.swift */,
+				A91BD903247D1F6400603C42 /* BluetoothStatesHistoryTests.swift */,
+				A91BD908247D42A200603C42 /* MelomindBluetoothPeripheral.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		A91BD905247D218600603C42 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A91BD906247D219600603C42 /* BluetoothTimersDelegateMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A91BD90F247D659000603C42 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				A92CA4322462FBC200688CE5 /* Mailbox */,
+				A92CA4372462FC7B00688CE5 /* BluetoothService.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		A91BD911247D65FE00603C42 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				A9C0568C247BF20700EC8703 /* BluetoothStateHistory.swift */,
+				A9C05696247BFCC900EC8703 /* BluetoothTimers.swift */,
+				A91BD90A247D433B00603C42 /* MelomindBluetoothPeripheral.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		A91BD912247D694800603C42 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				A91BD913247D696600603C42 /* AudioNotification.swift */,
+				A91BD916247D6BF600603C42 /* AudioOutputs.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		A91BD919247D714400603C42 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A91BD91A247D715E00603C42 /* String+FilenameTests.swift */,
+				A91BD91C247D755E00603C42 /* String+IsQrCodeTests.swift */,
+				A91BD91E247D78CD00603C42 /* String+SerialNumberTests.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A927D58C23CCDF1E00C20734 /* Models */ = {
@@ -553,6 +639,7 @@
 		A9E3A7B824643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				A91BD900247D1EAB00603C42 /* Bluetooth */,
 				A92FCD59246AC70200D7DB51 /* TestsResources */,
 				A9E3A7CD246440D500E6A4B9 /* Shared */,
 				A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */,
@@ -564,6 +651,7 @@
 		A9E3A7CD246440D500E6A4B9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A91BD919247D714400603C42 /* Extensions */,
 				A92FCD56246AAFA100D7DB51 /* Network */,
 				A96BF12824698F2300582DB1 /* Files */,
 				A9E3A7CB24643F5200E6A4B9 /* CSVConverterTests.swift */,
@@ -615,13 +703,15 @@
 		F420E9911EFD5F2C008C0B08 /* Bluetooth Module */ = {
 			isa = PBXGroup;
 			children = (
-				A92CA4322462FBC200688CE5 /* Mailbox */,
+				A91BD911247D65FE00603C42 /* Tools */,
+				A91BD90F247D659000603C42 /* Enums */,
 				A92CA4232462F4DC00688CE5 /* MBTBluetoothManager */,
-				F420E99F1EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift */,
 				F420E9A01EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift */,
 				F420E9A11EFD5F68008C0B08 /* BluetoothDeviceCharacteristics.swift */,
 				F47AE48F1F028FA700AB3C24 /* MBTBluetoothA2DPDelegate.swift */,
-				A92CA4372462FC7B00688CE5 /* BluetoothService.swift */,
+				A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */,
+				A9C0568A247BF10C00EC8703 /* BluetoothPeripheralConnector.swift */,
+				A91BD90D247D656700603C42 /* IOBluetoothPeripheral.swift */,
 			);
 			name = "Bluetooth Module";
 			sourceTree = "<group>";
@@ -738,8 +828,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */,
-				A95C1A17244F1EC200AB4588 /* mm-ota-i3-1_7_14.bin in Resources */,
-				A95C1A18244F1EC200AB4588 /* mm-ota-1_7_14.bin in Resources */,
+				A9C05694247BFC3300EC8703 /* mm-ota-1_7_14.bin in Resources */,
+				A9C05695247BFC3300EC8703 /* mm-ota-i3-1_7_14.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,7 +895,10 @@
 				A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */,
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
+				A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */,
 				A92CA42F2462FAF000688CE5 /* ChannelDatas.swift in Sources */,
+				A91BD90C247D43C500603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
+				A91BD918247D6C0100603C42 /* AudioOutputs.swift in Sources */,
 				A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */,
 				A92CA4382462FC7B00688CE5 /* BluetoothService.swift in Sources */,
 				A918D29024619A8D00026F1D /* BluetoothLowEnergyError.swift in Sources */,
@@ -831,6 +924,7 @@
 				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				A918D29624619D2800026F1D /* OADError.swift in Sources */,
+				A9C0568D247BF20700EC8703 /* BluetoothStateHistory.swift in Sources */,
 				A92CA4342462FBD700688CE5 /* MailboxA2DPResponse.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */,
@@ -840,13 +934,16 @@
 				A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */,
 				A974EFBD23CE298000B9F9BE /* DeviceManager.swift in Sources */,
 				2B6B5DA4205139D900928F1F /* MBTEEGAcquisitionManager.swift in Sources */,
+				A91BD915247D69F700603C42 /* AudioNotification.swift in Sources */,
 				4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */,
 				A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */,
 				A918D28A24616DCB00026F1D /* BluetoothError.swift in Sources */,
 				A92CA41D2462F24D00688CE5 /* MBTBluetoothManager+CBPeripheralDelegate.swift in Sources */,
+				A9C05697247BFCC900EC8703 /* BluetoothTimers.swift in Sources */,
 				A918D28E246199E000026F1D /* AudioError.swift in Sources */,
 				A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */,
 				A92CA4252462F50D00688CE5 /* MBTBluetoothManager+A2DP.swift in Sources */,
+				A9C0568B247BF10C00EC8703 /* BluetoothPeripheralConnector.swift in Sources */,
 				A974EFC023CE29BB00B9F9BE /* AcquisitionLocation.swift in Sources */,
 				A92CA4272462F78C00688CE5 /* MBTBluetoothManager+Timer.swift in Sources */,
 				A92CA4312462FB3100688CE5 /* MBTEEGPacketManager.swift in Sources */,
@@ -856,10 +953,10 @@
 				A96EB6F32469854600431BA0 /* RecordFileNameBuilder.swift in Sources */,
 				B5ADB75D22381B83009150AD /* MBTRelaxIndexAlgorithm.swift in Sources */,
 				2B6B5DA3205139D900928F1F /* MBTEEGAcquisitionDelegate.swift in Sources */,
+				A91BD910247D65E800603C42 /* IOBluetoothPeripheral.swift in Sources */,
 				A92CA42D2462FADD00688CE5 /* Quality.swift in Sources */,
 				A92CA4212462F3E700688CE5 /* MBTBluetoothManager+AudioChangedRoute.swift in Sources */,
 				F420E9A41EFD5F68008C0B08 /* MBTBluetoothEventDelegate.swift in Sources */,
-				F420E9A31EFD5F68008C0B08 /* MBTBluetoothA2DPHelper.swift in Sources */,
 				A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */,
 				2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */,
 				2B6B5DA7205139D900928F1F /* MBTSignalProcessingProtocols.swift in Sources */,
@@ -873,10 +970,17 @@
 			files = (
 				A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */,
 				A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */,
+				A91BD902247D1EC800603C42 /* BluetoothTimersTests.swift in Sources */,
+				A91BD91B247D715E00603C42 /* String+FilenameTests.swift in Sources */,
 				A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */,
 				A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */,
+				A91BD907247D219600603C42 /* BluetoothTimersDelegateMock.swift in Sources */,
+				A91BD91F247D78CD00603C42 /* String+SerialNumberTests.swift in Sources */,
+				A91BD909247D42A200603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */,
+				A91BD91D247D755E00603C42 /* String+IsQrCodeTests.swift in Sources */,
 				A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */,
+				A91BD904247D1F6400603C42 /* BluetoothStatesHistoryTests.swift in Sources */,
 				A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

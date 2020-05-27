@@ -13,6 +13,8 @@ enum BluetoothService: String, CaseIterable {
   case serialNumber = "0x2A25"
   case hardwareRevision = "0x2A27"
   case firmwareRevision = "0x2A26"
+  case audioSing = "0x110B"
+  case remoteControl = "0x110C"
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -47,6 +49,10 @@ enum BluetoothService: String, CaseIterable {
     self = currentService
   }
 }
+
+//==============================================================================
+// MARK: - Array extension for Bluetooth Service
+//==============================================================================
 
 extension Array where Element == BluetoothService {
   /// Return BluetoothServices uuids values

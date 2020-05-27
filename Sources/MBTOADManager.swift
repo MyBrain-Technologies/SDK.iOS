@@ -87,11 +87,10 @@ class MBTOADManager {
   /// get the data to be send at the Melomind and increase the counter
   ///
   /// - Returns: A *Data* object which need to be send to the Melomind
-  func getNextOADBufferData() -> Data {
+  func getNextOADBuffer() -> [UInt8] {
     let block = mOadBuffer[Int(oadProgress.iBlock)]
-    let data = Data(block)
     oadProgress.iBlock += 1
-    return data
+    return block
   }
 
   /// Get firmware version in octets
