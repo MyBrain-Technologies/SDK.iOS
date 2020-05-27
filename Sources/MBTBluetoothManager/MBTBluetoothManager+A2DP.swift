@@ -64,19 +64,10 @@ extension MBTBluetoothManager {
   /// - Returns: A *String* value which is the current name of the
   /// Melomind connected in A2DP Protocol else nil if it is not a Melomind
   func getBLEDeviceNameFromA2DP() -> String? {
-    if let nameA2DP = getA2DPDeviceName() {
-      if !nameA2DP.isQrCode,
-        let serialNumber = nameA2DP.components(separatedBy: "_").last {
-        return "\(Constants.DeviceName.blePrefix)\(serialNumber)"
-      } else {
-        guard let serialNumber =
-          MBTQRCodeSerial(qrCodeisKey: true).value(for: nameA2DP) else {
-            return nil
-        }
-        return "\(Constants.DeviceName.blePrefix)\(serialNumber)"
-      }
-    }
-    return nil
+    guard let serialNumber =
+      getA2DPDeviceName()?.serialNumberFromDeviceName else { return nil }
+
+    return "\(Constants.DeviceName.blePrefix)\(serialNumber)"
   }
 
   func getA2DPDeviceName() -> String? {
