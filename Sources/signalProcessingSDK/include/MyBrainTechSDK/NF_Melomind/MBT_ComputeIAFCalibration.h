@@ -41,7 +41,7 @@ SP_Matrix filterCalibrationRecordingByQualities(SP_FloatMatrix& calibrationRecor
  * @param IAFCalibInf Inferior bond of IAF
  * @param IAFCalibSup Superior bond of IAF
  * @param IAFCalibPacket IAF result of MBT_ComputeIAF
- * @param goodPeak 
+ * @param goodPeak goodPeak
  */
 void notEmptyQFNaN(SP_FloatVector& IAFCalibInf, SP_FloatVector& IAFCalibSup, const SP_Vector& IAFCalibPacket, const std::vector<int>& goodPeak);
 

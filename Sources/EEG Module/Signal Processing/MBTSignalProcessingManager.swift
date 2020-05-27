@@ -31,14 +31,14 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   internal var calibrationComputed: [String: [Float]]!
 
   ///
-  internal var sampRate:Int = 0
+  internal var sampRate: Int = 0
 
   ///
-  internal var eegPacketLength:Int = 0
+  internal var eegPacketLength: Int = 0
 
   ///
   internal var version = MBTQualityCheckerBridge.getVersion()
-  
+
   internal var relaxIndexAlgorithm = MBTRelaxIndexAlgorithm.algorithm(
     fromSDKVersion: MBTQualityCheckerBridge.getVersion()!
   )
@@ -61,7 +61,6 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     MBTQualityCheckerBridge.deInitializeMainQualityChecker()
   }
 
-
   /// Compute datas in the *Quality Checker* and returns an array of *Quality*
   /// values for a data matrix of an acquisition packet.
   /// - parameter data: The data matrix of the packet. Each row is a channel
@@ -69,9 +68,6 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   /// - returns: The array of computed "quality" values. Each value is the
   /// quality for a channel, in the same order as the row order in data.
   func computeQualityValue(_ data: List<ChannelDatas>) -> [Float] {
-    //        print("computeQualityValue")
-    // Getting connected MBTDevice *sampRate*.
-    //        let sampRate = Int(DeviceManager.getDeviceSampRate())
 
     // Transform the input data into the format needed by the Obj-C++ bridge.
     let nbChannels: Int = data.count
@@ -88,7 +84,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
       }
     }
 
-    PrettyPrinter.writing("computeQualityValue - NB NAN dataArray Quality: \(nbNAN)")
+    log.verbose("Compute quality value", context: nbNAN)
 
     // Perform the computation.
     let qualities =
@@ -98,36 +94,33 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
                                              packetLength: packetLength)
 
     // Return the quality values.
-    let qualitySwift = qualities as! [Float]
+    let qualitySwift = qualities as? [Float] ?? []
 
     if qualitySwift.count < 2 {
-      PrettyPrinter.writing("computeQualityValue - Quality Cound inf à 2")
-      PrettyPrinter.writing("computeQualityValue - NBChannel : \(nbChannels)")
-      PrettyPrinter.writing("computeQualityValue - sampRate : \(sampRate)")
-      PrettyPrinter.log(.ln,
-                  "computeQualityValue - dataArray Count : \(dataArray.count)")
-      PrettyPrinter.log(.ln,
-                  "computeQualityValue - packet length : \(packetLength)")
+      log.info("computeQualityValue - quality count inf à 2")
+      log.info("computeQualityValue - nb channels", context: nbChannels)
+      log.info("computeQualityValue - samp rate", context: sampRate)
+      log.info("computeQualityValue - array count", context: dataArray.count)
+      log.info("computeQualityValue - packet length", context: packetLength)
     }
 
     return qualitySwift
   }
 
   func computeQualityValue(_ data: List<ChannelDatas>,
-                           sampRate:Int,
-                           eegPacketLength:Int) -> [Float] {
+                           sampRate: Int,
+                           eegPacketLength: Int) -> [Float] {
     self.sampRate = sampRate
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
   }
-
 
   /// Get an array of the modified EEG datas by the *Quality Checker*, and
   /// return it.
   /// - returns: The matrix of EEG datas (modified) by channel.
   func getModifiedEEGValues() -> [[Float]] {
     let newEEGValues = MBTQualityCheckerBridge.getModifiedEEGData()
-    let newEEGValuesSwift = newEEGValues as! [[Float]]
+    let newEEGValuesSwift = newEEGValues as? [[Float]] ?? [[]]
 
     return newEEGValuesSwift
   }
@@ -197,7 +190,7 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
                                               packetsCount: packetsCount,
                                               sampRate: sampRate)
     // Transform results in a Swift format.
-    let parameters = parametersFromComputation as! [String: [Float]]
+    let parameters = parametersFromComputation as? [String: [Float]] ?? [:]
     // Save the results.
     calibrationComputed = parameters
     // Return the quality values in a Swift format.
@@ -216,10 +209,11 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 
     // Get the last N packets.
     let packets =
-      EEGPacketManager.getLastNPacketsComplete(MBTClient.HISTORY_SIZE)
-
+      EEGPacketManager.getLastNPacketsComplete(Constants.EEGPackets.historySize)
     let packetCount = packets.count
-    if packetCount < MBTClient.HISTORY_SIZE || calibrationComputed == nil {
+
+    if packetCount < Constants.EEGPackets.historySize
+      || calibrationComputed == nil {
       return 0
     }
 
@@ -269,13 +263,13 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
 
   //Implementing MBT_SessionAnalysisComputer
-  func analyseSession(_ inputDataSNR:[Float],
-                      threshold:Float) -> [String:Float] {
+  func analyseSession(_ inputDataSNR: [Float],
+                      threshold: Float) -> [String: Float] {
     //Perform the computation
     let sessionAnalysisValues =
       MBTSNRStatisticsBridge.computeSessionStatistics(inputDataSNR,
                                                       threshold: threshold)
-    let sessionAnalysis = sessionAnalysisValues as! [String: Float]
+    let sessionAnalysis = sessionAnalysisValues as? [String: Float] ?? [:]
     return sessionAnalysis
   }
 
@@ -301,18 +295,18 @@ extension MBTSignalProcessingManager {
 
   var sessionAlphaPowers: [Float] {
     return MBTMelomindAnalysis.sessionAlphaPowers().filter { $0 is Float }
-      as! [Float]
+      as? [Float] ?? []
   }
 
   var sessionRelativeAlphaPowers: [Float] {
     return
       MBTMelomindAnalysis.sessionRelativeAlphaPowers().filter { $0 is Float }
-        as! [Float]
+        as? [Float] ?? []
   }
 
   var sessionQualities: [Float] {
-    return 
-      MBTMelomindAnalysis.sessionQualities().filter { $0 is Float } as! [Float]
+    return MBTMelomindAnalysis.sessionQualities().filter { $0 is Float }
+      as? [Float] ?? []
   }
 
   func resetSession() {

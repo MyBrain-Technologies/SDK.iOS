@@ -33,7 +33,7 @@ SP_Matrix convertFloatMatrixToMatrix(SP_FloatMatrix& sessionPacket);
 /**
  * @brief Combine RMS from both channel and compute general RMS
  * 
- * @param computeRMSSession 
+ * @param computeRMSSession  compute RMS session
  * @return std::pair<SP_FloatType, SP_FloatType> Absolute and relative combined RMS
  */
 std::pair<SP_FloatType, SP_FloatType> combineRMS(std::map<std::string, SP_Vector > computeRMSSession);
@@ -41,8 +41,8 @@ std::pair<SP_FloatType, SP_FloatType> combineRMS(std::map<std::string, SP_Vector
 /**
  * @brief Compute RMS if at least one channel has qualityRMS=NaN
  * 
- * @param RMSSessionPacket 
- * @param goodPeak 
+ * @param RMSSessionPacket RMS session packet
+ * @param goodPeak good peak
  * @return SP_FloatType RMS computed
  */
 SP_FloatType computeRMSForNaNQuality(const SP_Vector& RMSSessionPacket, const std::vector<int>& goodPeak);
