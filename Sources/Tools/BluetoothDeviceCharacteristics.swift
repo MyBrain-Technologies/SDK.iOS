@@ -43,6 +43,13 @@ struct BluetoothDeviceCharacteristics {
   // MARK: - Update
   //----------------------------------------------------------------------------
 
+  mutating func update(with characteristics: [CBCharacteristic]) {
+    for serviceCharacteristic in characteristics {
+      let characteristic = serviceCharacteristic as CBCharacteristic
+      BluetoothDeviceCharacteristics.shared.update(with: characteristic)
+    }
+  }
+
   mutating func update(with characteristic: CBCharacteristic) {
     guard let service = BluetoothService(uuid: characteristic.uuid) else {
       return

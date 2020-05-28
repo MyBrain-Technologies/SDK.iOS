@@ -76,16 +76,12 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   private func updateDeviceCharacteristics(with service: CBService) {
     guard let serviceCharacteristics = service.characteristics else { return }
 
-    for serviceCharacteristic in serviceCharacteristics {
-      let characteristic = serviceCharacteristic as CBCharacteristic
-      BluetoothDeviceCharacteristics.shared.update(with: characteristic)
-    }
+    BluetoothDeviceCharacteristics.shared.update(with: serviceCharacteristics)
   }
 
   private func prepareDevice() {
     prepareDeviceWithInfo() {
       self.requestBatteryLevel()
-
       self.timers.startFinalizeConnectionTimer()
     }
   }
@@ -109,7 +105,6 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
 
     /******************** Quick access ********************/
 
-//    let eegAcqusition = MBTClient.shared.eegAcquisitionManager
     let deviceAcquisition = MBTClient.shared.deviceAcquisitionManager
 
     guard let service = BluetoothService(uuid: characteristic.uuid) else {
@@ -133,6 +128,10 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
       deviceAcquisition.processDeviceInformations(characteristic)
     }
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Service
+  //----------------------------------------------------------------------------
 
   private func brainActivityService(_ characteristic: CBCharacteristic) {
     log.verbose("Brain activity service")
