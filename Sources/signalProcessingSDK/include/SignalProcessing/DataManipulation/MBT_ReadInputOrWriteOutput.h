@@ -39,7 +39,7 @@ SP_FloatMatrix MBT_readMatrix(std::string fileName);
 /**
  * @brief Write a matrix into a file
  * 
- * @param outputData The vector to output on the file
+ * @param outputEegData The vector to output on the file
  * @param fileName The path of the file to write
  */
 void MBT_writeMatrix(SP_FloatMatrix& outputEegData,std::string fileName);

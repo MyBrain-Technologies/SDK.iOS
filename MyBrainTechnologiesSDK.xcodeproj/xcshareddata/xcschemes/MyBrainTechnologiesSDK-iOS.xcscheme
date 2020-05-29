@@ -40,7 +40,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -55,20 +56,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3549BB601DA38ADB00C63030"
-               BuildableName = "MyBrainTechnologiesSDKTests-iOS.xctest"
-               BlueprintName = "MyBrainTechnologiesSDKTests-iOS"
+               BlueprintIdentifier = "A9E3A7B624643B7700E6A4B9"
+               BuildableName = "MyBrainTechnologiesSDKTests.xctest"
+               BlueprintName = "MyBrainTechnologiesSDKTests"
                ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2B608E5120FDF6ED0067BF36"
-               BuildableName = "TestMBTSDKUITests.xctest"
-               BlueprintName = "TestMBTSDKUITests"
-               ReferencedContainer = "container:../TestMBTSDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

@@ -57,23 +57,23 @@ class MBT_TrainingData
      * @brief Construct a new MBT_TrainingData object
      * @deprecated
      * 
-     * @param trainingFeatures 
-     * @param trainingClasses 
-     * @param w 
-     * @param mu 
-     * @param sigma 
-     * @param costClassSize 
+     * @param trainingFeatures trainingFeatures
+     * @param trainingClasses trainingClasses
+     * @param w w
+     * @param mu mu
+     * @param sigma sigma
+     * @param costClassSize costClassSize
      */
     MBT_TrainingData(const SP_FloatMatrix& trainingFeatures, const SP_FloatVector& trainingClasses,
                         const SP_FloatVector& w, const SP_FloatVector& mu,
-                        const SP_FloatVector& sigma, const unsigned int costClassSize);
+                     const SP_FloatVector& sigma, const unsigned int costClassSize) OBJC_ISA_AVAILABILITY;
     
     /**
      * @brief Construct a new MBT_TrainingData object
      * 
-     * @param trainingFeatures 
-     * @param trainingClasses 
-     * @param wFile 
+     * @param trainingFeatures trainingFeatures
+     * @param trainingClasses trainingClasses
+     * @param wFile wFile
      */
     MBT_TrainingData(const SP_FloatMatrix& trainingFeatures, const SP_FloatVector& trainingClasses,
                         const SP_FloatVector& wFile);
