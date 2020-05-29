@@ -45,8 +45,7 @@ struct BluetoothDeviceCharacteristics {
 
   mutating func update(with characteristics: [CBCharacteristic]) {
     for serviceCharacteristic in characteristics {
-      let characteristic = serviceCharacteristic as CBCharacteristic
-      BluetoothDeviceCharacteristics.shared.update(with: characteristic)
+      update(with: serviceCharacteristic)
     }
   }
 

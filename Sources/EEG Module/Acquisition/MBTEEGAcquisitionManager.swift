@@ -8,25 +8,8 @@ import SwiftyJSON
 internal class MBTEEGAcquisitionManager: NSObject  {
 
   //----------------------------------------------------------------------------
-  // MARK: - Constants
+  // MARK: - Methods
   //----------------------------------------------------------------------------
-
-  /// Mandatory 8 to switch from 24 bits to 32 bits + variable part which fits fw config.
-  static private let shiftMelomind: Int32 = 8 + 4
-
-  /******************** Constantes to get EEG values from bluetooth ********************/
-
-  static private let checkSign: Int32 = (0x80 << shiftMelomind)
-  static private let negativeMask: Int32 = (0xFFFFFFF << (32 - shiftMelomind))
-  static private let positiveMask: Int32 = (~negativeMask)
-  static private let divider = 2
-
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
-
-  /// Constant to decod EEG data
-  let voltageADS1299: Float = ( 0.286 * pow(10, -6)) / 8
 
   /// Singleton declaration
   static let shared = MBTEEGAcquisitionManager()
@@ -312,47 +295,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
       for _ in 0 ... (limitBuffCount - 1)  {
         byteArray.append(buffByte.removeFirst())
       }
-      self.manageCompleteStreamEEGPacket(self.process(byteArray))
+      let relaxIndexes =
+        EEGDeserializer.deserializeToRelaxIndex(bytes: byteArray)
+      self.manageCompleteStreamEEGPacket(relaxIndexes)
     }
-  }
-
-  /// Convert the data brut in RelaxIndex
-  ///
-  /// - Parameter bytesArray: An array of *UInt8*
-  /// - Returns: return the RelaxIndexes
-  func process(_ bytesArray: [UInt8]) -> [[Float]] {
-    let shift = MBTEEGAcquisitionManager.shiftMelomind
-    var values = [Float]()
-
-    for i in 0 ..< bytesArray.count / MBTEEGAcquisitionManager.divider  {
-      var temp: Int32 = 0x00000000
-
-      temp = (Int32(bytesArray[2 * i] & 0xFF) << shift)
-        | Int32(bytesArray[2 * i + 1] & 0xFF) << (shift - 8)
-
-      if (temp & MBTEEGAcquisitionManager.checkSign) > 0 { // negative value
-        temp = Int32(temp | MBTEEGAcquisitionManager.negativeMask )
-      } else {
-        // value is positive
-        temp = Int32(temp & MBTEEGAcquisitionManager.positiveMask)
-      }
-
-      values.append(Float(temp))
-    }
-
-    var p3DatasArray = [Float]()
-    var p4DatasArray = [Float]()
-
-    for i in 0 ..< values.count {
-      if i % 2 == 0 {
-        p3DatasArray.append(values[i] * voltageADS1299)
-      } else {
-        p4DatasArray.append(values[i] * voltageADS1299)
-      }
-    }
-
-    let dataArray = [p3DatasArray, p4DatasArray]
-
-    return dataArray
   }
 }
