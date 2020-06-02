@@ -44,7 +44,7 @@ extension MBTClient {
       Filters.Message.excludes("Did update value for characteristic"),
       Filters.Message.excludes("Brain activity service"),
       Filters.Message.excludes("Headset status service"),
-      Filters.Message.excludes("Device battery service"),
+      Filters.Message.excludes("Device battery service")
     ]
   }
 
