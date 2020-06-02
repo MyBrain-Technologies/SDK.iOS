@@ -34,9 +34,9 @@
 		A90A1D6822C373360097C1BE /* libPreProcessing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5F22C373360097C1BE /* libPreProcessing.a */; };
 		A90A1D6922C373360097C1BE /* libTransformations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D6022C373360097C1BE /* libTransformations.a */; };
 		A90A1D6A22C373360097C1BE /* libDataManipulation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D6122C373360097C1BE /* libDataManipulation.a */; };
-		A9130BC5248008F000CB1840 /* EEGAcquisitionContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9130BC4248008F000CB1840 /* EEGAcquisitionContent.swift */; };
+		A9130BC5248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9130BC4248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift */; };
 		A9130BC824800C2500CB1840 /* EEGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9130BC624800BAE00CB1840 /* EEGDeserializer.swift */; };
-		A9130BC924800D1100CB1840 /* EEGAcquisitionContentRawValues.txt in Sources */ = {isa = PBXBuildFile; fileRef = A9130BC2248007E600CB1840 /* EEGAcquisitionContentRawValues.txt */; };
+		A9130BC924800D1100CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt in Sources */ = {isa = PBXBuildFile; fileRef = A9130BC2248007E600CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt */; };
 		A9130BCC24800D8000CB1840 /* EEGDeserializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9130BCB24800D8000CB1840 /* EEGDeserializerTests.swift */; };
 		A918D28724616CC600026F1D /* Int16+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D28624616CC600026F1D /* Int16+extension.swift */; };
 		A918D28A24616DCB00026F1D /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D28924616DCB00026F1D /* BluetoothError.swift */; };
@@ -80,8 +80,8 @@
 		A92CA4382462FC7B00688CE5 /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4372462FC7B00688CE5 /* BluetoothService.swift */; };
 		A92D7A3B248118CF000DF7C3 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A3A248118CF000DF7C3 /* Array+extension.swift */; };
 		A92D7A3D2481258C000DF7C3 /* Data+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A3C2481258C000DF7C3 /* Data+extension.swift */; };
-		A92D7A3F2481301C000DF7C3 /* EEGAcquisitionPackeetContentRawValues.txt in Resources */ = {isa = PBXBuildFile; fileRef = A92D7A3E2481301C000DF7C3 /* EEGAcquisitionPackeetContentRawValues.txt */; };
-		A92D7A41248133DA000DF7C3 /* EEGAcquisitionPacketLostRawValues.txt in Resources */ = {isa = PBXBuildFile; fileRef = A92D7A40248133DA000DF7C3 /* EEGAcquisitionPacketLostRawValues.txt */; };
+		A92D7A3F2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt in Resources */ = {isa = PBXBuildFile; fileRef = A92D7A3E2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt */; };
+		A92D7A41248133DA000DF7C3 /* EEGAcquisitionRawPacketsToBuffersWithLostValues.txt in Resources */ = {isa = PBXBuildFile; fileRef = A92D7A40248133DA000DF7C3 /* EEGAcquisitionRawPacketsToBuffersWithLostValues.txt */; };
 		A92D7A4524813914000DF7C3 /* EEGRawPacketBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4424813914000DF7C3 /* EEGRawPacketBufferTests.swift */; };
 		A92D7A4924814A4D000DF7C3 /* EEGRawPacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4824814A4D000DF7C3 /* EEGRawPacketTests.swift */; };
 		A92D7A4A24814C18000DF7C3 /* EEGRawPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */; };
@@ -89,6 +89,7 @@
 		A92D7A4E24815052000DF7C3 /* EEGAcquisitionBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */; };
 		A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */; };
 		A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */; };
+		A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */; };
 		A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A0FF124697D74008AF664 /* RecordFileSaver.swift */; };
 		A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */; };
 		A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */; };
@@ -189,8 +190,8 @@
 		A90A1D5F22C373360097C1BE /* libPreProcessing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPreProcessing.a; path = Sources/signalProcessingSDK/lib/libPreProcessing.a; sourceTree = "<group>"; };
 		A90A1D6022C373360097C1BE /* libTransformations.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTransformations.a; path = Sources/signalProcessingSDK/lib/libTransformations.a; sourceTree = "<group>"; };
 		A90A1D6122C373360097C1BE /* libDataManipulation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDataManipulation.a; path = Sources/signalProcessingSDK/lib/libDataManipulation.a; sourceTree = "<group>"; };
-		A9130BC2248007E600CB1840 /* EEGAcquisitionContentRawValues.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionContentRawValues.txt; sourceTree = "<group>"; };
-		A9130BC4248008F000CB1840 /* EEGAcquisitionContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionContent.swift; sourceTree = "<group>"; };
+		A9130BC2248007E600CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionRawPacketsDeserialization.txt; sourceTree = "<group>"; };
+		A9130BC4248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquitionRawPacketsDeserializable.swift; sourceTree = "<group>"; };
 		A9130BC624800BAE00CB1840 /* EEGDeserializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeserializer.swift; sourceTree = "<group>"; };
 		A9130BCB24800D8000CB1840 /* EEGDeserializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeserializerTests.swift; sourceTree = "<group>"; };
 		A918D28624616CC600026F1D /* Int16+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int16+extension.swift"; sourceTree = "<group>"; };
@@ -235,8 +236,8 @@
 		A92CA4372462FC7B00688CE5 /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
 		A92D7A3A248118CF000DF7C3 /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		A92D7A3C2481258C000DF7C3 /* Data+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+extension.swift"; sourceTree = "<group>"; };
-		A92D7A3E2481301C000DF7C3 /* EEGAcquisitionPackeetContentRawValues.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionPackeetContentRawValues.txt; sourceTree = "<group>"; };
-		A92D7A40248133DA000DF7C3 /* EEGAcquisitionPacketLostRawValues.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionPacketLostRawValues.txt; sourceTree = "<group>"; };
+		A92D7A3E2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionRawPacketsToBuffers.txt; sourceTree = "<group>"; };
+		A92D7A40248133DA000DF7C3 /* EEGAcquisitionRawPacketsToBuffersWithLostValues.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionRawPacketsToBuffersWithLostValues.txt; sourceTree = "<group>"; };
 		A92D7A4224813606000DF7C3 /* EEGRawPacketBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacketBuffer.swift; sourceTree = "<group>"; };
 		A92D7A4424813914000DF7C3 /* EEGRawPacketBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacketBufferTests.swift; sourceTree = "<group>"; };
 		A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacket.swift; sourceTree = "<group>"; };
@@ -244,6 +245,7 @@
 		A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionBuffer.swift; sourceTree = "<group>"; };
 		A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainwebRequestTests.swift; sourceTree = "<group>"; };
 		A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsConstants.swift; sourceTree = "<group>"; };
+		A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionBufferTests.swift; sourceTree = "<group>"; };
 		A93A0FF124697D74008AF664 /* RecordFileSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaver.swift; sourceTree = "<group>"; };
 		A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersion.swift; sourceTree = "<group>"; };
 		A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaverTests.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 				A9130BCB24800D8000CB1840 /* EEGDeserializerTests.swift */,
 				A92D7A4424813914000DF7C3 /* EEGRawPacketBufferTests.swift */,
 				A92D7A4824814A4D000DF7C3 /* EEGRawPacketTests.swift */,
+				A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */,
 			);
 			path = EEG;
 			sourceTree = "<group>";
@@ -621,13 +624,29 @@
 		A92FCD59246AC70200D7DB51 /* TestsResources */ = {
 			isa = PBXGroup;
 			children = (
+				A938131124863E5E00C7ABC0 /* EEG */,
 				A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */,
-				A9130BC4248008F000CB1840 /* EEGAcquisitionContent.swift */,
-				A9130BC2248007E600CB1840 /* EEGAcquisitionContentRawValues.txt */,
-				A92D7A3E2481301C000DF7C3 /* EEGAcquisitionPackeetContentRawValues.txt */,
-				A92D7A40248133DA000DF7C3 /* EEGAcquisitionPacketLostRawValues.txt */,
 			);
 			path = TestsResources;
+			sourceTree = "<group>";
+		};
+		A938131124863E5E00C7ABC0 /* EEG */ = {
+			isa = PBXGroup;
+			children = (
+				A938131224863E6A00C7ABC0 /* RawValues */,
+				A9130BC4248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift */,
+			);
+			path = EEG;
+			sourceTree = "<group>";
+		};
+		A938131224863E6A00C7ABC0 /* RawValues */ = {
+			isa = PBXGroup;
+			children = (
+				A9130BC2248007E600CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt */,
+				A92D7A3E2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt */,
+				A92D7A40248133DA000DF7C3 /* EEGAcquisitionRawPacketsToBuffersWithLostValues.txt */,
+			);
+			path = RawValues;
 			sourceTree = "<group>";
 		};
 		A93A0FF324697D77008AF664 /* Files */ = {
@@ -884,8 +903,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A92D7A3F2481301C000DF7C3 /* EEGAcquisitionPackeetContentRawValues.txt in Resources */,
-				A92D7A41248133DA000DF7C3 /* EEGAcquisitionPacketLostRawValues.txt in Resources */,
+				A92D7A3F2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt in Resources */,
+				A92D7A41248133DA000DF7C3 /* EEGAcquisitionRawPacketsToBuffersWithLostValues.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1024,7 +1043,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */,
-				A9130BC924800D1100CB1840 /* EEGAcquisitionContentRawValues.txt in Sources */,
+				A9130BC924800D1100CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt in Sources */,
 				A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */,
 				A91BD902247D1EC800603C42 /* BluetoothTimersTests.swift in Sources */,
 				A9130BCC24800D8000CB1840 /* EEGDeserializerTests.swift in Sources */,
@@ -1037,9 +1056,10 @@
 				A91BD909247D42A200603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A92D7A4524813914000DF7C3 /* EEGRawPacketBufferTests.swift in Sources */,
 				A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */,
-				A9130BC5248008F000CB1840 /* EEGAcquisitionContent.swift in Sources */,
+				A9130BC5248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift in Sources */,
 				A91BD91D247D755E00603C42 /* String+IsQrCodeTests.swift in Sources */,
 				A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */,
+				A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */,
 				A91BD904247D1F6400603C42 /* BluetoothStatesHistoryTests.swift in Sources */,
 				A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */,
 			);
