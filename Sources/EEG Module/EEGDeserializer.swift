@@ -28,13 +28,17 @@ struct EEGDeserializer {
   //----------------------------------------------------------------------------
 
   /// Deserialize uint8 values received from headset to relax indexes (float) values
-  static func deserializeToRelaxIndex(bytes: [UInt8]) -> [[Float]] {
+  static func deserializeToRelaxIndex(
+    bytes: [UInt8],
+    numberOfElectrodes: Int = 2
+  ) -> [[Float]] {
     let bytesConvertedTo32 = convert24to32Bit(bytes: bytes)
 
     let desamplifiedValues = removeAmplification(values: bytesConvertedTo32)
 
-    let electrodesArray = spreadBetweenElectrodes(values: desamplifiedValues,
-                                                  numberOfElectrodes: 2)
+    let electrodesArray =
+      spreadBetweenElectrodes(values: desamplifiedValues,
+                              numberOfElectrodes: numberOfElectrodes)
 
     return electrodesArray
   }

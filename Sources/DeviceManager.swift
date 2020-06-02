@@ -15,7 +15,7 @@ class DeviceManager: MBTRealmEntityManager {
   /// The headset bluetooth profile name to connect to.
   static var connectedDeviceName: String? {
     didSet {
-      log.verbose("Connected device name: \(connectedDeviceName)")
+      log.verbose("Connected device name: \(connectedDeviceName ?? "nil")")
     }
   }
 

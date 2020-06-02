@@ -54,12 +54,12 @@ class EEGPacketManager: MBTRealmEntityManager {
           eegDatas.append([Float?]())
         }
 
-        for packetIndex in 0 ..< channelData.value.count {
-          if channelData.value[packetIndex].value.isNaN {
+        for packetIndex in 0 ..< channelData.values.count {
+          if channelData.values[packetIndex].isNaN {
             eegDatas[channelNumber].append(nil)
             log.info("Get JSON EEG data", context: Float.nan)
           } else {
-            let value = channelData.value[packetIndex].value
+            let value = channelData.values[packetIndex]
             eegDatas[channelNumber].append(value)
           }
         }
@@ -81,12 +81,13 @@ class EEGPacketManager: MBTRealmEntityManager {
   /// - Returns: A *JSON* instance which contains the qualities of an array of *MBTEEGPacket*
   class func getJSONQualities(_ eegPackets: [MBTEEGPacket]) -> JSON {
     var qualities = [[Float]]()
+
     for eegPacket in eegPackets {
       for indexQuality in 0 ..< eegPacket.qualities.count {
         if qualities.count < indexQuality + 1 {
           qualities.append([Float]())
         }
-        qualities[indexQuality].append(eegPacket.qualities[indexQuality].value)
+        qualities[indexQuality].append(eegPacket.qualities[indexQuality])
       }
     }
 

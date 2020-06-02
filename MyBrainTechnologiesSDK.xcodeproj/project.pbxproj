@@ -73,7 +73,7 @@
 		A92CA4292462F88800688CE5 /* MBTBluetoothManager+OAD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4282462F88800688CE5 /* MBTBluetoothManager+OAD.swift */; };
 		A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */; };
 		A92CA42D2462FADD00688CE5 /* Quality.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA42C2462FADD00688CE5 /* Quality.swift */; };
-		A92CA42F2462FAF000688CE5 /* ChannelDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA42E2462FAF000688CE5 /* ChannelDatas.swift */; };
+		A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA42E2462FAF000688CE5 /* ChannelsData.swift */; };
 		A92CA4312462FB3100688CE5 /* MBTEEGPacketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4302462FB3100688CE5 /* MBTEEGPacketManager.swift */; };
 		A92CA4342462FBD700688CE5 /* MailboxA2DPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4332462FBD700688CE5 /* MailboxA2DPResponse.swift */; };
 		A92CA4362462FBF000688CE5 /* MailBoxEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA4352462FBF000688CE5 /* MailBoxEvents.swift */; };
@@ -91,6 +91,7 @@
 		A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */; };
 		A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */; };
 		A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9381313248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift */; };
+		A938131624869C6400C7ABC0 /* MBTEEGPacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938131524869C6400C7ABC0 /* MBTEEGPacketTests.swift */; };
 		A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A0FF124697D74008AF664 /* RecordFileSaver.swift */; };
 		A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */; };
 		A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */; };
@@ -230,7 +231,7 @@
 		A92CA4282462F88800688CE5 /* MBTBluetoothManager+OAD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTBluetoothManager+OAD.swift"; sourceTree = "<group>"; };
 		A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRecordingType.swift; sourceTree = "<group>"; };
 		A92CA42C2462FADD00688CE5 /* Quality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quality.swift; sourceTree = "<group>"; };
-		A92CA42E2462FAF000688CE5 /* ChannelDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelDatas.swift; sourceTree = "<group>"; };
+		A92CA42E2462FAF000688CE5 /* ChannelsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsData.swift; sourceTree = "<group>"; };
 		A92CA4302462FB3100688CE5 /* MBTEEGPacketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTEEGPacketManager.swift; sourceTree = "<group>"; };
 		A92CA4332462FBD700688CE5 /* MailboxA2DPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailboxA2DPResponse.swift; sourceTree = "<group>"; };
 		A92CA4352462FBF000688CE5 /* MailBoxEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailBoxEvents.swift; sourceTree = "<group>"; };
@@ -248,6 +249,7 @@
 		A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsConstants.swift; sourceTree = "<group>"; };
 		A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionBufferTests.swift; sourceTree = "<group>"; };
 		A9381313248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionRawPacketsToBuffers.swift; sourceTree = "<group>"; };
+		A938131524869C6400C7ABC0 /* MBTEEGPacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTEEGPacketTests.swift; sourceTree = "<group>"; };
 		A93A0FF124697D74008AF664 /* RecordFileSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaver.swift; sourceTree = "<group>"; };
 		A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersion.swift; sourceTree = "<group>"; };
 		A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaverTests.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				A92D7A4424813914000DF7C3 /* EEGRawPacketBufferTests.swift */,
 				A92D7A4824814A4D000DF7C3 /* EEGRawPacketTests.swift */,
 				A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */,
+				A938131524869C6400C7ABC0 /* MBTEEGPacketTests.swift */,
 			);
 			path = EEG;
 			sourceTree = "<group>";
@@ -768,7 +771,7 @@
 				F419A4D31F1CF8710070C160 /* MBTRealmEntityManager.swift */,
 				A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */,
 				A92CA42C2462FADD00688CE5 /* Quality.swift */,
-				A92CA42E2462FAF000688CE5 /* ChannelDatas.swift */,
+				A92CA42E2462FAF000688CE5 /* ChannelsData.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -967,7 +970,7 @@
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
 				A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */,
-				A92CA42F2462FAF000688CE5 /* ChannelDatas.swift in Sources */,
+				A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */,
 				A91BD90C247D43C500603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A91BD918247D6C0100603C42 /* AudioOutputs.swift in Sources */,
 				A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */,
@@ -1052,6 +1055,7 @@
 				A9130BCC24800D8000CB1840 /* EEGDeserializerTests.swift in Sources */,
 				A91BD91B247D715E00603C42 /* String+FilenameTests.swift in Sources */,
 				A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */,
+				A938131624869C6400C7ABC0 /* MBTEEGPacketTests.swift in Sources */,
 				A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */,
 				A91BD907247D219600603C42 /* BluetoothTimersDelegateMock.swift in Sources */,
 				A92D7A4924814A4D000DF7C3 /* EEGRawPacketTests.swift in Sources */,

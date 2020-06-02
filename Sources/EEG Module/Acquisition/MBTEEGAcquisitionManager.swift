@@ -17,8 +17,14 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// The MBTBluetooth Event Delegate.
   weak var delegate: MBTEEGAcquisitionDelegate?
 
+  /******************** Dependency injection ********************/
+
+  let signalProcessor: MBTSignalProcessingManager = .shared
+
+  /********************  Parameters ********************/
+
   /// Bool to know if developer wants to use QC or not.
-  var shouldUseQualityChecker: Bool?
+  var shouldUseQualityChecker: Bool = false
 
   let acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: 250)
 
@@ -30,9 +36,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   var nbChannels = 0
 
   var sampRate = 0
-
-  /// Test Variable
-  var timeIntervalPerf = Date().timeIntervalSince1970
 
   //----------------------------------------------------------------------------
   // MARK: - Methods
@@ -70,10 +73,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// session has finished.
   func streamHasStopped() {
     // Dealloc mainQC.
-    guard let shouldUseQualityChecker = shouldUseQualityChecker,
-      shouldUseQualityChecker else { return }
+    guard shouldUseQualityChecker else { return }
 
-    self.shouldUseQualityChecker = false
+    shouldUseQualityChecker = false
     MBTSignalProcessingManager.shared.deinitQualityChecker()
   }
 
@@ -147,45 +149,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     }
   }
 
-  /// Method to manage a complete *MBTEEGPacket* From streamEEGPacket. Use *Quality Checker*
-  /// on it if user asks for it, or just send it via the delegate.
-  /// - Parameter eegPacket: A complete *MBTEEGPacket*.
-  func manageCompleteStreamEEGPacket(_ datasArray: [[Float]]) {
-
-    let packetComplete = MBTEEGPacket.createNewEEGPacket(arrayData: datasArray,
-                                                         nbChannels: nbChannels)
-
-    if let shouldUseQualityChecker = shouldUseQualityChecker,
-      shouldUseQualityChecker {
-      // Get caluclated qualities of the EEGPacket.
-      // Add *qualities* in streamEEGPacket
-      let qualities = MBTSignalProcessingManager.shared.computeQualityValue(
-          packetComplete.channelsData,
-          sampRate: self.sampRate,
-          eegPacketLength: eegPacketLength
-      )
-      packetComplete.addQualities(qualities)
-
-      // Get the EEG values modified by the `QC` according to the `Quality` values.
-      let correctedValues =
-        MBTSignalProcessingManager.shared.getModifiedEEGValues()
-      packetComplete.addModifiedChannelsData(correctedValues,
-                                             nbChannels: self.nbChannels,
-                                             sampRate: self.sampRate)
-    }
-    let timeInterval = Date().timeIntervalSince1970
-
-    log.verbose("receive EEG packet. Timer perf",
-                context: timeInterval - self.timeIntervalPerf)
-
-    self.delegate?.onReceivingPackage?(packetComplete)
-    self.timeIntervalPerf = timeInterval
-
-    if self.isRecording {
-      EEGPacketManager.saveEEGPacket(packetComplete)
-    }
-  }
-
   /// Create the EEG JSON
   ///
   /// - Parameters:
@@ -249,7 +212,48 @@ internal class MBTEEGAcquisitionManager: NSObject  {
       return
     }
 
-    let relaxIndexes = EEGDeserializer.deserializeToRelaxIndex(bytes: packet)
-    self.manageCompleteStreamEEGPacket(relaxIndexes)
+    let relaxIndexes =
+      EEGDeserializer.deserializeToRelaxIndex(bytes: packet,
+                                              numberOfElectrodes: nbChannels)
+    let eegPacket = convertToEEGPacket(values: relaxIndexes)
+
+    self.delegate?.onReceivingPackage?(eegPacket)
+
+    if isRecording {
+      EEGPacketManager.saveEEGPacket(eegPacket)
+    }
   }
+
+  /// Convert values from the acquisition to EEG Packets
+  private func convertToEEGPacket(values: [[Float]]) -> MBTEEGPacket {
+    var eegPacket = MBTEEGPacket(channelsValues: values)
+    eegPacket = addQualities(to: eegPacket)
+    eegPacket = addModifiedValues(to: eegPacket)
+    return eegPacket
+  }
+
+  /// Add qualities from signal processing to an eeg packet
+  private func addQualities(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+    guard shouldUseQualityChecker else { return eegPacket }
+
+    let qualities = signalProcessor.computeQualityValue(
+      eegPacket.channelsData,
+      sampRate: sampRate,
+      eegPacketLength: eegPacketLength
+    )
+    eegPacket.addQualities(qualities)
+    return eegPacket
+  }
+
+  /// Add EEG modified values from signal progression to an eeg packet
+  private func addModifiedValues(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+    guard shouldUseQualityChecker else { return eegPacket }
+
+    let correctedValues = signalProcessor.getModifiedEEGValues()
+
+    eegPacket.setModifiedChannelsData(correctedValues,
+                                      sampRate: sampRate)
+    return eegPacket
+  }
+
 }
