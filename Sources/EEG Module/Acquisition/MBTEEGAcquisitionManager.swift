@@ -20,14 +20,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// Bool to know if developer wants to use QC or not.
   var shouldUseQualityChecker: Bool?
 
-  /// Previous Index Data Blutooth
-//  var previousIndex: Int16 = -1
-
-  /// Buffer Data Byte
-//  var buffByte = [UInt8]()
-
-//  let packetBuffer = EEGRawPacketBuffer(bufferSizeMax: 250) //default value
-
   let acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: 250)
 
   /// if the sdk record in DB EEGPacket
@@ -245,27 +237,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   // MARK: - Process Received data Methods.
   //----------------------------------------------------------------------------
 
-//  private func getPreviousIndex(fromCurrentIndex index: Int16) -> Int16 {
-//    if index == 0 || previousIndex >= Int16.max {
-//      return 0
-//    }
-//
-//    if previousIndex == -1 {
-//      return index - 1
-//    }
-//
-//    return previousIndex
-//  }
-
-//  private func completeByteBuffer
-
   /// Process the brain activty measurement received and return the processed data.
   /// - Parameters:
   ///     - data: *Data* received from MBT Headset EEGs.
   /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and array of
   ///     P3 and P4 samples arrays ( key: "packet" )
   func processBrainActivityData(_ data: Data) {
-
     acquisitionBuffer.add(data: data)
 
     guard let packet = acquisitionBuffer.getUsablePackets() else {
@@ -274,72 +251,5 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
     let relaxIndexes = EEGDeserializer.deserializeToRelaxIndex(bytes: packet)
     self.manageCompleteStreamEEGPacket(relaxIndexes)
-
-
-//    let packetValue = EEGRawPacket(data: data)
-//    let currentIndex = packetValue.packetIndex
-//
-//    previousIndex = getPreviousIndex(fromCurrentIndex: currentIndex)
-//
-//    let diff = Int32(currentIndex - previousIndex)
-
-//    if diff != 1 {
-//      log.info("Process brain activity data. Diff is", context: diff)
-//    }
-
-    // START TO COMPLETE BUFF BYTE
-
-    // Complete buffer with missing packets
-//    if diff != 1 && diff > 0 { // diff > 1
-//      log.info("Process brain activity data. Lost packets", context: diff)
-//      log.verbose("Add \(Int(diff) * (packetValue.valueLength)) 0xFF byte")
-//      for _ in 0 ..< diff {
-//        for _ in 0 ..< packetValue.valueLength {
-//          buffByte.append(0xFF)
-//        }
-//      }
-//    }
-
-//    if diff > 1 {
-//      log.info("Lost packets during EEG Acquisition. Diff is :", context: diff)
-//      packetBuffer.add(value: 0xFF, count: Int(diff) * packetValue.valueLength)
-//    }
-//
-//    packetBuffer.add(bytes: packetValue.value)
-//    log.verbose("BUFF BYTES ARRAY (count: \(buffByte.count)) - \(buffByte.map { "\($0)" } )")
-
-    // Append content of the current packet to the buffer
-//    buffByte += bytesArray.suffix(bytesArray.count - 2) // take all except two first
-
-//    log.verbose("BUFF BYTES ARRAY (count: \(buffByte.count)) - \(buffByte.map { "\($0)" } )")
-
-    // update index to the current one
-//    previousIndex = currentIndex
-
-    // CHECK FOR LIMIT OF BUFFER
-
-//    let limitBuffCount = eegPacketLength * 2 * 2
-
-//    if packetBuffer.isFull {
-//      let packet = packetBuffer.flushBuffer()
-//      let relaxIndexes = EEGDeserializer.deserializeToRelaxIndex(bytes: packet)
-//      self.manageCompleteStreamEEGPacket(relaxIndexes)
-//    }
-
-//    if buffByte.count >= limitBuffCount {
-//
-//      var byteArray = [UInt8]()
-//      for _ in 0 ... (limitBuffCount - 1)  { // flush the buff byte when the limit is reached.
-//        byteArray.append(buffByte.removeFirst())
-//      }
-//
-////      log.verbose("OUTPUT BYTES ARRAY (count: \(buffByte.count)) - \(bytesArray.map { "\($0)" } )")
-//
-//      // convert the flushed buffer to relax indexes
-//      let relaxIndexes =
-//        EEGDeserializer.deserializeToRelaxIndex(bytes: byteArray)
-//      self.manageCompleteStreamEEGPacket(relaxIndexes)
-//
-//    }
   }
 }
