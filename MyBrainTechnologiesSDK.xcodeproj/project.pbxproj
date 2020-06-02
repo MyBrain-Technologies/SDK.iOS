@@ -90,6 +90,7 @@
 		A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */; };
 		A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */; };
 		A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */; };
+		A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9381313248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift */; };
 		A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A0FF124697D74008AF664 /* RecordFileSaver.swift */; };
 		A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */; };
 		A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */; };
@@ -246,6 +247,7 @@
 		A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainwebRequestTests.swift; sourceTree = "<group>"; };
 		A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsConstants.swift; sourceTree = "<group>"; };
 		A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionBufferTests.swift; sourceTree = "<group>"; };
+		A9381313248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionRawPacketsToBuffers.swift; sourceTree = "<group>"; };
 		A93A0FF124697D74008AF664 /* RecordFileSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaver.swift; sourceTree = "<group>"; };
 		A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersion.swift; sourceTree = "<group>"; };
 		A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFileSaverTests.swift; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 			children = (
 				A938131224863E6A00C7ABC0 /* RawValues */,
 				A9130BC4248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift */,
+				A9381313248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift */,
 			);
 			path = EEG;
 			sourceTree = "<group>";
@@ -1060,6 +1063,7 @@
 				A91BD91D247D755E00603C42 /* String+IsQrCodeTests.swift in Sources */,
 				A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */,
 				A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */,
+				A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */,
 				A91BD904247D1F6400603C42 /* BluetoothStatesHistoryTests.swift in Sources */,
 				A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */,
 			);
