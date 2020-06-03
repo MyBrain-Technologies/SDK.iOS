@@ -158,7 +158,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     }
   }
 
-  func getEEGSavingRecord(_ device: MBTDevice,
+  private func getEEGSavingRecord(_ device: MBTDevice,
                           idUser: Int,
                           algo: String?,
                           eegPackets: [MBTEEGPacket],
