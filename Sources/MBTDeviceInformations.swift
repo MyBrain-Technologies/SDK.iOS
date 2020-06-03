@@ -32,19 +32,26 @@ public class MBTDeviceInformations: Object {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
+  var toCodable: MelomindDeviceInformations {
+    return MelomindDeviceInformations(productName: productName ?? "",
+                                      hardwareVersion: hardwareVersion ?? "",
+                                      firmwareVersion: firmwareVersion ?? "",
+                                      uniqueDeviceIdentifier: deviceId ?? "")
+  }
+
   /// Convert object to JSON
   ///
   /// - Returns: A *JSON* instance of MBTDeviceInformations
-  func getJSON() -> JSON {
-    var jsonDevice = JSON()
-
-    jsonDevice["productName"].stringValue = productName ?? ""
-    jsonDevice["hardwareVersion"].stringValue = hardwareVersion ?? ""
-    jsonDevice["firmwareVersion"].stringValue = firmwareVersion ?? ""
-    jsonDevice["uniqueDeviceIdentifier"].stringValue = deviceId ?? ""
-
-    return jsonDevice
-  }
+//  func getJSON() -> JSON {
+//    var jsonDevice = JSON()
+//
+//    jsonDevice["productName"].stringValue = productName ?? ""
+//    jsonDevice["hardwareVersion"].stringValue = hardwareVersion ?? ""
+//    jsonDevice["firmwareVersion"].stringValue = firmwareVersion ?? ""
+//    jsonDevice["uniqueDeviceIdentifier"].stringValue = deviceId ?? ""
+//
+//    return jsonDevice
+//  }
 
   /// Allows to know if all properties have been initialized
   ///

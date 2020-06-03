@@ -103,6 +103,8 @@
 		A974EFC023CE29BB00B9F9BE /* AcquisitionLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFBF23CE29BB00B9F9BE /* AcquisitionLocation.swift */; };
 		A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */; };
 		A974EFC423CE2AD100B9F9BE /* MBTDeviceInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */; };
+		A994297A2487D256003F48CC /* EEGSavingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99429792487D256003F48CC /* EEGSavingRecord.swift */; };
+		A994297C2487D795003F48CC /* MelomindDeviceInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */; };
 		A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */; };
 		A9C0568B247BF10C00EC8703 /* BluetoothPeripheralConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0568A247BF10C00EC8703 /* BluetoothPeripheralConnector.swift */; };
 		A9C0568D247BF20700EC8703 /* BluetoothStateHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0568C247BF20700EC8703 /* BluetoothStateHistory.swift */; };
@@ -261,6 +263,8 @@
 		A974EFBF23CE29BB00B9F9BE /* AcquisitionLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquisitionLocation.swift; sourceTree = "<group>"; };
 		A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectrodeLocation.swift; sourceTree = "<group>"; };
 		A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTDeviceInformations.swift; sourceTree = "<group>"; };
+		A99429792487D256003F48CC /* EEGSavingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGSavingRecord.swift; sourceTree = "<group>"; };
+		A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelomindDeviceInformations.swift; sourceTree = "<group>"; };
 		A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAdvertisementDataReader.swift; sourceTree = "<group>"; };
 		A9C0568A247BF10C00EC8703 /* BluetoothPeripheralConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralConnector.swift; sourceTree = "<group>"; };
 		A9C0568C247BF20700EC8703 /* BluetoothStateHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHistory.swift; sourceTree = "<group>"; };
@@ -772,6 +776,8 @@
 				A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */,
 				A92CA42C2462FADD00688CE5 /* Quality.swift */,
 				A92CA42E2462FAF000688CE5 /* ChannelsData.swift */,
+				A99429792487D256003F48CC /* EEGSavingRecord.swift */,
+				A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1004,6 +1010,7 @@
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				A918D29624619D2800026F1D /* OADError.swift in Sources */,
 				A9C0568D247BF20700EC8703 /* BluetoothStateHistory.swift in Sources */,
+				A994297A2487D256003F48CC /* EEGSavingRecord.swift in Sources */,
 				A92CA4342462FBD700688CE5 /* MailboxA2DPResponse.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
 				A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */,
@@ -1040,6 +1047,7 @@
 				A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */,
 				2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */,
 				2B6B5DA7205139D900928F1F /* MBTSignalProcessingProtocols.swift in Sources */,
+				A994297C2487D795003F48CC /* MelomindDeviceInformations.swift in Sources */,
 				A974EFC423CE2AD100B9F9BE /* MBTDeviceInformations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

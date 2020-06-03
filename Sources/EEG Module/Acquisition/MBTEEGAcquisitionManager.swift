@@ -85,10 +85,10 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///   - idUser: A *Int* id of the connected user
   ///   - comments: An array of *String* contains Optional Comments
   ///   - completion: A block which execute after create the file or fail to create
-  func saveRecordingOnFile(_ idUser: Int,
-                           algo: String?,
-                           comments: [String] = [],
-                           completion: @escaping (URL?) -> Void) {
+  func saveRecording(_ idUser: Int,
+                     algo: String?,
+                     comments: [String] = [],
+                     completion: @escaping (URL?) -> Void) {
     guard let device = DeviceManager.getCurrentDevice() else {
       completion(nil)
       return
@@ -97,11 +97,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     let deviceTSR = ThreadSafeReference(to: device)
     let packetToRemove = EEGPacketManager.getArrayEEGPackets()
     var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
-    let currentRecordInfo = MBTRecordInfo.init(
-      MBTClient.shared.recordInfo.recordId,
-      recordingType: MBTClient.shared.recordInfo.recordingType
-    )
-    log.info("Save recording on file", context: currentRecordInfo)
 
     for eegPacket in packetToRemove {
       packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
@@ -110,92 +105,85 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     DispatchQueue(label: "MelomindSaveProcess").async {
       let config = MBTRealmEntityManager.RealmManager.shared.config
 
-      if let realm = try? Realm(configuration: config) {
-        var resPacketsToSave = [MBTEEGPacket]()
+      guard let realm = try? Realm(configuration: config) else {
+        log.error("Cannot get realm instance")
+        DispatchQueue.main.async { completion(nil) }
+        return
+      }
 
-        for eegPacket in packetsToSaveTSR {
-          if let resEEGPacket = realm.resolve(eegPacket) {
-            resPacketsToSave.append(resEEGPacket)
-          }
-        }
+      var resPacketsToSave = [MBTEEGPacket]()
 
-        if let resDevice = realm.resolve(deviceTSR),
-          resPacketsToSave.count == packetsToSaveTSR.count {
-          let jsonObject = self.getJSONRecord(resDevice,
-                                              idUser: idUser,
-                                              algo: algo,
-                                              eegPackets: resPacketsToSave,
-                                              recordInfo: currentRecordInfo,
-                                              comments: comments)
-          // Save JSON with EEG data received.
-          let deviceId = resDevice.deviceInfos!.deviceId!
-          let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
-                                                          deviceId: deviceId,
-                                                          userId: idUser)
-          DispatchQueue.main.async {
-            EEGPacketManager.removePackets(packetToRemove)
-            completion(fileURL)
-          }
-        } else {
-          DispatchQueue.main.async {
-            completion(nil)
-          }
+      for eegPacket in packetsToSaveTSR {
+        if let resEEGPacket = realm.resolve(eegPacket) {
+          resPacketsToSave.append(resEEGPacket)
         }
-      } else {
-        DispatchQueue.main.async {
-          completion(nil)
-        }
+      }
+
+      guard
+        let resDevice = realm.resolve(deviceTSR),
+        resPacketsToSave.count == packetsToSaveTSR.count else {
+          log.error("PB with realm or bad number on packet to save ?")
+          DispatchQueue.main.async { completion(nil) }
+          return
+      }
+
+      let currentRecordInfo = MBTRecordInfo.init(
+        MBTClient.shared.recordInfo.recordId,
+        recordingType: MBTClient.shared.recordInfo.recordingType
+      )
+      log.info("Save recording on file", context: currentRecordInfo)
+
+      let savingRecord = self.getEEGSavingRecord(resDevice,
+                                                 idUser: idUser,
+                                                 algo: algo,
+                                                 eegPackets: resPacketsToSave,
+                                                 recordInfo: currentRecordInfo,
+                                                 comments: comments)
+
+      guard let jsonObject = savingRecord.toJSON else {
+          log.error("Cannot encore saving record object to JSON")
+          DispatchQueue.main.async { completion(nil) }
+          return
+      }
+
+      // Save JSON with EEG data received.
+      let deviceId = resDevice.deviceInfos!.deviceId!
+      let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
+                                                      deviceId: deviceId,
+                                                      userId: idUser)
+      DispatchQueue.main.async {
+        EEGPacketManager.removePackets(packetToRemove)
+        completion(fileURL)
       }
     }
   }
 
-  /// Create the EEG JSON
-  ///
-  /// - Parameters:
-  ///   - device: A *MBTDevice* of the connected Melomind
-  ///   - idUser: A *Int* id of the connected user
-  ///   - eegPackets: An array of *MBTEEGPacket* of the relaxIndexes
-  ///   - recordInfo: A *MBTRecordInfo* of the session metadata
-  ///   - comments: An array of *String* contains Optional Comments
-  /// - Returns: return an instance of *JSON*
-  func getJSONRecord(_ device: MBTDevice,
-                     idUser: Int,
-                     algo: String?,
-                     eegPackets: [MBTEEGPacket],
-                     recordInfo: MBTRecordInfo,
-                     comments: [String] = []) -> JSON {
-    var jsonContext = JSON()
-    jsonContext["ownerId"].intValue = idUser
+  func getEEGSavingRecord(_ device: MBTDevice,
+                          idUser: Int,
+                          algo: String?,
+                          eegPackets: [MBTEEGPacket],
+                          recordInfo: MBTRecordInfo,
+                          comments: [String] = []) -> EEGSavingRecord {
+    let context = EEGSavingRecordContext(ownerId: idUser, riAlgo: algo ?? "")
 
-    if let algo = algo {
-      jsonContext["riAlgo"].stringValue = algo
-    }
+    let record = EEGRecord(
+      recordID: recordInfo.recordId.uuidString,
+      recordingType: recordInfo.recordingType.toCodable,
+      recordingTime: eegPackets.first?.timestamp ?? 0,
+      nbPackets: eegPackets.count,
+      firstPacketId: 0,
+      qualities: EEGPacketManager.getQualities(eegPackets),
+      channelData: EEGPacketManager.getEEGDatas(eegPackets)
+    )
 
-    log.info("json context", context: jsonContext)
+    let header = device.getAsRecordHeader(comments: comments)
 
-    var jsonRecord = JSON()
-    jsonRecord["recordID"].stringValue = recordInfo.recordId.uuidString
-    jsonRecord["recordingType"] = recordInfo.recordingType.getJsonRecordInfo()
-    jsonRecord["recordingTime"].intValue = eegPackets.first?.timestamp ?? 0
-    jsonRecord["nbPackets"].intValue = eegPackets.count
-    jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ?
-      eegPackets.firstIndex(of: eegPackets.first! )! : 0
-    jsonRecord["qualities"] = EEGPacketManager.getJSONQualities(eegPackets)
-    jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets)
-    jsonRecord["statusData"].arrayObject = [Any]()
-    jsonRecord["recordingParameters"].arrayObject = [Any]()
+    let savingRecord = EEGSavingRecord(context: context,
+                                       header: header,
+                                       recording: record)
 
-    // Create the session JSON.
-    var jsonObject = JSON()
-    jsonObject["uuidJsonFile"].stringValue = UUID().uuidString
-    jsonObject["header"] = device.getJSON(comments)
-
-    jsonObject["context"] = jsonContext
-    jsonObject["recording"] = jsonRecord
-
-    return jsonObject
+    return savingRecord
   }
-
   //----------------------------------------------------------------------------
   // MARK: - Process Received data Methods.
   //----------------------------------------------------------------------------
