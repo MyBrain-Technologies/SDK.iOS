@@ -139,7 +139,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     guard let data = characteristic.value, isListeningToEEG else { return }
 
     DispatchQueue.main.async {
-      MBTClient.shared.eegAcquisitionManager.processBrainActivityData(data)
+      MBTClient.shared.eegAcquisitionManager.processBrainActivity(data: data)
     }
   }
 

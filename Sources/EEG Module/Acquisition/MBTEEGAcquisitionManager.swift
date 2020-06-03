@@ -17,7 +17,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// The MBTBluetooth Event Delegate.
   weak var delegate: MBTEEGAcquisitionDelegate?
 
-  /******************** Dependency injection ********************/
+  /******************** Convert eeg ********************/
+
+  var acquisitionProcessor: EEGAcquisitionProcessor?
 
   let signalProcessor: MBTSignalProcessingManager = .shared
 
@@ -26,16 +28,8 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// Bool to know if developer wants to use QC or not.
   var shouldUseQualityChecker: Bool = false
 
-  let acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: 250)
-
   /// if the sdk record in DB EEGPacket
   var isRecording: Bool = false
-
-  var eegPacketLength = 0
-
-  var nbChannels = 0
-
-  var sampRate = 0
 
   //----------------------------------------------------------------------------
   // MARK: - Methods
@@ -45,13 +39,8 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///
   /// - Parameter device: A *MBTDevice* of the connected Melomind
   func setUpWith(device: MBTDevice) {
-    log.verbose("EEG PACKET LENGTH \(device.eegPacketLength)")
-    acquisitionBuffer.bufferSizeMax = device.eegPacketLength * 2 * 2
-
-    eegPacketLength = device.eegPacketLength
-    nbChannels = device.nbChannels
-    sampRate = device.sampRate
-    MBTSignalProcessingManager.shared.resetSession()
+    acquisitionProcessor = EEGAcquisitionProcessor(device: device)
+    signalProcessor.resetSession()
   }
 
   //----------------------------------------------------------------------------
@@ -66,7 +55,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     guard useQualityChecker else { return }
 
     shouldUseQualityChecker =
-      MBTSignalProcessingManager.shared.initializeQualityChecker()
+      signalProcessor.initializeQualityChecker()
   }
 
   /// Method called by MelomindEngine when the current EEG streaming
@@ -76,7 +65,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     guard shouldUseQualityChecker else { return }
 
     shouldUseQualityChecker = false
-    MBTSignalProcessingManager.shared.deinitQualityChecker()
+    signalProcessor.deinitQualityChecker()
   }
 
   /// Save the EEGPackets recorded
@@ -159,11 +148,11 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   }
 
   private func getEEGSavingRecord(_ device: MBTDevice,
-                          idUser: Int,
-                          algo: String?,
-                          eegPackets: [MBTEEGPacket],
-                          recordInfo: MBTRecordInfo,
-                          comments: [String] = []) -> EEGSavingRecord {
+                                  idUser: Int,
+                                  algo: String?,
+                                  eegPackets: [MBTEEGPacket],
+                                  recordInfo: MBTRecordInfo,
+                                  comments: [String] = []) -> EEGSavingRecord {
     let context = EEGSavingRecordContext(ownerId: idUser, riAlgo: algo ?? "")
 
     let record = EEGRecord(
@@ -193,55 +182,19 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///     - data: *Data* received from MBT Headset EEGs.
   /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and array of
   ///     P3 and P4 samples arrays ( key: "packet" )
-  func processBrainActivityData(_ data: Data) {
-    acquisitionBuffer.add(data: data)
+  func processBrainActivity(data: Data) {
+    let packet = acquisitionProcessor?.getEEGPacket(
+      fromData: data,
+      checkQuality: shouldUseQualityChecker
+    )
 
-    guard let packet = acquisitionBuffer.getUsablePackets() else {
-      return
-    }
-
-    let relaxIndexes =
-      EEGDeserializer.deserializeToRelaxIndex(bytes: packet,
-                                              numberOfElectrodes: nbChannels)
-    let eegPacket = convertToEEGPacket(values: relaxIndexes)
+    guard let eegPacket = packet else { return }
 
     self.delegate?.onReceivingPackage?(eegPacket)
 
     if isRecording {
       EEGPacketManager.saveEEGPacket(eegPacket)
     }
-  }
-
-  /// Convert values from the acquisition to EEG Packets
-  private func convertToEEGPacket(values: [[Float]]) -> MBTEEGPacket {
-    var eegPacket = MBTEEGPacket(channelsValues: values)
-    eegPacket = addQualities(to: eegPacket)
-    eegPacket = addModifiedValues(to: eegPacket)
-    return eegPacket
-  }
-
-  /// Add qualities from signal processing to an eeg packet
-  private func addQualities(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
-    guard shouldUseQualityChecker else { return eegPacket }
-
-    let qualities = signalProcessor.computeQualityValue(
-      eegPacket.channelsData,
-      sampRate: sampRate,
-      eegPacketLength: eegPacketLength
-    )
-    eegPacket.addQualities(qualities)
-    return eegPacket
-  }
-
-  /// Add EEG modified values from signal progression to an eeg packet
-  private func addModifiedValues(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
-    guard shouldUseQualityChecker else { return eegPacket }
-
-    let correctedValues = signalProcessor.getModifiedEEGValues()
-
-    eegPacket.setModifiedChannelsData(correctedValues,
-                                      sampRate: sampRate)
-    return eegPacket
   }
 
 }
