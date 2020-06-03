@@ -25,8 +25,8 @@ public class MBTRecordingType {
   public var dataType: MBTDataType
 
   /********************  Computed properties ********************/
-  
-  var toCodable: EEGRecordType {
+
+  var eegRecordType: EEGRecordType {
     return EEGRecordType(recordType: recordType,
                          source: source,
                          dataType: dataType,
@@ -54,23 +54,6 @@ public class MBTRecordingType {
     self.dataType = dataType
     self.spVersion = MBTQualityCheckerBridge.getVersion()
   }
-
-  //----------------------------------------------------------------------------
-  // MARK: - Methods
-  //----------------------------------------------------------------------------
-
-  /// get a JSON
-  ///
-  /// - Returns: A *JSON* instance of RecordingType
-//  internal func getJsonRecordInfo() -> JSON {
-//    var jsonRecordType = JSON()
-//    jsonRecordType["recordType"].stringValue = recordType.rawValue
-//    jsonRecordType["spVersion"].stringValue = spVersion
-//    jsonRecordType["source"].stringValue = source.rawValue
-//    jsonRecordType["dataType"].stringValue = dataType.rawValue
-//    return jsonRecordType
-//  }
-
 }
 
 /// enum of Data Source

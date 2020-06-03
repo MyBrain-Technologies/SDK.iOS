@@ -66,51 +66,13 @@ public class MBTDevice: Object {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
-  /// Helper Function to get JSON
-  ///
-  /// - Parameter comments: user's comments
-  /// - Returns: A *JSON* instance of MBTDevice
-//  internal func getJSON(_ comments: [String]) -> JSON {
-//    var jsonHeader = JSON()
-//
-//    var finalsArrayComment = comments
-//    finalsArrayComment.insert("\(Date().timeIntervalSince1970)", at: 0)
-//
-//    var acquisitions =  [String]()
-//    for acquisition in acquisitionLocations {
-//      acquisitions.append("\(acquisition.type.stringValue)")
-//    }
-//
-//    jsonHeader["deviceInfo"] = deviceInfos!.getJSON()
-//    jsonHeader["recordingNb"].stringValue = "0x03"
-//    jsonHeader["comments"].arrayObject  = finalsArrayComment
-//    jsonHeader["sampRate"].intValue = sampRate
-//    jsonHeader["eegPacketLength"].intValue = eegPacketLength
-//    jsonHeader["nbChannels"].intValue  = nbChannels
-//    jsonHeader["acquisitionLocation"] = JSON(acquisitions)
-//
-//    var stringReferencesLocations = [String]()
-//    for referencesLocation in referencesLocations {
-//      stringReferencesLocations.append(referencesLocation.type.stringValue)
-//    }
-//    jsonHeader["referencesLocation"] = JSON(stringReferencesLocations)
-//
-//    var stringGroundsLocations = [String]()
-//    for groundsLocation in groundsLocations {
-//      stringGroundsLocations.append(groundsLocation.type.stringValue)
-//    }
-//    jsonHeader["groundsLocation"] = JSON(stringGroundsLocations)
-//
-//    return jsonHeader
-//  }
-
-  func getCommentsWithDate(_ comments: [String]) -> [String] {
+  private func getCommentsWithDate(_ comments: [String]) -> [String] {
     return ["\(Date().timeIntervalSince1970)"] + comments
   }
 
   func getAsRecordHeader(comments: [String]) -> EEGSavingRecordHeader {
     return EEGSavingRecordHeader(
-      deviceInfo: deviceInfos!.toCodable,
+      deviceInfo: deviceInfos!.melomindDeviceInformations,
       comments: getCommentsWithDate(comments),
       sampRate: sampRate,
       eegPacketLength: eegPacketLength,

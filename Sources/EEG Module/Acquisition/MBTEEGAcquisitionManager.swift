@@ -168,7 +168,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
     let record = EEGRecord(
       recordID: recordInfo.recordId.uuidString,
-      recordingType: recordInfo.recordingType.toCodable,
+      recordingType: recordInfo.recordingType.eegRecordType,
       recordingTime: eegPackets.first?.timestamp ?? 0,
       nbPackets: eegPackets.count,
       firstPacketId: 0,

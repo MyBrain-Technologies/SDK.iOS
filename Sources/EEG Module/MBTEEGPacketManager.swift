@@ -40,41 +40,6 @@ class EEGPacketManager: MBTRealmEntityManager {
     return RealmManager.shared.realm.objects(MBTEEGPacket.self)
   }
 
-  /// Get EEGPackets in JSON Object
-  ///
-  /// - Parameter eegPackets: An Array of *MBTEEGPacket*
-  /// - Returns: A *JSON* instance which contains the array of *MBTEEGPacket*
-//  class func getJSONEEGDatas(_ eegPackets: [MBTEEGPacket]) -> JSON {
-//    var eegDatas = [[Float?]]()
-//    for eegPacket in eegPackets {
-//      for channelNumber in 0 ..< eegPacket.channelsData.count {
-//        let channelData = eegPacket.channelsData[channelNumber]
-//
-//        if eegDatas.count < channelNumber + 1 {
-//          eegDatas.append([Float?]())
-//        }
-//
-//        for packetIndex in 0 ..< channelData.values.count {
-//          if channelData.values[packetIndex].isNaN {
-//            eegDatas[channelNumber].append(nil)
-//            log.info("Get JSON EEG data", context: Float.nan)
-//          } else {
-//            let value = channelData.values[packetIndex]
-//            eegDatas[channelNumber].append(value)
-//          }
-//        }
-//      }
-//    }
-//
-//    let hasData = eegDatas.compactMap({
-//      $0.contains(Float.nan) || $0.contains(Float.signalingNaN)
-//    })
-//
-//    log.info("Get JSON EEG data", context: hasData)
-//
-//    return JSON(eegDatas)
-//  }
-
   // WHAT THE HELL
   class func getEEGDatas(_ eegPackets: [MBTEEGPacket]) -> [[Float?]] {
      var eegDatas = [[Float?]]()
@@ -106,25 +71,6 @@ class EEGPacketManager: MBTRealmEntityManager {
 
      return eegDatas
    }
-
-  /// Get qualities of EEGPackets in JSON Object
-  ///
-  /// - Parameter eegPackets: An Array of *MBTEEGPacket*
-  /// - Returns: A *JSON* instance which contains the qualities of an array of *MBTEEGPacket*
-//  class func getJSONQualities(_ eegPackets: [MBTEEGPacket]) -> JSON {
-//    var qualities = [[Float]]()
-//
-//    for eegPacket in eegPackets {
-//      for indexQuality in 0 ..< eegPacket.qualities.count {
-//        if qualities.count < indexQuality + 1 {
-//          qualities.append([Float]())
-//        }
-//        qualities[indexQuality].append(eegPacket.qualities[indexQuality])
-//      }
-//    }
-//
-//    return JSON(qualities)
-//  }
 
   // PLEASE GOD SAVE ME FROM THAT
   class func getQualities(_ eegPackets: [MBTEEGPacket]) -> [[Float]] {
