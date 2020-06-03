@@ -12,13 +12,17 @@ struct EEGRawPacket {
     return Int16(rawValue[0] & 0xff) << 8 | Int16(rawValue[1] & 0xff)
   }
 
+  var packetIndexValues: [UInt8] {
+    return Array(rawValue.prefix(2))
+  }
+
   /// Value of a packet is stored after the two first value (wich are `packetIndex` property)
-  var value: [UInt8] {
+  var packetValues: [UInt8] {
     return rawValue.suffix(rawValue.count - 2)
   }
 
-  var valueLength: Int {
-    return value.count
+  var packetValuesLength: Int {
+    return packetValues.count
   }
 
   //----------------------------------------------------------------------------
