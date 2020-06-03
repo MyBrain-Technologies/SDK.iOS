@@ -10,7 +10,7 @@ protocol MBTQualityComputer {
   /// Returns an array of "quality" values for a data matrix of an acquisition packet.
   /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
   /// - returns: The array of computed "quality" values. Each value is the quality for a channel, in the same order as the row order in data.
-  func computeQualityValue(_ data: List<ChannelDatas>) -> [Float]
+  func computeQualityValue(_ data: List<ChannelsData>) -> [Float]
 
   /// Delete MBT_MainQC instance once acquisition phase is over.
   func deinitQualityChecker()

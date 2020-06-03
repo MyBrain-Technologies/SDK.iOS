@@ -14,6 +14,8 @@ public class MBTEEGPacket: Object {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  public typealias Quality = Float
+
   /// The qualities stored in a list. The list size
   /// should be equal to the number of channels if there is
   /// a status channel. It's calculated by the Quality Checker
@@ -21,80 +23,51 @@ public class MBTEEGPacket: Object {
   public var qualities = List<Quality>()
 
   /// The timestamp in milliseconds when this packet is created.
-  @objc public  dynamic var timestamp = Int(Date().timeIntervalSince1970 * 1000)
+  @objc public dynamic var timestamp = Int(Date().timeIntervalSince1970 * 1000)
 
   /// The values from all channels.
-  public var channelsData = List<ChannelDatas>()
+  public var channelsData = List<ChannelsData>()
 
   /// The values updated by the *Quality Checker* from all channels.
-  public var modifiedChannelsData = List<ChannelDatas>()
+  public var modifiedChannelsData = List<ChannelsData>()
 
   //----------------------------------------------------------------------------
   // MARK: - EEGPackets Methods
   //----------------------------------------------------------------------------
 
-  /// Create a new MBTEEGPacket
-  ///
-  /// - Returns: A new *MBTEEGPacket* instance which channelsData are set up
-  class func createNewEEGPacket(_ nbChannels: Int) -> MBTEEGPacket {
-    let newPacket = MBTEEGPacket()
-    for _ in 0 ..< nbChannels {
-      newPacket.channelsData.append(ChannelDatas())
-    }
-    return newPacket
-  }
+  /// Create an EEG packet from an array of values for channels
+  /// Exemple:
+  /// (first channel) [0]: [values for a channel]
+  /// (second channel) [1]: [values for a second channel]
+  /// ...
+  public convenience init(channelsValues: [[Float]]) {
+    self.init()
 
-  /// Create a EEGPacket with *[[Float]]* of data
-  ///
-  /// - Parameters:
-  ///   - arrayData: A *[[FLoat]]* instance of data
-  ///   - nbChannels: A *Int* instance of number channel
-  /// - Returns: A new *MBTEEGPacket* instance which is set up with arrayData
-  class func createNewEEGPacket(arrayData: [[Float]],
-                                nbChannels: Int) -> MBTEEGPacket {
-    let newPacket = MBTEEGPacket.createNewEEGPacket(nbChannels)
-    let count = min(nbChannels, arrayData.count)
-
-    for index in 0 ..< count {
-      for sample in arrayData[index] {
-        newPacket.channelsData[index].value.append(ChannelData(data: sample))
-      }
+    let channels = channelsValues.map() { values -> ChannelsData in
+      let channel = ChannelsData()
+      channel.values.append(objectsIn: values)
+      return channel
     }
 
-    return newPacket
+    self.channelsData.append(objectsIn: channels)
   }
 
   /// Add *Quality* values, calculated by the Quality Checker, to a *MBTEEGPacket*.
-  /// - Parameters:
-  ///     - qualities: Array of *Quality* by channel.
-  ///     - eegPacket: The *MBTEEGPacket* to add the *Quality* values to.
-  func addQualities(_ qualities: [Float]) {
-    for qualityFloat in qualities {
-      let quality = Quality(data: qualityFloat)
-      self.qualities.append(quality)
-    }
+  func addQualities(_ qualities: [Quality]) {
+    self.qualities.append(objectsIn: qualities)
   }
 
-  /// Update the *ChannelData* values with the corrected values received
-  /// from the Quality Checker.
-  /// - Parameters:
-  ///     - eegPacket: The *MBTEEGPacket* to update the EEG values.
-  ///     - modifiedValues: Array of the corrected values, by channel.
-  func addModifiedChannelsData(_ modifiedValues: [[Float]],
-                               nbChannels: Int,
+  func setModifiedChannelsData(_ modifiedValues: [[Float]],
                                sampRate: Int) {
-    //        print("addModifiedChannelsData")
-    // Add the updated values to the packet copy.
-    for indexChannel in 0 ..< nbChannels {
-      let channelDatas = ChannelDatas()
-      for indexPacketValue in 0 ..< sampRate {
-        if indexChannel < modifiedValues.count
-          && indexPacketValue < modifiedValues[indexChannel].count {
-          let data = modifiedValues[indexChannel][indexPacketValue]
-          channelDatas.value.append(ChannelData(data: data))
-        }
-      }
-      self.modifiedChannelsData.append(channelDatas)
+    let channelDatas = modifiedValues.map() { channelValues -> ChannelsData in
+      let data = ChannelsData()
+      let count = min(sampRate, channelValues.count)
+
+      data.values.append(objectsIn: channelValues[0 ..< count])
+      return data
     }
+
+    modifiedChannelsData.removeAll()
+    modifiedChannelsData.append(objectsIn: channelDatas)
   }
 }

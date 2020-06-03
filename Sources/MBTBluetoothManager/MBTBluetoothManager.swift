@@ -282,7 +282,7 @@ internal class MBTBluetoothManager: NSObject {
         DispatchQueue.main.sync {
           if let currentDevice = DeviceManager.getCurrentDevice(),
             let currentDeviceInfo = currentDevice.deviceInfos {
-            isDeviceInfoNotNil = currentDeviceInfo.isDeviceInfoNotNil()
+            isDeviceInfoNotNil = currentDeviceInfo.isDeviceInfoNotNil
           }
         }
 

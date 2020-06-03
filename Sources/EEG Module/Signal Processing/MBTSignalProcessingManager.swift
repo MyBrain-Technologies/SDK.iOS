@@ -67,20 +67,20 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   /// (no GPIOs)
   /// - returns: The array of computed "quality" values. Each value is the
   /// quality for a channel, in the same order as the row order in data.
-  func computeQualityValue(_ data: List<ChannelDatas>) -> [Float] {
+  func computeQualityValue(_ data: List<ChannelsData>) -> [Float] {
 
     // Transform the input data into the format needed by the Obj-C++ bridge.
     let nbChannels: Int = data.count
-    let packetLength: Int = data.first!.value.count
+    let packetLength: Int = data.first!.values.count
     var dataArray = [Float]()
     var nbNAN = 0
     for channelDatas in data {
-      for channelData in channelDatas.value {
-        if channelData.value.isNaN {
+      for channelData in channelDatas.values {
+        if channelData.isNaN {
           nbNAN += 1
         }
 
-        dataArray.append(channelData.value)
+        dataArray.append(channelData)
       }
     }
 
@@ -107,7 +107,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     return qualitySwift
   }
 
-  func computeQualityValue(_ data: List<ChannelDatas>,
+  func computeQualityValue(_ data: List<ChannelsData>,
                            sampRate: Int,
                            eegPacketLength: Int) -> [Float] {
     self.sampRate = sampRate
@@ -153,12 +153,12 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
       return [String: [Float]]()
     }
 
-    var calibrationData = [List<ChannelDatas>]()
+    var calibrationData = [List<ChannelsData>]()
     for i in 0 ..< packetsCount {
       calibrationData.append(packets[i].modifiedChannelsData)
     }
 
-    var calibrationQualityValues = [List<Quality>]()
+    var calibrationQualityValues = [List<Float>]()
     for j in 0 ..< packetsCount {
       calibrationQualityValues.append(packets[j].qualities)
     }
@@ -167,9 +167,9 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
     var dataArray = [Float]()
     for listChannelData in calibrationData {
       for i in 0 ..< nbChannel {
-        let data = listChannelData[i].value
+        let data = listChannelData[i].values
         for j in 0 ..< packetLength {
-          dataArray.append(data[j].value)
+          dataArray.append(data[j])
         }
       }
     }
@@ -178,7 +178,7 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
     var qualityArray = [Float]()
     for qualityList in calibrationQualityValues {
       for qualityForChannel in qualityList {
-        qualityArray.append(qualityForChannel.value)
+        qualityArray.append(qualityForChannel)
       }
     }
 
@@ -222,7 +222,7 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
         return nil
     }
 
-    var arrayModifiedChannelData = [List<ChannelDatas>]()
+    var arrayModifiedChannelData = [List<ChannelsData>]()
     for i in 0 ..< packetCount {
       arrayModifiedChannelData.append(packets[i].modifiedChannelsData)
     }
@@ -231,8 +231,8 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     var dataArray = [Float]()
     for listChannelData in arrayModifiedChannelData {
       for datasForChannel in listChannelData {
-        for data in datasForChannel.value {
-          dataArray.append(data.value)
+        for data in datasForChannel.values {
+          dataArray.append(data)
         }
       }
     }
@@ -241,9 +241,10 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     let qualities = lastPacket.qualities
     var qualitiesArray = [Float]()
 
-    qualities.forEach { quality in
-      qualitiesArray.append(quality.value)
-    }
+    qualitiesArray.append(contentsOf: qualities)
+//    qualities.forEach { quality in
+//      qualitiesArray.append(quality.value)
+//    }
 
     //Perform the computation
     let relaxIndex =

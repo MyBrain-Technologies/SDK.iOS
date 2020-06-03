@@ -1,9 +1,6 @@
 import Foundation
 import CoreBluetooth
 
-// TEMP: LEGACY CODE
-// swiftlint:disable function_body_length
-
 extension MBTBluetoothManager: CBCentralManagerDelegate {
 
   //----------------------------------------------------------------------------

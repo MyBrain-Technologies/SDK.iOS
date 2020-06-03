@@ -1,9 +1,6 @@
 import Foundation
 import AVFoundation
 
-// TEMP: LEGACY CODE
-// swiftlint:disable function_body_length
-
 extension MBTBluetoothManager {
 
   /// Audio A2DP changing route output handler.
@@ -92,8 +89,6 @@ extension MBTBluetoothManager {
 
     eventDelegate?.onUpdateFailWithError?(error)
   }
-
-
 
   //----------------------------------------------------------------------------
   // MARK: - Tools

@@ -8,25 +8,8 @@ import SwiftyJSON
 internal class MBTEEGAcquisitionManager: NSObject  {
 
   //----------------------------------------------------------------------------
-  // MARK: - Constants
+  // MARK: - Methods
   //----------------------------------------------------------------------------
-
-  /// Mandatory 8 to switch from 24 bits to 32 bits + variable part which fits fw config.
-  static private let shiftMelomind: Int32 = 8 + 4
-
-  /******************** Constantes to get EEG values from bluetooth ********************/
-
-  static private let checkSign: Int32 = (0x80 << shiftMelomind)
-  static private let negativeMask: Int32 = (0xFFFFFFF << (32 - shiftMelomind))
-  static private let positiveMask: Int32 = (~negativeMask)
-  static private let divider = 2
-
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
-
-  /// Constant to decod EEG data
-  let voltageADS1299: Float = ( 0.286 * pow(10, -6)) / 8
 
   /// Singleton declaration
   static let shared = MBTEEGAcquisitionManager()
@@ -34,14 +17,16 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// The MBTBluetooth Event Delegate.
   weak var delegate: MBTEEGAcquisitionDelegate?
 
+  /******************** Dependency injection ********************/
+
+  let signalProcessor: MBTSignalProcessingManager = .shared
+
+  /********************  Parameters ********************/
+
   /// Bool to know if developer wants to use QC or not.
-  var shouldUseQualityChecker: Bool?
+  var shouldUseQualityChecker: Bool = false
 
-  /// Previous Index Data Blutooth
-  var previousIndex: Int16 = -1
-
-  /// Buffer Data Byte
-  var buffByte = [UInt8]()
+  let acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: 250)
 
   /// if the sdk record in DB EEGPacket
   var isRecording: Bool = false
@@ -52,9 +37,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
   var sampRate = 0
 
-  /// Test Variable
-  var timeIntervalPerf = Date().timeIntervalSince1970
-
   //----------------------------------------------------------------------------
   // MARK: - Methods
   //----------------------------------------------------------------------------
@@ -63,6 +45,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///
   /// - Parameter device: A *MBTDevice* of the connected Melomind
   func setUpWith(device: MBTDevice) {
+    log.verbose("EEG PACKET LENGTH \(device.eegPacketLength)")
+    acquisitionBuffer.bufferSizeMax = device.eegPacketLength * 2 * 2
+
     eegPacketLength = device.eegPacketLength
     nbChannels = device.nbChannels
     sampRate = device.sampRate
@@ -88,10 +73,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// session has finished.
   func streamHasStopped() {
     // Dealloc mainQC.
-    guard let shouldUseQualityChecker = shouldUseQualityChecker,
-      shouldUseQualityChecker else { return }
+    guard shouldUseQualityChecker else { return }
 
-    self.shouldUseQualityChecker = false
+    shouldUseQualityChecker = false
     MBTSignalProcessingManager.shared.deinitQualityChecker()
   }
 
@@ -101,10 +85,10 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///   - idUser: A *Int* id of the connected user
   ///   - comments: An array of *String* contains Optional Comments
   ///   - completion: A block which execute after create the file or fail to create
-  func saveRecordingOnFile(_ idUser: Int,
-                           algo: String?,
-                           comments: [String] = [],
-                           completion: @escaping (URL?) -> Void) {
+  func saveRecording(_ idUser: Int,
+                     algo: String?,
+                     comments: [String] = [],
+                     completion: @escaping (URL?) -> Void) {
     guard let device = DeviceManager.getCurrentDevice() else {
       completion(nil)
       return
@@ -113,11 +97,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     let deviceTSR = ThreadSafeReference(to: device)
     let packetToRemove = EEGPacketManager.getArrayEEGPackets()
     var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
-    let currentRecordInfo = MBTRecordInfo.init(
-      MBTClient.shared.recordInfo.recordId,
-      recordingType: MBTClient.shared.recordInfo.recordingType
-    )
-    log.info("Save recording on file", context: currentRecordInfo)
 
     for eegPacket in packetToRemove {
       packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
@@ -126,131 +105,85 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     DispatchQueue(label: "MelomindSaveProcess").async {
       let config = MBTRealmEntityManager.RealmManager.shared.config
 
-      if let realm = try? Realm(configuration: config) {
-        var resPacketsToSave = [MBTEEGPacket]()
+      guard let realm = try? Realm(configuration: config) else {
+        log.error("Cannot get realm instance")
+        DispatchQueue.main.async { completion(nil) }
+        return
+      }
 
-        for eegPacket in packetsToSaveTSR {
-          if let resEEGPacket = realm.resolve(eegPacket) {
-            resPacketsToSave.append(resEEGPacket)
-          }
-        }
+      var resPacketsToSave = [MBTEEGPacket]()
 
-        if let resDevice = realm.resolve(deviceTSR),
-          resPacketsToSave.count == packetsToSaveTSR.count {
-          let jsonObject = self.getJSONRecord(resDevice,
-                                              idUser: idUser,
-                                              algo: algo,
-                                              eegPackets: resPacketsToSave,
-                                              recordInfo: currentRecordInfo,
-                                              comments: comments)
-          // Save JSON with EEG data received.
-          let deviceId = resDevice.deviceInfos!.deviceId!
-          let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
-                                                          deviceId: deviceId,
-                                                          userId: idUser)
-          DispatchQueue.main.async {
-            EEGPacketManager.removePackets(packetToRemove)
-            completion(fileURL)
-          }
-        } else {
-          DispatchQueue.main.async {
-            completion(nil)
-          }
+      for eegPacket in packetsToSaveTSR {
+        if let resEEGPacket = realm.resolve(eegPacket) {
+          resPacketsToSave.append(resEEGPacket)
         }
-      } else {
-        DispatchQueue.main.async {
-          completion(nil)
-        }
+      }
+
+      guard
+        let resDevice = realm.resolve(deviceTSR),
+        resPacketsToSave.count == packetsToSaveTSR.count else {
+          log.error("PB with realm or bad number on packet to save ?")
+          DispatchQueue.main.async { completion(nil) }
+          return
+      }
+
+      let currentRecordInfo = MBTRecordInfo.init(
+        MBTClient.shared.recordInfo.recordId,
+        recordingType: MBTClient.shared.recordInfo.recordingType
+      )
+      log.info("Save recording on file", context: currentRecordInfo)
+
+      let savingRecord = self.getEEGSavingRecord(resDevice,
+                                                 idUser: idUser,
+                                                 algo: algo,
+                                                 eegPackets: resPacketsToSave,
+                                                 recordInfo: currentRecordInfo,
+                                                 comments: comments)
+
+      guard let jsonObject = savingRecord.toJSON else {
+          log.error("Cannot encore saving record object to JSON")
+          DispatchQueue.main.async { completion(nil) }
+          return
+      }
+
+      // Save JSON with EEG data received.
+      let deviceId = resDevice.deviceInfos!.deviceId!
+      let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
+                                                      deviceId: deviceId,
+                                                      userId: idUser)
+      DispatchQueue.main.async {
+        EEGPacketManager.removePackets(packetToRemove)
+        completion(fileURL)
       }
     }
   }
 
-  /// Method to manage a complete *MBTEEGPacket* From streamEEGPacket. Use *Quality Checker*
-  /// on it if user asks for it, or just send it via the delegate.
-  /// - Parameter eegPacket: A complete *MBTEEGPacket*.
-  func manageCompleteStreamEEGPacket(_ datasArray: [[Float]]) {
+  func getEEGSavingRecord(_ device: MBTDevice,
+                          idUser: Int,
+                          algo: String?,
+                          eegPackets: [MBTEEGPacket],
+                          recordInfo: MBTRecordInfo,
+                          comments: [String] = []) -> EEGSavingRecord {
+    let context = EEGSavingRecordContext(ownerId: idUser, riAlgo: algo ?? "")
 
-    let packetComplete = MBTEEGPacket.createNewEEGPacket(arrayData: datasArray,
-                                                         nbChannels: nbChannels)
+    let record = EEGRecord(
+      recordID: recordInfo.recordId.uuidString,
+      recordingType: recordInfo.recordingType.eegRecordType,
+      recordingTime: eegPackets.first?.timestamp ?? 0,
+      nbPackets: eegPackets.count,
+      firstPacketId: 0,
+      qualities: EEGPacketManager.getQualities(eegPackets),
+      channelData: EEGPacketManager.getEEGDatas(eegPackets)
+    )
 
-    if let shouldUseQualityChecker = shouldUseQualityChecker,
-      shouldUseQualityChecker {
-      // Get caluclated qualities of the EEGPacket.
-      // Add *qualities* in streamEEGPacket
-      let qualities = MBTSignalProcessingManager.shared.computeQualityValue(
-          packetComplete.channelsData,
-          sampRate: self.sampRate,
-          eegPacketLength: eegPacketLength
-      )
-      packetComplete.addQualities(qualities)
+    let header = device.getAsRecordHeader(comments: comments)
 
-      // Get the EEG values modified by the `QC` according to the `Quality` values.
-      let correctedValues =
-        MBTSignalProcessingManager.shared.getModifiedEEGValues()
-      packetComplete.addModifiedChannelsData(correctedValues,
-                                             nbChannels: self.nbChannels,
-                                             sampRate: self.sampRate)
-    }
-    let timeInterval = Date().timeIntervalSince1970
+    let savingRecord = EEGSavingRecord(context: context,
+                                       header: header,
+                                       recording: record)
 
-    log.verbose("receive EEG packet. Timer perf",
-                context: timeInterval - self.timeIntervalPerf)
-
-    self.delegate?.onReceivingPackage?(packetComplete)
-    self.timeIntervalPerf = timeInterval
-
-    if self.isRecording {
-      EEGPacketManager.saveEEGPacket(packetComplete)
-    }
+    return savingRecord
   }
-
-  /// Create the EEG JSON
-  ///
-  /// - Parameters:
-  ///   - device: A *MBTDevice* of the connected Melomind
-  ///   - idUser: A *Int* id of the connected user
-  ///   - eegPackets: An array of *MBTEEGPacket* of the relaxIndexes
-  ///   - recordInfo: A *MBTRecordInfo* of the session metadata
-  ///   - comments: An array of *String* contains Optional Comments
-  /// - Returns: return an instance of *JSON*
-  func getJSONRecord(_ device: MBTDevice,
-                     idUser: Int,
-                     algo: String?,
-                     eegPackets: [MBTEEGPacket],
-                     recordInfo: MBTRecordInfo,
-                     comments: [String] = []) -> JSON {
-    var jsonContext = JSON()
-    jsonContext["ownerId"].intValue = idUser
-
-    if let algo = algo {
-      jsonContext["riAlgo"].stringValue = algo
-    }
-
-    log.info("json context", context: jsonContext)
-
-    var jsonRecord = JSON()
-    jsonRecord["recordID"].stringValue = recordInfo.recordId.uuidString
-    jsonRecord["recordingType"] = recordInfo.recordingType.getJsonRecordInfo()
-    jsonRecord["recordingTime"].intValue = eegPackets.first?.timestamp ?? 0
-    jsonRecord["nbPackets"].intValue = eegPackets.count
-    jsonRecord["firstPacketId"].intValue = eegPackets.first != nil ?
-      eegPackets.firstIndex(of: eegPackets.first! )! : 0
-    jsonRecord["qualities"] = EEGPacketManager.getJSONQualities(eegPackets)
-    jsonRecord["channelData"] = EEGPacketManager.getJSONEEGDatas(eegPackets)
-    jsonRecord["statusData"].arrayObject = [Any]()
-    jsonRecord["recordingParameters"].arrayObject = [Any]()
-
-    // Create the session JSON.
-    var jsonObject = JSON()
-    jsonObject["uuidJsonFile"].stringValue = UUID().uuidString
-    jsonObject["header"] = device.getJSON(comments)
-
-    jsonObject["context"] = jsonContext
-    jsonObject["recording"] = jsonRecord
-
-    return jsonObject
-  }
-
   //----------------------------------------------------------------------------
   // MARK: - Process Received data Methods.
   //----------------------------------------------------------------------------
@@ -260,99 +193,55 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///     - data: *Data* received from MBT Headset EEGs.
   /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and array of
   ///     P3 and P4 samples arrays ( key: "packet" )
-
   func processBrainActivityData(_ data: Data) {
-    if data.count == 0 { return }
+    acquisitionBuffer.add(data: data)
 
-    let count = data.count
-    var bytesArray = [UInt8](repeating: 0, count: count)
-
-    (data as NSData).getBytes(&bytesArray,
-                              length: count * MemoryLayout<UInt8>.size)
-
-    let currentIndex: Int16 =
-      Int16(bytesArray[0] & 0xff) << 8 | Int16(bytesArray[1] & 0xff)
-
-    if currentIndex == 0 {
-      previousIndex = 0
+    guard let packet = acquisitionBuffer.getUsablePackets() else {
+      return
     }
 
-    if previousIndex == -1 {
-      previousIndex = currentIndex - 1
-    }
+    let relaxIndexes =
+      EEGDeserializer.deserializeToRelaxIndex(bytes: packet,
+                                              numberOfElectrodes: nbChannels)
+    let eegPacket = convertToEEGPacket(values: relaxIndexes)
 
-    if previousIndex >= 32767 {
-      previousIndex = 0
-    }
+    self.delegate?.onReceivingPackage?(eegPacket)
 
-    let diff = Int32(currentIndex - previousIndex)
-
-    if diff != 1 {
-      log.info("Process brain activity data. Diff is", context: diff)
-    }
-
-    // Lost packets management.
-    if diff != 1 && diff > 0 {
-      log.info("Process brain activity data. Lost packets", context: diff)
-      for _ in 0 ..< diff {
-        for _ in 0 ..< count - 2 {
-          buffByte.append(0xFF)
-        }
-      }
-    }
-
-    buffByte += bytesArray.suffix(count - 2)
-
-    previousIndex = currentIndex
-
-    let limitBuffCount = eegPacketLength * 2 * 2
-
-    if  buffByte.count >= limitBuffCount {
-      var byteArray = [UInt8]()
-      for _ in 0 ... (limitBuffCount - 1)  {
-        byteArray.append(buffByte.removeFirst())
-      }
-      self.manageCompleteStreamEEGPacket(self.process(byteArray))
+    if isRecording {
+      EEGPacketManager.saveEEGPacket(eegPacket)
     }
   }
 
-  /// Convert the data brut in RelaxIndex
-  ///
-  /// - Parameter bytesArray: An array of *UInt8*
-  /// - Returns: return the RelaxIndexes
-  func process(_ bytesArray: [UInt8]) -> [[Float]] {
-    let shift = MBTEEGAcquisitionManager.shiftMelomind
-    var values = [Float]()
-
-    for i in 0 ..< bytesArray.count / MBTEEGAcquisitionManager.divider  {
-      var temp: Int32 = 0x00000000
-
-      temp = (Int32(bytesArray[2 * i] & 0xFF) << shift)
-        | Int32(bytesArray[2 * i + 1] & 0xFF) << (shift - 8)
-
-      if (temp & MBTEEGAcquisitionManager.checkSign) > 0 { // negative value
-        temp = Int32(temp | MBTEEGAcquisitionManager.negativeMask )
-      } else {
-        // value is positive
-        temp = Int32(temp & MBTEEGAcquisitionManager.positiveMask)
-      }
-
-      values.append(Float(temp))
-    }
-
-    var p3DatasArray = [Float]()
-    var p4DatasArray = [Float]()
-
-    for i in 0 ..< values.count {
-      if i % 2 == 0 {
-        p3DatasArray.append(values[i] * voltageADS1299)
-      } else {
-        p4DatasArray.append(values[i] * voltageADS1299)
-      }
-    }
-
-    let dataArray = [p3DatasArray, p4DatasArray]
-
-    return dataArray
+  /// Convert values from the acquisition to EEG Packets
+  private func convertToEEGPacket(values: [[Float]]) -> MBTEEGPacket {
+    var eegPacket = MBTEEGPacket(channelsValues: values)
+    eegPacket = addQualities(to: eegPacket)
+    eegPacket = addModifiedValues(to: eegPacket)
+    return eegPacket
   }
+
+  /// Add qualities from signal processing to an eeg packet
+  private func addQualities(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+    guard shouldUseQualityChecker else { return eegPacket }
+
+    let qualities = signalProcessor.computeQualityValue(
+      eegPacket.channelsData,
+      sampRate: sampRate,
+      eegPacketLength: eegPacketLength
+    )
+    eegPacket.addQualities(qualities)
+    return eegPacket
+  }
+
+  /// Add EEG modified values from signal progression to an eeg packet
+  private func addModifiedValues(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+    guard shouldUseQualityChecker else { return eegPacket }
+
+    let correctedValues = signalProcessor.getModifiedEEGValues()
+
+    eegPacket.setModifiedChannelsData(correctedValues,
+                                      sampRate: sampRate)
+    return eegPacket
+  }
+
 }

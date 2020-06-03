@@ -287,10 +287,10 @@ public class MBTClient {
                                   algo: String? = nil,
                                   comments: [String] = [String](),
                                   completion: @escaping (URL?) -> Void) {
-    eegAcquisitionManager.saveRecordingOnFile(idUser,
-                                             algo: algo,
-                                             comments: comments,
-                                             completion: completion)
+    eegAcquisitionManager.saveRecording(idUser,
+                                        algo: algo,
+                                        comments: comments,
+                                        completion: completion)
   }
 
   //----------------------------------------------------------------------------
