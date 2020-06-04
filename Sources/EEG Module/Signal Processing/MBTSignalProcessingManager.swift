@@ -282,33 +282,33 @@ extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
 
 extension MBTSignalProcessingManager {
 
-  var sessionMeanAlphaPower: Float {
-    return MBTMelomindAnalysis.sessionMeanAlphaPower()
-  }
-
-  var sessionMeanRelativeAlphaPower: Float {
-    return MBTMelomindAnalysis.sessionMeanRelativeAlphaPower()
-  }
-
-  var sessionConfidence: Float {
-    return MBTMelomindAnalysis.sessionConfidence()
-  }
-
-  var sessionAlphaPowers: [Float] {
-    return MBTMelomindAnalysis.sessionAlphaPowers().filter { $0 is Float }
-      as? [Float] ?? []
-  }
-
-  var sessionRelativeAlphaPowers: [Float] {
-    return
-      MBTMelomindAnalysis.sessionRelativeAlphaPowers().filter { $0 is Float }
-        as? [Float] ?? []
-  }
-
-  var sessionQualities: [Float] {
-    return MBTMelomindAnalysis.sessionQualities().filter { $0 is Float }
-      as? [Float] ?? []
-  }
+//  var sessionMeanAlphaPower: Float {
+//    return MBTMelomindAnalysis.sessionMeanAlphaPower()
+//  }
+//
+//  var sessionMeanRelativeAlphaPower: Float {
+//    return MBTMelomindAnalysis.sessionMeanRelativeAlphaPower()
+//  }
+//
+//  var sessionConfidence: Float {
+//    return MBTMelomindAnalysis.sessionConfidence()
+//  }
+//
+//  var sessionAlphaPowers: [Float] {
+//    return MBTMelomindAnalysis.sessionAlphaPowers().filter { $0 is Float }
+//      as? [Float] ?? []
+//  }
+//
+//  var sessionRelativeAlphaPowers: [Float] {
+//    return
+//      MBTMelomindAnalysis.sessionRelativeAlphaPowers().filter { $0 is Float }
+//        as? [Float] ?? []
+//  }
+//
+//  var sessionQualities: [Float] {
+//    return MBTMelomindAnalysis.sessionQualities().filter { $0 is Float }
+//      as? [Float] ?? []
+//  }
 
   func resetSession() {
     MBTMelomindAnalysis.resetSession()
