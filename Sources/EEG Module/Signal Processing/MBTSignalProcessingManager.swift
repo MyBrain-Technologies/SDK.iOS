@@ -238,20 +238,14 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
     }
 
     let lastPacket = packets[packetCount - 1]
-    let qualities = lastPacket.qualities
-    var qualitiesArray = [Float]()
-
-    qualitiesArray.append(contentsOf: qualities)
-//    qualities.forEach { quality in
-//      qualitiesArray.append(quality.value)
-//    }
+    let qualities = Array(lastPacket.qualities)
 
     //Perform the computation
     let relaxIndex =
       MBTRelaxIndexBridge.computeRelaxIndex(dataArray,
                                             sampRate: sampRate,
                                             nbChannels: nbChannels,
-                                            lastPacketQualities: qualitiesArray)
+                                            lastPacketQualities: qualities)
     return relaxIndex
   }
 
