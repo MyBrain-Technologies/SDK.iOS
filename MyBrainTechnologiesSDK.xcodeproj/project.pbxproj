@@ -106,6 +106,7 @@
 		A994297A2487D256003F48CC /* EEGSavingRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99429792487D256003F48CC /* EEGSavingRecord.swift */; };
 		A994297C2487D795003F48CC /* MelomindDeviceInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */; };
 		A9B252C92487F47E00867289 /* EEGAcquisitionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B252C82487F47E00867289 /* EEGAcquisitionProcessor.swift */; };
+		A9B252CB2488040000867289 /* EEGAcquisitionSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B252CA2488040000867289 /* EEGAcquisitionSaver.swift */; };
 		A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */; };
 		A9C0568B247BF10C00EC8703 /* BluetoothPeripheralConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0568A247BF10C00EC8703 /* BluetoothPeripheralConnector.swift */; };
 		A9C0568D247BF20700EC8703 /* BluetoothStateHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C0568C247BF20700EC8703 /* BluetoothStateHistory.swift */; };
@@ -267,6 +268,7 @@
 		A99429792487D256003F48CC /* EEGSavingRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGSavingRecord.swift; sourceTree = "<group>"; };
 		A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelomindDeviceInformations.swift; sourceTree = "<group>"; };
 		A9B252C82487F47E00867289 /* EEGAcquisitionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionProcessor.swift; sourceTree = "<group>"; };
+		A9B252CA2488040000867289 /* EEGAcquisitionSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionSaver.swift; sourceTree = "<group>"; };
 		A9C05688247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAdvertisementDataReader.swift; sourceTree = "<group>"; };
 		A9C0568A247BF10C00EC8703 /* BluetoothPeripheralConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralConnector.swift; sourceTree = "<group>"; };
 		A9C0568C247BF20700EC8703 /* BluetoothStateHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHistory.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */,
 				2B6B5D9A205139D800928F1F /* MBTEEGAcquisitionManager.swift */,
 				A9B252C82487F47E00867289 /* EEGAcquisitionProcessor.swift */,
+				A9B252CA2488040000867289 /* EEGAcquisitionSaver.swift */,
 			);
 			path = Acquisition;
 			sourceTree = "<group>";
@@ -1037,6 +1040,7 @@
 				A9C0568B247BF10C00EC8703 /* BluetoothPeripheralConnector.swift in Sources */,
 				A974EFC023CE29BB00B9F9BE /* AcquisitionLocation.swift in Sources */,
 				A92CA4272462F78C00688CE5 /* MBTBluetoothManager+Timer.swift in Sources */,
+				A9B252CB2488040000867289 /* EEGAcquisitionSaver.swift in Sources */,
 				A92CA4312462FB3100688CE5 /* MBTEEGPacketManager.swift in Sources */,
 				F420E9A51EFD5F68008C0B08 /* BluetoothDeviceCharacteristics.swift in Sources */,
 				A9D3B5DE23F40740006138E5 /* BluetoothState.swift in Sources */,

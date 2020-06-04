@@ -17,11 +17,15 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// The MBTBluetooth Event Delegate.
   weak var delegate: MBTEEGAcquisitionDelegate?
 
-  /******************** Convert eeg ********************/
+  /******************** Dependency injection ********************/
+
+  let signalProcessor: MBTSignalProcessingManager = .shared
+
+  /******************** Convert and save eeg ********************/
 
   var acquisitionProcessor: EEGAcquisitionProcessor?
 
-  let signalProcessor: MBTSignalProcessingManager = .shared
+  let acquisisitonSaver = EEGAcquisitionSaver()
 
   /********************  Parameters ********************/
 
@@ -78,101 +82,109 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                      algo: String?,
                      comments: [String] = [],
                      completion: @escaping (URL?) -> Void) {
-    guard let device = DeviceManager.getCurrentDevice() else {
-      completion(nil)
-      return
-    }
+    let packets = EEGPacketManager.getArrayEEGPackets()
+    acquisisitonSaver.saveRecording(packets: packets,
+                                    idUser: idUser,
+                                    algo: algo,
+                                    comments: comments,
+                                    completion: { completion($0) })
 
-    let deviceTSR = ThreadSafeReference(to: device)
-    let packetToRemove = EEGPacketManager.getArrayEEGPackets()
-    var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
-
-    for eegPacket in packetToRemove {
-      packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
-    }
-
-    DispatchQueue(label: "MelomindSaveProcess").async {
-      let config = MBTRealmEntityManager.RealmManager.shared.config
-
-      guard let realm = try? Realm(configuration: config) else {
-        log.error("Cannot get realm instance")
-        DispatchQueue.main.async { completion(nil) }
-        return
-      }
-
-      var resPacketsToSave = [MBTEEGPacket]()
-
-      for eegPacket in packetsToSaveTSR {
-        if let resEEGPacket = realm.resolve(eegPacket) {
-          resPacketsToSave.append(resEEGPacket)
-        }
-      }
-
-      guard
-        let resDevice = realm.resolve(deviceTSR),
-        resPacketsToSave.count == packetsToSaveTSR.count else {
-          log.error("PB with realm or bad number on packet to save ?")
-          DispatchQueue.main.async { completion(nil) }
-          return
-      }
-
-      let currentRecordInfo = MBTRecordInfo.init(
-        MBTClient.shared.recordInfo.recordId,
-        recordingType: MBTClient.shared.recordInfo.recordingType
-      )
-      log.info("Save recording on file", context: currentRecordInfo)
-
-      let savingRecord = self.getEEGSavingRecord(resDevice,
-                                                 idUser: idUser,
-                                                 algo: algo,
-                                                 eegPackets: resPacketsToSave,
-                                                 recordInfo: currentRecordInfo,
-                                                 comments: comments)
-
-      guard let jsonObject = savingRecord.toJSON else {
-          log.error("Cannot encore saving record object to JSON")
-          DispatchQueue.main.async { completion(nil) }
-          return
-      }
-
-      // Save JSON with EEG data received.
-      let deviceId = resDevice.deviceInfos!.deviceId!
-      let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
-                                                      deviceId: deviceId,
-                                                      userId: idUser)
-      DispatchQueue.main.async {
-        EEGPacketManager.removePackets(packetToRemove)
-        completion(fileURL)
-      }
-    }
+//    guard let device = DeviceManager.getCurrentDevice() else {
+//      completion(nil)
+//      return
+//    }
+//
+//    let deviceTSR = ThreadSafeReference(to: device)
+//    let packetToRemove = EEGPacketManager.getArrayEEGPackets()
+//    var packetsToSaveTSR = [ThreadSafeReference<MBTEEGPacket>]()
+//
+//    for eegPacket in packetToRemove {
+//      packetsToSaveTSR.append(ThreadSafeReference(to: eegPacket))
+//    }
+//
+//    DispatchQueue(label: "MelomindSaveProcess").async {
+//      let config = MBTRealmEntityManager.RealmManager.shared.config
+//
+//      guard let realm = try? Realm(configuration: config) else {
+//        log.error("Cannot get realm instance")
+//        DispatchQueue.main.async { completion(nil) }
+//        return
+//      }
+//
+//      var resPacketsToSave = [MBTEEGPacket]()
+//
+//      for eegPacket in packetsToSaveTSR {
+//        if let resEEGPacket = realm.resolve(eegPacket) {
+//          resPacketsToSave.append(resEEGPacket)
+//        }
+//      }
+//
+//      guard
+//        let resDevice = realm.resolve(deviceTSR),
+//        resPacketsToSave.count == packetsToSaveTSR.count else {
+//          log.error("PB with realm or bad number on packet to save ?")
+//          DispatchQueue.main.async { completion(nil) }
+//          return
+//      }
+//
+//      let currentRecordInfo = MBTRecordInfo.init(
+//        MBTClient.shared.recordInfo.recordId,
+//        recordingType: MBTClient.shared.recordInfo.recordingType
+//      )
+//      log.info("Save recording on file", context: currentRecordInfo)
+//
+//      let savingRecord = self.getEEGSavingRecord(resDevice,
+//                                                 idUser: idUser,
+//                                                 algo: algo,
+//                                                 eegPackets: resPacketsToSave,
+//                                                 recordInfo: currentRecordInfo,
+//                                                 comments: comments)
+//
+//      guard let jsonObject = savingRecord.toJSON else {
+//          log.error("Cannot encore saving record object to JSON")
+//          DispatchQueue.main.async { completion(nil) }
+//          return
+//      }
+//
+//      // Save JSON with EEG data received.
+//      let deviceId = resDevice.deviceInfos!.deviceId!
+//      let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
+//                                                      deviceId: deviceId,
+//                                                      userId: idUser)
+//      DispatchQueue.main.async {
+//        EEGPacketManager.removePackets(packetToRemove)
+//        completion(fileURL)
+//      }
+//    }
+//  }
+//
+//  private func getEEGSavingRecord(_ device: MBTDevice,
+//                                  idUser: Int,
+//                                  algo: String?,
+//                                  eegPackets: [MBTEEGPacket],
+//                                  recordInfo: MBTRecordInfo,
+//                                  comments: [String] = []) -> EEGSavingRecord {
+//    let context = EEGSavingRecordContext(ownerId: idUser, riAlgo: algo ?? "")
+//
+//    let record = EEGRecord(
+//      recordID: recordInfo.recordId.uuidString,
+//      recordingType: recordInfo.recordingType.eegRecordType,
+//      recordingTime: eegPackets.first?.timestamp ?? 0,
+//      nbPackets: eegPackets.count,
+//      firstPacketId: 0,
+//      qualities: EEGPacketManager.getQualities(eegPackets),
+//      channelData: EEGPacketManager.getEEGDatas(eegPackets)
+//    )
+//
+//    let header = device.getAsRecordHeader(comments: comments)
+//
+//    let savingRecord = EEGSavingRecord(context: context,
+//                                       header: header,
+//                                       recording: record)
+//
+//    return savingRecord
   }
 
-  private func getEEGSavingRecord(_ device: MBTDevice,
-                                  idUser: Int,
-                                  algo: String?,
-                                  eegPackets: [MBTEEGPacket],
-                                  recordInfo: MBTRecordInfo,
-                                  comments: [String] = []) -> EEGSavingRecord {
-    let context = EEGSavingRecordContext(ownerId: idUser, riAlgo: algo ?? "")
-
-    let record = EEGRecord(
-      recordID: recordInfo.recordId.uuidString,
-      recordingType: recordInfo.recordingType.eegRecordType,
-      recordingTime: eegPackets.first?.timestamp ?? 0,
-      nbPackets: eegPackets.count,
-      firstPacketId: 0,
-      qualities: EEGPacketManager.getQualities(eegPackets),
-      channelData: EEGPacketManager.getEEGDatas(eegPackets)
-    )
-
-    let header = device.getAsRecordHeader(comments: comments)
-
-    let savingRecord = EEGSavingRecord(context: context,
-                                       header: header,
-                                       recording: record)
-
-    return savingRecord
-  }
   //----------------------------------------------------------------------------
   // MARK: - Process Received data Methods.
   //----------------------------------------------------------------------------
