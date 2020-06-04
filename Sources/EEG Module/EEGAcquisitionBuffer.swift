@@ -52,14 +52,14 @@ class EEGAcquisitionBuffer {
   /// Add a packet to the buffer. Missing packets are filled with 0xFF.
   func add(rawPacket: EEGRawPacket) {
     log.verbose("Receive packet. Index: \(rawPacket.packetIndex)")
-    log.verbose("Value length: \(rawPacket.value.count)")
-    log.verbose("Value: \(rawPacket.value)")
+    log.verbose("Value length: \(rawPacket.packetValues.count)")
+    log.verbose("Value: \(rawPacket.packetValues)")
     addMissingPackets(before: rawPacket)
 
     // SHOULD BE CLAMPED between 0 and Int16.max
     previousIndex = rawPacket.packetIndex
 
-    packetBuffer.add(bytes: rawPacket.value)
+    packetBuffer.add(bytes: rawPacket.packetValues)
   }
 
   //----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ class EEGAcquisitionBuffer {
 
     log.verbose("Lost \(missingPackets) packets")
     packetBuffer.add(value: 0xFF,
-                     count: Int(missingPackets) * packet.valueLength)
+                     count: Int(missingPackets) * packet.packetValuesLength)
   }
 
   /// Return the number of packets missing between a packet and the last registered packet
