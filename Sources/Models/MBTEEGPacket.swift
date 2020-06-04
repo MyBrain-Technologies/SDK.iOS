@@ -31,6 +31,11 @@ public class MBTEEGPacket: Object {
   /// The values updated by the *Quality Checker* from all channels.
   public var modifiedChannelsData = List<ChannelsData>()
 
+  /// Values updated by the *Quality Checker* as a flat map
+  public var flattenModifiedChannelsData: [Float] {
+    return Array(modifiedChannelsData.map() { $0.values }.joined())
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - EEGPackets Methods
   //----------------------------------------------------------------------------
@@ -69,5 +74,22 @@ public class MBTEEGPacket: Object {
 
     modifiedChannelsData.removeAll()
     modifiedChannelsData.append(objectsIn: channelDatas)
+  }
+}
+
+//==============================================================================
+// MARK: - Array Extension
+//==============================================================================
+
+extension Array where Element == MBTEEGPacket {
+
+  /// Flat all modified channel data into one float array
+  func flattenModifiedChannelData() -> [Float] {
+    let channelsData = self.map() { $0.flattenModifiedChannelsData }
+
+    // swiftlint:disable:next syntactic_sugar
+    let flattenChannelsData = Array<Float>(channelsData.joined())
+
+    return flattenChannelsData
   }
 }

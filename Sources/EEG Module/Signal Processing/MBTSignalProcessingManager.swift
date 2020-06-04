@@ -206,47 +206,9 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 
   //Implementing MBT_RelaxIndexComputer
   func computeRelaxIndex() -> Float? {
+    if calibrationComputed == nil { return 0 }
 
-    // Get the last N packets.
-    let packets =
-      EEGPacketManager.getLastNPacketsComplete(Constants.EEGPackets.historySize)
-    let packetCount = packets.count
-
-    if packetCount < Constants.EEGPackets.historySize
-      || calibrationComputed == nil {
-      return 0
-    }
-
-    guard let sampRate = DeviceManager.getDeviceSampRate(),
-      let nbChannels = DeviceManager.getChannelsCount() else {
-        return nil
-    }
-
-    var arrayModifiedChannelData = [List<ChannelsData>]()
-    for i in 0 ..< packetCount {
-      arrayModifiedChannelData.append(packets[i].modifiedChannelsData)
-    }
-
-    // Transform the input data into the format needed by the Obj-C bridge
-    var dataArray = [Float]()
-    for listChannelData in arrayModifiedChannelData {
-      for datasForChannel in listChannelData {
-        for data in datasForChannel.values {
-          dataArray.append(data)
-        }
-      }
-    }
-
-    let lastPacket = packets[packetCount - 1]
-    let qualities = Array(lastPacket.qualities)
-
-    //Perform the computation
-    let relaxIndex =
-      MBTRelaxIndexBridge.computeRelaxIndex(dataArray,
-                                            sampRate: sampRate,
-                                            nbChannels: nbChannels,
-                                            lastPacketQualities: qualities)
-    return relaxIndex
+    return EEGToRelaxIndexProcessor().computeRelaxIndex()
   }
 
 }
@@ -275,34 +237,6 @@ extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
 //==============================================================================
 
 extension MBTSignalProcessingManager {
-
-//  var sessionMeanAlphaPower: Float {
-//    return MBTMelomindAnalysis.sessionMeanAlphaPower()
-//  }
-//
-//  var sessionMeanRelativeAlphaPower: Float {
-//    return MBTMelomindAnalysis.sessionMeanRelativeAlphaPower()
-//  }
-//
-//  var sessionConfidence: Float {
-//    return MBTMelomindAnalysis.sessionConfidence()
-//  }
-//
-//  var sessionAlphaPowers: [Float] {
-//    return MBTMelomindAnalysis.sessionAlphaPowers().filter { $0 is Float }
-//      as? [Float] ?? []
-//  }
-//
-//  var sessionRelativeAlphaPowers: [Float] {
-//    return
-//      MBTMelomindAnalysis.sessionRelativeAlphaPowers().filter { $0 is Float }
-//        as? [Float] ?? []
-//  }
-//
-//  var sessionQualities: [Float] {
-//    return MBTMelomindAnalysis.sessionQualities().filter { $0 is Float }
-//      as? [Float] ?? []
-//  }
 
   func resetSession() {
     MBTMelomindAnalysis.resetSession()

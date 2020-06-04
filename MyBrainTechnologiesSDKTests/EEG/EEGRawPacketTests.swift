@@ -16,9 +16,9 @@ class EEGRawPacketTests: XCTestCase {
   }
 
   func testValue() {
-    XCTAssertEqual(EEGRawPacket(rawValue: [0, 0]).packetValue, [])
-    XCTAssertEqual(EEGRawPacket(rawValue: [0, 0, 0, 0]).packetValue, [0, 0])
-    XCTAssertEqual(EEGRawPacket(rawValue: [0, 0, 1, 2]).packetValue, [1, 2])
+    XCTAssertEqual(EEGRawPacket(rawValue: [0, 0]).packetValues, [])
+    XCTAssertEqual(EEGRawPacket(rawValue: [0, 0, 0, 0]).packetValues, [0, 0])
+    XCTAssertEqual(EEGRawPacket(rawValue: [0, 0, 1, 2]).packetValues, [1, 2])
   }
 
 }
