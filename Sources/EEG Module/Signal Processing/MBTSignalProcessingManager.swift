@@ -147,7 +147,7 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
     }
 
     // Get the last N packets.
-    let packets = EEGPacketManager.getLastNPacketsComplete(packetsCount)
+    let packets = EEGPacketManager.shared.getLastNPacketsComplete(packetsCount)
 
     if packets.count != packetsCount {
       return [String: [Float]]()

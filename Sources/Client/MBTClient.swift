@@ -378,7 +378,7 @@ public class MBTClient {
     _ newRecord: Bool,
     recordingType: MBTRecordingType = MBTRecordingType()
   ) -> UUID? {
-    EEGPacketManager.removeAllEEGPackets()
+    EEGPacketManager.shared.removeAllEEGPackets()
     guard DeviceManager.connectedDeviceName != nil else { return nil }
 
     if newRecord {
@@ -450,7 +450,7 @@ public class MBTClient {
   ///   - n: Number of complete packets to take to compute the calibration.
   /// - Returns: A dictionnary received by the Signal Processing library.
   public func computeCalibration(_ n: Int) -> [String: [Float]]? {
-    let eegPacketsCount = EEGPacketManager.getEEGPackets().count
+    let eegPacketsCount = EEGPacketManager.shared.getEEGPackets().count
     guard DeviceManager.connectedDeviceName != nil, eegPacketsCount >= n else {
       return nil
     }
@@ -462,7 +462,7 @@ public class MBTClient {
   /// - Returns: RelaxIndex
   public func computeRelaxIndex() -> Float? {
     let isEegPacketsCountHigherThanHistorySize =
-      EEGPacketManager.getEEGPackets().count >= Constants.EEGPackets.historySize
+      EEGPacketManager.shared.getEEGPackets().count >= Constants.EEGPackets.historySize
     guard DeviceManager.connectedDeviceName != nil,
       isEegPacketsCountHigherThanHistorySize else { return nil }
     return signalProcessingManager.computeRelaxIndex()

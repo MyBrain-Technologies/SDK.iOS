@@ -82,7 +82,7 @@ class EEGAcquisitionSaver {
                                                       deviceId: deviceId,
                                                       userId: idUser)
       DispatchQueue.main.async {
-        EEGPacketManager.removePackets(packets)
+        EEGPacketManager.shared.removePackets(packets)
         completion(fileURL)
       }
     }
@@ -102,8 +102,8 @@ class EEGAcquisitionSaver {
       recordingTime: eegPackets.first?.timestamp ?? 0,
       nbPackets: eegPackets.count,
       firstPacketId: 0,
-      qualities: EEGPacketManager.getQualities(eegPackets),
-      channelData: EEGPacketManager.getEEGDatas(eegPackets)
+      qualities: EEGPacketManager.shared.getQualities(eegPackets),
+      channelData: EEGPacketManager.shared.getEEGDatas(eegPackets)
     )
 
     let header = device.getAsRecordHeader(comments: comments)
