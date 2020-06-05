@@ -1,5 +1,11 @@
 import Foundation
 
+/*******************************************************************************
+ * EEGToRelaxIndexProcessor
+ *
+ * Convert EEG packets to a relax index value.
+ *
+ ******************************************************************************/
 struct EEGToRelaxIndexProcessor {
 
   //----------------------------------------------------------------------------
@@ -19,8 +25,8 @@ struct EEGToRelaxIndexProcessor {
     }
 
     return computeRelaxIndex(from: packets,
-                         sampRate: sampRate,
-                         nbChannels: nbChannels)
+                             sampRate: sampRate,
+                             nbChannels: nbChannels)
   }
 
   /// Compute relax index with given packets using the RelaxIndexBridge (obj C)

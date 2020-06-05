@@ -68,43 +68,14 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   /// - returns: The array of computed "quality" values. Each value is the
   /// quality for a channel, in the same order as the row order in data.
   func computeQualityValue(_ data: List<ChannelsData>) -> [Float] {
-
-    // Transform the input data into the format needed by the Obj-C++ bridge.
-    let nbChannels: Int = data.count
-    let packetLength: Int = data.first!.values.count
-    var dataArray = [Float]()
-    var nbNAN = 0
-    for channelDatas in data {
-      for channelData in channelDatas.values {
-        if channelData.isNaN {
-          nbNAN += 1
-        }
-
-        dataArray.append(channelData)
-      }
+    guard let packetLength = data.first?.values.count else {
+      return []
     }
 
-    log.verbose("Compute quality value", context: nbNAN)
-
-    // Perform the computation.
-    let qualities =
-      MBTQualityCheckerBridge.computeQuality(dataArray,
-                                             sampRate: sampRate,
-                                             nbChannels: nbChannels,
-                                             packetLength: packetLength)
-
-    // Return the quality values.
-    let qualitySwift = qualities as? [Float] ?? []
-
-    if qualitySwift.count < 2 {
-      log.info("computeQualityValue - quality count inf à 2")
-      log.info("computeQualityValue - nb channels", context: nbChannels)
-      log.info("computeQualityValue - samp rate", context: sampRate)
-      log.info("computeQualityValue - array count", context: dataArray.count)
-      log.info("computeQualityValue - packet length", context: packetLength)
-    }
-
-    return qualitySwift
+    return EEGQualityProcessor().computeQualityValue(channelsData: data,
+                                                     sampRate: sampRate,
+                                                     packetLength: packetLength,
+                                                     nbChannel: data.count)
   }
 
   func computeQualityValue(_ data: List<ChannelsData>,
@@ -140,60 +111,11 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
   /// - Returns: A dictionnary with calibration datas from the CPP Signal
   /// Processing.
   func computeCalibration(_ packetsCount: Int) -> [String: [Float]] {
-    guard let sampRate = DeviceManager.getDeviceSampRate(),
-      let nbChannel = DeviceManager.getChannelsCount(),
-      let packetLength = DeviceManager.getDeviceEEGPacketLength() else {
-        return [String: [Float]]()
-    }
+    let parameters =
+      EEGCalibrationProcessor().computeCalibration(packetsCount: packetsCount)
 
-    // Get the last N packets.
-    let packets = EEGPacketManager.shared.getLastNPacketsComplete(packetsCount)
-
-    if packets.count != packetsCount {
-      return [String: [Float]]()
-    }
-
-    var calibrationData = [List<ChannelsData>]()
-    for i in 0 ..< packetsCount {
-      calibrationData.append(packets[i].modifiedChannelsData)
-    }
-
-    var calibrationQualityValues = [List<Float>]()
-    for j in 0 ..< packetsCount {
-      calibrationQualityValues.append(packets[j].qualities)
-    }
-
-    // Transform the input data into the format needed by the Obj-C bridge
-    var dataArray = [Float]()
-    for listChannelData in calibrationData {
-      for i in 0 ..< nbChannel {
-        let data = listChannelData[i].values
-        for j in 0 ..< packetLength {
-          dataArray.append(data[j])
-        }
-      }
-    }
-
-    // Transform the quality data into the format needed by the Obj-C bridge
-    var qualityArray = [Float]()
-    for qualityList in calibrationQualityValues {
-      for qualityForChannel in qualityList {
-        qualityArray.append(qualityForChannel)
-      }
-    }
-
-    // Perform the computation.
-    let parametersFromComputation =
-      MBTCalibrationBridge.computeCalibration(dataArray,
-                                              qualities: qualityArray,
-                                              packetLength: packetLength,
-                                              packetsCount: packetsCount,
-                                              sampRate: sampRate)
-    // Transform results in a Swift format.
-    let parameters = parametersFromComputation as? [String: [Float]] ?? [:]
-    // Save the results.
     calibrationComputed = parameters
-    // Return the quality values in a Swift format.
+
     return parameters
   }
 }
@@ -204,7 +126,6 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
 
 extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 
-  //Implementing MBT_RelaxIndexComputer
   func computeRelaxIndex() -> Float? {
     if calibrationComputed == nil { return 0 }
 
