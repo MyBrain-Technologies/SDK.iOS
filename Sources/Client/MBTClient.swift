@@ -64,40 +64,6 @@ public class MBTClient {
     return bluetoothManager.bluetoothState
   }
 
-  /******************** Signal Processing  ********************/
-
-  /// Get the mean alpha power of the current session.
-  /// Also populates sessionConfidence() data.
-  public var sessionMeanAlphaPower: Float {
-    return signalProcessingManager.sessionMeanAlphaPower
-  }
-
-  public var sessionMeanRelativeAlphaPower: Float {
-    return signalProcessingManager.sessionMeanRelativeAlphaPower
-  }
-
-  /// Get the confidence rate of the current session.
-  public var sessionConfidence: Float {
-    return signalProcessingManager.sessionConfidence
-  }
-
-  /// Get the alpha powers of the current session.
-  public var sessionAlphaPowers: [Float] {
-    return signalProcessingManager.sessionAlphaPowers
-  }
-
-  /// Get the relative alpha powers of the current session.
-  public var sessionRelativeAlphaPowers: [Float] {
-    return signalProcessingManager.sessionRelativeAlphaPowers
-  }
-
-  /// Get qualities of the current session.
-  /// Qualities are multiplexed by channels ([q1c1,q1c2,q2c1,q2c2,q3c1,...])
-  /// CALL AFTER `sessionMeanAlphaPower` or `sessionMeanRelativeAlphaPower`.
-  public var sessionQualities: [Float] {
-    return signalProcessingManager.sessionQualities
-  }
-
   /******************** Delegates ********************/
 
   public weak var bluetoothEventDelegate: MBTBluetoothEventDelegate? {
@@ -369,7 +335,7 @@ public class MBTClient {
     _ newRecord: Bool,
     recordingType: MBTRecordingType = MBTRecordingType()
   ) -> UUID? {
-    EEGPacketManager.removeAllEEGPackets()
+    EEGPacketManager.shared.removeAllEEGPackets()
     guard DeviceManager.connectedDeviceName != nil else { return nil }
 
     if newRecord {
@@ -440,31 +406,30 @@ public class MBTClient {
   /// - Parameters:
   ///   - n: Number of complete packets to take to compute the calibration.
   /// - Returns: A dictionnary received by the Signal Processing library.
-  public func computeCalibration(_ n: Int) -> [String: [Float]]? {
-    let eegPacketsCount = EEGPacketManager.getEEGPackets().count
-    guard DeviceManager.connectedDeviceName != nil, eegPacketsCount >= n else {
-      return nil
-    }
-    return signalProcessingManager.computeCalibration(n)
+  public func computeCalibration(
+    onNumberOfPackets numberOfPackets: Int
+  ) -> CalibrationOutput? {
+    let eegPacketsCount = EEGPacketManager.shared.getEEGPackets().count
+
+    guard DeviceManager.connectedDeviceName != nil,
+      eegPacketsCount >= numberOfPackets else { return nil }
+
+    return signalProcessingManager.computeCalibration(numberOfPackets)
   }
 
   /// computeRelaxIndex
   ///
   /// - Returns: RelaxIndex
   public func computeRelaxIndex() -> Float? {
+    let eegPacketCount = EEGPacketManager.shared.getEEGPackets().count
     let isEegPacketsCountHigherThanHistorySize =
-      EEGPacketManager.getEEGPackets().count >= Constants.EEGPackets.historySize
+      eegPacketCount >= Constants.EEGPackets.historySize
     guard DeviceManager.connectedDeviceName != nil,
       isEegPacketsCountHigherThanHistorySize else { return nil }
     return signalProcessingManager.computeRelaxIndex()
   }
 
   /// ComputeSessionStatistics
-  ///
-  /// - Parameters:
-  ///   - inputSNR:
-  ///   - threshold:
-  /// - Returns:
   public func computeSessionStatistics(_ inputSNR: [Float],
                                        threshold: Float) -> [String: Float] {
     guard DeviceManager.connectedDeviceName != nil, inputSNR.count > 3 else {

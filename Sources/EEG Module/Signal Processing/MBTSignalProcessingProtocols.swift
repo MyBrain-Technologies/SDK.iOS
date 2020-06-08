@@ -24,7 +24,7 @@ protocol MBTCalibrationComputer {
   /// - parameter sampRate: The data sampling rate.
   /// - paremeter packetLength: The number of data points in a "packet".
   /// - returns: A dictionary with the parameters computed from the calibration data.
-  func computeCalibration(_ packetsCount: Int) -> [String: [Float]]
+  func computeCalibration(_ packetsCount: Int) -> CalibrationOutput?
 }
 
 protocol MBTRelaxIndexComputer {

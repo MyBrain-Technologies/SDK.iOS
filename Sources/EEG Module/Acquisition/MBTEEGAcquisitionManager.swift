@@ -82,7 +82,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                      algo: String?,
                      comments: [String] = [],
                      completion: @escaping (URL?) -> Void) {
-    let packets = EEGPacketManager.getArrayEEGPackets()
+    let packets = EEGPacketManager.shared.getArrayEEGPackets()
     acquisisitonSaver.saveRecording(packets: packets,
                                     idUser: idUser,
                                     algo: algo,
@@ -110,7 +110,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     self.delegate?.onReceivingPackage?(eegPacket)
 
     if isRecording {
-      EEGPacketManager.saveEEGPacket(eegPacket)
+      EEGPacketManager.shared.saveEEGPacket(eegPacket)
     }
   }
 

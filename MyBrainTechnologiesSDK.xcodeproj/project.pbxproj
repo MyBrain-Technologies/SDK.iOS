@@ -38,6 +38,8 @@
 		A9130BC824800C2500CB1840 /* EEGDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9130BC624800BAE00CB1840 /* EEGDeserializer.swift */; };
 		A9130BC924800D1100CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt in Sources */ = {isa = PBXBuildFile; fileRef = A9130BC2248007E600CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt */; };
 		A9130BCC24800D8000CB1840 /* EEGDeserializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9130BCB24800D8000CB1840 /* EEGDeserializerTests.swift */; };
+		A918242C2489414A0069D0AB /* FlattenModifiedChannelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918242B2489414A0069D0AB /* FlattenModifiedChannelDataTests.swift */; };
+		A918242E248951E50069D0AB /* EEGToRelaxIndexProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918242D248951E50069D0AB /* EEGToRelaxIndexProcessor.swift */; };
 		A918D28724616CC600026F1D /* Int16+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D28624616CC600026F1D /* Int16+extension.swift */; };
 		A918D28A24616DCB00026F1D /* BluetoothError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D28924616DCB00026F1D /* BluetoothError.swift */; };
 		A918D28C2461992900026F1D /* MBTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918D28B2461992900026F1D /* MBTError.swift */; };
@@ -61,6 +63,12 @@
 		A91BD91F247D78CD00603C42 /* String+SerialNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91BD91E247D78CD00603C42 /* String+SerialNumberTests.swift */; };
 		A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */; };
 		A92452D023F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92452CF23F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */; };
+		A926C3F1248A670200B01186 /* EEGCalibrationProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F0248A670200B01186 /* EEGCalibrationProcessor.swift */; };
+		A926C3F3248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F2248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift */; };
+		A926C3F5248A8A3A00B01186 /* EEGQualityProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */; };
+		A926C3F7248E460800B01186 /* CalibrationOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F6248E460800B01186 /* CalibrationOutput.swift */; };
+		A926C3FA248E649E00B01186 /* CalibrationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F9248E649E00B01186 /* CalibrationError.swift */; };
+		A926C3FC248E70E500B01186 /* MBTClient+MelomindAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */; };
 		A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */; };
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
@@ -200,6 +208,8 @@
 		A9130BC4248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquitionRawPacketsDeserializable.swift; sourceTree = "<group>"; };
 		A9130BC624800BAE00CB1840 /* EEGDeserializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeserializer.swift; sourceTree = "<group>"; };
 		A9130BCB24800D8000CB1840 /* EEGDeserializerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeserializerTests.swift; sourceTree = "<group>"; };
+		A918242B2489414A0069D0AB /* FlattenModifiedChannelDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlattenModifiedChannelDataTests.swift; sourceTree = "<group>"; };
+		A918242D248951E50069D0AB /* EEGToRelaxIndexProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGToRelaxIndexProcessor.swift; sourceTree = "<group>"; };
 		A918D28624616CC600026F1D /* Int16+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int16+extension.swift"; sourceTree = "<group>"; };
 		A918D28924616DCB00026F1D /* BluetoothError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothError.swift; sourceTree = "<group>"; };
 		A918D28B2461992900026F1D /* MBTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTError.swift; sourceTree = "<group>"; };
@@ -223,6 +233,12 @@
 		A91BD91E247D78CD00603C42 /* String+SerialNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SerialNumberTests.swift"; sourceTree = "<group>"; };
 		A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAuthorization.swift; sourceTree = "<group>"; };
 		A92452CF23F3F55C004B480B /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTBluetoothManager+CBPeripheralManagerDelegate.swift"; sourceTree = "<group>"; };
+		A926C3F0248A670200B01186 /* EEGCalibrationProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGCalibrationProcessor.swift; sourceTree = "<group>"; };
+		A926C3F2248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGCalibrationProcessorTests.swift; sourceTree = "<group>"; };
+		A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGQualityProcessor.swift; sourceTree = "<group>"; };
+		A926C3F6248E460800B01186 /* CalibrationOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationOutput.swift; sourceTree = "<group>"; };
+		A926C3F9248E649E00B01186 /* CalibrationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationError.swift; sourceTree = "<group>"; };
+		A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTClient+MelomindAnalysis.swift"; sourceTree = "<group>"; };
 		A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinariesFileFinder.swift; sourceTree = "<group>"; };
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
 		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
@@ -365,6 +381,9 @@
 			children = (
 				2B6B5D9D205139D800928F1F /* MBTSignalProcessingManager.swift */,
 				2B6B5D9E205139D800928F1F /* MBTSignalProcessingProtocols.swift */,
+				A918242D248951E50069D0AB /* EEGToRelaxIndexProcessor.swift */,
+				A926C3F0248A670200B01186 /* EEGCalibrationProcessor.swift */,
+				A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */,
 			);
 			path = "Signal Processing";
 			sourceTree = "<group>";
@@ -391,8 +410,9 @@
 			isa = PBXGroup;
 			children = (
 				F45837381EC5C21000C5D596 /* MBTClient.swift */,
-				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
 				A918D2972461A9A700026F1D /* MBTClient+log.swift */,
+				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
+				A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -503,6 +523,8 @@
 				A92D7A4824814A4D000DF7C3 /* EEGRawPacketTests.swift */,
 				A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */,
 				A938131524869C6400C7ABC0 /* MBTEEGPacketTests.swift */,
+				A918242B2489414A0069D0AB /* FlattenModifiedChannelDataTests.swift */,
+				A926C3F2248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift */,
 			);
 			path = EEG;
 			sourceTree = "<group>";
@@ -580,6 +602,15 @@
 				A91BD91E247D78CD00603C42 /* String+SerialNumberTests.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A926C3F8248E648D00B01186 /* Calibration */ = {
+			isa = PBXGroup;
+			children = (
+				A926C3F6248E460800B01186 /* CalibrationOutput.swift */,
+				A926C3F9248E649E00B01186 /* CalibrationError.swift */,
+			);
+			name = Calibration;
 			sourceTree = "<group>";
 		};
 		A927D58C23CCDF1E00C20734 /* Models */ = {
@@ -773,6 +804,7 @@
 		F41A6D6C1F0557E700092027 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A926C3F8248E648D00B01186 /* Calibration */,
 				A974EFBE23CE29AD00B9F9BE /* Acquisition */,
 				A974EFBB23CE297400B9F9BE /* Device */,
 				A974EFBA23CE295300B9F9BE /* OAD */,
@@ -981,8 +1013,10 @@
 				A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */,
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
+				A926C3FC248E70E500B01186 /* MBTClient+MelomindAnalysis.swift in Sources */,
 				A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */,
 				A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */,
+				A926C3FA248E649E00B01186 /* CalibrationError.swift in Sources */,
 				A91BD90C247D43C500603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A91BD918247D6C0100603C42 /* AudioOutputs.swift in Sources */,
 				A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */,
@@ -1013,8 +1047,10 @@
 				A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */,
 				A92D7A3B248118CF000DF7C3 /* Array+extension.swift in Sources */,
 				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,
+				A918242E248951E50069D0AB /* EEGToRelaxIndexProcessor.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				A918D29624619D2800026F1D /* OADError.swift in Sources */,
+				A926C3F1248A670200B01186 /* EEGCalibrationProcessor.swift in Sources */,
 				A9C0568D247BF20700EC8703 /* BluetoothStateHistory.swift in Sources */,
 				A994297A2487D256003F48CC /* EEGSavingRecord.swift in Sources */,
 				A92CA4342462FBD700688CE5 /* MailboxA2DPResponse.swift in Sources */,
@@ -1022,12 +1058,14 @@
 				A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */,
 				A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MBTClient.swift in Sources */,
+				A926C3F7248E460800B01186 /* CalibrationOutput.swift in Sources */,
 				4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */,
 				A9130BC824800C2500CB1840 /* EEGDeserializer.swift in Sources */,
 				A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */,
 				A974EFBD23CE298000B9F9BE /* DeviceManager.swift in Sources */,
 				2B6B5DA4205139D900928F1F /* MBTEEGAcquisitionManager.swift in Sources */,
 				A91BD915247D69F700603C42 /* AudioNotification.swift in Sources */,
+				A926C3F5248A8A3A00B01186 /* EEGQualityProcessor.swift in Sources */,
 				4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */,
 				A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */,
 				A918D28A24616DCB00026F1D /* BluetoothError.swift in Sources */,
@@ -1083,7 +1121,9 @@
 				A91BD91D247D755E00603C42 /* String+IsQrCodeTests.swift in Sources */,
 				A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */,
 				A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */,
+				A918242C2489414A0069D0AB /* FlattenModifiedChannelDataTests.swift in Sources */,
 				A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */,
+				A926C3F3248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift in Sources */,
 				A91BD904247D1F6400603C42 /* BluetoothStatesHistoryTests.swift in Sources */,
 				A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */,
 			);

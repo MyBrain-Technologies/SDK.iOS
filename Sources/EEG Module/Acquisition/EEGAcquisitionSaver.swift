@@ -14,11 +14,9 @@ class EEGAcquisitionSaver {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  private lazy var realm: Realm? = {
-    let config = MBTRealmEntityManager.RealmManager.shared.config
-
-    return try? Realm(configuration: config)
-  }()
+  var realmConfig: Realm.Configuration {
+    return MBTRealmEntityManager.RealmManager.shared.config
+  }
 
   let saveThreadName = "MelomindSaveProcess"
 
@@ -47,15 +45,16 @@ class EEGAcquisitionSaver {
 
     DispatchQueue(label: saveThreadName).async {
 
-      guard let realm = self.realm else {
+      guard let realm = try? Realm(configuration: self.realmConfig) else {
         log.error("Cannot get realm instance")
         DispatchQueue.main.async { completion(nil) }
         return
       }
 
       let savedPackets = packetsReferences.compactMap() { realm.resolve($0) }
+      let resolvedDevice = realm.resolve(deviceReference)
 
-      guard let savedDevice = realm.resolve(deviceReference),
+      guard let savedDevice = resolvedDevice,
         savedPackets.count == packetsReferences.count else {
           log.error("PB with realm or bad number on packet to save ?")
           DispatchQueue.main.async { completion(nil) }
@@ -63,7 +62,6 @@ class EEGAcquisitionSaver {
       }
 
       let currentRecordInfo = MBTClient.shared.recordInfo
-      log.info("Save recording on file", context: currentRecordInfo)
 
       let savingRecord = self.getEEGSavingRecord(savedDevice,
                                                  idUser: idUser,
@@ -84,7 +82,7 @@ class EEGAcquisitionSaver {
                                                       deviceId: deviceId,
                                                       userId: idUser)
       DispatchQueue.main.async {
-        EEGPacketManager.removePackets(packets)
+        EEGPacketManager.shared.removePackets(packets)
         completion(fileURL)
       }
     }
@@ -104,8 +102,8 @@ class EEGAcquisitionSaver {
       recordingTime: eegPackets.first?.timestamp ?? 0,
       nbPackets: eegPackets.count,
       firstPacketId: 0,
-      qualities: EEGPacketManager.getQualities(eegPackets),
-      channelData: EEGPacketManager.getEEGDatas(eegPackets)
+      qualities: EEGPacketManager.shared.getQualities(eegPackets),
+      channelData: EEGPacketManager.shared.getEEGDatas(eegPackets)
     )
 
     let header = device.getAsRecordHeader(comments: comments)

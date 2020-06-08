@@ -28,7 +28,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   static let shared = MBTSignalProcessingManager()
 
   /// Dictionnary to store calibration results.
-  internal var calibrationComputed: [String: [Float]]!
+  internal var calibrationComputed: CalibrationOutput!
 
   ///
   internal var sampRate: Int = 0
@@ -61,6 +61,10 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     MBTQualityCheckerBridge.deInitializeMainQualityChecker()
   }
 
+  //----------------------------------------------------------------------------
+  // MARK: - Quality
+  //----------------------------------------------------------------------------
+
   /// Compute datas in the *Quality Checker* and returns an array of *Quality*
   /// values for a data matrix of an acquisition packet.
   /// - parameter data: The data matrix of the packet. Each row is a channel
@@ -68,43 +72,14 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   /// - returns: The array of computed "quality" values. Each value is the
   /// quality for a channel, in the same order as the row order in data.
   func computeQualityValue(_ data: List<ChannelsData>) -> [Float] {
-
-    // Transform the input data into the format needed by the Obj-C++ bridge.
-    let nbChannels: Int = data.count
-    let packetLength: Int = data.first!.values.count
-    var dataArray = [Float]()
-    var nbNAN = 0
-    for channelDatas in data {
-      for channelData in channelDatas.values {
-        if channelData.isNaN {
-          nbNAN += 1
-        }
-
-        dataArray.append(channelData)
-      }
+    guard let packetLength = data.first?.values.count else {
+      return []
     }
 
-    log.verbose("Compute quality value", context: nbNAN)
-
-    // Perform the computation.
-    let qualities =
-      MBTQualityCheckerBridge.computeQuality(dataArray,
-                                             sampRate: sampRate,
-                                             nbChannels: nbChannels,
-                                             packetLength: packetLength)
-
-    // Return the quality values.
-    let qualitySwift = qualities as? [Float] ?? []
-
-    if qualitySwift.count < 2 {
-      log.info("computeQualityValue - quality count inf à 2")
-      log.info("computeQualityValue - nb channels", context: nbChannels)
-      log.info("computeQualityValue - samp rate", context: sampRate)
-      log.info("computeQualityValue - array count", context: dataArray.count)
-      log.info("computeQualityValue - packet length", context: packetLength)
-    }
-
-    return qualitySwift
+    return EEGQualityProcessor.computeQualityValue(channelsData: data,
+                                                   sampRate: sampRate,
+                                                   packetLength: packetLength,
+                                                   nbChannel: data.count)
   }
 
   func computeQualityValue(_ data: List<ChannelsData>,
@@ -114,6 +89,10 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - EEG
+  //----------------------------------------------------------------------------
 
   /// Get an array of the modified EEG datas by the *Quality Checker*, and
   /// return it.
@@ -139,61 +118,12 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
   ///     - packetsCount: Number of packets to get, from the last one.
   /// - Returns: A dictionnary with calibration datas from the CPP Signal
   /// Processing.
-  func computeCalibration(_ packetsCount: Int) -> [String: [Float]] {
-    guard let sampRate = DeviceManager.getDeviceSampRate(),
-      let nbChannel = DeviceManager.getChannelsCount(),
-      let packetLength = DeviceManager.getDeviceEEGPacketLength() else {
-        return [String: [Float]]()
-    }
+  func computeCalibration(_ packetsCount: Int) -> CalibrationOutput? {
+    let parameters =
+      EEGCalibrationProcessor.computeCalibration(packetsCount: packetsCount)
 
-    // Get the last N packets.
-    let packets = EEGPacketManager.getLastNPacketsComplete(packetsCount)
-
-    if packets.count != packetsCount {
-      return [String: [Float]]()
-    }
-
-    var calibrationData = [List<ChannelsData>]()
-    for i in 0 ..< packetsCount {
-      calibrationData.append(packets[i].modifiedChannelsData)
-    }
-
-    var calibrationQualityValues = [List<Float>]()
-    for j in 0 ..< packetsCount {
-      calibrationQualityValues.append(packets[j].qualities)
-    }
-
-    // Transform the input data into the format needed by the Obj-C bridge
-    var dataArray = [Float]()
-    for listChannelData in calibrationData {
-      for i in 0 ..< nbChannel {
-        let data = listChannelData[i].values
-        for j in 0 ..< packetLength {
-          dataArray.append(data[j])
-        }
-      }
-    }
-
-    // Transform the quality data into the format needed by the Obj-C bridge
-    var qualityArray = [Float]()
-    for qualityList in calibrationQualityValues {
-      for qualityForChannel in qualityList {
-        qualityArray.append(qualityForChannel)
-      }
-    }
-
-    // Perform the computation.
-    let parametersFromComputation =
-      MBTCalibrationBridge.computeCalibration(dataArray,
-                                              qualities: qualityArray,
-                                              packetLength: packetLength,
-                                              packetsCount: packetsCount,
-                                              sampRate: sampRate)
-    // Transform results in a Swift format.
-    let parameters = parametersFromComputation as? [String: [Float]] ?? [:]
-    // Save the results.
     calibrationComputed = parameters
-    // Return the quality values in a Swift format.
+
     return parameters
   }
 }
@@ -204,55 +134,10 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
 
 extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 
-  //Implementing MBT_RelaxIndexComputer
   func computeRelaxIndex() -> Float? {
+    if calibrationComputed == nil { return 0 }
 
-    // Get the last N packets.
-    let packets =
-      EEGPacketManager.getLastNPacketsComplete(Constants.EEGPackets.historySize)
-    let packetCount = packets.count
-
-    if packetCount < Constants.EEGPackets.historySize
-      || calibrationComputed == nil {
-      return 0
-    }
-
-    guard let sampRate = DeviceManager.getDeviceSampRate(),
-      let nbChannels = DeviceManager.getChannelsCount() else {
-        return nil
-    }
-
-    var arrayModifiedChannelData = [List<ChannelsData>]()
-    for i in 0 ..< packetCount {
-      arrayModifiedChannelData.append(packets[i].modifiedChannelsData)
-    }
-
-    // Transform the input data into the format needed by the Obj-C bridge
-    var dataArray = [Float]()
-    for listChannelData in arrayModifiedChannelData {
-      for datasForChannel in listChannelData {
-        for data in datasForChannel.values {
-          dataArray.append(data)
-        }
-      }
-    }
-
-    let lastPacket = packets[packetCount - 1]
-    let qualities = lastPacket.qualities
-    var qualitiesArray = [Float]()
-
-    qualitiesArray.append(contentsOf: qualities)
-//    qualities.forEach { quality in
-//      qualitiesArray.append(quality.value)
-//    }
-
-    //Perform the computation
-    let relaxIndex =
-      MBTRelaxIndexBridge.computeRelaxIndex(dataArray,
-                                            sampRate: sampRate,
-                                            nbChannels: nbChannels,
-                                            lastPacketQualities: qualitiesArray)
-    return relaxIndex
+    return EEGToRelaxIndexProcessor.computeRelaxIndex()
   }
 
 }
@@ -281,34 +166,6 @@ extension MBTSignalProcessingManager: MBTSessionAnalysisComputer {
 //==============================================================================
 
 extension MBTSignalProcessingManager {
-
-  var sessionMeanAlphaPower: Float {
-    return MBTMelomindAnalysis.sessionMeanAlphaPower()
-  }
-
-  var sessionMeanRelativeAlphaPower: Float {
-    return MBTMelomindAnalysis.sessionMeanRelativeAlphaPower()
-  }
-
-  var sessionConfidence: Float {
-    return MBTMelomindAnalysis.sessionConfidence()
-  }
-
-  var sessionAlphaPowers: [Float] {
-    return MBTMelomindAnalysis.sessionAlphaPowers().filter { $0 is Float }
-      as? [Float] ?? []
-  }
-
-  var sessionRelativeAlphaPowers: [Float] {
-    return
-      MBTMelomindAnalysis.sessionRelativeAlphaPowers().filter { $0 is Float }
-        as? [Float] ?? []
-  }
-
-  var sessionQualities: [Float] {
-    return MBTMelomindAnalysis.sessionQualities().filter { $0 is Float }
-      as? [Float] ?? []
-  }
 
   func resetSession() {
     MBTMelomindAnalysis.resetSession()

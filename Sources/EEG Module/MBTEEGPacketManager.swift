@@ -10,11 +10,20 @@ import SwiftyJSON
  ******************************************************************************/
 class EEGPacketManager: MBTRealmEntityManager {
 
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  static let shared = EEGPacketManager()
+
+  //----------------------------------------------------------------------------
+  // MARK: - Methods
+  //----------------------------------------------------------------------------
   /// Method to persist EEGPacket received in the Realm database.
   /// - Parameters:
   ///     - eegPacket: *MBTEEGPacket* freshly created, soon db-saved.
   /// - Returns: The *MBTEEGPacket* saved in Realm-db.
-  class func saveEEGPacket(_ eegPacket: MBTEEGPacket) {
+  func saveEEGPacket(_ eegPacket: MBTEEGPacket) {
     try? RealmManager.shared.realm.write {
       RealmManager.shared.realm.add(eegPacket)
     }
@@ -22,7 +31,7 @@ class EEGPacketManager: MBTRealmEntityManager {
 
   /// Get the last packet not complete.
   /// - Returns: The last saved *MBTEEGPacket*.
-  class func getLastPacket() -> MBTEEGPacket? {
+  func getLastPacket() -> MBTEEGPacket? {
     return getEEGPackets().last
   }
 
@@ -30,18 +39,18 @@ class EEGPacketManager: MBTRealmEntityManager {
   /// - Parameters:
   ///     - n: Number of *MBTEEGPackets* wanted.
   /// - Returns: The last n *MBTEEGPacket*.
-  class func getLastNPacketsComplete(_ n: Int) -> [MBTEEGPacket] {
-    return [MBTEEGPacket](EEGPacketManager.getEEGPackets().suffix(n))
+  func getLastNPacketsComplete(_ n: Int) -> [MBTEEGPacket] {
+    return [MBTEEGPacket](getEEGPackets().suffix(n))
   }
 
   /// Get all *MBTEEGPacket* saved in Realm DB.
   /// - Returns: All *MBTEEGPacket* db-saved from Realm query.
-  class func getEEGPackets() -> Results<MBTEEGPacket> {
+  func getEEGPackets() -> Results<MBTEEGPacket> {
     return RealmManager.shared.realm.objects(MBTEEGPacket.self)
   }
 
   // WHAT THE HELL
-  class func getEEGDatas(_ eegPackets: [MBTEEGPacket]) -> [[Float?]] {
+  func getEEGDatas(_ eegPackets: [MBTEEGPacket]) -> [[Float?]] {
      var eegDatas = [[Float?]]()
      for eegPacket in eegPackets {
        for channelNumber in 0 ..< eegPacket.channelsData.count {
@@ -73,7 +82,7 @@ class EEGPacketManager: MBTRealmEntityManager {
    }
 
   // PLEASE GOD SAVE ME FROM THAT
-  class func getQualities(_ eegPackets: [MBTEEGPacket]) -> [[Float]] {
+  func getQualities(_ eegPackets: [MBTEEGPacket]) -> [[Float]] {
     var qualities = [[Float]]()
 
     for eegPacket in eegPackets {
@@ -91,16 +100,16 @@ class EEGPacketManager: MBTRealmEntityManager {
   /// Get an Array of getEEGPackets method and this array is independant of Results<MBTEEGPacket>
   ///
   /// - Returns: A *Array* instance of all EEGPackets
-  class func getArrayEEGPackets() -> [MBTEEGPacket] {
+  func getArrayEEGPackets() -> [MBTEEGPacket] {
     var arrayEEGPackets = [MBTEEGPacket]()
-    for eegPacket in EEGPacketManager.getEEGPackets() {
+    for eegPacket in getEEGPackets() {
       arrayEEGPackets.append(eegPacket)
     }
     return arrayEEGPackets
   }
 
   /// Delete all EEGPacket saved in Realm DB.
-  class func removeAllEEGPackets() {
+  func removeAllEEGPackets() {
     let packets = RealmManager.shared.realm.objects(MBTEEGPacket.self)
 
     try? RealmManager.shared.realm.write {
@@ -111,7 +120,7 @@ class EEGPacketManager: MBTRealmEntityManager {
   /// Remove the array packets of DataBase
   ///
   /// - Parameter packets: A *Array* instance of packets to remove from DataBase
-  class func removePackets(_ packets: [MBTEEGPacket]) {
+  func removePackets(_ packets: [MBTEEGPacket]) {
     try? RealmManager.shared.realm.write {
       RealmManager.shared.realm.delete(packets)
     }
