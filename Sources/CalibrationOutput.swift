@@ -1,5 +1,13 @@
 import Foundation
 
+/*******************************************************************************
+ * CalibrationOutput
+ *
+ * Structure returned by `MBT_ComputeCalibration` fron C++.
+ * Fields matchs the `CalibrationOutputKeys`.
+ * See code here: https://github.com/mbt-administrator/Melomind.Algorithms
+ *
+ ******************************************************************************/
 public struct CalibrationOutput: Codable {
 
   //----------------------------------------------------------------------------
@@ -16,6 +24,11 @@ public struct CalibrationOutput: Codable {
   /********************  Computed properties ********************/
 
   public var resultValue: Float? { return errorValues.first }
+
+  public var error: CalibrationError? {
+    guard let value = resultValue else { return nil }
+    return CalibrationError(rawValue: Int(value))
+  }
 
   /******************** Coding Keys ********************/
 

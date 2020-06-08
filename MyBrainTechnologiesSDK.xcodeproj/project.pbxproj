@@ -67,6 +67,7 @@
 		A926C3F3248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F2248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift */; };
 		A926C3F5248A8A3A00B01186 /* EEGQualityProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */; };
 		A926C3F7248E460800B01186 /* CalibrationOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F6248E460800B01186 /* CalibrationOutput.swift */; };
+		A926C3FA248E649E00B01186 /* CalibrationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F9248E649E00B01186 /* CalibrationError.swift */; };
 		A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */; };
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
@@ -235,6 +236,7 @@
 		A926C3F2248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGCalibrationProcessorTests.swift; sourceTree = "<group>"; };
 		A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGQualityProcessor.swift; sourceTree = "<group>"; };
 		A926C3F6248E460800B01186 /* CalibrationOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationOutput.swift; sourceTree = "<group>"; };
+		A926C3F9248E649E00B01186 /* CalibrationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationError.swift; sourceTree = "<group>"; };
 		A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinariesFileFinder.swift; sourceTree = "<group>"; };
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
 		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
@@ -599,6 +601,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		A926C3F8248E648D00B01186 /* Calibration */ = {
+			isa = PBXGroup;
+			children = (
+				A926C3F6248E460800B01186 /* CalibrationOutput.swift */,
+				A926C3F9248E649E00B01186 /* CalibrationError.swift */,
+			);
+			name = Calibration;
+			sourceTree = "<group>";
+		};
 		A927D58C23CCDF1E00C20734 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,6 +801,7 @@
 		F41A6D6C1F0557E700092027 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A926C3F8248E648D00B01186 /* Calibration */,
 				A974EFBE23CE29AD00B9F9BE /* Acquisition */,
 				A974EFBB23CE297400B9F9BE /* Device */,
 				A974EFBA23CE295300B9F9BE /* OAD */,
@@ -801,7 +813,6 @@
 				A92CA42E2462FAF000688CE5 /* ChannelsData.swift */,
 				A99429792487D256003F48CC /* EEGSavingRecord.swift */,
 				A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */,
-				A926C3F6248E460800B01186 /* CalibrationOutput.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1001,6 +1012,7 @@
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
 				A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */,
 				A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */,
+				A926C3FA248E649E00B01186 /* CalibrationError.swift in Sources */,
 				A91BD90C247D43C500603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A91BD918247D6C0100603C42 /* AudioOutputs.swift in Sources */,
 				A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */,

@@ -65,7 +65,7 @@ struct EEGCalibrationProcessor {
   //----------------------------------------------------------------------------
 
   static func decode(
-    calibrationParameters: [AnyHashable : Any]
+    calibrationParameters: [AnyHashable: Any]
   ) -> CalibrationOutput? {
     guard let parameters =
       try? JSONSerialization.data(withJSONObject: calibrationParameters,
