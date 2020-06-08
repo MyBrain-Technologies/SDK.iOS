@@ -180,4 +180,22 @@ class EEGCalibrationProcessorTests: XCTestCase {
     // Then
     XCTAssertNil(result)
   }
+
+  func testDecodeCalibrationParametersInfValues() {
+    let parameters: [String: Any] = [
+      "rawSnrCalib": [Float.infinity],
+      "rawrelativeSnrCalib": [],
+      "snrCalib": [5.0, 6.0],
+      "histFrequencies": [7.0, 8.0],
+      "errorMsg": [9.0, 10.0],
+      "iafCalib": [11.0, 12.0]
+    ]
+
+    // When
+    let result =
+      EEGCalibrationProcessor.decode(calibrationParameters: parameters)
+
+    // Then
+    XCTAssertNil(result)
+  }
 }
