@@ -449,31 +449,30 @@ public class MBTClient {
   /// - Parameters:
   ///   - n: Number of complete packets to take to compute the calibration.
   /// - Returns: A dictionnary received by the Signal Processing library.
-  public func computeCalibration(_ n: Int) -> [String: [Float]]? {
+  public func computeCalibration(
+    onNumberOfPackets numberOfPackets: Int
+  ) -> CalibrationOutput? {
     let eegPacketsCount = EEGPacketManager.shared.getEEGPackets().count
-    guard DeviceManager.connectedDeviceName != nil, eegPacketsCount >= n else {
-      return nil
-    }
-    return signalProcessingManager.computeCalibration(n)
+
+    guard DeviceManager.connectedDeviceName != nil,
+      eegPacketsCount >= numberOfPackets else { return nil }
+
+    return signalProcessingManager.computeCalibration(numberOfPackets)
   }
 
   /// computeRelaxIndex
   ///
   /// - Returns: RelaxIndex
   public func computeRelaxIndex() -> Float? {
+    let eegPacketCount = EEGPacketManager.shared.getEEGPackets().count
     let isEegPacketsCountHigherThanHistorySize =
-      EEGPacketManager.shared.getEEGPackets().count >= Constants.EEGPackets.historySize
+      eegPacketCount >= Constants.EEGPackets.historySize
     guard DeviceManager.connectedDeviceName != nil,
       isEegPacketsCountHigherThanHistorySize else { return nil }
     return signalProcessingManager.computeRelaxIndex()
   }
 
   /// ComputeSessionStatistics
-  ///
-  /// - Parameters:
-  ///   - inputSNR:
-  ///   - threshold:
-  /// - Returns:
   public func computeSessionStatistics(_ inputSNR: [Float],
                                        threshold: Float) -> [String: Float] {
     guard DeviceManager.connectedDeviceName != nil, inputSNR.count > 3 else {

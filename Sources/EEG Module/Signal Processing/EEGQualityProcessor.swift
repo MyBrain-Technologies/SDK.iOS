@@ -3,10 +3,10 @@ import RealmSwift
 
 struct EEGQualityProcessor {
 
-  func computeQualityValue(channelsData data: List<ChannelsData>,
-                           sampRate: Int,
-                           packetLength: Int,
-                           nbChannel: Int) -> [Float] {
+  static func computeQualityValue(channelsData data: List<ChannelsData>,
+                                  sampRate: Int,
+                                  packetLength: Int,
+                                  nbChannel: Int) -> [Float] {
     let dataArray = Array(data.map() { $0.values }.joined())
 
     log.verbose("Compute quality value. Number of NaN values",

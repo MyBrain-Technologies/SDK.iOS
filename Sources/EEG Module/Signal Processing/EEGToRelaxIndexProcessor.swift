@@ -13,7 +13,7 @@ struct EEGToRelaxIndexProcessor {
   //----------------------------------------------------------------------------
 
   /// Compute a relax index value from last received packets packets
-  func computeRelaxIndex() -> Float? {
+  static func computeRelaxIndex() -> Float? {
     let packetCount = Constants.EEGPackets.historySize
     let packets = EEGPacketManager.shared.getLastNPacketsComplete(packetCount)
 
@@ -30,9 +30,9 @@ struct EEGToRelaxIndexProcessor {
   }
 
   /// Compute relax index with given packets using the RelaxIndexBridge (obj C)
-  private func computeRelaxIndex(from packets: [MBTEEGPacket],
-                                 sampRate: Int,
-                                 nbChannels: Int) -> Float {
+  private static func computeRelaxIndex(from packets: [MBTEEGPacket],
+                                        sampRate: Int,
+                                        nbChannels: Int) -> Float {
     let dataArray = packets.flattenModifiedChannelData()
 
     let lastPacket = packets[packets.count - 1]

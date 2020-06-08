@@ -66,6 +66,7 @@
 		A926C3F1248A670200B01186 /* EEGCalibrationProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F0248A670200B01186 /* EEGCalibrationProcessor.swift */; };
 		A926C3F3248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F2248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift */; };
 		A926C3F5248A8A3A00B01186 /* EEGQualityProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */; };
+		A926C3F7248E460800B01186 /* CalibrationOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F6248E460800B01186 /* CalibrationOutput.swift */; };
 		A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */; };
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
@@ -233,6 +234,7 @@
 		A926C3F0248A670200B01186 /* EEGCalibrationProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGCalibrationProcessor.swift; sourceTree = "<group>"; };
 		A926C3F2248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGCalibrationProcessorTests.swift; sourceTree = "<group>"; };
 		A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGQualityProcessor.swift; sourceTree = "<group>"; };
+		A926C3F6248E460800B01186 /* CalibrationOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationOutput.swift; sourceTree = "<group>"; };
 		A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinariesFileFinder.swift; sourceTree = "<group>"; };
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
 		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
@@ -799,6 +801,7 @@
 				A92CA42E2462FAF000688CE5 /* ChannelsData.swift */,
 				A99429792487D256003F48CC /* EEGSavingRecord.swift */,
 				A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */,
+				A926C3F6248E460800B01186 /* CalibrationOutput.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1039,6 +1042,7 @@
 				A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */,
 				A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MBTClient.swift in Sources */,
+				A926C3F7248E460800B01186 /* CalibrationOutput.swift in Sources */,
 				4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */,
 				A9130BC824800C2500CB1840 /* EEGDeserializer.swift in Sources */,
 				A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */,

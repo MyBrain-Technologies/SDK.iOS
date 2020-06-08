@@ -13,17 +13,17 @@ struct EEGCalibrationProcessor {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
-  func computeCalibration(packetsCount: Int) -> [String: [Float]] {
+  static func computeCalibration(packetsCount: Int) -> CalibrationOutput? {
     guard let sampRate = DeviceManager.getDeviceSampRate(),
       let nbChannel = DeviceManager.getChannelsCount(),
       let packetLength = DeviceManager.getDeviceEEGPacketLength() else {
-        return [:]
+        return nil
     }
 
     // Get the last N packets.
     let packets = EEGPacketManager.shared.getLastNPacketsComplete(packetsCount)
 
-    guard packets.count == packetsCount else { return [String: [Float]]() }
+    guard packets.count == packetsCount else { return nil }
 
     return computeCalibration(packets: packets,
                               sampRate: sampRate,
@@ -36,10 +36,10 @@ struct EEGCalibrationProcessor {
   //----------------------------------------------------------------------------
 
   /// Compute calibration value from packets modifiedChannelData and qualities values
-  func computeCalibration(packets: [MBTEEGPacket],
-                          sampRate: Int,
-                          nbChannel: Int,
-                          packetLength: Int) -> [String: [Float]] {
+  static func computeCalibration(packets: [MBTEEGPacket],
+                                 sampRate: Int,
+                                 nbChannel: Int,
+                                 packetLength: Int) -> CalibrationOutput? {
     let qualityArray = getFlattenQualities(from: packets)
     let dataArray = getFlattenModifiedChannelData(from: packets,
                                                   packetLength: packetLength,
@@ -52,16 +52,38 @@ struct EEGCalibrationProcessor {
                                               packetsCount: packets.count,
                                               sampRate: sampRate)
 
-    let parameters = parametersFromComputation as? [String: [Float]] ?? [:]
-    log.verbose(parameters)
+//    let output = parametersFromComputation as? [String: [Float]] ?? [:]
 
-    return parameters
+    let output = decode(calibrationParameters: parametersFromComputation ?? [:])
+    log.verbose(output)
+
+    return output
   }
 
+  //----------------------------------------------------------------------------
+  // MARK: - Decode calibration
+  //----------------------------------------------------------------------------
+
+  static func decode(
+    calibrationParameters: [AnyHashable : Any]
+  ) -> CalibrationOutput? {
+    guard let parameters =
+      try? JSONSerialization.data(withJSONObject: calibrationParameters,
+                                  options: []) else { return nil }
+
+    let decoder = JSONDecoder()
+
+    return try? decoder.decode(CalibrationOutput.self, from: parameters)
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Flatten arrays
+  //----------------------------------------------------------------------------
+
   /// Return modified channel data values of packets as one array of values
-  func getFlattenModifiedChannelData(from packets: [MBTEEGPacket],
-                                     packetLength: Int,
-                                     nbChannels: Int) -> [Float] {
+  static func getFlattenModifiedChannelData(from packets: [MBTEEGPacket],
+                                            packetLength: Int,
+                                            nbChannels: Int) -> [Float] {
     let modifiedChannelData = packets.map() {
       Array($0.modifiedChannelsData.prefix(nbChannels))
     }
@@ -79,7 +101,7 @@ struct EEGCalibrationProcessor {
   }
 
   /// Return qualities of all packets as one array of qualities
-  func getFlattenQualities(from packets: [MBTEEGPacket]) -> [Float] {
+  static func getFlattenQualities(from packets: [MBTEEGPacket]) -> [Float] {
     let calibrationQualityValues = packets.map() { $0.qualities }
     let flattenQualities = calibrationQualityValues.joined()
 

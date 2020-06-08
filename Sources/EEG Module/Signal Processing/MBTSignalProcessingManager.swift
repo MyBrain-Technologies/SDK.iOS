@@ -28,7 +28,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   static let shared = MBTSignalProcessingManager()
 
   /// Dictionnary to store calibration results.
-  internal var calibrationComputed: [String: [Float]]!
+  internal var calibrationComputed: CalibrationOutput!
 
   ///
   internal var sampRate: Int = 0
@@ -61,6 +61,10 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     MBTQualityCheckerBridge.deInitializeMainQualityChecker()
   }
 
+  //----------------------------------------------------------------------------
+  // MARK: - Quality
+  //----------------------------------------------------------------------------
+
   /// Compute datas in the *Quality Checker* and returns an array of *Quality*
   /// values for a data matrix of an acquisition packet.
   /// - parameter data: The data matrix of the packet. Each row is a channel
@@ -72,10 +76,10 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
       return []
     }
 
-    return EEGQualityProcessor().computeQualityValue(channelsData: data,
-                                                     sampRate: sampRate,
-                                                     packetLength: packetLength,
-                                                     nbChannel: data.count)
+    return EEGQualityProcessor.computeQualityValue(channelsData: data,
+                                                   sampRate: sampRate,
+                                                   packetLength: packetLength,
+                                                   nbChannel: data.count)
   }
 
   func computeQualityValue(_ data: List<ChannelsData>,
@@ -85,6 +89,10 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - EEG
+  //----------------------------------------------------------------------------
 
   /// Get an array of the modified EEG datas by the *Quality Checker*, and
   /// return it.
@@ -110,9 +118,9 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
   ///     - packetsCount: Number of packets to get, from the last one.
   /// - Returns: A dictionnary with calibration datas from the CPP Signal
   /// Processing.
-  func computeCalibration(_ packetsCount: Int) -> [String: [Float]] {
+  func computeCalibration(_ packetsCount: Int) -> CalibrationOutput? {
     let parameters =
-      EEGCalibrationProcessor().computeCalibration(packetsCount: packetsCount)
+      EEGCalibrationProcessor.computeCalibration(packetsCount: packetsCount)
 
     calibrationComputed = parameters
 
@@ -129,7 +137,7 @@ extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
   func computeRelaxIndex() -> Float? {
     if calibrationComputed == nil { return 0 }
 
-    return EEGToRelaxIndexProcessor().computeRelaxIndex()
+    return EEGToRelaxIndexProcessor.computeRelaxIndex()
   }
 
 }
