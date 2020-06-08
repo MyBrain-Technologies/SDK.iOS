@@ -4,7 +4,7 @@ import RealmSwift
 /*******************************************************************************
  * EEGCalibrationProcessor
  *
- * 
+ * Use last recorded packets to compute a calibration output.
  *
  ******************************************************************************/
 struct EEGCalibrationProcessor {
@@ -13,6 +13,7 @@ struct EEGCalibrationProcessor {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
+  /// Use the last `packetsCount` packets to compute a calibration output value.
   static func computeCalibration(packetsCount: Int) -> CalibrationOutput? {
     guard let sampRate = DeviceManager.getDeviceSampRate(),
       let nbChannel = DeviceManager.getChannelsCount(),
@@ -36,7 +37,7 @@ struct EEGCalibrationProcessor {
   //----------------------------------------------------------------------------
 
   /// Compute calibration value from packets modifiedChannelData and qualities values
-  static func computeCalibration(packets: [MBTEEGPacket],
+  static private func computeCalibration(packets: [MBTEEGPacket],
                                  sampRate: Int,
                                  nbChannel: Int,
                                  packetLength: Int) -> CalibrationOutput? {
@@ -52,10 +53,8 @@ struct EEGCalibrationProcessor {
                                               packetsCount: packets.count,
                                               sampRate: sampRate)
 
-//    let output = parametersFromComputation as? [String: [Float]] ?? [:]
-
     let output = decode(calibrationParameters: parametersFromComputation ?? [:])
-    log.verbose(output)
+    log.verbose(output as Any)
 
     return output
   }

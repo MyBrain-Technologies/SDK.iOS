@@ -3,7 +3,7 @@ import Foundation
 /*******************************************************************************
  * CalibrationOutput
  *
- * Structure returned by `MBT_ComputeCalibration` fron C++.
+ * Structure returned by `MBT_ComputeCalibration` from C++.
  * Fields matchs the `CalibrationOutputKeys`.
  * See code here: https://github.com/mbt-administrator/Melomind.Algorithms
  *

@@ -68,6 +68,7 @@
 		A926C3F5248A8A3A00B01186 /* EEGQualityProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */; };
 		A926C3F7248E460800B01186 /* CalibrationOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F6248E460800B01186 /* CalibrationOutput.swift */; };
 		A926C3FA248E649E00B01186 /* CalibrationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3F9248E649E00B01186 /* CalibrationError.swift */; };
+		A926C3FC248E70E500B01186 /* MBTClient+MelomindAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */; };
 		A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */; };
 		A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D58D23CCDF3C00C20734 /* IndusVersion.swift */; };
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
@@ -237,6 +238,7 @@
 		A926C3F4248A8A3A00B01186 /* EEGQualityProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGQualityProcessor.swift; sourceTree = "<group>"; };
 		A926C3F6248E460800B01186 /* CalibrationOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationOutput.swift; sourceTree = "<group>"; };
 		A926C3F9248E649E00B01186 /* CalibrationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationError.swift; sourceTree = "<group>"; };
+		A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MBTClient+MelomindAnalysis.swift"; sourceTree = "<group>"; };
 		A927D58A23CCDAE600C20734 /* BinariesFileFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinariesFileFinder.swift; sourceTree = "<group>"; };
 		A927D58D23CCDF3C00C20734 /* IndusVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndusVersion.swift; sourceTree = "<group>"; };
 		A927D59023CCE7F300C20734 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
@@ -408,8 +410,9 @@
 			isa = PBXGroup;
 			children = (
 				F45837381EC5C21000C5D596 /* MBTClient.swift */,
-				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
 				A918D2972461A9A700026F1D /* MBTClient+log.swift */,
+				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
+				A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -1010,6 +1013,7 @@
 				A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */,
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
+				A926C3FC248E70E500B01186 /* MBTClient+MelomindAnalysis.swift in Sources */,
 				A9C05689247BD40100EC8703 /* BluetoothAdvertisementDataReader.swift in Sources */,
 				A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */,
 				A926C3FA248E649E00B01186 /* CalibrationError.swift in Sources */,

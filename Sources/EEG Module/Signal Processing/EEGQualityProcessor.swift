@@ -1,8 +1,16 @@
 import Foundation
 import RealmSwift
 
+/*******************************************************************************
+ * EEGQualityProcessor
+ *
+ * Compute a quality value
+ *
+ ******************************************************************************/
 struct EEGQualityProcessor {
 
+  /// Compute a quality value for `channelsData`.
+  /// Quality value is used to know if a signal is good enough to be used (as a relax index or calibration,...)
   static func computeQualityValue(channelsData data: List<ChannelsData>,
                                   sampRate: Int,
                                   packetLength: Int,
