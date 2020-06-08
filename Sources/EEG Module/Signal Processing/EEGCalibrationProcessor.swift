@@ -37,10 +37,12 @@ struct EEGCalibrationProcessor {
   //----------------------------------------------------------------------------
 
   /// Compute calibration value from packets modifiedChannelData and qualities values
-  static private func computeCalibration(packets: [MBTEEGPacket],
-                                 sampRate: Int,
-                                 nbChannel: Int,
-                                 packetLength: Int) -> CalibrationOutput? {
+  static private func computeCalibration(
+    packets: [MBTEEGPacket],
+    sampRate: Int,
+    nbChannel: Int,
+    packetLength: Int
+  ) -> CalibrationOutput? {
     let qualityArray = getFlattenQualities(from: packets)
     let dataArray = getFlattenModifiedChannelData(from: packets,
                                                   packetLength: packetLength,
@@ -66,13 +68,17 @@ struct EEGCalibrationProcessor {
   static func decode(
     calibrationParameters: [AnyHashable: Any]
   ) -> CalibrationOutput? {
-    guard let parameters =
-      try? JSONSerialization.data(withJSONObject: calibrationParameters,
+    guard let parameters = calibrationParameters as? [String: [Double]] else {
+      return nil
+    }
+
+    guard let serializedParameters =
+      try? JSONSerialization.data(withJSONObject: parameters,
                                   options: []) else { return nil }
 
     let decoder = JSONDecoder()
-
-    return try? decoder.decode(CalibrationOutput.self, from: parameters)
+    return try? decoder.decode(CalibrationOutput.self,
+                               from: serializedParameters)
   }
 
   //----------------------------------------------------------------------------
