@@ -643,13 +643,13 @@
 		A91DC0F42490CE6700E4A440 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				A91DC1052490CEFD00E4A440 /* MBTBluetoothManager */,
 				A91DC1292490CFA900E4A440 /* Models */,
 				A91DC11F2490CFA300E4A440 /* BluetoothPeripheralConnector.swift */,
 				A91DC1212490CFA300E4A440 /* BluetoothStateHistory.swift */,
 				A91DC11C2490CFA300E4A440 /* BluetoothTimers.swift */,
 				A91DC11D2490CFA300E4A440 /* IOBluetoothPeripheral.swift */,
 				A91DC1062490CF1E00E4A440 /* Delegate */,
-				A91DC1052490CEFD00E4A440 /* MBTBluetoothManager */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -1295,7 +1295,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.0.24;
+				MARKETING_VERSION = 0.0.25;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode-marker";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
@@ -1344,7 +1344,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.0.24;
+				MARKETING_VERSION = 0.0.25;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
