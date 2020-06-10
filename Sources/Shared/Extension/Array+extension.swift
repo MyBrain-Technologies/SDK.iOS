@@ -22,3 +22,9 @@ extension Array {
     return newArray
   }
 }
+
+extension Array where Element == Double {
+  var toFloat: [Float] {
+    return map() { Float($0) }
+  }
+}

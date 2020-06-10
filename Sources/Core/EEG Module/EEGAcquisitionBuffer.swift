@@ -57,7 +57,7 @@ class EEGAcquisitionBuffer {
     addMissingPackets(before: rawPacket)
 
     // SHOULD BE CLAMPED between 0 and Int16.max
-    previousIndex = rawPacket.packetIndex
+    previousIndex = rawPacket.packetIndex.clamped(min: 0, max: Int16.max)
 
     packetBuffer.add(bytes: rawPacket.packetValues)
   }

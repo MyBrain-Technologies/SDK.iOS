@@ -8,7 +8,7 @@ import Foundation
  * See code here: https://github.com/mbt-administrator/Melomind.Algorithms
  *
  ******************************************************************************/
-public struct CalibrationOutput: Codable {
+public struct CalibrationOutput {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -30,17 +30,6 @@ public struct CalibrationOutput: Codable {
     return CalibrationError(rawValue: Int(value))
   }
 
-  /******************** Coding Keys ********************/
-
-  enum CodingKeys: String, CodingKey {
-    case rawValues = "rawSnrCalib"
-    case relativeValues = "rawrelativeSnrCalib"
-    case smoothedValues = "snrCalib"
-    case frequenciesHistory = "histFrequencies"
-    case errorValues = "errorMsg"
-    case individualAlphaFrequency = "iafCalib"
-  }
-
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -52,6 +41,15 @@ public struct CalibrationOutput: Codable {
     self.frequenciesHistory = []
     self.errorValues = []
     self.individualAlphaFrequency = []
+  }
+  
+  init(object: [String: [Double]]) {
+    self.rawValues = object["rawSnrCalib"]?.toFloat ?? []
+    self.relativeValues = object["rawrelativeSnrCalib"]?.toFloat ?? []
+    self.smoothedValues = object["snrCalib"]?.toFloat ?? []
+    self.frequenciesHistory = object["histFrequencies"]?.toFloat ?? []
+    self.errorValues = object["errorMsg"]?.toFloat ?? []
+    self.individualAlphaFrequency = object["iafCalib"]?.toFloat ?? []
   }
 
 }
