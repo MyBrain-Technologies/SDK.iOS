@@ -72,13 +72,7 @@ struct EEGCalibrationProcessor {
       return nil
     }
 
-    guard let serializedParameters =
-      try? JSONSerialization.data(withJSONObject: parameters,
-                                  options: []) else { return nil }
-
-    let decoder = JSONDecoder()
-    return try? decoder.decode(CalibrationOutput.self,
-                               from: serializedParameters)
+    return CalibrationOutput(object: parameters)
   }
 
   //----------------------------------------------------------------------------
