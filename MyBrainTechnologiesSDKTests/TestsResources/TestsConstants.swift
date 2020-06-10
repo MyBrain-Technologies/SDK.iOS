@@ -3,6 +3,7 @@ import Foundation
 //swiftlint:disable line_length
 
 struct TestsConstants {
+
   static let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJ1c2VySWQiOjE0NjQsInN1YnNjcmliZWQiOnRydWUsInN1YnNjcmlwdGlvbklkIjoyLCJpYXQiOjE1ODkyODQzNDAsImV4cCI6MTU4OTM3MDc0MCwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiYW5vbnltb3VzIiwianRpIjoiM2U0ZTQ0ZDUtYjAyMC00YzVjLWE2NTAtYjg0NTJjZDA0NmMzIn0.CChyICHO3_v6S3N3N3HjBPqSILTE8mtltJYtU3F01Ws"
   static let ownerId = 1464
 
