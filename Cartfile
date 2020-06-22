@@ -1,4 +1,4 @@
 github "Alamofire/Alamofire" ~> 4.9.1
-github "realm/realm-cocoa" == 3.18.0
+github "realm/realm-cocoa"
 github "SwiftyJSON/SwiftyJSON" ~> 4.0
 github "SwiftyBeaver/SwiftyBeaver"
