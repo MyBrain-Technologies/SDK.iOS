@@ -41,12 +41,15 @@ struct Constants {
     static let a2dpPrefix = "audio_"
     static let blePrefix = "melo_"
 
-    static let qrCodePrefix = "MM"
+    static let qrCodePrefix = "MM10"
     static let qrCodeLength = 10
 
     static let qrCodePrefixBatch2 = "MM1B2"
     static let qrCodeBatch2Length = 9
     static let qrCodeBatch2EndCharacter = "."
+
+    static let qrCodePrefixBatch3 = "MM1B3"
+    static let qrCodeBatch3Length = 10
   }
 
   //----------------------------------------------------------------------------

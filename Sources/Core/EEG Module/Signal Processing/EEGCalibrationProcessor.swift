@@ -68,7 +68,8 @@ struct EEGCalibrationProcessor {
   static func decode(
     calibrationParameters: [AnyHashable: Any]
   ) -> CalibrationOutput? {
-    guard let parameters = calibrationParameters as? [String: [Double]] else {
+    guard let parameters = calibrationParameters as? [String: [Double]],
+      !parameters.isEmpty else {
       return nil
     }
 
