@@ -149,7 +149,8 @@ class EEGCalibrationProcessorTests: XCTestCase {
       EEGCalibrationProcessor.decode(calibrationParameters: parameters)
 
     // Then
-    XCTAssertNil(result)
+//    XCTAssertNil(result)
+    XCTAssertTrue(result?.frequenciesHistory.isEmpty ?? false)
   }
 
   func testDecodeCalibrationParametersEmpty() {

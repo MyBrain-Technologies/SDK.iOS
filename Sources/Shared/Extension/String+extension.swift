@@ -35,7 +35,7 @@ extension String {
   //----------------------------------------------------------------------------
 
   var isQrCode: Bool {
-    return isQrCodeBatch1 || isQrCodeBatch2
+    return isQrCodeBatch1 || isQrCodeBatch2 || isQrCodeBatch3
   }
 
   var isQrCodeBatch1: Bool {
@@ -46,6 +46,11 @@ extension String {
   var isQrCodeBatch2: Bool {
     return starts(with: Constants.DeviceName.qrCodePrefixBatch2)
       && count == Constants.DeviceName.qrCodeBatch2Length
+  }
+
+  var isQrCodeBatch3: Bool {
+    return starts(with: Constants.DeviceName.qrCodePrefixBatch3)
+      && count == Constants.DeviceName.qrCodeBatch3Length
   }
 
   //----------------------------------------------------------------------------
