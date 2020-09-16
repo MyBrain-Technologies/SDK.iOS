@@ -8,7 +8,7 @@ class StringIsQrCodeTests: XCTestCase {
   //----------------------------------------------------------------------------
 
   let qrCodeBatch1 = "MM10000554"
-  let qrCodeBatch2 = "MM1B20554"
+  let qrCodeBatch2 = "MM1B20554."
   let qrCodeBatch3 = "MM1B300001"
 
   //----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class StringIsQrCodeTests: XCTestCase {
     XCTAssertFalse(qrCodeBatch1.isQrCodeBatch2)
     XCTAssertFalse(qrCodeBatch3.isQrCodeBatch2)
     XCTAssertFalse("MM1B2055".isQrCodeBatch2)
-    XCTAssertFalse("MM1B205678".isQrCodeBatch2)
+    XCTAssertFalse("MM1B20567.8".isQrCodeBatch2)
     XCTAssertFalse("M11B20554".isQrCodeBatch2)
     XCTAssertFalse("xMM1B2554".isQrCodeBatch2)
   }

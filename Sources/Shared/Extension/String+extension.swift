@@ -58,10 +58,10 @@ extension String {
   //----------------------------------------------------------------------------
 
   var serialNumberFomQRCode: String? {
-    var qrCode = self
-    if isQrCodeBatch2 {
-      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
-    }
+    let qrCode = self
+//    if isQrCodeBatch2 {
+//      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
+//    }
     return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
   }
 
