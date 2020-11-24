@@ -7,7 +7,8 @@ extension MBTBluetoothManager: BluetoothTimersDelegate {
   }
 
   func didBleConnectionTimeout() {
-    bluetoothConnector.stopScanningForConnections()
+    bluetoothConnection.cancelConnection()
+//    bluetoothConnector.stopScanningForConnections()
 
     let error = BluetoothLowEnergyError.connectionTimeOut.error
     log.error("📲 Connection to device timeout", context: error)

@@ -1,107 +1,48 @@
 import Foundation
 import CoreBluetooth
 
-extension MBTBluetoothManager: CBPeripheralDelegate {
+extension MBTBluetoothManager: MBTBluetoothInterpretDelegate {
 
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
-
-  private var hasDiscoverAllCharacteristics: Bool {
-    return counterServicesDiscover <= 0
-      && BluetoothDeviceCharacteristics.shared.mailBox != nil
-      && BluetoothDeviceCharacteristics.shared.deviceInformations.count == 4
+  var discoverServices: [CBUUID] {
+    get { return BluetoothService.melomindServices.compactMap({ $0.uuid }) }
   }
 
   //----------------------------------------------------------------------------
-  // MARK: - Delegate Methods
+  // MARK: - Methods
   //----------------------------------------------------------------------------
 
-  /// Check if the service discovered is a valid Service.
-  /// Invoked when you discover the peripheral’s available services.
-  /// - Parameters:
-  ///   - peripheral: The peripheral that the services belong to.
-  ///   - error: If an error occurred, the cause of the failure.
-  func peripheral(
-    _ peripheral: CBPeripheral,
-    didDiscoverServices error: Error?
-  ) {
-    log.verbose("🆕 Did discover services")
-
-    // Check all the services of the connecting peripheral.
-    guard isBLEConnected, let services = peripheral.services else {
-      log.error("BLE peripheral is connected ? \(isBLEConnected)")
-      log.error("Services peripheral are nil ? \(peripheral.services == nil)")
-      return
-    }
-    counterServicesDiscover = 0
-
-    for service in services {
-      let currentService = service as CBService
-      // Get the MyBrainService and Device info UUID
-      let servicesUUID = BluetoothService.melomindServices.uuids
-
-      // Check if manager should look at this service characteristics
-      if servicesUUID.contains(service.uuid) {
-        peripheral.discoverCharacteristics(nil, for: currentService)
-        counterServicesDiscover += 1
-      }
-    }
-  }
-
-  /// Enable notification and sensor for desired characteristic of valid service.
-  /// Invoked when you discover the characteristics of a specified service.
-  /// - Parameters:
-  ///   - peripheral: The peripheral that the services belong to.
-  ///   - service: The service that the characteristics belong to.
-  ///   - error: If an error occurred, the cause of the failure.
-  func peripheral(_ peripheral: CBPeripheral,
-                  didDiscoverCharacteristicsFor service: CBService,
-                  error: Error?) {
-    log.verbose("🆕 Did discover characteristics")
-
-    guard isBLEConnected, service.characteristics != nil else {
-      return
-    }
-
-    counterServicesDiscover -= 1
-
-    updateDeviceCharacteristics(with: service)
-
-    if hasDiscoverAllCharacteristics {
-      prepareDevice()
-    }
-  }
-
-  private func updateDeviceCharacteristics(with service: CBService) {
+  internal func updateDeviceCharacteristics(with service: CBService) {
     guard let serviceCharacteristics = service.characteristics else { return }
 
     BluetoothDeviceCharacteristics.shared.update(with: serviceCharacteristics)
   }
 
-  private func prepareDevice() {
+  internal func prepareDevice() {
     prepareDeviceWithInfo() {
       self.requestBatteryLevel()
       self.timers.startFinalizeConnectionTimer()
     }
   }
 
-  /// Get data values when they are updated.
-  /// Invoked when you retrieve a specified characteristic’s value,
-  /// or when the peripheral device notifies your app that
-  /// the characteristic’s value has changed.
-  /// Send them to AcquisitionManager.
-  /// - Parameters:
-  ///   - peripheral: The peripheral that the services belong to.
-  ///   - service: The characteristic whose value has been retrieved.
-  ///   - error: If an error occurred, the cause of the failure.
-  func peripheral(_ peripheral: CBPeripheral,
-                  didUpdateValueFor characteristic: CBCharacteristic,
-                  error: Error?) {
-    guard isBLEConnected else {
-      log.error("Ble peripheral is not set")
-      return
-    }
+  //----------------------------------------------------------------------------
+  // MARK: - Characteristics
+  //----------------------------------------------------------------------------
+
+  func didDiscoverServiceWithCharacteristics(_ service: CBService) {
+    updateDeviceCharacteristics(with: service)
+  }
+
+  func didCompletePeripheralDiscovery(_ peripheral: CBPeripheral) {
+    peripheralIO.peripheral = peripheral
+//    peripheralIO.peripheral?.delegate = bluetoothInterpret
+    prepareDevice()
+  }
+
+  func didUpdateValueFor(characteristic: CBCharacteristic) {
+//    guard isBLEConnected else {
+//      log.error("Ble peripheral is not set")
+//      return
+//    }
 
     /******************** Quick access ********************/
 

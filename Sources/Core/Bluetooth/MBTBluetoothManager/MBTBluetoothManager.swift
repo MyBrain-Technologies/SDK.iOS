@@ -28,10 +28,12 @@ internal class MBTBluetoothManager: NSObject {
 
   /******************** Connection ********************/
 
-  lazy var bluetoothConnector: BluetoothPeripheralConnector = {
-    let centralManager = CBCentralManager(delegate: self, queue: nil)
-    return BluetoothPeripheralConnector(centralManager: centralManager)
-  }()
+  var bluetoothConnection: MBTBluetoothConnection!
+  var bluetoothInterpret: MBTBluetoothInterpret!
+//  lazy var bluetoothConnector: BluetoothPeripheralConnector = {
+//    let centralManager = CBCentralManager(delegate: self, queue: nil)
+//    return BluetoothPeripheralConnector(centralManager: centralManager)
+//  }()
 
   lazy var peripheralIO: IOBluetoothPeripheral = {
     return IOBluetoothPeripheral(peripheral: nil)
@@ -91,10 +93,6 @@ internal class MBTBluetoothManager: NSObject {
   /// or to process the receiving Battery Level
   var processBatteryLevel: Bool = false
 
-  /// An object that manages and advertises peripheral services exposed by this app.
-  /// Use for BLE authorizations.
-  var peripheralManager: CBPeripheralManager?
-
   /// The BLE peripheral with which a connection has been established.
   var blePeripheral: CBPeripheral? {
     didSet {
@@ -136,6 +134,7 @@ internal class MBTBluetoothManager: NSObject {
   override init() {
     super.init()
     connectA2DP()
+    initBluetoothConnection()
     initBluetoothManager()
   }
 
@@ -153,56 +152,38 @@ internal class MBTBluetoothManager: NSObject {
   /// - Parameters:
   ///   - deviceName: The name of the device to connect (Bluetooth profile).
   func connectTo(_ deviceName: String? = nil) {
-    if OADState == .connected, bluetoothStatesHistory.isPoweredOn {
-      timers.stopBLEConnectionTimer()
-      bluetoothConnector.scanForMelomindConnections()
-      return
-    }
+    log.debug("OAD state \(OADState)")
 
-    if isBLEConnected { disconnect() }
+//    if OADState == .connected {
+//      bluetoothConnection.connect()
+//    }
+
+//    if OADState == .connected, bluetoothStatesHistory.isPoweredOn {
+//      timers.stopBLEConnectionTimer()
+
+//      bluetoothConnector.scanForMelomindConnections()
+//      return
+//    }
+
+//    if isBLEConnected { disconnect() }
 
     initBluetoothManager()
-
     DeviceManager.connectedDeviceName = deviceName ?? ""
-
     timers.startBLEConnectionTimer()
-  }
 
-  /// Initialise or Re-initialise the BluetoothManager [Prepare all variable for the connection]
-  func initBluetoothManager() {
-    // Download Init
-    isOADInProgress = false
-    OADState = .disable
-
-    // Connection Init
-    counterServicesDiscover = 0
-//    isConnectedA2DP = false
-    isListeningToEEG = false
-    isListeningToHeadsetStatus = false
-    processBatteryLevel = false
-
-    bluetoothConnector.centralManager = CBCentralManager(delegate: self,
-                                                         queue: nil)
-
-    peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-
-    DeviceManager.connectedDeviceName = nil
-
-    // Characteristic Init
-    BluetoothDeviceCharacteristics.shared.brainActivityMeasurement = nil
-    BluetoothDeviceCharacteristics.shared.deviceState = nil
-    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
+    bluetoothConnection.connect()
   }
 
   /// Disconnect centralManager, and remove session's values.
   func disconnect() {
     timers.stopAllTimers()
 
-    bluetoothConnector.stopScanningForConnections(
-      on: peripheralIO.peripheral
-    )
-
-    peripheralIO.peripheral = nil
+    bluetoothConnection.disconnect()
+//    bluetoothConnector.stopScanningForConnections(
+//      on: peripheralIO.peripheral
+//    )
+//
+//    peripheralIO.peripheral = nil
   }
 
   /// Finalize the connection
@@ -308,6 +289,43 @@ internal class MBTBluetoothManager: NSObject {
       }
     }
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
+
+  private func initBluetoothConnection() {
+    bluetoothConnection = MBTBluetoothConnection(delegate: self)
+    bluetoothInterpret = MBTBluetoothInterpret(delegate: self, peripheral: nil)
+  }
+
+  /// Initialise or Re-initialise the BluetoothManager [Prepare all variable for the connection]
+  private func initBluetoothManager() {
+    initOADValues()
+    initConnectionValues()
+    initDeviceCharacteristics()
+  }
+
+  private func initOADValues() {
+    isOADInProgress = false
+    OADState = .disable
+  }
+
+  private func initConnectionValues() {
+    counterServicesDiscover = 0
+    isListeningToEEG = false
+    isListeningToHeadsetStatus = false
+    processBatteryLevel = false
+  }
+
+  private func initDeviceCharacteristics() {
+    DeviceManager.connectedDeviceName = nil
+    BluetoothDeviceCharacteristics.shared.brainActivityMeasurement = nil
+    BluetoothDeviceCharacteristics.shared.deviceState = nil
+    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
+  }
+
 
   // MARK: - External Name / Product Name methods
 

@@ -1,48 +1,40 @@
 import Foundation
 import CoreBluetooth
 
-extension MBTBluetoothManager: CBCentralManagerDelegate {
+extension MBTBluetoothManager {
 
   //----------------------------------------------------------------------------
   // MARK: - centralManager DidUpdateState
   //----------------------------------------------------------------------------
 
-  func centralManagerDidUpdateState(_ central: CBCentralManager) {
-    log.verbose("🆕 Did update state")
-
-    switch central.state {
-    case .poweredOn: didBluetoothPoweredOn()
-    case .poweredOff: didBluetoothPoweredOff()
-    default: log.info("📲 Bluetooth state is \(central.state)")
-    }
-
-    let hasRebootBluetooth = bluetoothStatesHistory.isPoweredOn
-      && bluetoothStatesHistory.historyIsFull
-
-    if isOADInProgress && OADState == .rebootRequired && hasRebootBluetooth {
-      continueOADAfterBluetoothReboot()
-    }
-  }
+//  func centralManagerDidUpdateState(_ central: CBCentralManager) {
+//    log.verbose("🆕 Did update state")
+//
+//    switch central.state {
+//    case .poweredOn: didBluetoothPoweredOn()
+//    case .poweredOff: didBluetoothPoweredOff()
+//    default: log.info("📲 Bluetooth state is \(central.state)")
+//    }
+//  }
 
   /// Bluetooth state changed to powered on
-  private func didBluetoothPoweredOn() {
+  internal func didBluetoothPoweredOn() {
     log.info("📲 Bluetooth powered on")
-
-    // Scan for peripherals if BLE is turned on
 
     if bluetoothStatesHistory.isPoweredOn == false {
       bluetoothStatesHistory.addState(isConnected: true)
       eventDelegate?.onBluetoothStateChange?(true)
     }
 
-    guard DeviceManager.connectedDeviceName != nil,
-      timers.isBleConnectionTimerInProgress else { return }
-
-    bluetoothConnector.scanForMelomindConnections()
+    if isOADInProgress
+        && OADState == .rebootRequired
+        && bluetoothStatesHistory.historyIsFull {
+      continueOADAfterBluetoothReboot()
+    }
   }
 
   /// bluetooth state changed to powered off
-  private func didBluetoothPoweredOff() {
+  internal func didBluetoothPoweredOff() {
     log.info("📲 Bluetooth powered off")
 
     if bluetoothStatesHistory.isPoweredOn {
@@ -73,10 +65,10 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
   private func didBluetoothPoweredOffDuringOAD() {
     guard OADState != .rebootRequired else { return }
 
-    bluetoothConnector.stopScanningForConnections(
-      on: peripheralIO.peripheral
-    )
-    peripheralIO.peripheral = nil
+//    bluetoothConnector.stopScanningForConnections(
+//      on: peripheralIO.peripheral
+//    )
+//    peripheralIO.peripheral = nil
 
     if OADState > .completed {
       OADState = .connected
@@ -112,65 +104,65 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
     peripheralIO.peripheral = nil
     DeviceManager.resetDeviceInfo()
 
-    bluetoothConnector.scanForMelomindConnections()
+//    bluetoothConnector.scanForMelomindConnections()
 
     OADState = .connected
   }
 
   /// Check out the discovered peripherals to find the right device.
   /// Invoked when the central manager discovers a peripheral while scanning.
-  func centralManager(_ central: CBCentralManager,
-                      didDiscover peripheral: CBPeripheral,
-                      advertisementData: [String: Any],
-                      rssi RSSI: NSNumber) {
-    log.verbose("🆕 Did discover peripheral")
+//  func centralManager(_ central: CBCentralManager,
+//                      didDiscover peripheral: CBPeripheral,
+//                      advertisementData: [String: Any],
+//                      rssi RSSI: NSNumber) {
+//    log.verbose("🆕 Did discover peripheral")
 
-    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
+//    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
+//
+//    guard let newDeviceName = dataReader.localName,
+//      let newDeviceServices = dataReader.uuidKeys else { return }
+//
+//    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
+//      deviceName: newDeviceName,
+//      services: newDeviceServices
+//    )
+//    let isConnectingOrUpdating =
+//      timers.isBleConnectionTimerInProgress || OADState >= .started
+//
+//    guard isMelomindDevice && isConnectingOrUpdating else { return }
+//
+//    if DeviceManager.connectedDeviceName == "" {
+//      DeviceManager.connectedDeviceName = newDeviceName
+//    }
+//
+//    guard DeviceManager.connectedDeviceName == newDeviceName else { return }
 
-    guard let newDeviceName = dataReader.localName,
-      let newDeviceServices = dataReader.uuidKeys else { return }
+//    bluetoothConnector.stopScanningForConnections()
+//    peripheralIO.peripheral = peripheral
+//    peripheralIO.peripheral?.delegate = self
 
-    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
-      deviceName: newDeviceName,
-      services: newDeviceServices
-    )
-    let isConnectingOrUpdating =
-      timers.isBleConnectionTimerInProgress || OADState >= .started
+//    bluetoothConnector.connect(to: peripheral)
 
-    guard isMelomindDevice && isConnectingOrUpdating else { return }
-
-    if DeviceManager.connectedDeviceName == "" {
-      DeviceManager.connectedDeviceName = newDeviceName
-    }
-
-    guard DeviceManager.connectedDeviceName == newDeviceName else { return }
-
-    bluetoothConnector.stopScanningForConnections()
-    peripheralIO.peripheral = peripheral
-
-    peripheralIO.peripheral?.delegate = self
-
-    bluetoothConnector.connect(to: peripheral)
-
-    DeviceManager.updateDeviceToMelomind()
-  }
+//    DeviceManager.connectedDeviceName = newDeviceName
+//    DeviceManager.updateDeviceToMelomind()
+//  }
 
   //----------------------------------------------------------------------------
   // MARK: - CentralManager DidConnectPeripheral
   //----------------------------------------------------------------------------
-
-  func centralManager(_ central: CBCentralManager,
-                      didConnect peripheral: CBPeripheral) {
-    log.verbose("🆕 Did connect to peripheral")
-
-    peripheral.discoverServices(nil)
-
-    guard isOADInProgress && OADState >= .completed else {
-      return DeviceManager.resetDeviceInfo()
-    }
-
-    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
-  }
+//
+//  func centralManager(_ central: CBCentralManager,
+//                      didConnect peripheral: CBPeripheral) {
+//    log.verbose("🆕 Did connect to peripheral")
+//
+//    peripheral.discoverServices(nil)
+//
+//    guard isOADInProgress && OADState >= .completed else {
+//      return DeviceManager.resetDeviceInfo()
+//    }
+//
+//    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
+//  }
 
   //----------------------------------------------------------------------------
   // MARK: - CentralManager - DidDisconnectPeripheral
@@ -178,21 +170,21 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
 
   /// If disconnected by error, start searching again,
   /// else let event delegate know that headphones are disconnected.
-  func centralManager(_ central: CBCentralManager,
-                      didDisconnectPeripheral peripheral: CBPeripheral,
-                      error: Error?) {
-    log.verbose("🆕 Did disconnect peripheral")
-
-    processBatteryLevel = false
-    if isOADInProgress {
-      peripheralDisconnectedDuringOAD()
-    } else {
-      peripheralDisconnected(error: error)
-    }
-  }
+//  func centralManager(_ central: CBCentralManager,
+//                      didDisconnectPeripheral peripheral: CBPeripheral,
+//                      error: Error?) {
+//    log.verbose("🆕 Did disconnect peripheral")
+//
+//    processBatteryLevel = false
+//    if isOADInProgress {
+//      peripheralDisconnectedDuringOAD()
+//    } else {
+//      peripheralDisconnected(error: error)
+//    }
+//  }
 
   /// Connected peripheral has been disconnected during  OAD
-  private func peripheralDisconnectedDuringOAD() {
+  internal func peripheralDisconnectedDuringOAD() {
     guard OADState != .completed else {
       eventDelegate?.onProgressUpdate?(0.95)
       eventDelegate?.requireToRebootBluetooth?()
@@ -200,10 +192,10 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
       return
     }
 
-    bluetoothConnector.stopScanningForConnections(
-      on: peripheralIO.peripheral
-    )
-    peripheralIO.peripheral = nil
+//    bluetoothConnector.stopScanningForConnections(
+//      on: peripheralIO.peripheral
+//    )
+//    peripheralIO.peripheral = nil
 
     if OADState >= .completed {
       OADState = .connected
@@ -224,7 +216,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
   }
 
   /// Connected peripheral has been disconnected
-  private func peripheralDisconnected(error: Error?) {
+  internal func peripheralDisconnected(error: Error?) {
     if timers.isBleConnectionTimerInProgress {
       isOADInProgress = false
 
@@ -245,10 +237,10 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
   ///   - central: The central manager providing this information.
   ///   - peripheral: The peripheral that failed to connect.
   ///   - error: The cause of the failure.
-  func centralManager(_ central: CBCentralManager,
-                      didFailToConnect peripheral: CBPeripheral,
-                      error: Error?) {
-    log.verbose("🆕 Did fail to connect to peripheral")
-    eventDelegate?.onConnectionFailed?(error)
-  }
+//  func centralManager(_ central: CBCentralManager,
+//                      didFailToConnect peripheral: CBPeripheral,
+//                      error: Error?) {
+//    log.verbose("🆕 Did fail to connect to peripheral")
+//    eventDelegate?.onConnectionFailed?(error)
+//  }
 }

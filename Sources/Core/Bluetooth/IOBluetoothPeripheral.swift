@@ -28,6 +28,8 @@ struct IOBluetoothPeripheral {
   }
 
   func readDeviceInformations() {
+    log.debug("Read device informations on \(peripheral?.name)")
+    
     let informations = BluetoothDeviceCharacteristics.shared.deviceInformations
 
     informations.forEach() { peripheral?.readValue(for: $0) }
