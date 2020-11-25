@@ -31,6 +31,18 @@
 		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */; };
+		585FA032256EA34E00739D5B /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A918D2992461CC2200026F1D /* SwiftyBeaver.framework */; };
+		585FA033256EA34E00739D5B /* SwiftyBeaver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A918D2992461CC2200026F1D /* SwiftyBeaver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		585FA035256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
+		585FA036256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		585FA039256EA35400739D5B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
+		585FA03A256EA35400739D5B /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		585FA03B256EA35700739D5B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
+		585FA03C256EA35800739D5B /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		585FA03D256EA35B00739D5B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
+		585FA03E256EA35B00739D5B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		585FA03F256EA35E00739D5B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
+		585FA040256EA35E00739D5B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -162,6 +174,13 @@
 			remoteGlobalIDString = 4D995AF3256E9E9A00AC8497;
 			remoteInfo = TestHost;
 		};
+		585FA037256EA35200739D5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3549BB201DA389CD00C63030;
+			remoteInfo = "MyBrainTechnologiesSDK-iOS";
+		};
 		A9E3A7BD24643B7700E6A4B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
@@ -181,6 +200,22 @@
 				2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */,
 			);
 			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		585FA034256EA34E00739D5B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				585FA040256EA35E00739D5B /* Realm.framework in Embed Frameworks */,
+				585FA036256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Embed Frameworks */,
+				585FA033256EA34E00739D5B /* SwiftyBeaver.framework in Embed Frameworks */,
+				585FA03C256EA35800739D5B /* RealmSwift.framework in Embed Frameworks */,
+				585FA03E256EA35B00739D5B /* Alamofire.framework in Embed Frameworks */,
+				585FA03A256EA35400739D5B /* SwiftyJSON.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -360,6 +395,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				585FA03F256EA35E00739D5B /* Realm.framework in Frameworks */,
+				585FA035256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Frameworks */,
+				585FA032256EA34E00739D5B /* SwiftyBeaver.framework in Frameworks */,
+				585FA03B256EA35700739D5B /* RealmSwift.framework in Frameworks */,
+				585FA03D256EA35B00739D5B /* Alamofire.framework in Frameworks */,
+				585FA039256EA35400739D5B /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,10 +959,12 @@
 				4D995AF0256E9E9A00AC8497 /* Sources */,
 				4D995AF1256E9E9A00AC8497 /* Frameworks */,
 				4D995AF2256E9E9A00AC8497 /* Resources */,
+				585FA034256EA34E00739D5B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				585FA038256EA35200739D5B /* PBXTargetDependency */,
 			);
 			name = TestHost;
 			productName = TestHost;
@@ -1217,6 +1260,11 @@
 			target = 4D995AF3256E9E9A00AC8497 /* TestHost */;
 			targetProxy = 4D995B0B256E9EA500AC8497 /* PBXContainerItemProxy */;
 		};
+		585FA038256EA35200739D5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			targetProxy = 585FA037256EA35200739D5B /* PBXContainerItemProxy */;
+		};
 		A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
@@ -1483,6 +1531,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23T8TD424J;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TestHost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1508,6 +1560,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23T8TD424J;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TestHost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
