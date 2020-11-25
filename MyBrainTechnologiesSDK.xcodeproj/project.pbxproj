@@ -21,28 +21,10 @@
 		4D5EE9DD234E096D00B36DF0 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
 		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
-		4D995AF7256E9E9A00AC8497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D995AF6256E9E9A00AC8497 /* AppDelegate.swift */; };
-		4D995AF9256E9E9A00AC8497 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D995AF8256E9E9A00AC8497 /* SceneDelegate.swift */; };
-		4D995AFB256E9E9A00AC8497 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D995AFA256E9E9A00AC8497 /* ViewController.swift */; };
-		4D995AFE256E9E9A00AC8497 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D995AFC256E9E9A00AC8497 /* Main.storyboard */; };
-		4D995B00256E9E9D00AC8497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D995AFF256E9E9D00AC8497 /* Assets.xcassets */; };
-		4D995B03256E9E9D00AC8497 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D995B01256E9E9D00AC8497 /* LaunchScreen.storyboard */; };
 		4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */; };
 		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */; };
-		585FA032256EA34E00739D5B /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A918D2992461CC2200026F1D /* SwiftyBeaver.framework */; };
-		585FA033256EA34E00739D5B /* SwiftyBeaver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A918D2992461CC2200026F1D /* SwiftyBeaver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		585FA035256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
-		585FA036256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		585FA039256EA35400739D5B /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
-		585FA03A256EA35400739D5B /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		585FA03B256EA35700739D5B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
-		585FA03C256EA35800739D5B /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		585FA03D256EA35B00739D5B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
-		585FA03E256EA35B00739D5B /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		585FA03F256EA35E00739D5B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
-		585FA040256EA35E00739D5B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -167,20 +149,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4D995B0B256E9EA500AC8497 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D995AF3256E9E9A00AC8497;
-			remoteInfo = TestHost;
-		};
-		585FA037256EA35200739D5B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3549BB201DA389CD00C63030;
-			remoteInfo = "MyBrainTechnologiesSDK-iOS";
-		};
 		A9E3A7BD24643B7700E6A4B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
@@ -200,22 +168,6 @@
 				2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */,
 			);
 			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		585FA034256EA34E00739D5B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				585FA040256EA35E00739D5B /* Realm.framework in Embed Frameworks */,
-				585FA036256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Embed Frameworks */,
-				585FA033256EA34E00739D5B /* SwiftyBeaver.framework in Embed Frameworks */,
-				585FA03C256EA35800739D5B /* RealmSwift.framework in Embed Frameworks */,
-				585FA03E256EA35B00739D5B /* Alamofire.framework in Embed Frameworks */,
-				585FA03A256EA35400739D5B /* SwiftyJSON.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -239,7 +191,6 @@
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
-		4D995AF4256E9E9A00AC8497 /* TestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D995AF6256E9E9A00AC8497 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D995AF8256E9E9A00AC8497 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4D995AFA256E9E9A00AC8497 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -391,19 +342,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4D995AF1256E9E9A00AC8497 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				585FA03F256EA35E00739D5B /* Realm.framework in Frameworks */,
-				585FA035256EA35200739D5B /* MyBrainTechnologiesSDK.framework in Frameworks */,
-				585FA032256EA34E00739D5B /* SwiftyBeaver.framework in Frameworks */,
-				585FA03B256EA35700739D5B /* RealmSwift.framework in Frameworks */,
-				585FA03D256EA35B00739D5B /* Alamofire.framework in Frameworks */,
-				585FA039256EA35400739D5B /* SwiftyJSON.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A9E3A7B424643B7700E6A4B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -503,7 +441,6 @@
 			children = (
 				3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */,
 				A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */,
-				4D995AF4256E9E9A00AC8497 /* TestHost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -952,25 +889,6 @@
 			productReference = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4D995AF3256E9E9A00AC8497 /* TestHost */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4D995B05256E9E9D00AC8497 /* Build configuration list for PBXNativeTarget "TestHost" */;
-			buildPhases = (
-				4D995AF0256E9E9A00AC8497 /* Sources */,
-				4D995AF1256E9E9A00AC8497 /* Frameworks */,
-				4D995AF2256E9E9A00AC8497 /* Resources */,
-				585FA034256EA34E00739D5B /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				585FA038256EA35200739D5B /* PBXTargetDependency */,
-			);
-			name = TestHost;
-			productName = TestHost;
-			productReference = 4D995AF4256E9E9A00AC8497 /* TestHost.app */;
-			productType = "com.apple.product-type.application";
-		};
 		A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A9E3A7C124643B7700E6A4B9 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests" */;
@@ -984,7 +902,6 @@
 			);
 			dependencies = (
 				A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */,
-				4D995B0C256E9EA500AC8497 /* PBXTargetDependency */,
 			);
 			name = MyBrainTechnologiesSDKTests;
 			productName = MyBrainTechnologiesSDKTests;
@@ -1008,16 +925,10 @@
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
-					4D995AF3256E9E9A00AC8497 = {
-						CreatedOnToolsVersion = 12.2;
-						DevelopmentTeam = 23T8TD424J;
-						ProvisioningStyle = Automatic;
-					};
 					A9E3A7B624643B7700E6A4B9 = {
 						CreatedOnToolsVersion = 11.3.1;
 						DevelopmentTeam = 23T8TD424J;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 4D995AF3256E9E9A00AC8497;
 					};
 				};
 			};
@@ -1036,7 +947,6 @@
 			targets = (
 				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */,
 				A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
-				4D995AF3256E9E9A00AC8497 /* TestHost */,
 			);
 		};
 /* End PBXProject section */
@@ -1049,16 +959,6 @@
 				B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */,
 				A9C05694247BFC3300EC8703 /* mm-ota-1_7_14.bin in Resources */,
 				A9C05695247BFC3300EC8703 /* mm-ota-i3-1_7_14.bin in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D995AF2256E9E9A00AC8497 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D995B03256E9E9D00AC8497 /* LaunchScreen.storyboard in Resources */,
-				4D995B00256E9E9D00AC8497 /* Assets.xcassets in Resources */,
-				4D995AFE256E9E9A00AC8497 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1211,16 +1111,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4D995AF0256E9E9A00AC8497 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D995AFB256E9E9A00AC8497 /* ViewController.swift in Sources */,
-				4D995AF7256E9E9A00AC8497 /* AppDelegate.swift in Sources */,
-				4D995AF9256E9E9A00AC8497 /* SceneDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A9E3A7B324643B7700E6A4B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1255,16 +1145,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4D995B0C256E9EA500AC8497 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D995AF3256E9E9A00AC8497 /* TestHost */;
-			targetProxy = 4D995B0B256E9EA500AC8497 /* PBXContainerItemProxy */;
-		};
-		585FA038256EA35200739D5B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
-			targetProxy = 585FA037256EA35200739D5B /* PBXContainerItemProxy */;
-		};
 		A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
@@ -1329,6 +1209,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1396,6 +1277,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1435,6 +1317,7 @@
 				DYLIB_CURRENT_VERSION = "";
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1485,6 +1368,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1519,63 +1403,6 @@
 			};
 			name = Release;
 		};
-		4D995B06256E9E9D00AC8497 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23T8TD424J;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TestHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mybraintechnologies.TestHost;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4D995B07256E9E9D00AC8497 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23T8TD424J;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TestHost/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mybraintechnologies.TestHost;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		A9E3A7BF24643B7700E6A4B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1585,6 +1412,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23T8TD424J;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
@@ -1600,7 +1428,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestHost.app/TestHost";
 			};
 			name = Debug;
 		};
@@ -1613,6 +1440,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23T8TD424J;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
@@ -1627,7 +1455,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestHost.app/TestHost";
 			};
 			name = Release;
 		};
@@ -1648,15 +1475,6 @@
 			buildConfigurations = (
 				3549BB271DA389CD00C63030 /* Debug */,
 				3549BB281DA389CD00C63030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4D995B05256E9E9D00AC8497 /* Build configuration list for PBXNativeTarget "TestHost" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4D995B06256E9E9D00AC8497 /* Debug */,
-				4D995B07256E9E9D00AC8497 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
