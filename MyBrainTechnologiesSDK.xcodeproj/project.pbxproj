@@ -191,13 +191,6 @@
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
-		4D995AF6256E9E9A00AC8497 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4D995AF8256E9E9A00AC8497 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4D995AFA256E9E9A00AC8497 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4D995AFD256E9E9A00AC8497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4D995AFF256E9E9D00AC8497 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4D995B02256E9E9D00AC8497 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4D995B04256E9E9D00AC8497 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTSignalProcessingBridge.mm; sourceTree = "<group>"; };
 		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
 		4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTBridgeConstants.h; sourceTree = "<group>"; };
@@ -430,7 +423,6 @@
 				3549BB161DA3890B00C63030 /* Sources */,
 				2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */,
 				A9E3A7B824643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
-				4D995AF5256E9E9A00AC8497 /* TestHost */,
 				3549BB061DA387DB00C63030 /* Products */,
 				357D954B1DA3F2B400AEC55F /* Frameworks */,
 			);
@@ -476,20 +468,6 @@
 				2BD94E6621C8CE7700A567EE /* Alamofire.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4D995AF5256E9E9A00AC8497 /* TestHost */ = {
-			isa = PBXGroup;
-			children = (
-				4D995AF6256E9E9A00AC8497 /* AppDelegate.swift */,
-				4D995AF8256E9E9A00AC8497 /* SceneDelegate.swift */,
-				4D995AFA256E9E9A00AC8497 /* ViewController.swift */,
-				4D995AFC256E9E9A00AC8497 /* Main.storyboard */,
-				4D995AFF256E9E9D00AC8497 /* Assets.xcassets */,
-				4D995B01256E9E9D00AC8497 /* LaunchScreen.storyboard */,
-				4D995B04256E9E9D00AC8497 /* Info.plist */,
-			);
-			path = TestHost;
 			sourceTree = "<group>";
 		};
 		4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */ = {
@@ -1151,25 +1129,6 @@
 			targetProxy = A9E3A7BD24643B7700E6A4B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4D995AFC256E9E9A00AC8497 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4D995AFD256E9E9A00AC8497 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4D995B01256E9E9D00AC8497 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4D995B02256E9E9D00AC8497 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3549BB0B1DA387DB00C63030 /* Debug */ = {
