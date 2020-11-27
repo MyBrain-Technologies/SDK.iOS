@@ -98,6 +98,6 @@ class EEGAcquisitionBuffer {
 
     previousIndex = packet.packetIndex.clamped(min: 0, max: Int16.max)
 
-    return missingPackets
+    return missingPackets - 1
   }
 }
