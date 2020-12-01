@@ -94,10 +94,15 @@ class EEGAcquisitionBuffer {
       previousIndex = packet.packetIndex - 1
     }
 
+    /// When packet.packetIndex = Int16.min
+    if previousIndex >= 32767 {
+      previousIndex = 0
+    }
+
     let missingPackets = Int32(packet.packetIndex - previousIndex)
 
     previousIndex = packet.packetIndex.clamped(min: 0, max: Int16.max)
 
-    return missingPackets
+    return missingPackets - 1
   }
 }
