@@ -24,7 +24,7 @@ struct Constants {
   //----------------------------------------------------------------------------
 
   struct Timeout {
-    static let connection = 20.0
+    static let connection = 30.0
     static let oadTransfer = 600.0
     static let batteryLevel = 120.0
     static let a2dpConnection = 10.0

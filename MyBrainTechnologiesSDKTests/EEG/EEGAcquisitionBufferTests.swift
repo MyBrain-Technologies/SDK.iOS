@@ -116,6 +116,20 @@ class EEGAcquisitionBufferTests: XCTestCase {
     XCTAssertEqual(savedPackets, expectedPackets)
   }
 
+  func testRealisticSetMaxIndex() {
+    let packets =
+      EEGAcquisitonRawPacketsToBuffer.Set1.packets
+
+    let acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: 40,
+                                                 lastIndex: Int16.max)
+
+    // When
+    let savedPackets = getUsablePackets(from: packets, on: acquisitionBuffer)
+
+    // Then
+    XCTAssertEqual(savedPackets.count, 0)
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Realistic packets with lost values
   //----------------------------------------------------------------------------

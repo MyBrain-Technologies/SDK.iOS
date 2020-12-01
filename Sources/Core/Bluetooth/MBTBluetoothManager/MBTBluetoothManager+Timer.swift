@@ -41,7 +41,7 @@ extension MBTBluetoothManager: BluetoothTimersDelegate {
   }
 
   func didA2DPConnectionTimeout() {
-    disconnect()
+//    disconnect()
 
     let error = AudioError.audioConnectionTimeOut.error
     log.error("📲 Audio connection timeout", context: error)
