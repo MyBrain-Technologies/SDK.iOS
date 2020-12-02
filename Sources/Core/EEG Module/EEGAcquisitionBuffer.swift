@@ -55,10 +55,6 @@ class EEGAcquisitionBuffer {
     log.verbose("Value length: \(rawPacket.packetValues.count)")
     log.verbose("Value: \(rawPacket.packetValues)")
     addMissingPackets(before: rawPacket)
-
-    // SHOULD BE CLAMPED between 0 and Int16.max
-    previousIndex = rawPacket.packetIndex.clamped(min: 0, max: Int16.max)
-
     packetBuffer.add(bytes: rawPacket.packetValues)
   }
 
@@ -90,9 +86,23 @@ class EEGAcquisitionBuffer {
 
   /// Return the number of packets missing between a packet and the last registered packet
   private func numberOfLostPackets(before packet: EEGRawPacket) -> Int32 {
-    let expectedIndex = previousIndex + 1
+    if packet.packetIndex == 0 {
+      previousIndex = 0
+    }
 
-    let missingPackets = Int32(packet.packetIndex - expectedIndex)
-    return missingPackets
+    if previousIndex == -1 {
+      previousIndex = packet.packetIndex - 1
+    }
+
+    /// When packet.packetIndex = Int16.min
+    if previousIndex >= 32767 {
+      previousIndex = 0
+    }
+
+    let missingPackets = Int32(packet.packetIndex - previousIndex)
+
+    previousIndex = packet.packetIndex.clamped(min: 0, max: Int16.max)
+
+    return missingPackets - 1
   }
 }
