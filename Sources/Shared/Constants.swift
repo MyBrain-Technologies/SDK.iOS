@@ -50,6 +50,9 @@ struct Constants {
 
     static let qrCodePrefixBatch3 = "MM1B3"
     static let qrCodeBatch3Length = 10
+
+    static let qrCodePrefixBatch4 = "MM1B4"
+    static let qrCodeBatch4Length = 10
   }
 
   //----------------------------------------------------------------------------
