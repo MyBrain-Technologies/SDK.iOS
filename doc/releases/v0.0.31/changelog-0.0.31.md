@@ -3,10 +3,10 @@ Release notes - SDK.iOS
 
 ## [Released]
 
-## [0.0.31] - 2020-12-10
+## [0.0.31] - 2020-12-16
 ## C++ [2.14.0]
-## Firmware [1.7.24]
+## Firmware [1.7.14]
 
 
 ## Task
-Update firmware version to v1.7.24
+Update QRCodes for batch4
