@@ -25,6 +25,8 @@
 		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */; };
+		4DEA73AE258BB908009346C4 /* mm-ota-1_7_24.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4DEA73AC258BB908009346C4 /* mm-ota-1_7_24.bin */; };
+		4DEA73AF258BB908009346C4 /* mm-ota-i3-1_7_24.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4DEA73AD258BB908009346C4 /* mm-ota-i3-1_7_24.bin */; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -123,8 +125,6 @@
 		A994297C2487D795003F48CC /* MelomindDeviceInformations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */; };
 		A9B252C92487F47E00867289 /* EEGAcquisitionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B252C82487F47E00867289 /* EEGAcquisitionProcessor.swift */; };
 		A9B252CB2488040000867289 /* EEGAcquisitionSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B252CA2488040000867289 /* EEGAcquisitionSaver.swift */; };
-		A9C05694247BFC3300EC8703 /* mm-ota-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */; };
-		A9C05695247BFC3300EC8703 /* mm-ota-i3-1_7_14.bin in Resources */ = {isa = PBXBuildFile; fileRef = A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */; };
 		A9D3B5DE23F40740006138E5 /* BluetoothState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D3B5DD23F40740006138E5 /* BluetoothState.swift */; };
 		A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */; };
 		A9E3A7BC24643B7700E6A4B9 /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
@@ -195,6 +195,8 @@
 		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
 		4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTBridgeConstants.h; sourceTree = "<group>"; };
 		4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTBridgeConstants.mm; sourceTree = "<group>"; };
+		4DEA73AC258BB908009346C4 /* mm-ota-1_7_24.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_24.bin"; sourceTree = "<group>"; };
+		4DEA73AD258BB908009346C4 /* mm-ota-i3-1_7_24.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_24.bin"; sourceTree = "<group>"; };
 		A90A1D5922C373350097C1BE /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = Sources/signalProcessingSDK/lib/libfftw3.a; sourceTree = "<group>"; };
 		A90A1D5A22C373360097C1BE /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQualityChecker.a; path = Sources/signalProcessingSDK/lib/libQualityChecker.a; sourceTree = "<group>"; };
 		A90A1D5B22C373360097C1BE /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAlgebra.a; path = Sources/signalProcessingSDK/lib/libAlgebra.a; sourceTree = "<group>"; };
@@ -293,8 +295,6 @@
 		A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelomindDeviceInformations.swift; sourceTree = "<group>"; };
 		A9B252C82487F47E00867289 /* EEGAcquisitionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionProcessor.swift; sourceTree = "<group>"; };
 		A9B252CA2488040000867289 /* EEGAcquisitionSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionSaver.swift; sourceTree = "<group>"; };
-		A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-1_7_14.bin"; path = "Sources/Resources/mm-ota-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
-		A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = "mm-ota-i3-1_7_14.bin"; path = "Sources/Resources/mm-ota-i3-1_7_14.bin"; sourceTree = SOURCE_ROOT; };
 		A9D3B5DD23F40740006138E5 /* BluetoothState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothState.swift; sourceTree = "<group>"; };
 		A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyBrainTechnologiesSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
@@ -807,8 +807,8 @@
 		B5378CFF21F8B43E007F12DA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A9C05692247BFC3200EC8703 /* mm-ota-1_7_14.bin */,
-				A9C05693247BFC3200EC8703 /* mm-ota-i3-1_7_14.bin */,
+				4DEA73AC258BB908009346C4 /* mm-ota-1_7_24.bin */,
+				4DEA73AD258BB908009346C4 /* mm-ota-i3-1_7_24.bin */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */,
 				B53A0976220490CB00DAD321 /* qrcodeSerial.csv */,
@@ -934,9 +934,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEA73AE258BB908009346C4 /* mm-ota-1_7_24.bin in Resources */,
 				B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */,
-				A9C05694247BFC3300EC8703 /* mm-ota-1_7_14.bin in Resources */,
-				A9C05695247BFC3300EC8703 /* mm-ota-i3-1_7_14.bin in Resources */,
+				4DEA73AF258BB908009346C4 /* mm-ota-i3-1_7_24.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1270,6 +1270,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 23T8TD424J;
 				DYLIB_COMPATIBILITY_VERSION = "";
@@ -1298,7 +1299,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.0.26;
+				MARKETING_VERSION = 0.0.32;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode-marker";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
@@ -1318,6 +1319,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 23T8TD424J;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1346,7 +1348,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.0.26;
+				MARKETING_VERSION = 0.0.32;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
