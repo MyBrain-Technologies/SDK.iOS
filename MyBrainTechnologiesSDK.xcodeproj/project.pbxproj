@@ -18,8 +18,8 @@
 		2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D46629125C2DFD0001F5CD3 /* mm-ota-i3-1_7_25.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D46628F25C2DFD0001F5CD3 /* mm-ota-i3-1_7_25.bin */; };
-		4D46629225C2DFD0001F5CD3 /* mm-ota-1_7_25.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D46629025C2DFD0001F5CD3 /* mm-ota-1_7_25.bin */; };
+		4D3A054125CAD9D20069FC01 /* mm-ota-i3-1_7_24.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D3A053F25CAD9D20069FC01 /* mm-ota-i3-1_7_24.bin */; };
+		4D3A054225CAD9D20069FC01 /* mm-ota-1_7_24.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D3A054025CAD9D20069FC01 /* mm-ota-1_7_24.bin */; };
 		4D5EE9DD234E096D00B36DF0 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
 		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
@@ -188,8 +188,8 @@
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D46628F25C2DFD0001F5CD3 /* mm-ota-i3-1_7_25.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_25.bin"; sourceTree = "<group>"; };
-		4D46629025C2DFD0001F5CD3 /* mm-ota-1_7_25.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_25.bin"; sourceTree = "<group>"; };
+		4D3A053F25CAD9D20069FC01 /* mm-ota-i3-1_7_24.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_24.bin"; sourceTree = "<group>"; };
+		4D3A054025CAD9D20069FC01 /* mm-ota-1_7_24.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_24.bin"; sourceTree = "<group>"; };
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -807,8 +807,8 @@
 		B5378CFF21F8B43E007F12DA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4D46629025C2DFD0001F5CD3 /* mm-ota-1_7_25.bin */,
-				4D46628F25C2DFD0001F5CD3 /* mm-ota-i3-1_7_25.bin */,
+				4D3A054025CAD9D20069FC01 /* mm-ota-1_7_24.bin */,
+				4D3A053F25CAD9D20069FC01 /* mm-ota-i3-1_7_24.bin */,
 				3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */,
 				4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */,
 				B53A0976220490CB00DAD321 /* qrcodeSerial.csv */,
@@ -934,9 +934,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3A054125CAD9D20069FC01 /* mm-ota-i3-1_7_24.bin in Resources */,
 				B53A0977220490CB00DAD321 /* qrcodeSerial.csv in Resources */,
-				4D46629125C2DFD0001F5CD3 /* mm-ota-i3-1_7_25.bin in Resources */,
-				4D46629225C2DFD0001F5CD3 /* mm-ota-1_7_25.bin in Resources */,
+				4D3A054225CAD9D20069FC01 /* mm-ota-1_7_24.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
