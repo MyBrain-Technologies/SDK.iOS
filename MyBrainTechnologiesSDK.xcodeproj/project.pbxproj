@@ -1299,7 +1299,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.0.32;
+				MARKETING_VERSION = 0.0.33;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode-marker";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
@@ -1348,7 +1348,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.0.32;
+				MARKETING_VERSION = 0.0.33;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
