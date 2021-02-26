@@ -42,7 +42,7 @@ public class MBTDevice: Object {
 
   var qrCode: String? {
     guard let deviceId = deviceInfos?.deviceId else { return nil }
-    return MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId)
+    return MBTQRCodeSerial.shared.qrCode // MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId)
   }
 
   var shouldUpdateFirmware: Bool {

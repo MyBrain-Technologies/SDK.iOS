@@ -76,7 +76,7 @@ extension String {
 //    if isQrCodeBatch2 {
 //      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
 //    }
-    return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
+    return MBTQRCodeSerial.shared.serialNumber //MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
   }
 
   var serialNumberFromDeviceName: String? {
