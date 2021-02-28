@@ -282,6 +282,14 @@ internal class MBTBluetoothManager: NSObject {
         DispatchQueue.main.sync {
           if let currentDevice = DeviceManager.getCurrentDevice(),
             let currentDeviceInfo = currentDevice.deviceInfos {
+            if let productName = currentDeviceInfo.productName,
+               let deviceId = currentDeviceInfo.deviceId {
+              MBTQRCodeSerial.shared.setQrCodeAndSerialNumber(
+                qrCode: productName,
+                serialNumber: deviceId
+              )
+              log.verbose("productName: \(productName) - deviceId: \(deviceId)")
+            }
             isDeviceInfoNotNil = currentDeviceInfo.isDeviceInfoNotNil
           }
         }
