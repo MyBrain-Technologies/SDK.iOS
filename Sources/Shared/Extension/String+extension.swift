@@ -18,12 +18,13 @@ extension String {
   }
 
   var versionNumber: String? {
-    return firstMatch(regex: Constants.versionRegex)
+    let indusVersionRegex = #"(\d+[_.]){2}\d+"# // was Constants.versionRegex
+    return firstMatch(regex: indusVersionRegex)
   }
 
   func getVersionNumber(withSeparator separator: Character) -> String? {
-    return Constants.versionSeparators.reduce(versionNumber)
-    { result, character in
+    return Constants.versionSeparators.reduce(versionNumber) {
+      result, character in
       let newResult = result?.replacingOccurrences(of: "\(character)",
                                                    with: "\(separator)")
       return newResult
@@ -76,7 +77,7 @@ extension String {
 //    if isQrCodeBatch2 {
 //      qrCode.append(Constants.DeviceName.qrCodeBatch2EndCharacter)
 //    }
-    return MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
+    return MBTQRCodeSerial.shared.serialNumber //MBTQRCodeSerial(qrCodeisKey: true).value(for: qrCode)
   }
 
   var serialNumberFromDeviceName: String? {
