@@ -40,6 +40,7 @@ extension String {
       || isQrCodeBatch2
       || isQrCodeBatch3
       || isQrCodeBatch4
+      || isQrCodeFSK
       || isQrCodeBatch5
   }
 
@@ -61,6 +62,11 @@ extension String {
   var isQrCodeBatch4: Bool {
     return starts(with: Constants.DeviceName.qrCodePrefixBatch4)
       && count == Constants.DeviceName.qrCodeBatch4Length
+  }
+
+  var isQrCodeFSK: Bool {
+    return starts(with: Constants.DeviceName.qrCodePrefixFSK)
+      && count == Constants.DeviceName.qrCodeFSKLength
   }
 
   var isQrCodeBatch5: Bool {

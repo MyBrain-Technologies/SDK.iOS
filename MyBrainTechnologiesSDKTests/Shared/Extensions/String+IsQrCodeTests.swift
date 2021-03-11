@@ -11,6 +11,7 @@ class StringIsQrCodeTests: XCTestCase {
   let qrCodeBatch2 = "MM1B20554."
   let qrCodeBatch3 = "MM1B300001"
   let qrCodeBatch4 = "MM1B400011"
+  let qrCodeFSK = "MM2B200007"
   let qrCodeBatch5 = "MM2B100007"
 
   var validQrCodes: [String] {
@@ -19,6 +20,7 @@ class StringIsQrCodeTests: XCTestCase {
       qrCodeBatch2,
       qrCodeBatch3,
       qrCodeBatch4,
+      qrCodeFSK,
       qrCodeBatch5
     ]
   }
@@ -89,6 +91,16 @@ class StringIsQrCodeTests: XCTestCase {
     }
     XCTAssertFalse("MM1B40054".isQrCodeBatch4)
     XCTAssertFalse("MM1B4005440".isQrCodeBatch4)
+  }
+
+  func test_is_QrCodeFSK() {
+    XCTAssertTrue(qrCodeFSK.isQrCodeFSK)
+
+    isNotAnOtherQRCodes(qrCode: qrCodeFSK) {
+      return $0.isQrCodeFSK
+    }
+    XCTAssertFalse("MM2B20000".isQrCodeFSK)
+    XCTAssertFalse("MM2B2000070".isQrCodeFSK)
   }
 
   func test_is_QrCodeBatch5() {
