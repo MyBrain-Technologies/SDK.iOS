@@ -138,7 +138,6 @@
 		A9E3A7C824643E8100E6A4B9 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
 		A9E3A7C924643E8100E6A4B9 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		A9E3A7CA24643E8100E6A4B9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
-		A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7CB24643F5200E6A4B9 /* CSVConverterTests.swift */; };
 		A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */; };
 		A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */; };
 		B51B949B22394B3B00FD1F12 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
@@ -304,7 +303,6 @@
 		A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyBrainTechnologiesSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
 		A9E3A7BB24643B7700E6A4B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A9E3A7CB24643F5200E6A4B9 /* CSVConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVConverterTests.swift; sourceTree = "<group>"; };
 		A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRelaxIndexAlgorithmTests.swift; sourceTree = "<group>"; };
 		A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersionTests.swift; sourceTree = "<group>"; };
 		B5378D0821F8B8A4007F12DA /* CSVConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVConverter.swift; sourceTree = "<group>"; };
@@ -802,7 +800,6 @@
 				A91BD919247D714400603C42 /* Extensions */,
 				A92FCD56246AAFA100D7DB51 /* Network */,
 				A96BF12824698F2300582DB1 /* Files */,
-				A9E3A7CB24643F5200E6A4B9 /* CSVConverterTests.swift */,
 				A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */,
 				A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */,
 			);
@@ -1124,7 +1121,6 @@
 				A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */,
 				A926C3F3248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift in Sources */,
 				A91BD904247D1F6400603C42 /* BluetoothStatesHistoryTests.swift in Sources */,
-				A9E3A7CC24643F5200E6A4B9 /* CSVConverterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
