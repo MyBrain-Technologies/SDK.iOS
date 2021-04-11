@@ -379,6 +379,10 @@ public class MBTClient {
     eegAcquisitionManager.streamHasStopped()
   }
 
+  //----------------------------------------------------------------------------
+  // MARK: - OAD
+  //----------------------------------------------------------------------------
+
   /// Start the OAD process
   public func startOADTransfer() {
     bluetoothManager.startOAD()

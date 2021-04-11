@@ -1,13 +1,22 @@
 import Foundation
 
 enum IndusVersion: CaseIterable {
+
+  //----------------------------------------------------------------------------
+  // MARK: - Cases
+  //----------------------------------------------------------------------------
+
   case indus2
   case indus3
+  case indus5
 
   var binaryPrefix: String {
     switch self {
-    case .indus2: return "mm-ota-"
-    case .indus3: return "mm-ota-i3-"
+      case .indus2: return "mm-ota-"
+      case .indus3: return "mm-ota-i3-"
+      case .indus5:
+        #warning("TODO CHECK IT")
+        return "mm-ota-i5-"
     }
   }
 
@@ -17,8 +26,11 @@ enum IndusVersion: CaseIterable {
 
   var hardwareVersion: String {
     switch self {
-    case .indus2: return "1.0.0"
-    case .indus3: return "1.1.0"
+      case .indus2: return "1.0.0"
+      case .indus3: return "1.1.0"
+      case .indus5:
+        #warning("TODO CHECK IT")
+        return "1.1.0"
     }
   }
 
@@ -29,4 +41,5 @@ enum IndusVersion: CaseIterable {
     guard let indusVersion = version else { return nil }
     self = indusVersion
   }
+
 }
