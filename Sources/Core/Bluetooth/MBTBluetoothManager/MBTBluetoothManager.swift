@@ -282,6 +282,14 @@ internal class MBTBluetoothManager: NSObject {
         DispatchQueue.main.sync {
           if let currentDevice = DeviceManager.getCurrentDevice(),
             let currentDeviceInfo = currentDevice.deviceInfos {
+            if let productName = currentDeviceInfo.productName,
+               let deviceId = currentDeviceInfo.deviceId {
+              MBTQRCodeSerial.shared.setQrCodeAndSerialNumber(
+                qrCode: productName,
+                serialNumber: deviceId
+              )
+              log.verbose("productName: \(productName) - deviceId: \(deviceId)")
+            }
             isDeviceInfoNotNil = currentDeviceInfo.isDeviceInfoNotNil
           }
         }
@@ -318,8 +326,8 @@ internal class MBTBluetoothManager: NSObject {
   }
 
   internal func getDeviceExternalName() -> String? {
-    if let deviceId = DeviceManager.getDeviceInfos()?.deviceId,
-      let name = MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
+    if let _ = DeviceManager.getDeviceInfos()?.deviceId,
+       let name = MBTQRCodeSerial.shared.qrCode { // MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
       return name
     }
     return nil

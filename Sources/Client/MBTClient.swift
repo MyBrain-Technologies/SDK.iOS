@@ -191,6 +191,11 @@ public class MBTClient {
     return qrCode.serialNumberFomQRCode
   }
 
+  public func setQrCodeAndSerialNumber(qrCode: String, serialNumber: String) {
+    MBTQRCodeSerial.shared.setQrCodeAndSerialNumber(qrCode: qrCode,
+                                                    serialNumber: serialNumber)
+  }
+
   /// Get the latest battery level saved in DB.
   ///
   /// - Returns: A *Int* instance of latest battery level saved in DB or nil if
