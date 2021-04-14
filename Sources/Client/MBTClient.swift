@@ -437,10 +437,15 @@ public class MBTClient {
   ) -> CalibrationOutput? {
     let eegPacketsCount = EEGPacketManager.shared.getEEGPackets().count
 
-    guard DeviceManager.connectedDeviceName != nil,
-      eegPacketsCount >= numberOfPackets else { return nil }
+    guard let currentDevice = DeviceManager.getCurrentDevice(),
+      eegPacketsCount >= numberOfPackets else {
+      return nil
+    }
 
-    return signalProcessingManager.computeCalibration(numberOfPackets)
+    return signalProcessingManager.computeCalibration(
+      numberOfPackets,
+      currentDevice: currentDevice,
+      eegPacketManager: EEGPacketManager.shared)
   }
 
   /// computeRelaxIndex
