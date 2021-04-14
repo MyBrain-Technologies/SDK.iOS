@@ -47,6 +47,8 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
+  private init() {}
+
   /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
   func initializeQualityChecker() -> Bool {
     // Getting connected MBTDevice *sampRate*.
