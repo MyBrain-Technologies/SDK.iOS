@@ -83,11 +83,25 @@ internal class MBTEEGAcquisitionManager: NSObject  {
                      comments: [String] = [],
                      completion: @escaping (URL?) -> Void) {
     let packets = EEGPacketManager.shared.getArrayEEGPackets()
+    let eegPacketManager = EEGPacketManager.shared
+    guard let device = DeviceManager.getCurrentDevice() else {
+      log.error("Current device not found")
+      completion(nil)
+      return
+    }
+    let recordingInformation = MBTClient.shared.recordInfo
+    let recordFileSaver = RecordFileSaver.shared
+
     acquisisitonSaver.saveRecording(packets: packets,
+                                    eegPacketManager: eegPacketManager,
                                     idUser: idUser,
                                     algo: algo,
                                     comments: comments,
-                                    completion: { completion($0) })
+                                    device: device,
+                                    recordingInformation: recordingInformation,
+                                    recordFileSaver: recordFileSaver) { url in
+      completion(url)
+    }
   }
 
   //----------------------------------------------------------------------------

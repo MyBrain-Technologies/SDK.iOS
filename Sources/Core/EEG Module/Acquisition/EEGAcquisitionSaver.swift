@@ -8,6 +8,7 @@ import RealmSwift
  * Legacy code - not tested
  *
  ******************************************************************************/
+// GOOD
 class EEGAcquisitionSaver {
 
   //----------------------------------------------------------------------------
@@ -31,14 +32,18 @@ class EEGAcquisitionSaver {
   ///   - comments: An array of *String* contains Optional Comments
   ///   - completion: A block which execute after create the file or fail to create
   func saveRecording(packets: [MBTEEGPacket],
+                     eegPacketManager: EEGPacketManager,
                      idUser: Int,
                      algo: String?,
                      comments: [String] = [],
+                     device: MBTDevice,
+                     recordingInformation: MBTRecordInfo,
+                     recordFileSaver: RecordFileSaver,
                      completion: @escaping (URL?) -> Void) {
-    guard let device = DeviceManager.getCurrentDevice() else {
-      completion(nil)
-      return
-    }
+//    guard let device = DeviceManager.getCurrentDevice() else {
+//      completion(nil)
+//      return
+//    }
 
     let deviceReference = ThreadSafeReference(to: device)
     let packetsReferences = packets.map() { ThreadSafeReference(to: $0) }
@@ -61,14 +66,16 @@ class EEGAcquisitionSaver {
           return
       }
 
-      let currentRecordInfo = MBTClient.shared.recordInfo
+//      let currentRecordInfo = MBTClient.shared.recordInfo
 
-      let savingRecord = self.getEEGSavingRecord(savedDevice,
-                                                 idUser: idUser,
-                                                 algo: algo,
-                                                 eegPackets: savedPackets,
-                                                 recordInfo: currentRecordInfo,
-                                                 comments: comments)
+      let savingRecord =
+        self.getEEGSavingRecord(savedDevice,
+                                idUser: idUser,
+                                algo: algo,
+                                eegPackets: savedPackets,
+                                eegPacketManager: eegPacketManager,
+                                recordInfo: recordingInformation,
+                                comments: comments)
 
       guard let jsonObject = savingRecord.toJSON else {
           log.error("Cannot encore saving record object to JSON")
@@ -77,12 +84,18 @@ class EEGAcquisitionSaver {
       }
 
       // Save JSON with EEG data received.
-      let deviceId = savedDevice.deviceInfos!.deviceId!
-      let fileURL = RecordFileSaver.shared.saveRecord(jsonObject,
-                                                      deviceId: deviceId,
-                                                      userId: idUser)
+      guard let deviceId = savedDevice.deviceInfos?.deviceId else {
+        log.error("Cannot get deviceId")
+        DispatchQueue.main.async { completion(nil) }
+        return
+      }
+
+      // RecordFileSaver.shared
+      let fileURL = recordFileSaver.saveRecord(jsonObject,
+                                               deviceId: deviceId,
+                                               userId: idUser)
       DispatchQueue.main.async {
-        EEGPacketManager.shared.removePackets(packets)
+        eegPacketManager.removePackets(packets)
         completion(fileURL)
       }
     }
@@ -92,6 +105,7 @@ class EEGAcquisitionSaver {
                                   idUser: Int,
                                   algo: String?,
                                   eegPackets: [MBTEEGPacket],
+                                  eegPacketManager: EEGPacketManager,
                                   recordInfo: MBTRecordInfo,
                                   comments: [String] = []) -> EEGSavingRecord {
     let context = EEGSavingRecordContext(ownerId: idUser, riAlgo: algo ?? "")
@@ -102,8 +116,8 @@ class EEGAcquisitionSaver {
       recordingTime: eegPackets.first?.timestamp ?? 0,
       nbPackets: eegPackets.count,
       firstPacketId: 0,
-      qualities: EEGPacketManager.shared.getQualities(eegPackets),
-      channelData: EEGPacketManager.shared.getEEGDatas(eegPackets)
+      qualities: eegPacketManager.getQualities(eegPackets),
+      channelData: eegPacketManager.getEEGDatas(eegPackets)
     )
 
     let header = device.getAsRecordHeader(comments: comments)
