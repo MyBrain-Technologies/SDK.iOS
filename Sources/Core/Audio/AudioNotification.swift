@@ -7,6 +7,7 @@ import AVFoundation
  * Interpret notification on the audio scope.
  *
  ******************************************************************************/
+// Good
 struct AudioNotification {
 
   //----------------------------------------------------------------------------
