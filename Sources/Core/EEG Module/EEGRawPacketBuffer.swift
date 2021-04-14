@@ -1,5 +1,5 @@
 import Foundation
-
+// Good
 class EEGRawPacketBuffer {
 
   //----------------------------------------------------------------------------
