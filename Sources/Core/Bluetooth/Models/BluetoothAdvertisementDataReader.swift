@@ -1,6 +1,8 @@
 import Foundation
 import CoreBluetooth
 
+// Good
+
 struct BluetoothAdvertisementDataReader {
 
   //----------------------------------------------------------------------------
@@ -28,4 +30,5 @@ struct BluetoothAdvertisementDataReader {
   init(data: [String: Any]) {
     self.data = data
   }
+
 }

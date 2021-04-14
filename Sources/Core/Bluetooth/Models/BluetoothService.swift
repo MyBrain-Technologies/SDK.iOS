@@ -1,6 +1,6 @@
 import Foundation
 import CoreBluetooth
-
+// Good
 enum BluetoothService: String, CaseIterable {
   case myBrainService = "0xB2A0"
   case brainActivityMeasurement = "0xB2A5"

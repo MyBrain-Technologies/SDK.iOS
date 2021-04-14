@@ -6,6 +6,7 @@ import Foundation
  * Store and retrieve bluetooth connections states history.
  *
  ******************************************************************************/
+// Good
 class BluetoothStateHistory {
 
   //----------------------------------------------------------------------------
@@ -55,4 +56,5 @@ class BluetoothStateHistory {
       stateHistory.removeFirst()
     }
   }
+
 }

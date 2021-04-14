@@ -6,6 +6,7 @@ import Foundation
  * Mail Box Response of A2DP Connection
  *
  ******************************************************************************/
+// Good
 enum MailBoxA2DPResponse: UInt8, CaseIterable {
   case inProgress = 0x01
   case failedBadAdress = 0x02

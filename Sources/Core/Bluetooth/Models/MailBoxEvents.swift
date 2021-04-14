@@ -6,6 +6,7 @@ import Foundation
  * Mail box event (communication with headset by BLE)
  *
  ******************************************************************************/
+// Good
 enum MailBoxEvents: UInt8 {
   case setADSConfig = 0
   case setAudioconfig = 1
