@@ -43,7 +43,11 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///
   /// - Parameter device: A *MBTDevice* of the connected Melomind
   func setUpWith(device: MBTDevice) {
-    acquisitionProcessor = EEGAcquisitionProcessor(device: device)
+    acquisitionProcessor = EEGAcquisitionProcessor(
+      device: device,
+      signalProcessor: MBTSignalProcessingManager.shared
+    )
+    #warning("How to remove the resetSession session here?")
     signalProcessor.resetSession()
   }
 
