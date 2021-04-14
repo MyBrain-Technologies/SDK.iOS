@@ -356,13 +356,9 @@
 		2B6B5D96205139D800928F1F /* EEG Module */ = {
 			isa = PBXGroup;
 			children = (
+				4DDD64E02626F61A0072ECF9 /* EegPacket */,
 				2B6B5D97205139D800928F1F /* Acquisition */,
 				2B6B5D9C205139D800928F1F /* Signal Processing */,
-				A92CA4302462FB3100688CE5 /* MBTEEGPacketManager.swift */,
-				A9130BC624800BAE00CB1840 /* EEGDeserializer.swift */,
-				A92D7A4224813606000DF7C3 /* EEGRawPacketBuffer.swift */,
-				A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */,
-				A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */,
 			);
 			path = "EEG Module";
 			sourceTree = "<group>";
@@ -490,6 +486,18 @@
 				4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */,
 			);
 			path = "Code bridge";
+			sourceTree = "<group>";
+		};
+		4DDD64E02626F61A0072ECF9 /* EegPacket */ = {
+			isa = PBXGroup;
+			children = (
+				A92CA4302462FB3100688CE5 /* MBTEEGPacketManager.swift */,
+				A9130BC624800BAE00CB1840 /* EEGDeserializer.swift */,
+				A92D7A4224813606000DF7C3 /* EEGRawPacketBuffer.swift */,
+				A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */,
+				A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */,
+			);
+			path = EegPacket;
 			sourceTree = "<group>";
 		};
 		4DED193726258C3F001CEE5F /* Refactoring */ = {
