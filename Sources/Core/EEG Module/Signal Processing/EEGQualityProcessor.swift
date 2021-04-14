@@ -7,6 +7,7 @@ import RealmSwift
  * Compute a quality value
  *
  ******************************************************************************/
+// GOOD
 struct EEGQualityProcessor {
 
   /// Compute a quality value for `channelsData`.

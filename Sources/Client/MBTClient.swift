@@ -379,7 +379,10 @@ public class MBTClient {
   /// Start streaming headSet Data from HeadsetStatus Characteristic.
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
   public func startStream(_ shouldUseQualityChecker: Bool) {
-    eegAcquisitionManager.streamHasStarted(shouldUseQualityChecker)
+    eegAcquisitionManager.streamHasStarted(
+      isUsingQualityChecker: shouldUseQualityChecker,
+      currentDevice: DeviceManager.getCurrentDevice()
+    )
     bluetoothManager.isListeningToEEG = true
     bluetoothManager.isListeningToHeadsetStatus = true
   }

@@ -1,11 +1,14 @@
 import Foundation
 import RealmSwift
 
+#warning("TODO: Remove theses protocols??? Used in only one class")
+
 /// Protocol to call Quality Checker methods from the Objective-C++ bridge.
 protocol MBTQualityComputer {
 
   /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-  func initializeQualityChecker() -> Bool
+  func initializeQualityChecker(withSampleRate sampleRate: Float,
+                                accuracy: Float) -> Bool
 
   /// Returns an array of "quality" values for a data matrix of an acquisition packet.
   /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)

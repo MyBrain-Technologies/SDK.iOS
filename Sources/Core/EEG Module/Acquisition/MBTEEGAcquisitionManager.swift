@@ -54,12 +54,20 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// Method called by MelomindEngine when a new EEG streaming
   /// session has began. Method will make everything ready, acquisition side
   /// for the new session.
-  func streamHasStarted(_ useQualityChecker: Bool) {
+  func streamHasStarted(isUsingQualityChecker: Bool,
+                        currentDevice: MBTDevice?) {
     // Start mainQualityChecker.
-    guard useQualityChecker else { return }
+    guard isUsingQualityChecker else { return }
 
-    shouldUseQualityChecker =
-      signalProcessor.initializeQualityChecker()
+    // Getting connected MBTDevice *sampRate*.
+    guard let sampleRate = currentDevice?.sampRate else {
+      shouldUseQualityChecker = false
+      return
+    }
+
+    shouldUseQualityChecker = signalProcessor.initializeQualityChecker(
+      withSampleRate: Float(sampleRate)
+    )
   }
 
   /// Method called by MelomindEngine when the current EEG streaming

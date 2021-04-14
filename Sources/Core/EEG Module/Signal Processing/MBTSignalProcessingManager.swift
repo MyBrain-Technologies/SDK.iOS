@@ -50,11 +50,11 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   private init() {}
 
   /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-  func initializeQualityChecker() -> Bool {
-    // Getting connected MBTDevice *sampRate*.
-    guard let sampRate = DeviceManager.getDeviceSampRate() else { return false }
-    MBTQualityCheckerBridge.initializeMainQualityChecker(Float(sampRate),
+  func initializeQualityChecker(withSampleRate sampleRate: Float,
+                                accuracy: Float = 0.85) -> Bool {
+    MBTQualityCheckerBridge.initializeMainQualityChecker(sampleRate,
                                                          accuracy: 0.85)
+    #warning("Remove result bool??")
     return true
   }
 
