@@ -6,6 +6,9 @@ import Foundation
  * *MBTDevice* model DB Manager.
  *
  ******************************************************************************/
+
+#warning("TODO: Remove Database???")
+
 class DeviceManager: MBTRealmEntityManager {
 
   //----------------------------------------------------------------------------

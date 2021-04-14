@@ -192,6 +192,8 @@ public class MBTClient {
   }
 
   public func setQrCodeAndSerialNumber(qrCode: String, serialNumber: String) {
+    #warning("TODO: remove singleton")
+    // DeviceManager.getCurrentDevice()?.setQrCodeAndSerialNumber(
     MBTQRCodeSerial.shared.setQrCodeAndSerialNumber(qrCode: qrCode,
                                                     serialNumber: serialNumber)
   }

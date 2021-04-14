@@ -32,6 +32,7 @@
 		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */; };
+		4DED193926258C56001CEE5F /* MBTClientV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DED193826258C56001CEE5F /* MBTClientV2.swift */; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -200,6 +201,7 @@
 		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
 		4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTBridgeConstants.h; sourceTree = "<group>"; };
 		4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTBridgeConstants.mm; sourceTree = "<group>"; };
+		4DED193826258C56001CEE5F /* MBTClientV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTClientV2.swift; sourceTree = "<group>"; };
 		A90A1D5922C373350097C1BE /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = Sources/signalProcessingSDK/lib/libfftw3.a; sourceTree = "<group>"; };
 		A90A1D5A22C373360097C1BE /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQualityChecker.a; path = Sources/signalProcessingSDK/lib/libQualityChecker.a; sourceTree = "<group>"; };
 		A90A1D5B22C373360097C1BE /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAlgebra.a; path = Sources/signalProcessingSDK/lib/libAlgebra.a; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 		3549BB161DA3890B00C63030 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4DED193726258C3F001CEE5F /* Refactoring */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
 				A91DC0EB2490CCD500E4A440 /* Core */,
 				B5378D0A21F8B8A8007F12DA /* Shared */,
@@ -487,6 +490,14 @@
 				4DD985052265C8D300E788F2 /* MBTBridgeConstants.mm */,
 			);
 			path = "Code bridge";
+			sourceTree = "<group>";
+		};
+		4DED193726258C3F001CEE5F /* Refactoring */ = {
+			isa = PBXGroup;
+			children = (
+				4DED193826258C56001CEE5F /* MBTClientV2.swift */,
+			);
+			path = Refactoring;
 			sourceTree = "<group>";
 		};
 		A9130BCA24800D7100CB1840 /* EEG */ = {
@@ -1005,6 +1016,7 @@
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
 				A91DC1232490CFA300E4A440 /* BluetoothTimers.swift in Sources */,
+				4DED193926258C56001CEE5F /* MBTClientV2.swift in Sources */,
 				A926C3FC248E70E500B01186 /* MBTClient+MelomindAnalysis.swift in Sources */,
 				A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */,
 				A91DC1102490CF6200E4A440 /* MBTBluetoothManager+A2DP.swift in Sources */,
