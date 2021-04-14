@@ -15,7 +15,7 @@ import RealmSwift
  * Holds the current implementation of the signal processing protocols.
  *
  ******************************************************************************/
-
+// GOOD
 internal class MBTSignalProcessingManager: MBTQualityComputer {
 
   //----------------------------------------------------------------------------
@@ -28,16 +28,13 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   static let shared = MBTSignalProcessingManager()
 
   /// Dictionnary to store calibration results.
-  internal var calibrationComputed: CalibrationOutput!
+  internal var calibrationComputed: CalibrationOutput?
 
   ///
   internal var sampRate: Int = 0
 
   ///
   internal var eegPacketLength: Int = 0
-
-  ///
-  internal var version = MBTQualityCheckerBridge.getVersion()
 
   internal var relaxIndexAlgorithm = MBTRelaxIndexAlgorithm.algorithm(
     fromSDKVersion: MBTQualityCheckerBridge.getVersion()!
@@ -87,6 +84,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   func computeQualityValue(_ data: List<ChannelsData>,
                            sampRate: Int,
                            eegPacketLength: Int) -> [Float] {
+    #warning("Why is it passed as parameter and the property being init here?")
     self.sampRate = sampRate
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
@@ -128,6 +126,7 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
 
     return parameters
   }
+
 }
 
 //==============================================================================

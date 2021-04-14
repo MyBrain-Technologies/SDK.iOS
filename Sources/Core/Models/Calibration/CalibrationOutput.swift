@@ -8,6 +8,7 @@ import Foundation
  * See code here: https://github.com/mbt-administrator/Melomind.Algorithms
  *
  ******************************************************************************/
+
 public struct CalibrationOutput {
 
   //----------------------------------------------------------------------------
