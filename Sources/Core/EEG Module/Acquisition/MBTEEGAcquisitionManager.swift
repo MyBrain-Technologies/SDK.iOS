@@ -23,9 +23,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
   /******************** Convert and save eeg ********************/
 
-  var acquisitionProcessor: EEGAcquisitionProcessor?
+  private var acquisitionProcessor: EEGAcquisitionProcessor?
 
-  let acquisisitonSaver = EEGAcquisitionSaver()
+  private let acquisisitonSaver = EEGAcquisitionSaver()
 
   /********************  Parameters ********************/
 
@@ -78,20 +78,15 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///   - idUser: A *Int* id of the connected user
   ///   - comments: An array of *String* contains Optional Comments
   ///   - completion: A block which execute after create the file or fail to create
-  func saveRecording(_ idUser: Int,
+  func saveRecording(userId idUser: Int,
                      algo: String?,
                      comments: [String] = [],
+                     eegPacketManager: EEGPacketManager,
+                     device: MBTDevice,
+                     recordingInformation: MBTRecordInfo,
+                     recordFileSaver: RecordFileSaver,
                      completion: @escaping (URL?) -> Void) {
-    let packets = EEGPacketManager.shared.getArrayEEGPackets()
-    let eegPacketManager = EEGPacketManager.shared
-    guard let device = DeviceManager.getCurrentDevice() else {
-      log.error("Current device not found")
-      completion(nil)
-      return
-    }
-    let recordingInformation = MBTClient.shared.recordInfo
-    let recordFileSaver = RecordFileSaver.shared
-
+    let packets = eegPacketManager.getArrayEEGPackets()
     acquisisitonSaver.saveRecording(packets: packets,
                                     eegPacketManager: eegPacketManager,
                                     idUser: idUser,

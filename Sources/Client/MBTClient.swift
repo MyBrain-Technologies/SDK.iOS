@@ -260,10 +260,22 @@ public class MBTClient {
                                   algo: String? = nil,
                                   comments: [String] = [String](),
                                   completion: @escaping (URL?) -> Void) {
-    eegAcquisitionManager.saveRecording(idUser,
-                                        algo: algo,
-                                        comments: comments,
-                                        completion: completion)
+    guard let device = DeviceManager.getCurrentDevice() else {
+      log.error("Current device not found")
+      completion(nil)
+      return
+    }
+
+    eegAcquisitionManager.saveRecording(
+      userId: idUser,
+      algo: algo,
+      comments: comments,
+      eegPacketManager: EEGPacketManager.shared,
+      device: device,
+      recordingInformation: recordInfo,
+      recordFileSaver: RecordFileSaver.shared,
+      completion: completion
+    )
   }
 
   //----------------------------------------------------------------------------
