@@ -35,7 +35,8 @@ protocol MBTRelaxIndexComputer {
   /// - parameter parametersFromCalibration: A dictionary with the parameters computed from the calibration data.
   /// - parameter sampRate: The data sampling rate.
   /// - returns: The relaxation index for the packet.
-  func computeRelaxIndex() -> Float?
+  func computeRelaxIndex(eegPacketManager: EEGPacketManager,
+                         forDevice device: MBTDevice) -> Float?
 }
 
 protocol MBTSessionAnalysisComputer {

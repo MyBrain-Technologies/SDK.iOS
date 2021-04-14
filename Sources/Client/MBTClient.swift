@@ -445,11 +445,17 @@ public class MBTClient {
   /// - Returns: RelaxIndex
   public func computeRelaxIndex() -> Float? {
     let eegPacketCount = EEGPacketManager.shared.getEEGPackets().count
+
+    #warning("Condition is not the same as inside `computeRelaxIndex`. Here: getEEGPackets().count, return nil. Inside: lastPackets.count, return 0")
     let isEegPacketsCountHigherThanHistorySize =
       eegPacketCount >= Constants.EEGPackets.historySize
-    guard DeviceManager.connectedDeviceName != nil,
-      isEegPacketsCountHigherThanHistorySize else { return nil }
-    return signalProcessingManager.computeRelaxIndex()
+
+    guard isEegPacketsCountHigherThanHistorySize,
+          let currentDevice = DeviceManager.getCurrentDevice() else {
+      return nil
+    }
+
+    return signalProcessingManager.computeRelaxIndex(forDevice: currentDevice)
   }
 
   /// ComputeSessionStatistics
