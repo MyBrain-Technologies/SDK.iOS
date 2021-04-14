@@ -118,9 +118,24 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
   ///     - packetsCount: Number of packets to get, from the last one.
   /// - Returns: A dictionnary with calibration datas from the CPP Signal
   /// Processing.
-  func computeCalibration(_ packetsCount: Int) -> CalibrationOutput? {
+  func computeCalibration(
+    _ packetsCount: Int,
+    currentDevice: MBTDevice,
+    eegPacketManager: EEGPacketManager
+  ) -> CalibrationOutput? {
+    let sampleRate = currentDevice.sampRate
+    let channelCount = currentDevice.nbChannels
+    let packetLength = currentDevice.eegPacketLength
+
+    // Get the last N packets.
+    let lastPackets = eegPacketManager.getLastNPacketsComplete(packetsCount)
+    
     let parameters =
-      EEGCalibrationProcessor.computeCalibration(packetsCount: packetsCount)
+      EEGCalibrationProcessor.computeCalibration(packetsCount: packetsCount,
+                                                 lastPackets: lastPackets,
+                                                 packetLength: packetLength,
+                                                 sampleRate: sampleRate,
+                                                 channelCount: channelCount)
 
     calibrationComputed = parameters
 

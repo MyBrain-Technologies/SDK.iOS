@@ -83,6 +83,7 @@ class DeviceManager: MBTRealmEntityManager {
     // Save Melomind info to DB
     if let device = getCurrentDevice() {
       try? RealmManager.shared.realm.write {
+        #warning("Change for indus5 here")
         device.sampRate = 250
         device.nbChannels = 2
         device.eegPacketLength = 250
