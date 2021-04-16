@@ -7,20 +7,24 @@ import Foundation
  * Specify a size to the buffer so it will return the buffer only when it's full.
  *
  ******************************************************************************/
+// Good
 class EEGAcquisitionBuffer {
 
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
   private var previousIndex: Int16
+
   private var packetBuffer: EEGRawPacketBuffer
 
   /******************** Quick access properties ********************/
 
   var bufferSizeMax: Int = 250 {
-    didSet { packetBuffer.bufferSizeMax = bufferSizeMax }
+    didSet {
+      packetBuffer.bufferSizeMax = bufferSizeMax
+    }
   }
-
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -62,10 +66,10 @@ class EEGAcquisitionBuffer {
   // MARK: - Usable packets
   //----------------------------------------------------------------------------
 
-  /// Return packets that can be used if the buffer is full, else nil if the packet is not full yet.
+  /// Return packets that can be used if the buffer is full, else nil if
+  /// the packet is not full yet.
   func getUsablePackets() -> [UInt8]? {
     guard packetBuffer.isFull else { return nil }
-
     return packetBuffer.flushBuffer()
   }
 
@@ -84,7 +88,8 @@ class EEGAcquisitionBuffer {
                      count: Int(missingPackets) * packet.packetValuesLength)
   }
 
-  /// Return the number of packets missing between a packet and the last registered packet
+  /// Return the number of packets missing between a packet and the last
+  /// registered packet
   private func numberOfLostPackets(before packet: EEGRawPacket) -> Int32 {
     if packet.packetIndex == 0 {
       previousIndex = 0
@@ -105,4 +110,5 @@ class EEGAcquisitionBuffer {
 
     return missingPackets - 1
   }
+  
 }

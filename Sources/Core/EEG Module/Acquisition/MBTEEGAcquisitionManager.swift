@@ -23,9 +23,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
   /******************** Convert and save eeg ********************/
 
-  var acquisitionProcessor: EEGAcquisitionProcessor?
+  private var acquisitionProcessor: EEGAcquisitionProcessor?
 
-  let acquisisitonSaver = EEGAcquisitionSaver()
+  private let acquisisitonSaver = EEGAcquisitionSaver()
 
   /********************  Parameters ********************/
 
@@ -43,7 +43,11 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///
   /// - Parameter device: A *MBTDevice* of the connected Melomind
   func setUpWith(device: MBTDevice) {
-    acquisitionProcessor = EEGAcquisitionProcessor(device: device)
+    acquisitionProcessor = EEGAcquisitionProcessor(
+      device: device,
+      signalProcessor: MBTSignalProcessingManager.shared
+    )
+    #warning("How to remove the resetSession session here?")
     signalProcessor.resetSession()
   }
 
@@ -54,12 +58,20 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// Method called by MelomindEngine when a new EEG streaming
   /// session has began. Method will make everything ready, acquisition side
   /// for the new session.
-  func streamHasStarted(_ useQualityChecker: Bool) {
+  func streamHasStarted(isUsingQualityChecker: Bool,
+                        currentDevice: MBTDevice?) {
     // Start mainQualityChecker.
-    guard useQualityChecker else { return }
+    guard isUsingQualityChecker else { return }
 
-    shouldUseQualityChecker =
-      signalProcessor.initializeQualityChecker()
+    // Getting connected MBTDevice *sampRate*.
+    guard let sampleRate = currentDevice?.sampRate else {
+      shouldUseQualityChecker = false
+      return
+    }
+
+    shouldUseQualityChecker = signalProcessor.initializeQualityChecker(
+      withSampleRate: Float(sampleRate)
+    )
   }
 
   /// Method called by MelomindEngine when the current EEG streaming
@@ -78,16 +90,25 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   ///   - idUser: A *Int* id of the connected user
   ///   - comments: An array of *String* contains Optional Comments
   ///   - completion: A block which execute after create the file or fail to create
-  func saveRecording(_ idUser: Int,
+  func saveRecording(userId idUser: Int,
                      algo: String?,
                      comments: [String] = [],
+                     eegPacketManager: EEGPacketManager,
+                     device: MBTDevice,
+                     recordingInformation: MBTRecordInfo,
+                     recordFileSaver: RecordFileSaver,
                      completion: @escaping (URL?) -> Void) {
-    let packets = EEGPacketManager.shared.getArrayEEGPackets()
+    let packets = eegPacketManager.getArrayEEGPackets()
     acquisisitonSaver.saveRecording(packets: packets,
+                                    eegPacketManager: eegPacketManager,
                                     idUser: idUser,
                                     algo: algo,
                                     comments: comments,
-                                    completion: { completion($0) })
+                                    device: device,
+                                    recordingInformation: recordingInformation,
+                                    recordFileSaver: recordFileSaver) { url in
+      completion(url)
+    }
   }
 
   //----------------------------------------------------------------------------

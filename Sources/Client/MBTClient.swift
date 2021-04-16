@@ -192,6 +192,8 @@ public class MBTClient {
   }
 
   public func setQrCodeAndSerialNumber(qrCode: String, serialNumber: String) {
+    #warning("TODO: remove singleton")
+    // DeviceManager.getCurrentDevice()?.setQrCodeAndSerialNumber(
     MBTQRCodeSerial.shared.setQrCodeAndSerialNumber(qrCode: qrCode,
                                                     serialNumber: serialNumber)
   }
@@ -258,10 +260,22 @@ public class MBTClient {
                                   algo: String? = nil,
                                   comments: [String] = [String](),
                                   completion: @escaping (URL?) -> Void) {
-    eegAcquisitionManager.saveRecording(idUser,
-                                        algo: algo,
-                                        comments: comments,
-                                        completion: completion)
+    guard let device = DeviceManager.getCurrentDevice() else {
+      log.error("Current device not found")
+      completion(nil)
+      return
+    }
+
+    eegAcquisitionManager.saveRecording(
+      userId: idUser,
+      algo: algo,
+      comments: comments,
+      eegPacketManager: EEGPacketManager.shared,
+      device: device,
+      recordingInformation: recordInfo,
+      recordFileSaver: RecordFileSaver.shared,
+      completion: completion
+    )
   }
 
   //----------------------------------------------------------------------------
@@ -365,7 +379,10 @@ public class MBTClient {
   /// Start streaming headSet Data from HeadsetStatus Characteristic.
   /// - Remark: Data will be provided through the MelomineEngineDelegate.
   public func startStream(_ shouldUseQualityChecker: Bool) {
-    eegAcquisitionManager.streamHasStarted(shouldUseQualityChecker)
+    eegAcquisitionManager.streamHasStarted(
+      isUsingQualityChecker: shouldUseQualityChecker,
+      currentDevice: DeviceManager.getCurrentDevice()
+    )
     bluetoothManager.isListeningToEEG = true
     bluetoothManager.isListeningToHeadsetStatus = true
   }
@@ -378,6 +395,10 @@ public class MBTClient {
     bluetoothManager.isListeningToEEG = false
     eegAcquisitionManager.streamHasStopped()
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - OAD
+  //----------------------------------------------------------------------------
 
   /// Start the OAD process
   public func startOADTransfer() {
@@ -416,10 +437,15 @@ public class MBTClient {
   ) -> CalibrationOutput? {
     let eegPacketsCount = EEGPacketManager.shared.getEEGPackets().count
 
-    guard DeviceManager.connectedDeviceName != nil,
-      eegPacketsCount >= numberOfPackets else { return nil }
+    guard let currentDevice = DeviceManager.getCurrentDevice(),
+      eegPacketsCount >= numberOfPackets else {
+      return nil
+    }
 
-    return signalProcessingManager.computeCalibration(numberOfPackets)
+    return signalProcessingManager.computeCalibration(
+      numberOfPackets,
+      currentDevice: currentDevice,
+      eegPacketManager: EEGPacketManager.shared)
   }
 
   /// computeRelaxIndex
@@ -427,11 +453,17 @@ public class MBTClient {
   /// - Returns: RelaxIndex
   public func computeRelaxIndex() -> Float? {
     let eegPacketCount = EEGPacketManager.shared.getEEGPackets().count
+
+    #warning("Condition is not the same as inside `computeRelaxIndex`. Here: getEEGPackets().count, return nil. Inside: lastPackets.count, return 0")
     let isEegPacketsCountHigherThanHistorySize =
       eegPacketCount >= Constants.EEGPackets.historySize
-    guard DeviceManager.connectedDeviceName != nil,
-      isEegPacketsCountHigherThanHistorySize else { return nil }
-    return signalProcessingManager.computeRelaxIndex()
+
+    guard isEegPacketsCountHigherThanHistorySize,
+          let currentDevice = DeviceManager.getCurrentDevice() else {
+      return nil
+    }
+
+    return signalProcessingManager.computeRelaxIndex(forDevice: currentDevice)
   }
 
   /// ComputeSessionStatistics

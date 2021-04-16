@@ -15,7 +15,7 @@ class BluetoothPeripheralConnector {
 
   /******************** Central Manager ********************/
 
-  var centralManager: CBCentralManager!
+  var centralManager: CBCentralManager
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -31,12 +31,13 @@ class BluetoothPeripheralConnector {
 
   /******************** Scan ********************/
 
-  func scanForMelomindConnections() {
+  // Will call `centralManager(_:didDiscover:advertisementData:rssi:)`
+  func scanForMelomindConnections(
+    melomindService: CBUUID = MelomindBluetoothPeripheral.melomindService
+  ) {
     log.verbose("🧭 Start scanning for a melomind device")
 
-    let melomindService = [MelomindBluetoothPeripheral.melomindService]
-
-    centralManager.scanForPeripherals(withServices: melomindService,
+    centralManager.scanForPeripherals(withServices: [melomindService],
                                       options: nil)
   }
 

@@ -1,39 +1,46 @@
 import Foundation
-
+// Good
 class EEGAcquisitionProcessor {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  let acquisitionBuffer: EEGAcquisitionBuffer
+  private let acquisitionBuffer: EEGAcquisitionBuffer
 
-  let eegPacketLength: Int
+  private let eegPacketLength: Int
 
-  let nbChannels: Int
+  private let channelCount: Int
 
-  let sampRate: Int
+  private let sampletRate: Int
 
   /******************** Dependency Injections ********************/
 
-  let signalProcessor: MBTSignalProcessingManager = .shared
+  private let signalProcessor: MBTSignalProcessingManager
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init(bufferSizeMax: Int, packetLength: Int, nbChannels: Int, sampRate: Int) {
+  init(bufferSizeMax: Int,
+       packetLength: Int,
+       channelCount: Int,
+       sampleRate: Int,
+       signalProcessor: MBTSignalProcessingManager) {
     self.acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: bufferSizeMax)
     self.eegPacketLength = packetLength
-    self.nbChannels = nbChannels
-    self.sampRate = sampRate
+    self.channelCount = channelCount
+    self.sampletRate = sampleRate
+    self.signalProcessor = signalProcessor
   }
 
-  convenience init(device: MBTDevice) {
+  convenience init(device: MBTDevice,
+                   signalProcessor: MBTSignalProcessingManager) {
     self.init(bufferSizeMax: device.eegPacketLength * 2 * 2,
               packetLength: device.eegPacketLength,
-              nbChannels: device.nbChannels,
-              sampRate: device.sampRate)
+              channelCount: device.nbChannels,
+              sampleRate: device.sampRate,
+              signalProcessor: signalProcessor)
   }
 
   //----------------------------------------------------------------------------
@@ -49,7 +56,7 @@ class EEGAcquisitionProcessor {
 
     let relaxIndexes =
       EEGDeserializer.deserializeToRelaxIndex(bytes: packet,
-                                              numberOfElectrodes: nbChannels)
+                                              numberOfElectrodes: channelCount)
     let eegPacket = convertToEEGPacket(values: relaxIndexes,
                                        checkQuality: checkQuality)
 
@@ -72,7 +79,7 @@ class EEGAcquisitionProcessor {
 
     let qualities = signalProcessor.computeQualityValue(
       eegPacket.channelsData,
-      sampRate: sampRate,
+      sampRate: sampletRate,
       eegPacketLength: eegPacketLength
     )
     eegPacket.addQualities(qualities)
@@ -87,7 +94,7 @@ class EEGAcquisitionProcessor {
     let correctedValues = signalProcessor.getModifiedEEGValues()
 
     eegPacket.setModifiedChannelsData(correctedValues,
-                                      sampRate: sampRate)
+                                      sampRate: sampletRate)
     return eegPacket
   }
 }

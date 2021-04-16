@@ -1,11 +1,14 @@
 import Foundation
 import RealmSwift
 
+#warning("TODO: Remove theses protocols??? Used in only one class")
+
 /// Protocol to call Quality Checker methods from the Objective-C++ bridge.
 protocol MBTQualityComputer {
 
   /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-  func initializeQualityChecker() -> Bool
+  func initializeQualityChecker(withSampleRate sampleRate: Float,
+                                accuracy: Float) -> Bool
 
   /// Returns an array of "quality" values for a data matrix of an acquisition packet.
   /// - parameter data: The data matrix of the packet. Each row is a channel (no GPIOs)
@@ -24,7 +27,12 @@ protocol MBTCalibrationComputer {
   /// - parameter sampRate: The data sampling rate.
   /// - paremeter packetLength: The number of data points in a "packet".
   /// - returns: A dictionary with the parameters computed from the calibration data.
-  func computeCalibration(_ packetsCount: Int) -> CalibrationOutput?
+  func computeCalibration(
+    _ packetsCount: Int,
+    currentDevice: MBTDevice,
+    eegPacketManager: EEGPacketManager
+  ) -> CalibrationOutput?
+  
 }
 
 protocol MBTRelaxIndexComputer {
@@ -35,7 +43,8 @@ protocol MBTRelaxIndexComputer {
   /// - parameter parametersFromCalibration: A dictionary with the parameters computed from the calibration data.
   /// - parameter sampRate: The data sampling rate.
   /// - returns: The relaxation index for the packet.
-  func computeRelaxIndex() -> Float?
+  func computeRelaxIndex(eegPacketManager: EEGPacketManager,
+                         forDevice device: MBTDevice) -> Float?
 }
 
 protocol MBTSessionAnalysisComputer {

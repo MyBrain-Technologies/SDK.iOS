@@ -6,6 +6,7 @@ import Foundation
  * Deserialize eeg values received from headset to relax index usable values.
  *
  ******************************************************************************/
+// Good
 struct EEGDeserializer {
 
   //----------------------------------------------------------------------------

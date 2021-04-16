@@ -1,5 +1,5 @@
 import Foundation
-
+// Good
 class EEGRawPacketBuffer {
 
   //----------------------------------------------------------------------------
@@ -44,4 +44,5 @@ class EEGRawPacketBuffer {
 
     return Array(content)
   }
+  
 }

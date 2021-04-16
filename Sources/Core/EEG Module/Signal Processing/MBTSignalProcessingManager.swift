@@ -15,7 +15,7 @@ import RealmSwift
  * Holds the current implementation of the signal processing protocols.
  *
  ******************************************************************************/
-
+// GOOD
 internal class MBTSignalProcessingManager: MBTQualityComputer {
 
   //----------------------------------------------------------------------------
@@ -28,16 +28,13 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   static let shared = MBTSignalProcessingManager()
 
   /// Dictionnary to store calibration results.
-  internal var calibrationComputed: CalibrationOutput!
+  internal var calibrationComputed: CalibrationOutput?
 
   ///
   internal var sampRate: Int = 0
 
   ///
   internal var eegPacketLength: Int = 0
-
-  ///
-  internal var version = MBTQualityCheckerBridge.getVersion()
 
   internal var relaxIndexAlgorithm = MBTRelaxIndexAlgorithm.algorithm(
     fromSDKVersion: MBTQualityCheckerBridge.getVersion()!
@@ -47,12 +44,14 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
+  private init() {}
+
   /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
-  func initializeQualityChecker() -> Bool {
-    // Getting connected MBTDevice *sampRate*.
-    guard let sampRate = DeviceManager.getDeviceSampRate() else { return false }
-    MBTQualityCheckerBridge.initializeMainQualityChecker(Float(sampRate),
+  func initializeQualityChecker(withSampleRate sampleRate: Float,
+                                accuracy: Float = 0.85) -> Bool {
+    MBTQualityCheckerBridge.initializeMainQualityChecker(sampleRate,
                                                          accuracy: 0.85)
+    #warning("Remove result bool??")
     return true
   }
 
@@ -85,6 +84,7 @@ internal class MBTSignalProcessingManager: MBTQualityComputer {
   func computeQualityValue(_ data: List<ChannelsData>,
                            sampRate: Int,
                            eegPacketLength: Int) -> [Float] {
+    #warning("Why is it passed as parameter and the property being init here?")
     self.sampRate = sampRate
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
@@ -118,14 +118,30 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
   ///     - packetsCount: Number of packets to get, from the last one.
   /// - Returns: A dictionnary with calibration datas from the CPP Signal
   /// Processing.
-  func computeCalibration(_ packetsCount: Int) -> CalibrationOutput? {
+  func computeCalibration(
+    _ packetsCount: Int,
+    currentDevice: MBTDevice,
+    eegPacketManager: EEGPacketManager
+  ) -> CalibrationOutput? {
+    let sampleRate = currentDevice.sampRate
+    let channelCount = currentDevice.nbChannels
+    let packetLength = currentDevice.eegPacketLength
+
+    // Get the last N packets.
+    let lastPackets = eegPacketManager.getLastNPacketsComplete(packetsCount)
+    
     let parameters =
-      EEGCalibrationProcessor.computeCalibration(packetsCount: packetsCount)
+      EEGCalibrationProcessor.computeCalibration(packetsCount: packetsCount,
+                                                 lastPackets: lastPackets,
+                                                 packetLength: packetLength,
+                                                 sampleRate: sampleRate,
+                                                 channelCount: channelCount)
 
     calibrationComputed = parameters
 
     return parameters
   }
+
 }
 
 //==============================================================================
@@ -134,10 +150,21 @@ extension MBTSignalProcessingManager: MBTCalibrationComputer {
 
 extension MBTSignalProcessingManager: MBTRelaxIndexComputer {
 
-  func computeRelaxIndex() -> Float? {
+  func computeRelaxIndex(eegPacketManager: EEGPacketManager = .shared,
+                         forDevice device: MBTDevice) -> Float? {
     if calibrationComputed == nil { return 0 }
 
-    return EEGToRelaxIndexProcessor.computeRelaxIndex()
+    let packetCount = Constants.EEGPackets.historySize
+    let packets = eegPacketManager.getLastNPacketsComplete(packetCount)
+
+    guard packets.count >= packetCount else { return 0 }
+
+    let sampleRate = device.sampRate
+    let channelCount = device.nbChannels
+
+    return EEGToRelaxIndexProcessor.computeRelaxIndex(from: packets,
+                                                      sampRate: sampleRate,
+                                                      nbChannels: channelCount)
   }
 
 }

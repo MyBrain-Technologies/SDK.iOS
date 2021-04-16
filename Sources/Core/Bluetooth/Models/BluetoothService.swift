@@ -1,6 +1,6 @@
 import Foundation
 import CoreBluetooth
-
+// Good
 enum BluetoothService: String, CaseIterable {
   case myBrainService = "0xB2A0"
   case brainActivityMeasurement = "0xB2A5"
@@ -15,6 +15,11 @@ enum BluetoothService: String, CaseIterable {
   case firmwareRevision = "0x2A26"
   case audioSing = "0x110B"
   case remoteControl = "0x110C"
+
+  // Indus5
+  case transparentService_i5 = "49535343-FE7D-4AE5-8FA9-9FAFD205E455"
+  case rx_i5 = "49535343-1E4D-4BD9-BA61-23C647249616"
+  case tx_i5 = "49535343-8841-43F4-A8D4-ECBE34729BB3"
 
   //----------------------------------------------------------------------------
   // MARK: - Properties

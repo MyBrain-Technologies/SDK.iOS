@@ -1,6 +1,7 @@
 import Foundation
-
+// Good
 struct EEGRawPacket {
+
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
@@ -16,7 +17,8 @@ struct EEGRawPacket {
     return Array(rawValue.prefix(2))
   }
 
-  /// Value of a packet is stored after the two first value (wich are `packetIndex` property)
+  /// Value of a packet is stored after the two first value (wich are `
+  /// packetIndex` property)
   var packetValues: [UInt8] {
     return rawValue.suffix(rawValue.count - 2)
   }
@@ -37,7 +39,4 @@ struct EEGRawPacket {
     self.rawValue = data.toUint8Array
   }
 
-  //----------------------------------------------------------------------------
-  // MARK: - Methods
-  //----------------------------------------------------------------------------
 }
