@@ -37,9 +37,10 @@ public class MBTRecordingType {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
+  #warning("TODO: remove this init and use default value for second init")
   /// Create a *MBTRecordingType* with default values
   public init() {
-    recordType = .RAWDATA
+    recordType = .rawdata
     source = .DEFAULT
     dataType = .DEFAULT
     spVersion = MBTQualityCheckerBridge.getVersion()
@@ -73,9 +74,13 @@ public enum MBTDataType: String, Codable {
 
 ///enum of Record Type
 public enum MBTRecordType: String, Codable {
-  case ADJUSTMENT
-  case CALIBRATION
-  case SESSION
-  case RAWDATA
-  case STUDY
+  case adjustement = "ADJUSTMENT"
+  case calibration = "CALIBRATION"
+  case session = "SESSION"
+  case rawdata = "RAWDATA"
+  case study = "STUDY"
+  case restingStatePreSessionEyesClosed = "RESTING_STATE_PRE_SESSION_EYES_CLOSED"
+  case restingStatePreSessionEyesOpen = "RESTING_STATE_PRE_SESSION_EYES_OPEN"
+  case restingStatePostSessionEyesClosed = "RESTING_STATE_POST_SESSION_EYES_CLOSED"
+  case restingStatePostSessionEyesOpen = "RESTING_STATE_POST_SESSION_EYES_OPEN"
 }
