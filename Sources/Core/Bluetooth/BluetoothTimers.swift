@@ -6,6 +6,7 @@ import Foundation
  * Methods called when a timer reach its timeout
  *
  ******************************************************************************/
+
 protocol BluetoothTimersDelegate: class {
   func didBleConnectionTimeout()
   func didSendExternalNameTimeout()
@@ -22,23 +23,24 @@ protocol BluetoothTimersDelegate: class {
  * Set of timers used with the bluetooth manager.
  *
  ******************************************************************************/
+// GOOD
 class BluetoothTimers {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  var bleConnectionTimer: Timer?
+  private var bleConnectionTimer: Timer?
 
-  var a2dpConnectionTimer: Timer?
+  private var a2dpConnectionTimer: Timer?
 
-  var sendExternalNameTimer: Timer?
+  private var sendExternalNameTimer: Timer?
 
-  var updateBatteryLevelTimer: Timer?
+  private var updateBatteryLevelTimer: Timer?
 
-  var finalizeMelomindConnectionTimer: Timer?
+  private var finalizeMelomindConnectionTimer: Timer?
 
-  var oadTimer: Timer?
+  private var oadTimer: Timer?
 
   /******************** Timer-related ********************/
 
@@ -71,7 +73,9 @@ class BluetoothTimers {
     stopOADTimer()
   }
 
-  /******************** Battery Level ********************/
+  //----------------------------------------------------------------------------
+  // MARK: - Battery Level
+  //----------------------------------------------------------------------------
 
   /// Invalidate Update Battery Level Timer and set it to nil
   func stopBatteryLevelTimer() {
@@ -81,23 +85,24 @@ class BluetoothTimers {
     updateBatteryLevelTimer = nil
   }
 
-  func startBatteryLevelTimer(timeInterval: TimeInterval? = nil,
-                              verificationTimeInterval: TimeInterval? = nil,
-                              repeats: Bool = true) {
+  func startBatteryLevelTimer(
+    timeInterval: TimeInterval = Constants.Timeout.batteryLevel,
+    verificationTimeInterval: TimeInterval = 5,
+    repeats: Bool = true
+  ) {
     stopBatteryLevelTimer()
 
     log.verbose("⏰ Start BatteryTimer for \(String(describing: timeInterval))")
 
     updateBatteryLevelTimer = Timer.scheduledTimer(
-      timeInterval: timeInterval ?? Constants.Timeout.batteryLevel,
+      timeInterval: timeInterval,
       target: self,
       selector: #selector(batteryLevelHasTimeout),
       userInfo: nil,
       repeats: repeats
     )
 
-    let verification = verificationTimeInterval ?? TimeInterval(5)
-    Timer.scheduledTimer(timeInterval: verification,
+    Timer.scheduledTimer(timeInterval: verificationTimeInterval,
                          target: self,
                          selector: #selector(batteryLevelHasTimeout),
                          userInfo: nil,
@@ -110,15 +115,19 @@ class BluetoothTimers {
     delegate?.didBatteryLevelTimeout()
   }
 
-  /******************** BLE Connection ********************/
+  //----------------------------------------------------------------------------
+  // MARK: - BLE Connection
+  //----------------------------------------------------------------------------
 
-  func startBLEConnectionTimer(timeInterval: TimeInterval? = nil) {
+  func startBLEConnectionTimer(
+    timeInterval: TimeInterval = Constants.Timeout.connection
+  ) {
     stopBLEConnectionTimer()
 
-    log.verbose("⏰ Start BLE timer for \(Constants.Timeout.connection)s")
+    log.verbose("⏰ Start BLE timer for \(timeInterval)s")
 
     bleConnectionTimer = Timer.scheduledTimer(
-      timeInterval: timeInterval ?? Constants.Timeout.connection,
+      timeInterval: timeInterval,
       target: self,
       selector: #selector(bleConnectionTimeOut),
       userInfo: nil,
@@ -141,7 +150,9 @@ class BluetoothTimers {
     bleConnectionTimer = nil
   }
 
-  /******************** OAD ********************/
+  //----------------------------------------------------------------------------
+  // MARK: - OAD
+  //----------------------------------------------------------------------------
 
   /// Invalidate Time Out OAD Timer and set it to nil
   func stopOADTimer() {
@@ -150,11 +161,13 @@ class BluetoothTimers {
     oadTimer = nil
   }
 
-  func startOADTimer(timeInterval: TimeInterval? = nil) {
+  func startOADTimer(
+    timeInterval: TimeInterval = Constants.Timeout.oadTransfer
+  ) {
     log.verbose("⏰ Start OAD Timer")
 
     oadTimer = Timer.scheduledTimer(
-      timeInterval: timeInterval ?? Constants.Timeout.oadTransfer,
+      timeInterval: timeInterval,
       target: self,
       selector: #selector(self.oadTimeout),
       userInfo: nil,
@@ -169,7 +182,9 @@ class BluetoothTimers {
     delegate?.didOADTimeout()
   }
 
-  /******************** A2DP Connection ********************/
+  //----------------------------------------------------------------------------
+  // MARK: - A2DP Connection
+  //----------------------------------------------------------------------------
 
   /// Invalidate Time Out A2DP Connection and set it to nil
   func stopA2DPConnectionTimer() {
@@ -179,11 +194,13 @@ class BluetoothTimers {
     a2dpConnectionTimer = nil
   }
 
-  func startA2DPConnectionTimer(timeInterval: TimeInterval? = nil) {
+  func startA2DPConnectionTimer(
+    timeInterval: TimeInterval = Constants.Timeout.a2dpConnection
+  ) {
     log.verbose("⏰ Start A2DP Timer")
 
     a2dpConnectionTimer = Timer.scheduledTimer(
-      timeInterval: timeInterval ?? Constants.Timeout.a2dpConnection,
+      timeInterval: timeInterval,
       target: self,
       selector: #selector(a2dpConnectionTimeout),
       userInfo: nil,
@@ -198,7 +215,9 @@ class BluetoothTimers {
     delegate?.didA2DPConnectionTimeout()
   }
 
-  /******************** Finalize connection ********************/
+  //----------------------------------------------------------------------------
+  // MARK: - Finalize connection
+  //----------------------------------------------------------------------------
 
   func stopFinalizeConnectionMelomindTimer() {
     log.verbose("⏰ Stop Finalize Connection Timer")
@@ -207,11 +226,13 @@ class BluetoothTimers {
     finalizeMelomindConnectionTimer = nil
   }
 
-  func startFinalizeConnectionTimer(timeInterval: TimeInterval? = nil) {
+  func startFinalizeConnectionTimer(
+    timeInterval: TimeInterval = Constants.Timeout.finalizeConnection
+  ) {
     log.verbose("⏰ Start Finalize Connection Timer")
 
     finalizeMelomindConnectionTimer = Timer.scheduledTimer(
-      timeInterval: timeInterval ?? Constants.Timeout.finalizeConnection,
+      timeInterval: timeInterval,
       target: self,
       selector: #selector(finalizeConnectionTimeout),
       userInfo: nil,
@@ -226,7 +247,9 @@ class BluetoothTimers {
     delegate?.didFinalizeConnectionTimeout()
   }
 
-  /******************** Send External Name ********************/
+  //----------------------------------------------------------------------------
+  // MARK: - Send External Name
+  //----------------------------------------------------------------------------
 
   func stopSendExternalNameTimer() {
     log.verbose("⏰ Stop SendExternalName Timer")
@@ -235,11 +258,13 @@ class BluetoothTimers {
     sendExternalNameTimer = nil
   }
 
-  func startSendExternalNameTimer(timeInterval: TimeInterval? = nil) {
+  func startSendExternalNameTimer(
+    timeInterval: TimeInterval = Constants.Timeout.sendExternalName
+  ) {
     log.verbose("⏰ Start SendExternalName Timer")
 
     sendExternalNameTimer = Timer.scheduledTimer(
-      timeInterval: timeInterval ?? Constants.Timeout.sendExternalName,
+      timeInterval: timeInterval,
       target: self,
       selector: #selector(sendExternalNameTimeout),
       userInfo: nil,
