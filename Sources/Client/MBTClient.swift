@@ -184,7 +184,7 @@ public class MBTClient {
   ///
   /// - Returns: A *String* instance of connected device's QR Code
   public func getDeviceQrCode() -> String? {
-    return DeviceManager.getDeviceQrCode()
+    return DeviceManager.deviceQrCode
   }
 
   public func getDeviceSerialNumber(fromQrCode qrCode: String) -> String? {
@@ -210,7 +210,7 @@ public class MBTClient {
   /// - Returns: A *MBTDeviceInformations* instance of the connected headset if
   /// no melomind is connected (BLE).
   public func getDeviceInformations() -> MBTDeviceInformations? {
-    return DeviceManager.getDeviceInfos()
+    return DeviceManager.deviceInformation
   }
 
   /// Getter for Device Name of the MBT headset.
@@ -226,7 +226,7 @@ public class MBTClient {
   public func getRegisteredDevices() -> [MBTDevice] {
     var tabDeviceName = [MBTDevice]()
 
-    for device in DeviceManager.getRegisteredDevices() {
+    for device in DeviceManager.registeredDevices {
       tabDeviceName.append(device)
     }
 

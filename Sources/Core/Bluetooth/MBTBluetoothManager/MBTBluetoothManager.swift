@@ -320,13 +320,13 @@ internal class MBTBluetoothManager: NSObject {
   // MARK: - External Name / Product Name methods
 
   internal func shouldUpdateDeviceExternalName() -> Bool {
-    let productName = DeviceManager.getDeviceInfos()?.productName
+    let productName = DeviceManager.deviceInformation?.productName
     return productName == Constants.defaultProductName
       && deviceFirmwareVersion(isHigherOrEqualThan: .registerExternalName)
   }
 
   internal func getDeviceExternalName() -> String? {
-    if let _ = DeviceManager.getDeviceInfos()?.deviceId,
+    if let _ = DeviceManager.deviceInformation?.deviceId,
        let name = MBTQRCodeSerial.shared.qrCode { // MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
       return name
     }

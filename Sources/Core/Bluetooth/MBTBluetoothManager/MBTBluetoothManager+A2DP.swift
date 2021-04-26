@@ -76,7 +76,7 @@ extension MBTBluetoothManager {
 
   func getA2DPDeviceNameFromBLE() -> String? {
     if deviceFirmwareVersion(isHigherOrEqualThan: .registerExternalName) {
-      if let qrCode = DeviceManager.getDeviceQrCode() {
+      if let qrCode = DeviceManager.deviceQrCode {
         return qrCode
       }
     }
