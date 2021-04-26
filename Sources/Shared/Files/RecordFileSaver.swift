@@ -114,7 +114,7 @@ struct RecordFileSaver {
     let filename = RecordFileNameBuilder().build(userId: userId,
                                                  deviceId: deviceId)
 
-    let savedRecordPath = RecordFileSaver.shared.saveRecord(json, at: filename)
+    let savedRecordPath = saveRecord(json, at: filename)
     return savedRecordPath
   }
 

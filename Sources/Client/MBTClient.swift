@@ -243,8 +243,7 @@ public class MBTClient {
                           removeFile: Bool,
                           accessTokens: String) {
     BrainwebRequest.shared.accessTokens = accessTokens
-    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl)
-    { success in
+    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl) { success in
       guard success && removeFile else { return }
       RecordFileSaver.shared.removeRecord(at: urlFile)
     }
