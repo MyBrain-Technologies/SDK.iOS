@@ -16,7 +16,7 @@ class EEGAcquisitionSaver {
   //----------------------------------------------------------------------------
 
   var realmConfig: Realm.Configuration {
-    return MBTRealmEntityManager.RealmManager.shared.config
+    return RealmManager.shared.config
   }
 
   let saveThreadName = "MelomindSaveProcess"

@@ -8,7 +8,7 @@ import SwiftyJSON
  * *MBTEEGPacket* model DB Manager.
  *
  ******************************************************************************/
-class EEGPacketManager: MBTRealmEntityManager {
+class EEGPacketManager {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties

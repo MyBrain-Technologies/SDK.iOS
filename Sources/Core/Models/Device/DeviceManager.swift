@@ -9,7 +9,7 @@ import Foundation
 
 #warning("TODO: Remove Database???")
 
-class DeviceManager: MBTRealmEntityManager {
+class DeviceManager {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
