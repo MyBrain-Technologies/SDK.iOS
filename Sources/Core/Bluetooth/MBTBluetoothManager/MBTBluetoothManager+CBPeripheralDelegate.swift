@@ -9,8 +9,8 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
 
   private var hasDiscoverAllCharacteristics: Bool {
     return counterServicesDiscover <= 0
-      && BluetoothDeviceCharacteristics.shared.mailBox != nil
-      && BluetoothDeviceCharacteristics.shared.deviceInformations.count == 4
+      && bluetoothDeviceCharacteristics.mailBox != nil
+      && bluetoothDeviceCharacteristics.deviceInformations.count == 4
   }
 
   //----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
   private func updateDeviceCharacteristics(with service: CBService) {
     guard let serviceCharacteristics = service.characteristics else { return }
 
-    BluetoothDeviceCharacteristics.shared.update(with: serviceCharacteristics)
+    bluetoothDeviceCharacteristics.update(with: serviceCharacteristics)
   }
 
   private func prepareDevice() {

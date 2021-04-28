@@ -34,7 +34,10 @@ internal class MBTBluetoothManager: NSObject {
   }()
 
   lazy var peripheralIO: IOBluetoothPeripheral = {
-    return IOBluetoothPeripheral(peripheral: nil)
+    return IOBluetoothPeripheral(
+      peripheral: nil,
+      bluetoothDeviceCharacteristics: bluetoothDeviceCharacteristics
+    )
   }()
 
   /******************** Timers ********************/
@@ -135,6 +138,8 @@ internal class MBTBluetoothManager: NSObject {
 
   var OADManager: MBTOADManager?
 
+  var bluetoothDeviceCharacteristics: BluetoothDeviceCharacteristics = .shared
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -195,9 +200,9 @@ internal class MBTBluetoothManager: NSObject {
     DeviceManager.connectedDeviceName = nil
 
     // Characteristic Init
-    BluetoothDeviceCharacteristics.shared.brainActivityMeasurement = nil
-    BluetoothDeviceCharacteristics.shared.deviceState = nil
-    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
+    bluetoothDeviceCharacteristics.brainActivityMeasurement = nil
+    bluetoothDeviceCharacteristics.deviceState = nil
+    bluetoothDeviceCharacteristics.deviceInformations.removeAll()
   }
 
   /// Disconnect centralManager, and remove session's values.
