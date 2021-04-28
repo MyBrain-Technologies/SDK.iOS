@@ -21,6 +21,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
   let signalProcessor: MBTSignalProcessingManager = .shared
 
+  // Use it as property instead of passing as argument in functions?
+  let eegPacketManager: EEGPacketManager = .shared
+
   /******************** Convert and save eeg ********************/
 
   private var acquisitionProcessor: EEGAcquisitionProcessor?
@@ -34,6 +37,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
 
   /// if the sdk record in DB EEGPacket
   var isRecording: Bool = false
+  // didSet { EEGPacketManager.shared.removeAllEEGPackets() } if not paused
 
   //----------------------------------------------------------------------------
   // MARK: - Methods
@@ -45,7 +49,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   func setUpWith(device: MBTDevice) {
     acquisitionProcessor = EEGAcquisitionProcessor(
       device: device,
-      signalProcessor: MBTSignalProcessingManager.shared
+      signalProcessor: signalProcessor
     )
     #warning("How to remove the resetSession session here?")
     signalProcessor.resetSession()
@@ -93,7 +97,6 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   func saveRecording(userId idUser: Int,
                      algo: String?,
                      comments: [String] = [],
-                     eegPacketManager: EEGPacketManager,
                      device: MBTDevice,
                      recordingInformation: MBTRecordInfo,
                      recordFileSaver: RecordFileSaver,
@@ -131,7 +134,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
     self.delegate?.onReceivingPackage?(eegPacket)
 
     if isRecording {
-      EEGPacketManager.shared.saveEEGPacket(eegPacket)
+      eegPacketManager.saveEEGPacket(eegPacket)
     }
   }
 

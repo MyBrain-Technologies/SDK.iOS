@@ -283,7 +283,6 @@ public class MBTClient {
       userId: idUser,
       algo: algo,
       comments: comments,
-      eegPacketManager: EEGPacketManager.shared,
       device: device,
       recordingInformation: recordInfo,
       recordFileSaver: RecordFileSaver.shared,
