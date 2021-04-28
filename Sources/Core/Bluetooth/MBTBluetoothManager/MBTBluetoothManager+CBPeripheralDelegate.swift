@@ -139,7 +139,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     guard let data = characteristic.value, isListeningToEEG else { return }
 
     DispatchQueue.main.async {
-      MBTClient.shared.eegAcquisitionManager.processBrainActivity(data: data)
+      self.didReceiveBrainData?(data)
     }
   }
 
@@ -147,8 +147,7 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     log.verbose("Headset status service")
 
     DispatchQueue.global(qos: .background).async {
-      let acquisitionManager = MBTClient.shared.deviceAcquisitionManager
-      acquisitionManager.processHeadsetStatus(characteristic)
+      self.didReceiveHeadsetStatus?(characteristic)
     }
   }
 

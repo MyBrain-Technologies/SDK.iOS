@@ -98,6 +98,20 @@ public class MBTClient {
     signalProcessingManager = MBTSignalProcessingManager.shared
 
     initLog(logToFile: false, isDebugMode: false)
+
+    setupBluetoothManager()
+  }
+
+  private func setupBluetoothManager() {
+    bluetoothManager.didReceiveBrainData = { [weak self] brainData in
+      self?.eegAcquisitionManager.processBrainActivity(data: brainData)
+    }
+
+    bluetoothManager.didReceiveHeadsetStatus = { [weak self] characteristic in
+      self?.deviceAcquisitionManager.processHeadsetStatus(characteristic)
+    }
+
+    
   }
 
   //----------------------------------------------------------------------------

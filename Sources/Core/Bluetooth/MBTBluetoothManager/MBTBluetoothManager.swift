@@ -43,6 +43,12 @@ internal class MBTBluetoothManager: NSObject {
     return BluetoothTimers(delegate: self)
   }()
 
+  /******************** Callbacks ********************/
+
+  var didReceiveBrainData: ((Data) -> Void)?
+
+  var didReceiveHeadsetStatus: ((CBCharacteristic) -> Void)?
+
   /******************** Legacy ********************/
 
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
