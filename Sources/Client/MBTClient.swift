@@ -415,7 +415,7 @@ public class MBTClient {
 
   /// Start the OAD process
   public func startOADTransfer() {
-    bluetoothManager.startOAD()
+    bluetoothManager.startOAD(withDevice: DeviceManager.getCurrentDevice())
   }
 
   /// To know if a new headset firmware version is available.

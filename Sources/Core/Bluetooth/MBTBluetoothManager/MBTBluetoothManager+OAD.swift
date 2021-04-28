@@ -9,7 +9,7 @@ extension MBTBluetoothManager {
   /// - didOADFailWithError: 910 | Latest firmware already installed
   /// - didOADFailWithError: 912 | Time Out OAD Transfert
   /// - onProgressUpdate
-  func startOAD() {
+  func startOAD(withDevice device: MBTDevice?) {
     // Disconnect A2DP
 
     guard isAudioAndBLEConnected else {
@@ -25,7 +25,7 @@ extension MBTBluetoothManager {
     isOADInProgress = true
     timers.stopOADTimer()
 
-    guard let device = DeviceManager.getCurrentDevice() else {
+    guard let device = device else {
       isOADInProgress = false
 
       let error = DeviceError.infoUnavailable.error
