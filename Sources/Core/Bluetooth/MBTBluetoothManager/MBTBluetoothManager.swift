@@ -34,7 +34,10 @@ internal class MBTBluetoothManager: NSObject {
   }()
 
   lazy var peripheralIO: IOBluetoothPeripheral = {
-    return IOBluetoothPeripheral(peripheral: nil)
+    return IOBluetoothPeripheral(
+      peripheral: nil,
+      bluetoothDeviceCharacteristics: bluetoothDeviceCharacteristics
+    )
   }()
 
   /******************** Timers ********************/
@@ -42,6 +45,12 @@ internal class MBTBluetoothManager: NSObject {
   lazy var timers: BluetoothTimers = {
     return BluetoothTimers(delegate: self)
   }()
+
+  /******************** Callbacks ********************/
+
+  var didReceiveBrainData: ((Data) -> Void)?
+
+  var didReceiveHeadsetStatus: ((CBCharacteristic) -> Void)?
 
   /******************** Legacy ********************/
 
@@ -129,6 +138,8 @@ internal class MBTBluetoothManager: NSObject {
 
   var OADManager: MBTOADManager?
 
+  var bluetoothDeviceCharacteristics: BluetoothDeviceCharacteristics = .shared
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -189,9 +200,9 @@ internal class MBTBluetoothManager: NSObject {
     DeviceManager.connectedDeviceName = nil
 
     // Characteristic Init
-    BluetoothDeviceCharacteristics.shared.brainActivityMeasurement = nil
-    BluetoothDeviceCharacteristics.shared.deviceState = nil
-    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
+    bluetoothDeviceCharacteristics.brainActivityMeasurement = nil
+    bluetoothDeviceCharacteristics.deviceState = nil
+    bluetoothDeviceCharacteristics.deviceInformations.removeAll()
   }
 
   /// Disconnect centralManager, and remove session's values.
@@ -320,13 +331,13 @@ internal class MBTBluetoothManager: NSObject {
   // MARK: - External Name / Product Name methods
 
   internal func shouldUpdateDeviceExternalName() -> Bool {
-    let productName = DeviceManager.getDeviceInfos()?.productName
+    let productName = DeviceManager.deviceInformation?.productName
     return productName == Constants.defaultProductName
       && deviceFirmwareVersion(isHigherOrEqualThan: .registerExternalName)
   }
 
   internal func getDeviceExternalName() -> String? {
-    if let _ = DeviceManager.getDeviceInfos()?.deviceId,
+    if let _ = DeviceManager.deviceInformation?.deviceId,
        let name = MBTQRCodeSerial.shared.qrCode { // MBTQRCodeSerial(qrCodeisKey: false).value(for: deviceId) {
       return name
     }

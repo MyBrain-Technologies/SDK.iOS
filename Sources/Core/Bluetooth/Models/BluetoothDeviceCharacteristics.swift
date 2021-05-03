@@ -6,7 +6,7 @@ import CoreBluetooth
  * Help MBTBluetoothManager to manage Bluetooth Low Energy ( BLE ).
  *
  ******************************************************************************/
-struct BluetoothDeviceCharacteristics {
+class BluetoothDeviceCharacteristics {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -43,13 +43,13 @@ struct BluetoothDeviceCharacteristics {
   // MARK: - Update
   //----------------------------------------------------------------------------
 
-  mutating func update(with characteristics: [CBCharacteristic]) {
+  func update(with characteristics: [CBCharacteristic]) {
     for serviceCharacteristic in characteristics {
       update(with: serviceCharacteristic)
     }
   }
 
-  mutating func update(with characteristic: CBCharacteristic) {
+  func update(with characteristic: CBCharacteristic) {
     guard let service = BluetoothService(uuid: characteristic.uuid) else {
       return
     }
@@ -67,4 +67,5 @@ struct BluetoothDeviceCharacteristics {
       }
     }
   }
+
 }

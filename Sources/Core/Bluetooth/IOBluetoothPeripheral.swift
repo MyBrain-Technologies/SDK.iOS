@@ -9,12 +9,18 @@ struct IOBluetoothPeripheral {
 
   var peripheral: CBPeripheral?
 
+  private let bluetoothDeviceCharacteristics: BluetoothDeviceCharacteristics
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init(peripheral: CBPeripheral?) {
+  init(
+    peripheral: CBPeripheral?,
+    bluetoothDeviceCharacteristics: BluetoothDeviceCharacteristics = .shared
+  ) {
     self.peripheral = peripheral
+    self.bluetoothDeviceCharacteristics = bluetoothDeviceCharacteristics
   }
 
   //----------------------------------------------------------------------------
@@ -22,13 +28,14 @@ struct IOBluetoothPeripheral {
   //----------------------------------------------------------------------------
 
   func readDeviceState() {
-    guard let deviceState =
-      BluetoothDeviceCharacteristics.shared.deviceState else { return }
+    guard let deviceState = bluetoothDeviceCharacteristics.deviceState else {
+      return
+    }
     peripheral?.readValue(for: deviceState)
   }
 
   func readDeviceInformations() {
-    let informations = BluetoothDeviceCharacteristics.shared.deviceInformations
+    let informations = bluetoothDeviceCharacteristics.deviceInformations
 
     informations.forEach() { peripheral?.readValue(for: $0) }
   }
@@ -46,7 +53,7 @@ struct IOBluetoothPeripheral {
     let deviceName = serialNumberByteArray + [UInt8](name.utf8)
 
     peripheral?.writeValue(Data(deviceName),
-                           for: BluetoothDeviceCharacteristics.shared.mailBox,
+                           for: bluetoothDeviceCharacteristics.mailBox,
                            type: .withResponse)
   }
 
@@ -60,7 +67,7 @@ struct IOBluetoothPeripheral {
     firmwareVersionConverted[4] = numberOfBlocks.hiUint16
 
     peripheral?.writeValue(Data(firmwareVersionConverted),
-                           for: BluetoothDeviceCharacteristics.shared.mailBox,
+                           for: bluetoothDeviceCharacteristics.mailBox,
                            type: .withResponse)
   }
 
@@ -72,14 +79,14 @@ struct IOBluetoothPeripheral {
     ]
 
     peripheral?.writeValue(Data(bytesArray),
-                           for: BluetoothDeviceCharacteristics.shared.mailBox,
+                           for: bluetoothDeviceCharacteristics.mailBox,
                            type: .withResponse)
   }
 
   func write(oadBuffer: [UInt8]) {
     peripheral?.writeValue(
       Data(oadBuffer),
-      for: BluetoothDeviceCharacteristics.shared.oadTransfert,
+      for: bluetoothDeviceCharacteristics.oadTransfert,
       type: .withoutResponse
     )
   }
@@ -91,21 +98,21 @@ struct IOBluetoothPeripheral {
   func notifyMailBox(value: Bool) {
     peripheral?.setNotifyValue(
       true,
-      for: BluetoothDeviceCharacteristics.shared.mailBox
+      for: bluetoothDeviceCharacteristics.mailBox
     )
   }
 
   func notifyBrainActivityMeasurement(value: Bool) {
     peripheral?.setNotifyValue(
       value,
-      for: BluetoothDeviceCharacteristics.shared.brainActivityMeasurement
+      for: bluetoothDeviceCharacteristics.brainActivityMeasurement
     )
   }
 
   func notifyHeadsetStatus(value: Bool) {
     peripheral?.setNotifyValue(
       value,
-      for: BluetoothDeviceCharacteristics.shared.headsetStatus
+      for: bluetoothDeviceCharacteristics.headsetStatus
     )
   }
 }

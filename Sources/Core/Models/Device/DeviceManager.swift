@@ -9,7 +9,7 @@ import Foundation
 
 #warning("TODO: Remove Database???")
 
-class DeviceManager: MBTRealmEntityManager {
+class DeviceManager {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -20,6 +20,41 @@ class DeviceManager: MBTRealmEntityManager {
     didSet {
       log.verbose("Connected device name: \(connectedDeviceName ?? "nil")")
     }
+  }
+
+  /// Get Register Device
+  /// - Returns: The array DB-saved *[MBTDevice]* instance
+  static var registeredDevices: [MBTDevice] {
+    return [MBTDevice](RealmManager.shared.realm.objects(MBTDevice.self))
+  }
+
+  /// Get BLE device informations of the connected MBT device.
+  /// - Returns: The DB-saved *MBTDeviceInformations* instance.
+  static var deviceInformation: MBTDeviceInformations? {
+    // Get current device.
+    return getCurrentDevice()?.deviceInfos
+  }
+
+  /// Get EEG data samp rate of the connected device.
+  /// - Returns: The *sampRate* of the current *MBTDevice*.
+  static var deviceSampleRate: Int? {
+    return getCurrentDevice()?.sampRate
+  }
+
+  /// Get the number of channels of the connected device.
+  /// - Returns: The *nbChannels* of the current *MBTDevice*.
+  static var deviceChannelCount: Int? {
+    return getCurrentDevice()?.nbChannels
+  }
+
+  /// Get EEGPacket length of the connected device.
+  /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
+  static var deviceEEGPacketLength: Int? {
+    return getCurrentDevice()?.eegPacketLength
+  }
+
+  static var deviceQrCode: String? {
+    return getCurrentDevice()?.qrCode
   }
 
   //----------------------------------------------------------------------------
@@ -120,41 +155,6 @@ class DeviceManager: MBTRealmEntityManager {
 
       return newDevice
     }
-  }
-
-  /// Get Register Device
-  /// - Returns: The array DB-saved *[MBTDevice]* instance
-  class func getRegisteredDevices() -> [MBTDevice] {
-    return [MBTDevice](RealmManager.shared.realm.objects(MBTDevice.self))
-  }
-
-  /// Get BLE device informations of the connected MBT device.
-  /// - Returns: The DB-saved *MBTDeviceInformations* instance.
-  class func getDeviceInfos() -> MBTDeviceInformations? {
-    // Get current device.
-    return getCurrentDevice()?.deviceInfos
-  }
-
-  /// Get EEG data samp rate of the connected device.
-  /// - Returns: The *sampRate* of the current *MBTDevice*.
-  class func getDeviceSampRate() -> Int? {
-    return getCurrentDevice()?.sampRate
-  }
-
-  /// Get the number of channels of the connected device.
-  /// - Returns: The *nbChannels* of the current *MBTDevice*.
-  class func getChannelsCount() -> Int? {
-    return getCurrentDevice()?.nbChannels
-  }
-
-  /// Get EEGPacket length of the connected device.
-  /// - Returns: The *eegPacketLength* of the current *MBTDevice*.
-  class func getDeviceEEGPacketLength() -> Int? {
-    return getCurrentDevice()?.eegPacketLength
-  }
-
-  class func getDeviceQrCode() -> String? {
-    return getCurrentDevice()?.qrCode
   }
 
   /// Deinit all properties of deviceInfos

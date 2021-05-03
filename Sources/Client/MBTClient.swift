@@ -98,6 +98,20 @@ public class MBTClient {
     signalProcessingManager = MBTSignalProcessingManager.shared
 
     initLog(logToFile: false, isDebugMode: false)
+
+    setupBluetoothManager()
+  }
+
+  private func setupBluetoothManager() {
+    bluetoothManager.didReceiveBrainData = { [weak self] brainData in
+      self?.eegAcquisitionManager.processBrainActivity(data: brainData)
+    }
+
+    bluetoothManager.didReceiveHeadsetStatus = { [weak self] characteristic in
+      self?.deviceAcquisitionManager.processHeadsetStatus(characteristic)
+    }
+
+    
   }
 
   //----------------------------------------------------------------------------
@@ -184,7 +198,7 @@ public class MBTClient {
   ///
   /// - Returns: A *String* instance of connected device's QR Code
   public func getDeviceQrCode() -> String? {
-    return DeviceManager.getDeviceQrCode()
+    return DeviceManager.deviceQrCode
   }
 
   public func getDeviceSerialNumber(fromQrCode qrCode: String) -> String? {
@@ -210,7 +224,7 @@ public class MBTClient {
   /// - Returns: A *MBTDeviceInformations* instance of the connected headset if
   /// no melomind is connected (BLE).
   public func getDeviceInformations() -> MBTDeviceInformations? {
-    return DeviceManager.getDeviceInfos()
+    return DeviceManager.deviceInformation
   }
 
   /// Getter for Device Name of the MBT headset.
@@ -226,7 +240,7 @@ public class MBTClient {
   public func getRegisteredDevices() -> [MBTDevice] {
     var tabDeviceName = [MBTDevice]()
 
-    for device in DeviceManager.getRegisteredDevices() {
+    for device in DeviceManager.registeredDevices {
       tabDeviceName.append(device)
     }
 
@@ -243,8 +257,7 @@ public class MBTClient {
                           removeFile: Bool,
                           accessTokens: String) {
     BrainwebRequest.shared.accessTokens = accessTokens
-    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl)
-    { success in
+    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl) { success in
       guard success && removeFile else { return }
       RecordFileSaver.shared.removeRecord(at: urlFile)
     }
@@ -270,7 +283,6 @@ public class MBTClient {
       userId: idUser,
       algo: algo,
       comments: comments,
-      eegPacketManager: EEGPacketManager.shared,
       device: device,
       recordingInformation: recordInfo,
       recordFileSaver: RecordFileSaver.shared,
@@ -402,7 +414,7 @@ public class MBTClient {
 
   /// Start the OAD process
   public func startOADTransfer() {
-    bluetoothManager.startOAD()
+    bluetoothManager.startOAD(withDevice: DeviceManager.getCurrentDevice())
   }
 
   /// To know if a new headset firmware version is available.

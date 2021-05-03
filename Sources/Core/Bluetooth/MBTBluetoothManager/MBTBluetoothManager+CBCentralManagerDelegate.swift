@@ -169,7 +169,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
       return DeviceManager.resetDeviceInfo()
     }
 
-    BluetoothDeviceCharacteristics.shared.deviceInformations.removeAll()
+    bluetoothDeviceCharacteristics.deviceInformations.removeAll()
   }
 
   //----------------------------------------------------------------------------
