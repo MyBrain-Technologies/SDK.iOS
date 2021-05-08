@@ -20,6 +20,7 @@
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D2E969425DAE4FF0016A83E /* mm-ota-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969225DAE4FF0016A83E /* mm-ota-1_7_26.bin */; };
 		4D2E969525DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */; };
+		4D356648264068DB00B4846D /* MBTBluetoothManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */; };
 		4D5EE9DD234E096D00B36DF0 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
 		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
@@ -193,6 +194,7 @@
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2E969225DAE4FF0016A83E /* mm-ota-1_7_26.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_26.bin"; sourceTree = "<group>"; };
 		4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_26.bin"; sourceTree = "<group>"; };
+		4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTBluetoothManagerV2.swift; sourceTree = "<group>"; };
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -469,6 +471,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4D356646264068BE00B4846D /* V2 */ = {
+			isa = PBXGroup;
+			children = (
+				4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */,
+			);
+			path = V2;
+			sourceTree = "<group>";
+		};
 		4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,6 +687,7 @@
 		A91DC1052490CEFD00E4A440 /* MBTBluetoothManager */ = {
 			isa = PBXGroup;
 			children = (
+				4D356646264068BE00B4846D /* V2 */,
 				A91DC10B2490CF6200E4A440 /* MBTBluetoothManager.swift */,
 				A91DC1082490CF6200E4A440 /* MBTBluetoothManager+A2DP.swift */,
 				A91DC1092490CF6200E4A440 /* MBTBluetoothManager+AudioChangedRoute.swift */,
@@ -1056,6 +1067,7 @@
 				A918D29224619CFB00026F1D /* DeviceError.swift in Sources */,
 				A91DC1262490CFA300E4A440 /* BluetoothPeripheralConnector.swift in Sources */,
 				A92D7A4B24814EED000DF7C3 /* EEGRawPacketBuffer.swift in Sources */,
+				4D356648264068DB00B4846D /* MBTBluetoothManagerV2.swift in Sources */,
 				A927D58E23CCDF3C00C20734 /* IndusVersion.swift in Sources */,
 				A92D7A3B248118CF000DF7C3 /* Array+extension.swift in Sources */,
 				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,

@@ -163,7 +163,7 @@ extension MBTBluetoothManager: CBCentralManagerDelegate {
                       didConnect peripheral: CBPeripheral) {
     log.verbose("🆕 Did connect to peripheral")
 
-    peripheral.discoverServices(nil)
+    peripheral.discoverServices(nil) // Return all the possible services
 
     guard isOADInProgress && OADState >= .completed else {
       return DeviceManager.resetDeviceInfo()

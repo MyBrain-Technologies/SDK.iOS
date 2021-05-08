@@ -35,6 +35,7 @@ extension MBTBluetoothManager {
       return
     }
 
+    // Move check outside of this function
     guard let filename = BinariesFileFinder().higherBinaryFilename(for: device),
       device.shouldUpdateFirmware else {
         isOADInProgress = false
