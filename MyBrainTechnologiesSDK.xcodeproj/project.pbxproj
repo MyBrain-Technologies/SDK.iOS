@@ -21,7 +21,6 @@
 		4D2E969425DAE4FF0016A83E /* mm-ota-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969225DAE4FF0016A83E /* mm-ota-1_7_26.bin */; };
 		4D2E969525DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */; };
 		4D356648264068DB00B4846D /* MBTBluetoothManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */; };
-		4D4A09802646DCCC00366DF6 /* CoreBluetoothMock in Frameworks */ = {isa = PBXBuildFile; productRef = 4D4A097F2646DCCC00366DF6 /* CoreBluetoothMock */; };
 		4D4A09882646DD1D00366DF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09872646DD1D00366DF6 /* AppDelegate.swift */; };
 		4D4A098A2646DD1D00366DF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09892646DD1D00366DF6 /* SceneDelegate.swift */; };
 		4D4A098C2646DD1D00366DF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A098B2646DD1D00366DF6 /* ViewController.swift */; };
@@ -45,6 +44,10 @@
 		4D92948A2646E5E3004214AE /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4D92948B2646E5E5004214AE /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
 		4D92948C2646E5E5004214AE /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4D9294902646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */; };
+		4D9294912646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */; };
+		4D9294922646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */; };
+		4D9294942646E76C004214AE /* CoreBluetoothMock in Frameworks */ = {isa = PBXBuildFile; productRef = 4D9294932646E76C004214AE /* CoreBluetoothMock */; };
 		4D94474325F9679900CB364A /* String+VersionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D94474225F9679900CB364A /* String+VersionNumber.swift */; };
 		4D94474425F968AE00CB364A /* FormatedVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */; };
 		4D94474525F968C900CB364A /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
@@ -270,6 +273,7 @@
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBluetoothTypeAliases.swift; sourceTree = "<group>"; };
 		4D94474225F9679900CB364A /* String+VersionNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+VersionNumber.swift"; sourceTree = "<group>"; };
 		4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTSignalProcessingBridge.mm; sourceTree = "<group>"; };
 		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
@@ -404,7 +408,6 @@
 				A90A1D6A22C373360097C1BE /* libDataManipulation.a in Frameworks */,
 				A90A1D6922C373360097C1BE /* libTransformations.a in Frameworks */,
 				A918D29A2461CC2200026F1D /* SwiftyBeaver.framework in Frameworks */,
-				4D4A09802646DCCC00366DF6 /* CoreBluetoothMock in Frameworks */,
 				A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */,
 				A90A1D6622C373360097C1BE /* libNF_Melomind.a in Frameworks */,
 				A90A1D6822C373360097C1BE /* libPreProcessing.a in Frameworks */,
@@ -418,6 +421,7 @@
 			files = (
 				4D9294872646E5E0004214AE /* Realm.framework in Frameworks */,
 				4D9294852646E5DD004214AE /* Alamofire.framework in Frameworks */,
+				4D9294942646E76C004214AE /* CoreBluetoothMock in Frameworks */,
 				4D92948B2646E5E5004214AE /* SwiftyJSON.framework in Frameworks */,
 				4D9294892646E5E2004214AE /* RealmSwift.framework in Frameworks */,
 				4D4A09D12646E53100366DF6 /* SwiftyBeaver.framework in Frameworks */,
@@ -588,6 +592,7 @@
 		4D4A09862646DD1D00366DF6 /* BluetoothTestApp */ = {
 			isa = PBXGroup;
 			children = (
+				4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */,
 				4D4A09872646DD1D00366DF6 /* AppDelegate.swift */,
 				4D4A09892646DD1D00366DF6 /* SceneDelegate.swift */,
 				4D4A098B2646DD1D00366DF6 /* ViewController.swift */,
@@ -1030,7 +1035,6 @@
 			);
 			name = "MyBrainTechnologiesSDK-iOS";
 			packageProductDependencies = (
-				4D4A097F2646DCCC00366DF6 /* CoreBluetoothMock */,
 			);
 			productName = "MyBrainTechnologiesSDK-iOS";
 			productReference = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */;
@@ -1052,6 +1056,7 @@
 			);
 			name = BluetoothTestApp;
 			packageProductDependencies = (
+				4D9294932646E76C004214AE /* CoreBluetoothMock */,
 			);
 			productName = BluetoothTestApp;
 			productReference = 4D4A09852646DD1D00366DF6 /* BluetoothTestApp.app */;
@@ -1360,6 +1365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9294902646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */,
 				4D4A098C2646DD1D00366DF6 /* ViewController.swift in Sources */,
 				4D4A09882646DD1D00366DF6 /* AppDelegate.swift in Sources */,
 				4D4A098A2646DD1D00366DF6 /* SceneDelegate.swift in Sources */,
@@ -1370,6 +1376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9294912646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */,
 				4D4A099F2646DD1E00366DF6 /* BluetoothTestAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1378,6 +1385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9294922646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */,
 				4D4A09AA2646DD1E00366DF6 /* BluetoothTestAppUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1600,6 +1608,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = marker;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1654,6 +1663,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = bitcode;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1707,6 +1717,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1731,6 +1742,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Debug;
 		};
@@ -1739,6 +1751,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1762,6 +1775,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = YES;
 			};
 			name = Release;
 		};
@@ -2013,7 +2027,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4D4A097F2646DCCC00366DF6 /* CoreBluetoothMock */ = {
+		4D9294932646E76C004214AE /* CoreBluetoothMock */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4D4A097E2646DCCC00366DF6 /* XCRemoteSwiftPackageReference "IOS-CoreBluetooth-Mock" */;
 			productName = CoreBluetoothMock;
