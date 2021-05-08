@@ -138,8 +138,8 @@ extension BluetoothIOGateway: CBCentralManagerDelegate {
   }
 
   // Called when it succeeded
-  func centralManager(central: CBCentralManager,
-                      didConnectPeripheral peripheral: CBPeripheral) {
+  func centralManager(_ central: CBCentralManager,
+                      didConnect peripheral: CBPeripheral) {
     log.verbose("🆕 Did connect to peripheral")
 
     didConnectToPeripheral?(peripheral)
