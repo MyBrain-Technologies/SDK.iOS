@@ -192,6 +192,7 @@ internal class MBTBluetoothManager: NSObject {
     isListeningToHeadsetStatus = false
     processBatteryLevel = false
 
+    #warning("TODO: Remove duplicated centralManager init?")
     bluetoothConnector.centralManager = CBCentralManager(delegate: self,
                                                          queue: nil)
 
