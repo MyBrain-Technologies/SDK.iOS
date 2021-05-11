@@ -82,8 +82,13 @@ internal class BluetoothIOGateway: NSObject {
 
   }
 
-  private func handleBluetoothUnwantedState() {
-    log.info("📲 Bluetooth state is \(central.state)")
+  private func handleBluetoothUnsuportedState(
+    _ unsuportedState: CBManagerState
+  ) {
+    if unsuportedState == .poweredOn || unsuportedState == .poweredOff {
+      assertionFailure("\(unsuportedState) is a supported state.")
+    }
+    log.info("📲 Bluetooth state is \(unsuportedState)")
   }
 
 
@@ -108,10 +113,12 @@ extension BluetoothIOGateway: CBCentralManagerDelegate {
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     log.verbose("🆕 Did update with state: /(\(central.state)")
 
-    switch central.state {
+    let centralState = central.state
+
+    switch centralState {
       case .poweredOn: handleBluetoothPoweredOn()
       case .poweredOff: handleBluetoothPoweredOff()
-      default: handleBluetoothUnwantedState()
+      default: handleBluetoothUnsuportedState(centralState)
     }
 
 //    let hasRebootBluetooth = bluetoothStatesHistory.isPoweredOn
