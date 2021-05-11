@@ -229,17 +229,23 @@ internal class Peripheral: NSObject {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  var peripheral: CBPeripheral? {
+  private(set) var peripheral: CBPeripheral? {
     didSet {
       updatePeripheral()
     }
   }
 
   var indusVersion: IndusVersion {
+    #warning("TODO")
     return .indus2
   }
 
-  lazy var peripheralManager: CBPeripheralManager = {
+  var firmwareVersion: FormatedVersion {
+    #warning("TODO")
+    return FormatedVersion(major: 0, minor: 0, fix: 0)
+  }
+
+  lazy private var peripheralManager: CBPeripheralManager = {
     return CBPeripheralManager(delegate: self, queue: nil)
   }()
 
@@ -254,6 +260,12 @@ internal class Peripheral: NSObject {
   //----------------------------------------------------------------------------
   // MARK: - Update
   //----------------------------------------------------------------------------
+
+  func isVersionUpToDate(oadFirmwareVersion: FormatedVersion) -> Bool {
+    log.info("Device current firmware version", context: firmwareVersion)
+    log.info("Expected firmware version", context: oadFirmwareVersion)
+    return firmwareVersion == oadFirmwareVersion
+  }
 
   private func updatePeripheral() {
 
