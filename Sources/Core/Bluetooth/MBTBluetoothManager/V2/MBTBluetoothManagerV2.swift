@@ -49,6 +49,12 @@ internal class BluetoothIOGateway: NSObject {
 //    }
 //  }
 
+  #warning("TODO: Rename to `isHeadsetConnected`")
+  /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
+  var isBLEConnected: Bool {
+    return blePeripheral != nil
+  }
+
 
   /******************** Callbacks ********************/
 
@@ -62,6 +68,24 @@ internal class BluetoothIOGateway: NSObject {
   override init() {
     super.init()
   }
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - State
+  //----------------------------------------------------------------------------
+
+  private func handleBluetoothPoweredOn() {
+
+  }
+
+  private func handleBluetoothPoweredOff() {
+
+  }
+
+  private func handleBluetoothUnwantedState() {
+    log.info("📲 Bluetooth state is \(central.state)")
+  }
+
 
   //----------------------------------------------------------------------------
   // MARK: - Scanning
@@ -84,11 +108,10 @@ extension BluetoothIOGateway: CBCentralManagerDelegate {
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     log.verbose("🆕 Did update with state: /(\(central.state)")
 
-
     switch central.state {
-//      case .poweredOn: didBluetoothPoweredOn()
-//      case .poweredOff: didBluetoothPoweredOff()
-      default: break
+      case .poweredOn: handleBluetoothPoweredOn()
+      case .poweredOff: handleBluetoothPoweredOff()
+      default: handleBluetoothUnwantedState()
     }
 
 //    let hasRebootBluetooth = bluetoothStatesHistory.isPoweredOn
@@ -210,6 +233,10 @@ internal class Peripheral: NSObject {
     didSet {
       updatePeripheral()
     }
+  }
+
+  var indusVersion: IndusVersion {
+    return .indus2
   }
 
   lazy var peripheralManager: CBPeripheralManager = {
