@@ -66,6 +66,12 @@ class BlinkyCBMPeripheralSpecDelegate: CBMPeripheralSpecDelegate {
   }
 
   func peripheral(_ peripheral: CBMPeripheralSpec,
+                  didReceiveSetNotifyRequest enabled: Bool,
+                  for characteristic: CBMCharacteristic) -> Result<Void, Error> {
+    return .success(())
+  }
+
+  func peripheral(_ peripheral: CBMPeripheralSpec,
                   didReceiveServiceDiscoveryRequest serviceUUIDs: [CBMUUID]?
   ) -> Result<Void, Error> {
     return .success(())
@@ -120,7 +126,11 @@ class ViewController: UIViewController {
   }
 
   lazy var blinky: CBMPeripheralSpec = {
-    let service = CBMServiceMock(type: CBUUID.nordicBlinkyService, primary: true)
+    let service = CBMServiceMock(
+      type: CBUUID.nordicBlinkyService,
+      primary: true,
+      characteristics: .ledCharacteristic, .buttonCharacteristic
+    )
 
     return CBMPeripheralSpec
       .simulatePeripheral(proximity: .immediate)
@@ -143,18 +153,11 @@ class ViewController: UIViewController {
 
   private func setupMockBluetooth() {
 
-
-
-
-
-
-
     CBMCentralManagerMock.simulatePeripherals([blinky])
 
     bluetoothMock = CBCentralManagerFactory.instance(delegate: self,
                                                      queue: nil,
                                                      forceMock: true)
-
     CBMCentralManagerMock.simulatePowerOn()
   }
 
@@ -304,11 +307,98 @@ extension ViewController: CBPeripheralDelegate {
 
   func peripheral(_ peripheral: CBMPeripheral,
                   didDiscoverServices error: Error?) {
-    print(peripheral.services)
-    if let services = peripheral.services,
-       let service = services.first(where: { $0.uuid == CBUUID.nordicBlinkyService })  {
-      print("Good \(service)")
+
+//    if let services = peripheral.services,
+//       let service = services.first(where: { $0.uuid == CBUUID.nordicBlinkyService })  {
+//      print("Good \(service)")
+//
+//    }
+//    print("End didDiscoverServices")
+
+    guard let services = peripheral.services else {
+      return
     }
-    print("End didDiscoverServices")
+    print(peripheral.services)
+
+    for service in services {
+      // Get the MyBrainService and Device info UUID
+      let servicesUUID = [CBUUID.nordicBlinkyService]
+
+      // Check if manager should look at this service characteristics
+      if servicesUUID.contains(service.uuid) {
+        let currentService = service as CBService
+        peripheral.discoverCharacteristics(nil, for: currentService)
+      }
+    }
+  }
+
+  func peripheral(_ peripheral: CBMPeripheral,
+                  didDiscoverCharacteristicsFor service: CBMService,
+                  error: Error?) {
+    print("🆕 Did discover characteristics")
+
+    guard let characteristics = service.characteristics else {
+      return
+    }
+
+//    updateDeviceCharacteristics(with: service)
+
+//    if hasDiscoverAllCharacteristics {
+//      prepareDevice()
+//    }
+
+    for characteristic in characteristics {
+      if characteristic.properties.contains(.notify) {
+        peripheral.setNotifyValue(true, for: characteristic)
+      }
+      (peripheral as? CBMPeripheralMock)?.readValue(for: characteristic)
+
+    }
+
+//    peripheral.readValue(for: CBMCharacteristicMock.ledCharacteristic)
+//    peripheral.readValue(for: CBMCharacteristicMock.buttonCharacteristic)
+
+//    (peripheral as? CBMPeripheralMock)?.readValue(for: CBMCharacteristicMock.ledCharacteristic)
+//    (peripheral as? CBMPeripheralMock)?.readValue(for: CBMCharacteristicMock.buttonCharacteristic)
+  }
+
+  func peripheral(_ peripheral: CBMPeripheral,
+                  didWriteValueFor characteristic: CBMCharacteristic,
+                  error: Error?) {
+    print("🆕 Did write value for characteristic. (\(characteristic.uuid))")
+  }
+
+  func peripheral(_ peripheral: CBPeripheral,
+                  didUpdateValueFor characteristic: CBCharacteristic,
+                  error: Error?) {
+
+
+//    let deviceAcquisition = MBTClient.shared.deviceAcquisitionManager
+//
+//    guard let service = BluetoothService(uuid: characteristic.uuid) else {
+//      log.error("unknown service", context: characteristic.uuid)
+//      return
+//    }
+//
+//    let serviceString = service.uuid.uuidString
+    print("🆕 Did update value for characteristic. (\(characteristic.uuid))")
+
+    if characteristic.uuid == CBUUID.buttonCharacteristic {
+      print("buttonCharacteristic")
+    } else if characteristic.uuid == CBUUID.ledCharacteristic {
+      print("ledCharacteristic")
+    }
+
+  }
+
+
+  func peripheral(_ peripheral: CBMPeripheral,
+                  didUpdateNotificationStateFor characteristic: CBMCharacteristic,
+                  error: Error?) {
+    blinky.simulateValueUpdate(Data([0x01]),
+                               for: .ledCharacteristic)
+
+    blinky.simulateValueUpdate(Data([0x01]),
+                               for: .buttonCharacteristic)
   }
 }
