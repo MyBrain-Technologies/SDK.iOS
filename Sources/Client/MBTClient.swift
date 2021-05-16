@@ -19,19 +19,19 @@ public class MBTClient {
 
   /// Init a MBTBluetoothManager, which deals with
   /// the MBT headset bluetooth.
-  internal let bluetoothManager: MBTBluetoothManager
+  internal let bluetoothManager: MBTBluetoothManager = .shared
 
   /// Init a MBTEEGAcquisitionManager, which deals with
   /// data from the MBT Headset.
-  internal let eegAcquisitionManager: MBTEEGAcquisitionManager
+  internal let eegAcquisitionManager: MBTEEGAcquisitionManager = .shared
 
   /// Init a MBTDeviceAcquisitionManager, which deals with
   /// data from the MBT Headset.
-  internal let deviceAcquisitionManager: MBTDeviceAcquisitionManager
+  internal let deviceAcquisitionManager: MBTDeviceAcquisitionManager = .shared
 
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
-  internal let signalProcessingManager: MBTSignalProcessingManager
+  internal let signalProcessingManager: MBTSignalProcessingManager = .shared
 
   /******************** Acquisition ********************/
 
@@ -87,15 +87,10 @@ public class MBTClient {
   //----------------------------------------------------------------------------
 
   private init() {
-    bluetoothManager = MBTBluetoothManager.shared
-
     if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
       !bluetoothManager.isAudioAndBLEConnected {
       bluetoothManager.connectTo(deviceName)
     }
-    eegAcquisitionManager = MBTEEGAcquisitionManager.shared
-    deviceAcquisitionManager = MBTDeviceAcquisitionManager.shared
-    signalProcessingManager = MBTSignalProcessingManager.shared
 
     initLog(logToFile: false, isDebugMode: false)
 
