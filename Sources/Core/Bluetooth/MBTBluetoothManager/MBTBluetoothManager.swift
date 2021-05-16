@@ -74,6 +74,7 @@ internal class MBTBluetoothManager: NSObject {
 
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   var isBLEConnected: Bool {
+    #warning("Use peripheral.state == .connected")
     return peripheralIO.peripheral != nil
   }
 
@@ -104,16 +105,16 @@ internal class MBTBluetoothManager: NSObject {
   /// Use for BLE authorizations.
   var peripheralManager: CBPeripheralManager?
 
-  /// The BLE peripheral with which a connection has been established.
-  var blePeripheral: CBPeripheral? {
-    didSet {
-      if isBLEConnected {
-        eventDelegate?.onHeadsetStatusUpdate?(true)
-      } else {
-        eventDelegate?.onHeadsetStatusUpdate?(false)
-      }
-    }
-  }
+//  /// The BLE peripheral with which a connection has been established.
+//  var blePeripheral: CBPeripheral? {
+//    didSet {
+//      if isBLEConnected {
+//        eventDelegate?.onHeadsetStatusUpdate?(true)
+//      } else {
+//        eventDelegate?.onHeadsetStatusUpdate?(false)
+//      }
+//    }
+//  }
 
   /// A counter which allows to know if all the characteristics have been discovered
   var counterServicesDiscover = 0 {

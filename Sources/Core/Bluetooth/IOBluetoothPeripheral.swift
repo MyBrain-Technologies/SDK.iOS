@@ -7,7 +7,14 @@ struct IOBluetoothPeripheral {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  #warning("TODO: Add eventDelegate")
   var peripheral: CBPeripheral?
+//  {
+//    didSet {
+//      let statusUpdate = peripheral != nil ? true : false
+//      eventDelegate?.onHeadsetStatusUpdate?(statusUpdate)
+//    }
+//  }
 
   private let bluetoothDeviceCharacteristics: BluetoothDeviceCharacteristics
 
