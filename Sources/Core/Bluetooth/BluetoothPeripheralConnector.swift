@@ -7,6 +7,7 @@ import CoreBluetooth
  * Handle bluetooth connections
  *
  ******************************************************************************/
+#warning("TODO: Remove")
 class BluetoothPeripheralConnector {
 
   //----------------------------------------------------------------------------

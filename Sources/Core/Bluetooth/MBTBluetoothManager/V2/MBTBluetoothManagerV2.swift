@@ -15,20 +15,60 @@ internal class MBTBluetoothManagerV2: NSObject {
   // MARK: - properties
   //----------------------------------------------------------------------------
 
+  /******************** Delegate ********************/
+
+  /// The MBTBluetooth Event Delegate.
+  weak var eventDelegate: MBTBluetoothEventDelegate?
+
+  let central = BluetoothCentral()
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
+  override init() {
+    super.init()
+    setup()
+  }
+
+  private func setup() {
+    setupCentral()
+    setupPeripheral()
+  }
+
+  private func setupCentral() {
+    central.didDiscoverPeripheral = { peripheral in
+      print(peripheral)
+
+    }
+
+    central.didConnectToPeripheral = { peripheral in
+      print(peripheral)
+    }
+
+    central.didConnectionFail = { [weak self] error in
+      self?.eventDelegate?.onConnectionFailed?(error)
+    }
+  }
+
+  private func setupPeripheral() {
+
+  }
+
 }
 
-internal class BluetoothIOGateway: NSObject {
+internal class BluetoothCentral: NSObject {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
   // IOBluetoothPeripheral
+
+  /******************** Delegate ********************/
+
+  /// The MBTBluetooth Event Delegate.
+  weak var eventDelegate: MBTBluetoothEventDelegate?
 
   /******************** Central Manager ********************/
 
@@ -37,27 +77,30 @@ internal class BluetoothIOGateway: NSObject {
   }()
 
 
-  /// The BLE peripheral with which a connection has been established.
-  var blePeripheral: CBPeripheral?
-//  {
-//    didSet {
-//      if isBLEConnected {
-//        eventDelegate?.onHeadsetStatusUpdate?(true)
-//      } else {
-//        eventDelegate?.onHeadsetStatusUpdate?(false)
-//      }
-//    }
-//  }
+//  /// The BLE peripheral with which a connection has been established.
+//  var blePeripheral: CBPeripheral?
+////  {
+////    didSet {
+////      if isBLEConnected {
+////        eventDelegate?.onHeadsetStatusUpdate?(true)
+////      } else {
+////        eventDelegate?.onHeadsetStatusUpdate?(false)
+////      }
+////    }
+////  }
 
   #warning("TODO: Rename to `isHeadsetConnected`")
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   var isBLEConnected: Bool {
-    return blePeripheral != nil
+    return peripheral.isConnected
   }
+
+  let peripheral = Peripheral()
 
 
   /******************** Callbacks ********************/
 
+  var didDiscoverPeripheral: ((CBPeripheral) -> Void)?
   var didConnectToPeripheral: ((CBPeripheral) -> Void)?
   var didConnectionFail: ((Error?) -> Void)?
 
@@ -75,11 +118,40 @@ internal class BluetoothIOGateway: NSObject {
   //----------------------------------------------------------------------------
 
   private func handleBluetoothPoweredOn() {
+    log.info("📲 Bluetooth powered on")
 
+    // Scan for peripherals if BLE is turned on
+
+//    if bluetoothStatesHistory.isPoweredOn == false {
+//      bluetoothStatesHistory.addState(isConnected: true)
+//      eventDelegate?.onBluetoothStateChange?(true)
+//    }
+
+//    guard DeviceManager.connectedDeviceName != nil,
+//      timers.isBleConnectionTimerInProgress else { return }
+
+//    bluetoothConnector.scanForMelomindConnections()
+
+    log.verbose("🧭 Start scanning for a melomind device")
+
+    #warning("TODO use right service")
+    let melomindService = MelomindBluetoothPeripheral.melomindService
+    scan(services: [melomindService])
   }
 
   private func handleBluetoothPoweredOff() {
+    log.info("📲 Bluetooth powered off")
 
+//    if bluetoothStatesHistory.isPoweredOn {
+//      bluetoothStatesHistory.addState(isConnected: false)
+//      eventDelegate?.onBluetoothStateChange?(false)
+//    }
+
+//    if isOADInProgress {
+//      didBluetoothPoweredOffDuringOAD()
+//    } else {
+//      sendBluetoothPoweredOffError()
+//    }
   }
 
   private func handleBluetoothUnsuportedState(
@@ -97,9 +169,28 @@ internal class BluetoothIOGateway: NSObject {
   //----------------------------------------------------------------------------
 
   // Will call `centralManager(_:didDiscover:advertisementData:rssi:)`
-  func startScanning(services: [CBUUID]) {
+  private func scan(services: [CBUUID]) {
     log.verbose("🧭 Start scanning for a melomind device")
     cbCentralManager.scanForPeripherals(withServices: services, options: nil)
+  }
+
+  private func stopScanning(on peripheral: CBPeripheral? = nil) {
+    log.verbose("🧭 Stop scanning for a melomind device")
+
+    cbCentralManager.stopScan()
+
+    guard let peripheral = peripheral else { return }
+
+    cbCentralManager.cancelPeripheralConnection(peripheral)
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Connection
+  //----------------------------------------------------------------------------
+
+  private func connect(to peripheral: CBPeripheral) {
+    log.verbose("🧭 Connection to peripheral \(peripheral)")
+    cbCentralManager.connect(peripheral, options: nil)
   }
 
 }
@@ -108,7 +199,7 @@ internal class BluetoothIOGateway: NSObject {
 // MARK: - CBCentralManagerDelegate
 //==============================================================================
 
-extension BluetoothIOGateway: CBCentralManagerDelegate {
+extension BluetoothCentral: CBCentralManagerDelegate {
 
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     log.verbose("🆕 Did update with state: /(\(central.state)")
@@ -137,18 +228,22 @@ extension BluetoothIOGateway: CBCentralManagerDelegate {
                       rssi RSSI: NSNumber) {
     log.verbose("🆕 Did discover peripheral")
 
-//    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
-//
-//    guard let newDeviceName = dataReader.localName,
-//      let newDeviceServices = dataReader.uuidKeys else { return }
-//
-//    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
-//      deviceName: newDeviceName,
-//      services: newDeviceServices
-//    )
+    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
+
+    guard let newDeviceName = dataReader.localName,
+          let newDeviceServices = dataReader.uuidKeys else {
+      return
+    }
+
+    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
+      deviceName: newDeviceName,
+      services: newDeviceServices
+    )
+
 //    let isConnectingOrUpdating =
 //      timers.isBleConnectionTimerInProgress || OADState >= .started
-//
+
+    guard isMelomindDevice else { return }
 //    guard isMelomindDevice && isConnectingOrUpdating else { return }
 //
 //    if DeviceManager.connectedDeviceName == "" {
@@ -157,6 +252,14 @@ extension BluetoothIOGateway: CBCentralManagerDelegate {
 //
 //    guard DeviceManager.connectedDeviceName == newDeviceName else { return }
 //
+
+    stopScanning()
+
+    didDiscoverPeripheral?(peripheral)
+    // stop here or use following lines instead closure
+    self.peripheral.peripheral = peripheral
+    connect(to: peripheral)
+
 //    bluetoothConnector.stopScanningForConnections()
 //    peripheralIO.peripheral = peripheral
 //
@@ -236,10 +339,14 @@ internal class Peripheral: NSObject {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  private(set) var peripheral: CBPeripheral? {
+  var peripheral: CBPeripheral? {
     didSet {
       updatePeripheral()
     }
+  }
+
+  var isConnected: Bool {
+    return peripheral != nil
   }
 
   var indusVersion: IndusVersion {
@@ -275,7 +382,7 @@ internal class Peripheral: NSObject {
   }
 
   private func updatePeripheral() {
-
+    peripheral?.delegate = self
   }
 
 }
