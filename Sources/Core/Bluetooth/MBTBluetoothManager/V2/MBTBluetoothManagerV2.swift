@@ -25,6 +25,8 @@ public class MBTBluetoothManagerV2: NSObject {
 
   let currentPeripheral = MBTPeripheral()
 
+  private var discoveredPeripheral: CBPeripheral?
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -41,12 +43,20 @@ public class MBTBluetoothManagerV2: NSObject {
   }
 
   private func setupCentral() {
-    central.didDiscoverPeripheral = { peripheral in
+    central.didDiscoverPeripheral = { [weak self] peripheral in
       print(peripheral)
 
+
+      self?.central.stopScanning()
+
+//      self?.discoveredPeripheral = peripheral
+      self?.central.connect(to: peripheral)
     }
 
     central.didConnectToPeripheral = { [weak self] peripheral in
+      assert(self?.discoveredPeripheral == peripheral)
+
+      print("connected to \(peripheral)")
       self?.currentPeripheral.peripheral = peripheral
     }
 
@@ -158,6 +168,29 @@ extension MBTBluetoothManagerV2 {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//==============================================================================
+// MARK: - BluetoothCentral
+//==============================================================================
+
+
+
 internal class BluetoothCentral: NSObject {
 
   //----------------------------------------------------------------------------
@@ -268,7 +301,6 @@ internal class BluetoothCentral: NSObject {
     log.info("📲 Bluetooth state is \(unsuportedState)")
   }
 
-
   //----------------------------------------------------------------------------
   // MARK: - Scanning
   //----------------------------------------------------------------------------
@@ -319,7 +351,7 @@ internal class BluetoothCentral: NSObject {
   // MARK: - Connection
   //----------------------------------------------------------------------------
 
-  private func connect(to peripheral: CBPeripheral) {
+  func connect(to peripheral: CBPeripheral) {
     log.verbose("🧭 Connection to peripheral \(peripheral)")
     cbCentralManager.connect(peripheral, options: nil)
   }
@@ -379,9 +411,9 @@ extension BluetoothCentral: CBCentralManagerDelegate {
 
     didDiscoverPeripheral?(peripheral)
     // stop here or use following lines instead closure
-    stopScanning()
-    self.peripheral.peripheral = peripheral
-    connect(to: peripheral)
+//    stopScanning()
+//    self.peripheral.peripheral = peripheral
+//    connect(to: peripheral)
 
 //    bluetoothConnector.stopScanningForConnections()
 //    peripheralIO.peripheral = peripheral
@@ -389,7 +421,8 @@ extension BluetoothCentral: CBCentralManagerDelegate {
 //    peripheralIO.peripheral?.delegate = self
 //
 //    bluetoothConnector.connect(to: peripheral)
-//
+
+    #warning("TODO: Move to MBTPeripheral")
 //    DeviceManager.updateDeviceToMelomind()
   }
 
@@ -454,7 +487,25 @@ extension BluetoothCentral: CBCentralManagerDelegate {
 
 
 
-//// Peripheral
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//==============================================================================
+// MARK: - MBTPeripheral
+//==============================================================================
 
 internal class MBTPeripheral: NSObject {
 
