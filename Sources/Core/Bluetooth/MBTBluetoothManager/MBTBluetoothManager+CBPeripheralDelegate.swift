@@ -309,9 +309,11 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     finalizeConnectionMelomind()
   }
 
+  #warning("Unused?")
   func peripheral(_ peripheral: CBPeripheral,
                   didWriteValueFor characteristic: CBCharacteristic,
-                  error: Error?) {}
+                  error: Error?) {
+  }
 
   /// Check if the notification status changed.
   /// Invoked when the peripheral receives a request to start

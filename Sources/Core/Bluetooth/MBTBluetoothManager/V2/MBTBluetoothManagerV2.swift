@@ -219,14 +219,6 @@ internal class BluetoothCentral: NSObject {
 ////    }
 ////  }
 
-  #warning("TODO: Rename to `isHeadsetConnected`")
-  /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
-  var isBLEConnected: Bool {
-    return peripheral.isConnected
-  }
-
-  let peripheral = MBTPeripheral()
-
 
   /******************** Callbacks ********************/
 
@@ -536,9 +528,13 @@ internal class MBTPeripheral: NSObject {
     }
   }
 
+  #warning("TODO: Rename to `isHeadsetConnected`")
+  /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   var isConnected: Bool {
-    return peripheral != nil
+    // Before peripheral != nil
+    return peripheral?.state == .connected
   }
+  
 
   var indusVersion: IndusVersion {
     #warning("TODO")
@@ -553,9 +549,7 @@ internal class MBTPeripheral: NSObject {
     return FormatedVersion(major: 0, minor: 0, fix: 0)
   }
 
-  lazy private var peripheralManager: CBPeripheralManager = {
-    return CBPeripheralManager(delegate: self, queue: nil)
-  }()
+  private let peripheralManager: CBPeripheralManager
 
   /// Authorization given to access to bluetooth.
   private(set) var bluetoothAuthorization = BluetoothAuthorization.undetermined
@@ -564,6 +558,12 @@ internal class MBTPeripheral: NSObject {
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
+
+  override init() {
+    peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
+    super.init()
+    peripheralManager.delegate = self
+  }
 
   //----------------------------------------------------------------------------
   // MARK: - Update
@@ -577,6 +577,12 @@ internal class MBTPeripheral: NSObject {
 
   private func updatePeripheral() {
     peripheral?.delegate = self
+
+    updatePeripheralInformation()
+  }
+
+  private func updatePeripheralInformation() {
+    
   }
 
   //----------------------------------------------------------------------------
