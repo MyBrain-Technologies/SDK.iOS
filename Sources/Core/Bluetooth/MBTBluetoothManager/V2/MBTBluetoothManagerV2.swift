@@ -534,7 +534,6 @@ internal class MBTPeripheral: NSObject {
     // Before peripheral != nil
     return peripheral?.state == .connected
   }
-  
 
   var indusVersion: IndusVersion {
     #warning("TODO")
@@ -577,8 +576,8 @@ internal class MBTPeripheral: NSObject {
 
   private func updatePeripheral() {
     peripheral?.delegate = self
-
-    updatePeripheralInformation()
+    guard isConnected else { return }
+    peripheral?.discoverServices(nil)
   }
 
   private func updatePeripheralInformation() {
@@ -593,25 +592,25 @@ internal class MBTPeripheral: NSObject {
                                       error: Error?) {
     log.verbose("🆕 Did discover services")
 
-//    // Check all the services of the connecting peripheral.
-//    guard isBLEConnected, let services = peripheral.services else {
-//      log.error("BLE peripheral is connected ? \(isBLEConnected)")
-//      log.error("Services peripheral are nil ? \(peripheral.services == nil)")
-//      return
-//    }
+    // Check all the services of the connecting peripheral.
+    guard isConnected, let services = peripheral.services else {
+      log.error("BLE peripheral is connected ? \(isConnected)")
+      log.error("Services peripheral are nil ? \(peripheral.services == nil)")
+      return
+    }
 //    counterServicesDiscover = 0
 //
-//    for service in services {
-//      let currentService = service as CBService
-//      // Get the MyBrainService and Device info UUID
-//      let servicesUUID = BluetoothService.melomindServices.uuids
-//
-//      // Check if manager should look at this service characteristics
-//      if servicesUUID.contains(service.uuid) {
-//        peripheral.discoverCharacteristics(nil, for: currentService)
+    for service in services {
+
+      // Get the MyBrainService and Device info UUID
+      let servicesUUID = BluetoothService.melomindServices.uuids
+
+      // Check if manager should look at this service characteristics
+      if servicesUUID.contains(service.uuid) {
+        peripheral.discoverCharacteristics(nil, for: service)
 //        counterServicesDiscover += 1
-//      }
-//    }
+      }
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -623,9 +622,14 @@ internal class MBTPeripheral: NSObject {
                                              error: Error?) {
     log.verbose("🆕 Did discover characteristics")
 
-//    guard isBLEConnected, service.characteristics != nil else {
-//      return
-//    }
+    guard isConnected, let characteristics = service.characteristics else {
+      return
+    }
+
+    for characteristic in characteristics {
+      print(characteristic)
+    }
+
 //
 //    counterServicesDiscover -= 1
 //
