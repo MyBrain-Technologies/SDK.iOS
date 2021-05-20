@@ -175,6 +175,9 @@ internal class BluetoothCentral: NSObject {
 
   private let cbCentralManager: CBCentralManager
 
+  var isScanning: Bool {
+    return cbCentralManager.isScanning
+  }
 
 //  /// The BLE peripheral with which a connection has been established.
 //  var blePeripheral: CBPeripheral?
@@ -234,7 +237,7 @@ internal class BluetoothCentral: NSObject {
 
 //    bluetoothConnector.scanForMelomindConnections()
 
-    log.verbose("🧭 Start scanning for a melomind device")
+//   log.verbose("🧭 Start scanning for a melomind device")
 
     #warning("TODO use right service")
 //    let melomindService = MelomindBluetoothPeripheral.melomindService
