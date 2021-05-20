@@ -25,8 +25,6 @@ public class MBTBluetoothManagerV2: NSObject {
 
   let currentPeripheral = MBTPeripheral()
 
-  private var discoveredPeripheral: CBPeripheral?
-
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -46,16 +44,11 @@ public class MBTBluetoothManagerV2: NSObject {
     central.didDiscoverPeripheral = { [weak self] peripheral in
       print(peripheral)
 
-
       self?.central.stopScanning()
-
-//      self?.discoveredPeripheral = peripheral
       self?.central.connect(to: peripheral)
     }
 
     central.didConnectToPeripheral = { [weak self] peripheral in
-      assert(self?.discoveredPeripheral == peripheral)
-
       print("connected to \(peripheral)")
       self?.currentPeripheral.peripheral = peripheral
     }
@@ -212,6 +205,8 @@ internal class BluetoothCentral: NSObject {
     return cbCentralManager.isScanning
   }
 
+  private var discoveredPeripherals = [CBPeripheral]()
+
 //  /// The BLE peripheral with which a connection has been established.
 //  var blePeripheral: CBPeripheral?
 ////  {
@@ -314,6 +309,7 @@ internal class BluetoothCentral: NSObject {
       return
     }
 
+    discoveredPeripherals.removeAll()
     cbCentralManager.scanForPeripherals(withServices: services, options: nil)
   }
 
@@ -398,6 +394,8 @@ extension BluetoothCentral: CBCentralManagerDelegate {
 //      timers.isBleConnectionTimerInProgress || OADState >= .started
 
     guard isMelomindDevice else { return }
+
+    discoveredPeripherals.append(peripheral)
 //    guard isMelomindDevice && isConnectingOrUpdating else { return }
 //
 //    if DeviceManager.connectedDeviceName == "" {
