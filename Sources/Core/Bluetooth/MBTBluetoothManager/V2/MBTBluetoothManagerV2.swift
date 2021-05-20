@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-internal class MBTBluetoothManagerV2: NSObject {
+public class MBTBluetoothManagerV2: NSObject {
 
   //----------------------------------------------------------------------------
   // MARK: - properties
@@ -28,7 +28,7 @@ internal class MBTBluetoothManagerV2: NSObject {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  override init() {
+  public override init() {
     super.init()
     setup()
   }
@@ -59,6 +59,20 @@ internal class MBTBluetoothManagerV2: NSObject {
 
   private func setupPeripheral() {
 
+  }
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - Central
+  //----------------------------------------------------------------------------
+
+  public func startScanning() {
+    let melomindService = MelomindBluetoothPeripheral.melomindService
+    central.scan(services: [melomindService])
+  }
+
+  public func stopScanning() {
+    central.stopScanning()
   }
 
 }
@@ -142,8 +156,8 @@ internal class BluetoothCentral: NSObject {
     log.verbose("🧭 Start scanning for a melomind device")
 
     #warning("TODO use right service")
-    let melomindService = MelomindBluetoothPeripheral.melomindService
-    scan(services: [melomindService])
+//    let melomindService = MelomindBluetoothPeripheral.melomindService
+//    scan(services: [melomindService])
   }
 
   private func handleBluetoothPoweredOff() {
@@ -176,12 +190,18 @@ internal class BluetoothCentral: NSObject {
   //----------------------------------------------------------------------------
 
   // Will call `centralManager(_:didDiscover:advertisementData:rssi:)`
-  private func scan(services: [CBUUID]) {
+  func scan(services: [CBUUID]) {
     log.verbose("🧭 Start scanning for a melomind device")
+
+    guard cbCentralManager.state == .poweredOn else {
+      // Handle error
+      return
+    }
+
     cbCentralManager.scanForPeripherals(withServices: services, options: nil)
   }
 
-  private func stopScanning(on peripheral: CBPeripheral? = nil) {
+  func stopScanning(on peripheral: CBPeripheral? = nil) {
     log.verbose("🧭 Stop scanning for a melomind device")
 
     cbCentralManager.stopScan()
