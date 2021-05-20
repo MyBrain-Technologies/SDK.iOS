@@ -22,6 +22,8 @@ internal class MBTBluetoothManagerV2: NSObject {
 
   let central = BluetoothCentral()
 
+  let currentPeripheral = MBTPeripheral()
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -42,12 +44,16 @@ internal class MBTBluetoothManagerV2: NSObject {
 
     }
 
-    central.didConnectToPeripheral = { peripheral in
-      print(peripheral)
+    central.didConnectToPeripheral = { [weak self] peripheral in
+      self?.currentPeripheral.peripheral = peripheral
     }
 
     central.didConnectionFail = { [weak self] error in
       self?.eventDelegate?.onConnectionFailed?(error)
+    }
+
+    central.didLostConnection = { [weak self] error in
+      self?.eventDelegate?.onConnectionBLEOff?(error)
     }
   }
 
@@ -95,7 +101,7 @@ internal class BluetoothCentral: NSObject {
     return peripheral.isConnected
   }
 
-  let peripheral = Peripheral()
+  let peripheral = MBTPeripheral()
 
 
   /******************** Callbacks ********************/
@@ -103,6 +109,7 @@ internal class BluetoothCentral: NSObject {
   var didDiscoverPeripheral: ((CBPeripheral) -> Void)?
   var didConnectToPeripheral: ((CBPeripheral) -> Void)?
   var didConnectionFail: ((Error?) -> Void)?
+  var didLostConnection: ((Error) -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -333,7 +340,7 @@ extension BluetoothCentral: CBCentralManagerDelegate {
 
 //// Peripheral
 
-internal class Peripheral: NSObject {
+internal class MBTPeripheral: NSObject {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -387,7 +394,7 @@ internal class Peripheral: NSObject {
 
 }
 
-extension Peripheral: CBPeripheralManagerDelegate {
+extension MBTPeripheral: CBPeripheralManagerDelegate {
 
   func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
     if #available(iOS 13.0, *) {
@@ -403,7 +410,7 @@ extension Peripheral: CBPeripheralManagerDelegate {
 
 }
 
-extension Peripheral: CBPeripheralDelegate {
+extension MBTPeripheral: CBPeripheralDelegate {
 
   /// Enable notification and sensor for desired characteristic of valid service.
   /// Invoked when you discover the characteristics of a specified service.
