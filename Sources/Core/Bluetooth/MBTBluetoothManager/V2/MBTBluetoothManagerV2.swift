@@ -173,9 +173,7 @@ internal class BluetoothCentral: NSObject {
 
   /******************** Central Manager ********************/
 
-  private lazy var cbCentralManager: CBCentralManager = {
-    return CBCentralManager(delegate: self, queue: nil)
-  }()
+  private let cbCentralManager: CBCentralManager
 
 
 //  /// The BLE peripheral with which a connection has been established.
@@ -211,7 +209,9 @@ internal class BluetoothCentral: NSObject {
   //----------------------------------------------------------------------------
 
   override init() {
+    cbCentralManager = CBCentralManager(delegate: nil, queue: nil)
     super.init()
+    cbCentralManager.delegate = self
   }
 
 
