@@ -296,6 +296,26 @@ internal class BluetoothCentral: NSObject {
   }
 
   //----------------------------------------------------------------------------
+  // MARK: - Filtering
+  //----------------------------------------------------------------------------
+
+  private func isMelomindPeripheral(advertisementData: [String: Any]) -> Bool {
+    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
+
+    guard let newDeviceName = dataReader.localName,
+          let newDeviceServices = dataReader.uuidKeys else {
+      return false
+    }
+
+    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
+      deviceName: newDeviceName,
+      services: newDeviceServices
+    )
+
+    return isMelomindDevice
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Connection
   //----------------------------------------------------------------------------
 
@@ -339,17 +359,8 @@ extension BluetoothCentral: CBCentralManagerDelegate {
                       rssi RSSI: NSNumber) {
     log.verbose("🆕 Did discover peripheral")
 
-    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
-
-    guard let newDeviceName = dataReader.localName,
-          let newDeviceServices = dataReader.uuidKeys else {
-      return
-    }
-
-    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
-      deviceName: newDeviceName,
-      services: newDeviceServices
-    )
+    let isMelomindDevice =
+      isMelomindPeripheral(advertisementData: advertisementData)
 
 //    let isConnectingOrUpdating =
 //      timers.isBleConnectionTimerInProgress || OADState >= .started
@@ -364,10 +375,11 @@ extension BluetoothCentral: CBCentralManagerDelegate {
 //    guard DeviceManager.connectedDeviceName == newDeviceName else { return }
 //
 
-    stopScanning()
+
 
     didDiscoverPeripheral?(peripheral)
     // stop here or use following lines instead closure
+    stopScanning()
     self.peripheral.peripheral = peripheral
     connect(to: peripheral)
 
