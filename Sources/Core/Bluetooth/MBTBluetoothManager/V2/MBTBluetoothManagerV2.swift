@@ -543,6 +543,9 @@ internal class MBTPeripheral: NSObject {
   var indusVersion: IndusVersion {
     #warning("TODO")
     return .indus2
+
+//    guard let hardwareVersion = hardwareVersion else { return nil }
+//    return IndusVersion(fromHardwareVersion: hardwareVersion)
   }
 
   var firmwareVersion: FormatedVersion {
@@ -576,57 +579,12 @@ internal class MBTPeripheral: NSObject {
     peripheral?.delegate = self
   }
 
-}
+  //----------------------------------------------------------------------------
+  // MARK: - Services
+  //----------------------------------------------------------------------------
 
-extension MBTPeripheral: CBPeripheralManagerDelegate {
-
-  func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
-    if #available(iOS 13.0, *) {
-      bluetoothAuthorization =
-        BluetoothAuthorization(authorization: peripheral.authorization,
-                               state: peripheral.state)
-    } else {
-      bluetoothAuthorization = BluetoothAuthorization(state: peripheral.state)
-    }
-
-    bluetoothState = BluetoothState(state: peripheral.state)
-  }
-
-}
-
-extension MBTPeripheral: CBPeripheralDelegate {
-
-  /// Enable notification and sensor for desired characteristic of valid service.
-  /// Invoked when you discover the characteristics of a specified service.
-  /// - Parameters:
-  ///   - peripheral: The peripheral that the services belong to.
-  ///   - service: The service that the characteristics belong to.
-  ///   - error: If an error occurred, the cause of the failure.
-  func peripheral(_ peripheral: CBPeripheral,
-                  didDiscoverCharacteristicsFor service: CBService,
-                  error: Error?) {
-    log.verbose("🆕 Did discover characteristics")
-
-//    guard isBLEConnected, service.characteristics != nil else {
-//      return
-//    }
-//
-//    counterServicesDiscover -= 1
-//
-//    updateDeviceCharacteristics(with: service)
-//
-//    if hasDiscoverAllCharacteristics {
-//      prepareDevice()
-//    }
-  }
-
-  /// Check if the service discovered is a valid Service.
-  /// Invoked when you discover the peripheral’s available services.
-  /// - Parameters:
-  ///   - peripheral: The peripheral that the services belong to.
-  ///   - error: If an error occurred, the cause of the failure.
-  func peripheral(_ peripheral: CBPeripheral,
-                  didDiscoverServices error: Error?) {
+  private func handleDiscoverServices(for peripheral: CBPeripheral,
+                                      error: Error?) {
     log.verbose("🆕 Did discover services")
 
 //    // Check all the services of the connecting peripheral.
@@ -650,18 +608,35 @@ extension MBTPeripheral: CBPeripheralDelegate {
 //    }
   }
 
-  /// Get data values when they are updated.
-  /// Invoked when you retrieve a specified characteristic’s value,
-  /// or when the peripheral device notifies your app that
-  /// the characteristic’s value has changed.
-  /// Send them to AcquisitionManager.
-  /// - Parameters:
-  ///   - peripheral: The peripheral that the services belong to.
-  ///   - service: The characteristic whose value has been retrieved.
-  ///   - error: If an error occurred, the cause of the failure.
-  func peripheral(_ peripheral: CBPeripheral,
-                  didUpdateValueFor characteristic: CBCharacteristic,
-                  error: Error?) {
+  //----------------------------------------------------------------------------
+  // MARK: - Characteristics
+  //----------------------------------------------------------------------------
+
+  private func handleDiscoverCharacteristics(of peripheral: CBPeripheral,
+                                             for service: CBService,
+                                             error: Error?) {
+    log.verbose("🆕 Did discover characteristics")
+
+//    guard isBLEConnected, service.characteristics != nil else {
+//      return
+//    }
+//
+//    counterServicesDiscover -= 1
+//
+//    updateDeviceCharacteristics(with: service)
+//
+//    if hasDiscoverAllCharacteristics {
+//      prepareDevice()
+//    }
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - IO
+  //----------------------------------------------------------------------------
+
+  private func handleValueUpdate(of peripheral: CBPeripheral,
+                                 for characteristic: CBCharacteristic,
+                                 error: Error?) {
 //    guard isBLEConnected else {
 //      log.error("Ble peripheral is not set")
 //      return
@@ -680,17 +655,74 @@ extension MBTPeripheral: CBPeripheralDelegate {
 //    log.verbose("🆕 Did update value for characteristic. (\(serviceString))")
 //
 //    switch service {
-//    case .brainActivityMeasurement: brainActivityService(characteristic)
-//    case .headsetStatus: headsetStatusService(characteristic)
-//    case .deviceBatteryStatus: deviceBatteryService(characteristic)
-//    case .mailBox: mailBoxService(characteristic)
-//    default: break
+//      case .brainActivityMeasurement: brainActivityService(characteristic)
+//      case .headsetStatus: headsetStatusService(characteristic)
+//      case .deviceBatteryStatus: deviceBatteryService(characteristic)
+//      case .mailBox: mailBoxService(characteristic)
+//      default: break
 //    }
 //
 //    let deviceCharacteristics = BluetoothService.deviceCharacteristics.uuids
 //    if deviceCharacteristics.contains(service.uuid) {
 //      deviceAcquisition.processDeviceInformations(characteristic)
 //    }
+  }
+
+}
+
+extension MBTPeripheral: CBPeripheralManagerDelegate {
+
+  func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+    if #available(iOS 13.0, *) {
+      bluetoothAuthorization =
+        BluetoothAuthorization(authorization: peripheral.authorization,
+                               state: peripheral.state)
+    } else {
+      bluetoothAuthorization = BluetoothAuthorization(state: peripheral.state)
+    }
+
+    bluetoothState = BluetoothState(state: peripheral.state)
+  }
+
+}
+
+extension MBTPeripheral: CBPeripheralDelegate {
+
+  /// Check if the service discovered is a valid Service.
+  /// Invoked when you discover the peripheral’s available services.
+  /// - Parameters:
+  ///   - peripheral: The peripheral that the services belong to.
+  ///   - error: If an error occurred, the cause of the failure.
+  func peripheral(_ peripheral: CBPeripheral,
+                  didDiscoverServices error: Error?) {
+    handleDiscoverServices(for: peripheral, error: error)
+  }
+
+  /// Enable notification and sensor for desired characteristic of valid service.
+  /// Invoked when you discover the characteristics of a specified service.
+  /// - Parameters:
+  ///   - peripheral: The peripheral that the services belong to.
+  ///   - service: The service that the characteristics belong to.
+  ///   - error: If an error occurred, the cause of the failure.
+  func peripheral(_ peripheral: CBPeripheral,
+                  didDiscoverCharacteristicsFor service: CBService,
+                  error: Error?) {
+    handleDiscoverCharacteristics(of: peripheral, for: service, error: error)
+  }
+
+  /// Get data values when they are updated.
+  /// Invoked when you retrieve a specified characteristic’s value,
+  /// or when the peripheral device notifies your app that
+  /// the characteristic’s value has changed.
+  /// Send them to AcquisitionManager.
+  /// - Parameters:
+  ///   - peripheral: The peripheral that the services belong to.
+  ///   - service: The characteristic whose value has been retrieved.
+  ///   - error: If an error occurred, the cause of the failure.
+  func peripheral(_ peripheral: CBPeripheral,
+                  didUpdateValueFor characteristic: CBCharacteristic,
+                  error: Error?) {
+    handleValueUpdate(of: peripheral, for: characteristic, error: error)
   }
 
 }
