@@ -678,20 +678,38 @@ internal class MBTPeripheral: NSObject {
 //    }
   }
 
+  private func handleValueWrite(of peripheral: CBPeripheral,
+                                for characteristic: CBCharacteristic,
+                                error: Error?) {
+
+  }
+
+  private func handleNotificationStateUpdate(
+    of peripheral: CBPeripheral,
+    for characteristic: CBCharacteristic,
+    error: Error?) {
+
+  }
+
 }
 
 extension MBTPeripheral: CBPeripheralManagerDelegate {
 
   func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+    handleUpdateState(of: peripheral)
+  }
+
+  private func handleUpdateState(of peripheralManager: CBPeripheralManager) {
     if #available(iOS 13.0, *) {
       bluetoothAuthorization =
-        BluetoothAuthorization(authorization: peripheral.authorization,
-                               state: peripheral.state)
+        BluetoothAuthorization(authorization: peripheralManager.authorization,
+                               state: peripheralManager.state)
     } else {
-      bluetoothAuthorization = BluetoothAuthorization(state: peripheral.state)
+      bluetoothAuthorization =
+        BluetoothAuthorization(state: peripheralManager.state)
     }
 
-    bluetoothState = BluetoothState(state: peripheral.state)
+    bluetoothState = BluetoothState(state: peripheralManager.state)
   }
 
 }
@@ -733,6 +751,29 @@ extension MBTPeripheral: CBPeripheralDelegate {
                   didUpdateValueFor characteristic: CBCharacteristic,
                   error: Error?) {
     handleValueUpdate(of: peripheral, for: characteristic, error: error)
+  }
+
+  /// Check if the notification status changed.
+  /// Invoked when the peripheral receives a request to start
+  /// or stop providing notifications for a specified characteristic’s value.
+  /// - Parameters:
+  ///   - peripheral: The peripheral that the services belong to.
+  ///   - service: The characteristic whose value has been retrieved.
+  ///   - error: If an error occurred, the cause of the failure.
+  /// Remark: Absence of this function causes the notifications not to register anymore.
+  func peripheral(
+    _ peripheral: CBPeripheral,
+    didUpdateNotificationStateFor characteristic: CBCharacteristic,
+    error: Error?) {
+    handleNotificationStateUpdate(of: peripheral,
+                                  for: characteristic,
+                                  error: error)
+  }
+
+  func peripheral(_ peripheral: CBPeripheral,
+                  didWriteValueFor characteristic: CBCharacteristic,
+                  error: Error?) {
+    handleValueWrite(of: peripheral, for: characteristic, error: error)
   }
 
 }
