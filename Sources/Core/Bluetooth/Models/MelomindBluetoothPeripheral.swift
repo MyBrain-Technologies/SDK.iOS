@@ -9,7 +9,6 @@ struct MelomindBluetoothPeripheral {
 
   static let melomindService = BluetoothService.myBrainService.uuid
 
-  
   //----------------------------------------------------------------------------
   // MARK: - Methods
   //----------------------------------------------------------------------------

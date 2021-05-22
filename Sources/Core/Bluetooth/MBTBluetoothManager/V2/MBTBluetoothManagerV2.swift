@@ -220,6 +220,10 @@ internal class BluetoothCentral: NSObject {
 ////  }
 
 
+  /******************** Validation ********************/
+
+  private let peripheralValidator = PeripheralValidator()
+
   /******************** Callbacks ********************/
 
   var didDiscoverPeripheral: ((CBPeripheral) -> Void)?
@@ -339,8 +343,9 @@ internal class BluetoothCentral: NSObject {
                                              rssi RSSI: NSNumber) {
     log.verbose("🆕 Did discover peripheral")
 
-    let isMelomindDevice =
-      isMelomindPeripheral(advertisementData: advertisementData)
+    let isMelomindDevice = peripheralValidator.isMelomindPeripheral(
+      advertisementData: advertisementData
+    )
 
 //    let isConnectingOrUpdating =
 //      timers.isBleConnectionTimerInProgress || OADState >= .started
@@ -373,26 +378,6 @@ internal class BluetoothCentral: NSObject {
 
     #warning("TODO: Move to MBTPeripheral")
 //    DeviceManager.updateDeviceToMelomind()
-  }
-
-  //----------------------------------------------------------------------------
-  // MARK: - Filtering
-  //----------------------------------------------------------------------------
-
-  private func isMelomindPeripheral(advertisementData: [String: Any]) -> Bool {
-    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
-
-    guard let newDeviceName = dataReader.localName,
-          let newDeviceServices = dataReader.uuidKeys else {
-      return false
-    }
-
-    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
-      deviceName: newDeviceName,
-      services: newDeviceServices
-    )
-
-    return isMelomindDevice
   }
 
   //----------------------------------------------------------------------------
@@ -489,7 +474,33 @@ extension BluetoothCentral: CBCentralManagerDelegate {
 
 
 
+class PeripheralValidator {
 
+  //----------------------------------------------------------------------------
+  // MARK: - property
+  //----------------------------------------------------------------------------
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - Validation
+  //----------------------------------------------------------------------------
+
+  func isMelomindPeripheral(advertisementData: [String: Any]) -> Bool {
+    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
+
+    guard let newDeviceName = dataReader.localName,
+          let newDeviceServices = dataReader.uuidKeys else {
+      return false
+    }
+
+    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
+      deviceName: newDeviceName,
+      services: newDeviceServices
+    )
+
+    return isMelomindDevice
+  }
+}
 
 
 
