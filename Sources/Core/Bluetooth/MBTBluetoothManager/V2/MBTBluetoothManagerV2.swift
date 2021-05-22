@@ -627,6 +627,14 @@ internal class MBTPeripheral: NSObject {
     }
 
     for characteristic in characteristics {
+
+      if let blCharacteristic = BluetoothService(uuid: characteristic.uuid),
+         BluetoothService.deviceCharacteristics.contains(blCharacteristic),
+         let data = characteristic.value,
+         let dataString = String(data: data, encoding: .ascii) {
+        print("Characteristic: \(blCharacteristic): \(dataString)")
+      }
+
       print(characteristic)
     }
 
@@ -693,6 +701,7 @@ internal class MBTPeripheral: NSObject {
 
 }
 
+#warning("TODO: Remove and use state of CBCentral")
 extension MBTPeripheral: CBPeripheralManagerDelegate {
 
   func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
@@ -774,6 +783,41 @@ extension MBTPeripheral: CBPeripheralDelegate {
                   didWriteValueFor characteristic: CBCharacteristic,
                   error: Error?) {
     handleValueWrite(of: peripheral, for: characteristic, error: error)
+  }
+
+}
+
+
+
+
+
+class AttributeDiscoverer {
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  var didDiscoverAllServices: (() -> Void)?
+
+  var didDiscoverAllCharacteristics: (() -> Void)?
+
+  var didDiscoverAllAttributes: (() -> Void)?
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - Discover
+  //----------------------------------------------------------------------------
+
+  func discover(service: CBService) {
+
+  }
+
+  func discover(characteristic: CBCharacteristic) {
+
   }
 
 }
