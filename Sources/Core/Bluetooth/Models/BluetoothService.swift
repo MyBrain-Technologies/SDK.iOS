@@ -13,8 +13,6 @@ enum BluetoothService: String, CaseIterable {
   case serialNumber = "0x2A25"
   case hardwareRevision = "0x2A27"
   case firmwareRevision = "0x2A26"
-  case audioSing = "0x110B"
-  case remoteControl = "0x110C"
 
   // Indus5
   case transparentService_i5 = "49535343-FE7D-4AE5-8FA9-9FAFD205E455"
@@ -65,3 +63,18 @@ extension Array where Element == BluetoothService {
     self.map({ $0.uuid })
   }
 }
+
+
+//protocol BluetoothAttributeProtocol {
+//  var uuid: CBUUID { get }
+//}
+//
+//enum Service: BluetoothAttributeProtocol {
+//
+//  case mybrain
+//  case information
+//
+//  var uuid: CBUUID {
+//    return CBUUID()
+//  }
+//}
