@@ -347,10 +347,12 @@ internal class BluetoothCentral: NSObject {
       advertisementData: advertisementData
     )
 
+    let isNotConnected = peripheral.state != .connected
+
 //    let isConnectingOrUpdating =
 //      timers.isBleConnectionTimerInProgress || OADState >= .started
 
-    guard isMelomindDevice else { return }
+    guard isMelomindDevice, isNotConnected else { return }
 
     discoveredPeripherals.append(peripheral)
 //    guard isMelomindDevice && isConnectingOrUpdating else { return }
