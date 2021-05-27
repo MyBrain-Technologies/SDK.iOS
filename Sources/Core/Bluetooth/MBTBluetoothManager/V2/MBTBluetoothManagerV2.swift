@@ -809,6 +809,39 @@ class AttributeDiscoverer {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  /******************** CBUUIDs ********************/
+
+  private var serviceUUIDs = [CBUUID]()
+
+  private var characteristicUUIDs = [CBUUID]()
+
+  /******************** Counters ********************/
+
+  private var serviceCounter = 0 {
+    didSet {
+      if serviceCounter == 0 {
+        didDiscoverAllServices?()
+        if characteteristicCounter == 0 {
+          didDiscoverAllAttributes?()
+        }
+      } else if serviceCounter <= 0 {
+        serviceCounter = 0
+      }
+    }
+  }
+
+  private var characteteristicCounter = 0 {
+    didSet {
+      if characteteristicCounter == 0 {
+        didDiscoverAllCharacteristics?()
+      } else if characteteristicCounter <= 0 {
+        characteteristicCounter = 0
+      }
+    }
+  }
+
+  /******************** Callbacks ********************/
+
   var didDiscoverAllServices: (() -> Void)?
 
   var didDiscoverAllCharacteristics: (() -> Void)?
@@ -819,6 +852,33 @@ class AttributeDiscoverer {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
+  init(serviceUUIDs: [CBUUID] = [CBUUID](),
+       characteristicUUIDs: [CBUUID] = [CBUUID]()) {
+    self.serviceUUIDs = serviceUUIDs
+    self.characteristicUUIDs = characteristicUUIDs
+    setup()
+  }
+
+  private func setup() {
+    setupCounters()
+  }
+
+  private func setupCounters() {
+    serviceCounter = serviceUUIDs.count
+    characteteristicCounter = characteristicUUIDs.count
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Lifecycle
+  //----------------------------------------------------------------------------
+
+  func reset() {
+
+  }
+
+  func reset(serviceUUIDs: [CBUUID], characteristicUUIDs: [CBUUID]) {
+
+  }
 
   //----------------------------------------------------------------------------
   // MARK: - Discover
