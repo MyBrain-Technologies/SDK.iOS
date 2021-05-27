@@ -547,19 +547,15 @@ internal class MBTPeripheral: NSObject {
     return peripheral?.state == .connected
   }
 
-  var indusVersion: IndusVersion {
-    #warning("TODO")
-    return .indus2
 
-//    guard let hardwareVersion = hardwareVersion else { return nil }
-//    return IndusVersion(fromHardwareVersion: hardwareVersion)
-  }
+  var information: DeviceInformation?
+  //  {
+  //    didSet {
+  //      peripheral?.discoverServices(nil)
+  //    }
+  //  }
 
-  var firmwareVersion: FormatedVersion {
-    #warning("TODO")
-    return FormatedVersion(major: 0, minor: 0, fix: 0)
-  }
-
+  #warning("TODO: To remove")
   private let peripheralManager: CBPeripheralManager
 
   /// Authorization given to access to bluetooth.
@@ -581,6 +577,11 @@ internal class MBTPeripheral: NSObject {
   //----------------------------------------------------------------------------
 
   func isVersionUpToDate(oadFirmwareVersion: FormatedVersion) -> Bool {
+    guard let firmwareVersion = information?.formattedFirmwareVersion else {
+      log.error("Device information not found yet.")
+      return false
+    }
+    
     log.info("Device current firmware version", context: firmwareVersion)
     log.info("Expected firmware version", context: oadFirmwareVersion)
     return firmwareVersion == oadFirmwareVersion
@@ -644,7 +645,7 @@ internal class MBTPeripheral: NSObject {
          BluetoothService.deviceCharacteristics.contains(blCharacteristic),
          let data = characteristic.value,
          let dataString = String(data: data, encoding: .ascii) {
-        print("Characteristic: \(blCharacteristic): \(dataString)")
+        print("\(blCharacteristic): \(dataString)")
       }
 
       print(characteristic)
