@@ -17,6 +17,7 @@ struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
+  #warning("TODO: Nullable init?")
   init(string: String) {
     let characterSet = CharacterSet(charactersIn: Constants.versionSeparators)
     let components = string.components(separatedBy: characterSet)
