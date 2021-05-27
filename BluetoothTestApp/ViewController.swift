@@ -103,6 +103,8 @@ class ViewController: UIViewController {
 
   let mock = CBMCentralManagerMock()
 
+  var cbLedCharacteristic: CBCharacteristic?
+
   //----------------------------------------------------------------------------
   // MARK: - Lifecycle
   //----------------------------------------------------------------------------
@@ -122,7 +124,7 @@ class ViewController: UIViewController {
   }
 
   private func setupPowerSwitch() {
-    powerSwitch.isOn = false
+    powerSwitch.isOn = true
   }
 
   lazy var blinky: CBMPeripheralSpec = {
@@ -351,8 +353,10 @@ extension ViewController: CBPeripheralDelegate {
       if characteristic.properties.contains(.notify) {
         peripheral.setNotifyValue(true, for: characteristic)
       }
-      (peripheral as? CBMPeripheralMock)?.readValue(for: characteristic)
-
+      peripheral.readValue(for: characteristic)
+      if characteristic.uuid == CBMCharacteristicMock.ledCharacteristic.uuid {
+        cbLedCharacteristic = characteristic
+      }
     }
 
 //    peripheral.readValue(for: CBMCharacteristicMock.ledCharacteristic)
@@ -396,9 +400,10 @@ extension ViewController: CBPeripheralDelegate {
                   didUpdateNotificationStateFor characteristic: CBMCharacteristic,
                   error: Error?) {
     blinky.simulateValueUpdate(Data([0x01]),
-                               for: .ledCharacteristic)
-
-    blinky.simulateValueUpdate(Data([0x01]),
                                for: .buttonCharacteristic)
+
+    if let ledCharacteristic = cbLedCharacteristic {
+      peripheral.readValue(for: ledCharacteristic)
+    }
   }
 }
