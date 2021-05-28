@@ -357,6 +357,7 @@ internal class MBTBluetoothManager: NSObject {
       numberOfBlocks: OADManager.oadProgress.nBlock
     )
 
+    #warning("TODO: Move onProgressUpdate?(x) in didSet of OADState")
     eventDelegate?.onProgressUpdate?(0.05)
     OADState = .ready
   }

@@ -494,6 +494,14 @@ class PeripheralValidator {
       return false
     }
 
+    print(newDeviceServices)
+    if newDeviceServices.first?.uuidString == "B2A0" {
+      print("advertisementData Pre indus 5")
+    }
+    for data in advertisementData {
+      print(data.key)
+    }
+
     let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
       deviceName: newDeviceName,
       services: newDeviceServices
@@ -501,8 +509,8 @@ class PeripheralValidator {
 
     return isMelomindDevice
   }
-}
 
+}
 
 
 
@@ -530,6 +538,31 @@ class PeripheralValidator {
 
 internal class MBTPeripheral: NSObject {
 
+
+  //----------------------------------------------------------------------------
+  // MARK: - State
+  //----------------------------------------------------------------------------
+
+  enum MBTPeripheralState {
+    case serviceDiscovering
+    case characteristicDiscovering
+    case deviceInformationDiscovering
+    case bounding
+    case ready
+  }
+
+//  private var state = MBTPeripheralState.serviceDiscovering {
+//    didSet {
+//      switch state {
+//        case .serviceDiscovering: return
+//        case .characteristicDiscovering: return
+//        case .deviceInformationDiscovering: return
+//        case .bounding: return
+//        case .ready: return
+//      }
+//    }
+//  }
+
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
@@ -540,6 +573,10 @@ internal class MBTPeripheral: NSObject {
     }
   }
 
+  var isPreIndus5: Bool = true
+
+  private var peripheralCommunicator: PeripheralCommunicable?
+
   #warning("TODO: Rename to `isHeadsetConnected`")
   /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
   var isConnected: Bool {
@@ -548,12 +585,12 @@ internal class MBTPeripheral: NSObject {
   }
 
 
-  var information: DeviceInformation?
-  //  {
-  //    didSet {
-  //      peripheral?.discoverServices(nil)
-  //    }
-  //  }
+//  var information: DeviceInformation?
+//  //  {
+//  //    didSet {
+//  //      peripheral?.discoverServices(nil)
+//  //    }
+//  //  }
 
   #warning("TODO: To remove")
   private let peripheralManager: CBPeripheralManager
@@ -562,6 +599,14 @@ internal class MBTPeripheral: NSObject {
   private(set) var bluetoothAuthorization = BluetoothAuthorization.undetermined
   private(set) var bluetoothState = BluetoothState.undetermined
 
+
+  /******************** Attribute discover ********************/
+
+  private let attribueDiscoverer = AttributeDiscoverer()
+
+  /******************** Callbacks ********************/
+
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -569,32 +614,56 @@ internal class MBTPeripheral: NSObject {
   override init() {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
     super.init()
+    setup()
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Setup
+  //----------------------------------------------------------------------------
+
+  private func setup() {
+    setupPeripheralManager()
+  }
+
+  private func setupPeripheralManager() {
     peripheralManager.delegate = self
+  }
+
+  private func setupAttributeDiscoverer() {
+
   }
 
   //----------------------------------------------------------------------------
   // MARK: - Update
   //----------------------------------------------------------------------------
 
+  func setPeripheral(_ newPeripheral: CBPeripheral, isPreIndus5: Bool) {
+    self.isPreIndus5 = isPreIndus5
+    peripheral = newPeripheral
+  }
+
   func isVersionUpToDate(oadFirmwareVersion: FormatedVersion) -> Bool {
-    guard let firmwareVersion = information?.formattedFirmwareVersion else {
-      log.error("Device information not found yet.")
-      return false
-    }
-    
-    log.info("Device current firmware version", context: firmwareVersion)
-    log.info("Expected firmware version", context: oadFirmwareVersion)
-    return firmwareVersion == oadFirmwareVersion
+    return false
+    // TODO
+//    guard let firmwareVersion = information?.formattedFirmwareVersion else {
+//      log.error("Device information not found yet.")
+//      return false
+//    }
+//
+//    log.info("Device current firmware version", context: firmwareVersion)
+//    log.info("Expected firmware version", context: oadFirmwareVersion)
+//    return firmwareVersion == oadFirmwareVersion
   }
 
   private func updatePeripheral() {
     peripheral?.delegate = self
     guard isConnected else { return }
-    peripheral?.discoverServices(nil)
+    updatePeripheralInformation()
   }
 
   private func updatePeripheralInformation() {
-    
+    let services = BluetoothService.melomindServices.map { $0.uuid }
+    peripheral?.discoverServices(services)
   }
 
   //----------------------------------------------------------------------------
@@ -613,16 +682,26 @@ internal class MBTPeripheral: NSObject {
     }
 //    counterServicesDiscover = 0
 //
-    for service in services {
+    guard !services.isEmpty else {
+      log.verbose("Empty services")
+      return
+    }
 
-      // Get the MyBrainService and Device info UUID
-      let servicesUUID = BluetoothService.melomindServices.uuids
+    let isPreIndus5 =
+      services.contains { $0.uuid == BluetoothService.myBrainService.uuid }
 
-      // Check if manager should look at this service characteristics
-      if servicesUUID.contains(service.uuid) {
-        peripheral.discoverCharacteristics(nil, for: service)
+    if isPreIndus5 {
+      print("Is not indus 5")
+    }
+
+    let allowedServicesUUID = BluetoothService.melomindServices.uuids
+    let allowedServices =
+      services.filter { allowedServicesUUID.contains($0.uuid) }
+
+    for service in allowedServices {
+      log.verbose("New service: \(service.uuid)")
+      peripheral.discoverCharacteristics(nil, for: service)
 //        counterServicesDiscover += 1
-      }
     }
   }
 
@@ -636,11 +715,14 @@ internal class MBTPeripheral: NSObject {
     log.verbose("🆕 Did discover characteristics")
 
     guard isConnected, let characteristics = service.characteristics else {
+      log.error("BLE peripheral is connected ? \(isConnected)")
+      log.error(
+        "Characteristics peripheral are nil ? \(service.characteristics == nil)"
+      )
       return
     }
 
     for characteristic in characteristics {
-
       if let blCharacteristic = BluetoothService(uuid: characteristic.uuid),
          BluetoothService.deviceCharacteristics.contains(blCharacteristic),
          let data = characteristic.value,
@@ -812,51 +894,33 @@ class AttributeDiscoverer {
 
   /******************** CBUUIDs ********************/
 
-  private var serviceUUIDs = [CBUUID]()
+  private var attribuesUUIDs = [CBUUID]()
 
-  private var characteristicUUIDs = [CBUUID]()
+  private var attributes = [CBAttribute]()
 
   /******************** Counters ********************/
 
-  private var serviceCounter = 0 {
-    didSet {
-      if serviceCounter == 0 {
-        didDiscoverAllServices?()
-        if characteteristicCounter == 0 {
-          didDiscoverAllAttributes?()
-        }
-      } else if serviceCounter <= 0 {
-        serviceCounter = 0
-      }
-    }
-  }
 
-  private var characteteristicCounter = 0 {
+  private var attributeCounter = 0 {
     didSet {
-      if characteteristicCounter == 0 {
-        didDiscoverAllCharacteristics?()
-      } else if characteteristicCounter <= 0 {
-        characteteristicCounter = 0
+      if attributeCounter == 0 {
+//        didDiscoverAllAttributes?()
+      } else if attributeCounter <= 0 {
+        attributeCounter = 0
       }
     }
   }
 
   /******************** Callbacks ********************/
 
-  var didDiscoverAllServices: (() -> Void)?
-
-  var didDiscoverAllCharacteristics: (() -> Void)?
-
-  var didDiscoverAllAttributes: (() -> Void)?
+  var didDiscoverAllAttributes: (([CBAttribute]) -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init(serviceUUIDs: [CBUUID] = [CBUUID](),
-       characteristicUUIDs: [CBUUID] = [CBUUID]()) {
-    self.serviceUUIDs = serviceUUIDs
-    self.characteristicUUIDs = characteristicUUIDs
+  init(attributesUUIDs: [CBUUID] = [CBUUID]()) {
+    self.attribuesUUIDs = attributesUUIDs
     setup()
   }
 
@@ -865,8 +929,7 @@ class AttributeDiscoverer {
   }
 
   private func setupCounters() {
-    serviceCounter = serviceUUIDs.count
-    characteteristicCounter = characteristicUUIDs.count
+    attributeCounter = attribuesUUIDs.count
   }
 
   //----------------------------------------------------------------------------
@@ -893,32 +956,4 @@ class AttributeDiscoverer {
 
   }
 
-}
-
-
-
-
-
-class PeripheralIO {
-
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
-
-  var peripheral: CBPeripheral?
-
-
-  //----------------------------------------------------------------------------
-  // MARK: - Initialization
-  //----------------------------------------------------------------------------
-
-
-  //----------------------------------------------------------------------------
-  // MARK: - Communication
-  //----------------------------------------------------------------------------
-
-  func readBattery() {
-
-  }
-  
 }
