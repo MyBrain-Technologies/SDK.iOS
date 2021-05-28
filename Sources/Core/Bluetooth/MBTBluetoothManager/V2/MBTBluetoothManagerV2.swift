@@ -602,7 +602,9 @@ internal class MBTPeripheral: NSObject {
 
   /******************** Attribute discover ********************/
 
-  private let attribueDiscoverer = AttributeDiscoverer()
+  private var characteristicDiscoverer = CharacteristicDiscoverer()
+
+  private let allIndusServiceCBUUIDs: [CBUUID]
 
   /******************** Callbacks ********************/
 
@@ -613,6 +615,13 @@ internal class MBTPeripheral: NSObject {
 
   override init() {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
+
+    let preIndus5ServicesCBUUIDs = MBTService.PreIndus5.allCases.map { $0.uuid }
+    let postIndus5ServicesCBUUIDs =
+      MBTService.PostIndus5.allCases.map { $0.uuid }
+    allIndusServiceCBUUIDs =
+      preIndus5ServicesCBUUIDs + postIndus5ServicesCBUUIDs
+
     super.init()
     setup()
   }
@@ -629,8 +638,38 @@ internal class MBTPeripheral: NSObject {
     peripheralManager.delegate = self
   }
 
-  private func setupAttributeDiscoverer() {
+  private func setupCharacteristicsDiscoverer() {
+    characteristicDiscoverer.didDiscoverAllPreIndus5Characteristics = {
+      [weak self] characteristicContainer in
+      guard let self = self else { return }
 
+      guard let peripheral = self.peripheral else {
+        #warning("TODO: Handle error")
+        return
+      }
+
+      self.peripheralCommunicator = PreIndus5PeripheralCommunicator(
+        peripheral: peripheral,
+        characteristicContainer: characteristicContainer
+      )
+
+      self.peripheralCommunicator?.readDeviceState()
+    }
+
+    characteristicDiscoverer.didDiscoverAllPostIndus5Characteristics = {
+      [weak self] characteristicContainer in
+      guard let self = self else { return }
+
+      guard let peripheral = self.peripheral else {
+        #warning("TODO: Handle error")
+        return
+      }
+
+      self.peripheralCommunicator = PostIndus5PeripheralCommunicator(
+        peripheral: peripheral,
+        characteristicContainer: characteristicContainer
+      )
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -662,8 +701,7 @@ internal class MBTPeripheral: NSObject {
   }
 
   private func updatePeripheralInformation() {
-    let services = BluetoothService.melomindServices.map { $0.uuid }
-    peripheral?.discoverServices(services)
+    peripheral?.discoverServices(allIndusServiceCBUUIDs)
   }
 
   //----------------------------------------------------------------------------
@@ -687,16 +725,20 @@ internal class MBTPeripheral: NSObject {
       return
     }
 
-    let isPreIndus5 =
-      services.contains { $0.uuid == BluetoothService.myBrainService.uuid }
+//    let isPreIndus5 =
+//      services.contains { $0.uuid == BluetoothService.myBrainService.uuid }
+//
+//    if isPreIndus5 {
+//      print("Is not indus 5")
+//    }
 
-    if isPreIndus5 {
-      print("Is not indus 5")
-    }
-
-    let allowedServicesUUID = BluetoothService.melomindServices.uuids
+    // Security check to be sure to work with the right services
     let allowedServices =
-      services.filter { allowedServicesUUID.contains($0.uuid) }
+      services.filter { allIndusServiceCBUUIDs.contains($0.uuid) }
+
+    let transparentServiceCBUUID =  MBTService.PostIndus5.transparent.uuid
+    isPreIndus5 =
+      allowedServices.allSatisfy { $0.uuid != transparentServiceCBUUID }
 
     for service in allowedServices {
       log.verbose("New service: \(service.uuid)")
@@ -750,6 +792,9 @@ internal class MBTPeripheral: NSObject {
   private func handleValueUpdate(of peripheral: CBPeripheral,
                                  for characteristic: CBCharacteristic,
                                  error: Error?) {
+    print("New update")
+    print(characteristic)
+
 //    guard isBLEConnected else {
 //      log.error("Ble peripheral is not set")
 //      return
@@ -886,7 +931,7 @@ extension MBTPeripheral: CBPeripheralDelegate {
 
 
 
-class AttributeDiscoverer {
+class CharacteristicDiscoverer {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -913,7 +958,9 @@ class AttributeDiscoverer {
 
   /******************** Callbacks ********************/
 
-  var didDiscoverAllAttributes: (([CBAttribute]) -> Void)?
+  var didDiscoverAllPreIndus5Characteristics: ( (PreIndus5CharacteristicContainer) -> Void)?
+
+  var didDiscoverAllPostIndus5Characteristics: ( (PostIndus5CharacteristicContainer) -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
