@@ -6,7 +6,7 @@ protocol MBTAttributeProtocol {
   init?(uuid: CBUUID)
 }
 
-extension Array where Element == MBTAttributeProtocol {
+extension Array where Element: MBTAttributeProtocol {
   /// Return BluetoothServices uuids values
   var uuids: [CBUUID] {
     self.map({ $0.uuid })

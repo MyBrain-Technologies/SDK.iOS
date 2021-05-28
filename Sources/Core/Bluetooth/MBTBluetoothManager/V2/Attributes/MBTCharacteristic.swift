@@ -42,9 +42,9 @@ enum MBTCharacteristic {
     // MARK: - Cases
     //--------------------------------------------------------------------------
 
-    case transparentService_i5 = "49535343-FE7D-4AE5-8FA9-9FAFD205E455"
     case rx = "49535343-1E4D-4BD9-BA61-23C647249616"
     case tx = "49535343-8841-43F4-A8D4-ECBE34729BB3"
+    case mailBox = "0xB2A4"
 
     //--------------------------------------------------------------------------
     // MARK: - MBTAttributeProtocol
