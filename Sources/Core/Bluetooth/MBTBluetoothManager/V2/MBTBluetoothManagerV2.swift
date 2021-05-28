@@ -602,7 +602,7 @@ internal class MBTPeripheral: NSObject {
 
   /******************** Attribute discover ********************/
 
-  private var characteristicDiscoverer = CharacteristicDiscoverer()
+  private let characteristicDiscoverer = CharacteristicDiscoverer()
 
   private let allIndusServiceCBUUIDs: [CBUUID]
 
@@ -632,6 +632,7 @@ internal class MBTPeripheral: NSObject {
 
   private func setup() {
     setupPeripheralManager()
+    setupCharacteristicsDiscoverer()
   }
 
   private func setupPeripheralManager() {
@@ -653,7 +654,7 @@ internal class MBTPeripheral: NSObject {
         characteristicContainer: characteristicContainer
       )
 
-      self.peripheralCommunicator?.readDeviceState()
+      self.peripheralCommunicator?.readDeviceInformation()
     }
 
     characteristicDiscoverer.didDiscoverAllPostIndus5Characteristics = {
@@ -765,14 +766,15 @@ internal class MBTPeripheral: NSObject {
     }
 
     for characteristic in characteristics {
-      if let blCharacteristic = BluetoothService(uuid: characteristic.uuid),
-         BluetoothService.deviceCharacteristics.contains(blCharacteristic),
-         let data = characteristic.value,
-         let dataString = String(data: data, encoding: .ascii) {
-        print("\(blCharacteristic): \(dataString)")
-      }
+//      if let blCharacteristic = BluetoothService(uuid: characteristic.uuid),
+//         BluetoothService.deviceCharacteristics.contains(blCharacteristic),
+//         let data = characteristic.value,
+//         let dataString = String(data: data, encoding: .ascii) {
+//        print("\(blCharacteristic): \(dataString)")
+//      }
 
       print(characteristic)
+      characteristicDiscoverer.discover(characteristic: characteristic)
     }
 
 //
@@ -792,8 +794,8 @@ internal class MBTPeripheral: NSObject {
   private func handleValueUpdate(of peripheral: CBPeripheral,
                                  for characteristic: CBCharacteristic,
                                  error: Error?) {
-    print("New update")
-    print(characteristic)
+    let dataString = String(data: characteristic.value!, encoding: .ascii)!
+    print("Update for: \(characteristic.uuid.uuidString) with value: \(dataString)")
 
 //    guard isBLEConnected else {
 //      log.error("Ble peripheral is not set")
@@ -934,49 +936,52 @@ extension MBTPeripheral: CBPeripheralDelegate {
 class CharacteristicDiscoverer {
 
   //----------------------------------------------------------------------------
+  // MARK: - Typealias
+  //----------------------------------------------------------------------------
+
+  typealias PreIndus5CharacteristicToCBCharacteristic =
+    [MBTCharacteristic.PreIndus5: CBCharacteristic?]
+
+  typealias PostIndus5CharacteristicToCBCharacteristic =
+    [MBTCharacteristic.PostIndus5: CBCharacteristic?]
+
+  //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
   /******************** CBUUIDs ********************/
 
-  private var attribuesUUIDs = [CBUUID]()
+  private var preIndus5CharacteristicMap =
+    PreIndus5CharacteristicToCBCharacteristic()
 
-  private var attributes = [CBAttribute]()
-
-  /******************** Counters ********************/
-
-
-  private var attributeCounter = 0 {
-    didSet {
-      if attributeCounter == 0 {
-//        didDiscoverAllAttributes?()
-      } else if attributeCounter <= 0 {
-        attributeCounter = 0
-      }
-    }
-  }
+  private var postIndus5CharacteristicMap =
+    PostIndus5CharacteristicToCBCharacteristic()
 
   /******************** Callbacks ********************/
 
-  var didDiscoverAllPreIndus5Characteristics: ( (PreIndus5CharacteristicContainer) -> Void)?
+  var didDiscoverAllPreIndus5Characteristics:
+    ((PreIndus5CharacteristicContainer) -> Void)?
 
-  var didDiscoverAllPostIndus5Characteristics: ( (PostIndus5CharacteristicContainer) -> Void)?
+  var didDiscoverAllPostIndus5Characteristics:
+    ((PostIndus5CharacteristicContainer) -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init(attributesUUIDs: [CBUUID] = [CBUUID]()) {
-    self.attribuesUUIDs = attributesUUIDs
-    setup()
-  }
+  init(preIndus5Characteristics: [MBTCharacteristic.PreIndus5]
+        = MBTCharacteristic.PreIndus5.allCases,
+       postIndus5Characteristics: [MBTCharacteristic.PostIndus5]
+        = MBTCharacteristic.PostIndus5.allCases
+  ) {
 
-  private func setup() {
-    setupCounters()
-  }
+    for characteristic in preIndus5Characteristics {
+      preIndus5CharacteristicMap.updateValue(nil, forKey: characteristic)
+    }
 
-  private func setupCounters() {
-    attributeCounter = attribuesUUIDs.count
+    for characteristic in postIndus5Characteristics {
+      postIndus5CharacteristicMap.updateValue(nil, forKey: characteristic)
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -984,10 +989,13 @@ class CharacteristicDiscoverer {
   //----------------------------------------------------------------------------
 
   func reset() {
+    preIndus5CharacteristicMap.forEach { (key, value) in
+      preIndus5CharacteristicMap.updateValue(nil, forKey: key)
+    }
 
-  }
-
-  func reset(serviceUUIDs: [CBUUID], characteristicUUIDs: [CBUUID]) {
+    postIndus5CharacteristicMap.forEach { (key, value) in
+      postIndus5CharacteristicMap.updateValue(nil, forKey: key)
+    }
 
   }
 
@@ -995,12 +1003,123 @@ class CharacteristicDiscoverer {
   // MARK: - Discover
   //----------------------------------------------------------------------------
 
-  func discover(service: CBService) {
+  func discover(characteristic: CBCharacteristic) {
+    preIndus5CharacteristicMap.forEach { (key, value) in
+      if key.uuid == characteristic.uuid {
+        preIndus5CharacteristicMap[key] = characteristic
+      }
+    }
+
+    postIndus5CharacteristicMap.forEach { (key, value) in
+      if key.uuid == characteristic.uuid {
+        postIndus5CharacteristicMap[key] = characteristic
+      }
+    }
+
+    if preIndus5CharacteristicMap.allSatisfy( { (key, value) in value != nil } ) {
+      handleDiscoveryForAllPreIndus5Characteristics()
+    } else if postIndus5CharacteristicMap.allSatisfy( { (key, value) in value != nil } ) {
+      handleDiscoveryForAllPostIndus5Characteristics()
+    }
 
   }
 
-  func discover(characteristic: CBCharacteristic) {
+  private func handleDiscoveryForAllPreIndus5Characteristics() {
+    guard let productName =
+            preIndus5CharacteristicMap[.productName] as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
 
+    guard let serialNumber =
+            preIndus5CharacteristicMap[.serialNumber] as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let hardwareRevision =
+            preIndus5CharacteristicMap[.hardwareRevision] as? CBCharacteristic
+    else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let firmwareRevision =
+            preIndus5CharacteristicMap[.firmwareRevision] as? CBCharacteristic
+    else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let brainActivityMeasurement =
+            preIndus5CharacteristicMap[.brainActivityMeasurement]
+            as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let deviceState =
+            preIndus5CharacteristicMap[.deviceBatteryStatus]
+            as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let headsetStatus =
+            preIndus5CharacteristicMap[.headsetStatus] as? CBCharacteristic
+    else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let mailBox =
+            preIndus5CharacteristicMap[.mailBox] as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let oadTransfert =
+            preIndus5CharacteristicMap[.oadTransfert] as? CBCharacteristic
+    else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    let preIndus5CharacteristicContainer = PreIndus5CharacteristicContainer(
+      productName: productName,
+      serialNumber: serialNumber,
+      hardwareRevision: hardwareRevision,
+      firmwareRevision: firmwareRevision,
+      brainActivityMeasurement: brainActivityMeasurement,
+      deviceState: deviceState,
+      headsetStatus: headsetStatus,
+      mailBox: mailBox,
+      oadTransfert: oadTransfert)
+
+    didDiscoverAllPreIndus5Characteristics?(preIndus5CharacteristicContainer)
+  }
+
+  private func handleDiscoveryForAllPostIndus5Characteristics() {
+    guard let tx = postIndus5CharacteristicMap[.tx] as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let rx = postIndus5CharacteristicMap[.rx] as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    guard let mailBox =
+            postIndus5CharacteristicMap[.mailBox] as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
+    let postIndus5CharacteristicContainer =
+      PostIndus5CharacteristicContainer(tx: tx, rx: rx, mailBox: mailBox)
+
+    didDiscoverAllPostIndus5Characteristics?(postIndus5CharacteristicContainer)
   }
 
 }
