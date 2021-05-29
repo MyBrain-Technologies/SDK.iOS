@@ -26,4 +26,15 @@ public struct DeviceInformation: Codable {
     return FormatedVersion(string: firmwareVersion)
   }
 
+
+  //----------------------------------------------------------------------------
+  // MARK: - Versioning
+  //----------------------------------------------------------------------------
+
+  func isVersionUpToDate(oadFirmwareVersion: FormatedVersion) -> Bool {
+    log.info("Device current firmware version", context: firmwareVersion)
+    log.info("Expected firmware version", context: oadFirmwareVersion)
+    return formattedFirmwareVersion == oadFirmwareVersion
+  }
+
 }
