@@ -578,12 +578,12 @@ internal class MBTPeripheral: NSObject {
     }
   }
 
-//  var information: DeviceInformation?
-//  //  {
-//  //    didSet {
-//  //      peripheral?.discoverServices(nil)
-//  //    }
-//  //  }
+  var information: DeviceInformation?
+  //  {
+  //    didSet {
+  //      peripheral?.discoverServices(nil)
+  //    }
+  //  }
 
   #warning("TODO: To remove")
   private let peripheralManager: CBPeripheralManager
@@ -682,16 +682,13 @@ internal class MBTPeripheral: NSObject {
   }
 
   func isVersionUpToDate(oadFirmwareVersion: FormatedVersion) -> Bool {
-    return false
-    // TODO
-//    guard let firmwareVersion = information?.formattedFirmwareVersion else {
-//      log.error("Device information not found yet.")
-//      return false
-//    }
-//
-//    log.info("Device current firmware version", context: firmwareVersion)
-//    log.info("Expected firmware version", context: oadFirmwareVersion)
-//    return firmwareVersion == oadFirmwareVersion
+    guard let peripheralInformation = information else {
+      log.error("Device information not found yet.")
+      return false
+    }
+    return peripheralInformation.isVersionUpToDate(
+      oadFirmwareVersion: oadFirmwareVersion
+    )
   }
 
   private func updatePeripheral() {
