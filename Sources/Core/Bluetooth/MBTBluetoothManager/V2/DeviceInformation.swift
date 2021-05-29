@@ -18,14 +18,28 @@ public struct DeviceInformation: Codable {
   /// The product firmware version.
   public var firmwareVersion: String
 
-  var indusVersion: IndusVersion? {
+  /******************** Versioning ********************/
+
+  public var indusVersion: IndusVersion? {
     return IndusVersion(fromHardwareVersion: hardwareVersion)
   }
 
-  var formattedFirmwareVersion: FormatedVersion {
+  public var formattedFirmwareVersion: FormatedVersion {
+    assertionFailure("TODO: Check to use `firmwareVersion`")
     return FormatedVersion(string: firmwareVersion)
   }
 
+  /******************** Acquisition ********************/
+
+  public let channelCount: Int
+
+  /// The rate at which EEG data is being sent by the headset.
+  public let sampleRate: Int
+
+  /// An EEG Packet length.
+  public let eegPacketSize: Int
+
+//  let acquisitionElectrodes: AcquisitionElectrodes
 
   //----------------------------------------------------------------------------
   // MARK: - Versioning
@@ -38,3 +52,14 @@ public struct DeviceInformation: Codable {
   }
 
 }
+
+//struct AcquisitionElectrodes {
+//  /// Locations of the acquisition electrodes.
+//  let acquisitionLocations = [MBTAcquistionLocation]()
+//
+//  /// Locations of the references for an electrode.
+//  let referencesLocations = [MBTAcquistionLocation]()
+//
+//  /// Locations of the ground electrodes.
+//  let groundsLocations = [MBTAcquistionLocation]()
+//}
