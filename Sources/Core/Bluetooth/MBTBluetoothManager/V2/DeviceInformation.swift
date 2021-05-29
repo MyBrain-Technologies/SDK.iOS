@@ -1,5 +1,6 @@
 import Foundation
 
+#warning("Is public useful?")
 public struct DeviceInformation: Codable {
 
   //----------------------------------------------------------------------------

@@ -207,6 +207,7 @@ public class MBTClient {
                                                     serialNumber: serialNumber)
   }
 
+  #warning("TODO: Remove")
   /// Get the latest battery level saved in DB.
   ///
   /// - Returns: A *Int* instance of latest battery level saved in DB or nil if
