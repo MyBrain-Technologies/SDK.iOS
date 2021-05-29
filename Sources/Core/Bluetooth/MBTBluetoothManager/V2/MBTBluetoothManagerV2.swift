@@ -660,12 +660,24 @@ internal class MBTPeripheral: NSObject {
       self.peripheralValueReceiver =
         PeripheralValueReceiver(strategy: PreIndus5PeripheralReceiverStrategy())
 
+      self.peripheralValueReceiver?.didBatteryLevelUpdate = { [weak self] level in
+        guard let self = self else { return }
+
+        self.peripheralCommunicator?.notifyMailBox(value: true)
+        self.peripheralCommunicator?.writeA2DPConnection()
+      }
+
+      self.peripheralValueReceiver?.didRequestPairing = { [weak self] in
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+          self?.peripheralCommunicator?.readDeviceState()
+        }
+      }
+      
       self.peripheralCommunicator?.readDeviceInformation()
 
       self.peripheralCommunicator?.readDeviceState()
 
-      self.peripheralCommunicator?.notifyMailBox(value: true)
-      self.peripheralCommunicator?.writeA2DPConnection()
+
     }
 
     characteristicDiscoverer.didDiscoverAllPostIndus5Characteristics = {
@@ -1151,6 +1163,7 @@ typealias Bytes = [UInt8]
 
 protocol PeripheralValueReceiverStrategy: class {
 
+  // TODO: Use delegate instead
   var didBatteryLevelUpdate: ((Int) -> Void)? { get set }
   var didBrainDataUpdate: ((Data) -> Void)? { get set }
   var didSaturationStatusUpdate: ((Int) -> Void)? { get set }
@@ -1190,6 +1203,8 @@ class PeripheralValueReceiver {
   var didFirmwareVersionUpdate: ((String) -> Void)?
   var didHardwareVersionUpdate: ((String) -> Void)?
 
+  var didRequestPairing: (() -> Void)?
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -1220,6 +1235,12 @@ class PeripheralValueReceiver {
 
   func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?) {
     if let error = error {
+      if (error as NSError).code == CBATTError.readNotPermitted.rawValue {
+        print(error.localizedDescription)
+        didRequestPairing?()
+        return
+      }
+
       didFail?(error)
       return
     }
