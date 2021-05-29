@@ -26,6 +26,7 @@
 		4D2E393426592A1B00A9FEF9 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */; };
 		4D2E969425DAE4FF0016A83E /* mm-ota-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969225DAE4FF0016A83E /* mm-ota-1_7_26.bin */; };
 		4D2E969525DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */; };
+		4D356012266270360008412C /* DeviceInformationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D356011266270360008412C /* DeviceInformationBuilder.swift */; };
 		4D356648264068DB00B4846D /* MBTBluetoothManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */; };
 		4D4A09882646DD1D00366DF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09872646DD1D00366DF6 /* AppDelegate.swift */; };
 		4D4A098A2646DD1D00366DF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09892646DD1D00366DF6 /* SceneDelegate.swift */; };
@@ -271,6 +272,7 @@
 		4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformation.swift; sourceTree = "<group>"; };
 		4D2E969225DAE4FF0016A83E /* mm-ota-1_7_26.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_26.bin"; sourceTree = "<group>"; };
 		4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_26.bin"; sourceTree = "<group>"; };
+		4D356011266270360008412C /* DeviceInformationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformationBuilder.swift; sourceTree = "<group>"; };
 		4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTBluetoothManagerV2.swift; sourceTree = "<group>"; };
 		4D4A09852646DD1D00366DF6 /* BluetoothTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4A09872646DD1D00366DF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -620,13 +622,22 @@
 			path = "Characteristic container";
 			sourceTree = "<group>";
 		};
+		4D356010266270140008412C /* Device information */ = {
+			isa = PBXGroup;
+			children = (
+				4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */,
+				4D356011266270360008412C /* DeviceInformationBuilder.swift */,
+			);
+			path = "Device information";
+			sourceTree = "<group>";
+		};
 		4D356646264068BE00B4846D /* V2 */ = {
 			isa = PBXGroup;
 			children = (
+				4D356010266270140008412C /* Device information */,
 				4D19FB34266142D10064FF6F /* PeripheralCommunication */,
 				4D9FFA9E265FBCAD000952E1 /* Attributes */,
 				4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */,
-				4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */,
 			);
 			path = V2;
 			sourceTree = "<group>";
@@ -1383,6 +1394,7 @@
 				A92D7A3B248118CF000DF7C3 /* Array+extension.swift in Sources */,
 				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,
 				A918242E248951E50069D0AB /* EEGToRelaxIndexProcessor.swift in Sources */,
+				4D356012266270360008412C /* DeviceInformationBuilder.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				A918D29624619D2800026F1D /* OADError.swift in Sources */,
 				A926C3F1248A670200B01186 /* EEGCalibrationProcessor.swift in Sources */,
