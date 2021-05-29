@@ -48,7 +48,8 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
     ]
     let deviceName = serialNumberByteArray + [UInt8](name.utf8)
 
-    peripheral.writeValue(Data(deviceName),
+    let dataToWrite = Data(deviceName)
+    peripheral.writeValue(dataToWrite,
                           for: characteristicContainer.mailBox,
                           type: .withResponse)
   }
@@ -62,19 +63,21 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
     firmwareVersionConverted[3] = numberOfBlocks.loUint8
     firmwareVersionConverted[4] = numberOfBlocks.hiUint16
 
-    peripheral.writeValue(Data(firmwareVersionConverted),
+    let dataToWrite = Data(firmwareVersionConverted)
+    peripheral.writeValue(dataToWrite,
                           for: characteristicContainer.mailBox,
                           type: .withResponse)
   }
 
   func writeA2DPConnection() {
-    let bytesArray: [UInt8] = [
+    let bytes: [UInt8] = [
       MailBoxEvents.a2dpConnection.rawValue,
       0x25,
       0xA2
     ]
 
-    peripheral.writeValue(Data(bytesArray),
+    let dataToWrite = Data(bytes)
+    peripheral.writeValue(dataToWrite,
                           for: characteristicContainer.mailBox,
                           type: .withResponse)
   }
