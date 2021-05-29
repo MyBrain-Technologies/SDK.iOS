@@ -1,6 +1,6 @@
 import Foundation
 
-enum IndusVersion: CaseIterable {
+public enum IndusVersion: CaseIterable {
 
   //----------------------------------------------------------------------------
   // MARK: - Cases
