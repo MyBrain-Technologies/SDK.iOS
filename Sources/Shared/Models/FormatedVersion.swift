@@ -1,16 +1,19 @@
 import Foundation
 
-struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
-  let major: Int
-  let minor: Int
-  let fix: Int
+public struct FormatedVersion  {
 
-  var versionValue: Int {
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  /******************** Semantic versioning ********************/
+
+  public let major: Int
+  public let minor: Int
+  public let fix: Int
+
+  public var versionValue: Int {
     return major * 10000 + minor * 100 + fix
-  }
-
-  var description: String {
-    return "\(major).\(minor).\(fix)"
   }
 
   //----------------------------------------------------------------------------
@@ -18,7 +21,7 @@ struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
   //----------------------------------------------------------------------------
 
   #warning("TODO: Nullable init?")
-  init(string: String) {
+  public init(string: String) {
     let characterSet = CharacterSet(charactersIn: Constants.versionSeparators)
     let components = string.components(separatedBy: characterSet)
 
@@ -34,17 +37,21 @@ struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
     self.fix = Int(components[2]) ?? 0
   }
 
-  init(major: Int, minor: Int, fix: Int) {
+  public init(major: Int, minor: Int, fix: Int) {
     self.major = major
     self.minor = minor
     self.fix = fix
   }
 
-  //----------------------------------------------------------------------------
-  // MARK: - Comparable
-  //----------------------------------------------------------------------------
+}
 
-  static func < (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
+//==============================================================================
+// MARK: - Comparable
+//==============================================================================
+
+extension FormatedVersion: Comparable {
+
+  public static func < (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
     let values = [(lhs: lhs.major, rhs: rhs.major),
                   (lhs: lhs.minor, rhs: rhs.minor),
                   (lhs: lhs.fix, rhs: rhs.fix)]
@@ -52,17 +59,33 @@ struct FormatedVersion: Comparable, Equatable, CustomStringConvertible {
     return hasLowerValue
   }
 
-  //----------------------------------------------------------------------------
-  // MARK: - Equatable
-  //----------------------------------------------------------------------------
+}
 
-  static func == (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
+//==============================================================================
+// MARK: - Equatable
+//==============================================================================
+
+extension FormatedVersion: Equatable {
+
+  public static func == (lhs: FormatedVersion, rhs: FormatedVersion) -> Bool {
     let values = [(lhs: lhs.major, rhs: rhs.major),
                   (lhs: lhs.minor, rhs: rhs.minor),
                   (lhs: lhs.fix, rhs: rhs.fix)]
 
     let hasNoDifference = values.first() { $0.lhs != $0.rhs } == nil
     return hasNoDifference
+  }
+
+}
+
+//==============================================================================
+// MARK: - CustomStringConvertible
+//==============================================================================
+
+extension FormatedVersion: CustomStringConvertible {
+
+  public var description: String {
+    return "\(major).\(minor).\(fix)"
   }
 
 }
