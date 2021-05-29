@@ -529,7 +529,7 @@ class PeripheralValidator {
 
 
 
-
+#warning("TODO: DispatchGroup https://stackoverflow.com/a/66868448")
 
 
 //==============================================================================
@@ -599,6 +599,10 @@ internal class MBTPeripheral: NSObject {
 
   private let allIndusServiceCBUUIDs: [CBUUID]
 
+
+
+  private let deviceInformationBuilder = DeviceInformationBuilder()
+
   /******************** Callbacks ********************/
 
 
@@ -625,11 +629,33 @@ internal class MBTPeripheral: NSObject {
 
   private func setup() {
     setupPeripheralManager()
+    setupDeviceInformationBuilder()
     setupCharacteristicsDiscoverer()
   }
 
   private func setupPeripheralManager() {
     peripheralManager.delegate = self
+  }
+
+  private func setupDeviceInformationBuilder() {
+    deviceInformationBuilder.didBuild = { [weak self] result in
+      self?.information = DeviceInformation(
+        productName: result.productName,
+        deviceId: result.deviceId,
+        hardwareVersion: result.hardwareVersion,
+        firmwareVersion: result.firmwareVersion,
+        channelCount: 2,
+        sampleRate: 250,
+        eegPacketSize: 250
+        )
+
+      self?.state = .ready
+      print(self?.information)
+    }
+
+    deviceInformationBuilder.didFail = { [weak self] in
+      // TODO Handle error
+    }
   }
 
   private func setupCharacteristicsDiscoverer() {
@@ -790,8 +816,6 @@ internal class MBTPeripheral: NSObject {
   private func handleValueUpdate(of peripheral: CBPeripheral,
                                  for characteristic: CBCharacteristic,
                                  error: Error?) {
-//    let dataString = String(data: characteristic.value!, encoding: .ascii)!
-//    print("Update for: \(characteristic.uuid.uuidString) with value: \(dataString)")
 
     if state == .pairing {
       peripheralValueReceiver?.handlePairingValudUpdate(for: characteristic,
@@ -949,19 +973,23 @@ extension MBTPeripheral: PeripheralValueDelegate {
   }
 
   func didUpdate(productName: String) {
-    print(productName)
+    guard state == .deviceInformationDiscovering else { return }
+    deviceInformationBuilder.add(productName: productName)
   }
 
   func didUpdate(serialNumber: String) {
-    print(serialNumber)
+    guard state == .deviceInformationDiscovering else { return }
+    deviceInformationBuilder.add(deviceId: serialNumber)
   }
 
   func didUpdate(firmwareVersion: String) {
-    print(firmwareVersion)
+    guard state == .deviceInformationDiscovering else { return }
+    deviceInformationBuilder.add(firmwareVersion: firmwareVersion)
   }
 
   func didUpdate(hardwareVersion: String) {
-    print(hardwareVersion)
+    guard state == .deviceInformationDiscovering else { return }
+    deviceInformationBuilder.add(hardwareVersion: hardwareVersion)
   }
 
   func didRequestPairing() {
@@ -972,9 +1000,7 @@ extension MBTPeripheral: PeripheralValueDelegate {
   }
 
   func didPair() {
-    state = .ready
-
-    peripheralCommunicator?.readDeviceState()
+    state = .deviceInformationDiscovering
     peripheralCommunicator?.readDeviceInformation()
   }
 
@@ -984,13 +1010,13 @@ extension MBTPeripheral: PeripheralValueDelegate {
 
 }
 
-
 class CharacteristicDiscoverer {
 
   //----------------------------------------------------------------------------
   // MARK: - Typealias
   //----------------------------------------------------------------------------
 
+  #warning("TODO: USE CBUIIDS!")
   typealias PreIndus5CharacteristicToCBCharacteristic =
     [MBTCharacteristic.PreIndus5: CBCharacteristic?]
 
@@ -1068,9 +1094,13 @@ class CharacteristicDiscoverer {
       }
     }
 
-    if preIndus5CharacteristicMap.allSatisfy( { (key, value) in value != nil } ) {
+    if preIndus5CharacteristicMap.allSatisfy(
+        { (key, value) in value != nil }
+    ) {
       handleDiscoveryForAllPreIndus5Characteristics()
-    } else if postIndus5CharacteristicMap.allSatisfy( { (key, value) in value != nil } ) {
+    } else if postIndus5CharacteristicMap.allSatisfy(
+                { (key, value) in value != nil }
+    ) {
       handleDiscoveryForAllPostIndus5Characteristics()
     }
 
@@ -1084,7 +1114,8 @@ class CharacteristicDiscoverer {
     }
 
     guard let serialNumber =
-            preIndus5CharacteristicMap[.serialNumber] as? CBCharacteristic else {
+            preIndus5CharacteristicMap[.serialNumber] as? CBCharacteristic
+    else {
       assertionFailure("Handle error")
       return
     }
@@ -1350,6 +1381,5 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   private func handleSetSerialNumberUpdate(for bytes: Bytes) {
 
   }
-
 
 }
