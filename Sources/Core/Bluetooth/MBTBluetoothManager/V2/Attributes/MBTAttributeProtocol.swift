@@ -12,3 +12,8 @@ extension Array where Element: MBTAttributeProtocol {
     self.map({ $0.uuid })
   }
 }
+
+protocol MBTCharacteristicProtocol: MBTAttributeProtocol {
+  static var readCharacteristics: [Self] { get }
+  static var writeCharacteristics: [Self] { get }
+}

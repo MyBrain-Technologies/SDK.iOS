@@ -3,7 +3,23 @@ import CoreBluetooth
 
 enum MBTCharacteristic {
 
-  enum PreIndus5: String, CaseIterable, MBTAttributeProtocol {
+  enum PreIndus5: String, CaseIterable, MBTCharacteristicProtocol {
+    static var readCharacteristics: [MBTCharacteristic.PreIndus5] {
+      return [
+        .productName,
+        .serialNumber,
+        .hardwareRevision,
+        .firmwareRevision,
+        .brainActivityMeasurement,
+        .deviceBatteryStatus,
+        .headsetStatus,
+        .mailBox
+      ]
+    }
+
+    static var writeCharacteristics: [MBTCharacteristic.PreIndus5] {
+      return [.oadTransfert]
+    }
 
     //--------------------------------------------------------------------------
     // MARK: - Cases
