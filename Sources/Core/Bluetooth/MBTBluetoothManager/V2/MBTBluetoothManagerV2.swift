@@ -544,24 +544,19 @@ internal class MBTPeripheral: NSObject {
   //----------------------------------------------------------------------------
 
   enum MBTPeripheralState {
-    case serviceDiscovering
     case characteristicDiscovering
+    case pairing
     case deviceInformationDiscovering
-    case bounding
     case ready
   }
 
-//  private var state = MBTPeripheralState.serviceDiscovering {
-//    didSet {
-//      switch state {
-//        case .serviceDiscovering: return
-//        case .characteristicDiscovering: return
-//        case .deviceInformationDiscovering: return
-//        case .bounding: return
-//        case .ready: return
-//      }
-//    }
-//  }
+  private(set) var state = MBTPeripheralState.characteristicDiscovering
+
+  /// Indicate if the headset is connected or not to BLE and A2DP.
+  var isConnected: Bool {
+    #warning("TODO: Check A2DP connection?")
+    return (peripheral?.state ?? .disconnected) == .connected
+  }
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -577,15 +572,11 @@ internal class MBTPeripheral: NSObject {
 
   private var peripheralCommunicator: PeripheralCommunicable?
 
-  private var peripheralValueReceiver: PeripheralValueReceiver?
-
-  #warning("TODO: Rename to `isHeadsetConnected`")
-  /// A *Bool* which indicate if the headset is connected or not to BLE and A2DP.
-  var isConnected: Bool {
-    // Before peripheral != nil
-    return peripheral?.state == .connected
+  private var peripheralValueReceiver: PeripheralValueReceiverProtocol? {
+    didSet {
+      peripheralValueReceiver?.delegate = self
+    }
   }
-
 
 //  var information: DeviceInformation?
 //  //  {
@@ -605,7 +596,6 @@ internal class MBTPeripheral: NSObject {
   /******************** Attribute discover ********************/
 
   private let characteristicDiscoverer = CharacteristicDiscoverer()
-
 
   private let allIndusServiceCBUUIDs: [CBUUID]
 
@@ -652,32 +642,16 @@ internal class MBTPeripheral: NSObject {
         return
       }
 
+      #warning("TODO: characteristicDiscoverer one callback giving peripheralCommunicator")
       self.peripheralCommunicator = PreIndus5PeripheralCommunicator(
         peripheral: peripheral,
         characteristicContainer: characteristicContainer
       )
 
-      self.peripheralValueReceiver =
-        PeripheralValueReceiver(strategy: PreIndus5PeripheralReceiverStrategy())
+      self.peripheralValueReceiver = PreIndus5PeripheralValueReceiver()
 
-      self.peripheralValueReceiver?.didBatteryLevelUpdate = { [weak self] level in
-        guard let self = self else { return }
-
-        self.peripheralCommunicator?.notifyMailBox(value: true)
-        self.peripheralCommunicator?.writeA2DPConnection()
-      }
-
-      self.peripheralValueReceiver?.didRequestPairing = { [weak self] in
-        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-          self?.peripheralCommunicator?.readDeviceState()
-        }
-      }
-      
-      self.peripheralCommunicator?.readDeviceInformation()
-
-      self.peripheralCommunicator?.readDeviceState()
-
-
+      self.state = .pairing
+      self.peripheralCommunicator?.requestPairing()
     }
 
     characteristicDiscoverer.didDiscoverAllPostIndus5Characteristics = {
@@ -688,6 +662,8 @@ internal class MBTPeripheral: NSObject {
         #warning("TODO: Handle error")
         return
       }
+
+      self.state = .pairing
 
       self.peripheralCommunicator = PostIndus5PeripheralCommunicator(
         peripheral: peripheral,
@@ -811,15 +787,6 @@ internal class MBTPeripheral: NSObject {
   }
 
   //----------------------------------------------------------------------------
-  // MARK: - Update
-  //----------------------------------------------------------------------------
-
-  private func handleDeviceInformationUpdate(characteristic: CBCharacteristic,
-                                             error: Error?) {
-
-  }
-
-  //----------------------------------------------------------------------------
   // MARK: - IO
   //----------------------------------------------------------------------------
 
@@ -829,8 +796,13 @@ internal class MBTPeripheral: NSObject {
 //    let dataString = String(data: characteristic.value!, encoding: .ascii)!
 //    print("Update for: \(characteristic.uuid.uuidString) with value: \(dataString)")
 
-    peripheralValueReceiver?.handleValueUpdate(for: characteristic,
-                                               error: error)
+    if state == .pairing {
+      peripheralValueReceiver?.handlePairingValudUpdate(for: characteristic,
+                                                        error: error)
+    } else {
+      peripheralValueReceiver?.handleValueUpdate(for: characteristic,
+                                                 error: error)
+    }
 
 //    guard isBLEConnected else {
 //      log.error("Ble peripheral is not set")
@@ -965,7 +937,55 @@ extension MBTPeripheral: CBPeripheralDelegate {
 }
 
 
+extension MBTPeripheral: PeripheralValueDelegate {
 
+  func didUpdate(batteryLevel: Int) {
+    print(batteryLevel)
+  }
+
+  func didUpdate(brainData: Data) {
+    print(brainData)
+  }
+
+  func didUpdate(saturationStatus: Int) {
+    print(saturationStatus)
+  }
+
+  func didUpdate(productName: String) {
+    print(productName)
+  }
+
+  func didUpdate(serialNumber: String) {
+    print(serialNumber)
+  }
+
+  func didUpdate(firmwareVersion: String) {
+    print(firmwareVersion)
+  }
+
+  func didUpdate(hardwareVersion: String) {
+    print(hardwareVersion)
+  }
+
+  func didRequestPairing() {
+    log.verbose("Did resquest pairing")
+    DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+      self.peripheralCommunicator?.requestPairing()
+    }
+  }
+
+  func didPair() {
+    state = .ready
+
+    peripheralCommunicator?.readDeviceState()
+    peripheralCommunicator?.readDeviceInformation()
+  }
+
+  func didFail(with error: Error) {
+    print(error.localizedDescription)
+  }
+
+}
 
 
 class CharacteristicDiscoverer {
@@ -1161,96 +1181,32 @@ class CharacteristicDiscoverer {
 
 typealias Bytes = [UInt8]
 
-protocol PeripheralValueReceiverStrategy: class {
+protocol PeripheralValueDelegate: class {
+  func didUpdate(batteryLevel: Int)
+  func didUpdate(brainData: Data)
+  func didUpdate(saturationStatus: Int)
 
-  // TODO: Use delegate instead
-  var didBatteryLevelUpdate: ((Int) -> Void)? { get set }
-  var didBrainDataUpdate: ((Data) -> Void)? { get set }
-  var didSaturationStatusUpdate: ((Int) -> Void)? { get set }
+  func didUpdate(productName: String)
+  func didUpdate(serialNumber: String)
+  func didUpdate(firmwareVersion: String)
+  func didUpdate(hardwareVersion: String)
 
-  var didProductNameUpdate: ((String) -> Void)? { get set }
-  var didSerialNumberUpdate: ((String) -> Void)? { get set }
-  var didFirmwareVersionUpdate: ((String) -> Void)? { get set }
-  var didHardwareVersionUpdate: ((String) -> Void)? { get set }
+  func didRequestPairing()
+  func didPair()
 
-  func handleValueUpdate(for characteristic: CBCharacteristic)
+  func didFail(with error: Error)
 }
 
-class PeripheralValueReceiver {
+protocol PeripheralValueReceiverProtocol: class {
 
-  //----------------------------------------------------------------------------
-  // MARK: - Properties
-  //----------------------------------------------------------------------------
+  var delegate: PeripheralValueDelegate? { get set }
 
-  /******************** Strategy ********************/
-
-  var receiverStrategy: PeripheralValueReceiverStrategy {
-    didSet {
-      resetStrategyCallbacks()
-    }
-  }
-
-  /******************** Callbacks ********************/
-
-  var didFail: ((Error) -> Void)?
-
-  var didBatteryLevelUpdate: ((Int) -> Void)?
-  var didBrainDataUpdate: ((Data) -> Void)?
-  var didSaturationStatusUpdate: ((Int) -> Void)?
-
-  var didProductNameUpdate: ((String) -> Void)?
-  var didSerialNumberUpdate: ((String) -> Void)?
-  var didFirmwareVersionUpdate: ((String) -> Void)?
-  var didHardwareVersionUpdate: ((String) -> Void)?
-
-  var didRequestPairing: (() -> Void)?
-
-  //----------------------------------------------------------------------------
-  // MARK: - Initialization
-  //----------------------------------------------------------------------------
-
-  init(strategy: PeripheralValueReceiverStrategy) {
-    receiverStrategy = strategy
-    resetStrategyCallbacks()
-  }
-
-  private func resetStrategyCallbacks() {
-    receiverStrategy.didBatteryLevelUpdate = { [weak self] level in
-      self?.didBatteryLevelUpdate?(level)
-    }
-
-    receiverStrategy.didBrainDataUpdate = { [weak self] brainData in
-      self?.didBrainDataUpdate?(brainData)
-    }
-
-    receiverStrategy.didSaturationStatusUpdate = { [weak self] saturation in
-      self?.didSaturationStatusUpdate?(saturation)
-    }
-
-  }
-
-  //----------------------------------------------------------------------------
-  // MARK: - Value update
-  //----------------------------------------------------------------------------
-
-  func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?) {
-    if let error = error {
-      if (error as NSError).code == CBATTError.readNotPermitted.rawValue {
-        print(error.localizedDescription)
-        didRequestPairing?()
-        return
-      }
-
-      didFail?(error)
-      return
-    }
-
-    receiverStrategy.handleValueUpdate(for: characteristic)
-  }
-
+  func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?)
+  func handlePairingValudUpdate(for characteristic: CBCharacteristic,
+                                error: Error?)
 }
 
-class PreIndus5PeripheralReceiverStrategy: PeripheralValueReceiverStrategy {
+class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -1258,27 +1214,46 @@ class PreIndus5PeripheralReceiverStrategy: PeripheralValueReceiverStrategy {
 
   /******************** Callbacks ********************/
 
-  var didFail: ((Error) -> Void)?
-
-  var didBatteryLevelUpdate: ((Int) -> Void)?
-
-  var didBrainDataUpdate: ((Data) -> Void)?
-
-  var didSaturationStatusUpdate: ((Int) -> Void)?
-
-  var didProductNameUpdate: ((String) -> Void)?
-
-  var didSerialNumberUpdate: ((String) -> Void)?
-
-  var didFirmwareVersionUpdate: ((String) -> Void)?
-
-  var didHardwareVersionUpdate: ((String) -> Void)?
+  weak var delegate: PeripheralValueDelegate?
 
   //----------------------------------------------------------------------------
   // MARK: - Update
   //----------------------------------------------------------------------------
 
-  func handleValueUpdate(for characteristic: CBCharacteristic) {
+  func handlePairingValudUpdate(for characteristic: CBCharacteristic,
+                                error: Error?) {
+    let characteristicCBUUID = characteristic.uuid
+    guard let mbtCharacteristic =
+            MBTCharacteristic.PreIndus5(uuid: characteristicCBUUID) else {
+      log.error("Unknown characteristic", context: characteristicCBUUID)
+      return
+    }
+
+    guard mbtCharacteristic == .deviceBatteryStatus else {
+      log.error("Invalid pairing characteristic", context: characteristicCBUUID)
+      return
+    }
+
+    guard let error = error else {
+      delegate?.didPair()
+      return
+    }
+
+    if (error as NSError).code == CBATTError.readNotPermitted.rawValue {
+      print(error.localizedDescription)
+      delegate?.didRequestPairing()
+      return
+    }
+
+    delegate?.didFail(with: error)
+  }
+
+  func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?) {
+    if let error = error {
+      delegate?.didFail(with: error)
+      return
+    }
+
     let characteristicCBUUID = characteristic.uuid
     guard let mbtCharacteristic =
             MBTCharacteristic.PreIndus5(uuid: characteristicCBUUID) else {
@@ -1308,45 +1283,40 @@ class PreIndus5PeripheralReceiverStrategy: PeripheralValueReceiverStrategy {
 
   private func handleProductNameUpdate(for data: Data) {
     guard let valueText = String(data: data, encoding: .ascii) else { return }
-    print(valueText)
-    didProductNameUpdate?(valueText)
+    delegate?.didUpdate(productName: valueText)
   }
 
   private func handleSerialNumberUpdate(for data: Data) {
     guard let valueText = String(data: data, encoding: .ascii) else { return }
-    print(valueText)
-    didSerialNumberUpdate?(valueText)
+    delegate?.didUpdate(serialNumber: valueText)
   }
 
   private func handleFirmwareVersionUpdate(for data: Data) {
     guard let valueText = String(data: data, encoding: .ascii) else { return }
-    print(valueText)
-    didFirmwareVersionUpdate?(valueText)
+    delegate?.didUpdate(firmwareVersion: valueText)
   }
 
   private func handleHardwareVersionNameUpdate(for data: Data) {
     guard let valueText = String(data: data, encoding: .ascii) else { return }
-    print(valueText)
-    didHardwareVersionUpdate?(valueText)
+    delegate?.didUpdate(hardwareVersion: valueText)
   }
 
   private func handleBrainUpdate(for data: Data) {
-    didBrainDataUpdate?(data)
+    delegate?.didUpdate(brainData: data)
   }
 
   private func handleBatteryUpdate(for data: Data) {
     let bytes = Bytes(data)
     guard bytes.count > 0 else { return }
     let batteryLevel = Int(bytes[0])
-    print(batteryLevel)
-    didBatteryLevelUpdate?(batteryLevel)
+    delegate?.didUpdate(batteryLevel: batteryLevel)
   }
 
   private func handleHeadsetStatusUpdate(for data: Data) {
     let bytes = Bytes(data)
     guard bytes[0] == 1 else { return }
     let saturationStatus = Int(bytes[1])
-    didSaturationStatusUpdate?(saturationStatus)
+    delegate?.didUpdate(saturationStatus: saturationStatus)
   }
 
   private func handleMailboxUpdate(for data: Data) {
