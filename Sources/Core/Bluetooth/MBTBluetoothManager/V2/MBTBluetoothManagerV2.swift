@@ -22,6 +22,16 @@ public class MBTBluetoothManagerV2: NSObject {
     return currentPeripheral.information
   }
 
+  var isListeningToEEG: Bool {
+    get { return currentPeripheral.isListeningToEEG }
+    set { currentPeripheral.isListeningToEEG = newValue }
+  }
+
+  var isListeningToHeadsetStatus: Bool {
+    get { return currentPeripheral.isListeningToHeadsetStatus }
+    set { currentPeripheral.isListeningToHeadsetStatus = newValue }
+  }
+
   /******************** Delegate ********************/
 
   /// The MBTBluetooth Event Delegate.
@@ -599,6 +609,25 @@ internal class MBTPeripheral: NSObject {
   private(set) var bluetoothState = BluetoothState.undetermined
 
 
+  /******************** Notifications ********************/
+
+  /// Enable or disable headset EEG notifications.
+  var isListeningToEEG = false {
+    didSet {
+      peripheralCommunicator?.notifyBrainActivityMeasurement(
+        value: isListeningToEEG
+      )
+    }
+  }
+
+  /// Enable or disable headset saturation notifications.
+  var isListeningToHeadsetStatus = false {
+    didSet {
+      peripheralCommunicator?.notifyHeadsetStatus(
+        value: isListeningToHeadsetStatus
+      )
+    }
+  }
 
   /******************** Audio ********************/
 
