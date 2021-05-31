@@ -16,6 +16,12 @@ public class MBTBluetoothManagerV2: NSObject {
   // MARK: - properties
   //----------------------------------------------------------------------------
 
+  /******************** Device ********************/
+
+  var currentPeripheralInformation: DeviceInformation? {
+    return currentPeripheral.information
+  }
+
   /******************** Delegate ********************/
 
   /// The MBTBluetooth Event Delegate.
