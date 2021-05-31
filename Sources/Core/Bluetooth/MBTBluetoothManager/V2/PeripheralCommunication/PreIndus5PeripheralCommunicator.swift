@@ -24,11 +24,20 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   //----------------------------------------------------------------------------
-  // MARK: - Paring
+  // MARK: - Connections
   //----------------------------------------------------------------------------
 
   func requestPairing() {
     readDeviceState()
+  }
+
+  func requestConnectA2DP() {
+    #warning("TODO: Do this or cancel request")
+    if characteristicContainer.mailBox.isNotifying {
+      notifyMailBox(value: true)
+    }
+
+    writeA2DPConnection()
   }
 
   //----------------------------------------------------------------------------

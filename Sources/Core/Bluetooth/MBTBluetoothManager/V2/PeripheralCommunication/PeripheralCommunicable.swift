@@ -3,10 +3,12 @@ import Foundation
 protocol PeripheralCommunicable {
 
   //----------------------------------------------------------------------------
-  // MARK: - Pairing
+  // MARK: - Connections
   //----------------------------------------------------------------------------
 
   func requestPairing()
+
+  func requestConnectA2DP()
 
   //----------------------------------------------------------------------------
   // MARK: - Read

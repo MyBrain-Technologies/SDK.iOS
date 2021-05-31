@@ -24,10 +24,15 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   //----------------------------------------------------------------------------
-  // MARK: - Paring
+  // MARK: - Connection
   //----------------------------------------------------------------------------
 
   func requestPairing() {
+    #warning("TODO")
+    assertionFailure()
+  }
+
+  func requestConnectA2DP() {
     #warning("TODO")
     assertionFailure()
   }
