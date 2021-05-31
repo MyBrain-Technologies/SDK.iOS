@@ -599,6 +599,11 @@ internal class MBTPeripheral: NSObject {
   private(set) var bluetoothState = BluetoothState.undetermined
 
 
+
+  /******************** Audio ********************/
+
+  private let a2dpConnector = MBTPeripheralA2DPConnector()
+
   /******************** Attribute discover ********************/
 
   private let characteristicDiscoverer = CharacteristicDiscoverer()
@@ -640,6 +645,7 @@ internal class MBTPeripheral: NSObject {
     setupPeripheralManager()
     setupDeviceInformationBuilder()
     setupCharacteristicsDiscoverer()
+    setupA2DPConnector()
   }
 
   private func setupPeripheralManager() {
@@ -660,6 +666,8 @@ internal class MBTPeripheral: NSObject {
 
       self?.state = .ready
       print(self?.information)
+
+      self?.peripheralCommunicator?.requestConnectA2DP()
     }
 
     deviceInformationBuilder.didFail = { [weak self] in
@@ -704,6 +712,12 @@ internal class MBTPeripheral: NSObject {
         peripheral: peripheral,
         characteristicContainer: characteristicContainer
       )
+    }
+  }
+
+  private func setupA2DPConnector() {
+    a2dpConnector.didConnectA2DP = { [weak self] in
+      print("A2DP is connected.")
     }
   }
 
@@ -868,7 +882,10 @@ internal class MBTPeripheral: NSObject {
   private func handleValueWrite(of peripheral: CBPeripheral,
                                 for characteristic: CBCharacteristic,
                                 error: Error?) {
-
+    if let error = error {
+      print(error.localizedDescription)
+    }
+    print("Write for: \(characteristic)")
   }
 
   private func handleNotificationStateUpdate(
@@ -1387,11 +1404,160 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
   private func handleA2dpConnectionUpdate(for bytes: Bytes) {
+    log.verbose("📲 A2DP connection")
 
+    let bytesResponse = bytes[1]
+    let bytesA2DPStatus =
+      MailBoxA2DPResponse.getA2DPResponse(from: bytesResponse)
+
+    log.info("📲 A2DP bytes", context: bytes.description)
+    log.info("📲 A2DP bits", context: bytesA2DPStatus.description)
+
+    if bytesA2DPStatus.contains(.inProgress) {
+      log.info("📲 A2DP in progress")
+    }
+    if bytesA2DPStatus.contains(.success) {
+      log.info("📲 A2DP connection success")
+    } else {
+      var error: Error?
+      if bytesA2DPStatus.contains(.failedBadAdress) {
+        error = OADError.badBDAddr.error
+      } else if bytesA2DPStatus.contains(
+        .failedAlreadyConnected
+        ) {
+        error = AudioError.audioAldreadyConnected.error
+      } else if bytesA2DPStatus.contains(.linkKeyInvalid) {
+        error = AudioError.audioUnpaired.error
+      } else if bytesA2DPStatus.contains(.failedTimeout) {
+        error = AudioError.audioConnectionTimeOut.error
+      }
+
+      if let error = error {
+        log.error("📲 Transfer failed", context: error)
+
+//        if isOADInProgress {
+//          eventDelegate?.onUpdateFailWithError?(error)
+//        } else {
+//          eventDelegate?.onConnectionFailed?(error)
+//        }
+//
+//        timers.stopA2DPConnectionTimer()
+//        disconnect()
+      }
+    }
   }
 
   private func handleSetSerialNumberUpdate(for bytes: Bytes) {
 
   }
+
+}
+
+
+
+//==============================================================================
+// MARK: - A2DP
+//==============================================================================
+
+import AVFoundation
+
+class MBTPeripheralA2DPConnector {
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  /******************** Callbacks ********************/
+
+  var didConnectA2DP: (() -> Void)?
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
+  init() {
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(audioRouteDidChange(_:)),
+      name: AVAudioSession.routeChangeNotification,
+      object: nil
+    )
+
+    let session = AVAudioSession.sharedInstance()
+    do {
+      try session.setCategory(.playback, options: .allowBluetooth)
+    } catch {
+      log.error("📲 Audio connection failed", context: error)
+    }
+  }
+
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Routing
+  //----------------------------------------------------------------------------
+
+  @objc private func audioRouteDidChange(_ notif: Notification) {
+    guard isAudioOutputValid(audioNotif: notif),
+     let audioOutputName = getNewAudioOutputName() else {
+      #warning("TODO: Handle error")
+        return
+    }
+
+    log.info("📲 New output port name", context: audioOutputName)
+
+    // A2DP Audio is connected
+//    DispatchQueue.main.async {
+//      self.audioA2DPDelegate?.audioA2DPDidConnect?()
+//      self.completeAudioConnection(to: audioOutputName)
+//    }
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Name retrivial
+  //----------------------------------------------------------------------------
+
+  private func getNewAudioOutputName() -> String? {
+    let melomindOutput = AudioOutputs().melomindOutput
+
+    guard let serialNumber =
+      melomindOutput?.portName.serialNumberFromDeviceName else { return nil }
+
+    let melomindAudioOutputName =
+      Constants.DeviceName.blePrefix + serialNumber
+
+    log.info("📲 New output audio port name", context: melomindAudioOutputName)
+
+    return melomindAudioOutputName
+  }
+
+  private func isAudioOutputValid(audioNotif: Notification) -> Bool {
+    guard let lastOutput = AudioNotification(audioNotif).lastAudioPort,
+      let output = AudioOutputs().melomindOutput else { return false }
+
+    log.info("🔊 Last audio output port name", context: lastOutput.portName)
+
+    let serialNumber = output.portName.serialNumberFromDeviceName ?? ""
+    let lastSerialNumber = lastOutput.portName.serialNumberFromDeviceName ?? ""
+
+    return serialNumber != lastSerialNumber
+  }
+
+//  private func isDeviceFirmwareVersionUpToDate() -> Bool {
+//    let currentFwVersion = FormatedVersion(string:
+//      DeviceManager.getCurrentDevice()?.deviceInfos?.firmwareVersion ?? ""
+//    )
+//    let oadFwVersion =
+//      FormatedVersion(string: self.OADManager?.fwVersion ?? "")
+//
+//    log.info("📲 Current device firmware version",
+//             context: currentFwVersion)
+//    log.info("📲 Expected firmware version",
+//             context: oadFwVersion)
+//
+//    return currentFwVersion == oadFwVersion
+//  }
 
 }
