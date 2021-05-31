@@ -578,7 +578,7 @@ internal class MBTPeripheral: NSObject {
     }
   }
 
-  var information: DeviceInformation?
+  private(set) var information: DeviceInformation?
   //  {
   //    didSet {
   //      peripheral?.discoverServices(nil)
@@ -605,6 +605,9 @@ internal class MBTPeripheral: NSObject {
 
   /******************** Callbacks ********************/
 
+  var didUpdateBrainData: ((Data) -> Void)?
+  var didUpdateBatteryLevel: ((Int) -> Void)?
+  var didUpdateSaturationStatus: ((Int) -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -962,14 +965,17 @@ extension MBTPeripheral: PeripheralValueDelegate {
 
   func didUpdate(batteryLevel: Int) {
     print(batteryLevel)
+    didUpdateBatteryLevel?(batteryLevel)
   }
 
   func didUpdate(brainData: Data) {
     print(brainData)
+    didUpdateBrainData?(brainData)
   }
 
   func didUpdate(saturationStatus: Int) {
     print(saturationStatus)
+    didUpdateSaturationStatus?(saturationStatus)
   }
 
   func didUpdate(productName: String) {
