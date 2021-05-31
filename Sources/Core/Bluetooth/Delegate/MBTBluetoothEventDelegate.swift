@@ -32,10 +32,6 @@ import Foundation
   /// - Parameter error: A *Error* object which describe the cause of the deconnection, can be a core Bluetooth error or MyBrainTechnologiesSDK error.
   @objc optional func onConnectionBLEOff(_ error: Error?)
 
-  /// Called when initiate timerUpdateBatteryLevel
-  /// returns -> schedules timerUpdateBatteryLevel with this timeInterval
-  @objc optional func timeIntervalOnReceiveBattery() -> TimeInterval
-
   /// Called after the connection in BLE of the Melomind if the Melomind need to be up date
   @objc optional func onNeedToUpdate()
 

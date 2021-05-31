@@ -32,6 +32,9 @@ public class MBTBluetoothManagerV2: NSObject {
     set { currentPeripheral.isListeningToHeadsetStatus = newValue }
   }
 
+  #warning("TODO: Replace `timeIntervalOnReceiveBattery`")
+  var batteryLevelRefreshInterval: TimeInterval = 120
+
   /******************** Delegate ********************/
 
   /// The MBTBluetooth Event Delegate.

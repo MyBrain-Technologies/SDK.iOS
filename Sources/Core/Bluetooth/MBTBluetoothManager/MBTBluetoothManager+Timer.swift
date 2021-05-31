@@ -57,13 +57,10 @@ extension MBTBluetoothManager: BluetoothTimersDelegate {
   // MARK: - Legacy
   //----------------------------------------------------------------------------
 
-  /// Start Update Battery Level Timer that will send event receiveBatteryLevelOnUpdate
+  /// Start Update Battery Level Timer that will send event
+  /// receiveBatteryLevelOnUpdate
   func startBatteryLevelTimer() {
-    if let timeInterval = eventDelegate?.timeIntervalOnReceiveBattery?() {
-      timers.startBatteryLevelTimer(timeInterval: timeInterval)
-    } else {
-      timers.startBatteryLevelTimer()
-    }
+    timers.startBatteryLevelTimer()
   }
 
 }
