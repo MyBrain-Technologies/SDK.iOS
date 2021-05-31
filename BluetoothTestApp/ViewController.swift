@@ -105,6 +105,12 @@ class ViewController: UIViewController {
 
   var cbLedCharacteristic: CBCharacteristic?
 
+  var peripheral: CBPeripheral?
+
+  var dispatchGroup: DispatchGroup?
+
+  var leadValue: Int?
+
   //----------------------------------------------------------------------------
   // MARK: - Lifecycle
   //----------------------------------------------------------------------------
@@ -172,6 +178,12 @@ class ViewController: UIViewController {
       turnOnBluetooth()
     } else {
       turnOffBluetooth()
+    }
+  }
+
+  @IBAction func tapButton(_ sender: UIButton) {
+    readLead { [weak self] value in
+      print("End completion: \(value)")
     }
   }
 
@@ -262,8 +274,9 @@ extension ViewController: CBCentralManagerDelegate {
                       didConnect peripheral: CBMPeripheral) {
     print("🆕 Did connect to peripheral")
 
-    peripheral.delegate = self
-    peripheral.discoverServices(nil)
+    self.peripheral = peripheral
+    self.peripheral?.delegate = self
+    self.peripheral?.discoverServices(nil)
     //    didConnectToPeripheral?(peripheral)
 
 
@@ -393,6 +406,9 @@ extension ViewController: CBPeripheralDelegate {
       print("ledCharacteristic")
     }
 
+    leadValue = 3
+    dispatchGroup?.leave()
+    print("Leave")
   }
 
 
@@ -406,4 +422,21 @@ extension ViewController: CBPeripheralDelegate {
       peripheral.readValue(for: ledCharacteristic)
     }
   }
+
+
+
+  func readLead(completion: ((Int) -> Void)?) {
+    dispatchGroup = DispatchGroup()
+    dispatchGroup?.enter()
+    peripheral?.readValue(for: cbLedCharacteristic!)
+    print("Enter")
+
+    dispatchGroup?.notify(queue: .main) {
+      print("Notify")
+      guard let leadValue = self.leadValue else { return }
+      completion?(leadValue)
+    }
+  }
+
+
 }
