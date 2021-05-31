@@ -1470,6 +1470,7 @@ class MBTPeripheralA2DPConnector {
   /******************** Callbacks ********************/
 
   var didConnectA2DP: (() -> Void)?
+  var didDisconnectA2DP: (() -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -1484,6 +1485,20 @@ class MBTPeripheralA2DPConnector {
     )
 
     let session = AVAudioSession.sharedInstance()
+    let output = session.currentRoute.outputs.first
+
+    print(output?.portName)
+    print(output?.portType)
+
+
+    if output?.portName == "melo_1010300431" && output?.portType == .bluetoothA2DP {
+      // A2DP Audio is connected
+      didConnectA2DP?()
+      return
+    } else {
+      print("Not connected yet.")
+    }
+
     do {
       try session.setCategory(.playback, options: .allowBluetooth)
     } catch {
@@ -1502,13 +1517,14 @@ class MBTPeripheralA2DPConnector {
   @objc private func audioRouteDidChange(_ notif: Notification) {
     guard isAudioOutputValid(audioNotif: notif),
      let audioOutputName = getNewAudioOutputName() else {
-      #warning("TODO: Handle error")
-        return
+      didDisconnectA2DP?()
+      return
     }
 
     log.info("📲 New output port name", context: audioOutputName)
 
     // A2DP Audio is connected
+    didConnectA2DP?()
 //    DispatchQueue.main.async {
 //      self.audioA2DPDelegate?.audioA2DPDidConnect?()
 //      self.completeAudioConnection(to: audioOutputName)
@@ -1522,8 +1538,9 @@ class MBTPeripheralA2DPConnector {
   private func getNewAudioOutputName() -> String? {
     let melomindOutput = AudioOutputs().melomindOutput
 
-    guard let serialNumber =
-      melomindOutput?.portName.serialNumberFromDeviceName else { return nil }
+    //guard
+      let serialNumber = "1010300431"
+      //melomindOutput?.portName.serialNumberFromDeviceName else { return nil }
 
     let melomindAudioOutputName =
       Constants.DeviceName.blePrefix + serialNumber
@@ -1539,7 +1556,7 @@ class MBTPeripheralA2DPConnector {
 
     log.info("🔊 Last audio output port name", context: lastOutput.portName)
 
-    let serialNumber = output.portName.serialNumberFromDeviceName ?? ""
+    let serialNumber = "1010300431"// output.portName.serialNumberFromDeviceName ?? ""
     let lastSerialNumber = lastOutput.portName.serialNumberFromDeviceName ?? ""
 
     return serialNumber != lastSerialNumber
