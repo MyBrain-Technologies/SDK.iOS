@@ -19,17 +19,17 @@ public class MBTBluetoothManagerV2: NSObject {
   /******************** Device ********************/
 
   public var currentPeripheralInformation: DeviceInformation? {
-    return currentPeripheral.information
+    return currentPeripheral?.information
   }
 
   public var isListeningToEEG: Bool {
-    get { return currentPeripheral.isListeningToEEG }
-    set { currentPeripheral.isListeningToEEG = newValue }
+    get { return currentPeripheral?.isListeningToEEG ?? false }
+    set { currentPeripheral?.isListeningToEEG = newValue }
   }
 
   public var isListeningToHeadsetStatus: Bool {
-    get { return currentPeripheral.isListeningToHeadsetStatus }
-    set { currentPeripheral.isListeningToHeadsetStatus = newValue }
+    get { return currentPeripheral?.isListeningToHeadsetStatus ?? false }
+    set { currentPeripheral?.isListeningToHeadsetStatus = newValue }
   }
 
   #warning("TODO: Replace `timeIntervalOnReceiveBattery`")
@@ -40,9 +40,10 @@ public class MBTBluetoothManagerV2: NSObject {
   /// The MBTBluetooth Event Delegate.
   weak var eventDelegate: MBTBluetoothEventDelegate?
 
-  let central = BluetoothCentral()
+  private let central = BluetoothCentral()
 
-  let currentPeripheral = MBTPeripheral()
+  #warning("TODO: Remove optional?")
+  private var currentPeripheral: MBTPeripheral?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -61,15 +62,11 @@ public class MBTBluetoothManagerV2: NSObject {
 
   private func setupCentral() {
     central.didDiscoverPeripheral = { [weak self] peripheral in
-      print(peripheral)
-
-      self?.central.stopScanning()
-      self?.central.connect(to: peripheral)
+      self?.handleDiscover(peripheral: peripheral)
     }
 
     central.didConnectToPeripheral = { [weak self] peripheral in
-      print("connected to \(peripheral)")
-      self?.currentPeripheral.peripheral = peripheral
+      self?.handleConnection(to: peripheral)
     }
 
     central.didConnectionFail = { [weak self] error in
@@ -85,7 +82,6 @@ public class MBTBluetoothManagerV2: NSObject {
 
   }
 
-
   //----------------------------------------------------------------------------
   // MARK: - Central
   //----------------------------------------------------------------------------
@@ -97,6 +93,32 @@ public class MBTBluetoothManagerV2: NSObject {
 
   public func stopScanning() {
     central.stopScanning()
+  }
+
+  private func handleDiscover(peripheral: CBPeripheral) {
+    print("Central discovered: \(peripheral)")
+    central.stopScanning()
+    central.connect(to: peripheral)
+  }
+
+  private func handleConnection(to newPeripheral: CBPeripheral) {
+    print("Central connected to \(newPeripheral)")
+    currentPeripheral = MBTPeripheral()
+    currentPeripheral?.peripheral = newPeripheral
+//    currentPeripheral?.delegate = self
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Connection
+  //----------------------------------------------------------------------------
+
+  public func connect() {
+
+  }
+
+  public func disconnect() {
+    stopScanning()
+    currentPeripheral = nil
   }
 
 }
