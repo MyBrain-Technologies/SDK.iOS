@@ -1058,6 +1058,19 @@ extension MBTPeripheral: PeripheralValueDelegate {
 
 }
 
+protocol CharacteristicDiscovererable {
+  associatedtype CharacteristicContainerType
+
+  var didDiscoverAllCharacteristics:
+    ((CharacteristicContainerType) -> Void)? { get set }
+
+  init(characteristicCBUUIDs: [CBUUID])
+
+  func reset()
+
+  func discover(characteristic: CBCharacteristic)
+}
+
 class CharacteristicDiscoverer {
 
   //----------------------------------------------------------------------------
@@ -1453,7 +1466,7 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
       if let error = error {
         log.error("📲 Transfer failed", context: error)
-
+        delegate?.didFail(with: error)
 //        if isOADInProgress {
 //          eventDelegate?.onUpdateFailWithError?(error)
 //        } else {
@@ -1471,6 +1484,11 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
 }
+
+
+
+
+
 
 
 
@@ -1613,8 +1631,6 @@ class MBTPeripheralA2DPConnector {
 
     return melomindAudioOutputName
   }
-
-
 
 //  private func isDeviceFirmwareVersionUpToDate() -> Bool {
 //    let currentFwVersion = FormatedVersion(string:
