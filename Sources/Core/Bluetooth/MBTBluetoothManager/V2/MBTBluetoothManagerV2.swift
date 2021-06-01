@@ -18,16 +18,16 @@ public class MBTBluetoothManagerV2: NSObject {
 
   /******************** Device ********************/
 
-  var currentPeripheralInformation: DeviceInformation? {
+  public var currentPeripheralInformation: DeviceInformation? {
     return currentPeripheral.information
   }
 
-  var isListeningToEEG: Bool {
+  public var isListeningToEEG: Bool {
     get { return currentPeripheral.isListeningToEEG }
     set { currentPeripheral.isListeningToEEG = newValue }
   }
 
-  var isListeningToHeadsetStatus: Bool {
+  public var isListeningToHeadsetStatus: Bool {
     get { return currentPeripheral.isListeningToHeadsetStatus }
     set { currentPeripheral.isListeningToHeadsetStatus = newValue }
   }
