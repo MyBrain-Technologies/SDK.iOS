@@ -527,13 +527,13 @@ class PeripheralValidator {
       return false
     }
 
-    print(newDeviceServices)
-    if newDeviceServices.first?.uuidString == "B2A0" {
-      print("advertisementData Pre indus 5")
-    }
-    for data in advertisementData {
-      print(data.key)
-    }
+//    print(newDeviceServices)
+//    if newDeviceServices.first?.uuidString == "B2A0" {
+//      print("advertisementData Pre indus 5")
+//    }
+//    for data in advertisementData {
+//      print(data.key)
+//    }
 
     let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
       deviceName: newDeviceName,
@@ -611,6 +611,7 @@ internal class MBTPeripheral: NSObject {
 
   var peripheral: CBPeripheral? {
     didSet {
+      print(peripheral?.identifier)
       updatePeripheral()
     }
   }
@@ -1616,6 +1617,7 @@ class MBTPeripheralA2DPConnector {
 
   @objc private func audioRouteDidChange(_ notif: Notification) {
     // 1010300431
+
     guard let serialNumber = requestDeviceSerialNumber?(),
           isDifferentAudioOutput(audioNotif: notif,
                                  newSerialNumber: serialNumber) else {
