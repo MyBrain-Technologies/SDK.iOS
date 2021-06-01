@@ -577,8 +577,21 @@ class PeripheralValidator {
 // MARK: - MBTPeripheral
 //==============================================================================
 
-internal class MBTPeripheral: NSObject {
+protocol PeripheralDelegate: class {
+  func didValueUpdate(BrainData: Data)
+  func didValueUpdate(BatteryLevel: Int)
+  func didValueUpdate(SaturationStatus: Int)
 
+  func didRequestA2DPConnection()
+  func didA2DPConnect()
+  func didA2DPDisconnect()
+
+  func didConnectionSucceed()
+
+  func didFail(with error: Error)
+}
+
+internal class MBTPeripheral: NSObject {
 
   //----------------------------------------------------------------------------
   // MARK: - State
@@ -670,6 +683,8 @@ internal class MBTPeripheral: NSObject {
   private let deviceInformationBuilder = DeviceInformationBuilder()
 
   /******************** Callbacks ********************/
+
+  weak var delegate: PeripheralDelegate?
 
   var didUpdateBrainData: ((Data) -> Void)?
   var didUpdateBatteryLevel: ((Int) -> Void)?
