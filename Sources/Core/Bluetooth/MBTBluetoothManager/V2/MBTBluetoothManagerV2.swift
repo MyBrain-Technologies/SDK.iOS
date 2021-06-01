@@ -566,6 +566,7 @@ internal class MBTPeripheral: NSObject {
     case characteristicDiscovering
     case pairing
     case deviceInformationDiscovering
+    case a2dpRequesting
     case ready
   }
 
@@ -696,8 +697,11 @@ internal class MBTPeripheral: NSObject {
         eegPacketSize: 250
         )
 
-      self?.state = .ready
-      print(self?.information)
+      self?.state = .a2dpRequesting
+
+      if let information = self?.information {
+        print(information)
+      }
 
       self?.peripheralCommunicator?.requestConnectA2DP()
     }
@@ -796,8 +800,7 @@ internal class MBTPeripheral: NSObject {
       log.error("Services peripheral are nil ? \(peripheral.services == nil)")
       return
     }
-//    counterServicesDiscover = 0
-//
+
     guard !services.isEmpty else {
       log.verbose("Empty services")
       return
@@ -821,7 +824,6 @@ internal class MBTPeripheral: NSObject {
     for service in allowedServices {
       log.verbose("New service: \(service.uuid)")
       peripheral.discoverCharacteristics(nil, for: service)
-//        counterServicesDiscover += 1
     }
   }
 
@@ -853,15 +855,6 @@ internal class MBTPeripheral: NSObject {
       print(characteristic)
       characteristicDiscoverer.discover(characteristic: characteristic)
     }
-
-//
-//    counterServicesDiscover -= 1
-//
-//    updateDeviceCharacteristics(with: service)
-//
-//    if hasDiscoverAllCharacteristics {
-//      prepareDevice()
-//    }
   }
 
   //----------------------------------------------------------------------------
@@ -880,11 +873,6 @@ internal class MBTPeripheral: NSObject {
                                                  error: error)
     }
 
-//    guard isBLEConnected else {
-//      log.error("Ble peripheral is not set")
-//      return
-//    }
-//
 //    /******************** Quick access ********************/
 //
 //    let deviceAcquisition = MBTClient.shared.deviceAcquisitionManager
@@ -893,31 +881,22 @@ internal class MBTPeripheral: NSObject {
 //      log.error("unknown service", context: characteristic.uuid)
 //      return
 //    }
-//
-//    let serviceString = service.uuid.uuidString
-//    log.verbose("🆕 Did update value for characteristic. (\(serviceString))")
-//
-//    switch service {
-//      case .brainActivityMeasurement: brainActivityService(characteristic)
-//      case .headsetStatus: headsetStatusService(characteristic)
-//      case .deviceBatteryStatus: deviceBatteryService(characteristic)
-//      case .mailBox: mailBoxService(characteristic)
-//      default: break
-//    }
-//
-//    let deviceCharacteristics = BluetoothService.deviceCharacteristics.uuids
-//    if deviceCharacteristics.contains(service.uuid) {
-//      deviceAcquisition.processDeviceInformations(characteristic)
-//    }
   }
 
   private func handleValueWrite(of peripheral: CBPeripheral,
                                 for characteristic: CBCharacteristic,
                                 error: Error?) {
     if let error = error {
+      #warning("TODO: Handle error")
       print(error.localizedDescription)
+      return
     }
+
     print("Write for: \(characteristic)")
+
+    // END
+    state = .ready
+
   }
 
   private func handleNotificationStateUpdate(
