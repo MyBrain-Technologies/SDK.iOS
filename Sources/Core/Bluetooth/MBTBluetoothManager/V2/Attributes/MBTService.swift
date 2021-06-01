@@ -3,6 +3,10 @@ import CoreBluetooth
 
 enum MBTService {
 
+  //----------------------------------------------------------------------------
+  // MARK: - PreIndus5 services
+  //----------------------------------------------------------------------------
+
   enum PreIndus5: String, CaseIterable, MBTAttributeProtocol {
 
     //--------------------------------------------------------------------------
@@ -30,6 +34,10 @@ enum MBTService {
 
   }
 
+  //----------------------------------------------------------------------------
+  // MARK: - PostIndus5 services
+  //----------------------------------------------------------------------------
+
   enum PostIndus5: String, CaseIterable, MBTAttributeProtocol {
 
     //--------------------------------------------------------------------------
@@ -52,6 +60,17 @@ enum MBTService {
     var uuid: CBUUID {
       return CBUUID(string: self.rawValue)
     }
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  static var allIndusCBUUIDs: [CBUUID] {
+    let preIndus5ServicesCBUUIDs = MBTService.PreIndus5.allCases.map { $0.uuid }
+    let postIndus5ServicesCBUUIDs =
+      MBTService.PostIndus5.allCases.map { $0.uuid }
+    return preIndus5ServicesCBUUIDs + postIndus5ServicesCBUUIDs
   }
 
 }
