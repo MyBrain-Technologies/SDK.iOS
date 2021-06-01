@@ -688,12 +688,7 @@ internal class MBTPeripheral: NSObject {
 
   override init() {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
-
-    let preIndus5ServicesCBUUIDs = MBTService.PreIndus5.allCases.map { $0.uuid }
-    let postIndus5ServicesCBUUIDs =
-      MBTService.PostIndus5.allCases.map { $0.uuid }
-    allIndusServiceCBUUIDs =
-      preIndus5ServicesCBUUIDs + postIndus5ServicesCBUUIDs
+    allIndusServiceCBUUIDs = MBTService.allIndusCBUUIDs
 
     super.init()
     setup()
@@ -1087,7 +1082,7 @@ extension MBTPeripheral: PeripheralValueDelegate {
 
 }
 
-protocol CharacteristicDiscovererable {
+protocol CharacteristicDiscoverable {
   associatedtype CharacteristicContainerType
 
   var didDiscoverAllCharacteristics:
@@ -1296,6 +1291,14 @@ class CharacteristicDiscoverer {
   }
 
 }
+
+
+
+
+
+
+
+
 
 typealias Bytes = [UInt8]
 
