@@ -49,4 +49,9 @@ class SDKTestViewController: UIViewController {
     sdk.startScanning()
   }
 
+  @IBAction func changeStreamingEEGState(_ sender: UISwitch) {
+    sdk.isListeningToEEG = sender.isOn
+  }
+
+
 }

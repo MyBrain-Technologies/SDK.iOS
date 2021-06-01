@@ -54,19 +54,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCX-a8-v6N">
-                                <rect key="frame" x="184" y="433" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="startScan:" destination="jh1-uc-fwc" eventType="touchUpInside" id="ePw-SF-QmA"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="CQY-sF-3FE">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCX-a8-v6N">
+                                        <rect key="frame" x="190" y="0.0" width="34" height="787"/>
+                                        <state key="normal" title="Start"/>
+                                        <connections>
+                                            <action selector="startScan:" destination="jh1-uc-fwc" eventType="touchUpInside" id="ePw-SF-QmA"/>
+                                        </connections>
+                                    </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4lc-FC-cYH">
+                                        <rect key="frame" x="182.5" y="787" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="changeStreamingEEGState:" destination="jh1-uc-fwc" eventType="valueChanged" id="7gB-7t-7Dt"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ooq-OS-ySY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="GCX-a8-v6N" firstAttribute="centerY" secondItem="ezd-v2-ata" secondAttribute="centerY" id="bHS-gK-k1g"/>
-                            <constraint firstItem="GCX-a8-v6N" firstAttribute="centerX" secondItem="ezd-v2-ata" secondAttribute="centerX" id="lxu-NC-oWA"/>
+                            <constraint firstItem="CQY-sF-3FE" firstAttribute="top" secondItem="Ooq-OS-ySY" secondAttribute="top" id="0Gz-X6-xZh"/>
+                            <constraint firstItem="Ooq-OS-ySY" firstAttribute="trailing" secondItem="CQY-sF-3FE" secondAttribute="trailing" id="S8i-ce-HDr"/>
+                            <constraint firstItem="CQY-sF-3FE" firstAttribute="leading" secondItem="Ooq-OS-ySY" secondAttribute="leading" id="TCW-9R-Wmu"/>
+                            <constraint firstItem="Ooq-OS-ySY" firstAttribute="bottom" secondItem="CQY-sF-3FE" secondAttribute="bottom" id="g1z-Oy-83i"/>
                         </constraints>
                     </view>
                     <connections>
