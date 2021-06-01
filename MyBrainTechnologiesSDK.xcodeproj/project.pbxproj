@@ -63,6 +63,7 @@
 		4D9FFA99265FBA01000952E1 /* MBTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFA98265FBA01000952E1 /* MBTService.swift */; };
 		4D9FFAA0265FBCB8000952E1 /* MBTAttributeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFA9F265FBCB8000952E1 /* MBTAttributeProtocol.swift */; };
 		4D9FFAAE265FBD0B000952E1 /* MBTCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFAAD265FBD0B000952E1 /* MBTCharacteristic.swift */; };
+		4DA2FCA72666D4F700C8B14E /* CharacteristicDiscoverer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA2FCA62666D4F700C8B14E /* CharacteristicDiscoverer.swift */; };
 		4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */; };
 		4DD9856A2265C8D300E788F2 /* MBTSignalProcessingBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD9856B2265C8D300E788F2 /* MBTBridgeConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -296,6 +297,7 @@
 		4D9FFA98265FBA01000952E1 /* MBTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTService.swift; sourceTree = "<group>"; };
 		4D9FFA9F265FBCB8000952E1 /* MBTAttributeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTAttributeProtocol.swift; sourceTree = "<group>"; };
 		4D9FFAAD265FBD0B000952E1 /* MBTCharacteristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTCharacteristic.swift; sourceTree = "<group>"; };
+		4DA2FCA62666D4F700C8B14E /* CharacteristicDiscoverer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicDiscoverer.swift; sourceTree = "<group>"; };
 		4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBTSignalProcessingBridge.mm; sourceTree = "<group>"; };
 		4DD985032265C8D300E788F2 /* MBTSignalProcessingBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTSignalProcessingBridge.h; sourceTree = "<group>"; };
 		4DD985042265C8D300E788F2 /* MBTBridgeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBTBridgeConstants.h; sourceTree = "<group>"; };
@@ -634,6 +636,7 @@
 		4D356646264068BE00B4846D /* V2 */ = {
 			isa = PBXGroup;
 			children = (
+				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
 				4D356010266270140008412C /* Device information */,
 				4D19FB34266142D10064FF6F /* PeripheralCommunication */,
 				4D9FFA9E265FBCAD000952E1 /* Attributes */,
@@ -683,6 +686,14 @@
 				4D9FFAAD265FBD0B000952E1 /* MBTCharacteristic.swift */,
 			);
 			path = Attributes;
+			sourceTree = "<group>";
+		};
+		4DA2FCA52666D05100C8B14E /* Characteristic discoverer */ = {
+			isa = PBXGroup;
+			children = (
+				4DA2FCA62666D4F700C8B14E /* CharacteristicDiscoverer.swift */,
+			);
+			path = "Characteristic discoverer";
 			sourceTree = "<group>";
 		};
 		4DD984ED2265C8D300E788F2 /* CPPSignalProcessing */ = {
@@ -1400,6 +1411,7 @@
 				A926C3F1248A670200B01186 /* EEGCalibrationProcessor.swift in Sources */,
 				A994297A2487D256003F48CC /* EEGSavingRecord.swift in Sources */,
 				F41A6D701F056DA800092027 /* MBTEEGPacket.swift in Sources */,
+				4DA2FCA72666D4F700C8B14E /* CharacteristicDiscoverer.swift in Sources */,
 				A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */,
 				A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */,
 				A91DC12F2490D01400E4A440 /* MailBoxEvents.swift in Sources */,
