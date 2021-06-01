@@ -755,6 +755,14 @@ internal class MBTPeripheral: NSObject {
     a2dpConnector.didConnectA2DP = { [weak self] in
       print("A2DP is connected.")
     }
+
+    a2dpConnector.didDisconnectA2DP = { [weak self] in
+      print("A2DP is disconnected.")
+    }
+
+    a2dpConnector.requestDeviceSerialNumber = { [weak self] in
+      return self?.information?.deviceId
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -1478,10 +1486,29 @@ class MBTPeripheralA2DPConnector {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  /******************** AVAuddioSession ********************/
+
+  private var session: AVAudioSession {
+    return AVAudioSession.sharedInstance()
+  }
+
+  private var output: AVAudioSessionPortDescription? {
+    return session.currentRoute.outputs.first
+  }
+
+  private var outputPortName: String? {
+    return output?.portName
+  }
+
+  private var outputPortType: AVAudioSession.Port? {
+    return output?.portType
+  }
+
   /******************** Callbacks ********************/
 
   var didConnectA2DP: (() -> Void)?
   var didDisconnectA2DP: (() -> Void)?
+  var requestDeviceSerialNumber: (() -> String?)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -1495,20 +1522,18 @@ class MBTPeripheralA2DPConnector {
       object: nil
     )
 
-    let session = AVAudioSession.sharedInstance()
-    let output = session.currentRoute.outputs.first
-
-    print(output?.portName)
-    print(output?.portType)
+    print(outputPortName)
+    print(outputPortType)
 
 
-    if output?.portName == "melo_1010300431" && output?.portType == .bluetoothA2DP {
-      // A2DP Audio is connected
-      didConnectA2DP?()
-      return
-    } else {
-      print("Not connected yet.")
-    }
+//    if output?.portName == "melo_1010300431"
+//      && output?.portType == .bluetoothA2DP {
+//      // A2DP Audio is connected
+//      didConnectA2DP?()
+//      return
+//    } else {
+//      print("Not connected yet.")
+//    }
 
     do {
       try session.setCategory(.playback, options: .allowBluetooth)
@@ -1522,16 +1547,31 @@ class MBTPeripheralA2DPConnector {
   }
 
   //----------------------------------------------------------------------------
+  // MARK: - Connection
+  //----------------------------------------------------------------------------
+
+  func isConnected(currentDeviceSerialNumber: String) -> Bool {
+    // "melo_1010300431"
+    let isGoodSerialNumber = output?.portName == currentDeviceSerialNumber
+    let isGoodPortType = output?.portType == .bluetoothA2DP
+    return isGoodSerialNumber && isGoodPortType
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Routing
   //----------------------------------------------------------------------------
 
   @objc private func audioRouteDidChange(_ notif: Notification) {
-    guard isAudioOutputValid(audioNotif: notif),
-     let audioOutputName = getNewAudioOutputName() else {
+    // 1010300431
+    guard let serialNumber = requestDeviceSerialNumber?(),
+          isDifferentAudioOutput(audioNotif: notif,
+                                 newSerialNumber: serialNumber) else {
+//     let audioOutputName = getNewAudioOutputName() else {
       didDisconnectA2DP?()
       return
     }
 
+    let audioOutputName = Constants.DeviceName.blePrefix + serialNumber
     log.info("📲 New output port name", context: audioOutputName)
 
     // A2DP Audio is connected
@@ -1545,6 +1585,19 @@ class MBTPeripheralA2DPConnector {
   //----------------------------------------------------------------------------
   // MARK: - Name retrivial
   //----------------------------------------------------------------------------
+
+  private func isDifferentAudioOutput(audioNotif: Notification,
+                                      newSerialNumber: String) -> Bool {
+    guard let lastOutput = AudioNotification(audioNotif).lastAudioPort else {
+      return false
+    }
+
+    log.info("🔊 Last audio output port name", context: lastOutput.portName)
+
+    let lastSerialNumber = lastOutput.portName.serialNumberFromDeviceName ?? ""
+
+    return newSerialNumber != lastSerialNumber
+  }
 
   private func getNewAudioOutputName() -> String? {
     let melomindOutput = AudioOutputs().melomindOutput
@@ -1561,17 +1614,7 @@ class MBTPeripheralA2DPConnector {
     return melomindAudioOutputName
   }
 
-  private func isAudioOutputValid(audioNotif: Notification) -> Bool {
-    guard let lastOutput = AudioNotification(audioNotif).lastAudioPort,
-      let output = AudioOutputs().melomindOutput else { return false }
 
-    log.info("🔊 Last audio output port name", context: lastOutput.portName)
-
-    let serialNumber = "1010300431"// output.portName.serialNumberFromDeviceName ?? ""
-    let lastSerialNumber = lastOutput.portName.serialNumberFromDeviceName ?? ""
-
-    return serialNumber != lastSerialNumber
-  }
 
 //  private func isDeviceFirmwareVersionUpToDate() -> Bool {
 //    let currentFwVersion = FormatedVersion(string:
