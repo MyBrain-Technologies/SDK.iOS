@@ -1,11 +1,3 @@
-//
-//  MBTBluetoothManagerV2.swift
-//  MyBrainTechnologiesSDK-iOS
-//
-//  Created by Laurent on 03/05/2021.
-//  Copyright © 2021 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
 import CoreBluetooth
 import SwiftyBeaver
@@ -1461,15 +1453,15 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
   private func handleOtaModeUpdate(for bytes: Bytes) {
-
+    #warning("TODO handleOtaModeUpdate")
   }
 
   private func handleOtaIndexResetUpdate(for bytes: Bytes) {
-
+    #warning("TODO handleOtaIndexResetUpdate")
   }
 
   private func handleOtaStatusUpdate(for bytes: Bytes) {
-
+    #warning("TODO handleOtaStatusUpdate")
   }
 
   private func handleA2dpConnectionUpdate(for bytes: Bytes) {
