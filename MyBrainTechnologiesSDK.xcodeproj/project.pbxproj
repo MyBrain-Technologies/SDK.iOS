@@ -43,6 +43,7 @@
 		4D5EE9DD234E096D00B36DF0 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */; };
 		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
+		4D87EECE26681752003C35E1 /* PeripheralValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87EECD26681752003C35E1 /* PeripheralValidator.swift */; };
 		4D9294852646E5DD004214AE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		4D9294862646E5DD004214AE /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4D9294872646E5E0004214AE /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
@@ -73,6 +74,7 @@
 		4DEF4EB526680E2A00D769DC /* MBTBluetoothDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF4EB426680E2A00D769DC /* MBTBluetoothDelegate.swift */; };
 		4DEF4EBF26680E9100D769DC /* MBTA2DPBluetoothDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF4EBE26680E9100D769DC /* MBTA2DPBluetoothDelegate.swift */; };
 		4DEF4EC526680F8700D769DC /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF4EC426680F8700D769DC /* MBTAcquisitionDelegate.swift */; };
+		4DEF4ECC266814D100D769DC /* BluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEF4ECB266814D100D769DC /* BluetoothCentral.swift */; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -295,6 +297,7 @@
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		4D87EECD26681752003C35E1 /* PeripheralValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralValidator.swift; sourceTree = "<group>"; };
 		4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBluetoothTypeAliases.swift; sourceTree = "<group>"; };
 		4D94474225F9679900CB364A /* String+VersionNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+VersionNumber.swift"; sourceTree = "<group>"; };
 		4D9FFA98265FBA01000952E1 /* MBTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTService.swift; sourceTree = "<group>"; };
@@ -310,6 +313,7 @@
 		4DEF4EB426680E2A00D769DC /* MBTBluetoothDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTBluetoothDelegate.swift; sourceTree = "<group>"; };
 		4DEF4EBE26680E9100D769DC /* MBTA2DPBluetoothDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTA2DPBluetoothDelegate.swift; sourceTree = "<group>"; };
 		4DEF4EC426680F8700D769DC /* MBTAcquisitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTAcquisitionDelegate.swift; sourceTree = "<group>"; };
+		4DEF4ECB266814D100D769DC /* BluetoothCentral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothCentral.swift; sourceTree = "<group>"; };
 		A90A1D5922C373350097C1BE /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = Sources/signalProcessingSDK/lib/libfftw3.a; sourceTree = "<group>"; };
 		A90A1D5A22C373360097C1BE /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQualityChecker.a; path = Sources/signalProcessingSDK/lib/libQualityChecker.a; sourceTree = "<group>"; };
 		A90A1D5B22C373360097C1BE /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAlgebra.a; path = Sources/signalProcessingSDK/lib/libAlgebra.a; sourceTree = "<group>"; };
@@ -642,6 +646,7 @@
 		4D356646264068BE00B4846D /* V2 */ = {
 			isa = PBXGroup;
 			children = (
+				4DEF4ECA266814C100D769DC /* Central */,
 				4DEF4EB326680C6800D769DC /* Delegate */,
 				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
 				4D356010266270140008412C /* Device information */,
@@ -760,6 +765,15 @@
 				4DEF4EC426680F8700D769DC /* MBTAcquisitionDelegate.swift */,
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		4DEF4ECA266814C100D769DC /* Central */ = {
+			isa = PBXGroup;
+			children = (
+				4DEF4ECB266814D100D769DC /* BluetoothCentral.swift */,
+				4D87EECD26681752003C35E1 /* PeripheralValidator.swift */,
+			);
+			path = Central;
 			sourceTree = "<group>";
 		};
 		A9130BCA24800D7100CB1840 /* EEG */ = {
@@ -1380,6 +1394,7 @@
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */,
 				4DEF4EC526680F8700D769DC /* MBTAcquisitionDelegate.swift in Sources */,
+				4DEF4ECC266814D100D769DC /* BluetoothCentral.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
 				A91DC1232490CFA300E4A440 /* BluetoothTimers.swift in Sources */,
 				4DED193926258C56001CEE5F /* MBTClientV2.swift in Sources */,
@@ -1443,6 +1458,7 @@
 				A9130BC824800C2500CB1840 /* EEGDeserializer.swift in Sources */,
 				A91DC1162490CF6200E4A440 /* MBTBluetoothManager+CBCentralManagerDelegate.swift in Sources */,
 				4D9FFA99265FBA01000952E1 /* MBTService.swift in Sources */,
+				4D87EECE26681752003C35E1 /* PeripheralValidator.swift in Sources */,
 				A91DC1192490CF6D00E4A440 /* MBTBluetoothEventDelegate.swift in Sources */,
 				A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */,
 				4D19FB40266143120064FF6F /* PreIndus5PeripheralCommunicator.swift in Sources */,
