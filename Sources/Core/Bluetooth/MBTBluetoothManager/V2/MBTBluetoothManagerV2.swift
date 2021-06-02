@@ -578,9 +578,9 @@ protocol PeripheralDelegate: class {
   func didA2DPConnect()
   func didA2DPDisconnect()
 
-  func didConnectionSucceed()
+  func didConnect()
 
-  func didFail(with error: Error)
+  func didFail(error: Error)
 }
 
 internal class MBTPeripheral: NSObject {
@@ -1685,3 +1685,103 @@ class MBTPeripheralA2DPConnector {
 //  }
 
 }
+
+
+
+
+
+
+
+
+
+////==============================================================================
+//// MARK: - Labo
+////==============================================================================
+//
+//class PeripheralPairingController: NSObject, CBPeripheralDelegate  {
+//
+//  //----------------------------------------------------------------------------
+//  // MARK: - Properties
+//  //----------------------------------------------------------------------------
+//
+//  private let peripheral: CBPeripheral
+//
+//  private let communicater: PeripheralCommunicable
+//
+//  private var timer: Timer?
+//
+//  init(peripheral: CBPeripheral, communicater: PeripheralCommunicable) {
+//    self.peripheral = peripheral
+//    self.communicater = communicater
+//    super.init()
+//
+//    self.peripheral.delegate = self
+//  }
+//
+//  func startPairing() {
+//    communicater.requestPairing()
+//  }
+//
+//  //----------------------------------------------------------------------------
+//  // MARK: - Delegate
+//  //----------------------------------------------------------------------------
+//
+//  func peripheral(_ peripheral: CBPeripheral,
+//                  didUpdateValueFor characteristic: CBCharacteristic,
+//                  error: Error?) {
+//
+//  }
+//
+//}
+
+
+
+//class PeripheralCharacteristicDiscoverer: NSObject, CBPeripheralDelegate {
+//
+//  //----------------------------------------------------------------------------
+//  // MARK: - Properties
+//  //----------------------------------------------------------------------------
+//
+//  private let peripheral: CBPeripheral
+//  private let characteristicDiscoverer = CharacteristicDiscoverer()
+//
+//  /******************** Callbacks ********************/
+//
+//  var didComplete: ((Int) -> Void)?
+//  var didFail: ((Error) -> Void)?
+//
+//  //----------------------------------------------------------------------------
+//  // MARK: - Initialization
+//  //----------------------------------------------------------------------------
+//
+//  init(peripheral: CBPeripheral) {
+//    self.peripheral = peripheral
+//    super.init()
+//    setup()
+//  }
+//
+//  private func setup() {
+//    peripheral.delegate = self
+//
+//    characteristicDiscoverer.didDiscoverAllPostIndus5Characteristics = {
+//      [weak self] container in
+//      print(container.tx)
+//    }
+//  }
+//
+//  func peripheral(_ peripheral: CBPeripheral,
+//                  didDiscoverServices error: Error?) {
+//    print("one")
+//  }
+//
+//  func peripheral(_ peripheral: CBPeripheral,
+//                  didDiscoverCharacteristicsFor service: CBService,
+//                  error: Error?) {
+//    print("two")
+//
+//    guard let characteristics = service.characteristics else { return }
+//    for characteristic in characteristics {
+//      characteristicDiscoverer.discover(characteristic: characteristic)
+//    }
+//  }
+//}
