@@ -2,7 +2,7 @@ import Foundation
 import CoreBluetooth
 import SwiftyBeaver
 
-public class MBTBluetoothManagerV2: NSObject {
+public class MBTBluetoothManagerV2 {
 
   //----------------------------------------------------------------------------
   // MARK: - properties
@@ -41,8 +41,7 @@ public class MBTBluetoothManagerV2: NSObject {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  public override init() {
-    super.init()
+  public init() {
     initLog(logToFile: false, isDebugMode: true, options: [])
     setup()
   }
@@ -725,6 +724,19 @@ extension MBTPeripheral: PeripheralValueDelegate {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 protocol CharacteristicDiscoverable {
   associatedtype CharacteristicContainerType
