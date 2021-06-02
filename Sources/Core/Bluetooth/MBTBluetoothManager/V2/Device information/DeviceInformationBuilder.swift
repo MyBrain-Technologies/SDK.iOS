@@ -14,8 +14,8 @@ class DeviceInformationBuilder {
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //
-  // Information properties are `private(set)` in order to prevent the client
-  // to set them to nul and shouldn't have partiel information during building.
+  // Information properties are `private` in order to prevent the client to have
+  // partiel information during building.
   //----------------------------------------------------------------------------
 
   /// The commercial name of the device.
