@@ -48,9 +48,13 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// - Parameter device: A *MBTDevice* of the connected Melomind
   func setUpWith(device: MBTDevice) {
     acquisitionProcessor = EEGAcquisitionProcessor(
-      device: device,
+      bufferSizeMax: device.eegPacketLength * 2 * 2,
+      packetLength: device.eegPacketLength,
+      channelCount: device.nbChannels,
+      sampleRate: device.sampRate,
       signalProcessor: signalProcessor
     )
+
     #warning("How to remove the resetSession session here?")
     signalProcessor.resetSession()
   }
@@ -62,16 +66,9 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   /// Method called by MelomindEngine when a new EEG streaming
   /// session has began. Method will make everything ready, acquisition side
   /// for the new session.
-  func streamHasStarted(isUsingQualityChecker: Bool,
-                        currentDevice: MBTDevice?) {
+  func streamHasStarted(isUsingQualityChecker: Bool, sampleRate: Int) {
     // Start mainQualityChecker.
     guard isUsingQualityChecker else { return }
-
-    // Getting connected MBTDevice *sampRate*.
-    guard let sampleRate = currentDevice?.sampRate else {
-      shouldUseQualityChecker = false
-      return
-    }
 
     shouldUseQualityChecker = signalProcessor.initializeQualityChecker(
       withSampleRate: Float(sampleRate)

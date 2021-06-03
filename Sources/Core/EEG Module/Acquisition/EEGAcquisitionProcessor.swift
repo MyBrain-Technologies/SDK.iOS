@@ -34,15 +34,6 @@ class EEGAcquisitionProcessor {
     self.signalProcessor = signalProcessor
   }
 
-  convenience init(device: MBTDevice,
-                   signalProcessor: MBTSignalProcessingManager) {
-    self.init(bufferSizeMax: device.eegPacketLength * 2 * 2,
-              packetLength: device.eegPacketLength,
-              channelCount: device.nbChannels,
-              sampleRate: device.sampRate,
-              signalProcessor: signalProcessor)
-  }
-
   //----------------------------------------------------------------------------
   // MARK: - Methods
   //----------------------------------------------------------------------------
