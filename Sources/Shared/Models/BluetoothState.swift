@@ -7,14 +7,23 @@ import CoreBluetooth
  * Is bluetooth powered on, off or unknown
  *
  ******************************************************************************/
-public enum BluetoothState {
+
+public enum BluetoothState: String {
+
+  //----------------------------------------------------------------------------
+  // MARK: - Cases
+  //----------------------------------------------------------------------------
+
   /// Bluetooth is powered on
-  case poweredOn
+  case poweredOn = "powered on"
+
   /// Bluetooth is powered off
-  case poweredOff
+  case poweredOff = "powered off"
+
   /// Bluetooth state cannot be determined.
-  /// It can be caused by a missing authorization or an unsupported device. Check BluetoothAuthorization.
-  case undetermined
+  /// It can be caused by a missing authorization or an unsupported device.
+  /// Check BluetoothAuthorization.
+  case undetermined = "not determined"
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -27,6 +36,7 @@ public enum BluetoothState {
     default: self = .undetermined
     }
   }
+
 }
 
 //==============================================================================
@@ -34,11 +44,9 @@ public enum BluetoothState {
 //==============================================================================
 
 extension BluetoothState: CustomStringConvertible {
+
   public var description: String {
-    switch self {
-    case .poweredOff: return "powered off"
-    case .poweredOn: return "powered on"
-    case .undetermined: return "not determined"
-    }
+    return self.rawValue
   }
+
 }

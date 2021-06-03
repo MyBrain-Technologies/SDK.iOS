@@ -21,6 +21,22 @@ internal class BluetoothCentral: NSObject {
 
   private let peripheralValidator = PeripheralValidator()
 
+  /******************** State ********************/
+
+  var authorization: BluetoothAuthorization {
+    if #available(iOS 13.0, *) {
+      return
+        BluetoothAuthorization(authorization: cbCentralManager.authorization,
+                               state: cbCentralManager.state)
+    } else {
+      return BluetoothAuthorization(state: cbCentralManager.state)
+    }
+  }
+
+  var state: BluetoothState {
+    return BluetoothState(state: cbCentralManager.state)
+  }
+
   /******************** Callbacks ********************/
 
   var didDiscoverPeripheral: ((CBPeripheral) -> Void)?

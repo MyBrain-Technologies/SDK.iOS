@@ -8,6 +8,18 @@ public class MBTBluetoothManagerV2 {
   // MARK: - properties
   //----------------------------------------------------------------------------
 
+
+  /******************** Central ********************/
+
+  var authorization: BluetoothAuthorization {
+    return central.authorization
+  }
+
+  var state: BluetoothState {
+    return central.state
+  }
+
+
   /******************** Device ********************/
 
   public var currentPeripheralInformation: DeviceInformation? {
