@@ -452,7 +452,9 @@ public class MBTClient {
 
     return signalProcessingManager.computeCalibration(
       numberOfPackets,
-      currentDevice: currentDevice,
+      sampleRate: currentDevice.sampRate,
+      channelCount: currentDevice.nbChannels,
+      packetLength: currentDevice.eegPacketLength,
       eegPacketManager: EEGPacketManager.shared)
   }
 
@@ -471,7 +473,10 @@ public class MBTClient {
       return nil
     }
 
-    return signalProcessingManager.computeRelaxIndex(forDevice: currentDevice)
+    return signalProcessingManager.computeRelaxIndex(
+      sampleRate: currentDevice.sampRate,
+      channelCount: currentDevice.nbChannels
+    )
   }
 
   /// ComputeSessionStatistics
