@@ -1513,3 +1513,65 @@ class MBTPeripheralA2DPConnector {
 //    }
 //  }
 //}
+
+
+
+//==============================================================================
+// MARK: - Labo closure
+//==============================================================================
+
+
+//class CBCentralClosure: CBCentralManager {
+//
+//  var didStateUpdate: ((CBCentralManager) -> Void)?
+//
+//  var didDiscoverPeripheral: ((CBPeripheral, [String : Any]) -> Void)?
+//
+//
+//  init(stateCompletionHandler: ((CBCentralManager) -> Void)? = nil) {
+//    super.init(delegate: nil, queue: nil, options: nil)
+//    self.didStateUpdate = stateCompletionHandler
+//    delegate = self
+//  }
+//
+//}
+//
+//extension CBCentralClosure: CBCentralManagerDelegate {
+//
+//  func centralManagerDidUpdateState(_ central: CBCentralManager) {
+//    didStateUpdate?(central)
+//  }
+//
+//  func centralManager(_ central: CBCentralManager,
+//                      didDiscover peripheral: CBPeripheral,
+//                      advertisementData: [String : Any],
+//                      rssi RSSI: NSNumber) {
+//    didDiscoverPeripheral?(peripheral, advertisementData)
+//    didDiscoverPeripheral = nil
+//  }
+//
+//}
+//
+//
+//public class CentralClosure {
+//
+//  lazy var cbCentral: CBCentralClosure = {
+//    return CBCentralClosure() { [weak self] state in
+//      print(state)
+//    }
+//  }()
+//
+//  public init() {}
+//
+//  public func scan(completion: ((CBPeripheral, [String : Any]) -> Void)?) {
+//    cbCentral.didDiscoverPeripheral = completion
+////    {
+////      [weak self] peripheral, advertisementData in
+////      print(peripheral)
+////      print(advertisementData)
+////    }
+//
+//    cbCentral.scanForPeripherals(withServices: nil, options: nil)
+//  }
+//
+//}
