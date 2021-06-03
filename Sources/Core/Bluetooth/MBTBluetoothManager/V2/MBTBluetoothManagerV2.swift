@@ -374,6 +374,19 @@ internal class MBTPeripheral: NSObject {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
+  init(peripheral: CBPeripheral,
+       isPreIndus5: Bool,
+       delegate: PeripheralDelegate? = nil) {
+    peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
+    allIndusServiceCBUUIDs = MBTService.allIndusCBUUIDs
+    super.init()
+
+    self.peripheral = peripheral
+    self.isPreIndus5 = isPreIndus5
+    self.delegate = delegate
+    setup()
+  }
+
   override init() {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
     allIndusServiceCBUUIDs = MBTService.allIndusCBUUIDs
