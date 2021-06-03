@@ -62,6 +62,22 @@ public struct DeviceInformation: Codable {
     self.eegPacketSize = eegPacketSize
   }
 
+  init?(productName: String,
+       deviceId: String,
+       hardwareVersion: String,
+       firmwareVersion: String) {
+    guard let indusVersion =
+            IndusVersion(fromHardwareVersion: hardwareVersion) else {
+      return nil
+    }
+
+    self.init(productName: productName,
+              deviceId: deviceId,
+              hardwareVersion: hardwareVersion,
+              firmwareVersion: firmwareVersion,
+              indusVersion: indusVersion)
+  }
+
   init(productName: String,
        deviceId: String,
        hardwareVersion: String,
@@ -80,6 +96,7 @@ public struct DeviceInformation: Codable {
         self.eegPacketSize = 250
       case .indus5:
         #warning("TODO: Use real indus5 version")
+        fatalError("Use real indus5 version")
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250

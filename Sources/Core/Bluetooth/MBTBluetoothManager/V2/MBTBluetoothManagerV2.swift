@@ -8,7 +8,6 @@ public class MBTBluetoothManagerV2 {
   // MARK: - properties
   //----------------------------------------------------------------------------
 
-
   /******************** Central ********************/
 
   var authorization: BluetoothAuthorization {
@@ -399,16 +398,8 @@ internal class MBTPeripheral: NSObject {
   }
 
   private func setupDeviceInformationBuilder() {
-    deviceInformationBuilder.didBuild = { [weak self] result in
-      self?.information = DeviceInformation(
-        productName: result.productName,
-        deviceId: result.deviceId,
-        hardwareVersion: result.hardwareVersion,
-        firmwareVersion: result.firmwareVersion,
-        channelCount: 2,
-        sampleRate: 250,
-        eegPacketSize: 250
-        )
+    deviceInformationBuilder.didBuild = { [weak self] deviceInfomration in
+      self?.information = deviceInfomration
 
       self?.state = .a2dpRequesting
 
@@ -419,7 +410,7 @@ internal class MBTPeripheral: NSObject {
       self?.peripheralCommunicator?.requestConnectA2DP()
     }
 
-    deviceInformationBuilder.didFail = { [weak self] in
+    deviceInformationBuilder.didFail = { [weak self] error in
       // TODO Handle error
     }
   }

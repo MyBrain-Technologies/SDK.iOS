@@ -3,6 +3,15 @@ import Foundation
 class DeviceInformationBuilder {
 
   //----------------------------------------------------------------------------
+  // MARK: - Error
+  //----------------------------------------------------------------------------
+
+  enum DeviceInformationBuilderError: Error {
+    case missingDeviceInformation
+    case unableToBuildDeviceInformation
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Typealias
   //----------------------------------------------------------------------------
 
@@ -61,9 +70,9 @@ class DeviceInformationBuilder {
 
   /******************** Callback ********************/
 
-  var didFail: (() -> Void)?
+  var didFail: ((Error) -> Void)?
 
-  var didBuild: ((DeviceInformationBuildResult) -> Void)?
+  var didBuild: ((DeviceInformation) -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Build
@@ -96,11 +105,20 @@ class DeviceInformationBuilder {
           let deviceId = deviceId,
           let hardwareVersion = hardwareVersion,
           let firmwareVersion = firmwareVersion else {
-      didFail?()
+      didFail?(DeviceInformationBuilderError.missingDeviceInformation)
       return
     }
-    let result = (productName, deviceId, hardwareVersion, firmwareVersion)
-    didBuild?(result)
+
+    guard let deviceInformation =
+            DeviceInformation(productName: productName,
+                              deviceId: deviceId,
+                              hardwareVersion: hardwareVersion,
+                              firmwareVersion: firmwareVersion) else {
+      didFail?(DeviceInformationBuilderError.unableToBuildDeviceInformation)
+      return
+    }
+
+    didBuild?(deviceInformation)
   }
 
   private func reset() {
