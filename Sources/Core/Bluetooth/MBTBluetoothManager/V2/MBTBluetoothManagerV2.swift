@@ -108,7 +108,7 @@ public class MBTBluetoothManagerV2 {
     print("Central connected to \(newPeripheral)")
     currentPeripheral = MBTPeripheral()
     currentPeripheral?.peripheral = newPeripheral
-//    currentPeripheral?.delegate = self
+    currentPeripheral?.delegate = self
   }
 
   //----------------------------------------------------------------------------
@@ -126,7 +126,41 @@ public class MBTBluetoothManagerV2 {
 
 }
 
+extension MBTBluetoothManagerV2: PeripheralDelegate {
+  func didValueUpdate(BrainData: Data) {
 
+  }
+
+  func didValueUpdate(BatteryLevel: Int) {
+
+  }
+
+  func didValueUpdate(SaturationStatus: Int) {
+
+  }
+
+  func didRequestA2DPConnection() {
+
+  }
+
+  func didA2DPConnect() {
+    print("A2DP connected")
+  }
+
+  func didA2DPDisconnect() {
+
+  }
+
+  func didConnect() {
+
+  }
+
+  func didFail(error: Error) {
+
+  }
+
+
+}
 
 extension MBTBluetoothManagerV2 {
 
@@ -433,6 +467,7 @@ internal class MBTPeripheral: NSObject {
   private func setupA2DPConnector() {
     a2dpConnector.didConnectA2DP = { [weak self] in
       print("A2DP is connected.")
+      self?.delegate?.didA2DPConnect()
     }
 
     a2dpConnector.didDisconnectA2DP = { [weak self] in
@@ -583,7 +618,6 @@ internal class MBTPeripheral: NSObject {
 
     // END
     state = .ready
-
   }
 
   private func handleNotificationStateUpdate(
@@ -729,6 +763,15 @@ extension MBTPeripheral: PeripheralValueDelegate {
   func didPair() {
     state = .deviceInformationDiscovering
     peripheralCommunicator?.readDeviceInformation()
+  }
+
+  func didA2DPConnectionRequestSucceed() {
+    guard let information = information else { return }
+    let serialNumber = information.productName
+    let isA2dpConnected =
+      a2dpConnector.isConnected(currentDeviceSerialNumber: serialNumber)
+    guard isA2dpConnected else { return }
+    delegate?.didA2DPConnect()
   }
 
   func didFail(with error: Error) {
@@ -980,6 +1023,8 @@ protocol PeripheralValueDelegate: class {
   func didUpdate(firmwareVersion: String)
   func didUpdate(hardwareVersion: String)
 
+  func didA2DPConnectionRequestSucceed()
+
   func didRequestPairing()
   func didPair()
 
@@ -1148,21 +1193,18 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     if bytesA2DPStatus.contains(.inProgress) {
       log.info("📲 A2DP in progress")
     }
-    if bytesA2DPStatus.contains(.success) {
-      log.info("📲 A2DP connection success")
-    } else {
+    guard bytesA2DPStatus.contains(.success) else {
       var error: Error?
       if bytesA2DPStatus.contains(.failedBadAdress) {
         error = OADError.badBDAddr.error
-      } else if bytesA2DPStatus.contains(
-        .failedAlreadyConnected
-        ) {
+      } else if bytesA2DPStatus.contains(.failedAlreadyConnected) {
         error = AudioError.audioAldreadyConnected.error
       } else if bytesA2DPStatus.contains(.linkKeyInvalid) {
         error = AudioError.audioUnpaired.error
       } else if bytesA2DPStatus.contains(.failedTimeout) {
         error = AudioError.audioConnectionTimeOut.error
       }
+      #warning("TODO: Handle unknown error")
 
       if let error = error {
         log.error("📲 Transfer failed", context: error)
@@ -1176,7 +1218,11 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 //        timers.stopA2DPConnectionTimer()
 //        disconnect()
       }
+      return
     }
+
+    log.info("📲 A2DP connection success")
+    delegate?.didA2DPConnectionRequestSucceed()
   }
 
   private func handleSetSerialNumberUpdate(for bytes: Bytes) {
@@ -1185,6 +1231,16 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
 }
 
+class ValueFormatter {
+
+  func formatBatteryLevel(data: Data) -> Int? {
+    let bytes = Bytes(data)
+    guard bytes.count > 0 else { return nil }
+    let batteryLevel = Int(bytes[0])
+    return batteryLevel
+  }
+
+}
 
 
 
@@ -1256,6 +1312,7 @@ class MBTPeripheralA2DPConnector {
     do {
       try session.setCategory(.playback, options: .allowBluetooth)
     } catch {
+      print(error.localizedDescription)
       log.error("📲 Audio connection failed", context: error)
     }
   }
@@ -1269,10 +1326,10 @@ class MBTPeripheralA2DPConnector {
   //----------------------------------------------------------------------------
 
   func isConnected(currentDeviceSerialNumber: String) -> Bool {
-    // "melo_1010300431"
+    // "MM1B..."
     let lowercasedSerialNumber = currentDeviceSerialNumber.lowercased()
-    let isGoodSerialNumber =
-      output?.portName.lowercased().contains(lowercasedSerialNumber) ?? false
+    let portName = output?.portName.lowercased()
+    let isGoodSerialNumber = portName?.contains(lowercasedSerialNumber) ?? false
     // output?.portName == currentDeviceSerialNumber
     let isGoodPortType = output?.portType == .bluetoothA2DP
     return isGoodSerialNumber && isGoodPortType
