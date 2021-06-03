@@ -43,6 +43,59 @@ public struct DeviceInformation: Codable {
 //  let acquisitionElectrodes: AcquisitionElectrodes
 
   //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
+  init(productName: String,
+       deviceId: String,
+       hardwareVersion: String,
+       firmwareVersion: String,
+       channelCount: Int,
+       sampleRate: Int,
+       eegPacketSize: Int) {
+    self.productName = productName
+    self.deviceId = deviceId
+    self.hardwareVersion = hardwareVersion
+    self.firmwareVersion = firmwareVersion
+    self.channelCount = channelCount
+    self.sampleRate = sampleRate
+    self.eegPacketSize = eegPacketSize
+  }
+
+  init(productName: String,
+       deviceId: String,
+       hardwareVersion: String,
+       firmwareVersion: String,
+       indusVersion: IndusVersion) {
+    self.productName = productName
+    self.deviceId = deviceId
+    self.hardwareVersion = hardwareVersion
+    self.firmwareVersion = firmwareVersion
+
+    #warning("TODO: Use builder from indusVersion: build(from: indusVersion)")
+    switch indusVersion {
+      case .indus2, .indus3:
+        self.channelCount = 2
+        self.sampleRate = 250
+        self.eegPacketSize = 250
+      case .indus5:
+        #warning("TODO: Use real indus5 version")
+        self.channelCount = 2
+        self.sampleRate = 250
+        self.eegPacketSize = 250
+    }
+
+  }
+
+  #warning("TODO")
+//  init(productName: String,
+//       deviceId: String,
+//       firmwareVersion: String
+//       hardwareVersion: HardwareVersion) {
+//    // hardwareVersion -> IndusVersion
+//  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Versioning
   //----------------------------------------------------------------------------
 

@@ -10,6 +10,10 @@ public enum IndusVersion: CaseIterable {
   case indus3
   case indus5
 
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
   var binaryPrefix: String {
     switch self {
       case .indus2: return "mm-ota-"
@@ -33,6 +37,10 @@ public enum IndusVersion: CaseIterable {
         return "1.1.0"
     }
   }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
 
   init?(fromHardwareVersion hwVersion: String) {
     let version = IndusVersion.allCases.first() {
