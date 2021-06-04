@@ -11,6 +11,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
+  #warning("TODO: Remove shared")
   /// Singleton declaration
   static let shared = MBTEEGAcquisitionManager()
 
@@ -44,16 +45,16 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   //----------------------------------------------------------------------------
 
   /// Set up the EEGAcquisitionManager
-  ///
-  /// - Parameter device: A *MBTDevice* of the connected Melomind
-  func setUpWith(device: MBTDevice) {
-    acquisitionProcessor = EEGAcquisitionProcessor(
-      bufferSizeMax: device.eegPacketLength * 2 * 2,
-      packetLength: device.eegPacketLength,
-      channelCount: device.nbChannels,
-      sampleRate: device.sampRate,
-      signalProcessor: signalProcessor
-    )
+  func setUpWith(bufferSizeMax: Int,
+                 packetLength: Int,
+                 channelCount: Int,
+                 sampleRate: Int) {
+    acquisitionProcessor =
+      EEGAcquisitionProcessor(bufferSizeMax: bufferSizeMax,
+                              packetLength: packetLength,
+                              channelCount: channelCount,
+                              sampleRate: sampleRate,
+                              signalProcessor: signalProcessor)
 
     #warning("How to remove the resetSession session here?")
     signalProcessor.resetSession()

@@ -456,7 +456,8 @@ public class MBTClient {
       sampleRate: currentDevice.sampRate,
       channelCount: currentDevice.nbChannels,
       packetLength: currentDevice.eegPacketLength,
-      eegPacketManager: EEGPacketManager.shared)
+      eegPacketManager: EEGPacketManager.shared
+    )
   }
 
   /// computeRelaxIndex

@@ -230,7 +230,12 @@ internal class MBTBluetoothManager: NSObject {
       return
     }
 
-    MBTClient.shared.eegAcquisitionManager.setUpWith(device: currentDevice)
+    MBTClient.shared.eegAcquisitionManager.setUpWith(
+      bufferSizeMax: currentDevice.eegPacketLength * 2 * 2,
+      packetLength: currentDevice.eegPacketLength,
+      channelCount: currentDevice.nbChannels,
+      sampleRate: currentDevice.sampRate
+    )
 
     if !isOADInProgress {
       timers.stopBLEConnectionTimer()
