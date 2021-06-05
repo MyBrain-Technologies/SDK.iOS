@@ -38,8 +38,7 @@ class EEGAcquisitionProcessor {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
-  func getEEGPacket(fromData data: Data,
-                    checkQuality: Bool) -> MBTEEGPacket? {
+  func getEEGPacket(fromData data: Data, checkQuality: Bool) -> MBTEEGPacket? {
     acquisitionBuffer.add(data: data)
     guard let packet = acquisitionBuffer.getUsablePackets() else {
       return nil
@@ -73,7 +72,7 @@ class EEGAcquisitionProcessor {
       let dataArray = Array(channelData.values)
       buffer.append(dataArray)
     }
-    
+
     let qualities =
       signalProcessor.computeQualityValue(buffer,
                                           sampleRate: sampletRate,

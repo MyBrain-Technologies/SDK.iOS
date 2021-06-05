@@ -1,7 +1,4 @@
 import Foundation
-import CoreBluetooth
-import RealmSwift
-import SwiftyJSON
 
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...
@@ -41,7 +38,7 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   // didSet { EEGPacketManager.shared.removeAllEEGPackets() } if not paused
 
   //----------------------------------------------------------------------------
-  // MARK: - Methods
+  // MARK: - Initialization
   //----------------------------------------------------------------------------
 
   /// Set up the EEGAcquisitionManager
@@ -116,11 +113,12 @@ internal class MBTEEGAcquisitionManager: NSObject  {
   // MARK: - Process Received data Methods.
   //----------------------------------------------------------------------------
 
-  /// Process the brain activty measurement received and return the processed data.
+  /// Process the brain activty measurement received and return the processed
+  /// data.
   /// - Parameters:
   ///     - data: *Data* received from MBT Headset EEGs.
-  /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and array of
-  ///     P3 and P4 samples arrays ( key: "packet" )
+  /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and
+  /// array of P3 and P4 samples arrays ( key: "packet" )
   func processBrainActivity(data: Data) {
     let packet = acquisitionProcessor?.getEEGPacket(
       fromData: data,
