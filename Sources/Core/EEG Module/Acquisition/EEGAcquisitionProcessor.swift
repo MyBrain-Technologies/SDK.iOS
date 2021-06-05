@@ -70,7 +70,7 @@ class EEGAcquisitionProcessor {
 
     let qualities = signalProcessor.computeQualityValue(
       eegPacket.channelsData,
-      sampRate: sampletRate,
+      sampleRate: sampletRate,
       eegPacketLength: eegPacketLength
     )
     eegPacket.addQualities(qualities)

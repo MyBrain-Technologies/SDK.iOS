@@ -70,22 +70,19 @@ internal class MBTSignalProcessingManager { // MBTQualityComputer {
   /// (no GPIOs)
   /// - returns: The array of computed "quality" values. Each value is the
   /// quality for a channel, in the same order as the row order in data.
-  func computeQualityValue(_ data: List<ChannelsData>) -> [Float] {
-    guard let packetLength = data.first?.values.count else {
-      return []
-    }
+  func computeQualityValue(_ data: Buffer) -> [Float] {
+    guard let packetLength = data.first?.count else { return [] }
 
-    return EEGQualityProcessor.computeQualityValue(channelsData: data,
-                                                   sampRate: sampRate,
-                                                   packetLength: packetLength,
-                                                   nbChannel: data.count)
+    return EEGQualityProcessor.computeQualityValue(buffer: data,
+                                                   sampleRate: sampRate,
+                                                   packetLength: packetLength)
   }
 
-  func computeQualityValue(_ data: List<ChannelsData>,
-                           sampRate: Int,
+  func computeQualityValue(_ data: Buffer,
+                           sampleRate: Int,
                            eegPacketLength: Int) -> [Float] {
     #warning("Why is it passed as parameter and the property being init here?")
-    self.sampRate = sampRate
+    self.sampRate = sampleRate
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
   }
