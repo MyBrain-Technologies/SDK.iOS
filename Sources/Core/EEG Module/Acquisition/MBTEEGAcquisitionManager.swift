@@ -20,7 +20,7 @@ internal class MBTEEGAcquisitionManager {
   let signalProcessor: MBTSignalProcessingManager = .shared
 
   // Use it as property instead of passing as argument in functions?
-  let eegPacketManager: EEGPacketManager = .shared
+  var eegPacketManager: EEGPacketManager?
 
   /******************** Convert and save eeg ********************/
 
@@ -96,6 +96,12 @@ internal class MBTEEGAcquisitionManager {
                      recordingInformation: MBTRecordInfo,
                      recordFileSaver: RecordFileSaver,
                      completion: @escaping (URL?) -> Void) {
+    guard let eegPacketManager = eegPacketManager else {
+      assertionFailure("Shouldn't be nil")
+      completion(nil)
+      return
+    }
+
     let packets = eegPacketManager.getArrayEEGPackets()
     acquisisitonSaver.saveRecording(packets: packets,
                                     eegPacketManager: eegPacketManager,
@@ -122,8 +128,151 @@ internal class MBTEEGAcquisitionManager {
   func processBrainActivity(data: Data) {
     let packet = acquisitionProcessor?.getEEGPacket(
       fromData: data,
-      checkQuality: shouldUseQualityChecker
+      hasQualityChecker: shouldUseQualityChecker
     )
+
+    guard let eegPacket = packet else { return }
+
+    self.delegate?.onReceivingPackage?(eegPacket)
+
+    if isRecording {
+      guard let eegPacketManager = eegPacketManager else {
+        assertionFailure("Shouldn't be nil")
+        return
+      }
+      eegPacketManager.saveEEGPacket(eegPacket)
+    }
+  }
+
+}
+
+
+
+
+internal class EegAcquiser {
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  /******************** Processors ********************/
+
+  private let signalProcessor: MBTSignalProcessingManager
+
+  private var acquisitionProcessor: EEGAcquisitionProcessor
+
+  private let eegPacketManager: EEGPacketManager
+
+  /******************** Convert and save eeg ********************/
+
+  private let acquisisitonSaver = EEGAcquisitionSaver()
+
+  /********************  Parameters ********************/
+
+  /// Bool to know if developer wants to use QC or not.
+  var hasQualityChecker: Bool = false
+
+  /// if the sdk record in DB EEGPacket
+  var isRecording: Bool = false
+  // didSet { EEGPacketManager.shared.removeAllEEGPackets() } if not paused
+
+  /******************** Delegate ********************/
+
+  /// The MBTBluetooth Event Delegate.
+  weak var delegate: MBTEEGAcquisitionDelegate?
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
+  init(bufferSizeMax: Int,
+       packetLength: Int,
+       channelCount: Int,
+       sampleRate: Int,
+       signalProcessor: MBTSignalProcessingManager = .shared,
+       eegPacketManager: EEGPacketManager) {
+    self.signalProcessor = signalProcessor
+    acquisitionProcessor =
+      EEGAcquisitionProcessor(bufferSizeMax: bufferSizeMax,
+                              packetLength: packetLength,
+                              channelCount: channelCount,
+                              sampleRate: sampleRate,
+                              signalProcessor: signalProcessor)
+    self.eegPacketManager = eegPacketManager
+    setup()
+  }
+
+  private func setup() {
+    signalProcessor.resetSession()
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Manage streaming datas methods.
+  //----------------------------------------------------------------------------
+
+  /// Method called by MelomindEngine when a new EEG streaming
+  /// session has began. Method will make everything ready, acquisition side
+  /// for the new session.
+  func startStream(isUsingQualityChecker: Bool, sampleRate: Int) {
+    // Start mainQualityChecker.
+    guard isUsingQualityChecker else { return }
+
+    hasQualityChecker = signalProcessor.initializeQualityChecker(
+      withSampleRate: Float(sampleRate)
+    )
+  }
+
+  /// Method called by MelomindEngine when the current EEG streaming
+  /// session has finished.
+  func stopStream() {
+    // Dealloc mainQC.
+    guard hasQualityChecker else { return }
+
+    hasQualityChecker = false
+    signalProcessor.deinitQualityChecker()
+  }
+
+  /// Save the EEGPackets recorded
+  ///
+  /// - Parameters:
+  ///   - idUser: A *Int* id of the connected user
+  ///   - comments: An array of *String* contains Optional Comments
+  ///   - completion: A block which execute after create the file or fail to
+  ///   create
+  func saveRecording(userId idUser: Int,
+                     algo: String?,
+                     comments: [String] = [],
+                     device: MBTDevice,
+                     recordingInformation: MBTRecordInfo,
+                     recordFileSaver: RecordFileSaver,
+                     completion: @escaping (URL?) -> Void) {
+    let packets = eegPacketManager.getArrayEEGPackets()
+    acquisisitonSaver.saveRecording(packets: packets,
+                                    eegPacketManager: eegPacketManager,
+                                    idUser: idUser,
+                                    algo: algo,
+                                    comments: comments,
+                                    device: device,
+                                    recordingInformation: recordingInformation,
+                                    recordFileSaver: recordFileSaver) { url in
+      completion(url)
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Process Received data Methods.
+  //----------------------------------------------------------------------------
+
+  /// Process the brain activty measurement received and return the processed
+  /// data.
+  /// - Parameters:
+  ///     - data: *Data* received from MBT Headset EEGs.
+  /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and
+  /// array of P3 and P4 samples arrays ( key: "packet" )
+  func processBrainActivity(data: Data) {
+    let packet =
+      acquisitionProcessor.getEEGPacket(fromData: data,
+                                        hasQualityChecker: hasQualityChecker)
 
     guard let eegPacket = packet else { return }
 

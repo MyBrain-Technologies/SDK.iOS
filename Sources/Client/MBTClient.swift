@@ -33,6 +33,8 @@ public class MBTClient {
   /// the Signal Processing Library (via the bridge).
   internal let signalProcessingManager: MBTSignalProcessingManager = .shared
 
+  internal let eegPacketManager = EEGPacketManager()
+
   /******************** Acquisition ********************/
 
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
@@ -87,6 +89,8 @@ public class MBTClient {
   //----------------------------------------------------------------------------
 
   private init() {
+    eegAcquisitionManager.eegPacketManager = eegPacketManager
+    
     if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
       !bluetoothManager.isAudioAndBLEConnected {
       bluetoothManager.connectTo(deviceName)
@@ -362,7 +366,7 @@ public class MBTClient {
     _ newRecord: Bool,
     recordingType: MBTRecordingType = MBTRecordingType()
   ) -> UUID? {
-    EEGPacketManager.shared.removeAllEEGPackets()
+    eegPacketManager.removeAllEEGPackets()
     guard DeviceManager.connectedDeviceName != nil else { return nil }
 
     if newRecord {
@@ -444,7 +448,7 @@ public class MBTClient {
   public func computeCalibration(
     onNumberOfPackets numberOfPackets: Int
   ) -> CalibrationOutput? {
-    let eegPacketsCount = EEGPacketManager.shared.getEEGPackets().count
+    let eegPacketsCount = eegPacketManager.getEEGPackets().count
 
     guard let currentDevice = DeviceManager.getCurrentDevice(),
       eegPacketsCount >= numberOfPackets else {
@@ -456,7 +460,7 @@ public class MBTClient {
       sampleRate: currentDevice.sampRate,
       channelCount: currentDevice.nbChannels,
       packetLength: currentDevice.eegPacketLength,
-      eegPacketManager: EEGPacketManager.shared
+      eegPacketManager: eegPacketManager
     )
   }
 
@@ -464,7 +468,7 @@ public class MBTClient {
   ///
   /// - Returns: RelaxIndex
   public func computeRelaxIndex() -> Float? {
-    let eegPacketCount = EEGPacketManager.shared.getEEGPackets().count
+    let eegPacketCount = eegPacketManager.getEEGPackets().count
 
     #warning("Condition is not the same as inside `computeRelaxIndex`. Here: getEEGPackets().count, return nil. Inside: lastPackets.count, return 0")
     let isEegPacketsCountHigherThanHistorySize =
@@ -476,6 +480,7 @@ public class MBTClient {
     }
 
     return signalProcessingManager.computeRelaxIndex(
+      eegPacketManager: eegPacketManager,
       sampleRate: currentDevice.sampRate,
       channelCount: currentDevice.nbChannels
     )
