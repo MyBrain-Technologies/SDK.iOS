@@ -2,7 +2,7 @@ import Foundation
 
 /// Manage Acquisition data from the MBT device connected.
 /// Such as EEG, device info, battery level ...
-internal class MBTEEGAcquisitionManager: NSObject  {
+internal class MBTEEGAcquisitionManager {
 
   //----------------------------------------------------------------------------
   // MARK: - Methods
