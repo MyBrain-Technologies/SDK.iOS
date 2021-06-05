@@ -44,6 +44,7 @@
 		4D73CFFE2272FF9500F6D47C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */; };
 		4D73CFFF2272FF9500F6D47C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
 		4D87EECE26681752003C35E1 /* PeripheralValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87EECD26681752003C35E1 /* PeripheralValidator.swift */; };
+		4D91E363266BACEC00FFE4D9 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91E362266BACEC00FFE4D9 /* Buffer.swift */; };
 		4D9294852646E5DD004214AE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; };
 		4D9294862646E5DD004214AE /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2BD94E6621C8CE7700A567EE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4D9294872646E5E0004214AE /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73CFFD2272FF9500F6D47C /* Realm.framework */; };
@@ -299,6 +300,7 @@
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		4D87EECD26681752003C35E1 /* PeripheralValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralValidator.swift; sourceTree = "<group>"; };
+		4D91E362266BACEC00FFE4D9 /* Buffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBluetoothTypeAliases.swift; sourceTree = "<group>"; };
 		4D94474225F9679900CB364A /* String+VersionNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+VersionNumber.swift"; sourceTree = "<group>"; };
 		4D9FFA98265FBA01000952E1 /* MBTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTService.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 		4D356646264068BE00B4846D /* V2 */ = {
 			isa = PBXGroup;
 			children = (
+				4D91E368266BACF100FFE4D9 /* Acquisition */,
 				4DEF4ECA266814C100D769DC /* Central */,
 				4DEF4EB326680C6800D769DC /* Delegate */,
 				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
@@ -689,6 +692,14 @@
 				4D4A09AB2646DD1E00366DF6 /* Info.plist */,
 			);
 			path = BluetoothTestAppUITests;
+			sourceTree = "<group>";
+		};
+		4D91E368266BACF100FFE4D9 /* Acquisition */ = {
+			isa = PBXGroup;
+			children = (
+				4D91E362266BACEC00FFE4D9 /* Buffer.swift */,
+			);
+			path = Acquisition;
 			sourceTree = "<group>";
 		};
 		4D9FFA9E265FBCAD000952E1 /* Attributes */ = {
@@ -1412,6 +1423,7 @@
 				A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */,
 				A92D7A3D2481258C000DF7C3 /* Data+extension.swift in Sources */,
 				A91DC1142490CF6200E4A440 /* MBTBluetoothManager+OAD.swift in Sources */,
+				4D91E363266BACEC00FFE4D9 /* Buffer.swift in Sources */,
 				A918D29024619A8D00026F1D /* BluetoothLowEnergyError.swift in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				4D19FB36266142E50064FF6F /* PeripheralCommunicable.swift in Sources */,
