@@ -67,12 +67,17 @@ class EEGAcquisitionProcessor {
   private func addQualities(to eegPacket: MBTEEGPacket,
                             checkQuality: Bool) -> MBTEEGPacket {
     guard checkQuality else { return eegPacket }
-
-    let qualities = signalProcessor.computeQualityValue(
-      eegPacket.channelsData,
-      sampleRate: sampletRate,
-      eegPacketLength: eegPacketLength
-    )
+    #warning("TODO: Check")
+    var buffer = Buffer()
+    for channelData in eegPacket.channelsData {
+      let dataArray = Array(channelData.values)
+      buffer.append(dataArray)
+    }
+    
+    let qualities =
+      signalProcessor.computeQualityValue(buffer,
+                                          sampleRate: sampletRate,
+                                          eegPacketLength: eegPacketLength)
     eegPacket.addQualities(qualities)
     return eegPacket
   }
