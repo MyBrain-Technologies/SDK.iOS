@@ -152,7 +152,7 @@ internal class EegAcquiser {
 
   /******************** Convert and save eeg ********************/
 
-  private let acquisisitonSaver = EEGAcquisitionSaver()
+  private let acquisisitonSaver = EEGAcquisitionSaverV2()
 
   /********************  Parameters ********************/
 
