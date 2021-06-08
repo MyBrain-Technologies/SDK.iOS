@@ -146,7 +146,7 @@ extension MBTSignalProcessingManager { //: MBTCalibrationComputer {
 
 extension MBTSignalProcessingManager {//}: MBTRelaxIndexComputer {
 
-  func computeRelaxIndex(eegPacketManager: EEGPacketManager,
+  func computeRelaxIndex(eegPacketManager: EEGPacketManager = .shared,
                          sampleRate: Int,
                          channelCount: Int) -> Float? {
     if calibrationComputed == nil { return 0 }

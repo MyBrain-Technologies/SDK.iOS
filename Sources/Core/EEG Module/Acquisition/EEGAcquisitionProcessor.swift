@@ -38,33 +38,34 @@ class EEGAcquisitionProcessor {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
-  func getEEGPacket(fromData data: Data,
-                    hasQualityChecker: Bool) -> MBTEEGPacket? {
+  func getEEGPacket(fromData data: Data, checkQuality: Bool) -> MBTEEGPacket? {
     acquisitionBuffer.add(data: data)
-    guard let packet = acquisitionBuffer.getUsablePackets() else { return nil }
+    guard let packet = acquisitionBuffer.getUsablePackets() else {
+      return nil
+    }
 
     let relaxIndexes =
       EEGDeserializer.deserializeToRelaxIndex(bytes: packet,
                                               numberOfElectrodes: channelCount)
     let eegPacket = convertToEEGPacket(values: relaxIndexes,
-                                       hasQualityChecker: hasQualityChecker)
+                                       checkQuality: checkQuality)
 
     return eegPacket
   }
 
   /// Convert values from the acquisition to EEG Packets
   private func convertToEEGPacket(values: [[Float]],
-                                  hasQualityChecker: Bool) -> MBTEEGPacket {
+                                  checkQuality: Bool) -> MBTEEGPacket {
     var eegPacket = MBTEEGPacket(channelsValues: values)
-    if hasQualityChecker {
-      eegPacket = addQualities(to: eegPacket)
-      eegPacket = addModifiedValues(to: eegPacket)
-    }
+    eegPacket = addQualities(to: eegPacket, checkQuality: checkQuality)
+    eegPacket = addModifiedValues(to: eegPacket, checkQuality: checkQuality)
     return eegPacket
   }
 
   /// Add qualities from signal processing to an eeg packet
-  private func addQualities(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+  private func addQualities(to eegPacket: MBTEEGPacket,
+                            checkQuality: Bool) -> MBTEEGPacket {
+    guard checkQuality else { return eegPacket }
     #warning("TODO: Check")
     var buffer = Buffer()
     for channelData in eegPacket.channelsData {
@@ -81,7 +82,9 @@ class EEGAcquisitionProcessor {
   }
 
   /// Add EEG modified values from signal progression to an eeg packet
-  private func addModifiedValues(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+  private func addModifiedValues(to eegPacket: MBTEEGPacket,
+                                 checkQuality: Bool) -> MBTEEGPacket {
+    guard checkQuality else { return eegPacket }
 
     let correctedValues = signalProcessor.getModifiedEEGValues()
 
