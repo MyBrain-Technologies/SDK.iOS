@@ -476,6 +476,7 @@ public class MBTClient {
     }
 
     return signalProcessingManager.computeRelaxIndex(
+      eegPacketManager: .shared,
       sampleRate: currentDevice.sampRate,
       channelCount: currentDevice.nbChannels
     )
