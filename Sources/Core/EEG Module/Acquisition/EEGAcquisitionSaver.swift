@@ -77,7 +77,7 @@ class EEGAcquisitionSaver {
                                 recordInfo: recordingInformation,
                                 comments: comments)
 
-      guard let jsonObject = savingRecord.toJSON else {
+      guard let jsonObject = savingRecord.toJSONString else {
           log.error("Cannot encore saving record object to JSON")
           DispatchQueue.main.async { completion(nil) }
           return
@@ -91,7 +91,7 @@ class EEGAcquisitionSaver {
       }
 
       // RecordFileSaver.shared
-      let fileURL = recordFileSaver.saveRecord(jsonObject,
+      let fileURL = recordFileSaver.saveRecord(jsonString: jsonObject,
                                                deviceId: deviceId,
                                                userId: idUser)
       DispatchQueue.main.async {
@@ -202,7 +202,7 @@ class EEGAcquisitionSaverV2 {
                                 recordInfo: recordingInformation,
                                 comments: comments)
 
-      guard let jsonObject = savingRecord.toJSON else {
+      guard let jsonObject = savingRecord.toJSONString else {
           log.error("Cannot encore saving record object to JSON")
           DispatchQueue.main.async { completion(nil) }
           return
@@ -216,7 +216,7 @@ class EEGAcquisitionSaverV2 {
       }
 
       // RecordFileSaver.shared
-      let fileURL = recordFileSaver.saveRecord(jsonObject,
+      let fileURL = recordFileSaver.saveRecord(jsonString: jsonObject,
                                                deviceId: deviceId,
                                                userId: idUser)
       DispatchQueue.main.async {

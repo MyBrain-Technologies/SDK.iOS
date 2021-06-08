@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 
 struct EEGRecordType: Codable {
   let recordType: MBTRecordType
@@ -43,10 +42,29 @@ struct EEGSavingRecord: Codable {
   let header: EEGSavingRecordHeader
   let recording: EEGRecord
 
-  var toJSON: JSON? {
-    guard let recordData = try? JSONEncoder().encode(self),
-      let jsonObject = try? JSON(data: recordData) else { return nil }
+//  var toJSON: JSON? {
+//    guard let recordData = try? JSONEncoder().encode(self),
+//      let jsonObject = try? JSON(data: recordData) else { return nil }
+//
+//    return jsonObject
+//  }
 
-    return jsonObject
+  var toJsonData: Data? {
+    let jsonEncoder = JSONEncoder()
+    if #available(iOS 13.0, *) {
+      jsonEncoder.outputFormatting = [.withoutEscapingSlashes]
+    }
+    guard let encodedData = try? jsonEncoder.encode(self) else { return nil }
+    return encodedData
   }
+
+  var toJSONString: String? {
+    guard let encodedData = toJsonData,
+          let jsonString = String(data: encodedData, encoding: .utf8) else {
+      return nil
+    }
+    return jsonString
+  }
+
+
 }

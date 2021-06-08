@@ -1,6 +1,5 @@
 import Foundation
 import RealmSwift
-import SwiftyJSON
 
 /// Model to store data about the Headset connected.
 public class MBTDevice: Object {

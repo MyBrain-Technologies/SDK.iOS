@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 
 /*******************************************************************************
  * RecordFileSaver
@@ -100,21 +99,22 @@ struct RecordFileSaver {
   }
 
   /// Save a json in the record directory with `name` as filename
-  func saveRecord(_ json: JSON, at name: String) -> URL? {
-    guard let content = json.rawString([.castNilToNSNull: true]) else {
-      log.error("Cannot convert json to raw string", context: json)
-      return nil
-    }
+//  func saveRecord(_ json: JSON, at name: String) -> URL? {
+//    guard let content = json.rawString([.castNilToNSNull: true]) else {
+//      log.error("Cannot convert json to raw string", context: json)
+//      return nil
+//    }
+//
+//    return saveRecord(content, at: name)
+//  }
 
-    return saveRecord(content, at: name)
-  }
-
-  /// Save a json in the record directory, building a custom filename with the devide id and the user id
-  func saveRecord(_ json: JSON, deviceId: String, userId: Int) -> URL? {
+  /// Save a json in the record directory, building a custom filename with the
+  /// devide id and the user id
+  func saveRecord(jsonString: String, deviceId: String, userId: Int) -> URL? {
     let filename = RecordFileNameBuilder().build(userId: userId,
                                                  deviceId: deviceId)
 
-    let savedRecordPath = saveRecord(json, at: filename)
+    let savedRecordPath = saveRecord(jsonString, at: filename)
     return savedRecordPath
   }
 
