@@ -122,7 +122,7 @@ internal class MBTEEGAcquisitionManager {
   func processBrainActivity(data: Data) {
     let packet = acquisitionProcessor?.getEEGPacket(
       fromData: data,
-      checkQuality: shouldUseQualityChecker
+      hasQualityChecker: shouldUseQualityChecker
     )
 
     guard let eegPacket = packet else { return }
