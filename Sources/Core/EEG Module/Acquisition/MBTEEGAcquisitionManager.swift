@@ -144,9 +144,9 @@ internal class EegAcquiser {
 
   /******************** Processors ********************/
 
-  private let signalProcessor: MBTSignalProcessingManager
+  private let signalProcessor: SignalProcessingManager
 
-  private var acquisitionProcessor: EEGAcquisitionProcessor
+  private var acquisitionProcessor: EEGAcquisitionProcessorV2
 
   private let eegPacketManager: EEGPacketManagerV2
 
@@ -176,15 +176,15 @@ internal class EegAcquiser {
        packetLength: Int,
        channelCount: Int,
        sampleRate: Int,
-       signalProcessor: MBTSignalProcessingManager = .shared,
+       signalProcessor: SignalProcessingManager,
        eegPacketManager: EEGPacketManagerV2) {
     self.signalProcessor = signalProcessor
     acquisitionProcessor =
-      EEGAcquisitionProcessor(bufferSizeMax: bufferSizeMax,
-                              packetLength: packetLength,
-                              channelCount: channelCount,
-                              sampleRate: sampleRate,
-                              signalProcessor: signalProcessor)
+      EEGAcquisitionProcessorV2(bufferSizeMax: bufferSizeMax,
+                                packetLength: packetLength,
+                                channelCount: channelCount,
+                                sampleRate: sampleRate,
+                                signalProcessor: signalProcessor)
     self.eegPacketManager = eegPacketManager
     setup()
   }

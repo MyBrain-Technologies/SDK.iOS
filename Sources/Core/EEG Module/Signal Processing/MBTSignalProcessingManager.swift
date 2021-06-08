@@ -210,9 +210,6 @@ internal class SignalProcessingManager {
 
   /******************** Singleton ********************/
 
-  /// Singleton declaration.
-  static let shared = SignalProcessingManager()
-
   /// Dictionnary to store calibration results.
   internal var calibrationComputed: CalibrationOutput?
 
