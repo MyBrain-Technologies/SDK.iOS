@@ -26,9 +26,9 @@ public struct DeviceAcquisitionInformation: Codable {
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
-        self.electrodes = Electrodes(acquisition: [.p3, .p4],
-                                     reference: [.m1],
-                                     ground: [.m2])
+        self.electrodes = Electrodes(acquisitions: [.p3, .p4],
+                                     references: [.m1],
+                                     grounds: [.m2])
 
       case .indus5:
         #warning("TODO: Use real indus5 version")
@@ -36,9 +36,9 @@ public struct DeviceAcquisitionInformation: Codable {
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
-        self.electrodes = Electrodes(acquisition: [.p3, .p4],
-                                     reference: [.m1],
-                                     ground: [.m2])
+        self.electrodes = Electrodes(acquisitions: [.p3, .p4],
+                                     references: [.m1],
+                                     grounds: [.m2])
     }
   }
 
