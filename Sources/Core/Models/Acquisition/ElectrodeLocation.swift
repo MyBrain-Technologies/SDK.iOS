@@ -1,7 +1,7 @@
 import Foundation
 
 /// Enum of differents electrodes possible locations.
-enum ElectrodeLocation: Int {
+enum ElectrodeLocation: Int, Codable {
     case fpz
     case fp1
     case fp2
