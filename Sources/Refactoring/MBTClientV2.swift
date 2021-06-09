@@ -1,13 +1,12 @@
-//import Foundation
-//
-///*******************************************************************************
-// * MBTClient
-// *
-// * MBT engine to implement to work with the headset.
-// *
-// ******************************************************************************/
-//
-//public class MBTClientV2 {
+import Foundation
+
+/*******************************************************************************
+ * MBTClient
+ *
+ * MBT engine to implement to work with the headset.
+ *
+ ******************************************************************************/
+public class MBTClientV2 {
 //
 //  //----------------------------------------------------------------------------
 //  // MARK: - Properties
@@ -22,34 +21,37 @@
 //  /// the MBT headset bluetooth.
 //  internal let bluetoothManager = MBTBluetoothManagerV2()
 //
-////  /// Init a MBTEEGAcquisitionManager, which deals with
-////  /// data from the MBT Headset.
-////  internal let eegAcquisitionManager: MBTEEGAcquisitionManager = .shared
-////
-////  /// Init a MBTDeviceAcquisitionManager, which deals with
-////  /// data from the MBT Headset.
-////  internal let deviceAcquisitionManager: MBTDeviceAcquisitionManager = .shared
-////
-////  /// Init a MBTSignalProcessingManager, which deals with
-////  /// the Signal Processing Library (via the bridge).
-////  internal let signalProcessingManager: MBTSignalProcessingManager = .shared
+//  /// Init a MBTEEGAcquisitionManager, which deals with
+//  /// data from the MBT Headset.
+//  internal let eegAcquisitionManager: EegAcquiser?
+//
+//  /// Init a MBTDeviceAcquisitionManager, which deals with
+//  /// data from the MBT Headset.
+//  internal let deviceAcquisitionManager: MBTDeviceAcquisitionManager = .shared
+//
+//  /// Init a MBTSignalProcessingManager, which deals with
+//  /// the Signal Processing Library (via the bridge).
+//  internal let signalProcessingManager = SignalProcessingManager()
+//
+//  internal let eegPacketManager = EEGPacketManagerV2()
 //
 //  /******************** Acquisition ********************/
 //
 //  internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
 //
 //  public var isEegAcqusitionRecordingPaused: Bool {
-//    set { eegAcquisitionManager.isRecording = newValue }
+//    set { eegAcquisitionManager?.isRecording = newValue }
 //    get { return eegAcquisitionManager.isRecording }
 //  }
 //
 //  /// Legacy called history_size. Number of eegpackets used to compute some dark informations
 //  /// on the C++ algorithms.
-//  public let acquisitionHistorySize = Constants.EEGPackets.historySize
+//  public let acquisitionhistorySize = Constants.EEGPackets.historySize
 //
 //  /******************** Bluetooth ********************/
 //
 //  public var isBluetoothOn: Bool {
+//    return bluetoothManager.state // or bluetoothManager.authorization
 //    return bluetoothManager.bluetoothStatesHistory.isPoweredOn
 //  }
 //
@@ -88,24 +90,27 @@
 //  //----------------------------------------------------------------------------
 //
 //  private init() {
-//    if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
-//      !bluetoothManager.isAudioAndBLEConnected {
-//      bluetoothManager.connectTo(deviceName)
-//    }
-//
 //    initLog(logToFile: false, isDebugMode: false)
+//    setup()
+//  }
 //
+//  private func setup() {
 //    setupBluetoothManager()
 //  }
 //
 //  private func setupBluetoothManager() {
-//    bluetoothManager.didReceiveBrainData = { [weak self] brainData in
-//      self?.eegAcquisitionManager.processBrainActivity(data: brainData)
-//    }
-//
-//    bluetoothManager.didReceiveHeadsetStatus = { [weak self] characteristic in
-//      self?.deviceAcquisitionManager.processHeadsetStatus(characteristic)
-//    }
+////    if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
+////      !bluetoothManager.isAudioAndBLEConnected {
+////      bluetoothManager.connectTo(deviceName)
+////    }
+////
+////    bluetoothManager.didReceiveBrainData = { [weak self] brainData in
+////      self?.eegAcquisitionManager.processBrainActivity(data: brainData)
+////    }
+////
+////    bluetoothManager.didReceiveHeadsetStatus = { [weak self] characteristic in
+////      self?.deviceAcquisitionManager.processHeadsetStatus(characteristic)
+////    }
 //
 //
 //  }
@@ -113,10 +118,6 @@
 //  //----------------------------------------------------------------------------
 //  // MARK: - Connections
 //  //----------------------------------------------------------------------------
-//
-//  public func connect(to deviceName: String? = nil) {
-//    bluetoothManager.connect()
-//  }
 //
 //  /// Connect to bluetooth LE profile of the MBT headset.
 //  /// BLE deals with EEG, but also OAD, device information,
@@ -236,6 +237,17 @@
 //    return DeviceManager.connectedDeviceName
 //  }
 //
+//  /// Getter Names of all regitered devices.
+//  /// - Returns: A *[String]* instance of array of deviceName.
+//  public func getRegisteredDevices() -> [MBTDevice] {
+//    var tabDeviceName = [MBTDevice]()
+//
+//    for device in DeviceManager.registeredDevices {
+//      tabDeviceName.append(device)
+//    }
+//
+//    return tabDeviceName
+//  }
 //
 //  //----------------------------------------------------------------------------
 //  // MARK: - JSON EEG
@@ -265,6 +277,12 @@
 //                                  completion: @escaping (URL?) -> Void) {
 //    guard let device = DeviceManager.getCurrentDevice() else {
 //      log.error("Current device not found")
+//      completion(nil)
+//      return
+//    }
+//
+//    guard let eegAcquisitionManager = eegAcquisitionManager else {
+//      log.error("eegAcquisitionManager not found")
 //      completion(nil)
 //      return
 //    }
@@ -344,7 +362,7 @@
 //  /// - Parameters:
 //  ///   - delegate: The Melomind Engine Delegate to get Headset datas.
 //  internal func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
-//    eegAcquisitionManager.delegate = delegate
+//    eegAcquisitionManager?.delegate = delegate
 //    deviceAcquisitionManager.delegate = delegate
 //  }
 //
@@ -381,9 +399,10 @@
 //  /// Start streaming headSet Data from HeadsetStatus Characteristic.
 //  /// - Remark: Data will be provided through the MelomineEngineDelegate.
 //  public func startStream(_ shouldUseQualityChecker: Bool) {
+//    guard let currentDevice = DeviceManager.getCurrentDevice() else { return }
 //    eegAcquisitionManager.streamHasStarted(
 //      isUsingQualityChecker: shouldUseQualityChecker,
-//      currentDevice: DeviceManager.getCurrentDevice()
+//      sampleRate: currentDevice.sampRate
 //    )
 //    bluetoothManager.isListeningToEEG = true
 //    bluetoothManager.isListeningToHeadsetStatus = true
@@ -416,6 +435,17 @@
 //  }
 //
 //  //----------------------------------------------------------------------------
+//  // MARK: - Upload
+//  //----------------------------------------------------------------------------
+//
+//  /// Remove a specific Device.
+//  /// parameters:
+//  ///   - deviceName: The Device name which will be remove from DB.
+//  public func removeDevice(_ deviceName: String) -> Bool {
+//    return DeviceManager.removeDevice(deviceName)
+//  }
+//
+//  //----------------------------------------------------------------------------
 //  // MARK: - Signal Processing Manager
 //  //----------------------------------------------------------------------------
 //
@@ -435,8 +465,11 @@
 //
 //    return signalProcessingManager.computeCalibration(
 //      numberOfPackets,
-//      currentDevice: currentDevice,
-//      eegPacketManager: EEGPacketManager.shared)
+//      sampleRate: currentDevice.sampRate,
+//      channelCount: currentDevice.nbChannels,
+//      packetLength: currentDevice.eegPacketLength,
+//      eegPacketManager: eegPacketManager
+//    )
 //  }
 //
 //  /// computeRelaxIndex
@@ -454,7 +487,11 @@
 //      return nil
 //    }
 //
-//    return signalProcessingManager.computeRelaxIndex(forDevice: currentDevice)
+//    return signalProcessingManager.computeRelaxIndex(
+//      eegPacketManager: eegPacketManager,
+//      sampleRate: currentDevice.sampRate,
+//      channelCount: currentDevice.nbChannels
+//    )
 //  }
 //
 //  /// ComputeSessionStatistics
@@ -468,3 +505,47 @@
 //  }
 //
 //}
+//
+//
+////==============================================================================
+//// MARK: - Analysis
+////==============================================================================
+//
+//extension MBTClientV2 {
+//
+//  /// Get the mean alpha power of the current session.
+//  /// Also populates sessionConfidence() data.
+//  public var sessionMeanAlphaPower: Float {
+//    return MBTMelomindAnalysis.sessionMeanAlphaPower()
+//  }
+//
+//  public var sessionMeanRelativeAlphaPower: Float {
+//    return MBTMelomindAnalysis.sessionMeanRelativeAlphaPower()
+//  }
+//
+//  /// Get the confidence rate of the current session.
+//  public var sessionConfidence: Float {
+//    return MBTMelomindAnalysis.sessionConfidence()
+//  }
+//
+//  /// Get the alpha powers of the current session.
+//  public var sessionAlphaPowers: [Float] {
+//    let alphaPowers = MBTMelomindAnalysis.sessionAlphaPowers()
+//    return alphaPowers?.filter { $0 is Float } as? [Float] ?? []
+//  }
+//
+//  /// Get the relative alpha powers of the current session.
+//  public var sessionRelativeAlphaPowers: [Float] {
+//    let relativeAlphaPowers = MBTMelomindAnalysis.sessionRelativeAlphaPowers()
+//    return relativeAlphaPowers?.filter { $0 is Float } as? [Float] ?? []
+//  }
+//
+//  /// Get qualities of the current session.
+//  /// Qualities are multiplexed by channels ([q1c1,q1c2,q2c1,q2c2,q3c1,...])
+//  /// CALL AFTER `sessionMeanAlphaPower` or `sessionMeanRelativeAlphaPower`.
+//  public var sessionQualities: [Float] {
+//    let qualities = MBTMelomindAnalysis.sessionQualities()
+//    return qualities?.filter { $0 is Float } as? [Float] ?? []
+//  }
+
+}
