@@ -136,6 +136,16 @@ internal class MBTEEGAcquisitionManager {
 
 }
 
+
+
+
+
+
+
+
+
+
+
 internal class EegAcquiser {
 
   //----------------------------------------------------------------------------
@@ -228,20 +238,21 @@ internal class EegAcquiser {
   func saveRecording(userId idUser: Int,
                      algo: String?,
                      comments: [String] = [],
-                     device: MBTDevice,
+                     device: DeviceInformation,
                      recordingInformation: MBTRecordInfo,
                      recordFileSaver: RecordFileSaver,
-                     completion: @escaping (URL?) -> Void) {
+                     completion: @escaping (Result<URL, Error>) -> Void) {
     let packets = eegPacketManager.getArrayEEGPackets()
     acquisisitonSaver.saveRecording(packets: packets,
                                     eegPacketManager: eegPacketManager,
                                     idUser: idUser,
                                     algo: algo,
                                     comments: comments,
-                                    device: device,
+                                    deviceInformation: device,
                                     recordingInformation: recordingInformation,
-                                    recordFileSaver: recordFileSaver) { url in
-      completion(url)
+                                    recordFileSaver: recordFileSaver) {
+      result in
+      completion(result)
     }
   }
 

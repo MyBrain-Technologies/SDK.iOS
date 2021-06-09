@@ -137,6 +137,17 @@ class EEGAcquisitionSaver {
 class EEGAcquisitionSaverV2 {
 
   //----------------------------------------------------------------------------
+  // MARK: - Error
+  //----------------------------------------------------------------------------
+
+  enum EEGAcquisitionSaverError: Error {
+    case realmUnable
+    case badPacketNumber
+    case invalidJson
+    case unableToWriteFile
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
@@ -147,7 +158,7 @@ class EEGAcquisitionSaverV2 {
   let saveThreadName = "MelomindSaveProcess"
 
   //----------------------------------------------------------------------------
-  // MARK: - Methods
+  // MARK: - Saving
   //----------------------------------------------------------------------------
 
   /// Save the EEGPackets recorded
@@ -164,14 +175,16 @@ class EEGAcquisitionSaverV2 {
                      deviceInformation: DeviceInformation,
                      recordingInformation: MBTRecordInfo,
                      recordFileSaver: RecordFileSaver,
-                     completion: @escaping (URL?) -> Void) {
+                     completion: @escaping (Result<URL, Error>) -> Void) {
     let packetsReferences = packets.map() { ThreadSafeReference(to: $0) }
 
     DispatchQueue(label: saveThreadName).async {
 
       guard let realm = try? Realm(configuration: self.realmConfig) else {
         log.error("Cannot get realm instance")
-        DispatchQueue.main.async { completion(nil) }
+        DispatchQueue.main.async {
+          completion(.failure(EEGAcquisitionSaverError.realmUnable))
+        }
         return
       }
 
@@ -179,7 +192,9 @@ class EEGAcquisitionSaverV2 {
 
       guard savedPackets.count == packetsReferences.count else {
           log.error("PB with realm or bad number on packet to save ?")
-          DispatchQueue.main.async { completion(nil) }
+          DispatchQueue.main.async {
+            completion(.failure(EEGAcquisitionSaverError.badPacketNumber))
+          }
           return
       }
 
@@ -196,7 +211,9 @@ class EEGAcquisitionSaverV2 {
 
       guard let jsonObject = savingRecord.toJSONString else {
           log.error("Cannot encore saving record object to JSON")
-          DispatchQueue.main.async { completion(nil) }
+          DispatchQueue.main.async {
+            completion(.failure(EEGAcquisitionSaverError.invalidJson))
+          }
           return
       }
 
@@ -209,7 +226,11 @@ class EEGAcquisitionSaverV2 {
                                                userId: idUser)
       DispatchQueue.main.async {
         eegPacketManager.removePackets(packets)
-        completion(fileURL)
+        guard let fileURL = fileURL else {
+          completion(.failure(EEGAcquisitionSaverError.unableToWriteFile))
+          return
+        }
+        completion(.success(fileURL))
       }
     }
   }
