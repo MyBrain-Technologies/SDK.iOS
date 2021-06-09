@@ -1,14 +1,14 @@
 import Foundation
 
-public enum IndusVersion: CaseIterable, Codable {
+public enum IndusVersion: String, CaseIterable, Codable {
 
   //----------------------------------------------------------------------------
   // MARK: - Cases
   //----------------------------------------------------------------------------
 
-  case indus2
-  case indus3
-  case indus5
+  case indus2 = "indus2"
+  case indus3 = "indus3"
+  case indus5 = "indus5"
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
