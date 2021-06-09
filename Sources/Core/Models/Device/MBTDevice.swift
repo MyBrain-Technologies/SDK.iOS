@@ -63,6 +63,24 @@ public class MBTDevice: Object {
     return fileFirmwareVersion != currentFirmwareVersion
   }
 
+
+  /******************** Bridge ********************/
+
+  var deviceInformation: DeviceInformation? {
+    guard let productName = deviceInfos?.productName,
+          let deviceId = deviceInfos?.deviceId,
+          let hardwareVersion = deviceInfos?.firmwareVersion,
+          let firmwareVersion = deviceInfos?.firmwareVersion
+          else {
+      return nil
+    }
+
+    return DeviceInformation(productName: productName,
+                             deviceId: deviceId,
+                             hardwareVersion: hardwareVersion,
+                             firmwareVersion: firmwareVersion)
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Methods
   //----------------------------------------------------------------------------
