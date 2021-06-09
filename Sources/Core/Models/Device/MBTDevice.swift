@@ -49,7 +49,9 @@ public class MBTDevice: Object {
       return false
     }
 
-    guard let filename = BinariesFileFinder().higherBinaryFilename(for: self),
+    guard let indusVersion = deviceInfos?.indusVersion,
+          let filename =
+            BinariesFileFinder().higherBinaryFilename(for: indusVersion),
       let fileVersion = filename.versionNumber,
       let firmwareVersion = deviceFirmwareVersion.versionNumber else {
         return false

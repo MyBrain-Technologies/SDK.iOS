@@ -37,15 +37,6 @@ class BinariesFileFinder {
     return binariesURL.filter() { $0.relativeString.contains(regex: pattern) }
   }
 
-  /// Get the binary with the higher version compatible with the given device
-  func higherBinaryFilename(for device: MBTDevice) -> String? {
-    guard let deviceIndusVersion = device.deviceInfos?.indusVersion else {
-        return nil
-    }
-
-    return higherBinaryFilename(for: deviceIndusVersion)
-  }
-
   /// Get the binary with the higher version compatible with the given indus version
   func higherBinaryFilename(for indus: IndusVersion) -> String? {
     let indusBinaries = binariesURL.filter() {
