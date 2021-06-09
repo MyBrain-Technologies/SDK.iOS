@@ -22,6 +22,8 @@
 		4D0CEFAD2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFAC2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift */; };
 		4D0CEFB32670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */; };
 		4D0CEFB42670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */; };
+		4D0CEFBA2670E98A001EEA2C /* Electrodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB92670E98A001EEA2C /* Electrodes.swift */; };
+		4D0CEFBB2670E98A001EEA2C /* Electrodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB92670E98A001EEA2C /* Electrodes.swift */; };
 		4D19FB36266142E50064FF6F /* PeripheralCommunicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */; };
 		4D19FB40266143120064FF6F /* PreIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */; };
 		4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */; };
@@ -278,6 +280,7 @@
 		4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersion.swift; sourceTree = "<group>"; };
 		4D0CEFAC2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareIndusVersionConvertor.swift; sourceTree = "<group>"; };
 		4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAcquisitionInformation.swift; sourceTree = "<group>"; };
+		4D0CEFB92670E98A001EEA2C /* Electrodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Electrodes.swift; sourceTree = "<group>"; };
 		4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCommunicable.swift; sourceTree = "<group>"; };
 		4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
 		4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
@@ -661,6 +664,7 @@
 				4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */,
 				4D356011266270360008412C /* DeviceInformationBuilder.swift */,
 				4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */,
+				4D0CEFB92670E98A001EEA2C /* Electrodes.swift */,
 			);
 			path = "Device information";
 			sourceTree = "<group>";
@@ -1419,6 +1423,7 @@
 			files = (
 				A91DC1122490CF6200E4A440 /* MBTBluetoothManager+CBPeripheralDelegate.swift in Sources */,
 				A91DC1112490CF6200E4A440 /* MBTBluetoothManager+AudioChangedRoute.swift in Sources */,
+				4D0CEFBA2670E98A001EEA2C /* Electrodes.swift in Sources */,
 				A918D29424619D1600026F1D /* FirmwareError.swift in Sources */,
 				A91DC1352490D47600E4A440 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */,
@@ -1577,6 +1582,7 @@
 				A91BD907247D219600603C42 /* BluetoothTimersDelegateMock.swift in Sources */,
 				A92D7A4924814A4D000DF7C3 /* EEGRawPacketTests.swift in Sources */,
 				A91BD91F247D78CD00603C42 /* String+SerialNumberTests.swift in Sources */,
+				4D0CEFBB2670E98A001EEA2C /* Electrodes.swift in Sources */,
 				A91BD909247D42A200603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A92D7A4524813914000DF7C3 /* EEGRawPacketBufferTests.swift in Sources */,
 				A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */,

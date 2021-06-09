@@ -14,7 +14,7 @@ public struct DeviceAcquisitionInformation: Codable {
   /// An EEG Packet length.
   public let eegPacketSize: Int
 
-  let electrodes: [ElectrodeType: [ElectrodeLocation]]
+  let electrodes: Electrodes
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -26,11 +26,9 @@ public struct DeviceAcquisitionInformation: Codable {
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
-        var electrodes = [ElectrodeType: [ElectrodeLocation]]()
-        electrodes[.acquisition] = [.p3, .p4]
-        electrodes[.reference] = [.m1]
-        electrodes[.ground] = [.m2]
-        self.electrodes = electrodes
+        self.electrodes = Electrodes(acquisition: [.p3, .p4],
+                                     reference: [.m1],
+                                     ground: [.m2])
 
       case .indus5:
         #warning("TODO: Use real indus5 version")
@@ -38,11 +36,9 @@ public struct DeviceAcquisitionInformation: Codable {
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
-        var electrodes = [ElectrodeType: [ElectrodeLocation]]()
-        electrodes[.acquisition] = [.p3, .p4]
-        electrodes[.reference] = [.m1]
-        electrodes[.ground] = [.m2]
-        self.electrodes = electrodes
+        self.electrodes = Electrodes(acquisition: [.p3, .p4],
+                                     reference: [.m1],
+                                     ground: [.m2])
     }
   }
 
