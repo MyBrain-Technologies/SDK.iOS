@@ -8,8 +8,6 @@ public enum HardwareVersion: String, Codable {
 
   case v_1_0_0 = "1.0.0"
   case v_1_1_0 = "1.1.0"
-
-  #warning("Indus5 ???")
-  case v_2_0_0 = "2.0.0"
+  case v_2_0_0 = "2.1.0"
 
 }

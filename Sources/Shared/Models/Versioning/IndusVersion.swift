@@ -32,9 +32,7 @@ public enum IndusVersion: String, CaseIterable, Codable {
     switch self {
       case .indus2: return "1.0.0"
       case .indus3: return "1.1.0"
-      case .indus5:
-        #warning("TODO CHECK IT")
-        return "1.1.0"
+      case .indus5: return "2.1.0"
     }
   }
 
