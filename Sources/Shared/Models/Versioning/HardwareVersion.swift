@@ -1,6 +1,6 @@
 import Foundation
 
-enum HardwareVersion: String, Codable {
+public enum HardwareVersion: String, Codable {
 
   //----------------------------------------------------------------------------
   // MARK: - Cases
