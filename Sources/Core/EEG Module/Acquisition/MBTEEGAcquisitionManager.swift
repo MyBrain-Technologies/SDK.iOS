@@ -204,9 +204,8 @@ internal class EegAcquiser {
     // Start mainQualityChecker.
     guard isUsingQualityChecker else { return }
 
-    hasQualityChecker = signalProcessor.initializeQualityChecker(
-      withSampleRate: Float(sampleRate)
-    )
+    signalProcessor.initializeQualityChecker(withSampleRate: Float(sampleRate))
+    hasQualityChecker = true
   }
 
   /// Method called by MelomindEngine when the current EEG streaming

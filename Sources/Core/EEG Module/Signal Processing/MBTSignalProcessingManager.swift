@@ -214,7 +214,7 @@ internal class SignalProcessingManager {
   internal var calibrationComputed: CalibrationOutput?
 
   ///
-  internal var sampRate: Int = 0
+  internal var sampleRate: Int = 0
 
   ///
   internal var eegPacketLength: Int = 0
@@ -233,11 +233,9 @@ internal class SignalProcessingManager {
 
   /// Initalize MBT_MainQC to enable MBT_QualityChecker methods.
   func initializeQualityChecker(withSampleRate sampleRate: Float,
-                                accuracy: Float = 0.85) -> Bool {
+                                accuracy: Float = 0.85) {
     MBTQualityCheckerBridge.initializeMainQualityChecker(sampleRate,
                                                          accuracy: 0.85)
-    #warning("Remove result bool??")
-    return true
   }
 
   /// Delete MBT_MainQC instance once acquisition phase is over.
@@ -259,7 +257,7 @@ internal class SignalProcessingManager {
     guard let packetLength = data.first?.count else { return [] }
 
     return EEGQualityProcessor.computeQualityValue(buffer: data,
-                                                   sampleRate: sampRate,
+                                                   sampleRate: sampleRate,
                                                    packetLength: packetLength)
   }
 
@@ -267,7 +265,7 @@ internal class SignalProcessingManager {
                            sampleRate: Int,
                            eegPacketLength: Int) -> [Float] {
     #warning("Why is it passed as parameter and the property being init here?")
-    self.sampRate = sampleRate
+    self.sampleRate = sampleRate
     self.eegPacketLength = eegPacketLength
     return computeQualityValue(data)
   }
