@@ -20,6 +20,8 @@
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D0CEF9E2670CA93001EEA2C /* HardwareVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */; };
 		4D0CEFAD2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFAC2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift */; };
+		4D0CEFB32670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */; };
+		4D0CEFB42670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */; };
 		4D19FB36266142E50064FF6F /* PeripheralCommunicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */; };
 		4D19FB40266143120064FF6F /* PreIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */; };
 		4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */; };
@@ -275,6 +277,7 @@
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersion.swift; sourceTree = "<group>"; };
 		4D0CEFAC2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareIndusVersionConvertor.swift; sourceTree = "<group>"; };
+		4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAcquisitionInformation.swift; sourceTree = "<group>"; };
 		4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCommunicable.swift; sourceTree = "<group>"; };
 		4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
 		4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
@@ -657,6 +660,7 @@
 			children = (
 				4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */,
 				4D356011266270360008412C /* DeviceInformationBuilder.swift */,
+				4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */,
 			);
 			path = "Device information";
 			sourceTree = "<group>";
@@ -1445,6 +1449,7 @@
 				A91DC1242490CFA300E4A440 /* IOBluetoothPeripheral.swift in Sources */,
 				A974EFB723CE0C2100B9F9BE /* OADStateType.swift in Sources */,
 				A918D28724616CC600026F1D /* Int16+extension.swift in Sources */,
+				4D0CEFB32670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */,
 				A91DC1322490D01400E4A440 /* BluetoothAdvertisementDataReader.swift in Sources */,
 				A927D59323CCED0900C20734 /* Constants.swift in Sources */,
 				2B6B5DA6205139D900928F1F /* MBTSignalProcessingManager.swift in Sources */,
@@ -1581,6 +1586,7 @@
 				A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */,
 				A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */,
 				A918242C2489414A0069D0AB /* FlattenModifiedChannelDataTests.swift in Sources */,
+				4D0CEFB42670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */,
 				A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */,
 				A926C3F3248A6F1E00B01186 /* EEGCalibrationProcessorTests.swift in Sources */,
 				A91BD904247D1F6400603C42 /* BluetoothStatesHistoryTests.swift in Sources */,

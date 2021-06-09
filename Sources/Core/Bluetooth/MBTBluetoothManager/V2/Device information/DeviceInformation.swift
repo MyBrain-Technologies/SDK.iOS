@@ -29,39 +29,8 @@ public struct DeviceInformation: Codable {
 
   /******************** Acquisition ********************/
 
-  public let channelCount: Int
+  public let acquisitionInformation: DeviceAcquisitionInformation
 
-  /// The rate at which EEG data is being sent by the headset.
-  public let sampleRate: Int
-
-  /// An EEG Packet length.
-  public let eegPacketSize: Int
-
-//  let acquisitionElectrodes: AcquisitionElectrodes
-
-//  /// Locations of the acquisition electrodes.
-//  let acquisitionLocations: [ElectrodeLocation]
-//
-//  /// Locations of the references for an electrode.
-//  let referencesLocations: [ElectrodeLocation]
-//
-//  /// Locations of the ground electrodes.
-//  let groundsLocations: [ElectrodeLocation]
-
-
-//  // Acquisition Electrodes
-//  let acquisition1 = MBTAcquistionLocation()
-//  acquisition1.type = .p3
-//  let acquisition2 = MBTAcquistionLocation()
-//  acquisition2.type = .p4
-//
-//  // Reference Electrode
-//  let reference = MBTAcquistionLocation()
-//  reference.type = .m1
-//
-//  // Ground Electrode
-//  let ground = MBTAcquistionLocation()
-//  ground.type = .m2
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -93,20 +62,8 @@ public struct DeviceInformation: Codable {
     self.indusVersion =
       HardwareIndusVersionConvertor.indusVersion(from: hardwareVersion)
 
-    #warning("TODO: Use builder from indusVersion: build(from: indusVersion)")
-    switch indusVersion {
-      case .indus2, .indus3:
-        self.channelCount = 2
-        self.sampleRate = 250
-        self.eegPacketSize = 250
-      case .indus5:
-        #warning("TODO: Use real indus5 version")
-        fatalError("Use real indus5 version")
-        self.channelCount = 2
-        self.sampleRate = 250
-        self.eegPacketSize = 250
-    }
-
+    self.acquisitionInformation =
+      DeviceAcquisitionInformation(from: indusVersion)
   }
 
   //----------------------------------------------------------------------------
@@ -120,14 +77,3 @@ public struct DeviceInformation: Codable {
   }
 
 }
-
-//struct AcquisitionElectrodes {
-//  /// Locations of the acquisition electrodes.
-//  let acquisitionLocations = [MBTAcquistionLocation]()
-//
-//  /// Locations of the references for an electrode.
-//  let referencesLocations = [MBTAcquistionLocation]()
-//
-//  /// Locations of the ground electrodes.
-//  let groundsLocations = [MBTAcquistionLocation]()
-//}
