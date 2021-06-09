@@ -18,6 +18,7 @@
 		2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D0CEF9E2670CA93001EEA2C /* HardwareVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */; };
 		4D19FB36266142E50064FF6F /* PeripheralCommunicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */; };
 		4D19FB40266143120064FF6F /* PreIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */; };
 		4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */; };
@@ -272,6 +273,7 @@
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersion.swift; sourceTree = "<group>"; };
 		4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCommunicable.swift; sourceTree = "<group>"; };
 		4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
 		4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
@@ -1001,6 +1003,7 @@
 				A91F89F923F31080007F4D9A /* BluetoothAuthorization.swift */,
 				A9D3B5DD23F40740006138E5 /* BluetoothState.swift */,
 				A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */,
+				4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1436,6 +1439,7 @@
 				A927D59323CCED0900C20734 /* Constants.swift in Sources */,
 				2B6B5DA6205139D900928F1F /* MBTSignalProcessingManager.swift in Sources */,
 				A92D7A4E24815052000DF7C3 /* EEGAcquisitionBuffer.swift in Sources */,
+				4D0CEF9E2670CA93001EEA2C /* HardwareVersion.swift in Sources */,
 				A91DC1132490CF6200E4A440 /* MBTBluetoothManager.swift in Sources */,
 				B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */,
 				A92D7A4A24814C18000DF7C3 /* EEGRawPacket.swift in Sources */,
