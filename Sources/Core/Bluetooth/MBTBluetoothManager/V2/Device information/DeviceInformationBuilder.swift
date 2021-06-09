@@ -9,6 +9,7 @@ class DeviceInformationBuilder {
   enum DeviceInformationBuilderError: Error {
     case missingDeviceInformation
     case unableToBuildDeviceInformation
+    case invalidHardwareVersion
   }
 
   //----------------------------------------------------------------------------
@@ -42,7 +43,7 @@ class DeviceInformationBuilder {
   }
 
   /// The product hardware version.
-  private var hardwareVersion: String? {
+  private var hardwareVersion: HardwareVersion? {
     didSet {
       buildIfPossible()
     }
@@ -87,6 +88,11 @@ class DeviceInformationBuilder {
   }
 
   func add(hardwareVersion: String) {
+    guard let hardwareVersion =
+            HardwareVersion(rawValue: hardwareVersion) else {
+      didFail?(DeviceInformationBuilderError.invalidHardwareVersion)
+      return
+    }
     self.hardwareVersion = hardwareVersion
   }
 
@@ -109,14 +115,10 @@ class DeviceInformationBuilder {
       return
     }
 
-    guard let deviceInformation =
-            DeviceInformation(productName: productName,
-                              deviceId: deviceId,
-                              hardwareVersion: hardwareVersion,
-                              firmwareVersion: firmwareVersion) else {
-      didFail?(DeviceInformationBuilderError.unableToBuildDeviceInformation)
-      return
-    }
+    let deviceInformation = DeviceInformation(productName: productName,
+                                              deviceId: deviceId,
+                                              hardwareVersion: hardwareVersion,
+                                              firmwareVersion: firmwareVersion)
 
     didBuild?(deviceInformation)
   }

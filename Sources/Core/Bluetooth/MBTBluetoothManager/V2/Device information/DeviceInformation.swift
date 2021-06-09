@@ -1,6 +1,5 @@
 import Foundation
 
-#warning("Is public useful?")
 public struct DeviceInformation: Codable {
 
   //----------------------------------------------------------------------------
@@ -14,16 +13,14 @@ public struct DeviceInformation: Codable {
   public var deviceId: String
 
   /// The product hardware version.
-  public var hardwareVersion: String
+  public var hardwareVersion: HardwareVersion
 
   /// The product firmware version.
   public var firmwareVersion: String
 
   /******************** Versioning ********************/
 
-  public var indusVersion: IndusVersion? {
-    return IndusVersion(fromHardwareVersion: hardwareVersion)
-  }
+  public let indusVersion: IndusVersion
 
   public var formattedFirmwareVersion: FormatedVersion {
     assertionFailure("TODO: Check to use `firmwareVersion`")
@@ -42,51 +39,78 @@ public struct DeviceInformation: Codable {
 
 //  let acquisitionElectrodes: AcquisitionElectrodes
 
+//  /// Locations of the acquisition electrodes.
+//  let acquisitionLocations: [ElectrodeLocation]
+//
+//  /// Locations of the references for an electrode.
+//  let referencesLocations: [ElectrodeLocation]
+//
+//  /// Locations of the ground electrodes.
+//  let groundsLocations: [ElectrodeLocation]
+
+
+//  // Acquisition Electrodes
+//  let acquisition1 = MBTAcquistionLocation()
+//  acquisition1.type = .p3
+//  let acquisition2 = MBTAcquistionLocation()
+//  acquisition2.type = .p4
+//
+//  // Reference Electrode
+//  let reference = MBTAcquistionLocation()
+//  reference.type = .m1
+//
+//  // Ground Electrode
+//  let ground = MBTAcquistionLocation()
+//  ground.type = .m2
+
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init(productName: String,
-       deviceId: String,
-       hardwareVersion: String,
-       firmwareVersion: String,
-       channelCount: Int,
-       sampleRate: Int,
-       eegPacketSize: Int) {
-    self.productName = productName
-    self.deviceId = deviceId
-    self.hardwareVersion = hardwareVersion
-    self.firmwareVersion = firmwareVersion
-    self.channelCount = channelCount
-    self.sampleRate = sampleRate
-    self.eegPacketSize = eegPacketSize
-  }
+//  init(productName: String,
+//       deviceId: String,
+//       hardwareVersion: HardwareVersion,
+//       firmwareVersion: String,
+//       channelCount: Int,
+//       sampleRate: Int,
+//       eegPacketSize: Int) {
+//    self.productName = productName
+//    self.deviceId = deviceId
+//    self.hardwareVersion = hardwareVersion
+//    self.firmwareVersion = firmwareVersion
+//    self.channelCount = channelCount
+//    self.sampleRate = sampleRate
+//    self.eegPacketSize = eegPacketSize
+//
+//    self.indusVersion =
+//      HardwareIndusVersionConvertor.indusVersion(from: hardwareVersion)
+//  }
 
   init?(productName: String,
-       deviceId: String,
-       hardwareVersion: String,
-       firmwareVersion: String) {
-    guard let indusVersion =
-            IndusVersion(fromHardwareVersion: hardwareVersion) else {
+        deviceId: String,
+        hardwareVersion: String,
+        firmwareVersion: String) {
+    guard let hardwareVersion =
+            HardwareVersion(rawValue: hardwareVersion) else {
       return nil
     }
 
     self.init(productName: productName,
               deviceId: deviceId,
               hardwareVersion: hardwareVersion,
-              firmwareVersion: firmwareVersion,
-              indusVersion: indusVersion)
+              firmwareVersion: firmwareVersion)
   }
 
   init(productName: String,
        deviceId: String,
-       hardwareVersion: String,
-       firmwareVersion: String,
-       indusVersion: IndusVersion) {
+       hardwareVersion: HardwareVersion,
+       firmwareVersion: String) {
     self.productName = productName
     self.deviceId = deviceId
     self.hardwareVersion = hardwareVersion
     self.firmwareVersion = firmwareVersion
+    self.indusVersion =
+      HardwareIndusVersionConvertor.indusVersion(from: hardwareVersion)
 
     #warning("TODO: Use builder from indusVersion: build(from: indusVersion)")
     switch indusVersion {
