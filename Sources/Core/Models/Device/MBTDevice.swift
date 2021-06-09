@@ -69,7 +69,9 @@ public class MBTDevice: Object {
   var deviceInformation: DeviceInformation? {
     guard let productName = deviceInfos?.productName,
           let deviceId = deviceInfos?.deviceId,
-          let hardwareVersion = deviceInfos?.firmwareVersion,
+          let hardwareVersionString = deviceInfos?.hardwareVersion,
+          let hardwareVersion =
+            HardwareVersion(rawValue: hardwareVersionString),
           let firmwareVersion = deviceInfos?.firmwareVersion
           else {
       return nil
