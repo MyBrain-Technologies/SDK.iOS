@@ -161,16 +161,10 @@ class EEGAcquisitionSaverV2 {
                      idUser: Int,
                      algo: String?,
                      comments: [String] = [],
-                     device: MBTDevice,
+                     deviceInformation: DeviceInformation,
                      recordingInformation: MBTRecordInfo,
                      recordFileSaver: RecordFileSaver,
                      completion: @escaping (URL?) -> Void) {
-//    guard let device = DeviceManager.getCurrentDevice() else {
-//      completion(nil)
-//      return
-//    }
-
-    let deviceReference = ThreadSafeReference(to: device)
     let packetsReferences = packets.map() { ThreadSafeReference(to: $0) }
 
     DispatchQueue(label: saveThreadName).async {
@@ -182,10 +176,8 @@ class EEGAcquisitionSaverV2 {
       }
 
       let savedPackets = packetsReferences.compactMap() { realm.resolve($0) }
-      let resolvedDevice = realm.resolve(deviceReference)
 
-      guard let savedDevice = resolvedDevice,
-        savedPackets.count == packetsReferences.count else {
+      guard savedPackets.count == packetsReferences.count else {
           log.error("PB with realm or bad number on packet to save ?")
           DispatchQueue.main.async { completion(nil) }
           return
@@ -194,7 +186,7 @@ class EEGAcquisitionSaverV2 {
 //      let currentRecordInfo = MBTClient.shared.recordInfo
 
       let savingRecord =
-        self.getEEGSavingRecord(savedDevice,
+        self.getEEGSavingRecord(deviceInformation: deviceInformation,
                                 idUser: idUser,
                                 algo: algo,
                                 eegPackets: savedPackets,
@@ -209,11 +201,7 @@ class EEGAcquisitionSaverV2 {
       }
 
       // Save JSON with EEG data received.
-      guard let deviceId = savedDevice.deviceInfos?.deviceId else {
-        log.error("Cannot get deviceId")
-        DispatchQueue.main.async { completion(nil) }
-        return
-      }
+      let deviceId = deviceInformation.deviceId
 
       // RecordFileSaver.shared
       let fileURL = recordFileSaver.saveRecord(jsonString: jsonObject,
@@ -226,7 +214,7 @@ class EEGAcquisitionSaverV2 {
     }
   }
 
-  private func getEEGSavingRecord(_ device: MBTDevice,
+  private func getEEGSavingRecord(deviceInformation: DeviceInformation,
                                   idUser: Int,
                                   algo: String?,
                                   eegPackets: [MBTEEGPacket],
@@ -245,7 +233,8 @@ class EEGAcquisitionSaverV2 {
       channelData: eegPacketManager.getEEGDatas(eegPackets)
     )
 
-    let header = device.getAsRecordHeader(comments: comments)
+    let header = generateRecordHeader(deviceInformation: deviceInformation,
+                                      comments: comments)
 
     let savingRecord = EEGSavingRecord(context: context,
                                        header: header,
@@ -253,4 +242,31 @@ class EEGAcquisitionSaverV2 {
 
     return savingRecord
   }
+
+  private func generateRecordHeader(
+    deviceInformation: DeviceInformation,
+    comments: [String]
+  ) -> EEGSavingRecordHeader {
+    let deviceInfo = MelomindDeviceInformations(
+      productName: deviceInformation.productName,
+      hardwareVersion: deviceInformation.hardwareVersion.rawValue,
+      firmwareVersion: deviceInformation.firmwareVersion,
+      uniqueDeviceIdentifier: deviceInformation.deviceId
+    )
+
+    let commentWithDate = ["\(Date().timeIntervalSince1970)"] + comments
+    let electrodes = deviceInformation.acquisitionInformation.electrodes
+
+    return EEGSavingRecordHeader(
+      deviceInfo: deviceInfo,
+      comments: commentWithDate,
+      sampRate: deviceInformation.acquisitionInformation.sampleRate,
+      eegPacketLength: deviceInformation.acquisitionInformation.eegPacketSize,
+      nbChannels: deviceInformation.acquisitionInformation.channelCount,
+      acquisitionLocation: electrodes.acquisitions.map { $0.stringValue },
+      referencesLocation: electrodes.references.map { $0.stringValue },
+      groundsLocation: electrodes.grounds.map { $0.stringValue }
+    )
+  }
+
 }
