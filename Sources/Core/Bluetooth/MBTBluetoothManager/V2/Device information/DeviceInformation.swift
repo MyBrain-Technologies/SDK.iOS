@@ -67,25 +67,6 @@ public struct DeviceInformation: Codable {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-//  init(productName: String,
-//       deviceId: String,
-//       hardwareVersion: HardwareVersion,
-//       firmwareVersion: String,
-//       channelCount: Int,
-//       sampleRate: Int,
-//       eegPacketSize: Int) {
-//    self.productName = productName
-//    self.deviceId = deviceId
-//    self.hardwareVersion = hardwareVersion
-//    self.firmwareVersion = firmwareVersion
-//    self.channelCount = channelCount
-//    self.sampleRate = sampleRate
-//    self.eegPacketSize = eegPacketSize
-//
-//    self.indusVersion =
-//      HardwareIndusVersionConvertor.indusVersion(from: hardwareVersion)
-//  }
-
   init?(productName: String,
         deviceId: String,
         hardwareVersion: String,
@@ -127,14 +108,6 @@ public struct DeviceInformation: Codable {
     }
 
   }
-
-  #warning("TODO")
-//  init(productName: String,
-//       deviceId: String,
-//       firmwareVersion: String
-//       hardwareVersion: HardwareVersion) {
-//    // hardwareVersion -> IndusVersion
-//  }
 
   //----------------------------------------------------------------------------
   // MARK: - Versioning
