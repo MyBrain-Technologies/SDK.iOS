@@ -24,6 +24,8 @@
 		4D0CEFB42670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */; };
 		4D0CEFBA2670E98A001EEA2C /* Electrodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB92670E98A001EEA2C /* Electrodes.swift */; };
 		4D0CEFBB2670E98A001EEA2C /* Electrodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB92670E98A001EEA2C /* Electrodes.swift */; };
+		4D0CEFC126711391001EEA2C /* ElectrodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFC026711391001EEA2C /* ElectrodeType.swift */; };
+		4D0CEFC226711391001EEA2C /* ElectrodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFC026711391001EEA2C /* ElectrodeType.swift */; };
 		4D19FB36266142E50064FF6F /* PeripheralCommunicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */; };
 		4D19FB40266143120064FF6F /* PreIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */; };
 		4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */; };
@@ -281,6 +283,7 @@
 		4D0CEFAC2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareIndusVersionConvertor.swift; sourceTree = "<group>"; };
 		4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAcquisitionInformation.swift; sourceTree = "<group>"; };
 		4D0CEFB92670E98A001EEA2C /* Electrodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Electrodes.swift; sourceTree = "<group>"; };
+		4D0CEFC026711391001EEA2C /* ElectrodeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectrodeType.swift; sourceTree = "<group>"; };
 		4D19FB35266142E50064FF6F /* PeripheralCommunicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralCommunicable.swift; sourceTree = "<group>"; };
 		4D19FB3F266143120064FF6F /* PreIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
 		4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
@@ -919,6 +922,7 @@
 			children = (
 				A974EFBF23CE29BB00B9F9BE /* AcquisitionLocation.swift */,
 				A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */,
+				4D0CEFC026711391001EEA2C /* ElectrodeType.swift */,
 			);
 			path = Acquisition;
 			sourceTree = "<group>";
@@ -1478,6 +1482,7 @@
 				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,
 				A918242E248951E50069D0AB /* EEGToRelaxIndexProcessor.swift in Sources */,
 				4D356012266270360008412C /* DeviceInformationBuilder.swift in Sources */,
+				4D0CEFC126711391001EEA2C /* ElectrodeType.swift in Sources */,
 				F419A4D41F1CF8710070C160 /* MBTRealmEntityManager.swift in Sources */,
 				A918D29624619D2800026F1D /* OADError.swift in Sources */,
 				A926C3F1248A670200B01186 /* EEGCalibrationProcessor.swift in Sources */,
@@ -1574,6 +1579,7 @@
 				A9130BCC24800D8000CB1840 /* EEGDeserializerTests.swift in Sources */,
 				A91BD91B247D715E00603C42 /* String+FilenameTests.swift in Sources */,
 				A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */,
+				4D0CEFC226711391001EEA2C /* ElectrodeType.swift in Sources */,
 				4D94474325F9679900CB364A /* String+VersionNumber.swift in Sources */,
 				A938131624869C6400C7ABC0 /* MBTEEGPacketTests.swift in Sources */,
 				A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */,
