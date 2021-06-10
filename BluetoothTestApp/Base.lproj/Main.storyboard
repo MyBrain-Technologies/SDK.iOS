@@ -58,19 +58,40 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCX-a8-v6N">
-                                        <rect key="frame" x="190" y="0.0" width="34" height="787"/>
+                                        <rect key="frame" x="190" y="0.0" width="34" height="757"/>
                                         <state key="normal" title="Start"/>
                                         <connections>
                                             <action selector="startScan:" destination="jh1-uc-fwc" eventType="touchUpInside" id="ePw-SF-QmA"/>
                                         </connections>
                                     </button>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4lc-FC-cYH">
-                                        <rect key="frame" x="182.5" y="787" width="51" height="31"/>
+                                        <rect key="frame" x="182.5" y="757" width="51" height="31"/>
                                         <connections>
                                             <action selector="changeStreamingEEGState:" destination="jh1-uc-fwc" eventType="valueChanged" id="7gB-7t-7Dt"/>
                                         </connections>
                                     </switch>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="odx-KM-5vJ">
+                                        <rect key="frame" x="0.0" y="788" width="414" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-yD-upX">
+                                                <rect key="frame" x="0.0" y="0.0" width="207" height="30"/>
+                                                <state key="normal" title="Read battery"/>
+                                                <connections>
+                                                    <action selector="readBattery:" destination="jh1-uc-fwc" eventType="touchUpInside" id="GI5-Wc-WbQ"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIS-s8-PO0">
+                                                <rect key="frame" x="207" y="0.0" width="207" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="odx-KM-5vJ" firstAttribute="width" secondItem="CQY-sF-3FE" secondAttribute="width" id="Fiu-wi-12o"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ooq-OS-ySY"/>
@@ -83,6 +104,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="batteryLevelLabel" destination="xIS-s8-PO0" id="YMr-Cx-M5c"/>
                         <outlet property="scanningButton" destination="GCX-a8-v6N" id="kAD-D6-aav"/>
                     </connections>
                 </viewController>

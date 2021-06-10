@@ -18,11 +18,12 @@ class SDKTestViewController: UIViewController {
   /******************** Outlets ********************/
 
   @IBOutlet weak private var scanningButton: UIButton!
+  @IBOutlet weak private var batteryLevelLabel: UILabel!
 
 
   /******************** SDK ********************/
 
-  let sdk = MBTBluetoothManagerV2()
+  let sdk: MBTClientV2 = .shared
 
   //----------------------------------------------------------------------------
   // MARK: - Lifecycle
@@ -38,7 +39,18 @@ class SDKTestViewController: UIViewController {
   //----------------------------------------------------------------------------
 
   private func setup() {
+    setupSDK()
+    setupBatteryView()
+  }
 
+  private func setupSDK() {
+    sdk.bleDelegate = self
+    sdk.a2dpDelegate = self
+    sdk.acquisitionDelegate = self
+  }
+
+  private func setupBatteryView() {
+    batteryLevelLabel.text = "0"
   }
 
   //----------------------------------------------------------------------------
@@ -53,5 +65,83 @@ class SDKTestViewController: UIViewController {
     sdk.isListeningToEEG = sender.isOn
   }
 
+  @IBAction func readBattery(_ sender: Any) {
+    sdk.readBatteryStatus()
+  }
 
 }
+
+//==============================================================================
+// MARK: - MBTBLEBluetoothDelegate
+//==============================================================================
+
+extension SDKTestViewController: MBTBLEBluetoothDelegate {
+
+  private func didConnect() {
+    print("BLE connection succeed!")
+  }
+
+  private func didConnectionFail(error: Error?) {
+    print("BLE connection failed: ")
+    if let error = error {
+      print("With error")
+      print(error.localizedDescription)
+    }
+  }
+
+  private func didDisconnect(error: Error?) {
+    print("BLE disconnected:")
+    if let error = error {
+      print("With error")
+      print(error.localizedDescription)
+    }
+  }
+
+}
+
+//==============================================================================
+// MARK: - MBTA2DPBluetoothDelegate
+//==============================================================================
+
+extension SDKTestViewController: MBTA2DPBluetoothDelegate {
+
+  func didAudioA2DPConnect() {
+      print("A2DP connection succeed!")
+  }
+
+  func didAudioA2DPDisconnect(error: Error?) {
+    print("A2DP disconnected:")
+    if let error = error {
+      print("With error")
+      print(error.localizedDescription)
+    }
+  }
+
+}
+
+//==============================================================================
+// MARK: - MBTAcquisitionDelegate
+//==============================================================================
+
+extension SDKTestViewController: MBTAcquisitionDelegate {
+
+  func didUpdateBatteryLevel(_ levelBattery: Int) {
+    print("Battery level: \(levelBattery)")
+    batteryLevelLabel.text = levelBattery
+  }
+
+  func didUpdateSaturationStatus(_ status: Int) {
+
+  }
+
+  func didUpdateEEGData(_ eegPacket: MBTEEGPacket) {
+
+  }
+
+  func didUpdateEEGRawData(_ data: Data) {
+    print("EEg raw data: \(levelBattery)")
+  }
+
+}
+
+
