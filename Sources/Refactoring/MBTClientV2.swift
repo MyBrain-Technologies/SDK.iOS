@@ -99,6 +99,11 @@ public class MBTClientV2 {
     return deviceInformation?.productName
   }
 
+  public var isListeningToEEG: Bool {
+    set { bluetoothManager.isListeningToEEG = isListeningToEEG }
+    get { return bluetoothManager.isListeningToEEG }
+  }
+
   /******************** Delegates ********************/
 
   public weak var bleDelegate: MBTBLEBluetoothDelegate? {
