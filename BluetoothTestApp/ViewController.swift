@@ -96,6 +96,7 @@ class ViewController: UIViewController {
 
   @IBOutlet weak private var powerSwitch: UISwitch!
 
+  private var leadValueCompletion: ((Int) -> Void)?
 
   /******************** Bluetooth ********************/
 
@@ -406,6 +407,11 @@ extension ViewController: CBPeripheralDelegate {
       print("ledCharacteristic")
     }
 
+    // Without dispatchGroup
+    leadValueCompletion?(leadValue)
+    leadValueCompletion = nil
+
+    // Wit dispatchGroup
     leadValue = 3
     dispatchGroup?.leave()
     print("Leave")
@@ -426,6 +432,10 @@ extension ViewController: CBPeripheralDelegate {
 
 
   func readLead(completion: ((Int) -> Void)?) {
+    // Without dispatchGroup
+    leadValueCompletion = completion
+
+    // With dispatchGroup
     dispatchGroup = DispatchGroup()
     dispatchGroup?.enter()
     peripheral?.readValue(for: cbLedCharacteristic!)
