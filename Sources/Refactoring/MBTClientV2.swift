@@ -100,7 +100,7 @@ public class MBTClientV2 {
   }
 
   public var isListeningToEEG: Bool {
-    set { bluetoothManager.isListeningToEEG = isListeningToEEG }
+    set { bluetoothManager.isListeningToEEG = newValue }
     get { return bluetoothManager.isListeningToEEG }
   }
 

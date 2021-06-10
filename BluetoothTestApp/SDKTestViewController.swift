@@ -166,7 +166,8 @@ extension SDKTestViewController: MBTAcquisitionDelegate {
 
   func didUpdateEEGRawData(_ data: Data) {
     print("EEg raw data: \(data)")
-    eegRawDataLabel.text = String(data: data, encoding: .utf8)
+    let text = String(data: data, encoding: .ascii)
+    eegRawDataLabel.text = text
   }
 
 }
