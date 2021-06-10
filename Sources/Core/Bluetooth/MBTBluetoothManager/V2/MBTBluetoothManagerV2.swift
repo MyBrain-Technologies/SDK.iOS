@@ -151,15 +151,15 @@ public class MBTBluetoothManagerV2 {
 extension MBTBluetoothManagerV2: PeripheralDelegate {
 
   func didValueUpdate(BrainData: Data) {
-
+    acquisitionDelegate?.didUpdateEEGRawData(BrainData)
   }
 
   func didValueUpdate(BatteryLevel: Int) {
-
+    acquisitionDelegate?.didUpdateBatteryLevel(BatteryLevel)
   }
 
   func didValueUpdate(SaturationStatus: Int) {
-
+    acquisitionDelegate?.didUpdateSaturationStatus(SaturationStatus)
   }
 
   func didRequestA2DPConnection() {
@@ -175,11 +175,16 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
   }
 
   func didConnect() {
+    #warning("TODO: already done in peripheral closure.")
+//    bleDelegate?.didConnect()
+  }
 
+  func didConnect(deviceInformation: DeviceInformation) {
+    bleDelegate?.didConnect(deviceInformation: deviceInformation)
   }
 
   func didFail(error: Error) {
-
+    bleDelegate?.didConnectionFail(error: error)
   }
 
 
@@ -291,6 +296,8 @@ protocol PeripheralDelegate: class {
 
   func didConnect()
 
+  func didConnect(deviceInformation: DeviceInformation)
+
   func didFail(error: Error)
 }
 
@@ -337,7 +344,12 @@ internal class MBTPeripheral: NSObject {
     }
   }
 
-  private(set) var information: DeviceInformation?
+  private(set) var information: DeviceInformation? {
+    didSet {
+      guard let information = information else { return }
+      delegate?.didConnect(deviceInformation: information)
+    }
+  }
 
   var ad2pName: String? {
     return a2dpConnector.a2dpName
@@ -756,17 +768,20 @@ extension MBTPeripheral: PeripheralValueDelegate {
 
   func didUpdate(batteryLevel: Int) {
     print(batteryLevel)
-    didUpdateBatteryLevel?(batteryLevel)
+//    didUpdateBatteryLevel?(batteryLevel)
+    delegate?.didValueUpdate(BatteryLevel: batteryLevel)
   }
 
   func didUpdate(brainData: Data) {
     print(brainData)
-    didUpdateBrainData?(brainData)
+//    didUpdateBrainData?(brainData)
+    delegate?.didValueUpdate(BrainData: brainData)
   }
 
   func didUpdate(saturationStatus: Int) {
     print(saturationStatus)
-    didUpdateSaturationStatus?(saturationStatus)
+//    didUpdateSaturationStatus?(saturationStatus)
+    delegate?.didValueUpdate(SaturationStatus: saturationStatus)
   }
 
   func didUpdate(productName: String) {

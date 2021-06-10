@@ -12,6 +12,8 @@ public protocol MBTBLEBluetoothDelegate: class {
   /// characteristics exploration.
   func didConnect()
 
+  func didConnect(deviceInformation: DeviceInformation)
+
   /// Called if the SDK can't connect to the MBT Headset,
   /// with the error.
   /// - Parameter error: A *Error* object which describe the cause of the
@@ -31,6 +33,8 @@ extension MBTBLEBluetoothDelegate {
   func didBluetoothStateChange(isBluetoothOn: Bool) {}
 
   func didConnect() {}
+
+  func didConnect(deviceInformation: DeviceInformation) { }
 
   func didConnectionFail(error: Error?) {}
 

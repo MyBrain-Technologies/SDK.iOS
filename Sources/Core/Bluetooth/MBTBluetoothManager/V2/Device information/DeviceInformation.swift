@@ -31,7 +31,6 @@ public struct DeviceInformation: Codable {
 
   public let acquisitionInformation: DeviceAcquisitionInformation
 
-
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
