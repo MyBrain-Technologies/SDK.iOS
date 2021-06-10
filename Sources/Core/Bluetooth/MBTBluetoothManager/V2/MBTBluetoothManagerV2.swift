@@ -91,6 +91,7 @@ public class MBTBluetoothManagerV2 {
   // MARK: - Central
   //----------------------------------------------------------------------------
 
+  #warning("TODO: Use deviceName or UUID to filter device")
   public func startScanning() {
     let melomindService = MelomindBluetoothPeripheral.melomindService
     central.scan(services: [melomindService])
@@ -123,9 +124,11 @@ public class MBTBluetoothManagerV2 {
 
   public func disconnect() {
     stopScanning()
+    if let peripheral = currentPeripheral?.peripheral {
+      central.disconnect(from: peripheral)
+    }
     currentPeripheral = nil
   }
-
 
   //----------------------------------------------------------------------------
   // MARK: - Command

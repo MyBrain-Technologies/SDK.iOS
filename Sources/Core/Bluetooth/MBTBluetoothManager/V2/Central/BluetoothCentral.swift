@@ -204,6 +204,10 @@ internal class BluetoothCentral: NSObject {
     cbCentralManager.connect(peripheral, options: nil)
   }
 
+  func disconnect(from peripheral: CBPeripheral) {
+    cbCentralManager.cancelPeripheralConnection(peripheral)
+  }
+
   private func handleConnectionSuccess(to peripheral: CBPeripheral) {
     log.verbose("🆕 Did connect to peripheral")
     didConnectToPeripheral?(peripheral)
