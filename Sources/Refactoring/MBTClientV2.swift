@@ -35,7 +35,7 @@ public class MBTClientV2 {
 
   /// Init a MBTEEGAcquisitionManager, which deals with
   /// data from the MBT Headset.
-  internal let eegAcquisitionManager: EegAcquiser?
+  internal var eegAcquisitionManager: EegAcquiser?
 
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
@@ -101,17 +101,17 @@ public class MBTClientV2 {
 
   /******************** Delegates ********************/
 
-//  public weak var bluetoothEventDelegate: MBTBluetoothEventDelegate? {
-//    didSet { bluetoothManager.eventDelegate = bluetoothEventDelegate }
-//  }
-//
-//  public weak var bluetoothAudioA2DPDelegate: MBTBluetoothA2DPDelegate? {
-//    didSet { bluetoothManager.audioA2DPDelegate = bluetoothAudioA2DPDelegate }
-//  }
-//
-//  public weak var eegAcqusitionDelegate: MBTEEGAcquisitionDelegate? {
-//    didSet { eegAcquisitionManager.delegate = eegAcqusitionDelegate }
-//  }
+  public weak var bleDelegate: MBTBLEBluetoothDelegate? {
+    didSet { bluetoothManager.bleDelegate = bleDelegate }
+  }
+
+  public weak var a2dpDelegate: MBTA2DPBluetoothDelegate? {
+    didSet { bluetoothManager.a2dpDelegate = a2dpDelegate }
+  }
+
+  public weak var acquisitionDelegate: MBTAcquisitionDelegate?
+
+
 //
 //  public weak var deviceAcqusitionDelegate: MBTDeviceAcquisitionDelegate? {
 //    didSet { deviceAcquisitionManager.delegate = deviceAcqusitionDelegate }
@@ -131,6 +131,8 @@ public class MBTClientV2 {
   }
 
   private func setupBluetoothManager() {
+    bluetoothManager.acquisitionDelegate = self
+
 //    if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
 //      !bluetoothManager.isAudioAndBLEConnected {
 //      bluetoothManager.connectTo(deviceName)
@@ -161,28 +163,28 @@ public class MBTClientV2 {
   ///   - delegate: The Melomind Engine Delegate which allow communication with
   ///   the Headset.
 
-  /// NOT USED
-  public func connectEEG(_ deviceName: String? = nil,
-                         withDelegate delegate: MelomindEngineDelegate) {
-    setEEGDelegate(delegate)
-    bluetoothManager.startScanning()
-  }
-
-  /// Connect to the audio part of the MBT Headset (using the A2DP
-  /// bluetooth protocol).
-  /// - Remark: Audio can't be connected from code. User has to connect to it
-  /// through.
-  /// - Remark: deviceName is optional if deviceName isn't provided the
-  /// MelomindEngine will connect to the first headset detected
-  /// settings, on the first time is using it.
-  /// - Parameters:
-  ///   - delegate: The Melomind Engine Delegate which allow communication with
-  ///   the Headset.
-  public func connectEEGAndA2DP(_ deviceName: String? = nil,
-                                withDelegate delegate: MelomindEngineDelegate) {
-    setEEGAndA2DPDelegate(delegate)
-    bluetoothManager.startScanning()
-  }
+//  /// NOT USED
+//  public func connectEEG(_ deviceName: String? = nil,
+//                         withDelegate delegate: MelomindEngineDelegate) {
+//    setEEGDelegate(delegate)
+//    bluetoothManager.startScanning()
+//  }
+//
+//  /// Connect to the audio part of the MBT Headset (using the A2DP
+//  /// bluetooth protocol).
+//  /// - Remark: Audio can't be connected from code. User has to connect to it
+//  /// through.
+//  /// - Remark: deviceName is optional if deviceName isn't provided the
+//  /// MelomindEngine will connect to the first headset detected
+//  /// settings, on the first time is using it.
+//  /// - Parameters:
+//  ///   - delegate: The Melomind Engine Delegate which allow communication with
+//  ///   the Headset.
+//  public func connectEEGAndA2DP(_ deviceName: String? = nil,
+//                                withDelegate delegate: MelomindEngineDelegate) {
+//    setEEGAndA2DPDelegate(delegate)
+//    bluetoothManager.startScanning()
+//  }
 
   /// Start the bluetooth connection process.
   /// - Parameters:
@@ -541,6 +543,27 @@ extension MBTClientV2 {
   public var sessionQualities: [Float] {
     let qualities = MBTMelomindAnalysis.sessionQualities()
     return qualities?.filter { $0 is Float } as? [Float] ?? []
+  }
+
+}
+
+
+//==============================================================================
+// MARK: - MBTBluetoothAcquisitionDelegate
+//==============================================================================
+
+extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
+
+  public func didUpdateBatteryLevel(_ levelBattery: Int) {
+    acquisitionDelegate?.didUpdateBatteryLevel(levelBattery)
+  }
+
+  public func didUpdateSaturationStatus(_ status: Int)  {
+    acquisitionDelegate?.didUpdateSaturationStatus(status)
+  }
+
+  public func didUpdateEEGRawData(_ data: Data) {
+    acquisitionDelegate?.didUpdateEEGRawData(data)
   }
 
 }
