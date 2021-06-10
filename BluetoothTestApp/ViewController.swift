@@ -408,7 +408,7 @@ extension ViewController: CBPeripheralDelegate {
     }
 
     // Without dispatchGroup
-    leadValueCompletion?(leadValue)
+    leadValueCompletion?(3)
     leadValueCompletion = nil
 
     // Wit dispatchGroup

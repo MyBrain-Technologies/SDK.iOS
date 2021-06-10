@@ -20,6 +20,12 @@ class SDKTestViewController: UIViewController {
   @IBOutlet weak private var scanningButton: UIButton!
   @IBOutlet weak private var batteryLevelLabel: UILabel!
 
+  @IBOutlet weak private var productNameLabel: UILabel!
+  @IBOutlet weak private var deviceIdLabel: UILabel!
+  @IBOutlet weak private var hardwareVersionLabel: UILabel!
+  @IBOutlet weak private var firmwareVersionLabel: UILabel!
+
+  @IBOutlet weak private var eegRawDataLabel: UILabel!
 
   /******************** SDK ********************/
 
@@ -41,6 +47,7 @@ class SDKTestViewController: UIViewController {
   private func setup() {
     setupSDK()
     setupBatteryView()
+    setupDeviceInformation()
   }
 
   private func setupSDK() {
@@ -53,12 +60,19 @@ class SDKTestViewController: UIViewController {
     batteryLevelLabel.text = "0"
   }
 
+  private func setupDeviceInformation() {
+    productNameLabel.text = "Unknown"
+    deviceIdLabel.text = "Unknown"
+    hardwareVersionLabel.text = "Unknown"
+    firmwareVersionLabel.text = "Unknown"
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Action
   //----------------------------------------------------------------------------
 
   @IBAction func startScan(_ sender: UIButton) {
-    sdk.startScanning()
+    sdk.connectToBlueetooth()
   }
 
   @IBAction func changeStreamingEEGState(_ sender: UISwitch) {
@@ -77,11 +91,23 @@ class SDKTestViewController: UIViewController {
 
 extension SDKTestViewController: MBTBLEBluetoothDelegate {
 
-  private func didConnect() {
+  func didBluetoothStateChange(isBluetoothOn: Bool) {
+
+  }
+
+
+  func didConnect() {
     print("BLE connection succeed!")
   }
 
-  private func didConnectionFail(error: Error?) {
+  func didConnect(deviceInformation: DeviceInformation) {
+    productNameLabel.text = deviceInformation.productName
+    deviceIdLabel.text = deviceInformation.deviceId
+    hardwareVersionLabel.text = deviceInformation.hardwareVersion.rawValue
+    firmwareVersionLabel.text = deviceInformation.firmwareVersion
+  }
+
+  func didConnectionFail(error: Error?) {
     print("BLE connection failed: ")
     if let error = error {
       print("With error")
@@ -89,7 +115,7 @@ extension SDKTestViewController: MBTBLEBluetoothDelegate {
     }
   }
 
-  private func didDisconnect(error: Error?) {
+  func didDisconnect(error: Error?) {
     print("BLE disconnected:")
     if let error = error {
       print("With error")
@@ -126,8 +152,8 @@ extension SDKTestViewController: MBTA2DPBluetoothDelegate {
 extension SDKTestViewController: MBTAcquisitionDelegate {
 
   func didUpdateBatteryLevel(_ levelBattery: Int) {
-    print("Battery level: \(levelBattery)")
-    batteryLevelLabel.text = levelBattery
+    print("Battery level: \(levelBattery) %")
+    batteryLevelLabel.text = String(levelBattery)
   }
 
   func didUpdateSaturationStatus(_ status: Int) {
@@ -139,7 +165,7 @@ extension SDKTestViewController: MBTAcquisitionDelegate {
   }
 
   func didUpdateEEGRawData(_ data: Data) {
-    print("EEg raw data: \(levelBattery)")
+    print("EEg raw data: \(data)")
   }
 
 }

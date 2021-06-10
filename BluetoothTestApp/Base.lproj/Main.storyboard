@@ -58,20 +58,20 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCX-a8-v6N">
-                                        <rect key="frame" x="190" y="0.0" width="34" height="757"/>
+                                        <rect key="frame" x="190" y="0.0" width="34" height="654.5"/>
                                         <state key="normal" title="Start"/>
                                         <connections>
                                             <action selector="startScan:" destination="jh1-uc-fwc" eventType="touchUpInside" id="ePw-SF-QmA"/>
                                         </connections>
                                     </button>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="4lc-FC-cYH">
-                                        <rect key="frame" x="182.5" y="757" width="51" height="31"/>
+                                        <rect key="frame" x="182.5" y="654.5" width="51" height="31"/>
                                         <connections>
                                             <action selector="changeStreamingEEGState:" destination="jh1-uc-fwc" eventType="valueChanged" id="7gB-7t-7Dt"/>
                                         </connections>
                                     </switch>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="odx-KM-5vJ">
-                                        <rect key="frame" x="0.0" y="788" width="414" height="30"/>
+                                        <rect key="frame" x="0.0" y="685.5" width="414" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-yD-upX">
                                                 <rect key="frame" x="0.0" y="0.0" width="207" height="30"/>
@@ -88,6 +88,44 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hpM-cC-wSK">
+                                        <rect key="frame" x="186.5" y="715.5" width="41.5" height="82"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2Q-5V-VDM">
+                                                <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hIL-MW-TFw">
+                                                <rect key="frame" x="0.0" y="20.5" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jqa-sa-x0U">
+                                                <rect key="frame" x="0.0" y="41" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sw4-cZ-CEP">
+                                                <rect key="frame" x="0.0" y="61.5" width="41.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1j-Sh-di5">
+                                        <rect key="frame" x="186.5" y="797.5" width="41.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="odx-KM-5vJ" firstAttribute="width" secondItem="CQY-sF-3FE" secondAttribute="width" id="Fiu-wi-12o"/>
@@ -105,6 +143,11 @@
                     </view>
                     <connections>
                         <outlet property="batteryLevelLabel" destination="xIS-s8-PO0" id="YMr-Cx-M5c"/>
+                        <outlet property="deviceIdLabel" destination="hIL-MW-TFw" id="K8M-wy-sf9"/>
+                        <outlet property="eegRawDataLabel" destination="m1j-Sh-di5" id="FaT-cv-c69"/>
+                        <outlet property="firmwareVersionLabel" destination="sw4-cZ-CEP" id="nhl-Ap-ahE"/>
+                        <outlet property="hardwareVersionLabel" destination="jqa-sa-x0U" id="5V5-oX-4hv"/>
+                        <outlet property="productNameLabel" destination="W2Q-5V-VDM" id="43v-DF-m0L"/>
                         <outlet property="scanningButton" destination="GCX-a8-v6N" id="kAD-D6-aav"/>
                     </connections>
                 </viewController>
