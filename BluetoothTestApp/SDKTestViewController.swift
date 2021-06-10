@@ -153,7 +153,7 @@ extension SDKTestViewController: MBTAcquisitionDelegate {
 
   func didUpdateBatteryLevel(_ levelBattery: Int) {
     print("Battery level: \(levelBattery) %")
-    batteryLevelLabel.text = String(levelBattery)
+    batteryLevelLabel.text = String("\(levelBattery) %")
   }
 
   func didUpdateSaturationStatus(_ status: Int) {
@@ -166,6 +166,7 @@ extension SDKTestViewController: MBTAcquisitionDelegate {
 
   func didUpdateEEGRawData(_ data: Data) {
     print("EEg raw data: \(data)")
+    eegRawDataLabel.text = String(data: data, encoding: .utf8)
   }
 
 }
