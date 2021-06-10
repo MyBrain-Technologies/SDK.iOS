@@ -362,7 +362,6 @@ internal class MBTPeripheral: NSObject {
   private(set) var bluetoothAuthorization = BluetoothAuthorization.undetermined
   private(set) var bluetoothState = BluetoothState.undetermined
 
-
   /******************** Notifications ********************/
 
   /// Enable or disable headset EEG notifications.
@@ -663,7 +662,9 @@ internal class MBTPeripheral: NSObject {
     of peripheral: CBPeripheral,
     for characteristic: CBCharacteristic,
     error: Error?) {
-
+    print("Notification activated for:")
+    print(characteristic)
+    print("With error: \(error?.localizedDescription)")
   }
 
   //----------------------------------------------------------------------------
@@ -1258,7 +1259,7 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       #warning("TODO: Handle unknown error")
 
       if let error = error {
-        log.error("📲 Transfer failed", context: error)
+        log.error("📲 A2DP Transfer failed", context: error)
         delegate?.didFail(with: error)
 //        if isOADInProgress {
 //          eventDelegate?.onUpdateFailWithError?(error)
