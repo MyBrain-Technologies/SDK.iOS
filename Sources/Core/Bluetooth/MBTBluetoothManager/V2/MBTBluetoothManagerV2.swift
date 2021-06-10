@@ -18,8 +18,11 @@ public class MBTBluetoothManagerV2 {
     return central.state
   }
 
-
   /******************** Device ********************/
+
+  public var hasConnectedDevice: Bool {
+    return currentPeripheral?.peripheral != nil
+  }
 
   public var currentPeripheralInformation: DeviceInformation? {
     return currentPeripheral?.information
@@ -121,6 +124,15 @@ public class MBTBluetoothManagerV2 {
   public func disconnect() {
     stopScanning()
     currentPeripheral = nil
+  }
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - Command
+  //----------------------------------------------------------------------------
+
+  public func requestBatteryLevel() {
+    currentPeripheral?.requestBatteryLevel()
   }
 
 }
@@ -629,6 +641,15 @@ internal class MBTPeripheral: NSObject {
     for characteristic: CBCharacteristic,
     error: Error?) {
 
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Commands
+  //----------------------------------------------------------------------------
+
+  func requestBatteryLevel() {
+    guard state == .ready else { return }
+    peripheralCommunicator?.readDeviceState()
   }
 
 }
