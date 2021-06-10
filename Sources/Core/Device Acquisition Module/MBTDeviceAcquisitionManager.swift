@@ -8,6 +8,7 @@ import CoreBluetooth
  * Such as EEG, device info, battery level ...
  *
  ******************************************************************************/
+
 internal class MBTDeviceAcquisitionManager: NSObject {
 
   //----------------------------------------------------------------------------

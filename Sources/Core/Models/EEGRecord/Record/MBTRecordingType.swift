@@ -17,6 +17,7 @@ public class MBTRecordingType {
 
   /// Signal Processing Version
   internal var spVersion: String = ""
+
   /// Data Source cf enum *MBTDataSource*
   public var source: MBTDataSource
 
@@ -25,6 +26,7 @@ public class MBTRecordingType {
 
   /********************  Computed properties ********************/
 
+  #warning("TODO: Use directly EEGRecordType. MBTRecordingType is useless.")
   var eegRecordType: EEGRecordType {
     return EEGRecordType(recordType: recordType,
                          source: source,
@@ -45,7 +47,8 @@ public class MBTRecordingType {
     spVersion = MBTQualityCheckerBridge.getVersion()
   }
 
-  /// Create a *MBTRecordingType* with provided RecordType, spVersion, Source, dataType
+  /// Create a *MBTRecordingType* with provided RecordType, spVersion, Source,
+  /// dataType
   public init(_ recordType: MBTRecordType,
               source: MBTDataSource,
               dataType: MBTDataType) {
@@ -54,32 +57,4 @@ public class MBTRecordingType {
     self.dataType = dataType
     self.spVersion = MBTQualityCheckerBridge.getVersion()
   }
-}
-
-/// enum of Data Source
-public enum MBTDataSource: String, Codable {
-  case FREESESSION = "FREESESSION"
-  case RELAXPROGRAM = "RELAX_PROGRAM"
-  case DEFAULT = "DEFAULT"
-}
-
-/// enum of DataType
-public enum MBTDataType: String, Codable {
-  case DEFAULT
-  case JOURNEY
-  case SWITCH
-  case STABILITY
-}
-
-///enum of Record Type
-public enum MBTRecordType: String, Codable {
-  case adjustement = "ADJUSTMENT"
-  case calibration = "CALIBRATION"
-  case session = "SESSION"
-  case rawdata = "RAWDATA"
-  case study = "STUDY"
-  case restingStatePreSessionEyesClosed = "RESTING_STATE_PRE_SESSION_EYES_CLOSED"
-  case restingStatePreSessionEyesOpen = "RESTING_STATE_PRE_SESSION_EYES_OPEN"
-  case restingStatePostSessionEyesClosed = "RESTING_STATE_POST_SESSION_EYES_CLOSED"
-  case restingStatePostSessionEyesOpen = "RESTING_STATE_POST_SESSION_EYES_OPEN"
 }
