@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol MBTA2DPBluetoothDelegate {
+public protocol MBTA2DPBluetoothDelegate: class {
 
   /// Called when the MBT Headset audio A2DP get connected.
   func didAudioA2DPConnect()

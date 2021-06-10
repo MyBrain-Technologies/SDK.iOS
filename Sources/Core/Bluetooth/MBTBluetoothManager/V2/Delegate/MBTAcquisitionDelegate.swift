@@ -1,14 +1,6 @@
-//
-//  MBTAcquisitionDelegate.swift
-//  MyBrainTechnologiesSDK-iOS
-//
-//  Created by Laurent on 02/06/2021.
-//  Copyright © 2021 MyBrainTechnologies. All rights reserved.
-//
-
 import Foundation
 
-public protocol MBTAcquisitionDelegate {
+public protocol MBTAcquisitionDelegate: class {
 
   func didUpdateBatteryLevel(_ levelBattery: Int)
 
@@ -27,5 +19,17 @@ public protocol MBTAcquisitionDelegate {
   func didUpdateEEGData(_ eegPacket: MBTEEGPacket)
 
   func didUpdateEEGRawData(_ data: Data)
+
+}
+
+extension MBTAcquisitionDelegate {
+
+  func didUpdateBatteryLevel(_ levelBattery: Int) { }
+
+  func didUpdateSaturationStatus(_ status: Int)  { }
+
+  func didUpdateEEGData(_ eegPacket: MBTEEGPacket) { }
+
+  func didUpdateEEGRawData(_ data: Data) { }
 
 }
