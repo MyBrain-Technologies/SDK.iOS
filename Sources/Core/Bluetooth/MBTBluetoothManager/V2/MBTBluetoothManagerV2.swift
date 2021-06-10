@@ -10,6 +10,8 @@ public class MBTBluetoothManagerV2 {
 
   /******************** Central ********************/
 
+  private let central = BluetoothCentral()
+
   var authorization: BluetoothAuthorization {
     return central.authorization
   }
@@ -19,6 +21,9 @@ public class MBTBluetoothManagerV2 {
   }
 
   /******************** Device ********************/
+
+  #warning("TODO: Remove optional?")
+  private var currentPeripheral: MBTPeripheral?
 
   public var hasConnectedDevice: Bool {
     return currentPeripheral?.peripheral != nil
@@ -47,13 +52,11 @@ public class MBTBluetoothManagerV2 {
 
   /******************** Delegate ********************/
 
-  /// The MBTBluetooth Event Delegate.
-  weak var eventDelegate: MBTBluetoothEventDelegate?
+  weak var bleDelegate: MBTBLEBluetoothDelegate?
 
-  private let central = BluetoothCentral()
+  weak var a2dpDelegate: MBTA2DPBluetoothDelegate?
 
-  #warning("TODO: Remove optional?")
-  private var currentPeripheral: MBTPeripheral?
+  weak var acquisitionDelegate: MBTBluetoothAcquisitionDelegate?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -79,11 +82,11 @@ public class MBTBluetoothManagerV2 {
     }
 
     central.didConnectionFail = { [weak self] error in
-      self?.eventDelegate?.onConnectionFailed?(error)
+      self?.bleDelegate?.didConnectionFail(error: error)
     }
 
     central.didDisconnect = { [weak self] peripheral, error in
-      self?.eventDelegate?.onConnectionBLEOff?(error)
+      self?.bleDelegate?.didDisconnect(error: error)
     }
   }
 
@@ -113,6 +116,7 @@ public class MBTBluetoothManagerV2 {
 
   private func handleConnection(to newPeripheral: CBPeripheral) {
     print("Central connected to \(newPeripheral)")
+    bleDelegate?.didConnect()
     currentPeripheral = MBTPeripheral()
     currentPeripheral?.peripheral = newPeripheral
     currentPeripheral?.delegate = self
@@ -145,6 +149,7 @@ public class MBTBluetoothManagerV2 {
 }
 
 extension MBTBluetoothManagerV2: PeripheralDelegate {
+
   func didValueUpdate(BrainData: Data) {
 
   }
@@ -162,11 +167,11 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
   }
 
   func didA2DPConnect() {
-    print("A2DP connected")
+    a2dpDelegate?.didAudioA2DPConnect()
   }
 
-  func didA2DPDisconnect() {
-
+  func didA2DPDisconnect(error: Error?) {
+    a2dpDelegate?.didAudioA2DPDisconnect(error: error)
   }
 
   func didConnect() {
@@ -282,7 +287,7 @@ protocol PeripheralDelegate: class {
 
   func didRequestA2DPConnection()
   func didA2DPConnect()
-  func didA2DPDisconnect()
+  func didA2DPDisconnect(error: Error?)
 
   func didConnect()
 
