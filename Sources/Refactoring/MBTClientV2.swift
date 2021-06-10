@@ -1,74 +1,106 @@
 import Foundation
 
 /*******************************************************************************
- * MBTClient
+ * MBTClientV2
  *
  * MBT engine to implement to work with the headset.
  *
  ******************************************************************************/
+
+#warning("RENAME `Acquiser` to `acquirer`")
+
 public class MBTClientV2 {
-//
-//  //----------------------------------------------------------------------------
-//  // MARK: - Properties
-//  //----------------------------------------------------------------------------
-//
-//  /// Singleton of MBTClient
-//  public static let shared: MBTClientV2 = MBTClientV2()
-//
-//  /******************** Managers ********************/
-//
-//  /// Init a MBTBluetoothManager, which deals with
-//  /// the MBT headset bluetooth.
-//  internal let bluetoothManager = MBTBluetoothManagerV2()
-//
-//  /// Init a MBTEEGAcquisitionManager, which deals with
-//  /// data from the MBT Headset.
-//  internal let eegAcquisitionManager: EegAcquiser?
-//
-//  /// Init a MBTDeviceAcquisitionManager, which deals with
-//  /// data from the MBT Headset.
-//  internal let deviceAcquisitionManager: MBTDeviceAcquisitionManager = .shared
-//
-//  /// Init a MBTSignalProcessingManager, which deals with
-//  /// the Signal Processing Library (via the bridge).
-//  internal let signalProcessingManager = SignalProcessingManager()
-//
-//  internal let eegPacketManager = EEGPacketManagerV2()
-//
-//  /******************** Acquisition ********************/
-//
-//  internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
-//
-//  public var isEegAcqusitionRecordingPaused: Bool {
-//    set { eegAcquisitionManager?.isRecording = newValue }
-//    get { return eegAcquisitionManager.isRecording }
-//  }
-//
-//  /// Legacy called history_size. Number of eegpackets used to compute some dark informations
-//  /// on the C++ algorithms.
-//  public let acquisitionhistorySize = Constants.EEGPackets.historySize
-//
-//  /******************** Bluetooth ********************/
-//
-//  public var isBluetoothOn: Bool {
-//    return bluetoothManager.state // or bluetoothManager.authorization
-//    return bluetoothManager.bluetoothStatesHistory.isPoweredOn
-//  }
-//
-//  public var isConnected: Bool {
-//    return bluetoothManager.isAudioAndBLEConnected
-//  }
-//
-//  public var bluetoothAuthorization: BluetoothAuthorization {
-//    return bluetoothManager.bluetoothAuthorization
-//  }
-//
-//  public var bluetoothState: BluetoothState {
-//    return bluetoothManager.bluetoothState
-//  }
-//
-//  /******************** Delegates ********************/
-//
+
+  //----------------------------------------------------------------------------
+  // MARK: - Error
+  //----------------------------------------------------------------------------
+
+  enum SDKError: Error {
+    case noConnectedHeadset
+    case noEegAcquiser
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  /// Singleton of MBTClient
+  public static let shared: MBTClientV2 = MBTClientV2()
+
+  /******************** Managers ********************/
+
+  /// Init a MBTBluetoothManager, which deals with
+  /// the MBT headset bluetooth.
+  internal let bluetoothManager = MBTBluetoothManagerV2()
+
+  /// Init a MBTEEGAcquisitionManager, which deals with
+  /// data from the MBT Headset.
+  internal let eegAcquisitionManager: EegAcquiser?
+
+  /// Init a MBTSignalProcessingManager, which deals with
+  /// the Signal Processing Library (via the bridge).
+  internal let signalProcessingManager = SignalProcessingManager()
+
+  internal let eegPacketManager = EEGPacketManagerV2()
+
+  /******************** Acquisition ********************/
+
+  internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
+
+  public var isEegAcqusitionRecordingPaused: Bool {
+    set { eegAcquisitionManager?.isRecording = newValue }
+    get { return eegAcquisitionManager?.isRecording ?? false }
+  }
+
+  /// Legacy called history_size. Number of eegpackets used to compute some
+  /// dark informations on the C++ algorithms.
+  public let acquisitionhistorySize = Constants.EEGPackets.historySize
+
+  /******************** Bluetooth ********************/
+
+  public var isBluetoothOn: Bool {
+    return bluetoothManager.state == .poweredOn // or bluetoothManager.authorization
+  }
+
+  public var isConnected: Bool {
+    return bluetoothManager.hasConnectedDevice
+  }
+
+  public var bluetoothAuthorization: BluetoothAuthorization {
+    return bluetoothManager.authorization
+  }
+
+  public var bluetoothState: BluetoothState {
+    return bluetoothManager.state
+  }
+
+  /// BLE device Name of connected melomind, nil otherwise.
+  public var deviceNameBLE: String? {
+    #warning("TO check")
+    return deviceInformation?.productName
+  }
+
+  /// A2DP device Name of connected melomind (A2DP), nil otherwise.
+  public var deviceNameA2DP: String? {
+    return bluetoothManager.currentDeviceA2DPName
+  }
+
+  /// Device information of the current connected headset.
+  public var deviceInformation: DeviceInformation? {
+    return bluetoothManager.currentDeviceInformation
+  }
+
+  /// Getter for Device Name of the MBT headset.
+  ///
+  /// - Returns: A *String* instance of the device's name, or nil if no instance
+  /// yet.
+  public var deviceName: String? {
+    #warning("TO check")
+    return deviceInformation?.productName
+  }
+
+  /******************** Delegates ********************/
+
 //  public weak var bluetoothEventDelegate: MBTBluetoothEventDelegate? {
 //    didSet { bluetoothManager.eventDelegate = bluetoothEventDelegate }
 //  }
@@ -84,109 +116,99 @@ public class MBTClientV2 {
 //  public weak var deviceAcqusitionDelegate: MBTDeviceAcquisitionDelegate? {
 //    didSet { deviceAcquisitionManager.delegate = deviceAcqusitionDelegate }
 //  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Initialization
+  //----------------------------------------------------------------------------
+
+  private init() {
+    initLog(logToFile: false, isDebugMode: false)
+    setup()
+  }
+
+  private func setup() {
+    setupBluetoothManager()
+  }
+
+  private func setupBluetoothManager() {
+//    if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
+//      !bluetoothManager.isAudioAndBLEConnected {
+//      bluetoothManager.connectTo(deviceName)
+//    }
 //
-//  //----------------------------------------------------------------------------
-//  // MARK: - Initialization
-//  //----------------------------------------------------------------------------
+//    bluetoothManager.didReceiveBrainData = { [weak self] brainData in
+//      self?.eegAcquisitionManager.processBrainActivity(data: brainData)
+//    }
 //
-//  private init() {
-//    initLog(logToFile: false, isDebugMode: false)
-//    setup()
-//  }
-//
-//  private func setup() {
-//    setupBluetoothManager()
-//  }
-//
-//  private func setupBluetoothManager() {
-////    if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
-////      !bluetoothManager.isAudioAndBLEConnected {
-////      bluetoothManager.connectTo(deviceName)
-////    }
-////
-////    bluetoothManager.didReceiveBrainData = { [weak self] brainData in
-////      self?.eegAcquisitionManager.processBrainActivity(data: brainData)
-////    }
-////
-////    bluetoothManager.didReceiveHeadsetStatus = { [weak self] characteristic in
-////      self?.deviceAcquisitionManager.processHeadsetStatus(characteristic)
-////    }
-//
-//
-//  }
-//
-//  //----------------------------------------------------------------------------
-//  // MARK: - Connections
-//  //----------------------------------------------------------------------------
-//
-//  /// Connect to bluetooth LE profile of the MBT headset.
-//  /// BLE deals with EEG, but also OAD, device information,
-//  /// battery, etc.
-//  /// - Remark: deviceName is optional if deviceName isn't provided the
-//  /// MelomindEngine will connect to the first headset detected
-//  /// - Parameters:
-//  ///   - deviceName: The device Name Headset which be connect to the BLE
-//  ///   - delegate: The Melomind Engine Delegate which allow communication with
-//  ///   the Headset.
-//
-//  /// NOT USED
-//  public func connectEEG(_ deviceName: String? = nil,
-//                         withDelegate delegate: MelomindEngineDelegate) {
-//    setEEGDelegate(delegate)
-//    bluetoothManager.connectTo(deviceName)
-//  }
-//
-//  /// Connect to the audio part of the MBT Headset (using the A2DP
-//  /// bluetooth protocol).
-//  /// - Remark: Audio can't be connected from code. User has to connect to it
-//  /// through.
-//  /// - Remark: deviceName is optional if deviceName isn't provided the
-//  /// MelomindEngine will connect to the first headset detected
-//  /// settings, on the first time is using it.
-//  /// - Parameters:
-//  ///   - delegate: The Melomind Engine Delegate which allow communication with
-//  ///   the Headset.
-//  public func connectEEGAndA2DP(_ deviceName: String? = nil,
-//                                withDelegate delegate: MelomindEngineDelegate) {
-//    setEEGAndA2DPDelegate(delegate)
-//    bluetoothManager.connectTo(deviceName)
-//  }
-//
-//  /// Start the bluetooth connection process.
-//  /// - Parameters:
-//  ///   - named: The name of the device to connect (Bluetooth profile).
-//  public func connectToBlueetooth(named deviceName: String? = nil) {
-//    bluetoothManager.connectTo(deviceName)
-//  }
-//
-//  /// Disconnect the iDevice from the headset
-//  /// - Remark: The audio can't be disconnect from code.
-//  public func cancelConnection() {
-//    bluetoothManager.disconnect()
-//  }
-//
-//  //----------------------------------------------------------------------------
-//  // MARK: - Getters
-//  //----------------------------------------------------------------------------
-//
-//  // TODO: Use computed variables instead.
-//
-//  /// Get BLE device Name.
-//  ///
-//  /// - Returns: A *String* instance of BLE device Name or nil if no melomind is
-//  /// connected (BLE).
-//  public func getDeviceNameBLE() -> String? {
-//     return bluetoothManager.getBLEDeviceNameFromA2DP()
-//  }
-//
-//  /// Get A2DP device Name.
-//  ///
-//  /// - Returns: A *String* instance of A2DP device Name or nil if no melomind
-//  /// is connected (A2DP).
-//  public func getDeviceNameA2DP() -> String? {
-//    return bluetoothManager.getA2DPDeviceName()
-//  }
-//
+//    bluetoothManager.didReceiveHeadsetStatus = { [weak self] characteristic in
+//      self?.deviceAcquisitionManager.processHeadsetStatus(characteristic)
+//    }
+
+
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Bluetooth connections
+  //----------------------------------------------------------------------------
+
+  /// Connect to bluetooth LE profile of the MBT headset.
+  /// BLE deals with EEG, but also OAD, device information,
+  /// battery, etc.
+  /// - Remark: deviceName is optional if deviceName isn't provided the
+  /// MelomindEngine will connect to the first headset detected
+  /// - Parameters:
+  ///   - deviceName: The device Name Headset which be connect to the BLE
+  ///   - delegate: The Melomind Engine Delegate which allow communication with
+  ///   the Headset.
+
+  /// NOT USED
+  public func connectEEG(_ deviceName: String? = nil,
+                         withDelegate delegate: MelomindEngineDelegate) {
+    setEEGDelegate(delegate)
+    bluetoothManager.startScanning()
+  }
+
+  /// Connect to the audio part of the MBT Headset (using the A2DP
+  /// bluetooth protocol).
+  /// - Remark: Audio can't be connected from code. User has to connect to it
+  /// through.
+  /// - Remark: deviceName is optional if deviceName isn't provided the
+  /// MelomindEngine will connect to the first headset detected
+  /// settings, on the first time is using it.
+  /// - Parameters:
+  ///   - delegate: The Melomind Engine Delegate which allow communication with
+  ///   the Headset.
+  public func connectEEGAndA2DP(_ deviceName: String? = nil,
+                                withDelegate delegate: MelomindEngineDelegate) {
+    setEEGAndA2DPDelegate(delegate)
+    bluetoothManager.startScanning()
+  }
+
+  /// Start the bluetooth connection process.
+  /// - Parameters:
+  ///   - named: The name of the device to connect (Bluetooth profile).
+  public func connectToBlueetooth(named deviceName: String? = nil) {
+    bluetoothManager.startScanning()
+  }
+
+  /// Disconnect the iDevice from the headset
+  /// - Remark: The audio can't be disconnect from code.
+  public func cancelConnection() {
+    bluetoothManager.disconnect()
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Bluetooth commands
+  //----------------------------------------------------------------------------
+
+  /// Ask to read BatteryStatus
+  /// - Remark: Data will be provided through the MelomineEngineDelegate.
+  public func readBatteryStatus() {
+    bluetoothManager.requestBatteryLevel()
+  }
+
+
+  #warning("QRCode or serialNumber ??????")
 //  /// GET A2DP Device Name for an unpaired device (not connected in A2DP).
 //  ///
 //  /// - Returns: A *String* instance of A2DP device Name for an unpaired device
@@ -194,7 +216,7 @@ public class MBTClientV2 {
 //  public func getUnpairedDeviceNameA2DP() -> String? {
 //    return bluetoothManager.getA2DPDeviceNameFromBLE()
 //  }
-//
+
 //  /// Get the QRCode of the current connected device
 //  ///
 //  /// - Returns: A *String* instance of connected device's QR Code
@@ -212,7 +234,7 @@ public class MBTClientV2 {
 //    MBTQRCodeSerial.shared.setQrCodeAndSerialNumber(qrCode: qrCode,
 //                                                    serialNumber: serialNumber)
 //  }
-//
+
 //  #warning("TODO: Remove")
 //  /// Get the latest battery level saved in DB.
 //  ///
@@ -221,89 +243,68 @@ public class MBTClientV2 {
 //  public func getBatteryLevel() -> Int? {
 //    return DeviceManager.getCurrentDevice()?.batteryLevel
 //  }
-//
-//  /// Getter for device informations of the MBT headset.
-//  /// - Returns: A *MBTDeviceInformations* instance of the connected headset if
-//  /// no melomind is connected (BLE).
-//  public func getDeviceInformations() -> MBTDeviceInformations? {
-//    return DeviceManager.deviceInformation
-//  }
-//
-//  /// Getter for Device Name of the MBT headset.
-//  ///
-//  /// - Returns: A *String* instance of the device's name, or nil if no instance
-//  /// yet.
-//  public func getDeviceName() -> String? {
-//    return DeviceManager.connectedDeviceName
-//  }
-//
-//  /// Getter Names of all regitered devices.
-//  /// - Returns: A *[String]* instance of array of deviceName.
-//  public func getRegisteredDevices() -> [MBTDevice] {
-//    var tabDeviceName = [MBTDevice]()
-//
-//    for device in DeviceManager.registeredDevices {
-//      tabDeviceName.append(device)
-//    }
-//
-//    return tabDeviceName
-//  }
-//
-//  //----------------------------------------------------------------------------
-//  // MARK: - JSON EEG
-//  //----------------------------------------------------------------------------
-//
-//  /// Send JSON File
-//  public func sendEEGFile(_ urlFile: URL,
-//                          baseUrl: String,
-//                          removeFile: Bool,
-//                          accessTokens: String) {
-//    BrainwebRequest.shared.accessTokens = accessTokens
-//    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl) { success in
-//      guard success && removeFile else { return }
-//      RecordFileSaver.shared.removeRecord(at: urlFile)
-//    }
-//  }
-//
-//  /// Save the DB recording on file  ///
-//  /// - Parameters:
-//  ///   - idUser: A *Int* instance of the id user
-//  ///   - comments: A *[String]* instance of comments
-//  ///   - completion: A *URL* instance of the saved file, or nil if file is not
-//  ///   created and save
-//  public func saveRecordingOnFile(_ idUser: Int,
-//                                  algo: String? = nil,
-//                                  comments: [String] = [String](),
-//                                  completion: @escaping (URL?) -> Void) {
-//    guard let device = DeviceManager.getCurrentDevice() else {
-//      log.error("Current device not found")
-//      completion(nil)
-//      return
-//    }
-//
-//    guard let eegAcquisitionManager = eegAcquisitionManager else {
-//      log.error("eegAcquisitionManager not found")
-//      completion(nil)
-//      return
-//    }
-//
-//    eegAcquisitionManager.saveRecording(
-//      userId: idUser,
-//      algo: algo,
-//      comments: comments,
-//      device: device,
-//      recordingInformation: recordInfo,
-//      recordFileSaver: RecordFileSaver.shared,
-//      completion: completion
-//    )
-//  }
-//
-//  //----------------------------------------------------------------------------
-//  // MARK: - Setters
-//  //----------------------------------------------------------------------------
-//
-//  // TODO: Use variable.
-//
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - Network
+  //----------------------------------------------------------------------------
+
+  /// Send JSON File
+  public func sendEEGFile(_ urlFile: URL,
+                          baseUrl: String,
+                          removeFile: Bool,
+                          accessTokens: String) {
+    BrainwebRequest.shared.accessTokens = accessTokens
+    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl) { success in
+      guard success && removeFile else { return }
+      RecordFileSaver.shared.removeRecord(at: urlFile)
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Saving
+  //----------------------------------------------------------------------------
+
+  /// Save the DB recording on file  ///
+  /// - Parameters:
+  ///   - idUser: A *Int* instance of the id user
+  ///   - comments: A *[String]* instance of comments
+  ///   - completion: A *URL* instance of the saved file, or nil if file is not
+  ///   created and save
+  public func saveRecordingOnFile(
+    idUser: Int,
+    algo: String? = nil,
+    comments: [String] = [String](),
+    completion: @escaping (Result<URL, Error>) -> Void
+  ) {
+
+    guard let deviceInformation = deviceInformation else {
+      log.error("Current device not found")
+      completion(.failure(SDKError.noConnectedHeadset))
+      return
+    }
+
+    guard let eegAcquisitionManager = eegAcquisitionManager else {
+      log.error("eegAcquisitionManager not found")
+      completion(.failure(SDKError.noEegAcquiser))
+      return
+    }
+
+    eegAcquisitionManager.saveRecording(userId: idUser,
+                                        algo: algo,
+                                        comments: comments,
+                                        device: deviceInformation,
+                                        recordingInformation: recordInfo,
+                                        recordFileSaver: .shared,
+                                        completion: completion)
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Setters
+  //----------------------------------------------------------------------------
+
+  // TODO: Use variable.
+
 //  /// Set delegate to EEGAcquistionManager, DeviceAcquisitionManager &
 //  /// BluetoothManager (event Delegate).
 //  ///
@@ -329,19 +330,13 @@ public class MBTClientV2 {
 //    bluetoothManager.eventDelegate = delegate
 //    bluetoothManager.audioA2DPDelegate = delegate
 //  }
-//
-//  //----------------------------------------------------------------------------
-//  // MARK: - BluetoothManager
-//  //----------------------------------------------------------------------------
-//
-//  /// Ask to read BatteryStatus
-//  /// - Remark: Data will be provided through the MelomineEngineDelegate.
-//  public func readBatteryStatus() {
-//    guard DeviceManager.connectedDeviceName != nil else { return }
-////    bluetoothManager.requestUpdateBatteryLevel()
-//    bluetoothManager.requestBatteryLevel()
-//  }
-//
+
+  //----------------------------------------------------------------------------
+  // MARK: - BluetoothManager
+  //----------------------------------------------------------------------------
+
+
+
 //  /// Stop the batteryLevel Event
 //  public func stopReceiveBatteryLevelEvent() {
 //    guard DeviceManager.connectedDeviceName != nil else { return }
@@ -353,7 +348,7 @@ public class MBTClientV2 {
 //    guard DeviceManager.connectedDeviceName != nil else { return }
 //    bluetoothManager.startBatteryLevelTimer()
 //  }
-//
+
 //  //----------------------------------------------------------------------------
 //  // MARK: - Acquisition Manager
 //  //----------------------------------------------------------------------------
@@ -371,7 +366,7 @@ public class MBTClientV2 {
 //  ///   - recordingType: Change the session's type
 //  @discardableResult
 //  public func startRecording(
-//    _ newRecord: Bool,
+//    asNewRecord newRecord: Bool,
 //    recordingType: MBTRecordingType = MBTRecordingType()
 //  ) -> UUID? {
 //    EEGPacketManager.shared.removeAllEEGPackets()
@@ -503,49 +498,49 @@ public class MBTClientV2 {
 //    return signalProcessingManager.analyseSession(inputSNR,
 //                                                  threshold: threshold)
 //  }
-//
-//}
-//
-//
-////==============================================================================
-//// MARK: - Analysis
-////==============================================================================
-//
-//extension MBTClientV2 {
-//
-//  /// Get the mean alpha power of the current session.
-//  /// Also populates sessionConfidence() data.
-//  public var sessionMeanAlphaPower: Float {
-//    return MBTMelomindAnalysis.sessionMeanAlphaPower()
-//  }
-//
-//  public var sessionMeanRelativeAlphaPower: Float {
-//    return MBTMelomindAnalysis.sessionMeanRelativeAlphaPower()
-//  }
-//
-//  /// Get the confidence rate of the current session.
-//  public var sessionConfidence: Float {
-//    return MBTMelomindAnalysis.sessionConfidence()
-//  }
-//
-//  /// Get the alpha powers of the current session.
-//  public var sessionAlphaPowers: [Float] {
-//    let alphaPowers = MBTMelomindAnalysis.sessionAlphaPowers()
-//    return alphaPowers?.filter { $0 is Float } as? [Float] ?? []
-//  }
-//
-//  /// Get the relative alpha powers of the current session.
-//  public var sessionRelativeAlphaPowers: [Float] {
-//    let relativeAlphaPowers = MBTMelomindAnalysis.sessionRelativeAlphaPowers()
-//    return relativeAlphaPowers?.filter { $0 is Float } as? [Float] ?? []
-//  }
-//
-//  /// Get qualities of the current session.
-//  /// Qualities are multiplexed by channels ([q1c1,q1c2,q2c1,q2c2,q3c1,...])
-//  /// CALL AFTER `sessionMeanAlphaPower` or `sessionMeanRelativeAlphaPower`.
-//  public var sessionQualities: [Float] {
-//    let qualities = MBTMelomindAnalysis.sessionQualities()
-//    return qualities?.filter { $0 is Float } as? [Float] ?? []
-//  }
+
+}
+
+
+//==============================================================================
+// MARK: - Analysis
+//==============================================================================
+
+extension MBTClientV2 {
+
+  /// Get the mean alpha power of the current session.
+  /// Also populates sessionConfidence() data.
+  public var sessionMeanAlphaPower: Float {
+    return MBTMelomindAnalysis.sessionMeanAlphaPower()
+  }
+
+  public var sessionMeanRelativeAlphaPower: Float {
+    return MBTMelomindAnalysis.sessionMeanRelativeAlphaPower()
+  }
+
+  /// Get the confidence rate of the current session.
+  public var sessionConfidence: Float {
+    return MBTMelomindAnalysis.sessionConfidence()
+  }
+
+  /// Get the alpha powers of the current session.
+  public var sessionAlphaPowers: [Float] {
+    let alphaPowers = MBTMelomindAnalysis.sessionAlphaPowers()
+    return alphaPowers?.filter { $0 is Float } as? [Float] ?? []
+  }
+
+  /// Get the relative alpha powers of the current session.
+  public var sessionRelativeAlphaPowers: [Float] {
+    let relativeAlphaPowers = MBTMelomindAnalysis.sessionRelativeAlphaPowers()
+    return relativeAlphaPowers?.filter { $0 is Float } as? [Float] ?? []
+  }
+
+  /// Get qualities of the current session.
+  /// Qualities are multiplexed by channels ([q1c1,q1c2,q2c1,q2c2,q3c1,...])
+  /// CALL AFTER `sessionMeanAlphaPower` or `sessionMeanRelativeAlphaPower`.
+  public var sessionQualities: [Float] {
+    let qualities = MBTMelomindAnalysis.sessionQualities()
+    return qualities?.filter { $0 is Float } as? [Float] ?? []
+  }
 
 }
