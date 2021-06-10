@@ -24,8 +24,12 @@ public class MBTBluetoothManagerV2 {
     return currentPeripheral?.peripheral != nil
   }
 
-  public var currentPeripheralInformation: DeviceInformation? {
+  public var currentDeviceInformation: DeviceInformation? {
     return currentPeripheral?.information
+  }
+
+  public var currentDeviceA2DPName: String? {
+    return currentPeripheral?.ad2pName
   }
 
   public var isListeningToEEG: Bool {
@@ -329,11 +333,10 @@ internal class MBTPeripheral: NSObject {
   }
 
   private(set) var information: DeviceInformation?
-  //  {
-  //    didSet {
-  //      peripheral?.discoverServices(nil)
-  //    }
-  //  }
+
+  var ad2pName: String? {
+    return a2dpConnector.a2dpName
+  }
 
   #warning("TODO: To remove")
   private let peripheralManager: CBPeripheralManager
@@ -1304,6 +1307,11 @@ class MBTPeripheralA2DPConnector {
 
   private var outputPortType: AVAudioSession.Port? {
     return output?.portType
+  }
+
+  var a2dpName: String? {
+    #warning("Move AudioOutputs functions here.")
+    return AudioOutputs().melomindOutput?.portName
   }
 
   /******************** Callbacks ********************/
