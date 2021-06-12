@@ -35,7 +35,7 @@ public class MBTClientV2 {
 
   /// Init a MBTEEGAcquisitionManager, which deals with
   /// data from the MBT Headset.
-  internal var eegAcquisitionManager: EegAcquiser?
+  internal var eegAcquiser: EegAcquiser?
 
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
@@ -48,8 +48,8 @@ public class MBTClientV2 {
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
 
   public var isEegAcqusitionRecordingPaused: Bool {
-    set { eegAcquisitionManager?.isRecording = newValue }
-    get { return eegAcquisitionManager?.isRecording ?? false }
+    set { eegAcquiser?.isRecording = newValue }
+    get { return eegAcquiser?.isRecording ?? false }
   }
 
   /// Legacy called history_size. Number of eegpackets used to compute some
@@ -99,10 +99,27 @@ public class MBTClientV2 {
     return deviceInformation?.productName
   }
 
-  public var isListeningToEEG: Bool {
+  internal var isListeningToEEG: Bool {
     set { bluetoothManager.isListeningToEEG = newValue }
     get { return bluetoothManager.isListeningToEEG }
   }
+
+  #warning("TO EVALUATE")
+//  public var batteryLevelUpdateInterval: TimeInterval? {
+//    didSet {
+//      //  /// Stop the batteryLevel Event
+//      //  public func stopReceiveBatteryLevelEvent() {
+//      //    guard DeviceManager.connectedDeviceName != nil else { return }
+//      //    bluetoothManager.timers.stopBatteryLevelTimer()
+//      //  }
+//      //
+//      //  /// Start the batteryLevel Event
+//      //  public func startReceiveBatteryLevelEvent() {
+//      //    guard DeviceManager.connectedDeviceName != nil else { return }
+//      //    bluetoothManager.startBatteryLevelTimer()
+//      //  }
+//    }
+//  }
 
   /******************** Delegates ********************/
 
@@ -115,12 +132,6 @@ public class MBTClientV2 {
   }
 
   public weak var acquisitionDelegate: MBTAcquisitionDelegate?
-
-
-//
-//  public weak var deviceAcqusitionDelegate: MBTDeviceAcquisitionDelegate? {
-//    didSet { deviceAcquisitionManager.delegate = deviceAcqusitionDelegate }
-//  }
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -291,19 +302,19 @@ public class MBTClientV2 {
       return
     }
 
-    guard let eegAcquisitionManager = eegAcquisitionManager else {
+    guard let eegAcquiser = eegAcquiser else {
       log.error("eegAcquisitionManager not found")
       completion(.failure(SDKError.noEegAcquiser))
       return
     }
 
-    eegAcquisitionManager.saveRecording(userId: idUser,
-                                        algo: algo,
-                                        comments: comments,
-                                        device: deviceInformation,
-                                        recordingInformation: recordInfo,
-                                        recordFileSaver: .shared,
-                                        completion: completion)
+    eegAcquiser.saveRecording(userId: idUser,
+                              algo: algo,
+                              comments: comments,
+                              device: deviceInformation,
+                              recordingInformation: recordInfo,
+                              recordFileSaver: .shared,
+                              completion: completion)
   }
 
   //----------------------------------------------------------------------------
@@ -338,36 +349,40 @@ public class MBTClientV2 {
 //    bluetoothManager.audioA2DPDelegate = delegate
 //  }
 
-  //----------------------------------------------------------------------------
-  // MARK: - BluetoothManager
-  //----------------------------------------------------------------------------
-
-
-
-//  /// Stop the batteryLevel Event
-//  public func stopReceiveBatteryLevelEvent() {
-//    guard DeviceManager.connectedDeviceName != nil else { return }
-//    bluetoothManager.timers.stopBatteryLevelTimer()
-//  }
-//
-//  /// Start the batteryLevel Event
-//  public func startReceiveBatteryLevelEvent() {
-//    guard DeviceManager.connectedDeviceName != nil else { return }
-//    bluetoothManager.startBatteryLevelTimer()
-//  }
-
 //  //----------------------------------------------------------------------------
 //  // MARK: - Acquisition Manager
 //  //----------------------------------------------------------------------------
-//
-//  /// Add delegate to Acquisition Manager.
-//  /// - Parameters:
-//  ///   - delegate: The Melomind Engine Delegate to get Headset datas.
-//  internal func initAcquisitionManager(with delegate: MelomindEngineDelegate) {
-//    eegAcquisitionManager?.delegate = delegate
-//    deviceAcquisitionManager.delegate = delegate
-//  }
-//
+
+    /// Start streaming EEG Data from MyBrainActivity Characteristic.
+    /// Start streaming headSet Data from HeadsetStatus Characteristic.
+    /// - Remark: Data will be provided through the MelomineEngineDelegate.
+    public func startStream(shouldUseQualityChecker: Bool) -> Bool {
+      guard isConnected,
+            let deviceInformation = bluetoothManager.currentDeviceInformation,
+            let eegAcquiser = eegAcquiser
+      else {
+        return false
+      }
+
+      eegAcquiser.startStream(
+        isUsingQualityChecker: shouldUseQualityChecker,
+        sampleRate: deviceInformation.acquisitionInformation.sampleRate
+      )
+      bluetoothManager.isListeningToEEG = true
+      bluetoothManager.isListeningToHeadsetStatus = true
+      return true
+    }
+
+    /// Stop streaming EEG Data to MelomineEngineDelegate.
+    /// Stop streaming headSet Data from MelomindEngineDelegate.
+    /// - Remark: a JSON will be created with all the MBTEEGPacket.
+    public func stopStream() {
+      bluetoothManager.isListeningToHeadsetStatus = false
+      bluetoothManager.isListeningToEEG = false
+      eegAcquiser?.stopStream()
+    }
+
+
 //  /// Start saving EEGPacket on DB  /// - Parameters:
 //  ///   - newRecord: Create a new recordId on the JSON File
 //  ///   - recordingType: Change the session's type
@@ -428,23 +443,13 @@ public class MBTClientV2 {
 //    bluetoothManager.startOAD(withDevice: DeviceManager.getCurrentDevice())
 //  }
 //
+  #warning("TODO: Use ")
 //  /// To know if a new headset firmware version is available.
 //  /// Asynchrone fonction call a block completion with an boolean argument.
 //  /// - Parameter completion: block completion call after getting melomind info.
 //  /// with boolean argument.
 //  public func isMelomindNeedToBeUpdate() -> Bool? {
 //    return DeviceManager.getCurrentDevice()?.shouldUpdateFirmware
-//  }
-//
-//  //----------------------------------------------------------------------------
-//  // MARK: - Upload
-//  //----------------------------------------------------------------------------
-//
-//  /// Remove a specific Device.
-//  /// parameters:
-//  ///   - deviceName: The Device name which will be remove from DB.
-//  public func removeDevice(_ deviceName: String) -> Bool {
-//    return DeviceManager.removeDevice(deviceName)
 //  }
 //
 //  //----------------------------------------------------------------------------

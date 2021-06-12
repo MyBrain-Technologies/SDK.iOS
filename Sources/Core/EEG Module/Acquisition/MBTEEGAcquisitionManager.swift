@@ -167,7 +167,7 @@ internal class EegAcquiser {
   /********************  Parameters ********************/
 
   /// Bool to know if developer wants to use QC or not.
-  var hasQualityChecker: Bool = false
+  private(set) var hasQualityChecker: Bool = false
 
   /// if the sdk record in DB EEGPacket
   var isRecording: Bool = false
