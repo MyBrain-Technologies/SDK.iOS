@@ -463,6 +463,8 @@ public class MBTClientV2 {
   // MARK: - Signal Processing Manager
   //----------------------------------------------------------------------------
 
+  // Calibration
+
   /// Compute calibration with the last 'n' complete packets.
   /// - Parameters:
   ///   - n: Number of complete packets to take to compute the calibration.
@@ -485,27 +487,26 @@ public class MBTClientV2 {
     )
   }
 
-//  /// computeRelaxIndex
-//  ///
-//  /// - Returns: RelaxIndex
-//  public func computeRelaxIndex() -> Float? {
-//    let eegPacketCount = EEGPacketManager.shared.getEEGPackets().count
-//
-//    #warning("Condition is not the same as inside `computeRelaxIndex`. Here: getEEGPackets().count, return nil. Inside: lastPackets.count, return 0")
-//    let isEegPacketsCountHigherThanHistorySize =
-//      eegPacketCount >= Constants.EEGPackets.historySize
-//
-//    guard isEegPacketsCountHigherThanHistorySize,
-//          let currentDevice = DeviceManager.getCurrentDevice() else {
-//      return nil
-//    }
-//
-//    return signalProcessingManager.computeRelaxIndex(
-//      eegPacketManager: eegPacketManager,
-//      sampleRate: currentDevice.sampRate,
-//      channelCount: currentDevice.nbChannels
-//    )
-//  }
+  // Exercise, Resting state
+
+  /// computeRelaxIndex
+  ///
+  /// - Returns: RelaxIndex
+  public func computeRelaxIndex() -> Float? {
+    let packetCount = Constants.EEGPackets.historySize
+    guard let deviceInformation = deviceInformation,
+          let eegPackets =
+            eegPacketManager.getLastNPacketsCompleteIfAvailable(packetCount)
+    else {
+      return nil
+    }
+
+    return signalProcessingManager.computeRelaxIndex(
+      eegPackets: eegPackets,
+      sampleRate: deviceInformation.acquisitionInformation.sampleRate,
+      channelCount: deviceInformation.acquisitionInformation.channelCount
+    )
+  }
 
   /// ComputeSessionStatistics
   public func computeSessionStatistics(snrValues: [Float],

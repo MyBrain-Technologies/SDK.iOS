@@ -320,17 +320,11 @@ extension SignalProcessingManager {
 
 extension SignalProcessingManager {
 
-  func computeRelaxIndex(eegPacketManager: EEGPacketManagerV2,
+  func computeRelaxIndex(eegPackets: [MBTEEGPacket],
                          sampleRate: Int,
                          channelCount: Int) -> Float? {
     if calibrationComputed == nil { return 0 }
-
-    let packetCount = Constants.EEGPackets.historySize
-    let packets = eegPacketManager.getLastNPacketsComplete(packetCount)
-
-    guard packets.count >= packetCount else { return 0 }
-
-    return EEGToRelaxIndexProcessor.computeRelaxIndex(from: packets,
+    return EEGToRelaxIndexProcessor.computeRelaxIndex(from: eegPackets,
                                                       sampRate: sampleRate,
                                                       nbChannels: channelCount)
   }
@@ -347,7 +341,7 @@ extension SignalProcessingManager {
   func analyseSession(snrValues: [Float],
                       threshold: Float) -> [String: Float] {
     guard snrValues.count > 3 else { return [:] }
-    
+
     //Perform the computation
     let sessionAnalysisValues =
       MBTSNRStatisticsBridge.computeSessionStatistics(snrValues,
