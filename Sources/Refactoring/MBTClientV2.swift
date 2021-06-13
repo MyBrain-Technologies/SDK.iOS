@@ -56,6 +56,10 @@ public class MBTClientV2 {
   /// dark informations on the C++ algorithms.
   public let acquisitionhistorySize = Constants.EEGPackets.historySize
 
+  /******************** Recording ********************/
+
+  private(set) var recordingType: MBTRecordType?
+
   /******************** Bluetooth ********************/
 
   public var isBluetoothOn: Bool {
@@ -382,30 +386,29 @@ public class MBTClientV2 {
       eegAcquiser?.stopStream()
     }
 
+  /// Start saving EEGPacket on DB  /// - Parameters:
+  ///   - newRecord: Create a new recordId on the JSON File
+  ///   - recordingType: Change the session's type
+  @discardableResult
+  public func startRecording(
+    asNewRecord newRecord: Bool,
+    recordingType: MBTRecordingType = MBTRecordingType()
+  ) -> UUID? {
+    eegPacketManager.removeAllEEGPackets()
+    guard isConnected else { return nil }
+    
+    if newRecord {
+      recordInfo = MBTRecordInfo()
+      recordInfo.recordingType = recordingType
+    } else {
+      recordInfo.recordingType = recordingType
+    }
 
-//  /// Start saving EEGPacket on DB  /// - Parameters:
-//  ///   - newRecord: Create a new recordId on the JSON File
-//  ///   - recordingType: Change the session's type
-//  @discardableResult
-//  public func startRecording(
-//    asNewRecord newRecord: Bool,
-//    recordingType: MBTRecordingType = MBTRecordingType()
-//  ) -> UUID? {
-//    EEGPacketManager.shared.removeAllEEGPackets()
-//    guard DeviceManager.connectedDeviceName != nil else { return nil }
-//
-//    if newRecord {
-//      recordInfo = MBTRecordInfo()
-//      recordInfo.recordingType = recordingType
-//    } else {
-//      recordInfo.recordingType = recordingType
-//    }
-//
-//    eegAcquisitionManager.isRecording = true
-//
-//    return recordInfo.recordId
-//  }
-//
+    eegAcquisitionManager.isRecording = true
+
+    return recordInfo.recordId
+  }
+
 //  /// Stop saving EEGPacket on DB
 //  public func stopRecording() {
 //    guard DeviceManager.connectedDeviceName != nil else { return }

@@ -280,4 +280,19 @@ internal class EegAcquiser {
     }
   }
 
+  func generateEegPacket(fromEegData eegData: Data) -> MBTEEGPacket? {
+    guard let eegPacket =
+      acquisitionProcessor.getEEGPacket(fromData: eegData,
+                                        hasQualityChecker: hasQualityChecker)
+    else {
+      return nil
+    }
+
+    if isRecording {
+      eegPacketManager.saveEEGPacket(eegPacket)
+    }
+
+    return eegPacket
+  }
+
 }
