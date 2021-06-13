@@ -366,7 +366,7 @@ public class MBTClientV2 {
     /// - Remark: Data will be provided through the MelomineEngineDelegate.
     public func startStream(shouldUseQualityChecker: Bool) -> Bool {
       guard isConnected,
-            let deviceInformation = bluetoothManager.currentDeviceInformation,
+            let deviceInformation = deviceInformation,
             let eegAcquiser = eegAcquiser
       else {
         return false
@@ -459,33 +459,34 @@ public class MBTClientV2 {
 //    return DeviceManager.getCurrentDevice()?.shouldUpdateFirmware
 //  }
 //
-//  //----------------------------------------------------------------------------
-//  // MARK: - Signal Processing Manager
-//  //----------------------------------------------------------------------------
-//
-//  /// Compute calibration with the last 'n' complete packets.
-//  /// - Parameters:
-//  ///   - n: Number of complete packets to take to compute the calibration.
-//  /// - Returns: A dictionnary received by the Signal Processing library.
-//  public func computeCalibration(
-//    onNumberOfPackets numberOfPackets: Int
-//  ) -> CalibrationOutput? {
-//    let eegPacketsCount = EEGPacketManager.shared.getEEGPackets().count
-//
-//    guard let currentDevice = DeviceManager.getCurrentDevice(),
-//      eegPacketsCount >= numberOfPackets else {
-//      return nil
-//    }
-//
-//    return signalProcessingManager.computeCalibration(
-//      numberOfPackets,
-//      sampleRate: currentDevice.sampRate,
-//      channelCount: currentDevice.nbChannels,
-//      packetLength: currentDevice.eegPacketLength,
-//      eegPacketManager: eegPacketManager
-//    )
-//  }
-//
+  //----------------------------------------------------------------------------
+  // MARK: - Signal Processing Manager
+  //----------------------------------------------------------------------------
+
+  /// Compute calibration with the last 'n' complete packets.
+  /// - Parameters:
+  ///   - n: Number of complete packets to take to compute the calibration.
+  /// - Returns: A dictionnary received by the Signal Processing library.
+  public func computeCalibration(
+    onNumberOfPackets numberOfPackets: Int
+  ) -> CalibrationOutput? {
+    let eegPacketsCount = eegPacketManager.getEEGPackets().count
+
+    guard let deviceAcquisitionInformation =
+            deviceInformation?.acquisitionInformation,
+          eegPacketsCount >= numberOfPackets else {
+      return nil
+    }
+
+    return signalProcessingManager.computeCalibration(
+      numberOfPackets,
+      sampleRate: deviceAcquisitionInformation.sampleRate,
+      channelCount: deviceAcquisitionInformation.channelCount,
+      packetLength: deviceAcquisitionInformation.eegPacketSize,
+      eegPacketManager: eegPacketManager
+    )
+  }
+
 //  /// computeRelaxIndex
 //  ///
 //  /// - Returns: RelaxIndex
