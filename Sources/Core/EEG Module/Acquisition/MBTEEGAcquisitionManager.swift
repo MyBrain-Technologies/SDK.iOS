@@ -158,7 +158,7 @@ internal class EegAcquiser {
 
   private var acquisitionProcessor: EEGAcquisitionProcessorV2
 
-  private let eegPacketManager: EEGPacketManagerV2
+  private let eegPacketManager = EEGPacketManagerV2()
 
   /******************** Convert and save eeg ********************/
 
@@ -170,8 +170,13 @@ internal class EegAcquiser {
   private(set) var hasQualityChecker: Bool = false
 
   /// if the sdk record in DB EEGPacket
-  var isRecording: Bool = false
-  // didSet { EEGPacketManager.shared.removeAllEEGPackets() } if not paused
+  var isRecording: Bool = false {
+   didSet {
+    if isRecording {
+      eegPacketManager.removeAllEEGPackets()
+    }
+   }
+  }
 
   /******************** Delegate ********************/
 
@@ -186,8 +191,7 @@ internal class EegAcquiser {
        packetLength: Int,
        channelCount: Int,
        sampleRate: Int,
-       signalProcessor: SignalProcessingManager,
-       eegPacketManager: EEGPacketManagerV2) {
+       signalProcessor: SignalProcessingManager) {
     self.signalProcessor = signalProcessor
     acquisitionProcessor =
       EEGAcquisitionProcessorV2(bufferSizeMax: bufferSizeMax,
@@ -195,12 +199,20 @@ internal class EegAcquiser {
                                 channelCount: channelCount,
                                 sampleRate: sampleRate,
                                 signalProcessor: signalProcessor)
-    self.eegPacketManager = eegPacketManager
     setup()
   }
 
   private func setup() {
     signalProcessor.resetSession()
+  }
+
+
+  //==============================================================================
+  // MARK: - Packets
+  //==============================================================================
+
+  func getLastPackets(count: Int) -> [MBTEEGPacket]? {
+    return eegPacketManager.getLastNPacketsCompleteIfAvailable(count)
   }
 
   //----------------------------------------------------------------------------

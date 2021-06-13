@@ -41,8 +41,6 @@ public class MBTClientV2 {
   /// the Signal Processing Library (via the bridge).
   internal let signalProcessingManager = SignalProcessingManager()
 
-  internal var eegPacketManager = EEGPacketManagerV2()
-
   /******************** Acquisition ********************/
 
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
@@ -178,13 +176,13 @@ public class MBTClientV2 {
 
   private func update(from deviceInformation: DeviceInformation) {
     let acquisitionInformation = deviceInformation.acquisitionInformation
+
     eegAcquiser = EegAcquiser(
       bufferSizeMax: acquisitionInformation.eegPacketMaxSize,
       packetLength: acquisitionInformation.eegPacketSize,
       channelCount: deviceInformation.acquisitionInformation.channelCount,
       sampleRate: deviceInformation.acquisitionInformation.sampleRate,
-      signalProcessor: signalProcessingManager,
-      eegPacketManager: eegPacketManager
+      signalProcessor: signalProcessingManager
     )
 
   }
@@ -248,7 +246,6 @@ public class MBTClientV2 {
   public func readBatteryStatus() {
     bluetoothManager.requestBatteryLevel()
   }
-
 
   #warning("QRCode or serialNumber ??????")
 //  /// GET A2DP Device Name for an unpaired device (not connected in A2DP).
@@ -319,7 +316,6 @@ public class MBTClientV2 {
     comments: [String] = [String](),
     completion: @escaping (Result<URL, Error>) -> Void
   ) {
-
     guard let deviceInformation = deviceInformation else {
       log.error("Current device not found")
       completion(.failure(SDKError.noConnectedHeadset))
@@ -342,40 +338,8 @@ public class MBTClientV2 {
   }
 
   //----------------------------------------------------------------------------
-  // MARK: - Setters
+  // MARK: - Acquisition Manager
   //----------------------------------------------------------------------------
-
-  // TODO: Use variable.
-
-//  /// Set delegate to EEGAcquistionManager, DeviceAcquisitionManager &
-//  /// BluetoothManager (event Delegate).
-//  ///
-//  /// - Parameter delegate:  new delegate listening Melomind Engine Delegate.
-//  public func setEEGDelegate(_ delegate: MelomindEngineDelegate) {
-//    // Add the Acquisition delegate to the Acquisition manager
-//    initAcquisitionManager(with: delegate)
-//
-//    // Add the BluetoothEventDelegate and A2DPDelegate
-//    bluetoothManager.eventDelegate = delegate
-//  }
-//
-//  /// Set delegate to EEGAcquistionManager, DeviceAcquisitionManager &
-//  /// BluetoothManager (eventDelegate & audioA2DPDelegate).
-//  ///
-//  /// - Parameter delegate:  new delegate listening Melomind Engine Delegate.
-//  public func setEEGAndA2DPDelegate(_ delegate: MelomindEngineDelegate) {
-//    // Add the Acquisition delegate to the Acquisition manager
-//
-//    initAcquisitionManager(with: delegate)
-//
-//    // Add the BluetoothEventDelegate and A2DPDelegate
-//    bluetoothManager.eventDelegate = delegate
-//    bluetoothManager.audioA2DPDelegate = delegate
-//  }
-
-//  //----------------------------------------------------------------------------
-//  // MARK: - Acquisition Manager
-//  //----------------------------------------------------------------------------
 
     /// Start streaming EEG Data from MyBrainActivity Characteristic.
     /// Start streaming headSet Data from HeadsetStatus Characteristic.
@@ -414,7 +378,6 @@ public class MBTClientV2 {
     asNewRecord newRecord: Bool,
     recordingType: MBTRecordingType = MBTRecordingType()
   ) -> UUID? {
-    eegPacketManager.removeAllEEGPackets()
     guard isConnected, let eegAcquiser = eegAcquiser else { return nil }
     
     if newRecord {
@@ -429,34 +392,12 @@ public class MBTClientV2 {
     return recordInfo.recordId
   }
 
-//  /// Stop saving EEGPacket on DB
-//  public func stopRecording() {
-//    guard DeviceManager.connectedDeviceName != nil else { return }
-//    eegAcquisitionManager.isRecording = false
-//  }
-//
-//  /// Start streaming EEG Data from MyBrainActivity Characteristic.
-//  /// Start streaming headSet Data from HeadsetStatus Characteristic.
-//  /// - Remark: Data will be provided through the MelomineEngineDelegate.
-//  public func startStream(_ shouldUseQualityChecker: Bool) {
-//    guard let currentDevice = DeviceManager.getCurrentDevice() else { return }
-//    eegAcquisitionManager.streamHasStarted(
-//      isUsingQualityChecker: shouldUseQualityChecker,
-//      sampleRate: currentDevice.sampRate
-//    )
-//    bluetoothManager.isListeningToEEG = true
-//    bluetoothManager.isListeningToHeadsetStatus = true
-//  }
-//
-//  /// Stop streaming EEG Data to MelomineEngineDelegate.
-//  /// Stop streaming headSet Data from MelomindEngineDelegate.
-//  /// - Remark: a JSON will be created with all the MBTEEGPacket.
-//  public func stopStream() {
-////    bluetoothManager.isListeningToHeadsetStatus = false
-//    bluetoothManager.isListeningToEEG = false
-//    eegAcquisitionManager.streamHasStopped()
-//  }
-//
+  /// Stop saving EEGPacket on DB
+  public func stopRecording() {
+    guard isConnected else { return }
+    eegAcquiser?.isRecording = false
+  }
+
 //  //----------------------------------------------------------------------------
 //  // MARK: - OAD
 //  //----------------------------------------------------------------------------
@@ -488,8 +429,7 @@ public class MBTClientV2 {
   public func computeCalibration(
     onNumberOfPackets numberOfPackets: Int
   ) -> CalibrationOutput? {
-    guard let eegPackets =
-            eegPacketManager.getLastNPacketsCompleteIfAvailable(numberOfPackets),
+    guard let eegPackets = eegAcquiser?.getLastPackets(count: numberOfPackets),
           let deviceAcquisitionInformation =
                   deviceInformation?.acquisitionInformation else {
       return nil
@@ -511,8 +451,7 @@ public class MBTClientV2 {
   public func computeRelaxIndex() -> Float? {
     let packetCount = Constants.EEGPackets.historySize
     guard let deviceInformation = deviceInformation,
-          let eegPackets =
-            eegPacketManager.getLastNPacketsCompleteIfAvailable(packetCount)
+          let eegPackets = eegAcquiser?.getLastPackets(count: packetCount)
     else {
       return nil
     }
