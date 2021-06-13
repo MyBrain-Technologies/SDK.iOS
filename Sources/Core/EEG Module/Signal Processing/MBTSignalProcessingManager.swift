@@ -344,11 +344,13 @@ extension SignalProcessingManager {
 extension SignalProcessingManager {
 
   //Implementing MBT_SessionAnalysisComputer
-  func analyseSession(_ inputDataSNR: [Float],
+  func analyseSession(snrValues: [Float],
                       threshold: Float) -> [String: Float] {
+    guard snrValues.count > 3 else { return [:] }
+    
     //Perform the computation
     let sessionAnalysisValues =
-      MBTSNRStatisticsBridge.computeSessionStatistics(inputDataSNR,
+      MBTSNRStatisticsBridge.computeSessionStatistics(snrValues,
                                                       threshold: threshold)
     let sessionAnalysis = sessionAnalysisValues as? [String: Float] ?? [:]
     return sessionAnalysis

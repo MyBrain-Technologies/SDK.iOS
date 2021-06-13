@@ -8,6 +8,7 @@ import Foundation
  ******************************************************************************/
 
 #warning("RENAME `Acquiser` to `acquirer`")
+#warning("TODO: Move EegKpis from melomind here!")
 
 public class MBTClientV2 {
 
@@ -505,16 +506,14 @@ public class MBTClientV2 {
 //      channelCount: currentDevice.nbChannels
 //    )
 //  }
-//
-//  /// ComputeSessionStatistics
-//  public func computeSessionStatistics(_ inputSNR: [Float],
-//                                       threshold: Float) -> [String: Float] {
-//    guard DeviceManager.connectedDeviceName != nil, inputSNR.count > 3 else {
-//      return [:]
-//    }
-//    return signalProcessingManager.analyseSession(inputSNR,
-//                                                  threshold: threshold)
-//  }
+
+  /// ComputeSessionStatistics
+  public func computeSessionStatistics(snrValues: [Float],
+                                       threshold: Float) -> [String: Float] {
+    guard isConnected else { return [:] }
+    return signalProcessingManager.analyseSession(snrValues: snrValues,
+                                                  threshold: threshold)
+  }
 
 }
 
