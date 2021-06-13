@@ -41,7 +41,7 @@ public class MBTClientV2 {
   /// the Signal Processing Library (via the bridge).
   internal let signalProcessingManager = SignalProcessingManager()
 
-  internal let eegPacketManager = EEGPacketManagerV2()
+  internal var eegPacketManager = EEGPacketManagerV2()
 
   /******************** Acquisition ********************/
 
@@ -67,7 +67,8 @@ public class MBTClientV2 {
   /******************** Bluetooth ********************/
 
   public var isBluetoothOn: Bool {
-    return bluetoothManager.state == .poweredOn // or bluetoothManager.authorization
+    // or bluetoothManager.authorization
+    return bluetoothManager.state == .poweredOn
   }
 
   public var isConnected: Bool {

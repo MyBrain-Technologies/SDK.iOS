@@ -168,7 +168,8 @@ class EEGAcquisitionSaverV2 {
   ///   - comments: An array of *String* contains Optional Comments
   ///   - completion: A block which execute after create the file or fail to create
   func saveRecording(packets: [MBTEEGPacket],
-                     eegPacketManager: EEGPacketManagerV2,
+                     qualities: [[Float]],
+                     channelData: [[Float?]],
                      idUser: Int,
                      algo: String?,
                      comments: [String] = [],
@@ -201,13 +202,16 @@ class EEGAcquisitionSaverV2 {
 //      let currentRecordInfo = MBTClient.shared.recordInfo
 
       let savingRecord =
-        self.getEEGSavingRecord(deviceInformation: deviceInformation,
-                                idUser: idUser,
-                                algo: algo,
-                                eegPackets: savedPackets,
-                                eegPacketManager: eegPacketManager,
-                                recordInfo: recordingInformation,
-                                comments: comments)
+        self.getEEGSavingRecord(
+          deviceInformation: deviceInformation,
+          idUser: idUser,
+          algo: algo,
+          eegPackets: savedPackets,
+          qualities: qualities,
+          channelData: channelData,
+          recordInfo: recordingInformation,
+          comments: comments
+        )
 
       guard let jsonObject = savingRecord.toJSONString else {
           log.error("Cannot encore saving record object to JSON")
@@ -225,7 +229,6 @@ class EEGAcquisitionSaverV2 {
                                                deviceId: deviceId,
                                                userId: idUser)
       DispatchQueue.main.async {
-        eegPacketManager.removePackets(packets)
         guard let fileURL = fileURL else {
           completion(.failure(EEGAcquisitionSaverError.unableToWriteFile))
           return
@@ -239,7 +242,8 @@ class EEGAcquisitionSaverV2 {
                                   idUser: Int,
                                   algo: String?,
                                   eegPackets: [MBTEEGPacket],
-                                  eegPacketManager: EEGPacketManagerV2,
+                                  qualities: [[Float]],
+                                  channelData: [[Float?]],
                                   recordInfo: MBTRecordInfo,
                                   comments: [String] = []) -> EEGSavingRecord {
     let context = EEGSavingRecordContext(ownerId: idUser, riAlgo: algo ?? "")
@@ -250,8 +254,8 @@ class EEGAcquisitionSaverV2 {
       recordingTime: eegPackets.first?.timestamp ?? 0,
       nbPackets: eegPackets.count,
       firstPacketId: 0,
-      qualities: eegPacketManager.getQualities(eegPackets),
-      channelData: eegPacketManager.getEEGDatas(eegPackets)
+      qualities: qualities,
+      channelData: channelData
     )
 
     let header = generateRecordHeader(deviceInformation: deviceInformation,

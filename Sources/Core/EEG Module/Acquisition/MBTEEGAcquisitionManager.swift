@@ -243,16 +243,30 @@ internal class EegAcquiser {
                      recordFileSaver: RecordFileSaver,
                      completion: @escaping (Result<URL, Error>) -> Void) {
     let packets = eegPacketManager.getArrayEEGPackets()
+    let qualities = eegPacketManager.getQualities(packets)
+    let channelData = eegPacketManager.getEEGDatas(packets)
     acquisisitonSaver.saveRecording(packets: packets,
-                                    eegPacketManager: eegPacketManager,
+                                    qualities: qualities,
+                                    channelData: channelData,
                                     idUser: idUser,
                                     algo: algo,
                                     comments: comments,
                                     deviceInformation: device,
                                     recordingInformation: recordingInformation,
                                     recordFileSaver: recordFileSaver) {
-      result in
-      completion(result)
+      [weak self] result in
+      switch result {
+        case .success(let url):
+          self?.eegPacketManager.removePackets(packets)
+          completion(.success(url))
+
+        case .failure(let error):
+          if (error as? EEGAcquisitionSaverV2.EEGAcquisitionSaverError)
+              == .unableToWriteFile {
+            self?.eegPacketManager.removePackets(packets)
+          }
+          completion(.failure(error))
+      }
     }
   }
 
