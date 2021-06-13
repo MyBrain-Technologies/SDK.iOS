@@ -177,6 +177,16 @@ class EEGPacketManagerV2 {
     return [MBTEEGPacket](getEEGPackets().suffix(n))
   }
 
+  /// Get last n *MBTEEGPackets* from the Realm DB.
+  /// - Parameters:
+  ///     - n: Number of *MBTEEGPackets* wanted.
+  /// - Returns: The last n *MBTEEGPacket*.
+  func getLastNPacketsCompleteIfAvailable(_ n: Int) -> [MBTEEGPacket]? {
+    let eegPackets = getEEGPackets()
+    guard eegPackets.count >= n else { return nil }
+    return [MBTEEGPacket](getEEGPackets().suffix(n))
+  }
+
   /// Get all *MBTEEGPacket* saved in Realm DB.
   /// - Returns: All *MBTEEGPacket* db-saved from Realm query.
   func getEEGPackets() -> Results<MBTEEGPacket> {
