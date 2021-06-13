@@ -266,20 +266,6 @@ internal class EegAcquiser {
   ///     - data: *Data* received from MBT Headset EEGs.
   /// - Returns: *Dictionnary* with the packet Index (key: "packetIndex") and
   /// array of P3 and P4 samples arrays ( key: "packet" )
-  func processBrainActivity(data: Data) {
-    let packet =
-      acquisitionProcessor.getEEGPacket(fromData: data,
-                                        hasQualityChecker: hasQualityChecker)
-
-    guard let eegPacket = packet else { return }
-
-    self.delegate?.onReceivingPackage?(eegPacket)
-
-    if isRecording {
-      eegPacketManager.saveEEGPacket(eegPacket)
-    }
-  }
-
   func generateEegPacket(fromEegData eegData: Data) -> MBTEEGPacket? {
     guard let eegPacket =
       acquisitionProcessor.getEEGPacket(fromData: eegData,

@@ -33,8 +33,7 @@ public class MBTClientV2 {
   /// the MBT headset bluetooth.
   internal let bluetoothManager = MBTBluetoothManagerV2()
 
-  /// Init a MBTEEGAcquisitionManager, which deals with
-  /// data from the MBT Headset.
+  /// Init a MBTEEGAcquisitionManager, which deals with data from the Headset.
   internal var eegAcquiser: EegAcquiser?
 
   /// Init a MBTSignalProcessingManager, which deals with
