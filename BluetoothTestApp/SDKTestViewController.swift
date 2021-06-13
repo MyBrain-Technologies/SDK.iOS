@@ -76,7 +76,11 @@ class SDKTestViewController: UIViewController {
   }
 
   @IBAction func changeStreamingEEGState(_ sender: UISwitch) {
-    sdk.isListeningToEEG = sender.isOn
+    if sender.isOn {
+      sdk.startStream(shouldUseQualityChecker: true)
+    } else {
+      sdk.stopStream()
+    }
   }
 
   @IBAction func readBattery(_ sender: Any) {
