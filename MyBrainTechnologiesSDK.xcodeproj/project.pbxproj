@@ -31,6 +31,8 @@
 		4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */; };
 		4D19FB4E266143A90064FF6F /* PostIndus5CharacteristicContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB4D266143A90064FF6F /* PostIndus5CharacteristicContainer.swift */; };
 		4D19FB54266143C90064FF6F /* PreIndus5CharacteristicContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D19FB53266143C90064FF6F /* PreIndus5CharacteristicContainer.swift */; };
+		4D2891822676224D00B9DEE4 /* Analyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2891812676224D00B9DEE4 /* Analyzer.swift */; };
+		4D2891832676224D00B9DEE4 /* Analyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2891812676224D00B9DEE4 /* Analyzer.swift */; };
 		4D2E393426592A1B00A9FEF9 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */; };
 		4D2E969425DAE4FF0016A83E /* mm-ota-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969225DAE4FF0016A83E /* mm-ota-1_7_26.bin */; };
 		4D2E969525DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */; };
@@ -297,6 +299,7 @@
 		4D19FB452661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIndus5PeripheralCommunicator.swift; sourceTree = "<group>"; };
 		4D19FB4D266143A90064FF6F /* PostIndus5CharacteristicContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIndus5CharacteristicContainer.swift; sourceTree = "<group>"; };
 		4D19FB53266143C90064FF6F /* PreIndus5CharacteristicContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreIndus5CharacteristicContainer.swift; sourceTree = "<group>"; };
+		4D2891812676224D00B9DEE4 /* Analyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analyzer.swift; sourceTree = "<group>"; };
 		4D2E393326592A1B00A9FEF9 /* DeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformation.swift; sourceTree = "<group>"; };
 		4D2E969225DAE4FF0016A83E /* mm-ota-1_7_26.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-1_7_26.bin"; sourceTree = "<group>"; };
 		4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_26.bin"; sourceTree = "<group>"; };
@@ -816,6 +819,7 @@
 			isa = PBXGroup;
 			children = (
 				4DED193826258C56001CEE5F /* MBTClientV2.swift */,
+				4D2891812676224D00B9DEE4 /* Analyzer.swift */,
 			);
 			path = Refactoring;
 			sourceTree = "<group>";
@@ -1476,6 +1480,7 @@
 				A91DC1142490CF6200E4A440 /* MBTBluetoothManager+OAD.swift in Sources */,
 				4D91E363266BACEC00FFE4D9 /* Buffer.swift in Sources */,
 				A918D29024619A8D00026F1D /* BluetoothLowEnergyError.swift in Sources */,
+				4D2891822676224D00B9DEE4 /* Analyzer.swift in Sources */,
 				F41A6D6E1F05588100092027 /* MBTDevice.swift in Sources */,
 				4D19FB36266142E50064FF6F /* PeripheralCommunicable.swift in Sources */,
 				A91DC1312490D01400E4A440 /* BluetoothService.swift in Sources */,
@@ -1602,6 +1607,7 @@
 			files = (
 				A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */,
 				A9130BC924800D1100CB1840 /* EEGAcquisitionRawPacketsDeserialization.txt in Sources */,
+				4D2891832676224D00B9DEE4 /* Analyzer.swift in Sources */,
 				A9E3A7BA24643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift in Sources */,
 				A91BD902247D1EC800603C42 /* BluetoothTimersTests.swift in Sources */,
 				A9130BCC24800D8000CB1840 /* EEGDeserializerTests.swift in Sources */,
