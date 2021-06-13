@@ -14,6 +14,8 @@ public struct DeviceAcquisitionInformation: Codable {
   /// An EEG Packet length.
   public let eegPacketSize: Int
 
+  public let eegPacketMaxSize: Int
+
   let electrodes: Electrodes
 
   //----------------------------------------------------------------------------
@@ -26,6 +28,7 @@ public struct DeviceAcquisitionInformation: Codable {
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
+        self.eegPacketMaxSize = eegPacketSize * channelCount * 2
         self.electrodes = Electrodes(acquisitions: [.p3, .p4],
                                      references: [.m1],
                                      grounds: [.m2])
@@ -36,6 +39,7 @@ public struct DeviceAcquisitionInformation: Codable {
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
+        self.eegPacketMaxSize = eegPacketSize * channelCount * 2
         self.electrodes = Electrodes(acquisitions: [.p3, .p4],
                                      references: [.m1],
                                      grounds: [.m2])
