@@ -14,6 +14,7 @@ struct EEGCalibrationProcessor {
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
+  #warning("TODO: to remove")
   /// Use the last `packetsCount` packets to compute a calibration output value.
   static func computeCalibration(packetsCount: Int,
                                  lastPackets: [MBTEEGPacket],
@@ -22,6 +23,17 @@ struct EEGCalibrationProcessor {
                                  channelCount: Int) -> CalibrationOutput? {
     guard lastPackets.count == packetsCount else { return nil }
 
+    return computeCalibration(packets: lastPackets,
+                              sampRate: sampleRate,
+                              nbChannel: channelCount,
+                              packetLength: packetLength)
+  }
+
+  /// Use the last `packetsCount` packets to compute a calibration output value.
+  static func computeCalibrationV2(lastPackets: [MBTEEGPacket],
+                                   packetLength: Int,
+                                   sampleRate: Int,
+                                   channelCount: Int) -> CalibrationOutput? {
     return computeCalibration(packets: lastPackets,
                               sampRate: sampleRate,
                               nbChannel: channelCount,
