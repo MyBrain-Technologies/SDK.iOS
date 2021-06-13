@@ -131,9 +131,10 @@ public class MBTClientV2 {
 
   /******************** Delegates ********************/
 
-  public weak var bleDelegate: MBTBLEBluetoothDelegate? {
-    didSet { bluetoothManager.bleDelegate = bleDelegate }
-  }
+  public weak var bleDelegate: MBTBLEBluetoothDelegate?
+//  {
+//    didSet { bluetoothManager.bleDelegate = bleDelegate }
+//  }
 
   public weak var a2dpDelegate: MBTA2DPBluetoothDelegate? {
     didSet { bluetoothManager.a2dpDelegate = a2dpDelegate }
@@ -155,6 +156,7 @@ public class MBTClientV2 {
   }
 
   private func setupBluetoothManager() {
+    bluetoothManager.bleDelegate = self
     bluetoothManager.acquisitionDelegate = self
 
 //    if let deviceName = bluetoothManager.getBLEDeviceNameFromA2DP(),
@@ -170,6 +172,19 @@ public class MBTClientV2 {
 //      self?.deviceAcquisitionManager.processHeadsetStatus(characteristic)
 //    }
 
+
+  }
+
+  private func update(from deviceInformation: DeviceInformation) {
+    let acquisitionInformation = deviceInformation.acquisitionInformation
+    eegAcquiser = EegAcquiser(
+      bufferSizeMax: acquisitionInformation.eegPacketMaxSize,
+      packetLength: acquisitionInformation.eegPacketSize,
+      channelCount: deviceInformation.acquisitionInformation.channelCount,
+      sampleRate: deviceInformation.acquisitionInformation.sampleRate,
+      signalProcessor: signalProcessingManager,
+      eegPacketManager: eegPacketManager
+    )
 
   }
 
@@ -541,6 +556,35 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
     }
 
     acquisitionDelegate?.didUpdateEEGData(eegPacket)
+  }
+
+}
+
+//==============================================================================
+// MARK: - MBTBLEBluetoothDelegate
+//==============================================================================
+
+extension MBTClientV2: MBTBLEBluetoothDelegate {
+
+  public func didBluetoothStateChange(isBluetoothOn: Bool) {
+    bleDelegate?.didBluetoothStateChange(isBluetoothOn: isBluetoothOn)
+  }
+
+  public func didConnect() {
+    bleDelegate?.didConnect()
+  }
+
+  public func didConnect(deviceInformation: DeviceInformation) {
+    update(from: deviceInformation)
+    bleDelegate?.didConnect(deviceInformation: deviceInformation)
+  }
+
+  public func didConnectionFail(error: Error?) {
+    bleDelegate?.didConnectionFail(error: error)
+  }
+
+  public func didDisconnect(error: Error?) {
+    bleDelegate?.didDisconnect(error: error)
   }
 
 }
