@@ -299,26 +299,17 @@ extension SignalProcessingManager {
   /// - Returns: A dictionnary with calibration datas from the CPP Signal
   /// Processing.
   func computeCalibration(
-    _ packetsCount: Int,
+    of packets: [MBTEEGPacket],
     sampleRate: Int,
     channelCount: Int,
-    packetLength: Int,
-    eegPacketManager: EEGPacketManagerV2
+    packetLength: Int
   ) -> CalibrationOutput? {
-
-    // Get the last N packets.
-    let lastPackets = eegPacketManager.getLastNPacketsComplete(packetsCount)
-
-    let parameters =
-      EEGCalibrationProcessor.computeCalibration(packetsCount: packetsCount,
-                                                 lastPackets: lastPackets,
-                                                 packetLength: packetLength,
-                                                 sampleRate: sampleRate,
-                                                 channelCount: channelCount)
-
-    calibrationComputed = parameters
-
-    return parameters
+    calibrationComputed =
+      EEGCalibrationProcessor.computeCalibrationV2(lastPackets: packets,
+                                                   packetLength: packetLength,
+                                                   sampleRate: sampleRate,
+                                                   channelCount: channelCount)
+    return calibrationComputed
   }
 
 }

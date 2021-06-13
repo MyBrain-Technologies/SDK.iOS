@@ -399,7 +399,7 @@ public class MBTClientV2 {
     recordingType: MBTRecordingType = MBTRecordingType()
   ) -> UUID? {
     eegPacketManager.removeAllEEGPackets()
-    guard isConnected else { return nil }
+    guard isConnected, let eegAcquiser = eegAcquiser else { return nil }
     
     if newRecord {
       recordInfo = MBTRecordInfo()
@@ -408,7 +408,7 @@ public class MBTClientV2 {
       recordInfo.recordingType = recordingType
     }
 
-    eegAcquisitionManager.isRecording = true
+    eegAcquiser.isRecording = true
 
     return recordInfo.recordId
   }
@@ -470,20 +470,18 @@ public class MBTClientV2 {
   public func computeCalibration(
     onNumberOfPackets numberOfPackets: Int
   ) -> CalibrationOutput? {
-    let eegPacketsCount = eegPacketManager.getEEGPackets().count
-
-    guard let deviceAcquisitionInformation =
-            deviceInformation?.acquisitionInformation,
-          eegPacketsCount >= numberOfPackets else {
+    guard let eegPackets =
+            eegPacketManager.getLastNPacketsCompleteIfAvailable(numberOfPackets),
+          let deviceAcquisitionInformation =
+                  deviceInformation?.acquisitionInformation else {
       return nil
     }
 
     return signalProcessingManager.computeCalibration(
-      numberOfPackets,
+      of: eegPackets,
       sampleRate: deviceAcquisitionInformation.sampleRate,
       channelCount: deviceAcquisitionInformation.channelCount,
-      packetLength: deviceAcquisitionInformation.eegPacketSize,
-      eegPacketManager: eegPacketManager
+      packetLength: deviceAcquisitionInformation.eegPacketSize
     )
   }
 
