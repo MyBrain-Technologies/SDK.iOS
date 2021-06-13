@@ -211,7 +211,7 @@ internal class SignalProcessingManager {
   /******************** Singleton ********************/
 
   /// Dictionnary to store calibration results.
-  internal var calibrationComputed: CalibrationOutput?
+  private(set) var hasComputedCalibration: Bool = false
 
   ///
   internal var sampleRate: Int = 0
@@ -304,12 +304,13 @@ extension SignalProcessingManager {
     channelCount: Int,
     packetLength: Int
   ) -> CalibrationOutput? {
-    calibrationComputed =
+    let calibrationResult =
       EEGCalibrationProcessor.computeCalibrationV2(lastPackets: packets,
                                                    packetLength: packetLength,
                                                    sampleRate: sampleRate,
                                                    channelCount: channelCount)
-    return calibrationComputed
+    hasComputedCalibration = calibrationResult != nil ? true : false
+    return calibrationResult
   }
 
 }
@@ -323,7 +324,7 @@ extension SignalProcessingManager {
   func computeRelaxIndex(eegPackets: [MBTEEGPacket],
                          sampleRate: Int,
                          channelCount: Int) -> Float? {
-    if calibrationComputed == nil { return 0 }
+    guard hasComputedCalibration else { return 0 }
     return EEGToRelaxIndexProcessor.computeRelaxIndex(from: eegPackets,
                                                       sampRate: sampleRate,
                                                       nbChannels: channelCount)
