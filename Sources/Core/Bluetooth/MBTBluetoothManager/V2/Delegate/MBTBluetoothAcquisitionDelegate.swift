@@ -18,7 +18,7 @@ public protocol MBTBluetoothAcquisitionDelegate: class {
 
 }
 
-extension MBTBluetoothAcquisitionDelegate {
+public extension MBTBluetoothAcquisitionDelegate {
 
   func didUpdateBatteryLevel(_ levelBattery: Int) { }
 

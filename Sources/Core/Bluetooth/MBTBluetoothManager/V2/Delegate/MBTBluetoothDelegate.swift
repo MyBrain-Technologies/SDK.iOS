@@ -28,7 +28,7 @@ public protocol MBTBLEBluetoothDelegate: class {
 
 }
 
-extension MBTBLEBluetoothDelegate {
+public extension MBTBLEBluetoothDelegate {
 
   func didBluetoothStateChange(isBluetoothOn: Bool) {}
 

@@ -1975,7 +1975,7 @@
 				DEVELOPMENT_TEAM = V9V34RUTSL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"/Users/laurent/Library/Developer/Xcode/DerivedData/MyBrainTechnologiesSDK-evxhrhgdhrhjpkcwapjiniivvrzt/Build/Products/Debug-iphonesimulator/",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = BluetoothTestApp/Info.plist;
@@ -2009,7 +2009,7 @@
 				DEVELOPMENT_TEAM = V9V34RUTSL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"/Users/laurent/Library/Developer/Xcode/DerivedData/MyBrainTechnologiesSDK-evxhrhgdhrhjpkcwapjiniivvrzt/Build/Products/Debug-iphonesimulator/",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/frameworks",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = BluetoothTestApp/Info.plist;

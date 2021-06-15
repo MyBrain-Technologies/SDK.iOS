@@ -10,7 +10,7 @@ public protocol MBTA2DPBluetoothDelegate: class {
 
 }
 
-extension MBTA2DPBluetoothDelegate {
+public extension MBTA2DPBluetoothDelegate {
 
   func didAudioA2DPConnect() {}
 
