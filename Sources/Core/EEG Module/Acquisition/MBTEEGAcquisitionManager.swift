@@ -254,9 +254,9 @@ internal class EegAcquiser {
                      recordingInformation: MBTRecordInfo,
                      recordFileSaver: RecordFileSaver,
                      completion: @escaping (Result<URL, Error>) -> Void) {
-    let packets = eegPacketManager.getArrayEEGPackets()
-    let qualities = eegPacketManager.getQualities(packets)
-    let channelData = eegPacketManager.getEEGDatas(packets)
+    let packets = eegPacketManager.eegPackets
+    let qualities = eegPacketManager.qualities
+    let channelData = eegPacketManager.eegData
     acquisisitonSaver.saveRecording(packets: packets,
                                     qualities: qualities,
                                     channelData: channelData,
@@ -269,13 +269,13 @@ internal class EegAcquiser {
       [weak self] result in
       switch result {
         case .success(let url):
-          self?.eegPacketManager.removePackets(packets)
+          self?.eegPacketManager.removeAllEegPackets()
           completion(.success(url))
 
         case .failure(let error):
           if (error as? EEGAcquisitionSaverV2.EEGAcquisitionSaverError)
               == .unableToWriteFile {
-            self?.eegPacketManager.removePackets(packets)
+            self?.eegPacketManager.removeAllEegPackets()
           }
           completion(.failure(error))
       }
