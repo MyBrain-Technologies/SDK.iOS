@@ -226,7 +226,7 @@ class EEGPacketManagerV2 {
   /// - Parameters:
   ///     - n: Number of *MBTEEGPackets* wanted.
   /// - Returns: The last n *MBTEEGPacket*.
-  func getLastNPacketsComplete(_ n: Int) -> [MBTEEGPacket]? {
+  func getLastPackets(_ n: Int) -> [MBTEEGPacket]? {
     guard eegPackets.count >= n else { return nil }
     return [MBTEEGPacket](eegPackets.suffix(n))
   }

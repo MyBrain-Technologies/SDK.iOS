@@ -173,7 +173,7 @@ internal class EegAcquiser {
   var isRecording: Bool = false {
    didSet {
     if isRecording {
-      eegPacketManager.removeAllEEGPackets()
+      eegPacketManager.removeAllEegPackets()
     }
    }
   }
@@ -212,7 +212,7 @@ internal class EegAcquiser {
   //==============================================================================
 
   func getLastPackets(count: Int) -> [MBTEEGPacket]? {
-    return eegPacketManager.getLastNPacketsCompleteIfAvailable(count)
+    return eegPacketManager.getLastPackets(count)
   }
 
   //----------------------------------------------------------------------------
