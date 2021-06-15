@@ -1972,7 +1972,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9V34RUTSL;
+				DEVELOPMENT_TEAM = 23T8TD424J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"/Users/laurent/Library/Developer/Xcode/DerivedData/MyBrainTechnologiesSDK-evxhrhgdhrhjpkcwapjiniivvrzt/Build/Products/Debug-iphonesimulator/",
 					"$(PROJECT_DIR)/frameworks",
@@ -2006,7 +2006,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9V34RUTSL;
+				DEVELOPMENT_TEAM = 23T8TD424J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"/Users/laurent/Library/Developer/Xcode/DerivedData/MyBrainTechnologiesSDK-evxhrhgdhrhjpkcwapjiniivvrzt/Build/Products/Debug-iphonesimulator/",
 					"$(PROJECT_DIR)/frameworks",
