@@ -200,14 +200,9 @@ class EEGPacketManagerV2 {
   }
 
   //----------------------------------------------------------------------------
-  // MARK: - Initialization
+  // MARK: - Create
   //----------------------------------------------------------------------------
 
-  init() { }
-
-  //----------------------------------------------------------------------------
-  // MARK: - Methods
-  //----------------------------------------------------------------------------
   /// Method to persist EEGPacket received in the Realm database.
   /// - Parameters:
   ///     - eegPacket: *MBTEEGPacket* freshly created, soon db-saved.
@@ -215,6 +210,11 @@ class EEGPacketManagerV2 {
   func saveEEGPacket(_ eegPacket: MBTEEGPacket) {
     eegPackets.append(eegPacket)
   }
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - Read
+  //----------------------------------------------------------------------------
 
   /// Get the last packet not complete.
   /// - Returns: The last saved *MBTEEGPacket*.
@@ -251,7 +251,7 @@ class EEGPacketManagerV2 {
 //  }
 
   //----------------------------------------------------------------------------
-  // MARK: - Deletion
+  // MARK: - Delete
   //----------------------------------------------------------------------------
 
   /// Delete all EEGPacket saved in Realm DB.

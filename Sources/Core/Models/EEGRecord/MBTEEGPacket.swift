@@ -156,6 +156,7 @@ public class MBTEEGPacketV2 {
     modifiedChannelsData.removeAll()
     modifiedChannelsData.append(contentsOf: buffer)
   }
+
 }
 
 //==============================================================================
