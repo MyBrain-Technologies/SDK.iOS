@@ -1,4 +1,5 @@
 import Foundation
+import CoreBluetooth
 
 class PeripheralValidator {
 
@@ -28,6 +29,35 @@ class PeripheralValidator {
     )
 
     return isMelomindDevice
+  }
+
+  func isQplusPeripheral(advertisementData: [String: Any]) -> Bool {
+    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
+
+    guard let deviceName =
+            advertisementData[CBAdvertisementDataLocalNameKey] as? String,
+          let serviceData =
+            advertisementData[CBAdvertisementDataServiceDataKey]
+            as? [CBUUID: Data]
+    else {
+      return false
+    }
+    
+    let isQplusDevice = MelomindBluetoothPeripheral.isQplusDevice(
+      deviceName: deviceName,
+      blePrefix: "melo_",
+      serviceData: serviceData
+    )
+
+    return isQplusDevice
+  }
+
+  func isMbtPeripheral(advertisementData: [String: Any]) -> Bool {
+    let isMelomindPeripheral =
+      self.isMelomindPeripheral(advertisementData: advertisementData)
+    let isQplusPeripheral =
+      self.isQplusPeripheral(advertisementData: advertisementData)
+    return isMelomindPeripheral || isQplusPeripheral
   }
 
 }
