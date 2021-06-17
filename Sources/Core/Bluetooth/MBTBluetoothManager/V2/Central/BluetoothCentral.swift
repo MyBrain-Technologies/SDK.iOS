@@ -129,7 +129,7 @@ internal class BluetoothCentral: NSObject {
   //----------------------------------------------------------------------------
 
   // Will call `centralManager(_:didDiscover:advertisementData:rssi:)`
-  func scan(services: [CBUUID]) {
+  func scan(services: [CBUUID]?) {
     log.verbose("🧭 Start scanning for a melomind device")
 
     guard cbCentralManager.state == .poweredOn else {
