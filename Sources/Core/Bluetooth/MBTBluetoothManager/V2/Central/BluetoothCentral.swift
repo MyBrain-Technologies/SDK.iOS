@@ -154,9 +154,10 @@ internal class BluetoothCentral: NSObject {
   private func handleNewDiscoveredPeripheral(_ peripheral: CBPeripheral,
                                              advertisementData: [String: Any],
                                              rssi RSSI: NSNumber) {
-    log.verbose("🆕 Did discover peripheral")
+    log.verbose("🆕 Did discover peripheral: \(peripheral.name ?? "Unknown")")
 
-    let isMelomindDevice = peripheralValidator.isMelomindPeripheral(
+    
+    let isMbtPeripheral = peripheralValidator.isMbtPeripheral(
       advertisementData: advertisementData
     )
 
@@ -165,7 +166,7 @@ internal class BluetoothCentral: NSObject {
 //    let isConnectingOrUpdating =
 //      timers.isBleConnectionTimerInProgress || OADState >= .started
 
-    guard isMelomindDevice, isNotConnected else { return }
+    guard isMbtPeripheral, isNotConnected else { return }
 
     discoveredPeripherals.append(peripheral)
 //    guard isMelomindDevice && isConnectingOrUpdating else { return }
