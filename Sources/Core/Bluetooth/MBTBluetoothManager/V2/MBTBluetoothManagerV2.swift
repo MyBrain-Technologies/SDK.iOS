@@ -376,8 +376,6 @@ internal class MBTPeripheral: NSObject {
 
   private let allIndusServiceCBUUIDs: [CBUUID]
 
-
-
   private let deviceInformationBuilder = DeviceInformationBuilder()
 
   /******************** Callbacks ********************/
@@ -477,12 +475,16 @@ internal class MBTPeripheral: NSObject {
         return
       }
 
-      self.state = .pairing
-
       self.peripheralCommunicator = PostIndus5PeripheralCommunicator(
         peripheral: peripheral,
         characteristicContainer: characteristicContainer
       )
+
+      self.peripheralValueReceiver = PostIndus5PeripheralValueReceiver()
+
+      self.state = .pairing
+
+      self.peripheralCommunicator?.requestPairing()
     }
   }
 
@@ -1058,6 +1060,167 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
 }
+
+
+class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
+
+  //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  /******************** Callbacks ********************/
+
+  weak var delegate: PeripheralValueDelegate?
+
+  //----------------------------------------------------------------------------
+  // MARK: - Update
+  //----------------------------------------------------------------------------
+
+  func handlePairingValudUpdate(for characteristic: CBCharacteristic,
+                                error: Error?) {
+    let characteristicCBUUID = characteristic.uuid
+    guard let mbtCharacteristic =
+            MBTCharacteristic.PostIndus5(uuid: characteristicCBUUID) else {
+      log.error("Unknown characteristic", context: characteristicCBUUID)
+      return
+    }
+
+    guard mbtCharacteristic == .rx else {
+      log.error("Invalid pairing characteristic", context: characteristicCBUUID)
+      return
+    }
+
+    guard let error = error else {
+      delegate?.didPair()
+      return
+    }
+
+    if (error as NSError).code == CBATTError.readNotPermitted.rawValue {
+      print(error.localizedDescription)
+      delegate?.didRequestPairing()
+      return
+    }
+
+    delegate?.didFail(with: error)
+  }
+
+  func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?) {
+    if let error = error {
+      delegate?.didFail(with: error)
+      return
+    }
+
+    let characteristicCBUUID = characteristic.uuid
+    guard let mbtCharacteristic =
+            MBTCharacteristic.PostIndus5(uuid: characteristicCBUUID) else {
+      log.error("Unknown characteristic", context: characteristicCBUUID)
+      return
+    }
+
+    guard let data = characteristic.value else {
+      #warning("TODO: Handle error")
+      return
+    }
+
+    switch mbtCharacteristic {
+      case .tx: handleTxUpdate(for: data)
+      case .rx: handleRxUpdate(for: data)
+      case .mailBox: handleMailboxUpdate(for: data)
+    }
+
+  }
+
+  private func handleTxUpdate(for data: Data) {
+    #warning("TODO")
+  }
+
+  private func handleRxUpdate(for data: Data) {
+    #warning("TODO")
+  }
+
+  private func handleMailboxUpdate(for data: Data) {
+    let bytes = Bytes(data)
+    guard bytes.count > 0 else { return }
+    let event = MailBoxEvents.getMailBoxEvent(v: bytes[0])
+
+    switch event {
+      case .otaModeEvent: handleOtaModeUpdate(for: bytes)
+      case .otaIndexResetEvent: handleOtaIndexResetUpdate(for: bytes)
+      case .otaStatusEvent: handleOtaStatusUpdate(for: bytes)
+      case .a2dpConnection: handleA2dpConnectionUpdate(for: bytes)
+      case .setSerialNumber: handleSetSerialNumberUpdate(for: bytes)
+      default: log.info("📲 Unknown MBX response")
+    }
+  }
+
+  private func handleOtaModeUpdate(for bytes: Bytes) {
+    #warning("TODO handleOtaModeUpdate")
+  }
+
+  private func handleOtaIndexResetUpdate(for bytes: Bytes) {
+    #warning("TODO handleOtaIndexResetUpdate")
+  }
+
+  private func handleOtaStatusUpdate(for bytes: Bytes) {
+    #warning("TODO handleOtaStatusUpdate")
+  }
+
+  private func handleA2dpConnectionUpdate(for bytes: Bytes) {
+    log.verbose("📲 A2DP connection")
+
+    let bytesResponse = bytes[1]
+    let bytesA2DPStatus =
+      MailBoxA2DPResponse.getA2DPResponse(from: bytesResponse)
+
+    log.info("📲 A2DP bytes", context: bytes.description)
+    log.info("📲 A2DP bits", context: bytesA2DPStatus.description)
+
+    if bytesA2DPStatus.contains(.inProgress) {
+      log.info("📲 A2DP in progress")
+    }
+    guard bytesA2DPStatus.contains(.success) else {
+      var error: Error?
+      if bytesA2DPStatus.contains(.failedBadAdress) {
+        error = OADError.badBDAddr.error
+      } else if bytesA2DPStatus.contains(.failedAlreadyConnected) {
+        error = AudioError.audioAldreadyConnected.error
+      } else if bytesA2DPStatus.contains(.linkKeyInvalid) {
+        error = AudioError.audioUnpaired.error
+      } else if bytesA2DPStatus.contains(.failedTimeout) {
+        error = AudioError.audioConnectionTimeOut.error
+      }
+      #warning("TODO: Handle unknown error")
+
+      if let error = error {
+        log.error("📲 A2DP Transfer failed", context: error)
+        delegate?.didFail(with: error)
+//        if isOADInProgress {
+//          eventDelegate?.onUpdateFailWithError?(error)
+//        } else {
+//          eventDelegate?.onConnectionFailed?(error)
+//        }
+//
+//        timers.stopA2DPConnectionTimer()
+//        disconnect()
+      }
+      return
+    }
+
+    log.info("📲 A2DP connection success")
+    delegate?.didA2DPConnectionRequestSucceed()
+  }
+
+  private func handleSetSerialNumberUpdate(for bytes: Bytes) {
+
+  }
+
+}
+
+
+
+
+
+
 
 class ValueFormatter {
 
