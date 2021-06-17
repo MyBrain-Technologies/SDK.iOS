@@ -25,4 +25,15 @@ struct MelomindBluetoothPeripheral {
 
     return hasMelomindService && nameContainMelomindPrefix
   }
+
+  static func isQplusDevice(
+    deviceName: String,
+    blePrefix: String = Constants.DeviceName.blePrefix,
+    serviceData: [CBUUID: Data]
+  ) -> Bool {
+    let nameHasQplusPrefix = deviceName.lowercased().starts(with: blePrefix)
+
+    return nameHasQplusPrefix
+  }
+
 }
