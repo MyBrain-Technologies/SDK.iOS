@@ -7,7 +7,7 @@ struct PostIndus5CharacteristicContainer {
 
   var rx: CBCharacteristic
 
-  /// The *characteristic* of the mail box
-  var mailBox: CBCharacteristic
+//  /// The *characteristic* of the mail box
+//  var mailBox: CBCharacteristic
 
 }
