@@ -64,6 +64,8 @@ enum MailBoxEvents: UInt8 {
 
   case a2dpConnection = 17
 
+  case batteryLevel = 20
+
   case unknownEvent = 0xFF
 
   static func getMailBoxEvent(v: UInt8) -> MailBoxEvents {

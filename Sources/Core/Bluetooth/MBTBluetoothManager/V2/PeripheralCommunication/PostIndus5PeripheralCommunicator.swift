@@ -30,7 +30,7 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   func requestPairing() {
     peripheral.setNotifyValue(
       true,
-      for: characteristicContainer.tx
+      for: characteristicContainer.rx
     )
   }
 
@@ -43,8 +43,11 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func readDeviceState() {
-    #warning("TODO")
-    assertionFailure()
+    let bytes: [UInt8] = [MailBoxEvents.batteryLevel.rawValue]
+    let dataToWrite = Data(bytes)
+    peripheral.writeValue(dataToWrite,
+                          for: characteristicContainer.tx,
+                          type: .withResponse)
   }
 
   func readDeviceInformation() {
