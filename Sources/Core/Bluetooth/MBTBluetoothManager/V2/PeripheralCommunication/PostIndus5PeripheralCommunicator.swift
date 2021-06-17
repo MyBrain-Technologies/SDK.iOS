@@ -28,13 +28,14 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func requestPairing() {
-    #warning("TODO")
-    assertionFailure()
+    peripheral.setNotifyValue(
+      true,
+      for: characteristicContainer.tx
+    )
   }
 
   func requestConnectA2DP() {
-    #warning("TODO")
-    assertionFailure()
+    assertionFailure("A2DP connection is not available for post indus 5.")
   }
 
   //----------------------------------------------------------------------------
