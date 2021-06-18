@@ -76,8 +76,8 @@ public class MBTBluetoothManagerV2 {
       self?.handleDiscover(peripheral: peripheral)
     }
 
-    central.didConnectToPeripheral = { [weak self] peripheral in
-      self?.handleConnection(to: peripheral)
+    central.didConnectToPeripheral = { [weak self] result in
+      self?.handleConnection(to: result)
     }
 
     central.didConnectionFail = { [weak self] error in
@@ -113,11 +113,16 @@ public class MBTBluetoothManagerV2 {
     central.connect(to: peripheral)
   }
 
-  private func handleConnection(to newPeripheral: CBPeripheral) {
-    print("Central connected to \(newPeripheral)")
+  private func handleConnection(
+    to newPeripheralResult: BluetoothCentral.PeripheralResult
+  ) {
+    print("Central connected to \(newPeripheralResult.peripheral)")
     bleDelegate?.didConnect()
-    currentPeripheral = MBTPeripheral()
-    currentPeripheral?.peripheral = newPeripheral
+    currentPeripheral = MBTPeripheral(
+      peripheral: newPeripheralResult.peripheral,
+      isPreIndus5: newPeripheralResult.isPreIndus5
+    )
+//    currentPeripheral?.peripheral = newPeripheralResult.peripheral
     currentPeripheral?.delegate = self
   }
 
@@ -230,7 +235,7 @@ internal class MBTPeripheral: NSObject {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  var peripheral: CBPeripheral? {
+  private(set) var peripheral: CBPeripheral? {
     didSet {
       print(peripheral?.identifier)
       updatePeripheral()
@@ -313,15 +318,17 @@ internal class MBTPeripheral: NSObject {
        isPreIndus5: Bool,
        delegate: PeripheralDelegate? = nil) {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
-    allIndusServiceCBUUIDs = MBTService.allIndusCBUUIDs
+    allIndusServiceCBUUIDs = isPreIndus5 ? MBTService.PostIndus5.allCases.uuids : MBTService.PostIndus5.allCases.uuids
     super.init()
 
     self.peripheral = peripheral
     self.isPreIndus5 = isPreIndus5
     self.delegate = delegate
     setup()
+    updatePeripheral()
   }
 
+  #warning("Remove this init?")
   override init() {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
     allIndusServiceCBUUIDs = MBTService.allIndusCBUUIDs

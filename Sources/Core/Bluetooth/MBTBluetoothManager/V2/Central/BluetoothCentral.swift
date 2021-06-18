@@ -4,6 +4,15 @@ import CoreBluetooth
 internal class BluetoothCentral: NSObject {
 
   //----------------------------------------------------------------------------
+  // MARK: - Typealias
+  //----------------------------------------------------------------------------
+
+  struct PeripheralResult: Hashable {
+    let peripheral: CBPeripheral
+    let isPreIndus5: Bool
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
@@ -15,7 +24,7 @@ internal class BluetoothCentral: NSObject {
     return cbCentralManager.isScanning
   }
 
-  private var discoveredPeripherals = [CBPeripheral]()
+  private var discoveredPeripherals: Set<PeripheralResult> = []
 
   /******************** Validation ********************/
 
@@ -40,7 +49,7 @@ internal class BluetoothCentral: NSObject {
   /******************** Callbacks ********************/
 
   var didDiscoverPeripheral: ((CBPeripheral) -> Void)?
-  var didConnectToPeripheral: ((CBPeripheral) -> Void)?
+  var didConnectToPeripheral: ((PeripheralResult) -> Void)?
   var didConnectionFail: ((Error?) -> Void)?
   var didDisconnect: ((CBPeripheral, Error?) -> Void)?
 
@@ -156,10 +165,16 @@ internal class BluetoothCentral: NSObject {
                                              rssi RSSI: NSNumber) {
     log.verbose("🆕 Did discover peripheral: \(peripheral.name ?? "Unknown")")
 
-    
-    let isMbtPeripheral = peripheralValidator.isMbtPeripheral(
+
+    let isMelomindPeripheral = peripheralValidator.isMelomindPeripheral(
       advertisementData: advertisementData
     )
+
+    let isQplusPeripheral = peripheralValidator.isQplusPeripheral(
+      advertisementData: advertisementData
+    )
+
+    let isMbtPeripheral = isMelomindPeripheral || isQplusPeripheral
 
     let isNotConnected = peripheral.state != .connected
 
@@ -168,7 +183,11 @@ internal class BluetoothCentral: NSObject {
 
     guard isMbtPeripheral, isNotConnected else { return }
 
-    discoveredPeripherals.append(peripheral)
+    let isPreIndus5 = isMelomindPeripheral
+
+    let peripheralResult = PeripheralResult(peripheral: peripheral,
+                                            isPreIndus5: isPreIndus5)
+    discoveredPeripherals.insert(peripheralResult)
 //    guard isMelomindDevice && isConnectingOrUpdating else { return }
 //
 //    if DeviceManager.connectedDeviceName == "" {
@@ -211,7 +230,14 @@ internal class BluetoothCentral: NSObject {
 
   private func handleConnectionSuccess(to peripheral: CBPeripheral) {
     log.verbose("🆕 Did connect to peripheral")
-    didConnectToPeripheral?(peripheral)
+    guard let result =
+            discoveredPeripherals.first(where: { $0.peripheral == peripheral })
+    else {
+      #warning("TODO: Handle error")
+      didConnectionFail?(nil)
+      return
+    }
+    didConnectToPeripheral?(result)
 
 //    peripheral.discoverServices(nil) // Return all the possible services
 //
