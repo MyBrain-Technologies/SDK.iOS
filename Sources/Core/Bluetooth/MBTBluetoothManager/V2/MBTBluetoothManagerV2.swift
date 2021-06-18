@@ -517,7 +517,7 @@ internal class MBTPeripheral: NSObject {
 //        print("\(blCharacteristic): \(dataString)")
 //      }
 
-      print(characteristic)
+      print("Discovered:\n\(characteristic)\n from service:\n\(characteristic.service)\n")
       characteristicDiscoverer.discover(characteristic: characteristic)
     }
   }
@@ -651,7 +651,8 @@ extension MBTPeripheral: CBPeripheralDelegate {
   ///   - peripheral: The peripheral that the services belong to.
   ///   - service: The characteristic whose value has been retrieved.
   ///   - error: If an error occurred, the cause of the failure.
-  /// Remark: Absence of this function causes the notifications not to register anymore.
+  /// Remark: Absence of this function causes the notifications not to register
+  /// anymore.
   func peripheral(
     _ peripheral: CBPeripheral,
     didUpdateNotificationStateFor characteristic: CBCharacteristic,
