@@ -24,6 +24,19 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   //----------------------------------------------------------------------------
+  // MARK: - Communication
+  //----------------------------------------------------------------------------
+
+  private func sendMailBoxCommand(bytes: [UInt8], withResponse: Bool = true) {
+    let type: CBCharacteristicWriteType =
+      withResponse == true ? .withResponse : .withoutResponse
+    let dataToWrite = Data(bytes)
+    peripheral.writeValue(dataToWrite,
+                          for: characteristicContainer.tx,
+                          type: type)
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Connection
   //----------------------------------------------------------------------------
 
@@ -43,16 +56,22 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func readDeviceState() {
-    let bytes: [UInt8] = [MailBoxEvents.batteryLevel.rawValue]
-    let dataToWrite = Data(bytes)
-    peripheral.writeValue(dataToWrite,
-                          for: characteristicContainer.tx,
-                          type: .withResponse)
+    let bytes = [MailBoxEvents.batteryLevel.rawValue]
+    sendMailBoxCommand(bytes: bytes)
   }
 
   func readDeviceInformation() {
-    #warning("TODO")
-    assertionFailure()
+    let deviceIdBytes = [MailBoxEvents.deviceId.rawValue]
+    let serialNumberBytes = [MailBoxEvents.serialNumber.rawValue]
+    let hardwareVersionBytes = [MailBoxEvents.hardwareVersion.rawValue]
+    let firmewareVersionBytes = [MailBoxEvents.firmewareVersion.rawValue]
+    let deviceInformationBytes = [deviceIdBytes,
+                                  serialNumberBytes,
+                                  hardwareVersionBytes,
+                                  firmewareVersionBytes]
+    for singleDeviceInformationBytes in deviceInformationBytes {
+      sendMailBoxCommand(bytes: singleDeviceInformationBytes)
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -89,8 +108,10 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   func notifyBrainActivityMeasurement(value: Bool) {
-    #warning("TODO")
-    assertionFailure()
+    let bytes = value == true ?
+      [MailBoxEvents.startEeg.rawValue]
+    : [MailBoxEvents.stopEeg.rawValue]
+    sendMailBoxCommand(bytes: bytes)
   }
 
   func notifyHeadsetStatus(value: Bool) {
