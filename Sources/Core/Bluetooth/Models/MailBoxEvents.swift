@@ -66,6 +66,22 @@ enum MailBoxEvents: UInt8 {
 
   case batteryLevel = 20
 
+  case serialNumber = 22
+
+  case deviceId = 23
+
+  /// Response: 0 failure, 1 success
+  case startEeg = 24
+
+  // Response: 0 failure, 1 success
+  case stopEeg = 25
+
+  case firmewareVersion = 27
+
+  case hardwareVersion = 28
+
+  case mtuSize = 29
+
   case unknownEvent = 0xFF
 
   static func getMailBoxEvent(v: UInt8) -> MailBoxEvents {
