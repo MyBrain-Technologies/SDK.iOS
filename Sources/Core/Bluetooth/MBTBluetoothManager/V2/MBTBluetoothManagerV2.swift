@@ -526,7 +526,8 @@ internal class MBTPeripheral: NSObject {
 //        print("\(blCharacteristic): \(dataString)")
 //      }
 
-      print("Discovered:\n\(characteristic)\n from service:\n\(characteristic.service)\n")
+      print("Discovered:\n\(characteristic)\n "
+              + "from service:\n\(characteristic.service)\n")
       characteristicDiscoverer.discover(characteristic: characteristic)
     }
   }
@@ -546,15 +547,6 @@ internal class MBTPeripheral: NSObject {
       peripheralValueReceiver?.handleValueUpdate(for: characteristic,
                                                  error: error)
     }
-
-//    /******************** Quick access ********************/
-//
-//    let deviceAcquisition = MBTClient.shared.deviceAcquisitionManager
-//
-//    guard let service = BluetoothService(uuid: characteristic.uuid) else {
-//      log.error("unknown service", context: characteristic.uuid)
-//      return
-//    }
   }
 
   private func handleValueWrite(of peripheral: CBPeripheral,
