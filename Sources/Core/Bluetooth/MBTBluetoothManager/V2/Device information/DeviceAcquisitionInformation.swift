@@ -23,12 +23,13 @@ public struct DeviceAcquisitionInformation: Codable {
   //----------------------------------------------------------------------------
 
   init(from indusVersion: IndusVersion) {
+    let byteSize = 2
     switch indusVersion {
       case .indus2, .indus3:
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
-        self.eegPacketMaxSize = eegPacketSize * channelCount * 2
+        self.eegPacketMaxSize = eegPacketSize * channelCount * byteSize
         self.electrodes = Electrodes(acquisitions: [.p3, .p4],
                                      references: [.m1],
                                      grounds: [.m2])
@@ -36,11 +37,11 @@ public struct DeviceAcquisitionInformation: Codable {
       case .indus5:
         #warning("TODO: Use real indus5 version")
         fatalError("Use real indus5 version")
-        self.channelCount = 2
+        self.channelCount = 4
         self.sampleRate = 250
         self.eegPacketSize = 250
-        self.eegPacketMaxSize = eegPacketSize * channelCount * 2
-        self.electrodes = Electrodes(acquisitions: [.p3, .p4],
+        self.eegPacketMaxSize = eegPacketSize * channelCount * byteSize
+        self.electrodes = Electrodes(acquisitions: [.p3, .p4, .af3, .af4],
                                      references: [.m1],
                                      grounds: [.m2])
     }
