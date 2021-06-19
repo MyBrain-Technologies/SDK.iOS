@@ -183,7 +183,10 @@ extension MBTBluetoothManager: CBPeripheralDelegate {
     let length = data.count * MemoryLayout<UInt8>.size
     var bytesArray = [UInt8](repeating: 0, count: data.count)
     (data as NSData).getBytes(&bytesArray, length: length)
-    let event = MailBoxEvents.getMailBoxEvent(v: bytesArray[0])
+    guard let event = MailboxCommand(rawValue: bytesArray[0]) else {
+      print("Unknown Mailbox command: \(bytesArray)")
+      return
+    }
 
     switch event {
     case .otaModeEvent: otaModeEvent(bytes: bytesArray)

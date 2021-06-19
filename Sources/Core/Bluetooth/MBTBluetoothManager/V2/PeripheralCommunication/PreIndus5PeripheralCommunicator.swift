@@ -59,7 +59,7 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
 
   func write(deviceExternalName name: String) {
     let serialNumberByteArray: [UInt8] = [
-      MailBoxEvents.setSerialNumber.rawValue,
+      MailboxCommand.setSerialNumber.rawValue,
       0xAB,
       0x21
     ]
@@ -74,7 +74,7 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   func write(firmwareVersion: [UInt8], numberOfBlocks: Int16) {
     var firmwareVersionConverted = [UInt8](repeating: 0, count: 5)
 
-    firmwareVersionConverted[0] = MailBoxEvents.startOTATFX.rawValue
+    firmwareVersionConverted[0] = MailboxCommand.startOTATFX.rawValue
     firmwareVersionConverted[1] = firmwareVersion[0]
     firmwareVersionConverted[2] = firmwareVersion[1]
     firmwareVersionConverted[3] = numberOfBlocks.loUint8
@@ -88,7 +88,7 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
 
   func writeA2DPConnection() {
     let bytes: [UInt8] = [
-      MailBoxEvents.a2dpConnection.rawValue,
+      MailboxCommand.a2dpConnection.rawValue,
       0x25,
       0xA2
     ]

@@ -146,7 +146,7 @@
 		A91DC1242490CFA300E4A440 /* IOBluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC11D2490CFA300E4A440 /* IOBluetoothPeripheral.swift */; };
 		A91DC1262490CFA300E4A440 /* BluetoothPeripheralConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC11F2490CFA300E4A440 /* BluetoothPeripheralConnector.swift */; };
 		A91DC1282490CFA300E4A440 /* BluetoothStateHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC1212490CFA300E4A440 /* BluetoothStateHistory.swift */; };
-		A91DC12F2490D01400E4A440 /* MailBoxEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC12A2490D01400E4A440 /* MailBoxEvents.swift */; };
+		A91DC12F2490D01400E4A440 /* MailboxCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC12A2490D01400E4A440 /* MailboxCommand.swift */; };
 		A91DC1302490D01400E4A440 /* BluetoothDeviceCharacteristics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC12B2490D01400E4A440 /* BluetoothDeviceCharacteristics.swift */; };
 		A91DC1312490D01400E4A440 /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC12C2490D01400E4A440 /* BluetoothService.swift */; };
 		A91DC1322490D01400E4A440 /* BluetoothAdvertisementDataReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91DC12D2490D01400E4A440 /* BluetoothAdvertisementDataReader.swift */; };
@@ -399,7 +399,7 @@
 		A91DC11D2490CFA300E4A440 /* IOBluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOBluetoothPeripheral.swift; sourceTree = "<group>"; };
 		A91DC11F2490CFA300E4A440 /* BluetoothPeripheralConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralConnector.swift; sourceTree = "<group>"; };
 		A91DC1212490CFA300E4A440 /* BluetoothStateHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothStateHistory.swift; sourceTree = "<group>"; };
-		A91DC12A2490D01400E4A440 /* MailBoxEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailBoxEvents.swift; sourceTree = "<group>"; };
+		A91DC12A2490D01400E4A440 /* MailboxCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxCommand.swift; sourceTree = "<group>"; };
 		A91DC12B2490D01400E4A440 /* BluetoothDeviceCharacteristics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceCharacteristics.swift; sourceTree = "<group>"; };
 		A91DC12C2490D01400E4A440 /* BluetoothService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
 		A91DC12D2490D01400E4A440 /* BluetoothAdvertisementDataReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothAdvertisementDataReader.swift; sourceTree = "<group>"; };
@@ -1067,7 +1067,7 @@
 				A91DC12B2490D01400E4A440 /* BluetoothDeviceCharacteristics.swift */,
 				A91DC12C2490D01400E4A440 /* BluetoothService.swift */,
 				A91DC12E2490D01400E4A440 /* MailboxA2DPResponse.swift */,
-				A91DC12A2490D01400E4A440 /* MailBoxEvents.swift */,
+				A91DC12A2490D01400E4A440 /* MailboxCommand.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1546,7 +1546,7 @@
 				4DA2FCA72666D4F700C8B14E /* CharacteristicDiscoverer.swift in Sources */,
 				A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */,
 				A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */,
-				A91DC12F2490D01400E4A440 /* MailBoxEvents.swift in Sources */,
+				A91DC12F2490D01400E4A440 /* MailboxCommand.swift in Sources */,
 				F458373D1EC5C21000C5D596 /* MBTClient.swift in Sources */,
 				A91DC1302490D01400E4A440 /* BluetoothDeviceCharacteristics.swift in Sources */,
 				A926C3F7248E460800B01186 /* CalibrationOutput.swift in Sources */,

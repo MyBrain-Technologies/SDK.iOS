@@ -913,9 +913,12 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   private func handleMailboxUpdate(for data: Data) {
     let bytes = Bytes(data)
     guard bytes.count > 0 else { return }
-    let event = MailBoxEvents.getMailBoxEvent(v: bytes[0])
+    guard let mailboxCommand = MailboxCommand(rawValue: bytes[0]) else {
+      print("Unknown Mailbox command: \(bytes)")
+      return
+    }
 
-    switch event {
+    switch mailboxCommand {
       case .otaModeEvent: handleOtaModeUpdate(for: bytes)
       case .otaIndexResetEvent: handleOtaIndexResetUpdate(for: bytes)
       case .otaStatusEvent: handleOtaStatusUpdate(for: bytes)
@@ -1068,9 +1071,12 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   private func handleMailboxUpdate(for data: Data) {
     let bytes = Bytes(data)
     guard bytes.count > 0 else { return }
-    let event = MailBoxEvents.getMailBoxEvent(v: bytes[0])
+    guard let mailboxCommand = MailboxCommand(rawValue: bytes[0]) else {
+      print("Unknown Mailbox command: \(bytes)")
+      return
+    }
 
-    switch event {
+    switch mailboxCommand {
       case .otaModeEvent: handleOtaModeUpdate(for: bytes)
       case .otaIndexResetEvent: handleOtaIndexResetUpdate(for: bytes)
       case .otaStatusEvent: handleOtaStatusUpdate(for: bytes)

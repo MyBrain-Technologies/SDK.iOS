@@ -1,13 +1,13 @@
 import Foundation
 
 /*******************************************************************************
- * MailBoxEvents
+ * MailboxCommand
  *
  * Mail box event (communication with headset by BLE)
  *
  ******************************************************************************/
 // Good
-enum MailBoxEvents: UInt8 {
+enum MailboxCommand: UInt8 {
 
   //----------------------------------------------------------------------------
   // MARK: - Cases
@@ -84,7 +84,4 @@ enum MailBoxEvents: UInt8 {
 
   case unknownEvent = 0xFF
 
-  static func getMailBoxEvent(v: UInt8) -> MailBoxEvents {
-    return MailBoxEvents(rawValue: v) ?? .unknownEvent
-  }
 }

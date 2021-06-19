@@ -56,15 +56,15 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func readDeviceState() {
-    let bytes = [MailBoxEvents.batteryLevel.rawValue]
+    let bytes = [MailboxCommand.batteryLevel.rawValue]
     sendMailBoxCommand(bytes: bytes)
   }
 
   func readDeviceInformation() {
-    let deviceIdBytes = [MailBoxEvents.deviceId.rawValue]
-    let serialNumberBytes = [MailBoxEvents.serialNumber.rawValue]
-    let hardwareVersionBytes = [MailBoxEvents.hardwareVersion.rawValue]
-    let firmewareVersionBytes = [MailBoxEvents.firmewareVersion.rawValue]
+    let deviceIdBytes = [MailboxCommand.deviceId.rawValue]
+    let serialNumberBytes = [MailboxCommand.serialNumber.rawValue]
+    let hardwareVersionBytes = [MailboxCommand.hardwareVersion.rawValue]
+    let firmewareVersionBytes = [MailboxCommand.firmewareVersion.rawValue]
     let deviceInformationBytes = [deviceIdBytes,
                                   serialNumberBytes,
                                   hardwareVersionBytes,
@@ -109,8 +109,8 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
 
   func notifyBrainActivityMeasurement(value: Bool) {
     let bytes = value == true ?
-      [MailBoxEvents.startEeg.rawValue]
-    : [MailBoxEvents.stopEeg.rawValue]
+      [MailboxCommand.startEeg.rawValue]
+    : [MailboxCommand.stopEeg.rawValue]
     sendMailBoxCommand(bytes: bytes)
   }
 
