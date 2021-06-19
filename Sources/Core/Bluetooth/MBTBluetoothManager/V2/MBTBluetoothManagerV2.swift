@@ -318,7 +318,9 @@ internal class MBTPeripheral: NSObject {
        isPreIndus5: Bool,
        delegate: PeripheralDelegate? = nil) {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
-    allIndusServiceCBUUIDs = isPreIndus5 ? MBTService.PostIndus5.allCases.uuids : MBTService.PostIndus5.allCases.uuids
+    allIndusServiceCBUUIDs = isPreIndus5
+      ? MBTService.PostIndus5.allCases.uuids
+      : MBTService.PostIndus5.allCases.uuids
     super.init()
 
     self.peripheral = peripheral
@@ -328,7 +330,6 @@ internal class MBTPeripheral: NSObject {
     updatePeripheral()
   }
 
-  #warning("Remove this init?")
   private override init() {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
     allIndusServiceCBUUIDs = MBTService.allIndusCBUUIDs
@@ -408,6 +409,7 @@ internal class MBTPeripheral: NSObject {
 
       self.peripheralValueReceiver = PostIndus5PeripheralValueReceiver()
 
+      #warning("TODO When headset fixed")
       self.state = .pairing
 
       self.peripheralCommunicator?.requestPairing()
@@ -564,8 +566,9 @@ internal class MBTPeripheral: NSObject {
       return
     }
 
-    print("Write for: \(characteristic)")
+    print("Write for: \(characteristic)\nWith value: \(characteristic.value)")
 
+    #warning("Remove end from here.")
     // END
     state = .ready
   }
@@ -584,7 +587,8 @@ internal class MBTPeripheral: NSObject {
   //----------------------------------------------------------------------------
 
   func requestBatteryLevel() {
-    guard state == .ready else { return }
+    #warning("Why this line?")
+//    guard state == .ready else { return }
     peripheralCommunicator?.readDeviceState()
   }
 
