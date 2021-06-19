@@ -329,7 +329,7 @@ internal class MBTPeripheral: NSObject {
   }
 
   #warning("Remove this init?")
-  override init() {
+  private override init() {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
     allIndusServiceCBUUIDs = MBTService.allIndusCBUUIDs
 

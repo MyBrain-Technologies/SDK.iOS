@@ -24,6 +24,7 @@ internal class BluetoothCentral: NSObject {
     return cbCentralManager.isScanning
   }
 
+  // Or use Dictionary [CBPeripheral: Bool]?
   private var discoveredPeripherals: Set<PeripheralResult> = []
 
   /******************** Validation ********************/
