@@ -197,8 +197,13 @@ class CharacteristicDiscoverer {
       return
     }
 
+    guard let unknown = postIndus5CharacteristicMap[.unknown] as? CBCharacteristic else {
+      assertionFailure("Handle error")
+      return
+    }
+
     let postIndus5CharacteristicContainer =
-      PostIndus5CharacteristicContainer(tx: tx, rx: rx)
+      PostIndus5CharacteristicContainer(tx: tx, rx: rx, unknown: unknown)
 
     didDiscoverAllPostIndus5Characteristics?(postIndus5CharacteristicContainer)
   }
