@@ -103,8 +103,10 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func notifyMailBox(value: Bool) {
-    #warning("TODO")
-    assertionFailure()
+    peripheral.setNotifyValue(
+      value,
+      for: characteristicContainer.rx
+    )
   }
 
   func notifyBrainActivityMeasurement(value: Bool) {
