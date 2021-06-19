@@ -146,7 +146,11 @@ public class MBTClientV2 {
   //----------------------------------------------------------------------------
 
   private init() {
+    #if DEBUG
+    initLog(logToFile: false, isDebugMode: true)
+    #else
     initLog(logToFile: false, isDebugMode: false)
+    #endif
     setup()
   }
 
