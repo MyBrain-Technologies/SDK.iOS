@@ -1055,6 +1055,9 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     switch mbtCharacteristic {
       case .tx: handleTxUpdate(for: data)
       case .rx: handleRxUpdate(for: data)
+      case .unknown:
+        print("unknown characteristic")
+        return
 //      case .mailBox: handleMailboxUpdate(for: data)
     }
 
