@@ -413,6 +413,7 @@ internal class MBTPeripheral: NSObject {
       self.state = .pairing
 
       self.peripheralCommunicator?.requestPairing()
+      // Continue after notification activated
     }
   }
 
@@ -569,7 +570,7 @@ internal class MBTPeripheral: NSObject {
     of peripheral: CBPeripheral,
     for characteristic: CBCharacteristic,
     error: Error?) {
-    print("Notification activated for:")
+    print("Notification state update for:")
     print(characteristic)
     print("With error: \(error?.localizedDescription)")
   }
