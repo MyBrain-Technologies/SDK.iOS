@@ -30,6 +30,8 @@ protocol PeripheralCommunicable {
 
   func write(oadBuffer: [UInt8])
 
+  func write(mtuSize: UInt8)
+
   //----------------------------------------------------------------------------
   // MARK: - Notify
   //----------------------------------------------------------------------------

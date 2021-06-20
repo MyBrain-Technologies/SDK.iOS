@@ -108,6 +108,10 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
     )
   }
 
+  func write(mtuSize: UInt8) {
+
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Notify
   //----------------------------------------------------------------------------

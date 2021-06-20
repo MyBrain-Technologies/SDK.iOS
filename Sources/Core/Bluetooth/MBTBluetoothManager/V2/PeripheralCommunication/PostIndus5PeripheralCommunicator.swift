@@ -98,6 +98,14 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
     assertionFailure()
   }
 
+  func write(mtuSize: UInt8) {
+    let bytes = [
+      MailboxCommand.mtuSize.rawValue,
+      0x47
+    ]
+    sendMailBoxCommand(bytes: bytes)
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Notify
   //----------------------------------------------------------------------------
