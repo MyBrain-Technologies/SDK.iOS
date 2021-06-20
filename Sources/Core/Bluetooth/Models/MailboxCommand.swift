@@ -13,74 +13,74 @@ enum MailboxCommand: UInt8 {
   // MARK: - Cases
   //----------------------------------------------------------------------------
 
-  case setADSConfig = 0
+  case setADSConfig = 0x0
 
-  case setAudioconfig = 1
+  case setAudioconfig = 0x1
 
   /// Product name configuration request
-  case setProductName = 2
+  case setProductName = 0x2
 
   /// Used by appli to request an OTA update (provides software major and minor
   ///  in payload)
-  case startOTATFX = 3
+  case startOTATFX = 0x3
 
   /// Notifies app of a lead off modification
-  case leadOffEvent = 4
+  case leadOffEvent = 0x4
 
   /// Notifies appli that we switched to OTA mode
-  case otaModeEvent = 5
+  case otaModeEvent = 0x5
 
   /// Notifies appli that we request a packet Idx reset
-  case otaIndexResetEvent = 6
+  case otaIndexResetEvent = 0x6
 
   /// Notifies appli with the status of the OTA transfert.
-  case otaStatusEvent = 7
+  case otaStatusEvent = 0x7
 
   /// allows to retrieve to system global status
-  case systemGetStatus = 8
+  case systemGetStatus = 0x8
 
   /// trigger a reboot event at disconnection
-  case systemRebootEvent = 9
+  case systemRebootEvent = 0x9
 
   /// Set the melomind serial nb
-  case setSerialNumber = 10
+  case setSerialNumber = 0x10
 
   /// allows to hotswap the filters' parameters
-  case setNotchFilter = 11
+  case setNotchFilter = 0x11
 
   /// Set the signal bandwidth by changing the embedded bandpass filter
-  case setBandpassFilter = 12
+  case setBandpassFilter = 0x12
 
   /// Set the eeg signal amplifier gain
-  case setAmplifierSignalGain = 13
+  case setAmplifierSignalGain = 0x13
 
   /// Get the current configuration of the Notch filter, the bandpass filter, and the amplifier gain.
-  case getEEGConfig = 14
+  case getEEGConfig = 0x14
 
   /// Enable or disable the p300 functionnality of the melomind.
-  case toggleP300 = 15
+  case toggleP300 = 0x15
 
-  case enableDCOffset = 16
+  case enableDCOffset = 0x16
 
-  case a2dpConnection = 17
+  case a2dpConnection = 0x17
 
-  case batteryLevel = 20
+  case batteryLevel = 0x20
 
-  case serialNumber = 22
+  case serialNumber = 0x22
 
-  case deviceId = 23
+  case deviceId = 0x23
 
   /// Response: 0 failure, 1 success
-  case startEeg = 24
+  case startEeg = 0x24
 
   // Response: 0 failure, 1 success
-  case stopEeg = 25
+  case stopEeg = 0x25
 
-  case firmewareVersion = 27
+  case firmewareVersion = 0x27
 
-  case hardwareVersion = 28
+  case hardwareVersion = 0x28
 
-  case mtuSize = 29
+  case mtuSize = 0x29
 
   case unknownEvent = 0xFF
 
