@@ -319,7 +319,7 @@ internal class MBTPeripheral: NSObject {
        delegate: PeripheralDelegate? = nil) {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
     allIndusServiceCBUUIDs = isPreIndus5
-      ? MBTService.PostIndus5.allCases.uuids
+      ? MBTService.PreIndus5.allCases.uuids
       : MBTService.PostIndus5.allCases.uuids
     super.init()
 
