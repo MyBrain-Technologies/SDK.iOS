@@ -572,7 +572,15 @@ internal class MBTPeripheral: NSObject {
     error: Error?) {
     print("Notification state update for:")
     print(characteristic)
-    print("With error: \(error?.localizedDescription)")
+    print("is activated: \(characteristic.isNotifying)")
+
+    if let error = error {
+      print("With error: \(error.localizedDescription)")
+      return
+    }
+
+//    peripheralCommunicator?.readDeviceInformation()
+//    peripheralCommunicator?.readDeviceState()
   }
 
   //----------------------------------------------------------------------------
