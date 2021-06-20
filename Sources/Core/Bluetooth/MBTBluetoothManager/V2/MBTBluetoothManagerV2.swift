@@ -1073,10 +1073,6 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
   private func handleRxUpdate(for data: Data) {
-    #warning("TODO")
-  }
-
-  private func handleMailboxUpdate(for data: Data) {
     let bytes = Bytes(data)
     guard bytes.count > 0 else { return }
     guard let mailboxCommand = MailboxCommand(rawValue: bytes[0]) else {
@@ -1090,9 +1086,52 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .otaStatusEvent: handleOtaStatusUpdate(for: bytes)
       case .a2dpConnection: handleA2dpConnectionUpdate(for: bytes)
       case .setSerialNumber: handleSetSerialNumberUpdate(for: bytes)
+      case .batteryLevel: handleBatteryUpdate(for: bytes)
+      case .serialNumber: handleSerialNumberUpdate(for: bytes)
+      case .deviceId: handleProductNameUpdate(for: bytes)
+      case .firmewareVersion: handleFirmwareVersionUpdate(for: bytes)
+      case .hardwareVersion: handleHardwareVersionNameUpdate(for: bytes)
       default: log.info("📲 Unknown MBX response")
     }
   }
+
+  private func handleProductNameUpdate(for bytes: Bytes) {
+    guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
+    delegate?.didUpdate(productName: valueText)
+  }
+
+  private func handleSerialNumberUpdate(for bytes: Bytes) {
+    guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
+    delegate?.didUpdate(serialNumber: valueText)
+  }
+
+  private func handleFirmwareVersionUpdate(for bytes: Bytes) {
+    guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
+    delegate?.didUpdate(firmwareVersion: valueText)
+  }
+
+  private func handleHardwareVersionNameUpdate(for bytes: Bytes) {
+    guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
+    delegate?.didUpdate(hardwareVersion: valueText)
+  }
+
+  private func handleBrainUpdate(for data: Bytes) {
+//    delegate?.didUpdate(brainData: data)
+  }
+
+  private func handleBatteryUpdate(for bytes: Bytes) {
+    guard bytes.count > 0 else { return }
+    let batteryLevel = Int(bytes[0])
+    delegate?.didUpdate(batteryLevel: batteryLevel)
+  }
+
+  private func handleHeadsetStatusUpdate(for bytes: Bytes) {
+    guard bytes[0] == 1 else { return }
+    let saturationStatus = Int(bytes[1])
+    delegate?.didUpdate(saturationStatus: saturationStatus)
+  }
+
+
 
   private func handleOtaModeUpdate(for bytes: Bytes) {
     #warning("TODO handleOtaModeUpdate")
