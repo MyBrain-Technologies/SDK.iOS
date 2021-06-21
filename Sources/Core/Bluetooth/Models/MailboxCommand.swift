@@ -64,6 +64,7 @@ enum MailboxCommand: UInt8 {
 
   case enableDCOffset = 0x16
 
+  #warning("TODO Check.")
   case a2dpConnection = 0x17
 
   case batteryLevel = 0x20
