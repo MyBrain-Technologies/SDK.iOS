@@ -13,34 +13,34 @@ enum MailboxCommand: UInt8 {
   // MARK: - Cases
   //----------------------------------------------------------------------------
 
-  case setADSConfig = 0x0
+  case setADSConfig = 0x00
 
-  case setAudioconfig = 0x1
+  case setAudioconfig = 0x01
 
   /// Product name configuration request
-  case setProductName = 0x2
+  case setProductName = 0x02
 
   /// Used by appli to request an OTA update (provides software major and minor
   ///  in payload)
-  case startOTATFX = 0x3
+  case startOTATFX = 0x03
 
   /// Notifies app of a lead off modification
-  case leadOffEvent = 0x4
+  case leadOffEvent = 0x04
 
   /// Notifies appli that we switched to OTA mode
-  case otaModeEvent = 0x5
+  case otaModeEvent = 0x05
 
   /// Notifies appli that we request a packet Idx reset
-  case otaIndexResetEvent = 0x6
+  case otaIndexResetEvent = 0x06
 
   /// Notifies appli with the status of the OTA transfert.
-  case otaStatusEvent = 0x7
+  case otaStatusEvent = 0x07
 
   /// allows to retrieve to system global status
-  case systemGetStatus = 0x8
+  case systemGetStatus = 0x08
 
   /// trigger a reboot event at disconnection
-  case systemRebootEvent = 0x9
+  case systemRebootEvent = 0x09
 
   /// Set the melomind serial nb
   case setSerialNumber = 0x10
@@ -88,5 +88,5 @@ enum MailboxCommand: UInt8 {
 //  var commandCode: [UInt8]
 //  var responseOpCode: UInt8
 //  init(fromResponseOpCode: UInt8)?
-  
+
 }
