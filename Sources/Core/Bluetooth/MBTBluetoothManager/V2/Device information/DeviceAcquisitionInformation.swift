@@ -36,7 +36,6 @@ public struct DeviceAcquisitionInformation: Codable {
 
       case .indus5:
         #warning("TODO: Use real indus5 version")
-        fatalError("Use real indus5 version")
         self.channelCount = 4
         self.sampleRate = 250
         self.eegPacketSize = 250
