@@ -42,6 +42,8 @@
 		4D2E969525DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */; };
 		4D356012266270360008412C /* DeviceInformationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D356011266270360008412C /* DeviceInformationBuilder.swift */; };
 		4D356648264068DB00B4846D /* MBTBluetoothManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */; };
+		4D45E03A268118CB003E3D6B /* PeripheralGatewayProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D45E039268118CB003E3D6B /* PeripheralGatewayProtocol.swift */; };
+		4D45E03B268118CB003E3D6B /* PeripheralGatewayProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D45E039268118CB003E3D6B /* PeripheralGatewayProtocol.swift */; };
 		4D4A09882646DD1D00366DF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09872646DD1D00366DF6 /* AppDelegate.swift */; };
 		4D4A098A2646DD1D00366DF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09892646DD1D00366DF6 /* SceneDelegate.swift */; };
 		4D4A098C2646DD1D00366DF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A098B2646DD1D00366DF6 /* ViewController.swift */; };
@@ -302,6 +304,7 @@
 		4D2E969325DAE4FF0016A83E /* mm-ota-i3-1_7_26.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = "mm-ota-i3-1_7_26.bin"; sourceTree = "<group>"; };
 		4D356011266270360008412C /* DeviceInformationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformationBuilder.swift; sourceTree = "<group>"; };
 		4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTBluetoothManagerV2.swift; sourceTree = "<group>"; };
+		4D45E039268118CB003E3D6B /* PeripheralGatewayProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralGatewayProtocol.swift; sourceTree = "<group>"; };
 		4D4A09852646DD1D00366DF6 /* BluetoothTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4A09872646DD1D00366DF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D4A09892646DD1D00366DF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -671,6 +674,7 @@
 			isa = PBXGroup;
 			children = (
 				4D2891892676AA8A00B9DEE4 /* PeripheralDelegate.swift */,
+				4D45E039268118CB003E3D6B /* PeripheralGatewayProtocol.swift */,
 			);
 			path = Peripheral;
 			sourceTree = "<group>";
@@ -701,6 +705,7 @@
 				4D91E368266BACF100FFE4D9 /* Acquisition */,
 				4D2891942676AB0300B9DEE4 /* a2dp */,
 				4DEF4ECA266814C100D769DC /* Central */,
+				4D45E03826811700003E3D6B /* Device */,
 				4D2891882676AA7100B9DEE4 /* Peripheral */,
 				4DEF4EB326680C6800D769DC /* Delegate */,
 				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
@@ -710,6 +715,13 @@
 				4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */,
 			);
 			path = V2;
+			sourceTree = "<group>";
+		};
+		4D45E03826811700003E3D6B /* Device */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Device;
 			sourceTree = "<group>";
 		};
 		4D4A09862646DD1D00366DF6 /* BluetoothTestApp */ = {
@@ -1514,6 +1526,7 @@
 				4D0CEF9E2670CA93001EEA2C /* HardwareVersion.swift in Sources */,
 				A91DC1132490CF6200E4A440 /* MBTBluetoothManager.swift in Sources */,
 				B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */,
+				4D45E03A268118CB003E3D6B /* PeripheralGatewayProtocol.swift in Sources */,
 				A92D7A4A24814C18000DF7C3 /* EEGRawPacket.swift in Sources */,
 				A918D28C2461992900026F1D /* MBTError.swift in Sources */,
 				2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */,
@@ -1656,6 +1669,7 @@
 				A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */,
 				A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */,
 				A918242C2489414A0069D0AB /* FlattenModifiedChannelDataTests.swift in Sources */,
+				4D45E03B268118CB003E3D6B /* PeripheralGatewayProtocol.swift in Sources */,
 				4D0CEFB42670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */,
 				4DCD3D0826724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */,
 				A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */,
