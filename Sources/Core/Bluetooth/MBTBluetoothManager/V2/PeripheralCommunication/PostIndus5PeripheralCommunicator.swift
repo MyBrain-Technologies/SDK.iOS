@@ -48,7 +48,8 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   func requestConnectA2DP() {
-    assertionFailure("A2DP connection is not available for post indus 5.")
+    return
+//    assertionFailure("A2DP connection is not available for post indus 5.")
   }
 
   //----------------------------------------------------------------------------
@@ -78,8 +79,18 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   // MARK: - Write
   //----------------------------------------------------------------------------
 
+  func write(a2dpName: String) {
+    let serialNumberByteArray: [UInt8] = [
+      MailboxCommand.setA2dpName.rawValue,
+      0xAB,
+      0x21
+    ]
+    let deviceName = serialNumberByteArray + [UInt8](a2dpName.utf8)
+    sendMailBoxCommand(bytes: deviceName)
+  }
+
   func write(deviceExternalName name: String) {
-    #warning("TODO")
+    #warning("Is a2dpName?")
     assertionFailure()
   }
 

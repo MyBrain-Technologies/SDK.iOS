@@ -42,6 +42,8 @@ enum MailboxCommand: UInt8 {
   /// trigger a reboot event at disconnection
   case systemRebootEvent = 0x09
 
+  case setA2dpName = 0x0A
+
   /// Set the melomind serial nb
   case setSerialNumber = 0x10
 

@@ -24,6 +24,8 @@ protocol PeripheralCommunicable {
 
   func write(deviceExternalName name: String)
 
+  func write(a2dpName: String)
+
   func write(firmwareVersion: [UInt8], numberOfBlocks: Int16)
 
   func writeA2DPConnection()

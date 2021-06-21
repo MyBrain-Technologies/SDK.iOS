@@ -57,6 +57,10 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   // MARK: - Write
   //----------------------------------------------------------------------------
 
+  func write(a2dpName: String) {
+    #warning("Replace deviceExternalName??")
+  }
+
   func write(deviceExternalName name: String) {
     let serialNumberByteArray: [UInt8] = [
       MailboxCommand.setSerialNumber.rawValue,
