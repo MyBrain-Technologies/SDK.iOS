@@ -775,7 +775,7 @@ extension MBTPeripheral: PeripheralValueDelegate {
 
 typealias Bytes = [UInt8]
 
-protocol PeripheralValueDelegate: class {
+protocol PeripheralValueDelegate: AnyObject {
   func didUpdate(batteryLevel: Int)
   func didUpdate(brainData: Data)
   func didUpdate(saturationStatus: Int)
@@ -793,13 +793,22 @@ protocol PeripheralValueDelegate: class {
   func didFail(with error: Error)
 }
 
-protocol PeripheralValueReceiverProtocol: class {
+protocol PeripheralValueReceiverProtocol: AnyObject {
 
   var delegate: PeripheralValueDelegate? { get set }
 
   func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?)
+
   func handlePairingValudUpdate(for characteristic: CBCharacteristic,
                                 error: Error?)
+
+  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
+                                     for characteristic: CBCharacteristic,
+                                     error: Error?)
+
+  func handleValueWrite(of peripheral: CBPeripheral,
+                        for characteristic: CBCharacteristic,
+                        error: Error?)
 }
 
 class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
@@ -813,7 +822,27 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   weak var delegate: PeripheralValueDelegate?
 
   //----------------------------------------------------------------------------
-  // MARK: - Update
+  // MARK: - Notification
+  //----------------------------------------------------------------------------
+
+  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
+                                     for characteristic: CBCharacteristic,
+                                     error: Error?) {
+
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Write
+  //----------------------------------------------------------------------------
+
+  func handleValueWrite(of peripheral: CBPeripheral,
+                        for characteristic: CBCharacteristic,
+                        error: Error?) {
+
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Read
   //----------------------------------------------------------------------------
 
   func handlePairingValudUpdate(for characteristic: CBCharacteristic,
@@ -1008,7 +1037,27 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   weak var delegate: PeripheralValueDelegate?
 
   //----------------------------------------------------------------------------
-  // MARK: - Update
+  // MARK: - Notification
+  //----------------------------------------------------------------------------
+
+  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
+                                     for characteristic: CBCharacteristic,
+                                     error: Error?) {
+
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Write
+  //----------------------------------------------------------------------------
+
+  func handleValueWrite(of peripheral: CBPeripheral,
+                        for characteristic: CBCharacteristic,
+                        error: Error?) {
+
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Read
   //----------------------------------------------------------------------------
 
   func handlePairingValudUpdate(for characteristic: CBCharacteristic,
