@@ -1075,22 +1075,27 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   private func handleRxUpdate(for data: Data) {
     let bytes = Bytes(data)
     guard bytes.count > 0 else { return }
-    guard let mailboxCommand = MailboxCommand(rawValue: bytes[0]) else {
+    let opCode = bytes[0]
+
+    guard let mailboxCommand = MailboxCommand(rawValue: opCode) else {
       print("Unknown Mailbox command: \(bytes)")
       return
     }
 
+    let parameterBytes = Array(bytes.dropFirst())
+
     switch mailboxCommand {
-      case .otaModeEvent: handleOtaModeUpdate(for: bytes)
-      case .otaIndexResetEvent: handleOtaIndexResetUpdate(for: bytes)
-      case .otaStatusEvent: handleOtaStatusUpdate(for: bytes)
-      case .a2dpConnection: handleA2dpConnectionUpdate(for: bytes)
-      case .setSerialNumber: handleSetSerialNumberUpdate(for: bytes)
-      case .batteryLevel: handleBatteryUpdate(for: bytes)
-      case .serialNumber: handleSerialNumberUpdate(for: bytes)
-      case .deviceId: handleProductNameUpdate(for: bytes)
-      case .firmewareVersion: handleFirmwareVersionUpdate(for: bytes)
-      case .hardwareVersion: handleHardwareVersionNameUpdate(for: bytes)
+      case .otaModeEvent: handleOtaModeUpdate(for: parameterBytes)
+      case .otaIndexResetEvent: handleOtaIndexResetUpdate(for: parameterBytes)
+      case .otaStatusEvent: handleOtaStatusUpdate(for: parameterBytes)
+      case .a2dpConnection: handleA2dpConnectionUpdate(for: parameterBytes)
+      case .setSerialNumber: handleSetSerialNumberUpdate(for: parameterBytes)
+      case .batteryLevel: handleBatteryUpdate(for: parameterBytes)
+      case .serialNumber: handleSerialNumberUpdate(for: parameterBytes)
+      case .deviceId: handleProductNameUpdate(for: parameterBytes)
+      case .firmewareVersion: handleFirmwareVersionUpdate(for: parameterBytes)
+      case .hardwareVersion: handleHardwareVersionNameUpdate(for: parameterBytes)
+      case .setA2dpName: handleA2dpNameUpdate(for: parameterBytes)
       default: log.info("📲 Unknown MBX response")
     }
   }
@@ -1120,7 +1125,10 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
   private func handleBatteryUpdate(for bytes: Bytes) {
-    guard bytes.count > 0 else { return }
+    guard bytes.count > 0 else {
+      #warning("TODO: Handle error")
+      return
+    }
     let batteryLevel = Int(bytes[0])
     delegate?.didUpdate(batteryLevel: batteryLevel)
   }
@@ -1132,6 +1140,11 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
 
+
+  private func handleA2dpNameUpdate(for bytes: Bytes) {
+    guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
+    print("Set new A2DP name: \(valueText)")
+  }
 
   private func handleOtaModeUpdate(for bytes: Bytes) {
     #warning("TODO handleOtaModeUpdate")
