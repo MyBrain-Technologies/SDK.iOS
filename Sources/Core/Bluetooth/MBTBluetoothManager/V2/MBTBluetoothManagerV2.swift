@@ -357,13 +357,16 @@ internal class MBTPeripheral: NSObject {
     deviceInformationBuilder.didBuild = { [weak self] deviceInfomration in
       self?.information = deviceInfomration
 
-      self?.state = .a2dpRequesting
-
       if let information = self?.information {
         print(information)
       }
 
-      self?.peripheralCommunicator?.requestConnectA2DP()
+      if self!.isPreIndus5 {
+        self?.state = .a2dpRequesting
+        self?.peripheralCommunicator?.requestConnectA2DP()
+      } else {
+        self?.state = .ready
+      }
     }
 
     deviceInformationBuilder.didFail = { [weak self] error in
@@ -410,7 +413,9 @@ internal class MBTPeripheral: NSObject {
       self.peripheralValueReceiver = PostIndus5PeripheralValueReceiver()
 
       #warning("TODO When headset fixed")
-      self.state = .pairing
+//      self.state = .pairing
+      self.state = .deviceInformationDiscovering
+
 
       self.peripheralCommunicator?.requestPairing()
       // Continue after notification activated
@@ -563,7 +568,9 @@ internal class MBTPeripheral: NSObject {
 
     #warning("Remove end from here.")
     // END
+    if isPreIndus5 {
     state = .ready
+    }
   }
 
   private func handleNotificationStateUpdate(
@@ -588,8 +595,9 @@ internal class MBTPeripheral: NSObject {
   //----------------------------------------------------------------------------
 
   func requestBatteryLevel() {
-    #warning("Why this line?")
-//    guard state == .ready else { return }
+    /// Used for pairing, so we prevent its access before that the device is
+    /// paired.
+    guard state == .ready else { return }
     peripheralCommunicator?.readDeviceState()
   }
 
