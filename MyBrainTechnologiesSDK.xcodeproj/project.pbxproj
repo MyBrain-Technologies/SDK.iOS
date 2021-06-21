@@ -679,12 +679,12 @@
 			path = Peripheral;
 			sourceTree = "<group>";
 		};
-		4D2891942676AB0300B9DEE4 /* a2dp */ = {
+		4D2891942676AB0300B9DEE4 /* A2DP */ = {
 			isa = PBXGroup;
 			children = (
 				4D2891952676AB1A00B9DEE4 /* MBTPeripheralA2DPConnector.swift */,
 			);
-			path = a2dp;
+			path = A2DP;
 			sourceTree = "<group>";
 		};
 		4D356010266270140008412C /* Device information */ = {
@@ -703,7 +703,7 @@
 			children = (
 				4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */,
 				4D91E368266BACF100FFE4D9 /* Acquisition */,
-				4D2891942676AB0300B9DEE4 /* a2dp */,
+				4D2891942676AB0300B9DEE4 /* A2DP */,
 				4DEF4ECA266814C100D769DC /* Central */,
 				4D45E03826811700003E3D6B /* Device */,
 				4D2891882676AA7100B9DEE4 /* Peripheral */,
