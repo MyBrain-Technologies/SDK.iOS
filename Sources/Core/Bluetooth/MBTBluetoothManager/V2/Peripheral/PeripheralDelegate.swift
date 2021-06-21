@@ -1,6 +1,6 @@
 import Foundation
 
-protocol PeripheralDelegate: class {
+protocol PeripheralDelegate: AnyObject {
 
   func didValueUpdate(BrainData: Data)
   func didValueUpdate(BatteryLevel: Int)
