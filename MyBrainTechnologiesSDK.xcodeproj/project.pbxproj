@@ -671,6 +671,7 @@
 				4D08CB632682022D004ED097 /* PeripheralValueReceiverDelegate.swift */,
 				4D08CB6626820285004ED097 /* PreIndus5PeripheralValueReceiver.swift */,
 				4D08CB69268202D1004ED097 /* PostIndus5PeripheralValueReceiver.swift */,
+				A91DC12E2490D01400E4A440 /* MailboxA2DPResponse.swift */,
 			);
 			path = PeripheralValueReceiver;
 			sourceTree = "<group>";
@@ -718,6 +719,7 @@
 		4D2891882676AA7100B9DEE4 /* Peripheral */ = {
 			isa = PBXGroup;
 			children = (
+				4D8551442682779200F43597 /* Mailbox */,
 				4D08CB6C2682263D004ED097 /* PeripheralGateway */,
 				4D08CB5F26820192004ED097 /* PeripheralValueReceiver */,
 				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
@@ -752,6 +754,7 @@
 		4D356646264068BE00B4846D /* V2 */ = {
 			isa = PBXGroup;
 			children = (
+				4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */,
 				4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */,
 				4D91E368266BACF100FFE4D9 /* Acquisition */,
 				4D2891942676AB0300B9DEE4 /* A2DP */,
@@ -759,7 +762,6 @@
 				4D2891882676AA7100B9DEE4 /* Peripheral */,
 				4DEF4EB326680C6800D769DC /* Delegate */,
 				4D9FFA9E265FBCAD000952E1 /* Attributes */,
-				4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */,
 			);
 			path = V2;
 			sourceTree = "<group>";
@@ -794,6 +796,43 @@
 				4D4A09AB2646DD1E00366DF6 /* Info.plist */,
 			);
 			path = BluetoothTestAppUITests;
+			sourceTree = "<group>";
+		};
+		4D8551422682773000F43597 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				A91DC1062490CF1E00E4A440 /* Delegate */,
+				A91DC11D2490CFA300E4A440 /* IOBluetoothPeripheral.swift */,
+				A91DC1212490CFA300E4A440 /* BluetoothStateHistory.swift */,
+				A91DC11F2490CFA300E4A440 /* BluetoothPeripheralConnector.swift */,
+				4D8551432682777100F43597 /* Models */,
+				A91DC10B2490CF6200E4A440 /* MBTBluetoothManager.swift */,
+				A91DC1082490CF6200E4A440 /* MBTBluetoothManager+A2DP.swift */,
+				A91DC1092490CF6200E4A440 /* MBTBluetoothManager+AudioChangedRoute.swift */,
+				A91DC10E2490CF6200E4A440 /* MBTBluetoothManager+CBCentralManagerDelegate.swift */,
+				A91DC10A2490CF6200E4A440 /* MBTBluetoothManager+CBPeripheralDelegate.swift */,
+				A91DC1072490CF6200E4A440 /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */,
+				A91DC10C2490CF6200E4A440 /* MBTBluetoothManager+OAD.swift */,
+				A91DC10D2490CF6200E4A440 /* MBTBluetoothManager+Timer.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4D8551432682777100F43597 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A91DC12B2490D01400E4A440 /* BluetoothDeviceCharacteristics.swift */,
+				A91DC12C2490D01400E4A440 /* BluetoothService.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4D8551442682779200F43597 /* Mailbox */ = {
+			isa = PBXGroup;
+			children = (
+				A91DC12A2490D01400E4A440 /* MailboxCommand.swift */,
+			);
+			path = Mailbox;
 			sourceTree = "<group>";
 		};
 		4D91E368266BACF100FFE4D9 /* Acquisition */ = {
@@ -900,6 +939,8 @@
 			children = (
 				4DEF4ECB266814D100D769DC /* BluetoothCentral.swift */,
 				4D87EECD26681752003C35E1 /* PeripheralValidator.swift */,
+				A91DC1342490D47600E4A440 /* MelomindBluetoothPeripheral.swift */,
+				A91DC12D2490D01400E4A440 /* BluetoothAdvertisementDataReader.swift */,
 			);
 			path = Central;
 			sourceTree = "<group>";
@@ -1060,31 +1101,11 @@
 		A91DC0F42490CE6700E4A440 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				A91DC1052490CEFD00E4A440 /* MBTBluetoothManager */,
-				A91DC1292490CFA900E4A440 /* Models */,
-				A91DC11F2490CFA300E4A440 /* BluetoothPeripheralConnector.swift */,
-				A91DC1212490CFA300E4A440 /* BluetoothStateHistory.swift */,
+				4D356646264068BE00B4846D /* V2 */,
+				4D8551422682773000F43597 /* Legacy */,
 				A91DC11C2490CFA300E4A440 /* BluetoothTimers.swift */,
-				A91DC11D2490CFA300E4A440 /* IOBluetoothPeripheral.swift */,
-				A91DC1062490CF1E00E4A440 /* Delegate */,
 			);
 			path = Bluetooth;
-			sourceTree = "<group>";
-		};
-		A91DC1052490CEFD00E4A440 /* MBTBluetoothManager */ = {
-			isa = PBXGroup;
-			children = (
-				4D356646264068BE00B4846D /* V2 */,
-				A91DC10B2490CF6200E4A440 /* MBTBluetoothManager.swift */,
-				A91DC1082490CF6200E4A440 /* MBTBluetoothManager+A2DP.swift */,
-				A91DC1092490CF6200E4A440 /* MBTBluetoothManager+AudioChangedRoute.swift */,
-				A91DC10E2490CF6200E4A440 /* MBTBluetoothManager+CBCentralManagerDelegate.swift */,
-				A91DC10A2490CF6200E4A440 /* MBTBluetoothManager+CBPeripheralDelegate.swift */,
-				A91DC1072490CF6200E4A440 /* MBTBluetoothManager+CBPeripheralManagerDelegate.swift */,
-				A91DC10C2490CF6200E4A440 /* MBTBluetoothManager+OAD.swift */,
-				A91DC10D2490CF6200E4A440 /* MBTBluetoothManager+Timer.swift */,
-			);
-			path = MBTBluetoothManager;
 			sourceTree = "<group>";
 		};
 		A91DC1062490CF1E00E4A440 /* Delegate */ = {
@@ -1094,19 +1115,6 @@
 				A91DC1172490CF6D00E4A440 /* MBTBluetoothEventDelegate.swift */,
 			);
 			path = Delegate;
-			sourceTree = "<group>";
-		};
-		A91DC1292490CFA900E4A440 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				A91DC1342490D47600E4A440 /* MelomindBluetoothPeripheral.swift */,
-				A91DC12D2490D01400E4A440 /* BluetoothAdvertisementDataReader.swift */,
-				A91DC12B2490D01400E4A440 /* BluetoothDeviceCharacteristics.swift */,
-				A91DC12C2490D01400E4A440 /* BluetoothService.swift */,
-				A91DC12E2490D01400E4A440 /* MailboxA2DPResponse.swift */,
-				A91DC12A2490D01400E4A440 /* MailboxCommand.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		A927D58C23CCDF1E00C20734 /* Models */ = {
