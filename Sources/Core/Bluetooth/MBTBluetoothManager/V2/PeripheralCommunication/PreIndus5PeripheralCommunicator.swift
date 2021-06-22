@@ -92,7 +92,7 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
 
   func writeA2DPConnection() {
     let bytes: [UInt8] = [
-      UInt8(17), //MailboxCommand.a2dpConnection.rawValue,
+      MailboxCommand.a2dpConnection.rawValue,
       0x25,
       0xA2
     ]

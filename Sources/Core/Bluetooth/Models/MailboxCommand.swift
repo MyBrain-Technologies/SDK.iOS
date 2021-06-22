@@ -48,7 +48,7 @@ enum MailboxCommand: UInt8 {
   case setSerialNumber = 0x10
 
   /// allows to hotswap the filters' parameters
-  case setNotchFilter = 0x11
+  case setNotchFilter = 0x0B // GOOD
 
   /// Set the signal bandwidth by changing the embedded bandpass filter
   case setBandpassFilter = 0x12
@@ -65,8 +65,9 @@ enum MailboxCommand: UInt8 {
   case enableDCOffset = 0x16
 
   #warning("TODO Check.")
-  case a2dpConnection = 0x17
+  case a2dpConnection = 0x11 // GOOD
 
+  /////////////
   case batteryLevel = 0x20
 
   case serialNumber = 0x22
