@@ -679,6 +679,7 @@
 		4D2891882676AA7100B9DEE4 /* Peripheral */ = {
 			isa = PBXGroup;
 			children = (
+				4D19FB34266142D10064FF6F /* PeripheralCommunication */,
 				4D2891892676AA8A00B9DEE4 /* PeripheralDelegate.swift */,
 				4D45E039268118CB003E3D6B /* PeripheralGatewayProtocol.swift */,
 				4D45E03F26812DF7003E3D6B /* MBTPeripheral.swift */,
@@ -718,7 +719,6 @@
 				4DEF4EB326680C6800D769DC /* Delegate */,
 				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
 				4D356010266270140008412C /* Device information */,
-				4D19FB34266142D10064FF6F /* PeripheralCommunication */,
 				4D9FFA9E265FBCAD000952E1 /* Attributes */,
 				4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */,
 			);
