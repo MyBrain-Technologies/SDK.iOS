@@ -4,6 +4,12 @@ import CoreBluetooth
 struct MelomindBluetoothPeripheral {
 
   //----------------------------------------------------------------------------
+  // MARK: - Properties
+  //----------------------------------------------------------------------------
+
+  static let melomindService = BluetoothService.myBrainService.uuid
+
+  //----------------------------------------------------------------------------
   // MARK: - Methods
   //----------------------------------------------------------------------------
 
@@ -12,7 +18,6 @@ struct MelomindBluetoothPeripheral {
     blePrefix: String = Constants.DeviceName.blePrefix,
     services: [CBUUID]
   ) -> Bool {
-    let melomindService = MBTService.PreIndus5.myBrain.uuid
     let hasMelomindService = services.contains(melomindService)
 
     let nameContainMelomindPrefix =
