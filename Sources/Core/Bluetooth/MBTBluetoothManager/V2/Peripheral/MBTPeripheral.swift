@@ -34,7 +34,7 @@ internal class MBTPeripheral: NSObject {
 
   let peripheral: CBPeripheral
 
-  private(set) var isPreIndus5: Bool = true
+  private(set) var isPreIndus5: Bool
 
 //  private var peripheralCommunicator: PeripheralCommunicable?
 
@@ -107,22 +107,21 @@ internal class MBTPeripheral: NSObject {
        delegate: PeripheralDelegate? = nil) {
     peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
 
-    gateway = PeripheralGatewayIndus2And3(peripheral: peripheral)
-
-    self.peripheral = peripheral
-    super.init()
+    if isPreIndus5 {
+      gateway = PeripheralGatewayPreIndus5(peripheral: peripheral)
+    } else {
+      gateway = PeripheralGatewayPostIndus5(peripheral: peripheral)
+    }
 
     self.isPreIndus5 = isPreIndus5
+
+    self.peripheral = peripheral
+
+    super.init()
+
     self.delegate = delegate
     setup()
   }
-
-//  @available(*, unavailable)
-//  private override init() {
-//    peripheralManager = CBPeripheralManager(delegate: nil, queue: nil)
-//    super.init()
-//    setup()
-//  }
 
   //----------------------------------------------------------------------------
   // MARK: - Setup
@@ -136,6 +135,18 @@ internal class MBTPeripheral: NSObject {
 
 
     updatePeripheral()
+  }
+
+  #warning("TODO: Rename from `update` and use `start` or `discover`")
+  private func updatePeripheral() {
+    peripheral.delegate = self
+    guard isBleConnected else { return }
+    updatePeripheralInformation()
+  }
+
+  private func updatePeripheralInformation() {
+    let allIndusServiceCBUUIDs = gateway.allIndusServiceCBUUIDs
+    peripheral.discoverServices(allIndusServiceCBUUIDs)
   }
 
   private func setupPeripheralManager() {
@@ -240,16 +251,7 @@ internal class MBTPeripheral: NSObject {
     )
   }
 
-  private func updatePeripheral() {
-    peripheral.delegate = self
-    guard isBleConnected else { return }
-    updatePeripheralInformation()
-  }
 
-  private func updatePeripheralInformation() {
-    let allIndusServiceCBUUIDs = gateway.allIndusServiceCBUUIDs
-    peripheral.discoverServices(allIndusServiceCBUUIDs)
-  }
 
   //----------------------------------------------------------------------------
   // MARK: - Services
