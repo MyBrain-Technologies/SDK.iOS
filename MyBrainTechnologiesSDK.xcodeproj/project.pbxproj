@@ -817,6 +817,7 @@
 		4D8551422682773000F43597 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				A91DC1342490D47600E4A440 /* MelomindBluetoothPeripheral.swift */,
 				A91DC1062490CF1E00E4A440 /* Delegate */,
 				A91DC11D2490CFA300E4A440 /* IOBluetoothPeripheral.swift */,
 				A91DC1212490CFA300E4A440 /* BluetoothStateHistory.swift */,
@@ -911,6 +912,15 @@
 			children = (
 				2B6B5D9E205139D800928F1F /* MBTSignalProcessingProtocols.swift */,
 				2B6B5D9D205139D800928F1F /* MBTSignalProcessingManager.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4D85516026828A1000F43597 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				2B6B5D9F205139D800928F1F /* Device Acquisition Module */,
+				A91DC0F32490CDC700E4A440 /* Database */,
 			);
 			path = Legacy;
 			sourceTree = "<group>";
@@ -1011,7 +1021,6 @@
 			children = (
 				4DEF4ECB266814D100D769DC /* BluetoothCentral.swift */,
 				4D87EECD26681752003C35E1 /* PeripheralValidator.swift */,
-				A91DC1342490D47600E4A440 /* MelomindBluetoothPeripheral.swift */,
 				A91DC12D2490D01400E4A440 /* BluetoothAdvertisementDataReader.swift */,
 			);
 			path = Central;
@@ -1087,12 +1096,11 @@
 		A91DC0EB2490CCD500E4A440 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4D85516026828A1000F43597 /* Legacy */,
 				A91DC0F42490CE6700E4A440 /* Bluetooth */,
-				A91DC0F32490CDC700E4A440 /* Database */,
 				A91DC0ED2490CD0D00E4A440 /* Models */,
 				A918D28824616DAD00026F1D /* Errors */,
 				A91BD912247D694800603C42 /* Audio */,
-				2B6B5D9F205139D800928F1F /* Device Acquisition Module */,
 				2B6B5D96205139D800928F1F /* EEG Module */,
 			);
 			path = Core;
