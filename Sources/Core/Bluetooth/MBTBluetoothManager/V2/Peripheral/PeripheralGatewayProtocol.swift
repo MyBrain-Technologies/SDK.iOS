@@ -43,13 +43,10 @@ protocol PeripheralGatewayProtocol: AnyObject {
 
   func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?)
 
-  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
-                                     for characteristic: CBCharacteristic,
+  func handleNotificationStateUpdate(for characteristic: CBCharacteristic,
                                      error: Error?)
 
-  func handleValueWrite(of peripheral: CBPeripheral,
-                        for characteristic: CBCharacteristic,
-                        error: Error?)
+  func handleValueWrite(for characteristic: CBCharacteristic, error: Error?)
 
 }
 
@@ -188,20 +185,15 @@ class PeripheralGatewayIndus2And3: PeripheralGatewayProtocol {
     }
   }
 
-  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
-                                     for characteristic: CBCharacteristic,
+  func handleNotificationStateUpdate(for characteristic: CBCharacteristic,
                                      error: Error?) {
-    peripheralValueReceiver.handleNotificationStateUpdate(of: peripheral,
-                                                          for: characteristic,
+    peripheralValueReceiver.handleNotificationStateUpdate(for: characteristic,
                                                           error: error)
   }
 
-  func handleValueWrite(of peripheral: CBPeripheral,
-                        for characteristic: CBCharacteristic,
+  func handleValueWrite(for characteristic: CBCharacteristic,
                         error: Error?) {
-    peripheralValueReceiver.handleValueWrite(of: peripheral,
-                                             for: characteristic,
-                                             error: error)
+    peripheralValueReceiver.handleValueWrite(for: characteristic, error: error)
 
     state = .ready
   }
@@ -261,6 +253,7 @@ extension PeripheralGatewayIndus2And3: PeripheralValueDelegate {
   }
 
   func didPair() {
+    #warning("Move to Gateway level")
     state = .deviceInformationDiscovering
     peripheralCommunicator?.readDeviceInformation()
   }

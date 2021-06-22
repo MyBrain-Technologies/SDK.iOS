@@ -348,13 +348,14 @@ internal class MBTPeripheral: NSObject {
       print("With value: \(value)")
     }
 
-    gateway.handleValueWrite(of: peripheral, for: characteristic, error: error)
+    gateway.handleValueWrite(for: characteristic, error: error)
   }
 
   private func handleNotificationStateUpdate(
     of peripheral: CBPeripheral,
     for characteristic: CBCharacteristic,
-    error: Error?) {
+    error: Error?
+  ) {
     print("Notification state update for:")
     print(characteristic)
 
@@ -363,9 +364,7 @@ internal class MBTPeripheral: NSObject {
       return
     }
 
-    gateway.handleNotificationStateUpdate(of: peripheral,
-                                          for: characteristic,
-                                          error: error)
+    gateway.handleNotificationStateUpdate(for: characteristic, error: error)
 
 //    peripheralCommunicator?.readDeviceInformation()
 //    peripheralCommunicator?.readDeviceState()
@@ -376,8 +375,6 @@ internal class MBTPeripheral: NSObject {
   //----------------------------------------------------------------------------
 
   func requestBatteryLevel() {
-    /// Used for pairing, so we prevent its access before that the device is
-    /// paired.
     guard gateway.isReady else { return }
     gateway.peripheralCommunicator?.readDeviceState()
   }
@@ -588,16 +585,10 @@ protocol PeripheralValueReceiverProtocol: AnyObject {
 
   func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?)
 
-  func handlePairingValudUpdate(for characteristic: CBCharacteristic,
-                                error: Error?)
-
-  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
-                                     for characteristic: CBCharacteristic,
+  func handleNotificationStateUpdate(for characteristic: CBCharacteristic,
                                      error: Error?)
 
-  func handleValueWrite(of peripheral: CBPeripheral,
-                        for characteristic: CBCharacteristic,
-                        error: Error?)
+  func handleValueWrite(for characteristic: CBCharacteristic, error: Error?)
 }
 
 class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
@@ -614,8 +605,7 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   // MARK: - Notification
   //----------------------------------------------------------------------------
 
-  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
-                                     for characteristic: CBCharacteristic,
+  func handleNotificationStateUpdate(for characteristic: CBCharacteristic,
                                      error: Error?) {
 
   }
@@ -624,8 +614,7 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   // MARK: - Write
   //----------------------------------------------------------------------------
 
-  func handleValueWrite(of peripheral: CBPeripheral,
-                        for characteristic: CBCharacteristic,
+  func handleValueWrite(for characteristic: CBCharacteristic,
                         error: Error?) {
 
   }
@@ -829,8 +818,7 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   // MARK: - Notification
   //----------------------------------------------------------------------------
 
-  func handleNotificationStateUpdate(of peripheral: CBPeripheral,
-                                     for characteristic: CBCharacteristic,
+  func handleNotificationStateUpdate(for characteristic: CBCharacteristic,
                                      error: Error?) {
 
   }
@@ -839,8 +827,7 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   // MARK: - Write
   //----------------------------------------------------------------------------
 
-  func handleValueWrite(of peripheral: CBPeripheral,
-                        for characteristic: CBCharacteristic,
+  func handleValueWrite(for characteristic: CBCharacteristic,
                         error: Error?) {
 
   }
