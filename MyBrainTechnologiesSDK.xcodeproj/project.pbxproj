@@ -18,6 +18,8 @@
 		2B6B5DA9205139D900928F1F /* MBTDeviceAcquisitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DA1205139D800928F1F /* MBTDeviceAcquisitionManager.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D08CB5C2681F9B6004ED097 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08CB5B2681F9B6004ED097 /* Byte.swift */; };
+		4D08CB5D2681F9B6004ED097 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08CB5B2681F9B6004ED097 /* Byte.swift */; };
 		4D0CEF9E2670CA93001EEA2C /* HardwareVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */; };
 		4D0CEFAD2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFAC2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift */; };
 		4D0CEFB32670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */; };
@@ -288,6 +290,7 @@
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D08CB5B2681F9B6004ED097 /* Byte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
 		4D0CEF9D2670CA93001EEA2C /* HardwareVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersion.swift; sourceTree = "<group>"; };
 		4D0CEFAC2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareIndusVersionConvertor.swift; sourceTree = "<group>"; };
 		4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAcquisitionInformation.swift; sourceTree = "<group>"; };
@@ -698,6 +701,7 @@
 				4D356011266270360008412C /* DeviceInformationBuilder.swift */,
 				4D0CEFB22670E4DC001EEA2C /* DeviceAcquisitionInformation.swift */,
 				4D0CEFB92670E98A001EEA2C /* Electrodes.swift */,
+				4D08CB5B2681F9B6004ED097 /* Byte.swift */,
 			);
 			path = "Device information";
 			sourceTree = "<group>";
@@ -1495,6 +1499,7 @@
 				2B6B5DA8205139D900928F1F /* MBTDeviceAcquisitionDelegate.swift in Sources */,
 				4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */,
 				4DEF4EC526680F8700D769DC /* MBTBluetoothAcquisitionDelegate.swift in Sources */,
+				4D08CB5C2681F9B6004ED097 /* Byte.swift in Sources */,
 				4DEF4ECC266814D100D769DC /* BluetoothCentral.swift in Sources */,
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
 				A91DC1232490CFA300E4A440 /* BluetoothTimers.swift in Sources */,
@@ -1651,6 +1656,7 @@
 				4D28918B2676AA8A00B9DEE4 /* PeripheralDelegate.swift in Sources */,
 				A91BD91B247D715E00603C42 /* String+FilenameTests.swift in Sources */,
 				A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */,
+				4D08CB5D2681F9B6004ED097 /* Byte.swift in Sources */,
 				4DCD3D012671F441000B53C1 /* MBTRecordType.swift in Sources */,
 				4D0CEFC226711391001EEA2C /* ElectrodeType.swift in Sources */,
 				4D94474325F9679900CB364A /* String+VersionNumber.swift in Sources */,

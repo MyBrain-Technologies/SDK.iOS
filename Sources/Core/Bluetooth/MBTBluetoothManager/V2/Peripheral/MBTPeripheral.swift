@@ -562,7 +562,7 @@ extension MBTPeripheral: CBPeripheralDelegate {
 
 
 
-typealias Bytes = [UInt8]
+
 
 protocol PeripheralValueDelegate: AnyObject {
   func didUpdate(batteryLevel: Int)
