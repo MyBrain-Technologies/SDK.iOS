@@ -9,6 +9,7 @@ protocol PeripheralGatewayProtocol: AnyObject {
 
   var delegate: PeripheralDelegate? { get set }
 
+  var isReady: Bool { get }
 //  var peripheralState: MBTPeripheralState { get }
 
   var peripheralCommunicator: PeripheralCommunicable? { get }
@@ -83,6 +84,9 @@ class PeripheralGatewayIndus2And3: PeripheralGatewayProtocol {
 
   private var state = Indus2And3PeripheralState.characteristicDiscovering
 
+  var isReady: Bool {
+    return state == .ready
+  }
 
   private let peripheralValueReceiver = PreIndus5PeripheralValueReceiver()
 
@@ -90,7 +94,12 @@ class PeripheralGatewayIndus2And3: PeripheralGatewayProtocol {
 
   private(set) var peripheralCommunicator: PeripheralCommunicable?
 
-  private(set) var information: DeviceInformation?
+  private(set) var information: DeviceInformation? {
+    didSet {
+      guard let information = information else { return }
+      delegate?.didConnect(deviceInformation: information)
+    }
+  }
 
   private let characteristicDiscoverer = CharacteristicDiscoverer()
 
