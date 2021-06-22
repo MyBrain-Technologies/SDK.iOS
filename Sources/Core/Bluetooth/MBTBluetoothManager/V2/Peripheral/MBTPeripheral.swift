@@ -87,7 +87,10 @@ internal class MBTPeripheral: NSObject {
 
   /******************** Callbacks ********************/
 
-  weak var delegate: PeripheralDelegate?
+  weak var delegate: PeripheralDelegate? {
+    get { return gateway.delegate }
+    set { gateway.delegate = newValue }
+  }
 
   var didUpdateBrainData: ((Data) -> Void)?
   var didUpdateBatteryLevel: ((Int) -> Void)?
