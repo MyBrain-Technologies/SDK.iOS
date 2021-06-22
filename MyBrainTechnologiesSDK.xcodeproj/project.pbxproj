@@ -68,6 +68,8 @@
 		4D4A09942646DD1E00366DF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4A09922646DD1E00366DF6 /* LaunchScreen.storyboard */; };
 		4D4A099F2646DD1E00366DF6 /* BluetoothTestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A099E2646DD1E00366DF6 /* BluetoothTestAppTests.swift */; };
 		4D4A09AA2646DD1E00366DF6 /* BluetoothTestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09A92646DD1E00366DF6 /* BluetoothTestAppUITests.swift */; };
+		4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
+		4D8551492682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D87EECE26681752003C35E1 /* PeripheralValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87EECD26681752003C35E1 /* PeripheralValidator.swift */; };
 		4D91E363266BACEC00FFE4D9 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91E362266BACEC00FFE4D9 /* Buffer.swift */; };
 		4D9294902646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */; };
@@ -346,6 +348,7 @@
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		4D8551472682834000F43597 /* MBTEEGPacketV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTEEGPacketV2.swift; sourceTree = "<group>"; };
 		4D87EECD26681752003C35E1 /* PeripheralValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralValidator.swift; sourceTree = "<group>"; };
 		4D91E362266BACEC00FFE4D9 /* Buffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBluetoothTypeAliases.swift; sourceTree = "<group>"; };
@@ -844,6 +847,14 @@
 			path = Legacy;
 			sourceTree = "<group>";
 		};
+		4D8551462682833200F43597 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
 		4D91E368266BACF100FFE4D9 /* Acquisition */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,11 +1092,12 @@
 		A91DC0F22490CD7A00E4A440 /* EEGRecord */ = {
 			isa = PBXGroup;
 			children = (
+				4D8551462682833200F43597 /* Legacy */,
 				4DCD3CEC2671F3EA000B53C1 /* Record */,
 				2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */,
-				F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */,
 				A92CA42E2462FAF000688CE5 /* ChannelsData.swift */,
 				A99429792487D256003F48CC /* EEGSavingRecord.swift */,
+				4D8551472682834000F43597 /* MBTEEGPacketV2.swift */,
 			);
 			path = EEGRecord;
 			sourceTree = "<group>";
@@ -1620,6 +1632,7 @@
 				4D19FB40266143120064FF6F /* PreIndus5PeripheralCommunicator.swift in Sources */,
 				A974EFBD23CE298000B9F9BE /* DeviceManager.swift in Sources */,
 				2B6B5DA4205139D900928F1F /* MBTEEGAcquisitionManager.swift in Sources */,
+				4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */,
 				4D2E393426592A1B00A9FEF9 /* DeviceInformation.swift in Sources */,
 				4D08CB74268226AE004ED097 /* PeripheralGatewayPostIndus5.swift in Sources */,
 				4DCD3D0726724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */,
@@ -1727,6 +1740,7 @@
 				A91BD909247D42A200603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A92D7A4524813914000DF7C3 /* EEGRawPacketBufferTests.swift in Sources */,
 				A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */,
+				4D8551492682834000F43597 /* MBTEEGPacketV2.swift in Sources */,
 				4D94474525F968C900CB364A /* String+extension.swift in Sources */,
 				A9130BC5248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift in Sources */,
 				4DCD3CEF2671F3FD000B53C1 /* MBTDataSource.swift in Sources */,
