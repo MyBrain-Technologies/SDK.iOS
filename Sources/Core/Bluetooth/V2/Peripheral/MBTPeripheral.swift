@@ -251,8 +251,6 @@ internal class MBTPeripheral: NSObject {
     )
   }
 
-
-
   //----------------------------------------------------------------------------
   // MARK: - Services
   //----------------------------------------------------------------------------
@@ -370,6 +368,14 @@ internal class MBTPeripheral: NSObject {
 
 //    peripheralCommunicator?.readDeviceInformation()
 //    peripheralCommunicator?.readDeviceState()
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Device information
+  //----------------------------------------------------------------------------
+
+  func setQRCode(_ qrCode: String) {
+    gateway.setQRCode(qrCode)
   }
 
   //----------------------------------------------------------------------------

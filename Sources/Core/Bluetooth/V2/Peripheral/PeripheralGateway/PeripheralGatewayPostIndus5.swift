@@ -110,6 +110,15 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   }
 
   //----------------------------------------------------------------------------
+  // MARK: - Device information
+  //----------------------------------------------------------------------------
+
+  func setQRCode(_ qrCode: String) {
+    #warning("TODO: Handle nil information?")
+    information?.qrCode = qrCode
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Gateway
   //----------------------------------------------------------------------------
 
