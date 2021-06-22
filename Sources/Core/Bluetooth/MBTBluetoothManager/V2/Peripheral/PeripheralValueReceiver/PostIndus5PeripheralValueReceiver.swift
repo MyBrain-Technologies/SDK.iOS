@@ -17,7 +17,14 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   func handleNotificationStateUpdate(for characteristic: CBCharacteristic,
                                      error: Error?) {
+    guard let mbtCharacteristic =
+            MBTCharacteristic.PostIndus5(uuid: characteristic.uuid),
+          mbtCharacteristic == .rx,
+          characteristic.isNotifying == true else {
+      return
+    }
 
+    delegate?.didPair()
   }
 
   //----------------------------------------------------------------------------
