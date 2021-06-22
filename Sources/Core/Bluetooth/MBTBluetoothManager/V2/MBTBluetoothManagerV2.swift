@@ -122,7 +122,6 @@ public class MBTBluetoothManagerV2 {
       peripheral: newPeripheralResult.peripheral,
       isPreIndus5: newPeripheralResult.isPreIndus5
     )
-//    currentPeripheral?.peripheral = newPeripheralResult.peripheral
     currentPeripheral?.delegate = self
   }
 
