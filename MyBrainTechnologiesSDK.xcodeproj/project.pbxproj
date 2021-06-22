@@ -679,6 +679,8 @@
 		4D2891882676AA7100B9DEE4 /* Peripheral */ = {
 			isa = PBXGroup;
 			children = (
+				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
+				4D356010266270140008412C /* Device information */,
 				4D19FB34266142D10064FF6F /* PeripheralCommunication */,
 				4D2891892676AA8A00B9DEE4 /* PeripheralDelegate.swift */,
 				4D45E039268118CB003E3D6B /* PeripheralGatewayProtocol.swift */,
@@ -714,22 +716,12 @@
 				4D91E368266BACF100FFE4D9 /* Acquisition */,
 				4D2891942676AB0300B9DEE4 /* A2DP */,
 				4DEF4ECA266814C100D769DC /* Central */,
-				4D45E03826811700003E3D6B /* Device */,
 				4D2891882676AA7100B9DEE4 /* Peripheral */,
 				4DEF4EB326680C6800D769DC /* Delegate */,
-				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
-				4D356010266270140008412C /* Device information */,
 				4D9FFA9E265FBCAD000952E1 /* Attributes */,
 				4D356647264068DB00B4846D /* MBTBluetoothManagerV2.swift */,
 			);
 			path = V2;
-			sourceTree = "<group>";
-		};
-		4D45E03826811700003E3D6B /* Device */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Device;
 			sourceTree = "<group>";
 		};
 		4D4A09862646DD1D00366DF6 /* BluetoothTestApp */ = {
