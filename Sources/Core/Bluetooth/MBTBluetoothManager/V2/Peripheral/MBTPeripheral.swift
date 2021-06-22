@@ -376,7 +376,7 @@ internal class MBTPeripheral: NSObject {
   func requestBatteryLevel() {
     /// Used for pairing, so we prevent its access before that the device is
     /// paired.
-    guard state == .ready else { return }
+    guard gateway.isReady else { return }
     gateway.peripheralCommunicator?.readDeviceState()
   }
 
