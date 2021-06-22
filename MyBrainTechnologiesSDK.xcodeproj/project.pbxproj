@@ -596,10 +596,9 @@
 		2BEB4981211DAF010076C270 /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				F45837381EC5C21000C5D596 /* MBTClient.swift */,
-				A918D2972461A9A700026F1D /* MBTClient+log.swift */,
-				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
-				A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */,
+				4DED193826258C56001CEE5F /* MBTClientV2.swift */,
+				4D2891812676224D00B9DEE4 /* Analyzer.swift */,
+				4D85514526827C2700F43597 /* Legacy */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -633,7 +632,6 @@
 		3549BB161DA3890B00C63030 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				4DED193726258C3F001CEE5F /* Refactoring */,
 				3549BB171DA3890B00C63030 /* Info.plist */,
 				A91DC0EB2490CCD500E4A440 /* Core */,
 				B5378D0A21F8B8A8007F12DA /* Shared */,
@@ -835,6 +833,17 @@
 			path = Mailbox;
 			sourceTree = "<group>";
 		};
+		4D85514526827C2700F43597 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				F45837381EC5C21000C5D596 /* MBTClient.swift */,
+				A918D2972461A9A700026F1D /* MBTClient+log.swift */,
+				F4A235EC1F01786200A0145A /* MelomindEngineDelegate.swift */,
+				A926C3FB248E70E500B01186 /* MBTClient+MelomindAnalysis.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
 		4D91E368266BACF100FFE4D9 /* Acquisition */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,15 +922,6 @@
 				4D4A09922646DD1E00366DF6 /* LaunchScreen.storyboard */,
 			);
 			path = Launch;
-			sourceTree = "<group>";
-		};
-		4DED193726258C3F001CEE5F /* Refactoring */ = {
-			isa = PBXGroup;
-			children = (
-				4DED193826258C56001CEE5F /* MBTClientV2.swift */,
-				4D2891812676224D00B9DEE4 /* Analyzer.swift */,
-			);
-			path = Refactoring;
 			sourceTree = "<group>";
 		};
 		4DEF4EB326680C6800D769DC /* Delegate */ = {
