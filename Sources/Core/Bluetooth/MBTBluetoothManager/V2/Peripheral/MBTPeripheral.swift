@@ -34,7 +34,7 @@ internal class MBTPeripheral: NSObject {
 
   let peripheral: CBPeripheral
 
-  var isPreIndus5: Bool = true
+  private(set) var isPreIndus5: Bool = true
 
 //  private var peripheralCommunicator: PeripheralCommunicable?
 
