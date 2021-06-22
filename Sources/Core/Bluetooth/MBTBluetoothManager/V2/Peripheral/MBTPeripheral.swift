@@ -44,11 +44,8 @@ internal class MBTPeripheral: NSObject {
 //    }
 //  }
 
-  private(set) var information: DeviceInformation? {
-    didSet {
-      guard let information = information else { return }
-      delegate?.didConnect(deviceInformation: information)
-    }
+  var information: DeviceInformation? {
+    return gateway.information
   }
 
   var ad2pName: String? {

@@ -26,7 +26,7 @@ public class MBTBluetoothManagerV2 {
   private var currentPeripheral: MBTPeripheral?
 
   public var hasConnectedDevice: Bool {
-    return currentPeripheral?.peripheral != nil
+    return currentPeripheral?.isBleConnected ?? false
   }
 
   public var currentDeviceInformation: DeviceInformation? {
