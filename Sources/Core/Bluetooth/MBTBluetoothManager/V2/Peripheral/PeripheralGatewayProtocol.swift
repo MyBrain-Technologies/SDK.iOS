@@ -201,7 +201,7 @@ class PeripheralGatewayIndus2And3: PeripheralGatewayProtocol {
 }
 
 
-extension PeripheralGatewayIndus2And3: PeripheralValueDelegate {
+extension PeripheralGatewayIndus2And3: PeripheralValueReceiverDelegate {
 
   // START: Move to extension for default implementation
 
