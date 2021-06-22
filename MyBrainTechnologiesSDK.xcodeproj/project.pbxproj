@@ -847,12 +847,30 @@
 			path = Legacy;
 			sourceTree = "<group>";
 		};
-		4D8551462682833200F43597 /* Legacy */ = {
+		4D85514A268283B600F43597 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				4D85514C268283E600F43597 /* Acquisition */,
+				4D85514B268283C400F43597 /* EEGRecord */,
+				A91DC0F02490CD4700E4A440 /* Device */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
+		4D85514B268283C400F43597 /* EEGRecord */ = {
 			isa = PBXGroup;
 			children = (
 				F41A6D6F1F056DA800092027 /* MBTEEGPacket.swift */,
 			);
-			path = Legacy;
+			path = EEGRecord;
+			sourceTree = "<group>";
+		};
+		4D85514C268283E600F43597 /* Acquisition */ = {
+			isa = PBXGroup;
+			children = (
+				A974EFBF23CE29BB00B9F9BE /* AcquisitionLocation.swift */,
+			);
+			path = Acquisition;
 			sourceTree = "<group>";
 		};
 		4D91E368266BACF100FFE4D9 /* Acquisition */ = {
@@ -1040,9 +1058,9 @@
 		A91DC0ED2490CD0D00E4A440 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D85514A268283B600F43597 /* Legacy */,
 				A91DC0F22490CD7A00E4A440 /* EEGRecord */,
 				A91DC0F12490CD5500E4A440 /* OAD */,
-				A91DC0F02490CD4700E4A440 /* Device */,
 				A91DC0EF2490CD2200E4A440 /* Acquisition */,
 				A91DC0EE2490CD1500E4A440 /* Calibration */,
 			);
@@ -1061,7 +1079,6 @@
 		A91DC0EF2490CD2200E4A440 /* Acquisition */ = {
 			isa = PBXGroup;
 			children = (
-				A974EFBF23CE29BB00B9F9BE /* AcquisitionLocation.swift */,
 				A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */,
 				4D0CEFC026711391001EEA2C /* ElectrodeType.swift */,
 			);
@@ -1092,7 +1109,6 @@
 		A91DC0F22490CD7A00E4A440 /* EEGRecord */ = {
 			isa = PBXGroup;
 			children = (
-				4D8551462682833200F43597 /* Legacy */,
 				4DCD3CEC2671F3EA000B53C1 /* Record */,
 				2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */,
 				A92CA42E2462FAF000688CE5 /* ChannelsData.swift */,
