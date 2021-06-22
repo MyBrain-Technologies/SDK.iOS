@@ -18,10 +18,15 @@ internal class MBTPeripheral: NSObject {
   private(set) var state = MBTPeripheralState.characteristicDiscovering
 
   /// Indicate if the headset is connected or not to BLE and A2DP.
-  var isConnected: Bool {
+  var isBleConnected: Bool {
     #warning("TODO: Check A2DP connection?")
     return peripheral.state == .connected
   }
+
+//  var isA2dpConnected: Bool {
+//    guard let information = information else { return false }
+//    return a2dpConnector.isConnected(currentDeviceSerialNumber: information.productName)
+//  }
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -240,7 +245,7 @@ internal class MBTPeripheral: NSObject {
 
   private func updatePeripheral() {
     peripheral.delegate = self
-    guard isConnected else { return }
+    guard isBleConnected else { return }
     updatePeripheralInformation()
   }
 
@@ -258,8 +263,8 @@ internal class MBTPeripheral: NSObject {
     log.verbose("🆕 Did discover services")
 
     // Check all the services of the connecting peripheral.
-    guard isConnected, let services = peripheral.services else {
-      log.error("BLE peripheral is connected ? \(isConnected)")
+    guard isBleConnected, let services = peripheral.services else {
+      log.error("BLE peripheral is connected ? \(isBleConnected)")
       log.error("Services peripheral are nil ? \(peripheral.services == nil)")
       return
     }
@@ -299,8 +304,8 @@ internal class MBTPeripheral: NSObject {
                                              error: Error?) {
     log.verbose("🆕 Did discover characteristics")
 
-    guard isConnected, let characteristics = service.characteristics else {
-      log.error("BLE peripheral is connected ? \(isConnected)")
+    guard isBleConnected, let characteristics = service.characteristics else {
+      log.error("BLE peripheral is connected ? \(isBleConnected)")
       log.error(
         "Characteristics peripheral are nil ? \(service.characteristics == nil)"
       )
