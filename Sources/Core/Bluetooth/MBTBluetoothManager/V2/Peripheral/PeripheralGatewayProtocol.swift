@@ -12,6 +12,7 @@ protocol PeripheralGatewayProtocol: AnyObject {
   var isReady: Bool { get }
 //  var peripheralState: MBTPeripheralState { get }
 
+  #warning("Use interface to hide it.")
   var peripheralCommunicator: PeripheralCommunicable? { get }
 
 //  var peripheralValueReceiver: PeripheralValueReceiverProtocol { get }
@@ -88,9 +89,9 @@ class PeripheralGatewayIndus2And3: PeripheralGatewayProtocol {
     return state == .ready
   }
 
-  private let peripheralValueReceiver = PreIndus5PeripheralValueReceiver()
-
   /******************** PeripheralGatewayProtocol ********************/
+
+  private let peripheralValueReceiver = PreIndus5PeripheralValueReceiver()
 
   private(set) var peripheralCommunicator: PeripheralCommunicable?
 
