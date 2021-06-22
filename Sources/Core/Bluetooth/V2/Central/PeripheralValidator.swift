@@ -4,53 +4,57 @@ import CoreBluetooth
 class PeripheralValidator {
 
   //----------------------------------------------------------------------------
-  // MARK: - Validation
+  // MARK: - Melomind Validation
   //----------------------------------------------------------------------------
 
   func isMelomindPeripheral(advertisementData: [String: Any]) -> Bool {
     let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
 
-    guard let newDeviceName = dataReader.localName,
-          let newDeviceServices = dataReader.uuidKeys else {
+    guard let deviceName = dataReader.localName,
+          let services = dataReader.uuidKeys else {
       return false
     }
 
-//    print(newDeviceServices)
-//    if newDeviceServices.first?.uuidString == "B2A0" {
-//      print("advertisementData Pre indus 5")
-//    }
-//    for data in advertisementData {
-//      print(data.key)
-//    }
-
-    let isMelomindDevice = MelomindBluetoothPeripheral.isMelomindDevice(
-      deviceName: newDeviceName,
-      services: newDeviceServices
-    )
-
-    return isMelomindDevice
+    return isMelomindPeripheral(deviceName: deviceName, services: services)
   }
+
+  func isMelomindPeripheral(deviceName: String, services: [CBUUID]) -> Bool {
+    let melomindService = MBTService.PreIndus5.myBrain.uuid
+    let hasMelomindService = services.contains(melomindService)
+
+    let blePrefix = Constants.DeviceName.blePrefix
+    let nameContainMelomindPrefix =
+      deviceName.lowercased().starts(with: blePrefix)
+
+    return hasMelomindService && nameContainMelomindPrefix
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Qp Device validation
+  //----------------------------------------------------------------------------
 
   func isQplusPeripheral(advertisementData: [String: Any]) -> Bool {
-    let dataReader = BluetoothAdvertisementDataReader(data: advertisementData)
-
     guard let deviceName =
-            advertisementData[CBAdvertisementDataLocalNameKey] as? String,
-          let serviceData =
-            advertisementData[CBAdvertisementDataServiceDataKey]
-            as? [CBUUID: Data]
-    else {
+            advertisementData[CBAdvertisementDataLocalNameKey] as? String else {
       return false
     }
-    
-    let isQplusDevice = MelomindBluetoothPeripheral.isQplusDevice(
-      deviceName: deviceName,
-      blePrefix: "melo_",
-      serviceData: serviceData
-    )
+//    let serviceData =
+//      advertisementData[CBAdvertisementDataServiceDataKey]
+//      as? [CBUUID: Data]
 
-    return isQplusDevice
+    return isQplusPeripheral(deviceName: deviceName)
   }
+
+  func isQplusPeripheral(deviceName: String) -> Bool {
+    let blePrefix =  Constants.DeviceName.blePrefix
+    let nameHasQplusPrefix = deviceName.lowercased().starts(with: blePrefix)
+    return nameHasQplusPrefix
+  }
+
+
+  //----------------------------------------------------------------------------
+  // MARK: - MBT Device validation
+  //----------------------------------------------------------------------------
 
   func isMbtPeripheral(advertisementData: [String: Any]) -> Bool {
     let isMelomindPeripheral =
