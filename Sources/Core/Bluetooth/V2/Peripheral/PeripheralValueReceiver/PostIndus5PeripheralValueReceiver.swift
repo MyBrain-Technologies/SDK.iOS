@@ -125,6 +125,7 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .firmewareVersion: handleFirmwareVersionUpdate(for: parameterBytes)
       case .hardwareVersion: handleHardwareVersionNameUpdate(for: parameterBytes)
       case .setA2dpName: handleA2dpNameUpdate(for: parameterBytes)
+      case .eegDataFrameEvent: handleBrainUpdate(for: bytes)
       default: log.info("📲 Unknown MBX response")
     }
   }
@@ -149,8 +150,9 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     delegate?.didUpdate(hardwareVersion: valueText)
   }
 
-  private func handleBrainUpdate(for data: Bytes) {
-//    delegate?.didUpdate(brainData: data)
+  private func handleBrainUpdate(for bytes: Bytes) {
+    let data = Data(bytes)
+    delegate?.didUpdate(brainData: data)
   }
 
   private func handleBatteryUpdate(for bytes: Bytes) {
