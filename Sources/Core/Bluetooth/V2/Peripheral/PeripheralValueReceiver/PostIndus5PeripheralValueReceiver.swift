@@ -17,14 +17,24 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   func handleNotificationStateUpdate(for characteristic: CBCharacteristic,
                                      error: Error?) {
-    guard let mbtCharacteristic =
-            MBTCharacteristic.PostIndus5(uuid: characteristic.uuid),
-          mbtCharacteristic == .rx,
-          characteristic.isNotifying == true else {
-      return
-    }
-
-    delegate?.didPair()
+//    guard let mbtCharacteristic =
+//            MBTCharacteristic.PostIndus5(uuid: characteristic.uuid),
+//          mbtCharacteristic == .rx else {
+//      return
+//    }
+//
+//    guard let error = error else {
+//      delegate?.didPair()
+//      return
+//    }
+//
+//    if (error as NSError).code == CBATTError.insufficientEncryption.rawValue {
+//      print(error.localizedDescription)
+//      delegate?.didRequestPairing()
+//      return
+//    }
+//
+//    delegate?.didFail(with: error)
   }
 
   //----------------------------------------------------------------------------
@@ -39,36 +49,6 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   //----------------------------------------------------------------------------
   // MARK: - Read
   //----------------------------------------------------------------------------
-
-//  func handlePairingNotificationStateUpdate(
-//    for characteristic: CBCharacteristic,
-//                                error: Error?
-//  ) {
-//    let characteristicCBUUID = characteristic.uuid
-//    guard let mbtCharacteristic =
-//            MBTCharacteristic.PostIndus5(uuid: characteristicCBUUID) else {
-//      log.error("Unknown characteristic", context: characteristicCBUUID)
-//      return
-//    }
-//
-//    guard mbtCharacteristic == .rx else {
-//      log.error("Invalid pairing characteristic", context: characteristicCBUUID)
-//      return
-//    }
-//
-//    guard let error = error else {
-//      delegate?.didPair()
-//      return
-//    }
-//
-//    if (error as NSError).code == CBATTError.readNotPermitted.rawValue {
-//      print(error.localizedDescription)
-//      delegate?.didRequestPairing()
-//      return
-//    }
-//
-//    delegate?.didFail(with: error)
-//  }
 
   func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?) {
     if let error = error {
