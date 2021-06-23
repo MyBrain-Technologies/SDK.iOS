@@ -97,8 +97,6 @@
 		4DCD3D012671F441000B53C1 /* MBTRecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3CFF2671F441000B53C1 /* MBTRecordType.swift */; };
 		4DCD3D0726724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */; };
 		4DCD3D0826724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */; };
-		4DCF401A267F5C680065779B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCF4019267F5C680065779B /* Realm */; };
-		4DCF401C267F5C680065779B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCF401B267F5C680065779B /* RealmSwift */; };
 		4DCF401F267F5C850065779B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCF401E267F5C850065779B /* Alamofire */; };
 		4DCF4022267F5C9E0065779B /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCF4021267F5C9E0065779B /* SwiftyBeaver */; };
 		4DCF4025267F677E0065779B /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
@@ -474,12 +472,10 @@
 				A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */,
 				A90A1D6722C373360097C1BE /* libTimeFrequency.a in Frameworks */,
 				A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */,
-				4DCF401A267F5C680065779B /* Realm in Frameworks */,
 				A90A1D6A22C373360097C1BE /* libDataManipulation.a in Frameworks */,
 				4DCF4022267F5C9E0065779B /* SwiftyBeaver in Frameworks */,
 				A90A1D6922C373360097C1BE /* libTransformations.a in Frameworks */,
 				A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */,
-				4DCF401C267F5C680065779B /* RealmSwift in Frameworks */,
 				4DCF401F267F5C850065779B /* Alamofire in Frameworks */,
 				A90A1D6622C373360097C1BE /* libNF_Melomind.a in Frameworks */,
 				A90A1D6822C373360097C1BE /* libPreProcessing.a in Frameworks */,
@@ -1331,8 +1327,6 @@
 			);
 			name = "MyBrainTechnologiesSDK-iOS";
 			packageProductDependencies = (
-				4DCF4019267F5C680065779B /* Realm */,
-				4DCF401B267F5C680065779B /* RealmSwift */,
 				4DCF401E267F5C850065779B /* Alamofire */,
 				4DCF4021267F5C9E0065779B /* SwiftyBeaver */,
 			);
@@ -1464,7 +1458,6 @@
 			mainGroup = 3549BAFB1DA387DB00C63030;
 			packageReferences = (
 				4D4A097E2646DCCC00366DF6 /* XCRemoteSwiftPackageReference "IOS-CoreBluetooth-Mock" */,
-				4DCF4018267F5C680065779B /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				4DCF401D267F5C850065779B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4DCF4020267F5C9E0065779B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
@@ -2368,14 +2361,6 @@
 				minimumVersion = 0.12.1;
 			};
 		};
-		4DCF4018267F5C680065779B /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa.git";
-			requirement = {
-				kind = exactVersion;
-				version = 10.7.4;
-			};
-		};
 		4DCF401D267F5C850065779B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -2399,16 +2384,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4D4A097E2646DCCC00366DF6 /* XCRemoteSwiftPackageReference "IOS-CoreBluetooth-Mock" */;
 			productName = CoreBluetoothMock;
-		};
-		4DCF4019267F5C680065779B /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4DCF4018267F5C680065779B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		4DCF401B267F5C680065779B /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4DCF4018267F5C680065779B /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
 		};
 		4DCF401E267F5C850065779B /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
