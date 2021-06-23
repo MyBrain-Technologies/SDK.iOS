@@ -341,6 +341,10 @@ public class MBTClientV2 {
                               completion: completion)
   }
 
+  public func removeRecord(at url: URL) {
+    RecordFileSaver.shared.removeRecord(at: urlFile)
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Acquisition Manager
   //----------------------------------------------------------------------------

@@ -122,6 +122,7 @@ struct RecordFileSaver {
   // MARK: - Remove Record
   //----------------------------------------------------------------------------
 
+  #warning("TODO give success or failure information")
   /// Remove a record file with its filename
   func removeRecord(at filename: String) {
     log.verbose("Remove record from file", context: filename)
