@@ -15,8 +15,8 @@ struct EEGRecord: Codable {
   let firstPacketId: Int
   let qualities: [[Float]]
   let channelData: [[Float?]]
-  let statusData: [String] = []
-  let recordingParameters: [String] = []
+  private(set) var statusData: [String] = []
+  private(set) var recordingParameters: [String] = []
 }
 
 struct EEGSavingRecordContext: Codable {
@@ -26,7 +26,7 @@ struct EEGSavingRecordContext: Codable {
 
 struct EEGSavingRecordHeader: Codable {
   let deviceInfo: MelomindDeviceInformations
-  let recordingNb: String = "0x03"
+  private(set) var recordingNb: String = "0x03"
   let comments: [String]
   let sampRate: Int
   let eegPacketLength: Int
@@ -37,7 +37,7 @@ struct EEGSavingRecordHeader: Codable {
 }
 
 struct EEGSavingRecord: Codable {
-  let uuidJsonFile: String = UUID().uuidString
+  private(set) var uuidJsonFile: String = UUID().uuidString
   let context: EEGSavingRecordContext
   let header: EEGSavingRecordHeader
   let recording: EEGRecord
