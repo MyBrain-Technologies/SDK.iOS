@@ -40,33 +40,35 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   // MARK: - Read
   //----------------------------------------------------------------------------
 
-  func handlePairingValudUpdate(for characteristic: CBCharacteristic,
-                                error: Error?) {
-    let characteristicCBUUID = characteristic.uuid
-    guard let mbtCharacteristic =
-            MBTCharacteristic.PostIndus5(uuid: characteristicCBUUID) else {
-      log.error("Unknown characteristic", context: characteristicCBUUID)
-      return
-    }
-
-    guard mbtCharacteristic == .rx else {
-      log.error("Invalid pairing characteristic", context: characteristicCBUUID)
-      return
-    }
-
-    guard let error = error else {
-      delegate?.didPair()
-      return
-    }
-
-    if (error as NSError).code == CBATTError.readNotPermitted.rawValue {
-      print(error.localizedDescription)
-      delegate?.didRequestPairing()
-      return
-    }
-
-    delegate?.didFail(with: error)
-  }
+//  func handlePairingNotificationStateUpdate(
+//    for characteristic: CBCharacteristic,
+//                                error: Error?
+//  ) {
+//    let characteristicCBUUID = characteristic.uuid
+//    guard let mbtCharacteristic =
+//            MBTCharacteristic.PostIndus5(uuid: characteristicCBUUID) else {
+//      log.error("Unknown characteristic", context: characteristicCBUUID)
+//      return
+//    }
+//
+//    guard mbtCharacteristic == .rx else {
+//      log.error("Invalid pairing characteristic", context: characteristicCBUUID)
+//      return
+//    }
+//
+//    guard let error = error else {
+//      delegate?.didPair()
+//      return
+//    }
+//
+//    if (error as NSError).code == CBATTError.readNotPermitted.rawValue {
+//      print(error.localizedDescription)
+//      delegate?.didRequestPairing()
+//      return
+//    }
+//
+//    delegate?.didFail(with: error)
+//  }
 
   func handleValueUpdate(for characteristic: CBCharacteristic, error: Error?) {
     if let error = error {
@@ -125,10 +127,15 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .firmewareVersion: handleFirmwareVersionUpdate(for: parameterBytes)
       case .hardwareVersion: handleHardwareVersionNameUpdate(for: parameterBytes)
       case .setA2dpName: handleA2dpNameUpdate(for: parameterBytes)
-      case .eegDataFrameEvent: handleBrainUpdate(for: bytes)
+      case .eegDataFrameEvent: handleEegDataFrame(for: bytes)
+      case .startEeg: handleStartEeg(for: parameterBytes)
+      case .stopEeg: handleStopEeg(for: parameterBytes)
       default: log.info("📲 Unknown MBX response")
     }
   }
+
+
+  /******************** Device information ********************/
 
   private func handleProductNameUpdate(for bytes: Bytes) {
     guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
@@ -150,10 +157,7 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     delegate?.didUpdate(hardwareVersion: valueText)
   }
 
-  private func handleBrainUpdate(for bytes: Bytes) {
-    let data = Data(bytes)
-    delegate?.didUpdate(brainData: data)
-  }
+  /******************** Battery ********************/
 
   private func handleBatteryUpdate(for bytes: Bytes) {
     guard bytes.count > 0 else {
@@ -163,6 +167,25 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     let batteryLevel = Int(bytes[0])
     delegate?.didUpdate(batteryLevel: batteryLevel)
   }
+
+  /******************** EEG ********************/
+
+  private func handleStartEeg(for bytes: Bytes) {
+    print("EEG start command.")
+  }
+
+  private func handleStopEeg(for bytes: Bytes) {
+    print("EEG stop command")
+  }
+
+  private func handleEegDataFrame(for bytes: Bytes) {
+    let data = Data(bytes)
+    delegate?.didUpdate(brainData: data)
+  }
+
+
+  /******************** A2DP ********************/
+
 
   private func handleA2dpNameUpdate(for bytes: Bytes) {
     guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
