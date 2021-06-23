@@ -233,12 +233,6 @@ internal class MBTPeripheral: NSObject {
   private func handleValueWrite(of peripheral: CBPeripheral,
                                 for characteristic: CBCharacteristic,
                                 error: Error?) {
-    if let error = error {
-      #warning("TODO: Handle error")
-      print(error.localizedDescription)
-      return
-    }
-
     print("Write for: \(characteristic)")
 
     if let value = characteristic.value {
@@ -255,11 +249,6 @@ internal class MBTPeripheral: NSObject {
   ) {
     print("Notification state update for:")
     print(characteristic)
-
-    if let error = error {
-      print("With error: \(error.localizedDescription)")
-      return
-    }
 
     gateway.handleNotificationStateUpdate(for: characteristic, error: error)
   }
