@@ -18,10 +18,6 @@ class EEGAcquisitionSaverV2 {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  var realmConfig: Realm.Configuration {
-    return RealmManager.shared.config
-  }
-
   let saveThreadName = "MelomindSaveProcess"
 
   //----------------------------------------------------------------------------
@@ -44,36 +40,37 @@ class EEGAcquisitionSaverV2 {
                      recordingInformation: MBTRecordInfo,
                      recordFileSaver: RecordFileSaver,
                      completion: @escaping (Result<URL, Error>) -> Void) {
-    let packetsReferences = packets.map() { ThreadSafeReference(to: $0) }
+//    let packetsReferences = packets.map() { ThreadSafeReference(to: $0) }
 
     DispatchQueue(label: saveThreadName).async {
 
-      guard let realm = try? Realm(configuration: self.realmConfig) else {
-        log.error("Cannot get realm instance")
-        DispatchQueue.main.async {
-          completion(.failure(EEGAcquisitionSaverError.realmUnable))
-        }
-        return
-      }
+//      guard let realm = try? Realm(configuration: self.realmConfig) else {
+//        log.error("Cannot get realm instance")
+//        DispatchQueue.main.async {
+//          completion(.failure(EEGAcquisitionSaverError.realmUnable))
+//        }
+//        return
+//      }
 
-      let savedPackets = packetsReferences.compactMap() { realm.resolve($0) }
+//      let savedPackets = packetsReferences.compactMap() { realm.resolve($0) }
 
-      guard savedPackets.count == packetsReferences.count else {
-          log.error("PB with realm or bad number on packet to save ?")
-          DispatchQueue.main.async {
-            completion(.failure(EEGAcquisitionSaverError.badPacketNumber))
-          }
-          return
-      }
+//      guard savedPackets.count == packetsReferences.count else {
+//          log.error("PB with realm or bad number on packet to save ?")
+//          DispatchQueue.main.async {
+//            completion(.failure(EEGAcquisitionSaverError.badPacketNumber))
+//          }
+//          return
+//      }
 
 //      let currentRecordInfo = MBTClient.shared.recordInfo
 
+      #warning("TODO: Check packets is same as savedPackets")
       let savingRecord =
         self.getEEGSavingRecord(
           deviceInformation: deviceInformation,
           idUser: idUser,
           algo: algo,
-          eegPackets: savedPackets,
+          eegPackets: packets,
           qualities: qualities,
           channelData: channelData,
           recordInfo: recordingInformation,

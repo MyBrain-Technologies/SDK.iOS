@@ -7,7 +7,7 @@ import Foundation
  *
  ******************************************************************************/
 
-public class MBTEEGPacketV2 {
+public class MBTEEGPacket {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -72,7 +72,7 @@ public class MBTEEGPacketV2 {
 // MARK: - Array Extension
 //==============================================================================
 
-extension Array where Element == MBTEEGPacketV2 {
+extension Array where Element == MBTEEGPacket {
 
   /// Flat all modified channel data into one float array
   func flattenModifiedChannelData() -> [Float] {

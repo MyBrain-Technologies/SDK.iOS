@@ -55,7 +55,7 @@ class EEGAcquisitionProcessorV2 {
   /// Convert values from the acquisition to EEG Packets
   private func convertToEEGPacket(values: [[Float]],
                                   hasQualityChecker: Bool) -> MBTEEGPacket {
-    var eegPacket = MBTEEGPacket(channelsValues: values)
+    var eegPacket = MBTEEGPacket(buffer: values)
     if hasQualityChecker {
       eegPacket = addQualities(to: eegPacket)
       eegPacket = addModifiedValues(to: eegPacket)
@@ -66,11 +66,7 @@ class EEGAcquisitionProcessorV2 {
   /// Add qualities from signal processing to an eeg packet
   private func addQualities(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
     #warning("TODO: Check")
-    var buffer = Buffer()
-    for channelData in eegPacket.channelsData {
-      let dataArray = Array(channelData.values)
-      buffer.append(dataArray)
-    }
+    var buffer = eegPacket.channelsData
 
     let qualities =
       signalProcessor.computeQualityValue(buffer,

@@ -100,7 +100,7 @@ struct EEGCalibrationProcessor {
     var dataArray = [Float]()
     for channelsData in modifiedChannelData {
       for i in 0 ..< nbChannels {
-        let values = channelsData[i].values.prefix(packetLength)
+        let values = channelsData[i].prefix(packetLength)
         dataArray.append(contentsOf: values)
       }
     }

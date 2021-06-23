@@ -25,12 +25,12 @@ class EEGPacketManagerV2 {
           eegDatas.append([Float?]())
         }
 
-        for packetIndex in 0 ..< channelData.values.count {
-          if channelData.values[packetIndex].isNaN {
+        for packetIndex in 0 ..< channelData.count {
+          if channelData[packetIndex].isNaN {
             eegDatas[channelNumber].append(nil)
             log.info("Get JSON EEG data", context: Float.nan)
           } else {
-            let value = channelData.values[packetIndex]
+            let value = channelData[packetIndex]
             eegDatas[channelNumber].append(value)
           }
         }
