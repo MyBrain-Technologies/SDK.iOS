@@ -162,7 +162,6 @@
 		A927D59123CCE7F300C20734 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
 		A927D59323CCED0900C20734 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59223CCED0900C20734 /* Constants.swift */; };
 		A92CA42B2462FA0900688CE5 /* MBTRecordingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA42A2462FA0900688CE5 /* MBTRecordingType.swift */; };
-		A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CA42E2462FAF000688CE5 /* ChannelsData.swift */; };
 		A92D7A3B248118CF000DF7C3 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A3A248118CF000DF7C3 /* Array+extension.swift */; };
 		A92D7A3D2481258C000DF7C3 /* Data+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A3C2481258C000DF7C3 /* Data+extension.swift */; };
 		A92D7A3F2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt in Resources */ = {isa = PBXBuildFile; fileRef = A92D7A3E2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt */; };
@@ -1587,7 +1586,6 @@
 				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
 				A91DC1232490CFA300E4A440 /* BluetoothTimers.swift in Sources */,
 				4DED193926258C56001CEE5F /* MBTClientV2.swift in Sources */,
-				A92CA42F2462FAF000688CE5 /* ChannelsData.swift in Sources */,
 				A91DC1332490D01400E4A440 /* MailboxA2DPResponse.swift in Sources */,
 				A926C3FA248E649E00B01186 /* CalibrationError.swift in Sources */,
 				A91BD918247D6C0100603C42 /* AudioOutputs.swift in Sources */,
