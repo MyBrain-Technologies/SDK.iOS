@@ -86,6 +86,8 @@ enum MailboxCommand: UInt8 {
 
   case mtuSize = 0x29
 
+  case eegDataFrameEvent = 0x40
+
   case unknownEvent = 0xFF
 
   #warning("TODO since some commands are array")
