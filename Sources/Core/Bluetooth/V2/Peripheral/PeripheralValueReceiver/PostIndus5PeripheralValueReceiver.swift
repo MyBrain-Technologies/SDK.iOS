@@ -238,7 +238,8 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
   private func handleSetSerialNumberUpdate(for bytes: Bytes) {
-
+    guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
+    print("Set new serial number: \(valueText)")
   }
 
 }

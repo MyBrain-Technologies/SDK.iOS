@@ -22,7 +22,7 @@ protocol PeripheralCommunicable {
   // MARK: - Write
   //----------------------------------------------------------------------------
 
-  func write(deviceExternalName name: String)
+  func write(serialNumber: String)
 
   func write(a2dpName: String)
 

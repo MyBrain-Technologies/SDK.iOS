@@ -79,7 +79,6 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   // MARK: - Write
   //----------------------------------------------------------------------------
 
-  #warning("CHECK. Seem to override product name")
   func write(a2dpName: String) {
     let serialNumberByteArray: [UInt8] = [
       MailboxCommand.setA2dpName.rawValue,
@@ -90,9 +89,14 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
     sendMailBoxCommand(bytes: deviceName)
   }
 
-  func write(deviceExternalName name: String) {
-    #warning("Is a2dpName?")
-    assertionFailure()
+  func write(serialNumber: String) {
+    let serialNumberByteArray: [UInt8] = [
+      0x0A,
+      0x53,
+      0x4D
+    ]
+    let deviceName = serialNumberByteArray + [UInt8](serialNumber.utf8)
+    sendMailBoxCommand(bytes: deviceName)
   }
 
   func write(firmwareVersion: [UInt8], numberOfBlocks: Int16) {

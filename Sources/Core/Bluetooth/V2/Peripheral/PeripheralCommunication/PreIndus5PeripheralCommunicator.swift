@@ -58,21 +58,21 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func write(a2dpName: String) {
-    #warning("Replace deviceExternalName??")
-  }
-
-  func write(deviceExternalName name: String) {
     let serialNumberByteArray: [UInt8] = [
-      MailboxCommand.setSerialNumber.rawValue,
+      MailboxCommand.setA2dpName.rawValue,
       0xAB,
       0x21
     ]
-    let deviceName = serialNumberByteArray + [UInt8](name.utf8)
+    let deviceName = serialNumberByteArray + [UInt8](a2dpName.utf8)
 
     let dataToWrite = Data(deviceName)
     peripheral.writeValue(dataToWrite,
                           for: characteristicContainer.mailBox,
                           type: .withResponse)
+  }
+
+  func write(serialNumber: String) {
+    assertionFailure("TODO")
   }
 
   func write(firmwareVersion: [UInt8], numberOfBlocks: Int16) {
