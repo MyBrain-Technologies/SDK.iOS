@@ -25,6 +25,7 @@ struct EEGSavingRecordContext: Codable {
 }
 
 struct EEGSavingRecordHeader: Codable {
+  #warning("Replace everything expect recodingNb and comments by DeviceInformation")
   let deviceInfo: MelomindDeviceInformations
   private(set) var recordingNb: String = "0x03"
   let comments: [String]
