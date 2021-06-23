@@ -1,4 +1,5 @@
 import Foundation
+import RealmSwift
 
 class EEGAcquisitionSaverV2 {
 
