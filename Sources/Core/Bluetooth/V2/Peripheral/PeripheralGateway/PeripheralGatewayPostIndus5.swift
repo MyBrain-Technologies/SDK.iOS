@@ -90,6 +90,9 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
 
       if let information = self?.information { print(information) }
       self?.state = .ready
+
+//      self?.peripheralCommunicator?.write(serialNumber: "2010100001")
+//      self?.peripheralCommunicator?.write(a2dpName: "MM2B200007")
     }
 
     deviceInformationBuilder.didFail = { [weak self] error in
