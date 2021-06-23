@@ -7,16 +7,6 @@ internal class MBTPeripheral: NSObject {
   // MARK: - State
   //----------------------------------------------------------------------------
 
-  enum MBTPeripheralState {
-    case characteristicDiscovering
-    case pairing
-    case deviceInformationDiscovering
-    case a2dpRequesting
-    case ready
-  }
-
-  private(set) var state = MBTPeripheralState.characteristicDiscovering
-
   /// Indicate if the headset is connected or not to BLE and A2DP.
   var isBleConnected: Bool {
     #warning("TODO: Check A2DP connection?")
@@ -35,14 +25,6 @@ internal class MBTPeripheral: NSObject {
   let peripheral: CBPeripheral
 
   private(set) var isPreIndus5: Bool
-
-//  private var peripheralCommunicator: PeripheralCommunicable?
-
-//  private var peripheralValueReceiver: PeripheralValueReceiverProtocol? {
-//    didSet {
-//      peripheralValueReceiver?.delegate = self
-//    }
-//  }
 
   var information: DeviceInformation? {
     return gateway.information
@@ -129,22 +111,17 @@ internal class MBTPeripheral: NSObject {
 
   private func setup() {
     setupPeripheralManager()
-//    setupDeviceInformationBuilder()
-//    setupCharacteristicsDiscoverer()
     setupA2DPConnector()
-
-
-    updatePeripheral()
+    setupPeripheral()
   }
 
-  #warning("TODO: Rename from `update` and use `start` or `discover`")
-  private func updatePeripheral() {
+  private func setupPeripheral() {
     peripheral.delegate = self
     guard isBleConnected else { return }
-    updatePeripheralInformation()
+    discoverServices()
   }
 
-  private func updatePeripheralInformation() {
+  private func discoverServices() {
     let allIndusServiceCBUUIDs = gateway.allIndusServiceCBUUIDs
     peripheral.discoverServices(allIndusServiceCBUUIDs)
   }
@@ -152,75 +129,6 @@ internal class MBTPeripheral: NSObject {
   private func setupPeripheralManager() {
     peripheralManager.delegate = self
   }
-
-//  private func setupDeviceInformationBuilder() {
-//    deviceInformationBuilder.didBuild = { [weak self] deviceInfomration in
-//      self?.information = deviceInfomration
-//
-//      if let information = self?.information {
-//        print(information)
-//      }
-//
-//      if self!.isPreIndus5 {
-//        self?.state = .a2dpRequesting
-//        self?.peripheralCommunicator?.requestConnectA2DP()
-//      } else {
-//        self?.state = .ready
-//      }
-//    }
-//
-//    deviceInformationBuilder.didFail = { [weak self] error in
-//      // TODO Handle error
-//    }
-//  }
-
-//  private func setupCharacteristicsDiscoverer() {
-//    characteristicDiscoverer.didDiscoverAllPreIndus5Characteristics = {
-//      [weak self] characteristicContainer in
-//      guard let self = self else { return }
-//
-//      guard let peripheral = self.peripheral else {
-//        #warning("TODO: Handle error")
-//        return
-//      }
-//
-//      #warning("TODO: characteristicDiscoverer one callback giving peripheralCommunicator")
-//      self.peripheralCommunicator = PreIndus5PeripheralCommunicator(
-//        peripheral: peripheral,
-//        characteristicContainer: characteristicContainer
-//      )
-//
-//      self.peripheralValueReceiver = PreIndus5PeripheralValueReceiver()
-//
-//      self.state = .pairing
-//      self.peripheralCommunicator?.requestPairing()
-//    }
-//
-//    characteristicDiscoverer.didDiscoverAllPostIndus5Characteristics = {
-//      [weak self] characteristicContainer in
-//      guard let self = self else { return }
-//
-//      guard let peripheral = self.peripheral else {
-//        #warning("TODO: Handle error")
-//        return
-//      }
-//
-//      self.peripheralCommunicator = PostIndus5PeripheralCommunicator(
-//        peripheral: peripheral,
-//        characteristicContainer: characteristicContainer
-//      )
-//
-//      self.peripheralValueReceiver = PostIndus5PeripheralValueReceiver()
-//
-//      #warning("TODO When headset fixed")
-////      self.state = .pairing
-//      self.state = .deviceInformationDiscovering
-//
-//
-//      self.peripheralCommunicator?.requestPairing()
-//      // Continue after notification activated
-//    }
-//  }
 
   private func setupA2DPConnector() {
     a2dpConnector.didConnectA2DP = { [weak self] in
@@ -271,20 +179,9 @@ internal class MBTPeripheral: NSObject {
       return
     }
 
-//    let isPreIndus5 =
-//      services.contains { $0.uuid == BluetoothService.myBrainService.uuid }
-//
-//    if isPreIndus5 {
-//      print("Is not indus 5")
-//    }
-
     // Security check to be sure to work with the right services
     let allowedServices =
       services.filter { gateway.allIndusServiceCBUUIDs.contains($0.uuid) }
-
-//    let transparentServiceCBUUID =  MBTService.PostIndus5.transparent.uuid
-//    isPreIndus5 =
-//      allowedServices.allSatisfy { $0.uuid != transparentServiceCBUUID }
 
     for service in allowedServices {
       log.verbose("New service: \(service.uuid)")
@@ -365,9 +262,6 @@ internal class MBTPeripheral: NSObject {
     }
 
     gateway.handleNotificationStateUpdate(for: characteristic, error: error)
-
-//    peripheralCommunicator?.readDeviceInformation()
-//    peripheralCommunicator?.readDeviceState()
   }
 
   //----------------------------------------------------------------------------
