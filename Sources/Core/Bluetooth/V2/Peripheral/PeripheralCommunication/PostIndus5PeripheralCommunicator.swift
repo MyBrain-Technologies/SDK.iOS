@@ -80,13 +80,13 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func write(a2dpName: String) {
-    let serialNumberByteArray: [UInt8] = [
+    let a2dpNameByteArray: [UInt8] = [
       MailboxCommand.setA2dpName.rawValue,
       0xAB,
       0x21
     ]
-    let deviceName = serialNumberByteArray + [UInt8](a2dpName.utf8)
-    sendMailBoxCommand(bytes: deviceName)
+    let newA2dpName = a2dpNameByteArray + [UInt8](a2dpName.utf8)
+    sendMailBoxCommand(bytes: newA2dpName)
   }
 
   func write(serialNumber: String) {
@@ -95,8 +95,8 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
       0x53,
       0x4D
     ]
-    let deviceName = serialNumberByteArray + [UInt8](serialNumber.utf8)
-    sendMailBoxCommand(bytes: deviceName)
+    let newSerialNumber = serialNumberByteArray + [UInt8](serialNumber.utf8)
+    sendMailBoxCommand(bytes: newSerialNumber)
   }
 
   func write(firmwareVersion: [UInt8], numberOfBlocks: Int16) {
