@@ -1110,6 +1110,7 @@
 			isa = PBXGroup;
 			children = (
 				4D85514A268283B600F43597 /* Legacy */,
+				A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */,
 				A91DC0F22490CD7A00E4A440 /* EEGRecord */,
 				A91DC0F12490CD5500E4A440 /* OAD */,
 				A91DC0EF2490CD2200E4A440 /* Acquisition */,
@@ -1139,7 +1140,6 @@
 		A91DC0F02490CD4700E4A440 /* Device */ = {
 			isa = PBXGroup;
 			children = (
-				A994297B2487D795003F48CC /* MelomindDeviceInformations.swift */,
 				F41A6D6D1F05588100092027 /* MBTDevice.swift */,
 				A974EFBC23CE298000B9F9BE /* DeviceManager.swift */,
 				A974EFC323CE2AD100B9F9BE /* MBTDeviceInformations.swift */,
