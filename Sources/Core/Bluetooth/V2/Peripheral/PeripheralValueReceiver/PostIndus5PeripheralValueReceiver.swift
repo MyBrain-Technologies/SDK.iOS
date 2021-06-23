@@ -162,14 +162,6 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     delegate?.didUpdate(batteryLevel: batteryLevel)
   }
 
-  private func handleHeadsetStatusUpdate(for bytes: Bytes) {
-    guard bytes[0] == 1 else { return }
-    let saturationStatus = Int(bytes[1])
-    delegate?.didUpdate(saturationStatus: saturationStatus)
-  }
-
-
-
   private func handleA2dpNameUpdate(for bytes: Bytes) {
     guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
     print("Set new A2DP name: \(valueText)")

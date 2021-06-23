@@ -136,8 +136,7 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   func notifyHeadsetStatus(value: Bool) {
-    #warning("TODO")
-    assertionFailure()
+    /// Not used for post indus5
   }
 
 }
