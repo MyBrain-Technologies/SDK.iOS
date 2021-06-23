@@ -11,6 +11,7 @@ class StringIsQrCodeTests: XCTestCase {
   let qrCodeBatch2 = "MM1B20554."
   let qrCodeBatch3 = "MM1B300001"
   let qrCodeBatch4 = "MM1B400011"
+  #warning("Swap fsk and batch5 qrcode?")
   let qrCodeFSK = "MM2B200007"
   let qrCodeBatch5 = "MM2B100007"
 

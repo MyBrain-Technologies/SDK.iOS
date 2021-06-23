@@ -45,7 +45,8 @@ enum MailboxCommand: UInt8 {
   case setA2dpName = 0x0A
 
   /// Set the melomind serial nb
-  case setSerialNumber = 0x10
+  #warning("TODO: Merge setA2dpName and setSerialNumber?")
+  case setSerialNumber = 0x10 // Should be 0x0A
 
   /// allows to hotswap the filters' parameters
   case setNotchFilter = 0x0B // GOOD
