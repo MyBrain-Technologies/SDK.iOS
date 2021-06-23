@@ -6,10 +6,10 @@ public struct DeviceInformation: Codable {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  /// The commercial name of the device.
+  /// The commercial name of the device. "melo_1010100500"
   public var productName: String
 
-  /// The product specific serial number.
+  /// The product specific serial number. "1010100500"
   public var deviceId: String
 
   /// The product hardware version.
