@@ -251,10 +251,6 @@ public class MBTClientV2 {
     bluetoothManager.requestBatteryLevel()
   }
 
-  public func setQRCode(_ qrCode: String) {
-    bluetoothManager.setQRCode(qrCode)
-  }
-
   #warning("QRCode or serialNumber ??????")
 //  /// GET A2DP Device Name for an unpaired device (not connected in A2DP).
 //  ///

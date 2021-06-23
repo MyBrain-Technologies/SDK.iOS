@@ -735,14 +735,14 @@
 		4D2891882676AA7100B9DEE4 /* Peripheral */ = {
 			isa = PBXGroup;
 			children = (
+				4D45E03F26812DF7003E3D6B /* MBTPeripheral.swift */,
+				4D2891892676AA8A00B9DEE4 /* PeripheralDelegate.swift */,
 				4D8551442682779200F43597 /* Mailbox */,
 				4D08CB6C2682263D004ED097 /* PeripheralGateway */,
 				4D08CB5F26820192004ED097 /* PeripheralValueReceiver */,
 				4DA2FCA52666D05100C8B14E /* Characteristic discoverer */,
 				4D356010266270140008412C /* Device information */,
 				4D19FB34266142D10064FF6F /* PeripheralCommunication */,
-				4D2891892676AA8A00B9DEE4 /* PeripheralDelegate.swift */,
-				4D45E03F26812DF7003E3D6B /* MBTPeripheral.swift */,
 			);
 			path = Peripheral;
 			sourceTree = "<group>";

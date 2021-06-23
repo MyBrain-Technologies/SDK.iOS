@@ -18,8 +18,6 @@ public struct DeviceInformation: Codable {
   /// The product firmware version.
   public var firmwareVersion: String
 
-  public var qrCode: String?
-
   /******************** Versioning ********************/
 
   public let indusVersion: IndusVersion
