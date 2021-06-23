@@ -342,7 +342,7 @@ public class MBTClientV2 {
   }
 
   public func removeRecord(at url: URL) {
-    RecordFileSaver.shared.removeRecord(at: urlFile)
+    RecordFileSaver.shared.removeRecord(at: url)
   }
 
   //----------------------------------------------------------------------------
