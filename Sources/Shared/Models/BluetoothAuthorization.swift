@@ -7,15 +7,25 @@ import CoreBluetooth
  * The current authorization state of the bluetooth for the app using the SDK.
  *
  ******************************************************************************/
-public enum BluetoothAuthorization {
+
+public enum BluetoothAuthorization: String {
+
+  //----------------------------------------------------------------------------
+  // MARK: - Cases
+  //----------------------------------------------------------------------------
+
   /// App is authorized to use the device bluetooth
-  case authorized
+  case authorized = "authorized"
+
   /// App is not authorized to use the device bluetooth.
-  case unauthorized
-  /// App is not yet authorized or unauthorized to use the bluetooth. User will be ask to choose.
-  case undetermined
+  case unauthorized = "unauthorized"
+
+  /// App is not yet authorized or unauthorized to use the bluetooth. User will
+  ///  be ask to choose.
+  case undetermined = "undetermined"
+
   /// Current device doesn't support the bluetooth.
-  case unsupported
+  case unsupported = "unsupported"
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -44,6 +54,7 @@ public enum BluetoothAuthorization {
     default: self = .authorized
     }
   }
+
 }
 
 //==============================================================================
@@ -51,12 +62,9 @@ public enum BluetoothAuthorization {
 //==============================================================================
 
 extension BluetoothAuthorization: CustomStringConvertible {
+
   public var description: String {
-    switch self {
-    case .authorized: return "authorized"
-    case .unauthorized: return " not authorized"
-    case .undetermined: return "not determined"
-    case .unsupported: return "not supported"
-    }
+    return self.rawValue
   }
+
 }

@@ -85,6 +85,7 @@ class BluetoothTimers {
     updateBatteryLevelTimer = nil
   }
 
+  #warning("TODO: battery is read in looping mode with batteryLevelHasTimeout")
   func startBatteryLevelTimer(
     timeInterval: TimeInterval = Constants.Timeout.batteryLevel,
     verificationTimeInterval: TimeInterval = 5,

@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 
 struct EEGRecordType: Codable {
   let recordType: MBTRecordType
@@ -16,8 +15,8 @@ struct EEGRecord: Codable {
   let firstPacketId: Int
   let qualities: [[Float]]
   let channelData: [[Float?]]
-  let statusData: [String] = []
-  let recordingParameters: [String] = []
+  private(set) var statusData: [String] = []
+  private(set) var recordingParameters: [String] = []
 }
 
 struct EEGSavingRecordContext: Codable {
@@ -26,8 +25,9 @@ struct EEGSavingRecordContext: Codable {
 }
 
 struct EEGSavingRecordHeader: Codable {
+  #warning("Replace everything expect recodingNb and comments by DeviceInformation")
   let deviceInfo: MelomindDeviceInformations
-  let recordingNb: String = "0x03"
+  private(set) var recordingNb: String = "0x03"
   let comments: [String]
   let sampRate: Int
   let eegPacketLength: Int
@@ -38,15 +38,34 @@ struct EEGSavingRecordHeader: Codable {
 }
 
 struct EEGSavingRecord: Codable {
-  let uuidJsonFile: String = UUID().uuidString
+  private(set) var uuidJsonFile: String = UUID().uuidString
   let context: EEGSavingRecordContext
   let header: EEGSavingRecordHeader
   let recording: EEGRecord
 
-  var toJSON: JSON? {
-    guard let recordData = try? JSONEncoder().encode(self),
-      let jsonObject = try? JSON(data: recordData) else { return nil }
+//  var toJSON: JSON? {
+//    guard let recordData = try? JSONEncoder().encode(self),
+//      let jsonObject = try? JSON(data: recordData) else { return nil }
+//
+//    return jsonObject
+//  }
 
-    return jsonObject
+  var toJsonData: Data? {
+    let jsonEncoder = JSONEncoder()
+    if #available(iOS 13.0, *) {
+      jsonEncoder.outputFormatting = [.withoutEscapingSlashes]
+    }
+    guard let encodedData = try? jsonEncoder.encode(self) else { return nil }
+    return encodedData
   }
+
+  var toJSONString: String? {
+    guard let encodedData = toJsonData,
+          let jsonString = String(data: encodedData, encoding: .utf8) else {
+      return nil
+    }
+    return jsonString
+  }
+
+
 }
