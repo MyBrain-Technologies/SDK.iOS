@@ -292,17 +292,17 @@ public class MBTClientV2 {
   // MARK: - Network
   //----------------------------------------------------------------------------
 
-  /// Send JSON File
-  public func sendEEGFile(_ urlFile: URL,
-                          baseUrl: String,
-                          removeFile: Bool,
-                          accessTokens: String) {
-    BrainwebRequest.shared.accessTokens = accessTokens
-    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl) { success in
-      guard success && removeFile else { return }
-      RecordFileSaver.shared.removeRecord(at: urlFile)
-    }
-  }
+//  /// Send JSON File
+//  public func sendEEGFile(_ urlFile: URL,
+//                          baseUrl: String,
+//                          removeFile: Bool,
+//                          accessTokens: String) {
+//    BrainwebRequest.shared.accessTokens = accessTokens
+//    BrainwebRequest.shared.sendJSON(urlFile, baseURL: baseUrl) { success in
+//      guard success && removeFile else { return }
+//      RecordFileSaver.shared.removeRecord(at: urlFile)
+//    }
+//  }
 
   //----------------------------------------------------------------------------
   // MARK: - Saving

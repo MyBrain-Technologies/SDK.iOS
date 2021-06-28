@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
 		2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B631ED220E0E85F00880B8E /* MBTOADManager.swift */; };
-		2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5D98205139D800928F1F /* BrainwebRequest.swift */; };
 		2B6B5DA3205139D900928F1F /* MBTEEGAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -97,7 +96,6 @@
 		4DCD3D012671F441000B53C1 /* MBTRecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3CFF2671F441000B53C1 /* MBTRecordType.swift */; };
 		4DCD3D0726724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */; };
 		4DCD3D0826724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */; };
-		4DCF401F267F5C850065779B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCF401E267F5C850065779B /* Alamofire */; };
 		4DCF4022267F5C9E0065779B /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCF4021267F5C9E0065779B /* SwiftyBeaver */; };
 		4DCF4025267F677E0065779B /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
 		4DCF4026267F677E0065779B /* MyBrainTechnologiesSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -178,7 +176,6 @@
 		A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C1A0F244F13ED00AB4588 /* FormatedVersion.swift */; };
 		A96BF12A24698F3400582DB1 /* RecordFileSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */; };
 		A96EB6F32469854600431BA0 /* RecordFileNameBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96EB6F22469854600431BA0 /* RecordFileNameBuilder.swift */; };
-		A96EB6F6246989EA00431BA0 /* BrainwebRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96EB6F5246989EA00431BA0 /* BrainwebRequestBuilder.swift */; };
 		A974EFB723CE0C2100B9F9BE /* OADStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB623CE0C2100B9F9BE /* OADStateType.swift */; };
 		A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFB823CE0CB200B9F9BE /* OADProgress.swift */; };
 		A974EFC223CE29D300B9F9BE /* ElectrodeLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974EFC123CE29D300B9F9BE /* ElectrodeLocation.swift */; };
@@ -476,7 +473,6 @@
 				4DCF4022267F5C9E0065779B /* SwiftyBeaver in Frameworks */,
 				A90A1D6922C373360097C1BE /* libTransformations.a in Frameworks */,
 				A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */,
-				4DCF401F267F5C850065779B /* Alamofire in Frameworks */,
 				A90A1D6622C373360097C1BE /* libNF_Melomind.a in Frameworks */,
 				A90A1D6822C373360097C1BE /* libPreProcessing.a in Frameworks */,
 			);
@@ -742,6 +738,14 @@
 				4D9FFA9E265FBCAD000952E1 /* Attributes */,
 			);
 			path = V2;
+			sourceTree = "<group>";
+		};
+		4D440F82268A24E40055DA8F /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				A96EB6F4246989D200431BA0 /* Network */,
+			);
+			path = Legacy;
 			sourceTree = "<group>";
 		};
 		4D4A09862646DD1D00366DF6 /* BluetoothTestApp */ = {
@@ -1283,7 +1287,7 @@
 		B5378D0A21F8B8A8007F12DA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A96EB6F4246989D200431BA0 /* Network */,
+				4D440F82268A24E40055DA8F /* Legacy */,
 				A93A0FF324697D77008AF664 /* Files */,
 				A927D58F23CCE7E800C20734 /* Extension */,
 				A927D58C23CCDF1E00C20734 /* Models */,
@@ -1327,7 +1331,6 @@
 			);
 			name = "MyBrainTechnologiesSDK-iOS";
 			packageProductDependencies = (
-				4DCF401E267F5C850065779B /* Alamofire */,
 				4DCF4021267F5C9E0065779B /* SwiftyBeaver */,
 			);
 			productName = "MyBrainTechnologiesSDK-iOS";
@@ -1458,7 +1461,6 @@
 			mainGroup = 3549BAFB1DA387DB00C63030;
 			packageReferences = (
 				4D4A097E2646DCCC00366DF6 /* XCRemoteSwiftPackageReference "IOS-CoreBluetooth-Mock" */,
-				4DCF401D267F5C850065779B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4DCF4020267F5C9E0065779B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
 			productRefGroup = 3549BB061DA387DB00C63030 /* Products */;
@@ -1576,7 +1578,6 @@
 				4DEF4EC526680F8700D769DC /* MBTBluetoothAcquisitionDelegate.swift in Sources */,
 				4D08CB5C2681F9B6004ED097 /* Byte.swift in Sources */,
 				4DEF4ECC266814D100D769DC /* BluetoothCentral.swift in Sources */,
-				2B6B5DA2205139D900928F1F /* BrainwebRequest.swift in Sources */,
 				A91DC1232490CFA300E4A440 /* BluetoothTimers.swift in Sources */,
 				4DED193926258C56001CEE5F /* MBTClientV2.swift in Sources */,
 				A91DC1332490D01400E4A440 /* MailboxA2DPResponse.swift in Sources */,
@@ -1606,7 +1607,6 @@
 				4D8551532682852D00F43597 /* EegAcquiser.swift in Sources */,
 				A918D28C2461992900026F1D /* MBTError.swift in Sources */,
 				2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */,
-				A96EB6F6246989EA00431BA0 /* BrainwebRequestBuilder.swift in Sources */,
 				4D19FB4E266143A90064FF6F /* PostIndus5CharacteristicContainer.swift in Sources */,
 				A927D59123CCE7F300C20734 /* String+extension.swift in Sources */,
 				A918D29224619CFB00026F1D /* DeviceError.swift in Sources */,
@@ -2361,14 +2361,6 @@
 				minimumVersion = 0.12.1;
 			};
 		};
-		4DCF401D267F5C850065779B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = exactVersion;
-				version = 4.9.1;
-			};
-		};
 		4DCF4020267F5C9E0065779B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyBeaver/SwiftyBeaver.git";
@@ -2384,11 +2376,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4D4A097E2646DCCC00366DF6 /* XCRemoteSwiftPackageReference "IOS-CoreBluetooth-Mock" */;
 			productName = CoreBluetoothMock;
-		};
-		4DCF401E267F5C850065779B /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4DCF401D267F5C850065779B /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 		4DCF4021267F5C9E0065779B /* SwiftyBeaver */ = {
 			isa = XCSwiftPackageProductDependency;
