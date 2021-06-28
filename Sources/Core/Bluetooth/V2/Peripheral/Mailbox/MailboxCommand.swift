@@ -42,11 +42,10 @@ enum MailboxCommand: UInt8 {
   /// trigger a reboot event at disconnection
   case systemRebootEvent = 0x09
 
-  case setA2dpName = 0x0A
-
   /// Set the melomind serial nb
-  #warning("TODO: Merge setA2dpName and setSerialNumber?")
-  case setSerialNumber = 0x10 // Should be 0x0A
+  case setSerialNumber = 0x0A
+
+  case setA2dpName = 0x1A // Set QRCode
 
   /// allows to hotswap the filters' parameters
   case setNotchFilter = 0x0B // GOOD

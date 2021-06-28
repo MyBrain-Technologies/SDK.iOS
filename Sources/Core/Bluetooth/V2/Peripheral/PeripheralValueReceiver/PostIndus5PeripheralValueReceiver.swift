@@ -171,9 +171,7 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     delegate?.didUpdate(brainData: data)
   }
 
-
   /******************** A2DP ********************/
-
 
   private func handleA2dpNameUpdate(for bytes: Bytes) {
     guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }

@@ -145,7 +145,7 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .otaIndexResetEvent: handleOtaIndexResetUpdate(for: bytes)
       case .otaStatusEvent: handleOtaStatusUpdate(for: bytes)
       case .a2dpConnection: handleA2dpConnectionUpdate(for: bytes)
-      case .setSerialNumber: handleSetSerialNumberUpdate(for: bytes)
+      case .setSerialNumber: handleSetSerialNumberUpdate(for: bytes) // is setA2dpName. Fix on hardware.
       default: log.info("📲 Unknown MBX response")
     }
   }
@@ -208,7 +208,8 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   }
 
   private func handleSetSerialNumberUpdate(for bytes: Bytes) {
-
+    guard let valueText = String(bytes: bytes, encoding: .ascii) else { return }
+    print("Set new A2DP name: \(valueText)")
   }
 
 }
