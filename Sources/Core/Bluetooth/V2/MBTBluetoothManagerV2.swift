@@ -1,6 +1,5 @@
 import Foundation
 import CoreBluetooth
-import SwiftyBeaver
 
 public class MBTBluetoothManagerV2 {
 
