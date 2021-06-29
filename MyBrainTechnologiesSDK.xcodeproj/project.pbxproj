@@ -98,7 +98,6 @@
 		4DCD3D012671F441000B53C1 /* MBTRecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3CFF2671F441000B53C1 /* MBTRecordType.swift */; };
 		4DCD3D0726724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */; };
 		4DCD3D0826724548000B53C1 /* MBTAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3D0626724548000B53C1 /* MBTAcquisitionDelegate.swift */; };
-		4DCF4022267F5C9E0065779B /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 4DCF4021267F5C9E0065779B /* SwiftyBeaver */; };
 		4DCF4025267F677E0065779B /* MyBrainTechnologiesSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
 		4DCF4026267F677E0065779B /* MyBrainTechnologiesSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4DD985692265C8D300E788F2 /* MBTSignalProcessingBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DD985022265C8D300E788F2 /* MBTSignalProcessingBridge.mm */; };
@@ -473,7 +472,6 @@
 				A90A1D6722C373360097C1BE /* libTimeFrequency.a in Frameworks */,
 				A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */,
 				A90A1D6A22C373360097C1BE /* libDataManipulation.a in Frameworks */,
-				4DCF4022267F5C9E0065779B /* SwiftyBeaver in Frameworks */,
 				A90A1D6922C373360097C1BE /* libTransformations.a in Frameworks */,
 				A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */,
 				A90A1D6622C373360097C1BE /* libNF_Melomind.a in Frameworks */,
@@ -1335,7 +1333,6 @@
 			);
 			name = "MyBrainTechnologiesSDK-iOS";
 			packageProductDependencies = (
-				4DCF4021267F5C9E0065779B /* SwiftyBeaver */,
 			);
 			productName = "MyBrainTechnologiesSDK-iOS";
 			productReference = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */;
@@ -1465,7 +1462,6 @@
 			mainGroup = 3549BAFB1DA387DB00C63030;
 			packageReferences = (
 				4D4A097E2646DCCC00366DF6 /* XCRemoteSwiftPackageReference "IOS-CoreBluetooth-Mock" */,
-				4DCF4020267F5C9E0065779B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
 			productRefGroup = 3549BB061DA387DB00C63030 /* Products */;
 			projectDirPath = "";
@@ -2367,14 +2363,6 @@
 				minimumVersion = 0.12.1;
 			};
 		};
-		4DCF4020267F5C9E0065779B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyBeaver/SwiftyBeaver.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.9.5;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2382,11 +2370,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4D4A097E2646DCCC00366DF6 /* XCRemoteSwiftPackageReference "IOS-CoreBluetooth-Mock" */;
 			productName = CoreBluetoothMock;
-		};
-		4DCF4021267F5C9E0065779B /* SwiftyBeaver */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4DCF4020267F5C9E0065779B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
-			productName = SwiftyBeaver;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
