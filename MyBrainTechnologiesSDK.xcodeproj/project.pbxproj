@@ -1316,9 +1316,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */ = {
+		3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-iOS" */;
+			buildConfigurationList = 3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK" */;
 			buildPhases = (
 				A92CA41B2462B42700688CE5 /* Swiftlint */,
 				3549BB1C1DA389CD00C63030 /* Sources */,
@@ -1331,7 +1331,7 @@
 			);
 			dependencies = (
 			);
-			name = "MyBrainTechnologiesSDK-iOS";
+			name = MyBrainTechnologiesSDK;
 			packageProductDependencies = (
 			);
 			productName = "MyBrainTechnologiesSDK-iOS";
@@ -1467,7 +1467,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */,
+				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */,
 				A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
 				4D4A09842646DD1D00366DF6 /* BluetoothTestApp */,
 				4D4A09992646DD1E00366DF6 /* BluetoothTestAppTests */,
@@ -1774,17 +1774,17 @@
 		};
 		4DCF4024267F676B0065779B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
 			targetProxy = 4DCF4023267F676B0065779B /* PBXContainerItemProxy */;
 		};
 		4DCF4028267F677E0065779B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
 			targetProxy = 4DCF4027267F677E0065779B /* PBXContainerItemProxy */;
 		};
 		A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
 			targetProxy = A9E3A7BD24643B7700E6A4B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2307,7 +2307,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-iOS" */ = {
+		3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3549BB271DA389CD00C63030 /* Debug */,

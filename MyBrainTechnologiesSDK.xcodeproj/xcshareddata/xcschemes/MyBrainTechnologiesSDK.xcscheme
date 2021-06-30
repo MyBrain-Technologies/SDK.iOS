@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3549BB201DA389CD00C63030"
                BuildableName = "MyBrainTechnologiesSDK.framework"
-               BlueprintName = "MyBrainTechnologiesSDK-iOS"
+               BlueprintName = "MyBrainTechnologiesSDK"
                ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,7 +46,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3549BB201DA389CD00C63030"
             BuildableName = "MyBrainTechnologiesSDK.framework"
-            BlueprintName = "MyBrainTechnologiesSDK-iOS"
+            BlueprintName = "MyBrainTechnologiesSDK"
             ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,7 +78,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3549BB201DA389CD00C63030"
             BuildableName = "MyBrainTechnologiesSDK.framework"
-            BlueprintName = "MyBrainTechnologiesSDK-iOS"
+            BlueprintName = "MyBrainTechnologiesSDK"
             ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -94,7 +94,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3549BB201DA389CD00C63030"
             BuildableName = "MyBrainTechnologiesSDK.framework"
-            BlueprintName = "MyBrainTechnologiesSDK-iOS"
+            BlueprintName = "MyBrainTechnologiesSDK"
             ReferencedContainer = "container:MyBrainTechnologiesSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
