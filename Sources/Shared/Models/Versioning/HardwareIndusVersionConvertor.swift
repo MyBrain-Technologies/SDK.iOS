@@ -18,7 +18,7 @@ struct HardwareIndusVersionConvertor {
     switch hardwareVersion {
       case .v_1_0_0: return IndusVersion.indus2
       case .v_1_1_0: return IndusVersion.indus3
-      case .v_2_0_0: return IndusVersion.indus5
+      case .v_2_0_0, .v_2_1_0: return IndusVersion.indus5
     }
   }
 
