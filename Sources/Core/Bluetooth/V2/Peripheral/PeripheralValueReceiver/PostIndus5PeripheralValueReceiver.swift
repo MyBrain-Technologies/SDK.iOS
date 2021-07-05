@@ -118,6 +118,7 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .eegDataFrameEvent: handleEegDataFrame(for: bytes)
       case .startEeg: handleStartEeg(for: parameterBytes)
       case .stopEeg: handleStopEeg(for: parameterBytes)
+      case .mtuSize: handleMtuSize(for: parameterBytes)
       default: log.info("📲 Unknown MBX response")
     }
   }
@@ -169,6 +170,21 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   private func handleEegDataFrame(for bytes: Bytes) {
     let data = Data(bytes)
     delegate?.didUpdate(brainData: data)
+  }
+
+  /******************** MTU ********************/
+
+  private func handleMtuSize(for bytes: Bytes) {
+    guard let byte = bytes.first else { return }
+    guard byte != 0 else {
+      print("error")
+      return
+    }
+    let mtuSizeBytes = [byte]
+//    let mtuSize = mtuSizeBytes.withUnsafeBytes{ $0.load(as: Int.self) }
+
+    let size = mtuSizeBytes.reversed().reduce(0) { $0 << 8 + Int($1) }
+    print("Mtu size: \(size)")
   }
 
   /******************** A2DP ********************/
