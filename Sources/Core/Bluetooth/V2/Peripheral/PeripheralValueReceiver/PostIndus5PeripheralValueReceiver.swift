@@ -4,6 +4,14 @@ import CoreBluetooth
 class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   //----------------------------------------------------------------------------
+  // MARK: - Error
+  //----------------------------------------------------------------------------
+
+  enum PostIndus5PeripheralValueReceiverError: Error {
+    case invalidOpCode(byte: UInt8)
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
@@ -93,11 +101,14 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   private func handleRxUpdate(for data: Data) {
     let bytes = Bytes(data)
-    guard bytes.count > 0 else { return }
-    let opCode = bytes[0]
+
+    guard let opCode = bytes.first else { return }
 
     guard let mailboxCommand = MailboxCommand(rawValue: opCode) else {
       print("Unknown Mailbox command: \(bytes)")
+      let error =
+        PostIndus5PeripheralValueReceiverError.invalidOpCode(byte: opCode)
+      delegate?.didFail(with: error)
       return
     }
 
