@@ -98,8 +98,9 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
       if let information = self?.information { print(information) }
 
       self?.state = .mtuSizeRequesting
-//      guard let mtuSize = UInt8(exactly: 47) else { return }
-      self?.peripheralCommunicator?.write(mtuSize: 0x2F)
+      
+      guard let mtuSize = UInt8(exactly: 47) else { return }
+      self?.peripheralCommunicator?.write(mtuSize: mtuSize)
     }
 
     deviceInformationBuilder.didFail = { [weak self] error in
@@ -208,8 +209,13 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
     deviceInformationBuilder.add(hardwareVersion: hardwareVersion)
   }
 
-  func didUpdate(mtuSize: Int) {
+  func didUpdate(sampleBufferSizeFromMtu: Int) {
     state = .ready
+
+    #warning("TODO: Check valid sampleBufferSize here")
+//    let packetBytes = INDEX_PACKET_SIZE
+//      + (BYTES_PER_SAMPLE * NUMBER_OF_SAMPLE * NUMBER_OF_CHANNELS)
+//      + 1
   }
 
   func didRequestPairing() {

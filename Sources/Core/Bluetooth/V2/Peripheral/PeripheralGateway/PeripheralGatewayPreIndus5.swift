@@ -206,7 +206,7 @@ extension PeripheralGatewayPreIndus5: PeripheralValueReceiverDelegate {
     deviceInformationBuilder.add(hardwareVersion: hardwareVersion)
   }
 
-  func didUpdate(mtuSize: Int) {
+  func didUpdate(sampleBufferSizeFromMtu: Int) {
     assertionFailure("Mtu should not be changed in Melomind.")
   }
 
