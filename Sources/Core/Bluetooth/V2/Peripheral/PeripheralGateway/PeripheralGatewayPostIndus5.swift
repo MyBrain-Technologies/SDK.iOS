@@ -17,10 +17,17 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     case characteristicDiscovering
     case pairing
     case deviceInformationDiscovering
+    case mtuSizeRequesting
     case ready
   }
 
-  private var state = IndusPost5PeripheralState.characteristicDiscovering
+  private var state = IndusPost5PeripheralState.characteristicDiscovering {
+    didSet {
+      if state == .ready {
+        handleStateIsReady()
+      }
+    }
+  }
 
   var isReady: Bool {
     return state == .ready
@@ -89,10 +96,10 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
       self?.information = deviceInformation
 
       if let information = self?.information { print(information) }
-      self?.state = .ready
 
-//      self?.peripheralCommunicator?.write(serialNumber: "2010100001")
-//      self?.peripheralCommunicator?.write(a2dpName: "MM2B200007")
+      self?.state = .mtuSizeRequesting
+//      guard let mtuSize = UInt8(exactly: 47) else { return }
+      self?.peripheralCommunicator?.write(mtuSize: 0x2F)
     }
 
     deviceInformationBuilder.didFail = { [weak self] error in
@@ -102,6 +109,15 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
 
   private func setupPeripheralValueReceiver() {
     peripheralValueReceiver.delegate = self
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - State
+  //----------------------------------------------------------------------------
+
+  private func handleStateIsReady() {
+    //      self?.peripheralCommunicator?.write(serialNumber: "2010100001")
+    //      self?.peripheralCommunicator?.write(a2dpName: "MM2B200007")
   }
 
   //----------------------------------------------------------------------------
