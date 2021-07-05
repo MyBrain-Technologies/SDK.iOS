@@ -16,9 +16,9 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
-### ios xcframework
+### ios generate_xcframework
 ```
-fastlane ios xcframework
+fastlane ios generate_xcframework
 ```
 Create a xcframework
 

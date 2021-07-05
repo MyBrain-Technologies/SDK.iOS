@@ -17,13 +17,14 @@ default_platform(:ios)
 
 platform :ios do
   desc "Create a xcframework"
-  lane :xcframework do
-    create_xcframework(
-    workspace: './MyBrainTechnologiesSDK.xcodeproj/project.xcworkspace',
-    scheme: 'MyBrainTechnologiesSDK',
-    product_name: 'MyBrainTechnologiesSDK', # optional if scheme doesnt match the name of your framework
-    destinations: ['iOS'],
-    xcframework_output_directory: './build'
-)
+  lane :generate_xcframework do
+    sh "bash ../generate_xcframework.sh"
+#     create_xcframework(
+#     workspace: './MyBrainTechnologiesSDK.xcodeproj/project.xcworkspace',
+#     scheme: 'MyBrainTechnologiesSDK',
+#     product_name: 'MyBrainTechnologiesSDK', # optional if scheme doesnt match the name of your framework
+#     destinations: ['iOS'],
+#     xcframework_output_directory: './build'
+# )
   end
 end

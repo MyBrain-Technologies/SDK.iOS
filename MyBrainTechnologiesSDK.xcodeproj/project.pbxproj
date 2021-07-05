@@ -6,6 +6,20 @@
 	objectVersion = 52;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4DD980ED26933FB90050A3D4 /* XCFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "XCFramework" */;
+			buildPhases = (
+				4DD980F126933FBE0050A3D4 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = XCFramework;
+			productName = XCFramework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
 		2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B631ED220E0E85F00880B8E /* MBTOADManager.swift */; };
@@ -1444,6 +1458,9 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 4D4A09842646DD1D00366DF6;
 					};
+					4DD980ED26933FB90050A3D4 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					A9E3A7B624643B7700E6A4B9 = {
 						CreatedOnToolsVersion = 11.3.1;
 						DevelopmentTeam = 23T8TD424J;
@@ -1472,6 +1489,7 @@
 				4D4A09842646DD1D00366DF6 /* BluetoothTestApp */,
 				4D4A09992646DD1E00366DF6 /* BluetoothTestAppTests */,
 				4D4A09A42646DD1E00366DF6 /* BluetoothTestAppUITests */,
+				4DD980ED26933FB90050A3D4 /* XCFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -1522,6 +1540,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4DD980F126933FBE0050A3D4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nxcodebuild archive \\\n-scheme MyBrainTechnologiesSDK \\\n-configuration Release \\\n-destination 'generic/platform=iOS' \\\n-archivePath './build/MyBrainTechnologiesSDK.framework-iphoneos.xcarchive' \\\nSKIP_INSTALL=NO \\\nBUILD_LIBRARIES_FOR_DISTRIBUTION=YES\n\n\nxcodebuild archive \\\n-scheme MyBrainTechnologiesSDK \\\n-configuration Release \\\n-destination 'generic/platform=iOS Simulator' \\\n-archivePath './build/MyBrainTechnologiesSDK.framework-iphonesimulator.xcarchive' \\\nSKIP_INSTALL=NO \\\nBUILD_LIBRARIES_FOR_DISTRIBUTION=YES\n\n\nxcodebuild -create-xcframework \\\n-framework './build/MyBrainTechnologiesSDK.framework-iphoneos.xcarchive/Products/Frameworks/MyBrainTechnologiesSDK.framework' \\\n-framework './build/MyBrainTechnologiesSDK.framework-iphonesimulator.xcarchive/Products/Frameworks/MyBrainTechnologiesSDK.framework' \\\n-output './build/MyBrainTechnologiesSDK.xcframework'\n";
+		};
 		A92CA41B2462B42700688CE5 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1947,7 +1982,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = marker;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2002,7 +2037,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = bitcode;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2234,6 +2269,24 @@
 			};
 			name = Release;
 		};
+		4DD980EF26933FB90050A3D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23T8TD424J;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4DD980F026933FB90050A3D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23T8TD424J;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		A9E3A7BF24643B7700E6A4B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2339,6 +2392,15 @@
 			buildConfigurations = (
 				4D4A09B32646DD1E00366DF6 /* Debug */,
 				4D4A09B42646DD1E00366DF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "XCFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DD980EF26933FB90050A3D4 /* Debug */,
+				4DD980F026933FB90050A3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
