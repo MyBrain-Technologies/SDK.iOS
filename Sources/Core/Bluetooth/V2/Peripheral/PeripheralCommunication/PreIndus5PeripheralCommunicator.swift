@@ -58,8 +58,9 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   //----------------------------------------------------------------------------
 
   func write(a2dpName: String) {
+    #warning("Fix on hardware to use enum")
     let serialNumberByteArray: [UInt8] = [
-      MailboxCommand.setA2dpName.rawValue,
+      0x0A,
       0xAB,
       0x21
     ]
@@ -72,7 +73,7 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   func write(serialNumber: String) {
-    assertionFailure("TODO")
+    assertionFailure("Todo?")
   }
 
   func write(firmwareVersion: [UInt8], numberOfBlocks: Int16) {

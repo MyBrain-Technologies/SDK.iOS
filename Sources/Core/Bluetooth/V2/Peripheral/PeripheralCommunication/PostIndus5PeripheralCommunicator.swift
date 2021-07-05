@@ -91,7 +91,7 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
 
   func write(serialNumber: String) {
     let serialNumberByteArray: [UInt8] = [
-      0x0A,
+      MailboxCommand.setSerialNumber.rawValue,
       0x53,
       0x4D
     ]
