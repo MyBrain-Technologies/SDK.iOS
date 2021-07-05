@@ -55,9 +55,7 @@ class EEGAcquisitionBuffer {
 
   /// Add a packet to the buffer. Missing packets are filled with 0xFF.
   func add(rawPacket: EEGRawPacket) {
-    log.verbose("Receive packet. Index: \(rawPacket.packetIndex)")
-    log.verbose("Value length: \(rawPacket.packetValues.count)")
-    log.verbose("Value: \(rawPacket.packetValues)")
+    log.verbose(rawPacket)
     addMissingPackets(before: rawPacket)
     packetBuffer.add(bytes: rawPacket.packetValues)
   }

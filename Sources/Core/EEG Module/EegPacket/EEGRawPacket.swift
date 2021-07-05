@@ -40,3 +40,18 @@ struct EEGRawPacket {
   }
 
 }
+
+//==============================================================================
+// MARK: - CustomStringConvertible
+//==============================================================================
+
+extension EEGRawPacket: CustomStringConvertible {
+
+  var description: String {
+    return """
+    Receive packet. Index: \(packetIndex)
+    Value length: \(packetValues.count)
+    Value: \(packetValues)
+    """
+  }
+}
