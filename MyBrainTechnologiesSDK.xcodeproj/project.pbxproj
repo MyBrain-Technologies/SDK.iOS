@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		4DD980ED26933FB90050A3D4 /* XCFramework */ = {
+		4DD980ED26933FB90050A3D4 /* Fastlane */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "XCFramework" */;
+			buildConfigurationList = 4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "Fastlane" */;
 			buildPhases = (
 				4DD980F126933FBE0050A3D4 /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = XCFramework;
+			name = Fastlane;
 			productName = XCFramework;
 		};
 /* End PBXAggregateTarget section */
@@ -1489,7 +1489,7 @@
 				4D4A09842646DD1D00366DF6 /* BluetoothTestApp */,
 				4D4A09992646DD1E00366DF6 /* BluetoothTestAppTests */,
 				4D4A09A42646DD1E00366DF6 /* BluetoothTestAppUITests */,
-				4DD980ED26933FB90050A3D4 /* XCFramework */,
+				4DD980ED26933FB90050A3D4 /* Fastlane */,
 			);
 		};
 /* End PBXProject section */
@@ -1555,7 +1555,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nxcodebuild archive \\\n-scheme MyBrainTechnologiesSDK \\\n-configuration Release \\\n-destination 'generic/platform=iOS' \\\n-archivePath './build/MyBrainTechnologiesSDK.framework-iphoneos.xcarchive' \\\nSKIP_INSTALL=NO \\\nBUILD_LIBRARIES_FOR_DISTRIBUTION=YES\n\n\nxcodebuild archive \\\n-scheme MyBrainTechnologiesSDK \\\n-configuration Release \\\n-destination 'generic/platform=iOS Simulator' \\\n-archivePath './build/MyBrainTechnologiesSDK.framework-iphonesimulator.xcarchive' \\\nSKIP_INSTALL=NO \\\nBUILD_LIBRARIES_FOR_DISTRIBUTION=YES\n\n\nxcodebuild -create-xcframework \\\n-framework './build/MyBrainTechnologiesSDK.framework-iphoneos.xcarchive/Products/Frameworks/MyBrainTechnologiesSDK.framework' \\\n-framework './build/MyBrainTechnologiesSDK.framework-iphonesimulator.xcarchive/Products/Frameworks/MyBrainTechnologiesSDK.framework' \\\n-output './build/MyBrainTechnologiesSDK.xcframework'\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbundle exec fastlane generate_xcframework\n";
 		};
 		A92CA41B2462B42700688CE5 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2030,6 +2030,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Debug;
 		};
@@ -2083,6 +2084,7 @@
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Release;
 		};
@@ -2396,7 +2398,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "XCFramework" */ = {
+		4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "Fastlane" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4DD980EF26933FB90050A3D4 /* Debug */,
