@@ -192,7 +192,6 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       return
     }
     let sampleBufferSize = Int(byte)
-
     delegate?.didUpdate(sampleBufferSizeFromMtu: sampleBufferSize)
   }
 

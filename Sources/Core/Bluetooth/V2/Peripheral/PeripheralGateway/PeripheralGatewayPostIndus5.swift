@@ -94,13 +94,10 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   private func setupDeviceInformationBuilder() {
     deviceInformationBuilder.didBuild = { [weak self] deviceInformation in
       self?.information = deviceInformation
-
-      if let information = self?.information { print(information) }
+      print(deviceInformation)
 
       self?.state = .mtuSizeRequesting
-      
-      guard let mtuSize = UInt8(exactly: 47) else { return }
-      self?.peripheralCommunicator?.write(mtuSize: mtuSize)
+      self?.setMtuSize()
     }
 
     deviceInformationBuilder.didFail = { [weak self] error in
@@ -136,6 +133,11 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   func requestBatteryLevel() {
     guard state == .ready else { return }
     peripheralCommunicator?.readDeviceState()
+  }
+
+  private func setMtuSize() {
+    guard let mtuSize = UInt8(exactly: 47) else { return }
+    peripheralCommunicator?.write(mtuSize: mtuSize)
   }
 
   //----------------------------------------------------------------------------
