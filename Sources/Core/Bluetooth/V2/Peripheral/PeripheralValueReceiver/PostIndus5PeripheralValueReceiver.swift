@@ -126,7 +126,7 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .firmewareVersion: handleFirmwareVersionUpdate(for: parameterBytes)
       case .hardwareVersion: handleHardwareVersionNameUpdate(for: parameterBytes)
       case .setA2dpName: handleA2dpNameUpdate(for: parameterBytes)
-      case .eegDataFrameEvent: handleEegDataFrame(for: bytes)
+      case .eegDataFrameEvent: handleEegDataFrame(for: parameterBytes)
       case .startEeg: handleStartEeg(for: parameterBytes)
       case .stopEeg: handleStopEeg(for: parameterBytes)
       case .mtuSize: handleMtuSize(for: parameterBytes)
