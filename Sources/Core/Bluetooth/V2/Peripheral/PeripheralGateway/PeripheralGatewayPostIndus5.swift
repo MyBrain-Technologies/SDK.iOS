@@ -192,6 +192,10 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
     deviceInformationBuilder.add(hardwareVersion: hardwareVersion)
   }
 
+  func didUpdate(mtuSize: Int) {
+    state = .ready
+  }
+
   func didRequestPairing() {
     log.verbose("Did resquest pairing")
     DispatchQueue.global().asyncAfter(deadline: .now() + 2) {

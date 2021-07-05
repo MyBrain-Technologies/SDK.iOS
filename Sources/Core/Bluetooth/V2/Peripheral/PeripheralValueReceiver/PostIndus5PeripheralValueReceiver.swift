@@ -194,8 +194,10 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
     let mtuSizeBytes = [byte]
 //    let mtuSize = mtuSizeBytes.withUnsafeBytes{ $0.load(as: Int.self) }
 
-    let size = mtuSizeBytes.reversed().reduce(0) { $0 << 8 + Int($1) }
-    print("Mtu size: \(size)")
+    let mtuSize = mtuSizeBytes.reversed().reduce(0) { $0 << 8 + Int($1) }
+    print("Mtu size: \(mtuSize)")
+
+    delegate?.didUpdate(mtuSize: mtuSize)
   }
 
   /******************** A2DP ********************/

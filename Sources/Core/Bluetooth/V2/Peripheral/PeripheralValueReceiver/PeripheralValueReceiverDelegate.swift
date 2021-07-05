@@ -10,6 +10,8 @@ protocol PeripheralValueReceiverDelegate: AnyObject {
   func didUpdate(firmwareVersion: String)
   func didUpdate(hardwareVersion: String)
 
+  func didUpdate(mtuSize: Int)
+
   func didA2DPConnectionRequestSucceed()
 
   func didRequestPairing()
