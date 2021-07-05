@@ -258,8 +258,7 @@ internal class MBTPeripheral: NSObject {
   //----------------------------------------------------------------------------
 
   func requestBatteryLevel() {
-    guard gateway.isReady else { return }
-    gateway.peripheralCommunicator?.readDeviceState()
+    gateway.requestBatteryLevel()
   }
 
 }

@@ -113,6 +113,15 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   }
 
   //----------------------------------------------------------------------------
+  // MARK: - Commands
+  //----------------------------------------------------------------------------
+
+  func requestBatteryLevel() {
+    guard state == .ready else { return }
+    peripheralCommunicator?.readDeviceState()
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Gateway
   //----------------------------------------------------------------------------
 
@@ -131,26 +140,6 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     peripheralValueReceiver.handleValueWrite(for: characteristic, error: error)
 
 
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-  //----------------------------------------------------------------------------
-  // MARK: - Commands
-  //----------------------------------------------------------------------------
-
-  func requestBatteryLevel() {
-    guard state == .ready else { return }
-    peripheralCommunicator?.readDeviceState()
   }
 
 }

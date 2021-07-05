@@ -121,6 +121,15 @@ class PeripheralGatewayPreIndus5: PeripheralGatewayProtocol {
   }
 
   //----------------------------------------------------------------------------
+  // MARK: - Commands
+  //----------------------------------------------------------------------------
+
+  func requestBatteryLevel() {
+    guard state == .ready else { return }
+    peripheralCommunicator?.readDeviceState()
+  }
+  
+  //----------------------------------------------------------------------------
   // MARK: - Gateway
   //----------------------------------------------------------------------------
 
