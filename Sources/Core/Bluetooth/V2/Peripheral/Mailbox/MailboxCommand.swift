@@ -13,9 +13,11 @@ enum MailboxCommand: UInt8 {
   // MARK: - Cases
   //----------------------------------------------------------------------------
 
+  // REMOVE?
   case setADSConfigMelomind = 0x00 // Only melomind. Not used.
 
-  case setAudioconfig = 0x01 // Only melomind. Not used.
+  // REMOVE?
+  case setAudioconfigMelomind = 0x01 // Only melomind. Not used.
 
   /// Product name configuration request
   case setProductName = 0x02 // Only melomind.
@@ -91,6 +93,8 @@ enum MailboxCommand: UInt8 {
   case getFilterConfigurationType = 0x30 // GOOD
 
   case setFilterConfigurationType = 0x31 // GOOD
+
+  case setAudioconfig = 0x32 // GOOD
 
   case startImsAcquisition = 0x33 // GOOD
 
