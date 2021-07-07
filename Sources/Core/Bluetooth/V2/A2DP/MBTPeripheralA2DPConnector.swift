@@ -80,10 +80,14 @@ class MBTPeripheralA2DPConnector {
   func isConnected(currentDeviceSerialNumber: String) -> Bool {
     // "MM1B..."
     let lowercasedSerialNumber = currentDeviceSerialNumber.lowercased()
-    let portName = output?.portName.lowercased()
-    let isGoodSerialNumber = portName?.contains(lowercasedSerialNumber) ?? false
+    guard var portName = outputPortName?.lowercased() else { return false }
+    #warning("Temporary")
+    if portName.hasPrefix("mmmm") {
+      portName.removeFirst(2)
+    }
+    let isGoodSerialNumber = portName.contains(lowercasedSerialNumber)
     // output?.portName == currentDeviceSerialNumber
-    let isGoodPortType = output?.portType == .bluetoothA2DP
+    let isGoodPortType = outputPortType == .bluetoothA2DP
     return isGoodSerialNumber && isGoodPortType
   }
 

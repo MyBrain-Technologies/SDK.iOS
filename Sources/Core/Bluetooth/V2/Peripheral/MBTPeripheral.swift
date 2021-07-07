@@ -13,10 +13,10 @@ internal class MBTPeripheral: NSObject {
     return peripheral.state == .connected
   }
 
-//  var isA2dpConnected: Bool {
-//    guard let information = information else { return false }
-//    return a2dpConnector.isConnected(currentDeviceSerialNumber: information.productName)
-//  }
+  var isA2dpConnected: Bool {
+    guard let productName = information?.productName else { return false }
+    return a2dpConnector.isConnected(currentDeviceSerialNumber: productName)
+  }
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -75,10 +75,6 @@ internal class MBTPeripheral: NSObject {
     get { return gateway.delegate }
     set { gateway.delegate = newValue }
   }
-
-  var didUpdateBrainData: ((Data) -> Void)?
-  var didUpdateBatteryLevel: ((Int) -> Void)?
-  var didUpdateSaturationStatus: ((Int) -> Void)?
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization

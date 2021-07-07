@@ -136,7 +136,10 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   }
 
   private func setMtuSize() {
-    guard let mtuSize = UInt8(exactly: 47) else { return }
+    guard let mtuSize = UInt8(exactly: 47) else {
+      #warning("Handle error")
+      return
+    }
     peripheralCommunicator?.write(mtuSize: mtuSize)
   }
 
