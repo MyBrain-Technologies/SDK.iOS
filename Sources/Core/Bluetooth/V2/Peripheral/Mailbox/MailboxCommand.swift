@@ -13,11 +13,9 @@ enum MailboxCommand: UInt8 {
   // MARK: - Cases
   //----------------------------------------------------------------------------
 
-  // REMOVE?
-  case setADSConfigMelomind = 0x00 // Only melomind. Not used.
+//  case setADSConfigMelomind = 0x00 // Only melomind. Not used. For reference.
 
-  // REMOVE?
-  case setAudioconfigMelomind = 0x01 // Only melomind. Not used.
+//  case setAudioconfigMelomind = 0x01 // Only melomind. Not used. For reference.
 
   /// Product name configuration request
   case setProductName = 0x02 // Only melomind.
@@ -27,7 +25,7 @@ enum MailboxCommand: UInt8 {
   case startOTATFX = 0x03 // Good
 
   /// Notifies app of a lead off modification
-  case leadOffEvent = 0x04 // Only melomind. Not used
+//  case leadOffEvent = 0x04 // Only melomind. Not used. For reference.
 
   /// Notifies appli that we switched to OTA mode
   case otaModeEvent = 0x05 // GOOD
@@ -58,7 +56,8 @@ enum MailboxCommand: UInt8 {
   /// Set the eeg signal amplifier gain
   case setAmplifierSignalGain = 0x0D // GOOD
 
-  /// Get the current configuration of the Notch filter, the bandpass filter, and the amplifier gain.
+  /// Get the current configuration of the Notch filter, the bandpass filter,
+  /// and the amplifier gain.
   case getEEGConfig = 0x0E // GOOD
 
   /// Enable or disable the p300 functionnality of the melomind.
