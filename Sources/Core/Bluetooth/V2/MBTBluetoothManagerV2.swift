@@ -165,7 +165,7 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
   }
 
   func didRequestA2DPConnection() {
-
+    a2dpDelegate?.didRequestA2DPConnection()
   }
 
   func didA2DPConnect() {
@@ -191,19 +191,3 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-//==============================================================================
-// MARK: - MBTPeripheral
-//==============================================================================
-
-
-
