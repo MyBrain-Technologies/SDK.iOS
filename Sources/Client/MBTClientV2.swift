@@ -514,6 +514,11 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
 
 extension MBTClientV2: MBTBLEBluetoothDelegate {
 
+  public func didUpdateSampleBufferSize(sampleBufferSize: Int) {
+    bleDelegate?.didUpdateSampleBufferSize(sampleBufferSize: sampleBufferSize)
+  }
+
+
   public func didBluetoothStateChange(isBluetoothOn: Bool) {
     bleDelegate?.didBluetoothStateChange(isBluetoothOn: isBluetoothOn)
   }

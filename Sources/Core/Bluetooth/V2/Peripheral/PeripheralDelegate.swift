@@ -6,6 +6,8 @@ protocol PeripheralDelegate: AnyObject {
   func didValueUpdate(BatteryLevel: Int)
   func didValueUpdate(SaturationStatus: Int)
 
+  func didUpdate(sampleBufferSizeFromMtu: Int)
+
   func didRequestA2DPConnection()
   func didA2DPConnect()
   func didA2DPDisconnect(error: Error?)

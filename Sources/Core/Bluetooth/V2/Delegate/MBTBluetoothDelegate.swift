@@ -14,6 +14,10 @@ public protocol MBTBLEBluetoothDelegate: AnyObject {
 
   func didConnect(deviceInformation: DeviceInformation)
 
+  /// Called when the mtu size is changed and that a new sample buffer size is
+  /// used for the data frame events.
+  func didUpdateSampleBufferSize(sampleBufferSize: Int)
+
   /// Called if the SDK can't connect to the MBT Headset,
   /// with the error.
   /// - Parameter error: A *Error* object which describe the cause of the

@@ -152,6 +152,13 @@ public class MBTBluetoothManagerV2 {
 
 extension MBTBluetoothManagerV2: PeripheralDelegate {
 
+  func didUpdate(sampleBufferSizeFromMtu: Int) {
+    bleDelegate?.didUpdateSampleBufferSize(
+      sampleBufferSize: sampleBufferSizeFromMtu
+    )
+  }
+
+
   func didValueUpdate(BrainData: Data) {
     acquisitionDelegate?.didUpdateEEGRawData(BrainData)
   }

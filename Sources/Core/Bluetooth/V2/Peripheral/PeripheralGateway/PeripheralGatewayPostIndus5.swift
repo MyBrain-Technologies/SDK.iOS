@@ -256,6 +256,8 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
 //    let packetBytes = INDEX_PACKET_SIZE
 //      + (BYTES_PER_SAMPLE * NUMBER_OF_SAMPLE * NUMBER_OF_CHANNELS)
 //      + 1
+
+    delegate?.didUpdate(sampleBufferSizeFromMtu: sampleBufferSizeFromMtu)  
   }
 
   func didRequestPairing() {
