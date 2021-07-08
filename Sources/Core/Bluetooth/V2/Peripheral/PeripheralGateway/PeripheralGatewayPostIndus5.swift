@@ -246,6 +246,12 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
   func didUpdate(sampleBufferSizeFromMtu: Int) {
     state = .ready
 
+    if isA2dpConnected {
+      delegate?.didA2DPConnect()
+    } else {
+      delegate?.didRequestA2DPConnection()
+    }
+
     #warning("TODO: Check valid sampleBufferSize here")
 //    let packetBytes = INDEX_PACKET_SIZE
 //      + (BYTES_PER_SAMPLE * NUMBER_OF_SAMPLE * NUMBER_OF_CHANNELS)
