@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol MBTBLEBluetoothDelegate: class {
+public protocol MBTBLEBluetoothDelegate: AnyObject {
 
   /// Called when the bluetooth state change
   ///
