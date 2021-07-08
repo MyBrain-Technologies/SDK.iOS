@@ -121,7 +121,7 @@ enum MailboxCommand: UInt8 {
 
   case unknownEvent = 0xFF
 
-  #warning("TODO since some commands are array")
+  #warning("TODO since some commands are array: https://stackoverflow.com/a/63804490")
 //  var commandCode: [UInt8]
 //  var responseOpCode: UInt8
 //  init(fromResponseOpCode: UInt8)?
