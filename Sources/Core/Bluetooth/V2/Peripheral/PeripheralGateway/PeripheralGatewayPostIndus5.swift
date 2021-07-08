@@ -33,6 +33,19 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     return state == .ready
   }
 
+  /******************** A2DP ********************/
+
+  private let a2dpConnector = MBTPeripheralA2DPConnector()
+
+  var isA2dpConnected: Bool {
+    guard let productName = information?.productName else { return false }
+    return a2dpConnector.isConnected(currentDeviceSerialNumber: productName)
+  }
+
+  var ad2pName: String? {
+    return a2dpConnector.a2dpName
+  }
+
   /******************** PeripheralGatewayProtocol ********************/
 
   private let peripheralValueReceiver = PostIndus5PeripheralValueReceiver()
@@ -71,6 +84,7 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     setupCharacteristicsDiscoverer()
     setupDeviceInformationBuilder()
     setupPeripheralValueReceiver()
+    setupA2dpConnector()
   }
 
   private func setupCharacteristicsDiscoverer() {
@@ -107,6 +121,21 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
 
   private func setupPeripheralValueReceiver() {
     peripheralValueReceiver.delegate = self
+  }
+
+  private func setupA2dpConnector() {
+    a2dpConnector.didConnectA2DP = { [weak self] in
+      print("A2DP is connected.")
+      self?.delegate?.didA2DPConnect()
+    }
+
+    a2dpConnector.didDisconnectA2DP = { [weak self] in
+      print("A2DP is disconnected.")
+    }
+
+    a2dpConnector.requestDeviceSerialNumber = { [weak self] in
+      return self?.information?.deviceId
+    }
   }
 
   //----------------------------------------------------------------------------

@@ -17,23 +17,30 @@ protocol PeripheralGatewayProtocol: AnyObject {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  var isReady: Bool { get }
+
+  /******************** Information ********************/
+
+  var information: DeviceInformation? { get }
+
+  var deviceInformationBuilder: DeviceInformationBuilder { get }
+
+  /******************** Delegate ********************/
+
   var delegate: PeripheralDelegate? { get set }
 
-  var isReady: Bool { get }
-//  var peripheralState: MBTPeripheralState { get }
+  /******************** A2dp ********************/
+
+  var isA2dpConnected: Bool { get }
+
+  var ad2pName: String? { get }
 
   #warning("Use interface to hide it.")
   var peripheralCommunicator: PeripheralCommunicable? { get }
 
 //  var peripheralValueReceiver: PeripheralValueReceiverProtocol { get }
 
-  var information: DeviceInformation? { get }
-
-//  var characteristicDiscoverer: CharacteristicDiscoverer { get }
-
   var allIndusServiceCBUUIDs: [CBUUID] { get }
-
-  var deviceInformationBuilder: DeviceInformationBuilder { get }
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization

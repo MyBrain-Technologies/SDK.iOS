@@ -14,8 +14,7 @@ internal class MBTPeripheral: NSObject {
   }
 
   var isA2dpConnected: Bool {
-    guard let productName = information?.productName else { return false }
-    return a2dpConnector.isConnected(currentDeviceSerialNumber: productName)
+    return gateway.isA2dpConnected
   }
 
   //----------------------------------------------------------------------------
@@ -31,7 +30,7 @@ internal class MBTPeripheral: NSObject {
   }
 
   var ad2pName: String? {
-    return a2dpConnector.a2dpName
+    return gateway.ad2pName
   }
 
   #warning("TODO: To remove")
@@ -63,7 +62,7 @@ internal class MBTPeripheral: NSObject {
 
   /******************** Audio ********************/
 
-  private let a2dpConnector = MBTPeripheralA2DPConnector()
+//  private let a2dpConnector = MBTPeripheralA2DPConnector()
 
   /******************** Gateway ********************/
 
@@ -127,18 +126,18 @@ internal class MBTPeripheral: NSObject {
   }
 
   private func setupA2DPConnector() {
-    a2dpConnector.didConnectA2DP = { [weak self] in
-      print("A2DP is connected.")
-      self?.delegate?.didA2DPConnect()
-    }
-
-    a2dpConnector.didDisconnectA2DP = { [weak self] in
-      print("A2DP is disconnected.")
-    }
-
-    a2dpConnector.requestDeviceSerialNumber = { [weak self] in
-      return self?.information?.deviceId
-    }
+//    a2dpConnector.didConnectA2DP = { [weak self] in
+//      print("A2DP is connected.")
+//      self?.delegate?.didA2DPConnect()
+//    }
+//
+//    a2dpConnector.didDisconnectA2DP = { [weak self] in
+//      print("A2DP is disconnected.")
+//    }
+//
+//    a2dpConnector.requestDeviceSerialNumber = { [weak self] in
+//      return self?.information?.deviceId
+//    }
   }
 
   //----------------------------------------------------------------------------

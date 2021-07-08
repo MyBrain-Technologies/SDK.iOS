@@ -35,6 +35,19 @@ class PeripheralGatewayPreIndus5: PeripheralGatewayProtocol {
     return state == .ready
   }
 
+  /******************** A2DP ********************/
+
+  private let a2dpConnector = MBTPeripheralA2DPConnector()
+
+  var isA2dpConnected: Bool {
+    guard let productName = information?.productName else { return false }
+    return a2dpConnector.isConnected(currentDeviceSerialNumber: productName)
+  }
+
+  var ad2pName: String? {
+    return a2dpConnector.a2dpName
+  }
+
   /******************** PeripheralGatewayProtocol ********************/
 
   private let peripheralValueReceiver = PreIndus5PeripheralValueReceiver()
