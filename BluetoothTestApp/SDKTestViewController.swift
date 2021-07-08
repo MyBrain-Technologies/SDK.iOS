@@ -99,6 +99,9 @@ extension SDKTestViewController: MBTBLEBluetoothDelegate {
 
   }
 
+  func didUpdateSampleBufferSize(sampleBufferSize: Int) {
+    print("sampleBufferSize: \(sampleBufferSize)")
+  }
 
   func didConnect() {
     print("BLE connection succeed!")
@@ -134,6 +137,11 @@ extension SDKTestViewController: MBTBLEBluetoothDelegate {
 //==============================================================================
 
 extension SDKTestViewController: MBTA2DPBluetoothDelegate {
+
+  func didRequestA2DPConnection() {
+    print("A2DP connection requested!")
+  }
+
 
   func didAudioA2DPConnect() {
       print("A2DP connection succeed!")
