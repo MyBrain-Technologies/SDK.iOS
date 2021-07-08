@@ -73,6 +73,10 @@ public class MBTClientV2 {
     return bluetoothManager.hasConnectedDevice
   }
 
+  public var isA2dpConnected: Bool {
+    return bluetoothManager.hasA2dpConnectedDevice
+  }
+
   public var bluetoothAuthorization: BluetoothAuthorization {
     return bluetoothManager.authorization
   }

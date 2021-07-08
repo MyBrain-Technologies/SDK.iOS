@@ -28,6 +28,10 @@ public class MBTBluetoothManagerV2 {
     return currentPeripheral?.isBleConnected ?? false
   }
 
+  public var hasA2dpConnectedDevice: Bool {
+    return currentPeripheral?.isA2dpConnected ?? false
+  }
+
   public var currentDeviceInformation: DeviceInformation? {
     return currentPeripheral?.information
   }
