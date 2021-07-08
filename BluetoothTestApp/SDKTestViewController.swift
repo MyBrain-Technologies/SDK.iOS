@@ -142,7 +142,6 @@ extension SDKTestViewController: MBTA2DPBluetoothDelegate {
     print("A2DP connection requested!")
   }
 
-
   func didAudioA2DPConnect() {
       print("A2DP connection succeed!")
   }
