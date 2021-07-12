@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol MBTAcquisitionDelegate: class {
+public protocol MBTAcquisitionDelegate: AnyObject {
 
   func didUpdateBatteryLevel(_ levelBattery: Int)
 

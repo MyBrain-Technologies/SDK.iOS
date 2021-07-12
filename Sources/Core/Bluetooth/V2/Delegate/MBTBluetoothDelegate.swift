@@ -38,7 +38,9 @@ public extension MBTBLEBluetoothDelegate {
 
   func didConnect() {}
 
-  func didConnect(deviceInformation: DeviceInformation) { }
+  func didConnect(deviceInformation: DeviceInformation) {}
+
+  func didUpdateSampleBufferSize(sampleBufferSize: Int) {}
 
   func didConnectionFail(error: Error?) {}
 

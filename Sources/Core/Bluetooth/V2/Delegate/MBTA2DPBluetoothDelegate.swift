@@ -15,6 +15,8 @@ public protocol MBTA2DPBluetoothDelegate: AnyObject {
 
 public extension MBTA2DPBluetoothDelegate {
 
+  func didRequestA2DPConnection() {}
+
   func didAudioA2DPConnect() {}
 
   func didAudioA2DPDisconnect(error: Error?) {}
