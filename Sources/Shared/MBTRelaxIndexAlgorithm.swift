@@ -15,6 +15,7 @@ public enum MBTRelaxIndexAlgorithm: String {
   /// RMS algorithm is used in v2.5.0 of the Melomind SDK
   case rms
 
+  #warning("TODO: Use init(rawValue:)")
   public static func algorithm(
     fromSDKVersion version: String
   ) -> MBTRelaxIndexAlgorithm {
