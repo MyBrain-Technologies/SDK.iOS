@@ -319,7 +319,7 @@ public class MBTClientV2 {
   ///   - completion: A *URL* instance of the saved file, or nil if file is not
   ///   created and save
   public func saveRecordingOnFile(
-    idUser: Int,
+    userId: Int,
     algo: String? = nil,
     comments: [String] = [String](),
     completion: @escaping (Result<URL, Error>) -> Void
@@ -336,7 +336,7 @@ public class MBTClientV2 {
       return
     }
 
-    eegAcquiser.saveRecording(userId: idUser,
+    eegAcquiser.saveRecording(userId: userId,
                               algo: algo,
                               comments: comments,
                               device: deviceInformation,
