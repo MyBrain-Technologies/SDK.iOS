@@ -320,7 +320,7 @@ public class MBTClientV2 {
   ///   created and save
   public func saveRecordingOnFile(
     userId: Int,
-    algorithm: String? = nil,
+    algorithm: MBTRelaxIndexAlgorithm? = nil,
     comments: [String] = [String](),
     completion: @escaping (Result<URL, Error>) -> Void
   ) {

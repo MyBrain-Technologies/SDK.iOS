@@ -33,7 +33,7 @@ class EEGAcquisitionSaverV2 {
                      qualities: [[Float]],
                      channelData: [[Float?]],
                      idUser: Int,
-                     algorithm: String?,
+                     algorithm: MBTRelaxIndexAlgorithm?,
                      comments: [String] = [],
                      deviceInformation: DeviceInformation,
                      recordingInformation: MBTRecordInfo,
@@ -103,14 +103,14 @@ class EEGAcquisitionSaverV2 {
 
   private func getEEGSavingRecord(deviceInformation: DeviceInformation,
                                   idUser: Int,
-                                  algorithm: String?,
+                                  algorithm: MBTRelaxIndexAlgorithm?,
                                   eegPackets: [MBTEEGPacket],
                                   qualities: [[Float]],
                                   channelData: [[Float?]],
                                   recordInfo: MBTRecordInfo,
                                   comments: [String] = []) -> EEGSavingRecord {
     let context = EEGSavingRecordContext(ownerId: idUser,
-                                         riAlgo: algorithm ?? "")
+                                         riAlgo: algorithm?.rawValue ?? "")
 
     let record = EEGRecord(
       recordID: recordInfo.recordId.uuidString,

@@ -102,7 +102,7 @@ internal class EegAcquiser {
   ///   - completion: A block which execute after create the file or fail to
   ///   create
   func saveRecording(userId idUser: Int,
-                     algorithm: String?,
+                     algorithm: MBTRelaxIndexAlgorithm?,
                      comments: [String] = [],
                      device: DeviceInformation,
                      recordingInformation: MBTRecordInfo,

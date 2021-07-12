@@ -10,9 +10,10 @@ import Foundation
 
 public enum MBTRelaxIndexAlgorithm: String {
   /// SNR algorithm is used in v2.3.1 of the Melomind SDK
-  case SNR
+  case snr
+
   /// RMS algorithm is used in v2.5.0 of the Melomind SDK
-  case RMS
+  case rms
 
   public static func algorithm(
     fromSDKVersion version: String
@@ -20,7 +21,7 @@ public enum MBTRelaxIndexAlgorithm: String {
     let sdkVersion = FormatedVersion(string: version)
     let rmsVersion = FormatedVersion(string: CPPVersion.rmsVersion.rawValue)
 
-    return sdkVersion >= rmsVersion ? .RMS : .SNR
+    return sdkVersion >= rmsVersion ? .rms : .snr
   }
 }
 
