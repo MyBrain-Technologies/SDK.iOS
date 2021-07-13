@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DeviceAcquisitionInformation: Codable {
+public struct DeviceAcquisitionInformation: Equatable, Codable {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties

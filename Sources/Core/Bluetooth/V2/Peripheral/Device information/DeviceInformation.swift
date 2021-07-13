@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DeviceInformation: Codable {
+public struct DeviceInformation: Equatable, Codable {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -35,10 +35,10 @@ public struct DeviceInformation: Codable {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init?(productName: String,
-        deviceId: String,
-        hardwareVersion: String,
-        firmwareVersion: String) {
+  public init?(productName: String,
+               deviceId: String,
+               hardwareVersion: String,
+               firmwareVersion: String) {
     guard let hardwareVersion =
             HardwareVersion(rawValue: hardwareVersion) else {
       return nil
@@ -50,10 +50,10 @@ public struct DeviceInformation: Codable {
               firmwareVersion: firmwareVersion)
   }
 
-  init(productName: String,
-       deviceId: String,
-       hardwareVersion: HardwareVersion,
-       firmwareVersion: String) {
+  public init(productName: String,
+              deviceId: String,
+              hardwareVersion: HardwareVersion,
+              firmwareVersion: String) {
     self.productName = productName
     self.deviceId = deviceId
     self.hardwareVersion = hardwareVersion
