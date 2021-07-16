@@ -204,17 +204,17 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
   }
 
 
-  func didValueUpdate(BrainData: Data) {
-    acquisitionDelegate?.didUpdateEEGRawData(BrainData)
+  func didValueUpdate(brainData: Data) {
+    acquisitionDelegate?.didUpdateEEGRawData(brainData)
   }
 
-  func didValueUpdate(BatteryLevel: Int) {
-    lastBatteryLevel = BatteryLevel
-    acquisitionDelegate?.didUpdateBatteryLevel(BatteryLevel)
+  func didValueUpdate(batteryLevel: Int) {
+    lastBatteryLevel = batteryLevel
+    acquisitionDelegate?.didUpdateBatteryLevel(batteryLevel)
   }
 
-  func didValueUpdate(SaturationStatus: Int) {
-    acquisitionDelegate?.didUpdateSaturationStatus(SaturationStatus)
+  func didValueUpdate(saturationStatus: Int) {
+    acquisitionDelegate?.didUpdateSaturationStatus(saturationStatus)
   }
 
   func didRequestA2DPConnection() {
