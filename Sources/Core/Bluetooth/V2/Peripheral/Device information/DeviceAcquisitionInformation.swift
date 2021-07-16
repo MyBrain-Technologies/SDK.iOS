@@ -16,7 +16,7 @@ public struct DeviceAcquisitionInformation: Equatable, Codable {
 
   public let eegPacketMaxSize: Int
 
-  let electrodes: Electrodes
+  public let electrodes: Electrodes
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
@@ -35,11 +35,11 @@ public struct DeviceAcquisitionInformation: Equatable, Codable {
                                      grounds: [.m2])
 
       case .indus5:
-        #warning("TODO: Use real indus5 version")
         self.channelCount = 4
         self.sampleRate = 250
         self.eegPacketSize = 250
         self.eegPacketMaxSize = eegPacketSize * channelCount * byteSize
+        #warning("TODO: Check channel order")
         self.electrodes = Electrodes(acquisitions: [.p3, .p4, .af3, .af4],
                                      references: [.m1],
                                      grounds: [.m2])
