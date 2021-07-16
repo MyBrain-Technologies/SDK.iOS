@@ -110,6 +110,15 @@ public class MBTClientV2 {
     return deviceInformation?.productName
   }
 
+  public var lastBatteryLevel: Int {
+    return bluetoothManager.lastBatteryLevel
+  }
+
+  public var batteryLevelRefreshInterval: TimeInterval {
+    get { return bluetoothManager.batteryLevelRefreshInterval }
+    set { bluetoothManager.batteryLevelRefreshInterval = newValue }
+  }
+
   internal var isListeningToEEG: Bool {
     set { bluetoothManager.isListeningToEEG = newValue }
     get { return bluetoothManager.isListeningToEEG }

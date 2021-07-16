@@ -2,6 +2,7 @@ import Foundation
 
 protocol PeripheralDelegate: AnyObject {
 
+  #warning("TODO: Remove upercases")
   func didValueUpdate(BrainData: Data)
   func didValueUpdate(BatteryLevel: Int)
   func didValueUpdate(SaturationStatus: Int)

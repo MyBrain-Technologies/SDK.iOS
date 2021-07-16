@@ -50,8 +50,21 @@ public class MBTBluetoothManagerV2 {
     set { currentPeripheral?.isListeningToHeadsetStatus = newValue }
   }
 
-  #warning("TODO: Replace `timeIntervalOnReceiveBattery`")
-  var batteryLevelRefreshInterval: TimeInterval = 120
+  /******************** Battery ********************/
+
+  private var batteryLevelRefreshTimer: Timer?
+
+  var batteryLevelRefreshInterval: TimeInterval = 2 {
+    didSet {
+      if batteryLevelRefreshInterval < 1 {
+        updateRefreshBatteryLevel(with: nil)
+      } else {
+        updateRefreshBatteryLevel(with: batteryLevelRefreshInterval)
+      }
+    }
+  }
+
+  private(set) var lastBatteryLevel: Int = -1
 
   /******************** Delegate ********************/
 
@@ -72,6 +85,7 @@ public class MBTBluetoothManagerV2 {
   private func setup() {
     setupCentral()
     setupPeripheral()
+    setupTimers()
   }
 
   private func setupCentral() {
@@ -94,6 +108,14 @@ public class MBTBluetoothManagerV2 {
 
   private func setupPeripheral() {
 
+  }
+
+  private func setupTimers() {
+    setupBatteryLevelRefreshTimer()
+  }
+
+  private func setupBatteryLevelRefreshTimer() {
+    updateRefreshBatteryLevel(with: batteryLevelRefreshInterval)
   }
 
   //----------------------------------------------------------------------------
@@ -152,6 +174,25 @@ public class MBTBluetoothManagerV2 {
     currentPeripheral?.requestBatteryLevel()
   }
 
+
+  //----------------------------------------------------------------------------
+  // MARK: - Timers
+  //----------------------------------------------------------------------------
+
+  private func updateRefreshBatteryLevel(with time: TimeInterval?) {
+    guard let time = time else {
+      batteryLevelRefreshTimer?.invalidate()
+      batteryLevelRefreshTimer = nil
+      return
+    }
+
+    batteryLevelRefreshTimer = Timer.scheduledTimer(
+      withTimeInterval: time,
+      repeats: true) { [weak self] _ in
+      self?.requestBatteryLevel()
+    }
+  }
+
 }
 
 extension MBTBluetoothManagerV2: PeripheralDelegate {
@@ -168,6 +209,7 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
   }
 
   func didValueUpdate(BatteryLevel: Int) {
+    lastBatteryLevel = BatteryLevel
     acquisitionDelegate?.didUpdateBatteryLevel(BatteryLevel)
   }
 
