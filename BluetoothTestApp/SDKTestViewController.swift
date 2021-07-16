@@ -78,13 +78,19 @@ class SDKTestViewController: UIViewController {
   @IBAction func changeStreamingEEGState(_ sender: UISwitch) {
     if sender.isOn {
       sdk.startStream(shouldUseQualityChecker: true)
+      sdk.batteryLevelRefreshInterval = 0
     } else {
       sdk.stopStream()
+
+      sdk.batteryLevelRefreshInterval = 2
     }
   }
 
   @IBAction func readBattery(_ sender: Any) {
-    sdk.readBatteryStatus()
+//    sdk.readBatteryStatus()
+    let batteryLevel = sdk.lastBatteryLevel
+    print("Battery level: \(batteryLevel) %")
+    batteryLevelLabel.text = String("\(batteryLevel) %")
   }
 
 }
