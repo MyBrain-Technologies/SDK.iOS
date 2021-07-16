@@ -54,7 +54,7 @@ public class MBTBluetoothManagerV2 {
 
   private var batteryLevelRefreshTimer: Timer?
 
-  var batteryLevelRefreshInterval: TimeInterval = 2 {
+  var batteryLevelRefreshInterval: TimeInterval = 180 {
     didSet {
       if batteryLevelRefreshInterval < 1 {
         updateRefreshBatteryLevel(with: nil)

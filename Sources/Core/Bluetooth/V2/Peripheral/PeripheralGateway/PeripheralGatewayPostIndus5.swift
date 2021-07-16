@@ -204,7 +204,6 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
   // START: Move to extension for default implementation
 
   func didUpdate(batteryLevel: Int) {
-    print(batteryLevel)
 //    didUpdateBatteryLevel?(batteryLevel)
     delegate?.didValueUpdate(BatteryLevel: batteryLevel)
   }
