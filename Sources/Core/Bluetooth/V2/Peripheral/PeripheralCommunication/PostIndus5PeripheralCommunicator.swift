@@ -117,7 +117,7 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
   func write(mtuSize: UInt8) {
     let bytes = [
       MailboxCommand.mtuSize.rawValue,
-      0x47
+      mtuSize
     ]
     sendMailBoxCommand(bytes: bytes)
   }

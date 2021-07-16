@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol MBTBluetoothAcquisitionDelegate: class {
+public protocol MBTBluetoothAcquisitionDelegate: AnyObject {
 
   func didUpdateBatteryLevel(_ levelBattery: Int)
 

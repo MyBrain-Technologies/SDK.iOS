@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol MBTBLEBluetoothDelegate: class {
+public protocol MBTBLEBluetoothDelegate: AnyObject {
 
   /// Called when the bluetooth state change
   ///
@@ -13,6 +13,10 @@ public protocol MBTBLEBluetoothDelegate: class {
   func didConnect()
 
   func didConnect(deviceInformation: DeviceInformation)
+
+  /// Called when the mtu size is changed and that a new sample buffer size is
+  /// used for the data frame events.
+  func didUpdateSampleBufferSize(sampleBufferSize: Int)
 
   /// Called if the SDK can't connect to the MBT Headset,
   /// with the error.
@@ -34,7 +38,9 @@ public extension MBTBLEBluetoothDelegate {
 
   func didConnect() {}
 
-  func didConnect(deviceInformation: DeviceInformation) { }
+  func didConnect(deviceInformation: DeviceInformation) {}
+
+  func didUpdateSampleBufferSize(sampleBufferSize: Int) {}
 
   func didConnectionFail(error: Error?) {}
 

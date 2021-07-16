@@ -73,6 +73,10 @@ public class MBTClientV2 {
     return bluetoothManager.hasConnectedDevice
   }
 
+  public var isA2dpConnected: Bool {
+    return bluetoothManager.hasA2dpConnectedDevice
+  }
+
   public var bluetoothAuthorization: BluetoothAuthorization {
     return bluetoothManager.authorization
   }
@@ -104,6 +108,15 @@ public class MBTClientV2 {
   public var deviceName: String? {
     #warning("TO check")
     return deviceInformation?.productName
+  }
+
+  public var lastBatteryLevel: Int {
+    return bluetoothManager.lastBatteryLevel
+  }
+
+  public var batteryLevelRefreshInterval: TimeInterval {
+    get { return bluetoothManager.batteryLevelRefreshInterval }
+    set { bluetoothManager.batteryLevelRefreshInterval = newValue }
   }
 
   internal var isListeningToEEG: Bool {
@@ -315,8 +328,8 @@ public class MBTClientV2 {
   ///   - completion: A *URL* instance of the saved file, or nil if file is not
   ///   created and save
   public func saveRecordingOnFile(
-    idUser: Int,
-    algo: String? = nil,
+    userId: Int,
+    algorithm: MBTRelaxIndexAlgorithm? = nil,
     comments: [String] = [String](),
     completion: @escaping (Result<URL, Error>) -> Void
   ) {
@@ -332,8 +345,8 @@ public class MBTClientV2 {
       return
     }
 
-    eegAcquiser.saveRecording(userId: idUser,
-                              algo: algo,
+    eegAcquiser.saveRecording(userId: userId,
+                              algorithm: algorithm,
                               comments: comments,
                               device: deviceInformation,
                               recordingInformation: recordInfo,
@@ -513,6 +526,11 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
 //==============================================================================
 
 extension MBTClientV2: MBTBLEBluetoothDelegate {
+
+  public func didUpdateSampleBufferSize(sampleBufferSize: Int) {
+    bleDelegate?.didUpdateSampleBufferSize(sampleBufferSize: sampleBufferSize)
+  }
+
 
   public func didBluetoothStateChange(isBluetoothOn: Bool) {
     bleDelegate?.didBluetoothStateChange(isBluetoothOn: isBluetoothOn)

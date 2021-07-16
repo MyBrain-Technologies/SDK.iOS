@@ -4,6 +4,14 @@ import CoreBluetooth
 class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   //----------------------------------------------------------------------------
+  // MARK: - Error
+  //----------------------------------------------------------------------------
+
+  enum PostIndus5PeripheralValueReceiverError: Error {
+    case invalidOpCode(byte: UInt8)
+  }
+
+  //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
@@ -93,11 +101,14 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   private func handleRxUpdate(for data: Data) {
     let bytes = Bytes(data)
-    guard bytes.count > 0 else { return }
-    let opCode = bytes[0]
+
+    guard let opCode = bytes.first else { return }
 
     guard let mailboxCommand = MailboxCommand(rawValue: opCode) else {
       print("Unknown Mailbox command: \(bytes)")
+      let error =
+        PostIndus5PeripheralValueReceiverError.invalidOpCode(byte: opCode)
+      delegate?.didFail(with: error)
       return
     }
 
@@ -115,9 +126,10 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .firmewareVersion: handleFirmwareVersionUpdate(for: parameterBytes)
       case .hardwareVersion: handleHardwareVersionNameUpdate(for: parameterBytes)
       case .setA2dpName: handleA2dpNameUpdate(for: parameterBytes)
-      case .eegDataFrameEvent: handleEegDataFrame(for: bytes)
+      case .eegDataFrameEvent: handleEegDataFrame(for: parameterBytes)
       case .startEeg: handleStartEeg(for: parameterBytes)
       case .stopEeg: handleStopEeg(for: parameterBytes)
+      case .mtuSize: handleMtuSize(for: parameterBytes)
       default: log.info("📲 Unknown MBX response")
     }
   }
@@ -169,6 +181,18 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   private func handleEegDataFrame(for bytes: Bytes) {
     let data = Data(bytes)
     delegate?.didUpdate(brainData: data)
+  }
+
+  /******************** MTU ********************/
+
+  private func handleMtuSize(for bytes: Bytes) {
+    guard let byte = bytes.first else { return }
+    guard byte != 0 else {
+      print("error")
+      return
+    }
+    let sampleBufferSize = Int(byte)
+    delegate?.didUpdate(sampleBufferSizeFromMtu: sampleBufferSize)
   }
 
   /******************** A2DP ********************/

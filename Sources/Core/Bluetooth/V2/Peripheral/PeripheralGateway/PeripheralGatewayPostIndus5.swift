@@ -17,13 +17,33 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     case characteristicDiscovering
     case pairing
     case deviceInformationDiscovering
+    case mtuSizeRequesting
     case ready
   }
 
-  private var state = IndusPost5PeripheralState.characteristicDiscovering
+  private var state = IndusPost5PeripheralState.characteristicDiscovering {
+    didSet {
+      if state == .ready {
+        handleStateIsReady()
+      }
+    }
+  }
 
   var isReady: Bool {
     return state == .ready
+  }
+
+  /******************** A2DP ********************/
+
+  private let a2dpConnector = MBTPeripheralA2DPConnector()
+
+  var isA2dpConnected: Bool {
+    guard let productName = information?.productName else { return false }
+    return a2dpConnector.isConnected(currentDeviceSerialNumber: productName)
+  }
+
+  var ad2pName: String? {
+    return a2dpConnector.a2dpName
   }
 
   /******************** PeripheralGatewayProtocol ********************/
@@ -64,6 +84,7 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     setupCharacteristicsDiscoverer()
     setupDeviceInformationBuilder()
     setupPeripheralValueReceiver()
+    setupA2dpConnector()
   }
 
   private func setupCharacteristicsDiscoverer() {
@@ -87,12 +108,10 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   private func setupDeviceInformationBuilder() {
     deviceInformationBuilder.didBuild = { [weak self] deviceInformation in
       self?.information = deviceInformation
+      print(deviceInformation)
 
-      if let information = self?.information { print(information) }
-      self?.state = .ready
-
-//      self?.peripheralCommunicator?.write(serialNumber: "2010100001")
-//      self?.peripheralCommunicator?.write(a2dpName: "MM2B200007")
+      self?.state = .mtuSizeRequesting
+      self?.setMtuSize()
     }
 
     deviceInformationBuilder.didFail = { [weak self] error in
@@ -104,12 +123,53 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     peripheralValueReceiver.delegate = self
   }
 
+  private func setupA2dpConnector() {
+    a2dpConnector.didConnectA2DP = { [weak self] in
+      print("A2DP is connected.")
+      self?.delegate?.didA2DPConnect()
+    }
+
+    a2dpConnector.didDisconnectA2DP = { [weak self] in
+      print("A2DP is disconnected.")
+    }
+
+    a2dpConnector.requestDeviceSerialNumber = { [weak self] in
+      return self?.information?.deviceId
+    }
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - State
+  //----------------------------------------------------------------------------
+
+  private func handleStateIsReady() {
+    //      self?.peripheralCommunicator?.write(serialNumber: "2010100001")
+    //      self?.peripheralCommunicator?.write(a2dpName: "MM2B200007")
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Discoverer
   //----------------------------------------------------------------------------
 
   func discover(characteristic: CBCharacteristic) {
     characteristicDiscoverer.discover(characteristic: characteristic)
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Commands
+  //----------------------------------------------------------------------------
+
+  func requestBatteryLevel() {
+    guard state == .ready else { return }
+    peripheralCommunicator?.readDeviceState()
+  }
+
+  private func setMtuSize() {
+    guard let mtuSize = UInt8(exactly: 47) else {
+      #warning("Handle error")
+      return
+    }
+    peripheralCommunicator?.write(mtuSize: mtuSize)
   }
 
   //----------------------------------------------------------------------------
@@ -133,26 +193,6 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
 
   }
 
-
-
-
-
-
-
-
-
-
-
-
-  //----------------------------------------------------------------------------
-  // MARK: - Commands
-  //----------------------------------------------------------------------------
-
-  func requestBatteryLevel() {
-    guard state == .ready else { return }
-    peripheralCommunicator?.readDeviceState()
-  }
-
 }
 
 //==============================================================================
@@ -164,21 +204,20 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
   // START: Move to extension for default implementation
 
   func didUpdate(batteryLevel: Int) {
-    print(batteryLevel)
 //    didUpdateBatteryLevel?(batteryLevel)
-    delegate?.didValueUpdate(BatteryLevel: batteryLevel)
+    delegate?.didValueUpdate(batteryLevel: batteryLevel)
   }
 
   func didUpdate(brainData: Data) {
     print(brainData)
 //    didUpdateBrainData?(brainData)
-    delegate?.didValueUpdate(BrainData: brainData)
+    delegate?.didValueUpdate(brainData: brainData)
   }
 
   func didUpdate(saturationStatus: Int) {
     print(saturationStatus)
 //    didUpdateSaturationStatus?(saturationStatus)
-    delegate?.didValueUpdate(SaturationStatus: saturationStatus)
+    delegate?.didValueUpdate(saturationStatus: saturationStatus)
   }
 
   // END: Move to extension for default implementation
@@ -201,6 +240,23 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
   func didUpdate(hardwareVersion: String) {
     guard state == .deviceInformationDiscovering else { return }
     deviceInformationBuilder.add(hardwareVersion: hardwareVersion)
+  }
+
+  func didUpdate(sampleBufferSizeFromMtu: Int) {
+    state = .ready
+
+    if isA2dpConnected {
+      delegate?.didA2DPConnect()
+    } else {
+      delegate?.didRequestA2DPConnection()
+    }
+
+    #warning("TODO: Check valid sampleBufferSize here")
+//    let packetBytes = INDEX_PACKET_SIZE
+//      + (BYTES_PER_SAMPLE * NUMBER_OF_SAMPLE * NUMBER_OF_CHANNELS)
+//      + 1
+
+    delegate?.didUpdate(sampleBufferSizeFromMtu: sampleBufferSizeFromMtu)  
   }
 
   func didRequestPairing() {

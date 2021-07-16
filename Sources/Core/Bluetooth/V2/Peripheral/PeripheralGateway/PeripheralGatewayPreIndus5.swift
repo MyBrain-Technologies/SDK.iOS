@@ -35,6 +35,19 @@ class PeripheralGatewayPreIndus5: PeripheralGatewayProtocol {
     return state == .ready
   }
 
+  /******************** A2DP ********************/
+
+  private let a2dpConnector = MBTPeripheralA2DPConnector()
+
+  var isA2dpConnected: Bool {
+    guard let productName = information?.productName else { return false }
+    return a2dpConnector.isConnected(currentDeviceSerialNumber: productName)
+  }
+
+  var ad2pName: String? {
+    return a2dpConnector.a2dpName
+  }
+
   /******************** PeripheralGatewayProtocol ********************/
 
   private let peripheralValueReceiver = PreIndus5PeripheralValueReceiver()
@@ -121,6 +134,15 @@ class PeripheralGatewayPreIndus5: PeripheralGatewayProtocol {
   }
 
   //----------------------------------------------------------------------------
+  // MARK: - Commands
+  //----------------------------------------------------------------------------
+
+  func requestBatteryLevel() {
+    guard state == .ready else { return }
+    peripheralCommunicator?.readDeviceState()
+  }
+  
+  //----------------------------------------------------------------------------
   // MARK: - Gateway
   //----------------------------------------------------------------------------
 
@@ -160,19 +182,19 @@ extension PeripheralGatewayPreIndus5: PeripheralValueReceiverDelegate {
   func didUpdate(batteryLevel: Int) {
     print(batteryLevel)
 //    didUpdateBatteryLevel?(batteryLevel)
-    delegate?.didValueUpdate(BatteryLevel: batteryLevel)
+    delegate?.didValueUpdate(batteryLevel: batteryLevel)
   }
 
   func didUpdate(brainData: Data) {
     print(brainData)
 //    didUpdateBrainData?(brainData)
-    delegate?.didValueUpdate(BrainData: brainData)
+    delegate?.didValueUpdate(brainData: brainData)
   }
 
   func didUpdate(saturationStatus: Int) {
     print(saturationStatus)
 //    didUpdateSaturationStatus?(saturationStatus)
-    delegate?.didValueUpdate(SaturationStatus: saturationStatus)
+    delegate?.didValueUpdate(saturationStatus: saturationStatus)
   }
 
   // END: Move to extension for default implementation
@@ -195,6 +217,10 @@ extension PeripheralGatewayPreIndus5: PeripheralValueReceiverDelegate {
   func didUpdate(hardwareVersion: String) {
     guard state == .deviceInformationDiscovering else { return }
     deviceInformationBuilder.add(hardwareVersion: hardwareVersion)
+  }
+
+  func didUpdate(sampleBufferSizeFromMtu: Int) {
+    assertionFailure("Mtu should not be changed in Melomind.")
   }
 
   func didRequestPairing() {

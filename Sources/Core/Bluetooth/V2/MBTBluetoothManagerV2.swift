@@ -28,6 +28,10 @@ public class MBTBluetoothManagerV2 {
     return currentPeripheral?.isBleConnected ?? false
   }
 
+  public var hasA2dpConnectedDevice: Bool {
+    return currentPeripheral?.isA2dpConnected ?? false
+  }
+
   public var currentDeviceInformation: DeviceInformation? {
     return currentPeripheral?.information
   }
@@ -46,8 +50,21 @@ public class MBTBluetoothManagerV2 {
     set { currentPeripheral?.isListeningToHeadsetStatus = newValue }
   }
 
-  #warning("TODO: Replace `timeIntervalOnReceiveBattery`")
-  var batteryLevelRefreshInterval: TimeInterval = 120
+  /******************** Battery ********************/
+
+  private var batteryLevelRefreshTimer: Timer?
+
+  var batteryLevelRefreshInterval: TimeInterval = 180 {
+    didSet {
+      if batteryLevelRefreshInterval < 1 {
+        updateRefreshBatteryLevel(with: nil)
+      } else {
+        updateRefreshBatteryLevel(with: batteryLevelRefreshInterval)
+      }
+    }
+  }
+
+  private(set) var lastBatteryLevel: Int = -1
 
   /******************** Delegate ********************/
 
@@ -68,6 +85,7 @@ public class MBTBluetoothManagerV2 {
   private func setup() {
     setupCentral()
     setupPeripheral()
+    setupTimers()
   }
 
   private func setupCentral() {
@@ -90,6 +108,14 @@ public class MBTBluetoothManagerV2 {
 
   private func setupPeripheral() {
 
+  }
+
+  private func setupTimers() {
+    setupBatteryLevelRefreshTimer()
+  }
+
+  private func setupBatteryLevelRefreshTimer() {
+    updateRefreshBatteryLevel(with: batteryLevelRefreshInterval)
   }
 
   //----------------------------------------------------------------------------
@@ -148,24 +174,51 @@ public class MBTBluetoothManagerV2 {
     currentPeripheral?.requestBatteryLevel()
   }
 
+
+  //----------------------------------------------------------------------------
+  // MARK: - Timers
+  //----------------------------------------------------------------------------
+
+  private func updateRefreshBatteryLevel(with time: TimeInterval?) {
+    guard let time = time else {
+      batteryLevelRefreshTimer?.invalidate()
+      batteryLevelRefreshTimer = nil
+      return
+    }
+
+    batteryLevelRefreshTimer = Timer.scheduledTimer(
+      withTimeInterval: time,
+      repeats: true) { [weak self] _ in
+      self?.requestBatteryLevel()
+    }
+  }
+
 }
 
 extension MBTBluetoothManagerV2: PeripheralDelegate {
 
-  func didValueUpdate(BrainData: Data) {
-    acquisitionDelegate?.didUpdateEEGRawData(BrainData)
+  func didUpdate(sampleBufferSizeFromMtu: Int) {
+    bleDelegate?.didUpdateSampleBufferSize(
+      sampleBufferSize: sampleBufferSizeFromMtu
+    )
   }
 
-  func didValueUpdate(BatteryLevel: Int) {
-    acquisitionDelegate?.didUpdateBatteryLevel(BatteryLevel)
+
+  func didValueUpdate(brainData: Data) {
+    acquisitionDelegate?.didUpdateEEGRawData(brainData)
   }
 
-  func didValueUpdate(SaturationStatus: Int) {
-    acquisitionDelegate?.didUpdateSaturationStatus(SaturationStatus)
+  func didValueUpdate(batteryLevel: Int) {
+    lastBatteryLevel = batteryLevel
+    acquisitionDelegate?.didUpdateBatteryLevel(batteryLevel)
+  }
+
+  func didValueUpdate(saturationStatus: Int) {
+    acquisitionDelegate?.didUpdateSaturationStatus(saturationStatus)
   }
 
   func didRequestA2DPConnection() {
-
+    a2dpDelegate?.didRequestA2DPConnection()
   }
 
   func didA2DPConnect() {
@@ -191,19 +244,3 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-//==============================================================================
-// MARK: - MBTPeripheral
-//==============================================================================
-
-
-

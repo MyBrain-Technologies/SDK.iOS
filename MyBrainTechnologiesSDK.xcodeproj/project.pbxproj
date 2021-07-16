@@ -6,6 +6,20 @@
 	objectVersion = 52;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4DD980ED26933FB90050A3D4 /* Fastlane */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "Fastlane" */;
+			buildPhases = (
+				4DD980F126933FBE0050A3D4 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Fastlane;
+			productName = XCFramework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
 		2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B631ED220E0E85F00880B8E /* MBTOADManager.swift */; };
@@ -1316,9 +1330,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */ = {
+		3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-iOS" */;
+			buildConfigurationList = 3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK" */;
 			buildPhases = (
 				A92CA41B2462B42700688CE5 /* Swiftlint */,
 				3549BB1C1DA389CD00C63030 /* Sources */,
@@ -1331,7 +1345,7 @@
 			);
 			dependencies = (
 			);
-			name = "MyBrainTechnologiesSDK-iOS";
+			name = MyBrainTechnologiesSDK;
 			packageProductDependencies = (
 			);
 			productName = "MyBrainTechnologiesSDK-iOS";
@@ -1444,6 +1458,9 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 4D4A09842646DD1D00366DF6;
 					};
+					4DD980ED26933FB90050A3D4 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					A9E3A7B624643B7700E6A4B9 = {
 						CreatedOnToolsVersion = 11.3.1;
 						DevelopmentTeam = 23T8TD424J;
@@ -1467,11 +1484,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */,
+				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */,
 				A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
 				4D4A09842646DD1D00366DF6 /* BluetoothTestApp */,
 				4D4A09992646DD1E00366DF6 /* BluetoothTestAppTests */,
 				4D4A09A42646DD1E00366DF6 /* BluetoothTestAppUITests */,
+				4DD980ED26933FB90050A3D4 /* Fastlane */,
 			);
 		};
 /* End PBXProject section */
@@ -1522,6 +1540,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4DD980F126933FBE0050A3D4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbundle exec fastlane generate_xcframework\n";
+		};
 		A92CA41B2462B42700688CE5 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1774,17 +1809,17 @@
 		};
 		4DCF4024267F676B0065779B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
 			targetProxy = 4DCF4023267F676B0065779B /* PBXContainerItemProxy */;
 		};
 		4DCF4028267F677E0065779B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
 			targetProxy = 4DCF4027267F677E0065779B /* PBXContainerItemProxy */;
 		};
 		A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK-iOS */;
+			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
 			targetProxy = A9E3A7BD24643B7700E6A4B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1947,7 +1982,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = marker;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1984,7 +2019,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.1.1;
+				MARKETING_VERSION = 0.1.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode-marker";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
@@ -1995,6 +2030,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Debug;
 		};
@@ -2002,7 +2038,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = bitcode;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2038,7 +2074,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACH_O_TYPE = mh_dylib;
-				MARKETING_VERSION = 0.1.1;
+				MARKETING_VERSION = 0.1.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.MyBrainTech.MyBrainTechnologiesSDK;
@@ -2048,6 +2084,7 @@
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Release;
 		};
@@ -2234,6 +2271,26 @@
 			};
 			name = Release;
 		};
+		4DD980EF26933FB90050A3D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23T8TD424J;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4DD980F026933FB90050A3D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 23T8TD424J;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		A9E3A7BF24643B7700E6A4B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2307,7 +2364,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK-iOS" */ = {
+		3549BB261DA389CD00C63030 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3549BB271DA389CD00C63030 /* Debug */,
@@ -2339,6 +2396,15 @@
 			buildConfigurations = (
 				4D4A09B32646DD1E00366DF6 /* Debug */,
 				4D4A09B42646DD1E00366DF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DD980EE26933FB90050A3D4 /* Build configuration list for PBXAggregateTarget "Fastlane" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DD980EF26933FB90050A3D4 /* Debug */,
+				4DD980F026933FB90050A3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

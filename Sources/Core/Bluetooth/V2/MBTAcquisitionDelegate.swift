@@ -1,7 +1,7 @@
 import Foundation
 
-public protocol MBTAcquisitionDelegate: class {
-
+public protocol MBTAcquisitionDelegate: AnyObject {
+  #warning("TODO: Rename to `batteryLevel`")
   func didUpdateBatteryLevel(_ levelBattery: Int)
 
   /// Called when

@@ -78,13 +78,19 @@ class SDKTestViewController: UIViewController {
   @IBAction func changeStreamingEEGState(_ sender: UISwitch) {
     if sender.isOn {
       sdk.startStream(shouldUseQualityChecker: true)
+      sdk.batteryLevelRefreshInterval = 0
     } else {
       sdk.stopStream()
+
+      sdk.batteryLevelRefreshInterval = 2
     }
   }
 
   @IBAction func readBattery(_ sender: Any) {
-    sdk.readBatteryStatus()
+//    sdk.readBatteryStatus()
+    let batteryLevel = sdk.lastBatteryLevel
+    print("Battery level: \(batteryLevel) %")
+    batteryLevelLabel.text = String("\(batteryLevel) %")
   }
 
 }
@@ -99,6 +105,9 @@ extension SDKTestViewController: MBTBLEBluetoothDelegate {
 
   }
 
+  func didUpdateSampleBufferSize(sampleBufferSize: Int) {
+    print("sampleBufferSize: \(sampleBufferSize)")
+  }
 
   func didConnect() {
     print("BLE connection succeed!")
@@ -134,6 +143,10 @@ extension SDKTestViewController: MBTBLEBluetoothDelegate {
 //==============================================================================
 
 extension SDKTestViewController: MBTA2DPBluetoothDelegate {
+
+  func didRequestA2DPConnection() {
+    print("A2DP connection requested!")
+  }
 
   func didAudioA2DPConnect() {
       print("A2DP connection succeed!")

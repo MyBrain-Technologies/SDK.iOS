@@ -2,9 +2,12 @@ import Foundation
 
 protocol PeripheralDelegate: AnyObject {
 
-  func didValueUpdate(BrainData: Data)
-  func didValueUpdate(BatteryLevel: Int)
-  func didValueUpdate(SaturationStatus: Int)
+  #warning("TODO: Remove upercases")
+  func didValueUpdate(brainData: Data)
+  func didValueUpdate(batteryLevel: Int)
+  func didValueUpdate(saturationStatus: Int)
+
+  func didUpdate(sampleBufferSizeFromMtu: Int)
 
   func didRequestA2DPConnection()
   func didA2DPConnect()
