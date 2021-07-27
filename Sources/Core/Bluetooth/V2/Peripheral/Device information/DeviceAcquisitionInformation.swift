@@ -43,6 +43,8 @@ public struct DeviceAcquisitionInformation: Equatable, Codable {
         self.electrodes = Electrodes(acquisitions: [.p3, .p4, .af3, .af4],
                                      references: [.m1],
                                      grounds: [.m2])
+        #warning("TODO: Use this instead?")
+        // self.channelCount = electrodes.acquisitions.count
     }
   }
 
