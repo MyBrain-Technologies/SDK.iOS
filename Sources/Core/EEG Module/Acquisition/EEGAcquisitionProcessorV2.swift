@@ -14,6 +14,8 @@ class EEGAcquisitionProcessorV2 {
 
   private let sampletRate: Int
 
+  private let electrodeToChannelIndex: [ElectrodeLocation: Int]
+
   /******************** Dependency Injections ********************/
 
   private let signalProcessor: SignalProcessingManager
@@ -26,12 +28,14 @@ class EEGAcquisitionProcessorV2 {
        packetLength: Int,
        channelCount: Int,
        sampleRate: Int,
+       electrodeToChannelIndex: [ElectrodeLocation: Int],
        signalProcessor: SignalProcessingManager) {
     self.acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: bufferSizeMax)
     self.eegPacketLength = packetLength
     self.channelCount = channelCount
     self.sampletRate = sampleRate
     self.signalProcessor = signalProcessor
+    self.electrodeToChannelIndex = electrodeToChannelIndex
   }
 
   //----------------------------------------------------------------------------
@@ -54,9 +58,16 @@ class EEGAcquisitionProcessorV2 {
 
   /// Convert values from the acquisition to EEG Packets
   private func convertToEEGPacket(values: [[Float]],
-                                  hasQualityChecker: Bool) -> MBTEEGPacket {
-    var eegPacket = MBTEEGPacket(buffer: values)
+                                  hasQualityChecker: Bool) -> MBTEEGPacket? {
+    guard var eegPacket = MBTEEGPacket(
+      buffer: values,
+      electrodeToChannelIndex: electrodeToChannelIndex
+    ) else {
+      return nil
+    }
+    
     if hasQualityChecker {
+      #warning("TODO: Remove this 2 useless functions")
       eegPacket = addQualities(to: eegPacket)
       eegPacket = addModifiedValues(to: eegPacket)
     }

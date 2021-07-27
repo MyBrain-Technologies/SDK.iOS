@@ -194,11 +194,18 @@ public class MBTClientV2 {
   private func update(from deviceInformation: DeviceInformation) {
     let acquisitionInformation = deviceInformation.acquisitionInformation
 
+    let acquisitionElectrodes = acquisitionInformation.electrodes.acquisitions
+    var electrodeToChannelIndex = [ElectrodeLocation: Int]()
+    for (index, value) in acquisitionElectrodes.enumerated() {
+      electrodeToChannelIndex[value] = index
+    }
+
     eegAcquiser = EegAcquiser(
       bufferSizeMax: acquisitionInformation.eegPacketMaxSize,
       packetLength: acquisitionInformation.eegPacketSize,
       channelCount: deviceInformation.acquisitionInformation.channelCount,
       sampleRate: deviceInformation.acquisitionInformation.sampleRate,
+      electrodeToChannelIndex: electrodeToChannelIndex,
       signalProcessor: signalProcessingManager
     )
 
