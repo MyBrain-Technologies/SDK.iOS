@@ -25,6 +25,8 @@ BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
 
 xcodebuild -create-xcframework \
 -framework './build/MyBrainTechnologiesSDK.framework-iphoneos.xcarchive/Products/Frameworks/MyBrainTechnologiesSDK.framework' \
+-debug-symbols "$(pwd -P)/build/MyBrainTechnologiesSDK.framework-iphoneos.xcarchive/dSYMs/MyBrainTechnologiesSDK.framework.dSYM" \
 -framework './build/MyBrainTechnologiesSDK.framework-iphonesimulator.xcarchive/Products/Frameworks/MyBrainTechnologiesSDK.framework' \
+-debug-symbols "$(pwd -P)/build/MyBrainTechnologiesSDK.framework-iphonesimulator.xcarchive/dSYMs/MyBrainTechnologiesSDK.framework.dSYM" \
 -output './build/MyBrainTechnologiesSDK.xcframework'
 
