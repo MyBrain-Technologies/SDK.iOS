@@ -1,6 +1,6 @@
 import Foundation
 
-struct EEGRawPacket {
+struct ImsRawPacket {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -45,7 +45,7 @@ struct EEGRawPacket {
 // MARK: - CustomStringConvertible
 //==============================================================================
 
-extension EEGRawPacket: CustomStringConvertible {
+extension ImsRawPacket: CustomStringConvertible {
 
   var description: String {
     return """
@@ -55,3 +55,4 @@ extension EEGRawPacket: CustomStringConvertible {
     """
   }
 }
+
