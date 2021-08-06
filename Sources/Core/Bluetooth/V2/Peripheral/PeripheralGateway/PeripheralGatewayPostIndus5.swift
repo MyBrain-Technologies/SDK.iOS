@@ -18,6 +18,7 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
     case pairing
     case deviceInformationDiscovering
     case mtuSizeRequesting
+    case batteryLevelRequesting
     case ready
   }
 
@@ -160,7 +161,7 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   //----------------------------------------------------------------------------
 
   func requestBatteryLevel() {
-    guard state == .ready else { return }
+    guard [.batteryLevelRequesting, .ready].contains(state) else { return }
     peripheralCommunicator?.readDeviceState()
   }
 
@@ -170,6 +171,14 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
       return
     }
     peripheralCommunicator?.write(mtuSize: mtuSize)
+  }
+
+  private func requestA2DPConnection() {
+    if isA2dpConnected {
+      delegate?.didA2DPConnect()
+    } else {
+      delegate?.didRequestA2DPConnection()
+    }
   }
 
   //----------------------------------------------------------------------------
@@ -189,8 +198,6 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
   func handleValueWrite(for characteristic: CBCharacteristic,
                         error: Error?) {
     peripheralValueReceiver.handleValueWrite(for: characteristic, error: error)
-
-
   }
 
 }
@@ -204,8 +211,12 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
   // START: Move to extension for default implementation
 
   func didUpdate(batteryLevel: Int) {
-//    didUpdateBatteryLevel?(batteryLevel)
     delegate?.didValueUpdate(batteryLevel: batteryLevel)
+
+    if state == .batteryLevelRequesting {
+      state = .ready
+      requestA2DPConnection()
+    }
   }
 
   func didUpdate(brainData: Data) {
@@ -243,13 +254,9 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
   }
 
   func didUpdate(sampleBufferSizeFromMtu: Int) {
-    state = .ready
+    state = .batteryLevelRequesting
 
-    if isA2dpConnected {
-      delegate?.didA2DPConnect()
-    } else {
-      delegate?.didRequestA2DPConnection()
-    }
+    requestBatteryLevel()
 
     #warning("TODO: Check valid sampleBufferSize here")
 //    let packetBytes = INDEX_PACKET_SIZE

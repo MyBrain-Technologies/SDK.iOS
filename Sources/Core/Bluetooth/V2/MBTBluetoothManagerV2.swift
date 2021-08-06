@@ -203,7 +203,6 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
     )
   }
 
-
   func didValueUpdate(brainData: Data) {
     acquisitionDelegate?.didUpdateEEGRawData(brainData)
   }
