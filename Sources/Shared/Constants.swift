@@ -39,7 +39,8 @@ struct Constants {
   struct DeviceName {
     static let a2dpPrefixLegacy = "melo_"
     static let a2dpPrefix = "audio_"
-    static let blePrefix = "melo_"
+    static let melomindBlePrefix = "melo_"
+    static let qpBlePrefix = "qp_"
 
     static let qrCodePrefix = "MM10"
     static let qrCodeLength = 10
