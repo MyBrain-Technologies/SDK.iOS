@@ -77,11 +77,12 @@ class SDKTestViewController: UIViewController {
 
   @IBAction func changeStreamingEEGState(_ sender: UISwitch) {
     if sender.isOn {
-      sdk.startStream(shouldUseQualityChecker: true)
+      sdk.startImsStreaming()
+//      sdk.startStream(shouldUseQualityChecker: true)
       sdk.batteryLevelRefreshInterval = 0
     } else {
-      sdk.stopStream()
-
+//      sdk.stopStream()
+      sdk.stopImsStreaming()
       sdk.batteryLevelRefreshInterval = 2
     }
   }
