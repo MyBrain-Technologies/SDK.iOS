@@ -59,7 +59,7 @@ class EEGAcquisitionProcessorV2 {
   /// Convert values from the acquisition to EEG Packets
   private func convertToEEGPacket(values: [[Float]],
                                   hasQualityChecker: Bool) -> MBTEEGPacket? {
-    guard var eegPacket = MBTEEGPacket(
+    guard let eegPacket = MBTEEGPacket(
       buffer: values,
       electrodeToChannelIndex: electrodeToChannelIndex
     ) else {
@@ -67,15 +67,17 @@ class EEGAcquisitionProcessorV2 {
     }
     
     if hasQualityChecker {
-      #warning("TODO: Remove this 2 useless functions")
-      eegPacket = addQualities(to: eegPacket)
-      eegPacket = addModifiedValues(to: eegPacket)
+      let qualities = generateQualities(from: eegPacket)
+      eegPacket.addQualities(qualities)
+
+      let modifiedValues = generateModifiedValues(from: eegPacket)
+      eegPacket.setModifiedChannelsData(modifiedValues, sampRate: sampletRate)
     }
     return eegPacket
   }
 
-  /// Add qualities from signal processing to an eeg packet
-  private func addQualities(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+  /// Get qualities from signal processing
+  private func generateQualities(from eegPacket: MBTEEGPacket) -> [Float] {
     #warning("TODO: Check")
     var buffer = eegPacket.channelsData
 
@@ -83,17 +85,14 @@ class EEGAcquisitionProcessorV2 {
       signalProcessor.computeQualityValue(buffer,
                                           sampleRate: sampletRate,
                                           eegPacketLength: eegPacketLength)
-    eegPacket.addQualities(qualities)
-    return eegPacket
+    return qualities
   }
 
-  /// Add EEG modified values from signal progression to an eeg packet
-  private func addModifiedValues(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
-
+  /// Get Eeg modified values from signal progression
+  private func generateModifiedValues(
+    from eegPacket: MBTEEGPacket
+  ) -> [[Float]] {
     let correctedValues = signalProcessor.getModifiedEEGValues()
-
-    eegPacket.setModifiedChannelsData(correctedValues,
-                                      sampRate: sampletRate)
-    return eegPacket
+    return correctedValues
   }
 }
