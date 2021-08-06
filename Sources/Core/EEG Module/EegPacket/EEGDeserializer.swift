@@ -6,7 +6,7 @@ import Foundation
  * Deserialize eeg values received from headset to relax index usable values.
  *
  ******************************************************************************/
-// Good
+
 struct EEGDeserializer {
 
   //----------------------------------------------------------------------------
@@ -84,4 +84,5 @@ struct EEGDeserializer {
   static func removeAmplification(values: [Int32]) -> [Float] {
     return values.map() { Float($0) * voltageADS1299 }
   }
+
 }

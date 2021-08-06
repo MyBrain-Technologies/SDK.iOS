@@ -130,6 +130,8 @@
 		4DF8504A26BDA8070023564F /* ImsAcquisitionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */; };
 		4DF8504C26BDAA0A0023564F /* MbtImsPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */; };
 		4DF8504D26BDAA0A0023564F /* MbtImsPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */; };
+		4DF8504F26BDAE280023564F /* ImsDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504E26BDAE280023564F /* ImsDeserializer.swift */; };
+		4DF8505026BDAE280023564F /* ImsDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504E26BDAE280023564F /* ImsDeserializer.swift */; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -372,6 +374,7 @@
 		4DF8504526BDA2D90023564F /* ImsRawPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsRawPacket.swift; sourceTree = "<group>"; };
 		4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquisitionProcessor.swift; sourceTree = "<group>"; };
 		4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtImsPacket.swift; sourceTree = "<group>"; };
+		4DF8504E26BDAE280023564F /* ImsDeserializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsDeserializer.swift; sourceTree = "<group>"; };
 		A90A1D5922C373350097C1BE /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = Sources/signalProcessingSDK/lib/libfftw3.a; sourceTree = "<group>"; };
 		A90A1D5A22C373360097C1BE /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQualityChecker.a; path = Sources/signalProcessingSDK/lib/libQualityChecker.a; sourceTree = "<group>"; };
 		A90A1D5B22C373360097C1BE /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAlgebra.a; path = Sources/signalProcessingSDK/lib/libAlgebra.a; sourceTree = "<group>"; };
@@ -1026,6 +1029,7 @@
 			children = (
 				4DF8504526BDA2D90023564F /* ImsRawPacket.swift */,
 				4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */,
+				4DF8504E26BDAE280023564F /* ImsDeserializer.swift */,
 			);
 			path = ImsPacket;
 			sourceTree = "<group>";
@@ -1723,6 +1727,7 @@
 				2B6B5DA3205139D900928F1F /* MBTEEGAcquisitionDelegate.swift in Sources */,
 				4D0CEFAD2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift in Sources */,
 				A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */,
+				4DF8504F26BDAE280023564F /* ImsDeserializer.swift in Sources */,
 				4DCD3CF92671F41B000B53C1 /* MBTDataType.swift in Sources */,
 				A994297C2487D795003F48CC /* MelomindDeviceInformations.swift in Sources */,
 			);
@@ -1782,6 +1787,7 @@
 				4D08CB652682022D004ED097 /* PeripheralValueReceiverDelegate.swift in Sources */,
 				4DCD3D012671F441000B53C1 /* MBTRecordType.swift in Sources */,
 				4D0CEFC226711391001EEA2C /* ElectrodeType.swift in Sources */,
+				4DF8505026BDAE280023564F /* ImsDeserializer.swift in Sources */,
 				4D94474325F9679900CB364A /* String+VersionNumber.swift in Sources */,
 				A938131624869C6400C7ABC0 /* MBTEEGPacketTests.swift in Sources */,
 				4D08CB7226822677004ED097 /* PeripheralGatewayPreIndus5.swift in Sources */,
