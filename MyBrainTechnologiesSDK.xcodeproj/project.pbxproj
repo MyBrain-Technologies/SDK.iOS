@@ -128,6 +128,8 @@
 		4DF8504726BDA2D90023564F /* ImsRawPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504526BDA2D90023564F /* ImsRawPacket.swift */; };
 		4DF8504926BDA8070023564F /* ImsAcquisitionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */; };
 		4DF8504A26BDA8070023564F /* ImsAcquisitionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */; };
+		4DF8504C26BDAA0A0023564F /* MbtImsPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */; };
+		4DF8504D26BDAA0A0023564F /* MbtImsPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -369,6 +371,7 @@
 		4DEF4ECB266814D100D769DC /* BluetoothCentral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothCentral.swift; sourceTree = "<group>"; };
 		4DF8504526BDA2D90023564F /* ImsRawPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsRawPacket.swift; sourceTree = "<group>"; };
 		4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquisitionProcessor.swift; sourceTree = "<group>"; };
+		4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtImsPacket.swift; sourceTree = "<group>"; };
 		A90A1D5922C373350097C1BE /* libfftw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3.a; path = Sources/signalProcessingSDK/lib/libfftw3.a; sourceTree = "<group>"; };
 		A90A1D5A22C373360097C1BE /* libQualityChecker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQualityChecker.a; path = Sources/signalProcessingSDK/lib/libQualityChecker.a; sourceTree = "<group>"; };
 		A90A1D5B22C373360097C1BE /* libAlgebra.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAlgebra.a; path = Sources/signalProcessingSDK/lib/libAlgebra.a; sourceTree = "<group>"; };
@@ -1022,6 +1025,7 @@
 			isa = PBXGroup;
 			children = (
 				4DF8504526BDA2D90023564F /* ImsRawPacket.swift */,
+				4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */,
 			);
 			path = ImsPacket;
 			sourceTree = "<group>";
@@ -1622,6 +1626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D08CB7126822677004ED097 /* PeripheralGatewayPreIndus5.swift in Sources */,
+				4DF8504C26BDAA0A0023564F /* MbtImsPacket.swift in Sources */,
 				4D0CEFBA2670E98A001EEA2C /* Electrodes.swift in Sources */,
 				A918D29424619D1600026F1D /* FirmwareError.swift in Sources */,
 				A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */,
@@ -1788,6 +1793,7 @@
 				4D2891972676AB1A00B9DEE4 /* MBTPeripheralA2DPConnector.swift in Sources */,
 				4D94474725F976B900CB364A /* MBTQRCodeSerial.swift in Sources */,
 				4D45E04126812DF7003E3D6B /* MBTPeripheral.swift in Sources */,
+				4DF8504D26BDAA0A0023564F /* MbtImsPacket.swift in Sources */,
 				4D94474625F976AD00CB364A /* Constants.swift in Sources */,
 				A91BD907247D219600603C42 /* BluetoothTimersDelegateMock.swift in Sources */,
 				A92D7A4924814A4D000DF7C3 /* EEGRawPacketTests.swift in Sources */,
