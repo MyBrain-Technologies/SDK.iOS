@@ -208,8 +208,6 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
 
 extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
 
-  // START: Move to extension for default implementation
-
   func didUpdate(batteryLevel: Int) {
     delegate?.didValueUpdate(batteryLevel: batteryLevel)
 
@@ -218,6 +216,8 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
       requestA2DPConnection()
     }
   }
+
+  // START: Move to extension for default implementation
 
   func didUpdate(brainData: Data) {
     print(brainData)
@@ -229,6 +229,10 @@ extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
     print(saturationStatus)
 //    didUpdateSaturationStatus?(saturationStatus)
     delegate?.didValueUpdate(saturationStatus: saturationStatus)
+  }
+
+  func didUpdate(imsData: Data) {
+    delegate?.didValueUpdate(imsData: imsData)
   }
 
   // END: Move to extension for default implementation

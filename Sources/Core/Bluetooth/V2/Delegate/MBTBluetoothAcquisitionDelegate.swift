@@ -16,6 +16,8 @@ public protocol MBTBluetoothAcquisitionDelegate: AnyObject {
 
   func didUpdateEEGRawData(_ data: Data)
 
+  func didUpdateImsData(_ data: Data)
+
 }
 
 public extension MBTBluetoothAcquisitionDelegate {

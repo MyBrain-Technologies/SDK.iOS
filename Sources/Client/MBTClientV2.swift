@@ -124,6 +124,11 @@ public class MBTClientV2 {
     get { return bluetoothManager.isListeningToEEG }
   }
 
+  internal var isListeningToIMS: Bool {
+    set { bluetoothManager.isListeningToIMS = newValue }
+    get { return bluetoothManager.isListeningToIMS }
+  }
+
   #warning("TO EVALUATE")
 //  public var batteryLevelUpdateInterval: TimeInterval? {
 //    didSet {
@@ -369,34 +374,46 @@ public class MBTClientV2 {
   // MARK: - Acquisition Manager
   //----------------------------------------------------------------------------
 
-    /// Start streaming EEG Data from MyBrainActivity Characteristic.
-    /// Start streaming headSet Data from HeadsetStatus Characteristic.
-    /// - Remark: Data will be provided through the MelomineEngineDelegate.
-    public func startStream(shouldUseQualityChecker: Bool) -> Bool {
-      guard isConnected,
-            let deviceInformation = deviceInformation,
-            let eegAcquiser = eegAcquiser
-      else {
-        return false
-      }
-
-      eegAcquiser.startStream(
-        isUsingQualityChecker: shouldUseQualityChecker,
-        sampleRate: deviceInformation.acquisitionInformation.sampleRate
-      )
-      bluetoothManager.isListeningToEEG = true
-      bluetoothManager.isListeningToHeadsetStatus = true
-      return true
+  /// Start streaming EEG Data from MyBrainActivity Characteristic.
+  /// Start streaming headSet Data from HeadsetStatus Characteristic.
+  /// - Remark: Data will be provided through the MelomineEngineDelegate.
+  public func startStream(shouldUseQualityChecker: Bool) -> Bool {
+    guard isConnected,
+          let deviceInformation = deviceInformation,
+          let eegAcquiser = eegAcquiser
+    else {
+      return false
     }
 
-    /// Stop streaming EEG Data to MelomineEngineDelegate.
-    /// Stop streaming headSet Data from MelomindEngineDelegate.
-    /// - Remark: a JSON will be created with all the MBTEEGPacket.
-    public func stopStream() {
-      bluetoothManager.isListeningToHeadsetStatus = false
-      bluetoothManager.isListeningToEEG = false
-      eegAcquiser?.stopStream()
-    }
+    eegAcquiser.startStream(
+      isUsingQualityChecker: shouldUseQualityChecker,
+      sampleRate: deviceInformation.acquisitionInformation.sampleRate
+    )
+    bluetoothManager.isListeningToEEG = true
+    bluetoothManager.isListeningToHeadsetStatus = true
+    return true
+  }
+
+  /// Stop streaming EEG Data to MelomineEngineDelegate.
+  /// Stop streaming headSet Data from MelomindEngineDelegate.
+  /// - Remark: a JSON will be created with all the MBTEEGPacket.
+  public func stopStream() {
+    bluetoothManager.isListeningToHeadsetStatus = false
+    bluetoothManager.isListeningToEEG = false
+    eegAcquiser?.stopStream()
+  }
+
+  public func startImsStreaming() {
+    isListeningToIMS = true
+  }
+
+  public func stopImsStreaming() {
+    isListeningToIMS = false
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Recording
+  //----------------------------------------------------------------------------
 
   /// Start saving EEGPacket on DB  /// - Parameters:
   ///   - newRecord: Create a new recordId on the JSON File
@@ -524,6 +541,11 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
     }
 
     acquisitionDelegate?.didUpdateEEGData(eegPacket)
+  }
+
+  public func didUpdateImsData(_ data: Data) {
+    print("UPDATE IMS DATA")
+    print(data)
   }
 
 }

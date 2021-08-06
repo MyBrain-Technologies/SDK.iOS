@@ -45,8 +45,17 @@ internal class MBTPeripheral: NSObject {
   /// Enable or disable headset EEG notifications.
   var isListeningToEEG = false {
     didSet {
+      #warning("Move gateway.peripheralCommunicator to gateway")
       gateway.peripheralCommunicator?.notifyBrainActivityMeasurement(
         value: isListeningToEEG
+      )
+    }
+  }
+
+  var isListeningToIMS = false {
+    didSet {
+      gateway.peripheralCommunicator?.notifyAccelerometerMeasurement(
+        value: isListeningToIMS
       )
     }
   }

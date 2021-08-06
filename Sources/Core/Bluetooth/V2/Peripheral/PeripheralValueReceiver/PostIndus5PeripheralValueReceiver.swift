@@ -126,9 +126,12 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
       case .firmewareVersion: handleFirmwareVersionUpdate(for: parameterBytes)
       case .hardwareVersion: handleHardwareVersionNameUpdate(for: parameterBytes)
       case .setA2dpName: handleA2dpNameUpdate(for: parameterBytes)
-      case .eegDataFrameEvent: handleEegDataFrame(for: parameterBytes)
       case .startEeg: handleStartEeg(for: parameterBytes)
       case .stopEeg: handleStopEeg(for: parameterBytes)
+      case .eegDataFrameEvent: handleEegDataFrame(for: parameterBytes)
+      case .startImsAcquisition: handleStartImsAcquisition(for: parameterBytes)
+      case .stopImsAcquisition: handleStopImsAcquisition(for: parameterBytes)
+      case .imsDataFrameEvent: handleImsDataFrame(for: parameterBytes)
       case .mtuSize: handleMtuSize(for: parameterBytes)
       default: log.info("📲 Unknown MBX response")
     }
@@ -181,6 +184,22 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   private func handleEegDataFrame(for bytes: Bytes) {
     let data = Data(bytes)
     delegate?.didUpdate(brainData: data)
+  }
+
+
+  /******************** Accelerometer ********************/
+
+  private func handleStartImsAcquisition(for bytes: Bytes) {
+    print("IMS start command.")
+  }
+
+  private func handleStopImsAcquisition(for bytes: Bytes) {
+    print("IMS stop command")
+  }
+
+  private func handleImsDataFrame(for bytes: Bytes) {
+    let data = Data(bytes)
+    delegate?.didUpdate(imsData: data)
   }
 
   /******************** MTU ********************/

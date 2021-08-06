@@ -185,6 +185,10 @@ extension PeripheralGatewayPreIndus5: PeripheralValueReceiverDelegate {
     delegate?.didValueUpdate(batteryLevel: batteryLevel)
   }
 
+  func didUpdate(imsData: Data) {
+
+  }
+
   func didUpdate(brainData: Data) {
     print(brainData)
 //    didUpdateBrainData?(brainData)

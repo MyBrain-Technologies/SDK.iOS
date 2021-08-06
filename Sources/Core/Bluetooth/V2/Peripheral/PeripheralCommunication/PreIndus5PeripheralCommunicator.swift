@@ -7,6 +7,10 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  /******************** Error ********************/
+
+  private let notImplementedMessage = "Not implemented for pre indus5"
+
   /******************** Peripheral ********************/
 
   private let peripheral: CBPeripheral
@@ -114,7 +118,7 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
   }
 
   func write(mtuSize: UInt8) {
-
+    assertionFailure(notImplementedMessage)
   }
 
   //----------------------------------------------------------------------------
@@ -140,6 +144,10 @@ class PreIndus5PeripheralCommunicator: PeripheralCommunicable {
       value,
       for: characteristicContainer.headsetStatus
     )
+  }
+
+  func notifyAccelerometerMeasurement(value: Bool) {
+    assertionFailure(notImplementedMessage)
   }
 
 }

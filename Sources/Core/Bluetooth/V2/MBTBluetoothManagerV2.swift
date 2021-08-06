@@ -45,6 +45,11 @@ public class MBTBluetoothManagerV2 {
     set { currentPeripheral?.isListeningToEEG = newValue }
   }
 
+  public var isListeningToIMS: Bool {
+    get { return currentPeripheral?.isListeningToIMS ?? false }
+    set { currentPeripheral?.isListeningToIMS = newValue }
+  }
+
   public var isListeningToHeadsetStatus: Bool {
     get { return currentPeripheral?.isListeningToHeadsetStatus ?? false }
     set { currentPeripheral?.isListeningToHeadsetStatus = newValue }
@@ -205,6 +210,10 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
 
   func didValueUpdate(brainData: Data) {
     acquisitionDelegate?.didUpdateEEGRawData(brainData)
+  }
+
+  func didValueUpdate(imsData: Data) {
+    acquisitionDelegate?.didUpdateImsData(imsData)
   }
 
   func didValueUpdate(batteryLevel: Int) {
