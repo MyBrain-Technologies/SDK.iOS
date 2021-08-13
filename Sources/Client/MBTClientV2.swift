@@ -38,7 +38,7 @@ public class MBTClientV2 {
   internal var eegAcquiser: EegAcquiser?
 
   /// Init a MBTEEGAcquisitionManager, which deals with data from the Headset.
-  internal var imsAcquiser: EegAcquiser?
+  internal var imsAcquiser: ImsAcquiser?
 
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
@@ -48,10 +48,12 @@ public class MBTClientV2 {
 
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
 
-  public var isEegAcqusitionRecordingPaused: Bool {
+  public var isRecordingEeg: Bool {
     set { eegAcquiser?.isRecording = newValue }
     get { return eegAcquiser?.isRecording ?? false }
   }
+
+  private(set) var isRecording: Bool = false
 
   /// Legacy called history_size. Number of eegpackets used to compute some
   /// dark informations on the C++ algorithms.
@@ -60,8 +62,6 @@ public class MBTClientV2 {
   /******************** Recording ********************/
 
   private(set) var recordingType: MBTRecordType?
-
-  private(set) var isRecording: Bool = false
 
   /******************** Analyzer ********************/
 
@@ -219,6 +219,12 @@ public class MBTClientV2 {
       signalProcessor: signalProcessingManager
     )
 
+    imsAcquiser = ImsAcquiser(
+      bufferSizeMax: acquisitionInformation.eegPacketMaxSize,
+      packetLength: acquisitionInformation.eegPacketSize,
+      channelCount: deviceInformation.acquisitionInformation.channelCount,
+      sampleRate: deviceInformation.acquisitionInformation.sampleRate,
+      electrodeToChannelIndex: electrodeToChannelIndex)
   }
 
   //----------------------------------------------------------------------------
@@ -370,6 +376,21 @@ public class MBTClientV2 {
                               recordFileSaver: .shared,
                               completion: completion)
   }
+
+//  private func isAbleToSaveRecording()
+//  -> Result<(DeviceInformation, EegAcquiser), SDKError> {
+//    guard let deviceInformation = deviceInformation else {
+//      log.error("Current device not found")
+//      return .failure(SDKError.noConnectedHeadset)
+//    }
+//
+//    guard let eegAcquiser = eegAcquiser else {
+//      log.error("eegAcquisitionManager not found")
+//      return .failure(SDKError.noEegAcquiser)
+//    }
+//
+//    return .success((deviceInformation, eegAcquiser))
+//  }
 
   public func removeRecord(at url: URL) {
     RecordFileSaver.shared.removeRecord(at: url)
