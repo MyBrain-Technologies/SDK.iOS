@@ -23,7 +23,6 @@
 /* Begin PBXBuildFile section */
 		2B439B7820A1E675005C12A6 /* MyBrainTechnologiesSDK.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */; };
 		2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B631ED220E0E85F00880B8E /* MBTOADManager.swift */; };
-		2B6B5DA3205139D900928F1F /* MBTEEGAcquisitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D08CB5C2681F9B6004ED097 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08CB5B2681F9B6004ED097 /* Byte.swift */; };
@@ -268,7 +267,6 @@
 /* Begin PBXFileReference section */
 		2B631ED220E0E85F00880B8E /* MBTOADManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTOADManager.swift; sourceTree = "<group>"; };
 		2B6B5D98205139D800928F1F /* BrainwebRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrainwebRequest.swift; sourceTree = "<group>"; };
-		2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTEEGAcquisitionDelegate.swift; sourceTree = "<group>"; };
 		2B6B5D9A205139D800928F1F /* MBTEEGAcquisitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTEEGAcquisitionManager.swift; sourceTree = "<group>"; };
 		2B6B5D9D205139D800928F1F /* MBTSignalProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTSignalProcessingManager.swift; sourceTree = "<group>"; };
 		2B6B5D9E205139D800928F1F /* MBTSignalProcessingProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTSignalProcessingProtocols.swift; sourceTree = "<group>"; };
@@ -528,7 +526,6 @@
 			isa = PBXGroup;
 			children = (
 				4D8551512682852100F43597 /* Legacy */,
-				2B6B5D99205139D800928F1F /* MBTEEGAcquisitionDelegate.swift */,
 				4D8551522682852D00F43597 /* EegAcquiser.swift */,
 				4D8551552682855C00F43597 /* EEGAcquisitionProcessorV2.swift */,
 				4D8551582682858400F43597 /* EEGAcquisitionSaverV2.swift */,
@@ -1641,7 +1638,6 @@
 				A96EB6F32469854600431BA0 /* RecordFileNameBuilder.swift in Sources */,
 				4D08CB6E26822653004ED097 /* PeripheralGatewayProtocol.swift in Sources */,
 				B5ADB75D22381B83009150AD /* MBTRelaxIndexAlgorithm.swift in Sources */,
-				2B6B5DA3205139D900928F1F /* MBTEEGAcquisitionDelegate.swift in Sources */,
 				4D0CEFAD2670CBD6001EEA2C /* HardwareIndusVersionConvertor.swift in Sources */,
 				A93A0FF224697D74008AF664 /* RecordFileSaver.swift in Sources */,
 				4DF8504F26BDAE280023564F /* ImsDeserializer.swift in Sources */,

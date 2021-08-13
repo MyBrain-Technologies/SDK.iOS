@@ -32,11 +32,6 @@ internal class EegAcquiser {
    }
   }
 
-  /******************** Delegate ********************/
-
-  /// The MBTBluetooth Event Delegate.
-  weak var delegate: MBTEEGAcquisitionDelegate?
-
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
