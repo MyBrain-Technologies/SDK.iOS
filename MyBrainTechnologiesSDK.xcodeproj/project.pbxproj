@@ -78,6 +78,8 @@
 		4D4A09942646DD1E00366DF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4A09922646DD1E00366DF6 /* LaunchScreen.storyboard */; };
 		4D4A099F2646DD1E00366DF6 /* BluetoothTestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A099E2646DD1E00366DF6 /* BluetoothTestAppTests.swift */; };
 		4D4A09AA2646DD1E00366DF6 /* BluetoothTestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09A92646DD1E00366DF6 /* BluetoothTestAppUITests.swift */; };
+		4D5383A926C6A26C00276769 /* ImsAcquiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383A826C6A26C00276769 /* ImsAcquiser.swift */; };
+		4D5383AA26C6A26C00276769 /* ImsAcquiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383A826C6A26C00276769 /* ImsAcquiser.swift */; };
 		4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D8551492682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D85514F2682845300F43597 /* MBTEEGPacketManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85514E2682845300F43597 /* MBTEEGPacketManagerV2.swift */; };
@@ -339,6 +341,7 @@
 		4D4A09A52646DD1E00366DF6 /* BluetoothTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4A09A92646DD1E00366DF6 /* BluetoothTestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTestAppUITests.swift; sourceTree = "<group>"; };
 		4D4A09AB2646DD1E00366DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D5383A826C6A26C00276769 /* ImsAcquiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquiser.swift; sourceTree = "<group>"; };
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -547,7 +550,7 @@
 		2B6B5D96205139D800928F1F /* Acquisition Module */ = {
 			isa = PBXGroup;
 			children = (
-				4DF8504426BDA2C10023564F /* ImsPacket */,
+				4D5383A726C6A24C00276769 /* Ims */,
 				4DDD64E02626F61A0072ECF9 /* EegPacket */,
 				2B6B5D97205139D800928F1F /* Acquisition */,
 				2B6B5D9C205139D800928F1F /* Signal Processing */,
@@ -808,6 +811,15 @@
 				4D4A09AB2646DD1E00366DF6 /* Info.plist */,
 			);
 			path = BluetoothTestAppUITests;
+			sourceTree = "<group>";
+		};
+		4D5383A726C6A24C00276769 /* Ims */ = {
+			isa = PBXGroup;
+			children = (
+				4DF8504426BDA2C10023564F /* ImsPacket */,
+				4D5383A826C6A26C00276769 /* ImsAcquiser.swift */,
+			);
+			path = Ims;
 			sourceTree = "<group>";
 		};
 		4D8551422682773000F43597 /* Legacy */ = {
@@ -1711,6 +1723,7 @@
 				A91DC1372490DC7600E4A440 /* Comparable+extension.swift in Sources */,
 				4DD9856C2265C8D300E788F2 /* MBTBridgeConstants.mm in Sources */,
 				A95C1A10244F13ED00AB4588 /* FormatedVersion.swift in Sources */,
+				4D5383A926C6A26C00276769 /* ImsAcquiser.swift in Sources */,
 				A918D28A24616DCB00026F1D /* BluetoothError.swift in Sources */,
 				A918D28E246199E000026F1D /* AudioError.swift in Sources */,
 				A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */,
@@ -1768,6 +1781,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9E3A7D12464432900E6A4B9 /* FormatedVersionTests.swift in Sources */,
+				4D5383AA26C6A26C00276769 /* ImsAcquiser.swift in Sources */,
 				4DF8504726BDA2D90023564F /* ImsRawPacket.swift in Sources */,
 				4D08CB75268226AE004ED097 /* PeripheralGatewayPostIndus5.swift in Sources */,
 				4D2F42D2268B3B4300FEA5A4 /* Log.swift in Sources */,
