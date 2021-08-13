@@ -8,7 +8,6 @@ class EEGPacketManagerV2 {
 
   private(set) var eegPackets = [MBTEEGPacket]()
 
-
   /******************** Array getters ********************/
 
   var eegData: [[Float?]] {
@@ -69,7 +68,6 @@ class EEGPacketManagerV2 {
     eegPackets.append(eegPacket)
   }
 
-
   //----------------------------------------------------------------------------
   // MARK: - Read
   //----------------------------------------------------------------------------
@@ -82,25 +80,6 @@ class EEGPacketManagerV2 {
     guard eegPackets.count >= n else { return nil }
     return [MBTEEGPacket](eegPackets.suffix(n))
   }
-
-//  /// Get all *MBTEEGPacket* saved in Realm DB.
-//  /// - Returns: All *MBTEEGPacket* db-saved from Realm query.
-//  func getEEGPackets() -> Results<MBTEEGPacket> {
-//    return RealmManager.shared.realm.objects(MBTEEGPacket.self)
-//  }
-
-
-
-//  /// Get an Array of getEEGPackets method and this array is independant of Results<MBTEEGPacket>
-//  ///
-//  /// - Returns: A *Array* instance of all EEGPackets
-//  func getArrayEEGPackets() -> [MBTEEGPacket] {
-//    var arrayEEGPackets = [MBTEEGPacket]()
-//    for eegPacket in getEEGPackets() {
-//      arrayEEGPackets.append(eegPacket)
-//    }
-//    return arrayEEGPackets
-//  }
 
   //----------------------------------------------------------------------------
   // MARK: - Delete
