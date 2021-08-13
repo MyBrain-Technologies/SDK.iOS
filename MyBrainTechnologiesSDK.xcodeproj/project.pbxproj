@@ -529,7 +529,6 @@
 				4D8551522682852D00F43597 /* EegAcquiser.swift */,
 				4D8551552682855C00F43597 /* EEGAcquisitionProcessorV2.swift */,
 				4D8551582682858400F43597 /* EEGAcquisitionSaverV2.swift */,
-				4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */,
 			);
 			path = Acquisition;
 			sourceTree = "<group>";
@@ -777,10 +776,19 @@
 		4D5383A726C6A24C00276769 /* Ims */ = {
 			isa = PBXGroup;
 			children = (
+				4D5383AB26C6D84500276769 /* Acquisition */,
 				4DF8504426BDA2C10023564F /* ImsPacket */,
-				4D5383A826C6A26C00276769 /* ImsAcquiser.swift */,
 			);
 			path = Ims;
+			sourceTree = "<group>";
+		};
+		4D5383AB26C6D84500276769 /* Acquisition */ = {
+			isa = PBXGroup;
+			children = (
+				4D5383A826C6A26C00276769 /* ImsAcquiser.swift */,
+				4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */,
+			);
+			path = Acquisition;
 			sourceTree = "<group>";
 		};
 		4D8551422682773000F43597 /* Legacy */ = {
