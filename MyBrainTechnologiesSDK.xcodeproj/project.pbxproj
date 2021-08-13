@@ -544,7 +544,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B6B5D96205139D800928F1F /* EEG Module */ = {
+		2B6B5D96205139D800928F1F /* Acquisition Module */ = {
 			isa = PBXGroup;
 			children = (
 				4DF8504426BDA2C10023564F /* ImsPacket */,
@@ -552,7 +552,7 @@
 				2B6B5D97205139D800928F1F /* Acquisition */,
 				2B6B5D9C205139D800928F1F /* Signal Processing */,
 			);
-			path = "EEG Module";
+			path = "Acquisition Module";
 			sourceTree = "<group>";
 		};
 		2B6B5D97205139D800928F1F /* Acquisition */ = {
@@ -1109,7 +1109,7 @@
 				A91DC0ED2490CD0D00E4A440 /* Models */,
 				A918D28824616DAD00026F1D /* Errors */,
 				A91BD912247D694800603C42 /* Audio */,
-				2B6B5D96205139D800928F1F /* EEG Module */,
+				2B6B5D96205139D800928F1F /* Acquisition Module */,
 			);
 			path = Core;
 			sourceTree = "<group>";

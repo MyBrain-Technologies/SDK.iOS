@@ -15,8 +15,8 @@ public class MbtImsPacket {
 
   }
 
-  init(with rawPacket: ImsRawPacket) {
+  init(x: Float, y: Float, z: Float) {
 
   }
-  
+
 }
