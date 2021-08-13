@@ -1,8 +1,7 @@
 import Foundation
 
 public protocol MBTAcquisitionDelegate: AnyObject {
-  #warning("TODO: Rename to `batteryLevel`")
-  func didUpdateBatteryLevel(_ levelBattery: Int)
+  func didUpdateBatteryLevel(_ batteryLevel: Int)
 
   /// Called when
   ///
@@ -20,16 +19,19 @@ public protocol MBTAcquisitionDelegate: AnyObject {
 
   func didUpdateEEGRawData(_ data: Data)
 
+  func didUpdateImsData(_ imsPacket: MbtImsPacket)
 }
 
 extension MBTAcquisitionDelegate {
 
-  func didUpdateBatteryLevel(_ levelBattery: Int) { }
+  func didUpdateBatteryLevel(_ batteryLevel: Int) { }
 
   func didUpdateSaturationStatus(_ status: Int) { }
 
   func didUpdateEEGData(_ eegPacket: MBTEEGPacket) { }
 
   func didUpdateEEGRawData(_ data: Data) { }
+
+  func didUpdateImsData(_ imsPacket: MbtImsPacket) { }
 
 }
