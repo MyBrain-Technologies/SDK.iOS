@@ -6,6 +6,8 @@ class ImsAcquisitionProcessor {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  private let acquisitionBuffer: ImsAcquisitionBuffer<ImsRawPacket>
+
   private let bufferSizeMax: Int
 
   private let packetLength: Int
@@ -27,6 +29,8 @@ class ImsAcquisitionProcessor {
        channelCount: Int = 3,
        sampleRate: Int,
        electrodeToChannelIndex: [ElectrodeLocation: Int]) {
+    self.acquisitionBuffer =
+      ImsAcquisitionBuffer<ImsRawPacket>(bufferSizeMax: bufferSizeMax)
     self.bufferSizeMax = bufferSizeMax
     self.packetLength = packetLength
     self.channelCount = channelCount
@@ -39,20 +43,13 @@ class ImsAcquisitionProcessor {
   //----------------------------------------------------------------------------
 
   func generateImsPacket(from data: Data) -> MbtImsPacket? {
-    let imsRawPacket = ImsRawPacket(data: data)
-    let coordinateBytes =
-      deserializer.deserializeToXYZ(bytes: imsRawPacket.packetValues)
+    acquisitionBuffer.add(data: data)
+    guard let packet = acquisitionBuffer.getUsablePackets() else {
+      return nil
+    }
+
+    let coordinateBytes = deserializer.deserializeToXYZ(bytes: packet)
     return convertToImsPacket(values: coordinateBytes)
-//    acquisitionBuffer.add(data: data)
-//    guard let packet = acquisitionBuffer.getUsablePackets() else { return nil }
-//
-//    let relaxIndexes =
-//      EEGDeserializer.deserializeToRelaxIndex(bytes: packet,
-//                                              numberOfElectrodes: channelCount)
-//    let eegPacket = convertToEEGPacket(values: relaxIndexes,
-//                                       hasQualityChecker: hasQualityChecker)
-//
-//    return eegPacket
   }
 
   private func convertToImsPacket(values: [[[UInt8]]]) -> MbtImsPacket? {

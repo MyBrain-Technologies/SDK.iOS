@@ -9,9 +9,8 @@
 import Foundation
 
 // Handle missing packet during acquisition.
-#warning("TODO: Use generic with eeg/ims/ppg")
 
-class ImsAcquisitionBuffer {
+class ImsAcquisitionBuffer<RawPacketType: RawPacketProtocol> {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -46,18 +45,18 @@ class ImsAcquisitionBuffer {
   func add(data: Data) {
     guard data.count > 0 else { return }
 
-    let packetValue = EEGRawPacket(data: data)
+    let packetValue = RawPacketType(data: data)
     add(rawPacket: packetValue)
   }
 
   /// Add a packet to the buffer. Missing packets are filled with 0xFF.
   func add(rawPacketValue: [UInt8]) {
-    let packetValue = EEGRawPacket(rawValue: rawPacketValue)
+    let packetValue = RawPacketType(rawValue: rawPacketValue)
     add(rawPacket: packetValue)
   }
 
   /// Add a packet to the buffer. Missing packets are filled with 0xFF.
-  func add(rawPacket: EEGRawPacket) {
+  func add(rawPacket: RawPacketProtocol) {
     log.verbose(rawPacket)
     addMissingPackets(before: rawPacket)
     packetBuffer.add(bytes: rawPacket.packetValues)
@@ -79,7 +78,7 @@ class ImsAcquisitionBuffer {
   //----------------------------------------------------------------------------
 
   /// Add missing packets between a packet and the last registered packet
-  private func addMissingPackets(before packet: EEGRawPacket) {
+  private func addMissingPackets(before packet: RawPacketProtocol) {
     let missingPackets = numberOfLostPackets(before: packet)
 
     guard missingPackets > 0 else { return }
@@ -91,7 +90,7 @@ class ImsAcquisitionBuffer {
 
   /// Return the number of packets missing between a packet and the last
   /// registered packet
-  private func numberOfLostPackets(before packet: EEGRawPacket) -> Int32 {
+  private func numberOfLostPackets(before packet: RawPacketProtocol) -> Int32 {
     if packet.packetIndex == 0 {
       previousIndex = 0
     }
