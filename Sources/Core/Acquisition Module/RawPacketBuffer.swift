@@ -1,6 +1,6 @@
 import Foundation
 // Good
-class EEGRawPacketBuffer {
+class RawPacketBuffer {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties

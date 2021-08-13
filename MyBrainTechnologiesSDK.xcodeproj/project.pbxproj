@@ -83,6 +83,8 @@
 		4D5383B226C6DC6C00276769 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B026C6DC6C00276769 /* Recorder.swift */; };
 		4D5383B626C6DDE100276769 /* ImsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B526C6DDE100276769 /* ImsExporter.swift */; };
 		4D5383B726C6DDE100276769 /* ImsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B526C6DDE100276769 /* ImsExporter.swift */; };
+		4D5383B926C724D000276769 /* ImsAcquisitionBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */; };
+		4D5383BA26C724D000276769 /* ImsAcquisitionBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */; };
 		4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D8551492682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D85514F2682845300F43597 /* MBTEEGPacketManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85514E2682845300F43597 /* MBTEEGPacketManagerV2.swift */; };
@@ -191,7 +193,7 @@
 		A92D7A4524813914000DF7C3 /* EEGRawPacketBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4424813914000DF7C3 /* EEGRawPacketBufferTests.swift */; };
 		A92D7A4924814A4D000DF7C3 /* EEGRawPacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4824814A4D000DF7C3 /* EEGRawPacketTests.swift */; };
 		A92D7A4A24814C18000DF7C3 /* EEGRawPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */; };
-		A92D7A4B24814EED000DF7C3 /* EEGRawPacketBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4224813606000DF7C3 /* EEGRawPacketBuffer.swift */; };
+		A92D7A4B24814EED000DF7C3 /* RawPacketBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4224813606000DF7C3 /* RawPacketBuffer.swift */; };
 		A92D7A4E24815052000DF7C3 /* EEGAcquisitionBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */; };
 		A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */; };
 		A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */; };
@@ -329,6 +331,7 @@
 		4D5383AD26C6DA9600276769 /* ImsRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsRecorder.swift; sourceTree = "<group>"; };
 		4D5383B026C6DC6C00276769 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		4D5383B526C6DDE100276769 /* ImsExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsExporter.swift; sourceTree = "<group>"; };
+		4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquisitionBuffer.swift; sourceTree = "<group>"; };
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -438,7 +441,7 @@
 		A92D7A3C2481258C000DF7C3 /* Data+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+extension.swift"; sourceTree = "<group>"; };
 		A92D7A3E2481301C000DF7C3 /* EEGAcquisitionRawPacketsToBuffers.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionRawPacketsToBuffers.txt; sourceTree = "<group>"; };
 		A92D7A40248133DA000DF7C3 /* EEGAcquisitionRawPacketsToBuffersWithLostValues.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEGAcquisitionRawPacketsToBuffersWithLostValues.txt; sourceTree = "<group>"; };
-		A92D7A4224813606000DF7C3 /* EEGRawPacketBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacketBuffer.swift; sourceTree = "<group>"; };
+		A92D7A4224813606000DF7C3 /* RawPacketBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPacketBuffer.swift; sourceTree = "<group>"; };
 		A92D7A4424813914000DF7C3 /* EEGRawPacketBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacketBufferTests.swift; sourceTree = "<group>"; };
 		A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacket.swift; sourceTree = "<group>"; };
 		A92D7A4824814A4D000DF7C3 /* EEGRawPacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacketTests.swift; sourceTree = "<group>"; };
@@ -523,6 +526,7 @@
 		2B6B5D96205139D800928F1F /* Acquisition Module */ = {
 			isa = PBXGroup;
 			children = (
+				A92D7A4224813606000DF7C3 /* RawPacketBuffer.swift */,
 				4D5383B326C6DC7600276769 /* Protocols */,
 				4D5383A726C6A24C00276769 /* Ims */,
 				4DDD64E02626F61A0072ECF9 /* EegPacket */,
@@ -799,6 +803,7 @@
 			children = (
 				4D5383A826C6A26C00276769 /* ImsAcquiser.swift */,
 				4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */,
+				4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */,
 			);
 			path = Acquisition;
 			sourceTree = "<group>";
@@ -1003,7 +1008,6 @@
 				4D85514D2682844200F43597 /* Legacy */,
 				4D8551472682834000F43597 /* MBTEEGPacketV2.swift */,
 				A9130BC624800BAE00CB1840 /* EEGDeserializer.swift */,
-				A92D7A4224813606000DF7C3 /* EEGRawPacketBuffer.swift */,
 				A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */,
 				A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */,
 				4D85514E2682845300F43597 /* MBTEEGPacketManagerV2.swift */,
@@ -1621,6 +1625,7 @@
 				4D5383AE26C6DA9600276769 /* ImsRecorder.swift in Sources */,
 				A92D7A4E24815052000DF7C3 /* EEGAcquisitionBuffer.swift in Sources */,
 				4D0CEF9E2670CA93001EEA2C /* HardwareVersion.swift in Sources */,
+				4D5383B926C724D000276769 /* ImsAcquisitionBuffer.swift in Sources */,
 				B5378D0C21F8C0C4007F12DA /* MBTQRCodeSerial.swift in Sources */,
 				A92D7A4A24814C18000DF7C3 /* EEGRawPacket.swift in Sources */,
 				4D8551532682852D00F43597 /* EegAcquiser.swift in Sources */,
@@ -1629,7 +1634,7 @@
 				4D19FB4E266143A90064FF6F /* PostIndus5CharacteristicContainer.swift in Sources */,
 				A927D59123CCE7F300C20734 /* String+extension.swift in Sources */,
 				A918D29224619CFB00026F1D /* DeviceError.swift in Sources */,
-				A92D7A4B24814EED000DF7C3 /* EEGRawPacketBuffer.swift in Sources */,
+				A92D7A4B24814EED000DF7C3 /* RawPacketBuffer.swift in Sources */,
 				4D19FB54266143C90064FF6F /* PreIndus5CharacteristicContainer.swift in Sources */,
 				4D356648264068DB00B4846D /* MBTBluetoothManagerV2.swift in Sources */,
 				4DF8504926BDA8070023564F /* ImsAcquisitionProcessor.swift in Sources */,
@@ -1729,6 +1734,7 @@
 				A9E3A7CF2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift in Sources */,
 				4D08CB5D2681F9B6004ED097 /* Byte.swift in Sources */,
 				4D08CB652682022D004ED097 /* PeripheralValueReceiverDelegate.swift in Sources */,
+				4D5383BA26C724D000276769 /* ImsAcquisitionBuffer.swift in Sources */,
 				4DCD3D012671F441000B53C1 /* MBTRecordType.swift in Sources */,
 				4D0CEFC226711391001EEA2C /* ElectrodeType.swift in Sources */,
 				4DF8505026BDAE280023564F /* ImsDeserializer.swift in Sources */,

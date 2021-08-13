@@ -1,14 +1,17 @@
+//
+//  ImsAcquisitionBuffer.swift
+//  MyBrainTechnologiesSDK
+//
+//  Created by Laurent on 14/08/2021.
+//  Copyright © 2021 MyBrainTechnologies. All rights reserved.
+//
+
 import Foundation
 
-/*******************************************************************************
- * EEGAcquisitionBuffer
- *
- * Buffer to stack headset acquisition values.
- * Specify a size to the buffer so it will return the buffer only when it's full.
- *
- ******************************************************************************/
-// Good
-class EEGAcquisitionBuffer {
+// Handle missing packet during acquisition.
+#warning("TODO: Use generic with eeg/ims/ppg")
+
+class ImsAcquisitionBuffer {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -108,5 +111,5 @@ class EEGAcquisitionBuffer {
 
     return missingPackets - 1
   }
-  
+
 }

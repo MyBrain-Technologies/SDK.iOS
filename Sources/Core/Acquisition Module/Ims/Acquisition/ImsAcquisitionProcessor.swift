@@ -34,7 +34,6 @@ class ImsAcquisitionProcessor {
     self.electrodeToChannelIndex = electrodeToChannelIndex
   }
 
-
   //----------------------------------------------------------------------------
   // MARK: - Processes
   //----------------------------------------------------------------------------
