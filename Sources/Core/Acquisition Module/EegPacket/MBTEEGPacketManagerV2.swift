@@ -11,10 +11,6 @@ class EEGPacketManagerV2 {
 
   /******************** Array getters ********************/
 
-  var lastEggPacket: MBTEEGPacket? {
-    return eegPackets.last
-  }
-
   var eegData: [[Float?]] {
     var eegDatas = [[Float?]]()
     for eegPacket in eegPackets {
@@ -77,12 +73,6 @@ class EEGPacketManagerV2 {
   //----------------------------------------------------------------------------
   // MARK: - Read
   //----------------------------------------------------------------------------
-
-  /// Get the last packet not complete.
-  /// - Returns: The last saved *MBTEEGPacket*.
-  func getLastPacket() -> MBTEEGPacket? {
-    return eegPackets.last
-  }
 
   /// Get last n *MBTEEGPackets* from the Realm DB.
   /// - Parameters:
