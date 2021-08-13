@@ -1,6 +1,6 @@
 import Foundation
 
-struct EEGRawPacket {
+struct EEGRawPacket: RawPacketProtocol {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties

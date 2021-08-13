@@ -1,6 +1,6 @@
 import Foundation
 
-struct ImsRawPacket {
+struct ImsRawPacket: RawPacketProtocol {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
