@@ -1,14 +1,14 @@
 import Foundation
 
-
 final class ImsRecorder: Recorder {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
-  private(set) var packets = [MbtImsPacket]()
+  /******************** Storage ********************/
 
+  private(set) var packets = [MbtImsPacket]()
 
   /******************** Array getters ********************/
 

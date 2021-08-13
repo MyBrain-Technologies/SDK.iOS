@@ -81,6 +81,8 @@
 		4D5383AF26C6DA9700276769 /* ImsRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383AD26C6DA9600276769 /* ImsRecorder.swift */; };
 		4D5383B126C6DC6C00276769 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B026C6DC6C00276769 /* Recorder.swift */; };
 		4D5383B226C6DC6C00276769 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B026C6DC6C00276769 /* Recorder.swift */; };
+		4D5383B626C6DDE100276769 /* ImsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B526C6DDE100276769 /* ImsExporter.swift */; };
+		4D5383B726C6DDE100276769 /* ImsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B526C6DDE100276769 /* ImsExporter.swift */; };
 		4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D8551492682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D85514F2682845300F43597 /* MBTEEGPacketManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85514E2682845300F43597 /* MBTEEGPacketManagerV2.swift */; };
@@ -326,6 +328,7 @@
 		4D5383A826C6A26C00276769 /* ImsAcquiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquiser.swift; sourceTree = "<group>"; };
 		4D5383AD26C6DA9600276769 /* ImsRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsRecorder.swift; sourceTree = "<group>"; };
 		4D5383B026C6DC6C00276769 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		4D5383B526C6DDE100276769 /* ImsExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsExporter.swift; sourceTree = "<group>"; };
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -783,9 +786,10 @@
 		4D5383A726C6A24C00276769 /* Ims */ = {
 			isa = PBXGroup;
 			children = (
+				4DF8504426BDA2C10023564F /* Model */,
 				4D5383AB26C6D84500276769 /* Acquisition */,
-				4DF8504426BDA2C10023564F /* ImsPacket */,
 				4D5383AC26C6D88E00276769 /* Recorder */,
+				4D5383B426C6DDB200276769 /* Exporter */,
 			);
 			path = Ims;
 			sourceTree = "<group>";
@@ -813,6 +817,14 @@
 				4D5383B026C6DC6C00276769 /* Recorder.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		4D5383B426C6DDB200276769 /* Exporter */ = {
+			isa = PBXGroup;
+			children = (
+				4D5383B526C6DDE100276769 /* ImsExporter.swift */,
+			);
+			path = Exporter;
 			sourceTree = "<group>";
 		};
 		4D8551422682773000F43597 /* Legacy */ = {
@@ -1029,14 +1041,14 @@
 			path = Central;
 			sourceTree = "<group>";
 		};
-		4DF8504426BDA2C10023564F /* ImsPacket */ = {
+		4DF8504426BDA2C10023564F /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				4DF8504526BDA2D90023564F /* ImsRawPacket.swift */,
 				4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */,
 				4DF8504E26BDAE280023564F /* ImsDeserializer.swift */,
 			);
-			path = ImsPacket;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A9130BCA24800D7100CB1840 /* EEG */ = {
@@ -1580,6 +1592,7 @@
 				A918D29424619D1600026F1D /* FirmwareError.swift in Sources */,
 				A918D2982461A9A700026F1D /* MBTClient+log.swift in Sources */,
 				4D19FB462661432F0064FF6F /* PostIndus5PeripheralCommunicator.swift in Sources */,
+				4D5383B626C6DDE100276769 /* ImsExporter.swift in Sources */,
 				4DEF4EC526680F8700D769DC /* MBTBluetoothAcquisitionDelegate.swift in Sources */,
 				4D08CB5C2681F9B6004ED097 /* Byte.swift in Sources */,
 				4DEF4ECC266814D100D769DC /* BluetoothCentral.swift in Sources */,
@@ -1738,6 +1751,7 @@
 				4D0CEFBB2670E98A001EEA2C /* Electrodes.swift in Sources */,
 				A91BD909247D42A200603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A92D7A4524813914000DF7C3 /* EEGRawPacketBufferTests.swift in Sources */,
+				4D5383B726C6DDE100276769 /* ImsExporter.swift in Sources */,
 				A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */,
 				4D8551492682834000F43597 /* MBTEEGPacketV2.swift in Sources */,
 				4D94474525F968C900CB364A /* String+extension.swift in Sources */,
