@@ -18,7 +18,17 @@ internal class ImsAcquiser {
 
   private var acquisitionProcessor: ImsAcquisitionProcessor
 
-  private let eegPacketManager = EEGPacketManagerV2()
+  /******************** Recording ********************/
+
+  private let recorder = ImsRecorder()
+
+  var isRecording = false {
+    didSet {
+      if isRecording {
+        recorder.removeAllPackets()
+      }
+    }
+  }
 
   /******************** Convert and save eeg ********************/
 
@@ -44,14 +54,12 @@ internal class ImsAcquiser {
       )
   }
 
-
-
   //==============================================================================
   // MARK: - Packets
   //==============================================================================
 
-  func getLastPackets(count: Int) -> [MBTEEGPacket]? {
-    return eegPacketManager.getLastPackets(count)
+  func getLastPackets(count: Int) -> [MbtImsPacket]? {
+    return recorder.getLastPackets(count)
   }
 
   //----------------------------------------------------------------------------
@@ -115,8 +123,17 @@ internal class ImsAcquiser {
   // MARK: - Process Received data Methods.
   //----------------------------------------------------------------------------
 
-  func generateImsPacket(from imsData: Data) -> MbtImsPacket? {
-    return acquisitionProcessor.generateImsPacket(from: imsData)
+  func processIms(from imsData: Data) -> MbtImsPacket? {
+    guard let packet =
+            acquisitionProcessor.generateImsPacket(from: imsData) else {
+      return nil
+    }
+
+    if isRecording {
+      recorder.savePacket(packet)
+    }
+
+    return packet
   }
 
 }
