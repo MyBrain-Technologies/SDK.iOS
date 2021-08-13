@@ -37,6 +37,9 @@ public class MBTClientV2 {
   /// Init a MBTEEGAcquisitionManager, which deals with data from the Headset.
   internal var eegAcquiser: EegAcquiser?
 
+  /// Init a MBTEEGAcquisitionManager, which deals with data from the Headset.
+  internal var imsAcquiser: EegAcquiser?
+
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
   internal let signalProcessingManager = SignalProcessingManager()
@@ -57,6 +60,8 @@ public class MBTClientV2 {
   /******************** Recording ********************/
 
   private(set) var recordingType: MBTRecordType?
+
+  private(set) var isRecording: Bool = false
 
   /******************** Analyzer ********************/
 
@@ -434,6 +439,8 @@ public class MBTClientV2 {
 
     eegAcquiser.isRecording = true
 
+    isRecording = true
+
     return recordInfo.recordId
   }
 
@@ -441,6 +448,7 @@ public class MBTClientV2 {
   public func stopRecording() {
     guard isConnected else { return }
     eegAcquiser?.isRecording = false
+    isRecording = false
   }
 
 //  //----------------------------------------------------------------------------
@@ -545,6 +553,9 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
 
   public func didUpdateImsData(_ data: Data) {
     print("UPDATE IMS DATA")
+    let textData = String(data: data, encoding: .utf8)
+    let imsRawPacket = ImsRawPacket(data: data)
+    
     print(data)
   }
 
