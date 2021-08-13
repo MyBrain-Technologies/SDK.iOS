@@ -76,8 +76,6 @@
 		4D4A098F2646DD1D00366DF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4A098D2646DD1D00366DF6 /* Main.storyboard */; };
 		4D4A09912646DD1E00366DF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D4A09902646DD1E00366DF6 /* Assets.xcassets */; };
 		4D4A09942646DD1E00366DF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4A09922646DD1E00366DF6 /* LaunchScreen.storyboard */; };
-		4D4A099F2646DD1E00366DF6 /* BluetoothTestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A099E2646DD1E00366DF6 /* BluetoothTestAppTests.swift */; };
-		4D4A09AA2646DD1E00366DF6 /* BluetoothTestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D4A09A92646DD1E00366DF6 /* BluetoothTestAppUITests.swift */; };
 		4D5383A926C6A26C00276769 /* ImsAcquiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383A826C6A26C00276769 /* ImsAcquiser.swift */; };
 		4D5383AA26C6A26C00276769 /* ImsAcquiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383A826C6A26C00276769 /* ImsAcquiser.swift */; };
 		4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
@@ -94,8 +92,6 @@
 		4D87EECE26681752003C35E1 /* PeripheralValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87EECD26681752003C35E1 /* PeripheralValidator.swift */; };
 		4D91E363266BACEC00FFE4D9 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91E362266BACEC00FFE4D9 /* Buffer.swift */; };
 		4D9294902646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */; };
-		4D9294912646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */; };
-		4D9294922646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92948F2646E6E0004214AE /* CoreBluetoothTypeAliases.swift */; };
 		4D9294942646E76C004214AE /* CoreBluetoothMock in Frameworks */ = {isa = PBXBuildFile; productRef = 4D9294932646E76C004214AE /* CoreBluetoothMock */; };
 		4D94474325F9679900CB364A /* String+VersionNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D94474225F9679900CB364A /* String+VersionNumber.swift */; };
 		4D94474525F968C900CB364A /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A927D59023CCE7F300C20734 /* String+extension.swift */; };
@@ -221,20 +217,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4D4A099B2646DD1E00366DF6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D4A09842646DD1D00366DF6;
-			remoteInfo = BluetoothTestApp;
-		};
-		4D4A09A62646DD1E00366DF6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D4A09842646DD1D00366DF6;
-			remoteInfo = BluetoothTestApp;
-		};
 		4DCF4023267F676B0065779B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
@@ -335,10 +317,8 @@
 		4D4A09902646DD1E00366DF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D4A09932646DD1E00366DF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D4A09952646DD1E00366DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D4A099A2646DD1E00366DF6 /* BluetoothTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4A099E2646DD1E00366DF6 /* BluetoothTestAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTestAppTests.swift; sourceTree = "<group>"; };
 		4D4A09A02646DD1E00366DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D4A09A52646DD1E00366DF6 /* BluetoothTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4A09A92646DD1E00366DF6 /* BluetoothTestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTestAppUITests.swift; sourceTree = "<group>"; };
 		4D4A09AB2646DD1E00366DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D5383A826C6A26C00276769 /* ImsAcquiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquiser.swift; sourceTree = "<group>"; };
@@ -517,20 +497,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4D4A09972646DD1E00366DF6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D4A09A22646DD1E00366DF6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A9E3A7B424643B7700E6A4B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -632,8 +598,6 @@
 				3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */,
 				A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */,
 				4D4A09852646DD1D00366DF6 /* BluetoothTestApp.app */,
-				4D4A099A2646DD1E00366DF6 /* BluetoothTestAppTests.xctest */,
-				4D4A09A52646DD1E00366DF6 /* BluetoothTestAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1411,42 +1375,6 @@
 			productReference = 4D4A09852646DD1D00366DF6 /* BluetoothTestApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4D4A09992646DD1E00366DF6 /* BluetoothTestAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4D4A09AF2646DD1E00366DF6 /* Build configuration list for PBXNativeTarget "BluetoothTestAppTests" */;
-			buildPhases = (
-				4D4A09962646DD1E00366DF6 /* Sources */,
-				4D4A09972646DD1E00366DF6 /* Frameworks */,
-				4D4A09982646DD1E00366DF6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4D4A099C2646DD1E00366DF6 /* PBXTargetDependency */,
-			);
-			name = BluetoothTestAppTests;
-			productName = BluetoothTestAppTests;
-			productReference = 4D4A099A2646DD1E00366DF6 /* BluetoothTestAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4D4A09A42646DD1E00366DF6 /* BluetoothTestAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4D4A09B22646DD1E00366DF6 /* Build configuration list for PBXNativeTarget "BluetoothTestAppUITests" */;
-			buildPhases = (
-				4D4A09A12646DD1E00366DF6 /* Sources */,
-				4D4A09A22646DD1E00366DF6 /* Frameworks */,
-				4D4A09A32646DD1E00366DF6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4D4A09A72646DD1E00366DF6 /* PBXTargetDependency */,
-			);
-			name = BluetoothTestAppUITests;
-			productName = BluetoothTestAppUITests;
-			productReference = 4D4A09A52646DD1E00366DF6 /* BluetoothTestAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A9E3A7C124643B7700E6A4B9 /* Build configuration list for PBXNativeTarget "MyBrainTechnologiesSDKTests" */;
@@ -1486,14 +1414,6 @@
 					4D4A09842646DD1D00366DF6 = {
 						CreatedOnToolsVersion = 12.4;
 					};
-					4D4A09992646DD1E00366DF6 = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 4D4A09842646DD1D00366DF6;
-					};
-					4D4A09A42646DD1E00366DF6 = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 4D4A09842646DD1D00366DF6;
-					};
 					4DD980ED26933FB90050A3D4 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -1523,8 +1443,6 @@
 				3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */,
 				A9E3A7B624643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
 				4D4A09842646DD1D00366DF6 /* BluetoothTestApp */,
-				4D4A09992646DD1E00366DF6 /* BluetoothTestAppTests */,
-				4D4A09A42646DD1E00366DF6 /* BluetoothTestAppUITests */,
 				4DD980ED26933FB90050A3D4 /* Fastlane */,
 			);
 		};
@@ -1547,20 +1465,6 @@
 				4D4A09942646DD1E00366DF6 /* LaunchScreen.storyboard in Resources */,
 				4D4A09912646DD1E00366DF6 /* Assets.xcassets in Resources */,
 				4D4A098F2646DD1D00366DF6 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D4A09982646DD1E00366DF6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D4A09A32646DD1E00366DF6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1758,24 +1662,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4D4A09962646DD1E00366DF6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D9294912646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */,
-				4D4A099F2646DD1E00366DF6 /* BluetoothTestAppTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D4A09A12646DD1E00366DF6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D9294922646E6E0004214AE /* CoreBluetoothTypeAliases.swift in Sources */,
-				4D4A09AA2646DD1E00366DF6 /* BluetoothTestAppUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A9E3A7B324643B7700E6A4B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1843,16 +1729,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4D4A099C2646DD1E00366DF6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D4A09842646DD1D00366DF6 /* BluetoothTestApp */;
-			targetProxy = 4D4A099B2646DD1E00366DF6 /* PBXContainerItemProxy */;
-		};
-		4D4A09A72646DD1E00366DF6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D4A09842646DD1D00366DF6 /* BluetoothTestApp */;
-			targetProxy = 4D4A09A62646DD1E00366DF6 /* PBXContainerItemProxy */;
-		};
 		4DCF4024267F676B0065779B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
@@ -2201,122 +2077,6 @@
 			};
 			name = Release;
 		};
-		4D4A09B02646DD1E00366DF6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9V34RUTSL;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = BluetoothTestAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mybraintechnologies.BluetoothTestAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothTestApp.app/BluetoothTestApp";
-			};
-			name = Debug;
-		};
-		4D4A09B12646DD1E00366DF6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9V34RUTSL;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = BluetoothTestAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mybraintechnologies.BluetoothTestAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothTestApp.app/BluetoothTestApp";
-			};
-			name = Release;
-		};
-		4D4A09B32646DD1E00366DF6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9V34RUTSL;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = BluetoothTestAppUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mybraintechnologies.BluetoothTestAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BluetoothTestApp;
-			};
-			name = Debug;
-		};
-		4D4A09B42646DD1E00366DF6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V9V34RUTSL;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = BluetoothTestAppUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mybraintechnologies.BluetoothTestAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BluetoothTestApp;
-			};
-			name = Release;
-		};
 		4DD980EF26933FB90050A3D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2424,24 +2184,6 @@
 			buildConfigurations = (
 				4D4A09AD2646DD1E00366DF6 /* Debug */,
 				4D4A09AE2646DD1E00366DF6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4D4A09AF2646DD1E00366DF6 /* Build configuration list for PBXNativeTarget "BluetoothTestAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4D4A09B02646DD1E00366DF6 /* Debug */,
-				4D4A09B12646DD1E00366DF6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4D4A09B22646DD1E00366DF6 /* Build configuration list for PBXNativeTarget "BluetoothTestAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4D4A09B32646DD1E00366DF6 /* Debug */,
-				4D4A09B42646DD1E00366DF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
