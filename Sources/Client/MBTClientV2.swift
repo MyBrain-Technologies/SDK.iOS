@@ -53,7 +53,10 @@ public class MBTClientV2 {
     get { return eegAcquiser?.isRecording ?? false }
   }
 
-  private(set) var isRecording: Bool = false
+  private(set) var isRecordingIms: Bool {
+    set { imsRecorder.isRecording = newValue }
+    get { return imsRecorder.isRecording }
+  }
 
   /// Legacy called history_size. Number of eegpackets used to compute some
   /// dark informations on the C++ algorithms.
@@ -62,6 +65,9 @@ public class MBTClientV2 {
   /******************** Recording ********************/
 
   private(set) var recordingType: MBTRecordType?
+
+  #warning("TODO: use a ImsDAS to group acquisier/recorder/processor?")
+  private let imsRecorder = ImsRecorder()
 
   /******************** Analyzer ********************/
 
@@ -441,7 +447,8 @@ public class MBTClientV2 {
   // MARK: - Recording
   //----------------------------------------------------------------------------
 
-  /// Start saving EEGPacket on DB  /// - Parameters:
+  /// Start saving EEGPacket on DB
+  /// - Parameters:
   ///   - newRecord: Create a new recordId on the JSON File
   ///   - recordingType: Change the session's type
   @discardableResult
@@ -460,7 +467,7 @@ public class MBTClientV2 {
 
     eegAcquiser.isRecording = true
 
-    isRecording = true
+    isRecordingIms = true
 
     return recordInfo.recordId
   }
@@ -469,7 +476,7 @@ public class MBTClientV2 {
   public func stopRecording() {
     guard isConnected else { return }
     eegAcquiser?.isRecording = false
-    isRecording = false
+    isRecordingIms = false
   }
 
 //  //----------------------------------------------------------------------------
@@ -576,7 +583,17 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
     print("UPDATE IMS DATA")
     let textData = String(data: data, encoding: .utf8)
     let imsRawPacket = ImsRawPacket(data: data)
-    
+
+    // Move acquiser / recorder / processor inside DAS (Digital Acquisition Signal) class
+    guard let imsPacket = imsAcquiser?.generateImsPacket(from: data) else {
+      return
+    }
+
+    if imsRecorder.isRecording {
+      imsRecorder.savePacket(imsPacket)
+    }
+
+
     print(data)
   }
 

@@ -6,6 +6,14 @@ final class ImsRecorder: Recorder {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  var isRecording = false {
+    didSet {
+      if isRecording {
+        removeAllPackets()
+      }
+    }
+  }
+
   /******************** Storage ********************/
 
   private(set) var packets = [MbtImsPacket]()

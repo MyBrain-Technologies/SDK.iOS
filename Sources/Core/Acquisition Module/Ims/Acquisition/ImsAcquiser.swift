@@ -24,19 +24,6 @@ internal class ImsAcquiser {
 
   private let acquisisitonSaver = EEGAcquisitionSaverV2()
 
-  /********************  Parameters ********************/
-
-  private(set) var isStreaming = false
-
-  /// if the sdk record in DB EEGPacket
-  var isRecording: Bool = false {
-   didSet {
-    if isRecording {
-      eegPacketManager.removeAllEegPackets()
-    }
-   }
-  }
-
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -75,13 +62,11 @@ internal class ImsAcquiser {
   /// session has began. Method will make everything ready, acquisition side
   /// for the new session.
   func startStream() {
-    isStreaming = true
   }
 
   /// Method called by MelomindEngine when the current EEG streaming
   /// session has finished.
   func stopStream() {
-    isStreaming = false
   }
 
 //  /// Save the EEGPackets recorded
@@ -130,19 +115,8 @@ internal class ImsAcquiser {
   // MARK: - Process Received data Methods.
   //----------------------------------------------------------------------------
 
-  func generateImsPacket(fromImsData imsData: Data) -> MbtImsPacket? {
-
-
-    guard let imsPacket =
-            acquisitionProcessor.generateImsPacket(from: imsData) else {
-      return nil
-    }
-
-//    if isRecording {
-//      eegPacketManager.saveEEGPacket(eegPacket)
-//    }
-
-    return imsPacket
+  func generateImsPacket(from imsData: Data) -> MbtImsPacket? {
+    return acquisitionProcessor.generateImsPacket(from: imsData)
   }
 
 }
