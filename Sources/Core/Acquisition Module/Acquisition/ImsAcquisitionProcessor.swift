@@ -6,11 +6,15 @@ class ImsAcquisitionProcessor {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  private let bufferSizeMax: Int
+
   private let packetLength: Int
 
   private let channelCount: Int
 
-  private let sampletRate: Int
+  private let sampleRate: Int
+
+  private let electrodeToChannelIndex: [ElectrodeLocation: Int]
 
   private let deserializer = ImsDeserializer()
 
@@ -18,10 +22,16 @@ class ImsAcquisitionProcessor {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init(packetLength: Int, channelCount: Int = 3, sampletRate: Int) {
+  init(bufferSizeMax: Int,
+       packetLength: Int,
+       channelCount: Int = 3,
+       sampleRate: Int,
+       electrodeToChannelIndex: [ElectrodeLocation: Int]) {
+    self.bufferSizeMax = bufferSizeMax
     self.packetLength = packetLength
     self.channelCount = channelCount
-    self.sampletRate = sampletRate
+    self.sampleRate = sampleRate
+    self.electrodeToChannelIndex = electrodeToChannelIndex
   }
 
 
@@ -29,7 +39,7 @@ class ImsAcquisitionProcessor {
   // MARK: - Processes
   //----------------------------------------------------------------------------
 
-  func generateEmsPacket(fromData data: Data) -> MbtImsPacket? {
+  func generateImsPacket(from data: Data) -> MbtImsPacket? {
     let imsRawPacket = ImsRawPacket(data: data)
     let coordinateBytes =
       deserializer.deserializeToXYZ(bytes: imsRawPacket.packetValues)
@@ -59,10 +69,12 @@ class ImsAcquisitionProcessor {
 //    Spreaded IMS
 //    [[[213, 255], [213, 255]], [[210, 255], [211, 255]], [[241, 255], [241, 255]]]
     let xBytes = values[xIndex]
+
+    return MbtImsPacket(x: 1, y: 1, z: 1)
   }
 
   private func generateCoordinateValue(from bytes: [UInt8]) -> Float {
-
+    return 0.0
   }
 
 
