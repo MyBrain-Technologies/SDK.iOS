@@ -25,6 +25,8 @@
 		2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B631ED220E0E85F00880B8E /* MBTOADManager.swift */; };
 		2B6B5DAB20513A0C00928F1F /* MBTRecordInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5DAA20513A0C00928F1F /* MBTRecordInfo.swift */; };
 		3549BB501DA38A2000C63030 /* MyBrainTechnologiesSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D08438426C7EFCC00EABCB7 /* ImsFullScaleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08438326C7EFCC00EABCB7 /* ImsFullScaleMode.swift */; };
+		4D08438526C7EFCC00EABCB7 /* ImsFullScaleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08438326C7EFCC00EABCB7 /* ImsFullScaleMode.swift */; };
 		4D08CB5C2681F9B6004ED097 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08CB5B2681F9B6004ED097 /* Byte.swift */; };
 		4D08CB5D2681F9B6004ED097 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08CB5B2681F9B6004ED097 /* Byte.swift */; };
 		4D08CB61268201A0004ED097 /* PeripheralValueReceiverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D08CB60268201A0004ED097 /* PeripheralValueReceiverProtocol.swift */; };
@@ -291,6 +293,7 @@
 		3549BB171DA3890B00C63030 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3549BB181DA3890B00C63030 /* MyBrainTechnologiesSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBrainTechnologiesSDK.h; sourceTree = "<group>"; };
 		3549BB211DA389CD00C63030 /* MyBrainTechnologiesSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyBrainTechnologiesSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D08438326C7EFCC00EABCB7 /* ImsFullScaleMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsFullScaleMode.swift; sourceTree = "<group>"; };
 		4D08CB5B2681F9B6004ED097 /* Byte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
 		4D08CB60268201A0004ED097 /* PeripheralValueReceiverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralValueReceiverProtocol.swift; sourceTree = "<group>"; };
 		4D08CB632682022D004ED097 /* PeripheralValueReceiverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralValueReceiverDelegate.swift; sourceTree = "<group>"; };
@@ -811,6 +814,7 @@
 				4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */,
 				4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */,
 				4D5383C126C72DD400276769 /* ImsDataConverter.swift */,
+				4D08438326C7EFCC00EABCB7 /* ImsFullScaleMode.swift */,
 			);
 			path = Acquisition;
 			sourceTree = "<group>";
@@ -1628,6 +1632,7 @@
 				A918D28724616CC600026F1D /* Int16+extension.swift in Sources */,
 				4D0CEFB32670E4DC001EEA2C /* DeviceAcquisitionInformation.swift in Sources */,
 				4D8551592682858400F43597 /* EEGAcquisitionSaverV2.swift in Sources */,
+				4D08438426C7EFCC00EABCB7 /* ImsFullScaleMode.swift in Sources */,
 				A91DC1322490D01400E4A440 /* BluetoothAdvertisementDataReader.swift in Sources */,
 				A927D59323CCED0900C20734 /* Constants.swift in Sources */,
 				4D5383AE26C6DA9600276769 /* ImsRecorder.swift in Sources */,
@@ -1750,6 +1755,7 @@
 				4DF8505026BDAE280023564F /* ImsDeserializer.swift in Sources */,
 				4D5383C026C7266300276769 /* RawPacketProtocol.swift in Sources */,
 				4D94474325F9679900CB364A /* String+VersionNumber.swift in Sources */,
+				4D08438526C7EFCC00EABCB7 /* ImsFullScaleMode.swift in Sources */,
 				A938131624869C6400C7ABC0 /* MBTEEGPacketTests.swift in Sources */,
 				4D08CB7226822677004ED097 /* PeripheralGatewayPreIndus5.swift in Sources */,
 				4D8551572682855C00F43597 /* EEGAcquisitionProcessorV2.swift in Sources */,

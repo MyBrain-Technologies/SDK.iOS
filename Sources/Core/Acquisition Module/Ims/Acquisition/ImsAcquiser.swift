@@ -18,6 +18,8 @@ internal class ImsAcquiser {
 
   private var acquisitionProcessor: ImsAcquisitionProcessor
 
+  var fullScaleMode: ImsFullScaleMode = ._2
+
   /******************** Recording ********************/
 
   private let recorder = ImsRecorder()
