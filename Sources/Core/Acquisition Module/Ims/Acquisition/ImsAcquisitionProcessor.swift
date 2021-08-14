@@ -20,6 +20,8 @@ class ImsAcquisitionProcessor {
 
   private let electrodeToChannelIndex: [ElectrodeLocation: Int]
 
+  var fullScaleMode: ImsFullScaleMode = ._2
+  
   private let deserializer = ImsDeserializer()
 
   //----------------------------------------------------------------------------
@@ -50,6 +52,7 @@ class ImsAcquisitionProcessor {
       return nil
     }
 
+    print(fullScaleMode.rawValue)
     let coordinateBytes = deserializer.deserializeToXYZ(bytes: packet)
     let mbtImsPacket = converter.convert(from: coordinateBytes)
     return mbtImsPacket

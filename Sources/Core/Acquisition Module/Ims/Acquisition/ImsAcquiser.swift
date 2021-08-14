@@ -18,7 +18,10 @@ internal class ImsAcquiser {
 
   private var acquisitionProcessor: ImsAcquisitionProcessor
 
-  var fullScaleMode: ImsFullScaleMode = ._2
+  var fullScaleMode: ImsFullScaleMode {
+    get { acquisitionProcessor.fullScaleMode }
+    set { acquisitionProcessor.fullScaleMode = newValue }
+  }
 
   /******************** Recording ********************/
 
