@@ -52,5 +52,5 @@ class ImsDataConverter {
 
     return MbtImsPacket(x: 1, y: 1, z: 1)
   }
-}
+
 }

@@ -36,7 +36,7 @@ struct ImsRawPacket: RawPacketProtocol {
   }
 
   init(data: Data) {
-    self.rawValue = data.toUint8Array
+    self.rawValue = Array(data)
   }
 
 }
