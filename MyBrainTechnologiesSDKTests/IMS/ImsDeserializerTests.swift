@@ -25,7 +25,7 @@ class ImsDeserializerTests: XCTestCase {
 
     let bytes = [fe, ff, _01, _00, _3f, _00]
 
-    let deserializer = ImsDeserializer(axisCount: 3, frameCount: 1)
+    let deserializer = ImsDeserializer()
 
     let imsPacket = deserializer.deserialize(bytes: bytes, scaleValue: 1)
     let coordinate = try XCTUnwrap(imsPacket?.coordinates.first)
