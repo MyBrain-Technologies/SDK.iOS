@@ -202,7 +202,6 @@
 		A92D7A4A24814C18000DF7C3 /* EEGRawPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */; };
 		A92D7A4B24814EED000DF7C3 /* RawPacketBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4224813606000DF7C3 /* RawPacketBuffer.swift */; };
 		A92D7A4E24815052000DF7C3 /* EEGAcquisitionBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */; };
-		A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */; };
 		A92FCD5B246AC71500D7DB51 /* TestsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */; };
 		A938131024863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */; };
 		A9381314248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9381313248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift */; };
@@ -226,6 +225,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4DC5E74D26CA830400FB0531 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D4A09842646DD1D00366DF6;
+			remoteInfo = BluetoothTestApp;
+		};
 		4DCF4023267F676B0065779B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3549BAFC1DA387DB00C63030 /* Project object */;
@@ -448,7 +454,6 @@
 		A92D7A46248147F5000DF7C3 /* EEGRawPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacket.swift; sourceTree = "<group>"; };
 		A92D7A4824814A4D000DF7C3 /* EEGRawPacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRawPacketTests.swift; sourceTree = "<group>"; };
 		A92D7A4C24815049000DF7C3 /* EEGAcquisitionBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionBuffer.swift; sourceTree = "<group>"; };
-		A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainwebRequestTests.swift; sourceTree = "<group>"; };
 		A92FCD5A246AC71500D7DB51 /* TestsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsConstants.swift; sourceTree = "<group>"; };
 		A938130F24863E3F00C7ABC0 /* EEGAcquisitionBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionBufferTests.swift; sourceTree = "<group>"; };
 		A9381313248640AA00C7ABC0 /* EEGAcquisitionRawPacketsToBuffers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionRawPacketsToBuffers.swift; sourceTree = "<group>"; };
@@ -1233,14 +1238,6 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		A92FCD56246AAFA100D7DB51 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				A92FCD57246AAFB400D7DB51 /* BrainwebRequestTests.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		A92FCD59246AC70200D7DB51 /* TestsResources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1315,7 +1312,6 @@
 			isa = PBXGroup;
 			children = (
 				A91BD919247D714400603C42 /* Extensions */,
-				A92FCD56246AAFA100D7DB51 /* Network */,
 				A96BF12824698F2300582DB1 /* Files */,
 				A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */,
 				A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */,
@@ -1421,6 +1417,7 @@
 			);
 			dependencies = (
 				A9E3A7BE24643B7700E6A4B9 /* PBXTargetDependency */,
+				4DC5E74E26CA830400FB0531 /* PBXTargetDependency */,
 			);
 			name = MyBrainTechnologiesSDKTests;
 			productName = MyBrainTechnologiesSDKTests;
@@ -1454,6 +1451,7 @@
 						CreatedOnToolsVersion = 11.3.1;
 						DevelopmentTeam = 23T8TD424J;
 						ProvisioningStyle = Automatic;
+						TestTargetID = 4D4A09842646DD1D00366DF6;
 					};
 				};
 			};
@@ -1730,7 +1728,6 @@
 				A91BD909247D42A200603C42 /* MelomindBluetoothPeripheral.swift in Sources */,
 				A92D7A4524813914000DF7C3 /* EEGRawPacketBufferTests.swift in Sources */,
 				4D5383B726C6DDE100276769 /* ImsExporter.swift in Sources */,
-				A92FCD58246AAFB400D7DB51 /* BrainwebRequestTests.swift in Sources */,
 				4D8551492682834000F43597 /* MBTEEGPacketV2.swift in Sources */,
 				4D94474525F968C900CB364A /* String+extension.swift in Sources */,
 				A9130BC5248008F000CB1840 /* EEGAcquitionRawPacketsDeserializable.swift in Sources */,
@@ -1753,6 +1750,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4DC5E74E26CA830400FB0531 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D4A09842646DD1D00366DF6 /* BluetoothTestApp */;
+			targetProxy = 4DC5E74D26CA830400FB0531 /* PBXContainerItemProxy */;
+		};
 		4DCF4024267F676B0065779B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3549BB201DA389CD00C63030 /* MyBrainTechnologiesSDK */;
@@ -2149,6 +2151,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothTestApp.app/BluetoothTestApp";
 			};
 			name = Debug;
 		};
@@ -2179,6 +2182,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BluetoothTestApp.app/BluetoothTestApp";
 			};
 			name = Release;
 		};
