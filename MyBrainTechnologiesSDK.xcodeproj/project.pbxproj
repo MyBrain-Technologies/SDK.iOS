@@ -115,6 +115,7 @@
 		4D9FFAAE265FBD0B000952E1 /* MBTCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFAAD265FBD0B000952E1 /* MBTCharacteristic.swift */; };
 		4DA2FCA72666D4F700C8B14E /* CharacteristicDiscoverer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA2FCA62666D4F700C8B14E /* CharacteristicDiscoverer.swift */; };
 		4DB9992A2668EBFD00D4FBA0 /* MBTCharacteristicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB999292668EBFD00D4FBA0 /* MBTCharacteristicValue.swift */; };
+		4DC5E74C26CA82BB00FB0531 /* ImsDeserializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E74B26CA82BB00FB0531 /* ImsDeserializerTests.swift */; };
 		4DCD3CEE2671F3FD000B53C1 /* MBTDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3CED2671F3FD000B53C1 /* MBTDataSource.swift */; };
 		4DCD3CEF2671F3FD000B53C1 /* MBTDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3CED2671F3FD000B53C1 /* MBTDataSource.swift */; };
 		4DCD3CF92671F41B000B53C1 /* MBTDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCD3CF82671F41B000B53C1 /* MBTDataType.swift */; };
@@ -359,6 +360,7 @@
 		4D9FFAAD265FBD0B000952E1 /* MBTCharacteristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTCharacteristic.swift; sourceTree = "<group>"; };
 		4DA2FCA62666D4F700C8B14E /* CharacteristicDiscoverer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicDiscoverer.swift; sourceTree = "<group>"; };
 		4DB999292668EBFD00D4FBA0 /* MBTCharacteristicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTCharacteristicValue.swift; sourceTree = "<group>"; };
+		4DC5E74B26CA82BB00FB0531 /* ImsDeserializerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImsDeserializerTests.swift; sourceTree = "<group>"; };
 		4DCD3CED2671F3FD000B53C1 /* MBTDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTDataSource.swift; sourceTree = "<group>"; };
 		4DCD3CF82671F41B000B53C1 /* MBTDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTDataType.swift; sourceTree = "<group>"; };
 		4DCD3CFF2671F441000B53C1 /* MBTRecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRecordType.swift; sourceTree = "<group>"; };
@@ -984,6 +986,14 @@
 			path = "Characteristic discoverer";
 			sourceTree = "<group>";
 		};
+		4DC5E74A26CA82B400FB0531 /* IMS */ = {
+			isa = PBXGroup;
+			children = (
+				4DC5E74B26CA82BB00FB0531 /* ImsDeserializerTests.swift */,
+			);
+			path = IMS;
+			sourceTree = "<group>";
+		};
 		4DCD3CEC2671F3EA000B53C1 /* Record */ = {
 			isa = PBXGroup;
 			children = (
@@ -1324,6 +1334,7 @@
 		A9E3A7B824643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				4DC5E74A26CA82B400FB0531 /* IMS */,
 				A9130BCA24800D7100CB1840 /* EEG */,
 				A91BD900247D1EAB00603C42 /* Bluetooth */,
 				A92FCD59246AC70200D7DB51 /* TestsResources */,
@@ -1765,6 +1776,7 @@
 				4D08CB6F26822653004ED097 /* PeripheralGatewayProtocol.swift in Sources */,
 				4DCD3CFA2671F41B000B53C1 /* MBTDataType.swift in Sources */,
 				4D2891972676AB1A00B9DEE4 /* MBTPeripheralA2DPConnector.swift in Sources */,
+				4DC5E74C26CA82BB00FB0531 /* ImsDeserializerTests.swift in Sources */,
 				4D94474725F976B900CB364A /* MBTQRCodeSerial.swift in Sources */,
 				4D45E04126812DF7003E3D6B /* MBTPeripheral.swift in Sources */,
 				4DF8504D26BDAA0A0023564F /* MbtImsPacket.swift in Sources */,
