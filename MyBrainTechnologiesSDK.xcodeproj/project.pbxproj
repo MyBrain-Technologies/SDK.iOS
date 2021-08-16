@@ -331,10 +331,6 @@
 		4D4A09902646DD1E00366DF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D4A09932646DD1E00366DF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D4A09952646DD1E00366DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D4A099E2646DD1E00366DF6 /* BluetoothTestAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTestAppTests.swift; sourceTree = "<group>"; };
-		4D4A09A02646DD1E00366DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D4A09A92646DD1E00366DF6 /* BluetoothTestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTestAppUITests.swift; sourceTree = "<group>"; };
-		4D4A09AB2646DD1E00366DF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D5383A826C6A26C00276769 /* ImsAcquiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquiser.swift; sourceTree = "<group>"; };
 		4D5383AD26C6DA9600276769 /* ImsRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsRecorder.swift; sourceTree = "<group>"; };
 		4D5383B026C6DC6C00276769 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
@@ -606,8 +602,6 @@
 				2BC2D54520F8A2CE001CC2CE /* MyBrainTechnologiesSDK */,
 				A9E3A7B824643B7700E6A4B9 /* MyBrainTechnologiesSDKTests */,
 				4D4A09862646DD1D00366DF6 /* BluetoothTestApp */,
-				4D4A099D2646DD1E00366DF6 /* BluetoothTestAppTests */,
-				4D4A09A82646DD1E00366DF6 /* BluetoothTestAppUITests */,
 				3549BB061DA387DB00C63030 /* Products */,
 				357D954B1DA3F2B400AEC55F /* Frameworks */,
 			);
@@ -778,24 +772,6 @@
 				4D4A098D2646DD1D00366DF6 /* Main.storyboard */,
 			);
 			path = BluetoothTestApp;
-			sourceTree = "<group>";
-		};
-		4D4A099D2646DD1E00366DF6 /* BluetoothTestAppTests */ = {
-			isa = PBXGroup;
-			children = (
-				4D4A099E2646DD1E00366DF6 /* BluetoothTestAppTests.swift */,
-				4D4A09A02646DD1E00366DF6 /* Info.plist */,
-			);
-			path = BluetoothTestAppTests;
-			sourceTree = "<group>";
-		};
-		4D4A09A82646DD1E00366DF6 /* BluetoothTestAppUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4D4A09A92646DD1E00366DF6 /* BluetoothTestAppUITests.swift */,
-				4D4A09AB2646DD1E00366DF6 /* Info.plist */,
-			);
-			path = BluetoothTestAppUITests;
 			sourceTree = "<group>";
 		};
 		4D5383A726C6A24C00276769 /* Ims */ = {
