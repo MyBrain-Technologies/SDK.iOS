@@ -8,7 +8,7 @@ class ImsAcquisitionProcessor {
 
   private let acquisitionBuffer: ImsAcquisitionBuffer<ImsRawPacket>
 
-  private let converter = ImsDataConverter()
+  private let deserializer = ImsDeserializer()
 
   private let bufferSizeMax: Int
 
@@ -21,8 +21,6 @@ class ImsAcquisitionProcessor {
   private let electrodeToChannelIndex: [ElectrodeLocation: Int]
 
   var fullScaleMode: ImsFullScaleMode = ._2
-  
-  private let deserializer = ImsDeserializer()
 
   //----------------------------------------------------------------------------
   // MARK: - Initialization
