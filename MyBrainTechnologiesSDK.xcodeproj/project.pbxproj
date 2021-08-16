@@ -66,7 +66,6 @@
 		4D5383B626C6DDE100276769 /* ImsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B526C6DDE100276769 /* ImsExporter.swift */; };
 		4D5383B926C724D000276769 /* ImsAcquisitionBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */; };
 		4D5383BF26C7266300276769 /* RawPacketProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383BE26C7266300276769 /* RawPacketProtocol.swift */; };
-		4D5383C226C72DD400276769 /* ImsDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383C126C72DD400276769 /* ImsDataConverter.swift */; };
 		4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D85514F2682845300F43597 /* MBTEEGPacketManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85514E2682845300F43597 /* MBTEEGPacketManagerV2.swift */; };
 		4D8551532682852D00F43597 /* EegAcquiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551522682852D00F43597 /* EegAcquiser.swift */; };
@@ -102,7 +101,6 @@
 		4DF8504926BDA8070023564F /* ImsAcquisitionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */; };
 		4DF8504C26BDAA0A0023564F /* MbtImsPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */; };
 		4DF8504F26BDAE280023564F /* ImsDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504E26BDAE280023564F /* ImsDeserializer.swift */; };
-		4DF9DD1B26CA9472007AEA94 /* ImsDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504E26BDAE280023564F /* ImsDeserializer.swift */; };
 		4DF9DD1C26CA9475007AEA94 /* MbtImsPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */; };
 		4DF9DD1D26CA947D007AEA94 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92D7A3A248118CF000DF7C3 /* Array+extension.swift */; };
 		4DF9DD1E26CA9484007AEA94 /* ImsDeserializerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC5E74B26CA82BB00FB0531 /* ImsDeserializerTests.swift */; };
@@ -298,7 +296,6 @@
 		4D5383B526C6DDE100276769 /* ImsExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsExporter.swift; sourceTree = "<group>"; };
 		4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsAcquisitionBuffer.swift; sourceTree = "<group>"; };
 		4D5383BE26C7266300276769 /* RawPacketProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawPacketProtocol.swift; sourceTree = "<group>"; };
-		4D5383C126C72DD400276769 /* ImsDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImsDataConverter.swift; sourceTree = "<group>"; };
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -743,10 +740,9 @@
 			isa = PBXGroup;
 			children = (
 				4D5383A826C6A26C00276769 /* ImsAcquiser.swift */,
+				4DF8504E26BDAE280023564F /* ImsDeserializer.swift */,
 				4DF8504826BDA8070023564F /* ImsAcquisitionProcessor.swift */,
 				4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */,
-				4D5383C126C72DD400276769 /* ImsDataConverter.swift */,
-				4D08438326C7EFCC00EABCB7 /* ImsFullScaleMode.swift */,
 			);
 			path = Acquisition;
 			sourceTree = "<group>";
@@ -1002,7 +998,7 @@
 			children = (
 				4DF8504526BDA2D90023564F /* ImsRawPacket.swift */,
 				4DF8504B26BDAA0A0023564F /* MbtImsPacket.swift */,
-				4DF8504E26BDAE280023564F /* ImsDeserializer.swift */,
+				4D08438326C7EFCC00EABCB7 /* ImsFullScaleMode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1603,7 +1599,6 @@
 				4D5383A926C6A26C00276769 /* ImsAcquiser.swift in Sources */,
 				A918D28A24616DCB00026F1D /* BluetoothError.swift in Sources */,
 				A918D28E246199E000026F1D /* AudioError.swift in Sources */,
-				4D5383C226C72DD400276769 /* ImsDataConverter.swift in Sources */,
 				A927D58B23CCDAE600C20734 /* BinariesFileFinder.swift in Sources */,
 				4DB9992A2668EBFD00D4FBA0 /* MBTCharacteristicValue.swift in Sources */,
 				4D28918A2676AA8A00B9DEE4 /* PeripheralDelegate.swift in Sources */,
@@ -1653,7 +1648,6 @@
 				4DF9DD2C26CA94AD007AEA94 /* String+FilenameTests.swift in Sources */,
 				4DF9DD2B26CA94A3007AEA94 /* EEGAcquitionRawPacketsDeserializable.swift in Sources */,
 				4DF9DD2526CA948A007AEA94 /* EEGCalibrationProcessorTests.swift in Sources */,
-				4DF9DD1B26CA9472007AEA94 /* ImsDeserializer.swift in Sources */,
 				4DF9DD1F26CA948A007AEA94 /* FlattenModifiedChannelDataTests.swift in Sources */,
 				4DF9DD3126CA94B3007AEA94 /* FormatedVersionTests.swift in Sources */,
 				4DF9DD3226CA94B3007AEA94 /* RecordFileSaverTests.swift in Sources */,
