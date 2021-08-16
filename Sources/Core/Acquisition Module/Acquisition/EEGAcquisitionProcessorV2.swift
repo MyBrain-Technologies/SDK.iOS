@@ -14,6 +14,8 @@ class EEGAcquisitionProcessorV2 {
 
   private let sampletRate: Int
 
+  private let electrodeToChannelIndex: [ElectrodeLocation: Int]
+
   /******************** Dependency Injections ********************/
 
   private let signalProcessor: SignalProcessingManager
@@ -26,12 +28,14 @@ class EEGAcquisitionProcessorV2 {
        packetLength: Int,
        channelCount: Int,
        sampleRate: Int,
+       electrodeToChannelIndex: [ElectrodeLocation: Int],
        signalProcessor: SignalProcessingManager) {
     self.acquisitionBuffer = EEGAcquisitionBuffer(bufferSizeMax: bufferSizeMax)
     self.eegPacketLength = packetLength
     self.channelCount = channelCount
     self.sampletRate = sampleRate
     self.signalProcessor = signalProcessor
+    self.electrodeToChannelIndex = electrodeToChannelIndex
   }
 
   //----------------------------------------------------------------------------
@@ -54,17 +58,26 @@ class EEGAcquisitionProcessorV2 {
 
   /// Convert values from the acquisition to EEG Packets
   private func convertToEEGPacket(values: [[Float]],
-                                  hasQualityChecker: Bool) -> MBTEEGPacket {
-    var eegPacket = MBTEEGPacket(buffer: values)
+                                  hasQualityChecker: Bool) -> MBTEEGPacket? {
+    guard let eegPacket = MBTEEGPacket(
+      buffer: values,
+      electrodeToChannelIndex: electrodeToChannelIndex
+    ) else {
+      return nil
+    }
+    
     if hasQualityChecker {
-      eegPacket = addQualities(to: eegPacket)
-      eegPacket = addModifiedValues(to: eegPacket)
+      let qualities = generateQualities(from: eegPacket)
+      eegPacket.addQualities(qualities)
+
+      let modifiedValues = generateModifiedValues(from: eegPacket)
+      eegPacket.setModifiedChannelsData(modifiedValues, sampRate: sampletRate)
     }
     return eegPacket
   }
 
-  /// Add qualities from signal processing to an eeg packet
-  private func addQualities(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
+  /// Get qualities from signal processing
+  private func generateQualities(from eegPacket: MBTEEGPacket) -> [Float] {
     #warning("TODO: Check")
     var buffer = eegPacket.channelsData
 
@@ -72,17 +85,14 @@ class EEGAcquisitionProcessorV2 {
       signalProcessor.computeQualityValue(buffer,
                                           sampleRate: sampletRate,
                                           eegPacketLength: eegPacketLength)
-    eegPacket.addQualities(qualities)
-    return eegPacket
+    return qualities
   }
 
-  /// Add EEG modified values from signal progression to an eeg packet
-  private func addModifiedValues(to eegPacket: MBTEEGPacket) -> MBTEEGPacket {
-
+  /// Get Eeg modified values from signal progression
+  private func generateModifiedValues(
+    from eegPacket: MBTEEGPacket
+  ) -> [[Float]] {
     let correctedValues = signalProcessor.getModifiedEEGValues()
-
-    eegPacket.setModifiedChannelsData(correctedValues,
-                                      sampRate: sampletRate)
-    return eegPacket
+    return correctedValues
   }
 }

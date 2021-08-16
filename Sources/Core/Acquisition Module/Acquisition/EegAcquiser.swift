@@ -32,11 +32,6 @@ internal class EegAcquiser {
    }
   }
 
-  /******************** Delegate ********************/
-
-  /// The MBTBluetooth Event Delegate.
-  weak var delegate: MBTEEGAcquisitionDelegate?
-
   //----------------------------------------------------------------------------
   // MARK: - Initialization
   //----------------------------------------------------------------------------
@@ -45,14 +40,18 @@ internal class EegAcquiser {
        packetLength: Int,
        channelCount: Int,
        sampleRate: Int,
+       electrodeToChannelIndex: [ElectrodeLocation: Int],
        signalProcessor: SignalProcessingManager) {
     self.signalProcessor = signalProcessor
     acquisitionProcessor =
-      EEGAcquisitionProcessorV2(bufferSizeMax: bufferSizeMax,
-                                packetLength: packetLength,
-                                channelCount: channelCount,
-                                sampleRate: sampleRate,
-                                signalProcessor: signalProcessor)
+      EEGAcquisitionProcessorV2(
+        bufferSizeMax: bufferSizeMax,
+        packetLength: packetLength,
+        channelCount: channelCount,
+        sampleRate: sampleRate,
+        electrodeToChannelIndex: electrodeToChannelIndex,
+        signalProcessor: signalProcessor
+      )
     setup()
   }
 

@@ -37,6 +37,9 @@ public class MBTClientV2 {
   /// Init a MBTEEGAcquisitionManager, which deals with data from the Headset.
   internal var eegAcquiser: EegAcquiser?
 
+  /// Init a MBTEEGAcquisitionManager, which deals with data from the Headset.
+  internal var imsAcquiser: ImsAcquiser?
+
   /// Init a MBTSignalProcessingManager, which deals with
   /// the Signal Processing Library (via the bridge).
   internal let signalProcessingManager = SignalProcessingManager()
@@ -45,7 +48,7 @@ public class MBTClientV2 {
 
   internal var recordInfo: MBTRecordInfo = MBTRecordInfo()
 
-  public var isEegAcqusitionRecordingPaused: Bool {
+  public var isRecordingEeg: Bool {
     set { eegAcquiser?.isRecording = newValue }
     get { return eegAcquiser?.isRecording ?? false }
   }
@@ -124,6 +127,11 @@ public class MBTClientV2 {
     get { return bluetoothManager.isListeningToEEG }
   }
 
+  internal var isListeningToIMS: Bool {
+    set { bluetoothManager.isListeningToIMS = newValue }
+    get { return bluetoothManager.isListeningToIMS }
+  }
+
   #warning("TO EVALUATE")
 //  public var batteryLevelUpdateInterval: TimeInterval? {
 //    didSet {
@@ -194,14 +202,26 @@ public class MBTClientV2 {
   private func update(from deviceInformation: DeviceInformation) {
     let acquisitionInformation = deviceInformation.acquisitionInformation
 
+    let acquisitionElectrodes = acquisitionInformation.electrodes.acquisitions
+    var electrodeToChannelIndex = [ElectrodeLocation: Int]()
+    for (index, value) in acquisitionElectrodes.enumerated() {
+      electrodeToChannelIndex[value] = index
+    }
+
     eegAcquiser = EegAcquiser(
       bufferSizeMax: acquisitionInformation.eegPacketMaxSize,
       packetLength: acquisitionInformation.eegPacketSize,
-      channelCount: deviceInformation.acquisitionInformation.channelCount,
-      sampleRate: deviceInformation.acquisitionInformation.sampleRate,
+      channelCount: acquisitionInformation.channelCount,
+      sampleRate: acquisitionInformation.sampleRate,
+      electrodeToChannelIndex: electrodeToChannelIndex,
       signalProcessor: signalProcessingManager
     )
 
+    imsAcquiser = ImsAcquiser(
+      bufferSizeMax: acquisitionInformation.imsPacketMaxSize,
+      channelCount: acquisitionInformation.imsAxisCount,
+      sampleRate: acquisitionInformation.imsSampleRate
+    )
   }
 
   //----------------------------------------------------------------------------
@@ -354,6 +374,21 @@ public class MBTClientV2 {
                               completion: completion)
   }
 
+//  private func isAbleToSaveRecording()
+//  -> Result<(DeviceInformation, EegAcquiser), SDKError> {
+//    guard let deviceInformation = deviceInformation else {
+//      log.error("Current device not found")
+//      return .failure(SDKError.noConnectedHeadset)
+//    }
+//
+//    guard let eegAcquiser = eegAcquiser else {
+//      log.error("eegAcquisitionManager not found")
+//      return .failure(SDKError.noEegAcquiser)
+//    }
+//
+//    return .success((deviceInformation, eegAcquiser))
+//  }
+
   public func removeRecord(at url: URL) {
     RecordFileSaver.shared.removeRecord(at: url)
   }
@@ -362,36 +397,49 @@ public class MBTClientV2 {
   // MARK: - Acquisition Manager
   //----------------------------------------------------------------------------
 
-    /// Start streaming EEG Data from MyBrainActivity Characteristic.
-    /// Start streaming headSet Data from HeadsetStatus Characteristic.
-    /// - Remark: Data will be provided through the MelomineEngineDelegate.
-    public func startStream(shouldUseQualityChecker: Bool) -> Bool {
-      guard isConnected,
-            let deviceInformation = deviceInformation,
-            let eegAcquiser = eegAcquiser
-      else {
-        return false
-      }
-
-      eegAcquiser.startStream(
-        isUsingQualityChecker: shouldUseQualityChecker,
-        sampleRate: deviceInformation.acquisitionInformation.sampleRate
-      )
-      bluetoothManager.isListeningToEEG = true
-      bluetoothManager.isListeningToHeadsetStatus = true
-      return true
+  /// Start streaming EEG Data from MyBrainActivity Characteristic.
+  /// Start streaming headSet Data from HeadsetStatus Characteristic.
+  /// - Remark: Data will be provided through the MelomineEngineDelegate.
+  public func startStream(shouldUseQualityChecker: Bool) -> Bool {
+    guard isConnected,
+          let deviceInformation = deviceInformation,
+          let eegAcquiser = eegAcquiser
+    else {
+      return false
     }
 
-    /// Stop streaming EEG Data to MelomineEngineDelegate.
-    /// Stop streaming headSet Data from MelomindEngineDelegate.
-    /// - Remark: a JSON will be created with all the MBTEEGPacket.
-    public func stopStream() {
-      bluetoothManager.isListeningToHeadsetStatus = false
-      bluetoothManager.isListeningToEEG = false
-      eegAcquiser?.stopStream()
-    }
+    eegAcquiser.startStream(
+      isUsingQualityChecker: shouldUseQualityChecker,
+      sampleRate: deviceInformation.acquisitionInformation.sampleRate
+    )
+    bluetoothManager.isListeningToEEG = true
+    bluetoothManager.isListeningToHeadsetStatus = true
+    return true
+  }
 
-  /// Start saving EEGPacket on DB  /// - Parameters:
+  /// Stop streaming EEG Data to MelomineEngineDelegate.
+  /// Stop streaming headSet Data from MelomindEngineDelegate.
+  /// - Remark: a JSON will be created with all the MBTEEGPacket.
+  public func stopStream() {
+    bluetoothManager.isListeningToHeadsetStatus = false
+    bluetoothManager.isListeningToEEG = false
+    eegAcquiser?.stopStream()
+  }
+
+  public func startImsStreaming() {
+    isListeningToIMS = true
+  }
+
+  public func stopImsStreaming() {
+    isListeningToIMS = false
+  }
+
+  //----------------------------------------------------------------------------
+  // MARK: - Recording
+  //----------------------------------------------------------------------------
+
+  /// Start saving EEGPacket on DB
+  /// - Parameters:
   ///   - newRecord: Create a new recordId on the JSON File
   ///   - recordingType: Change the session's type
   @discardableResult
@@ -409,6 +457,7 @@ public class MBTClientV2 {
     }
 
     eegAcquiser.isRecording = true
+    imsAcquiser?.isRecording = true
 
     return recordInfo.recordId
   }
@@ -417,6 +466,7 @@ public class MBTClientV2 {
   public func stopRecording() {
     guard isConnected else { return }
     eegAcquiser?.isRecording = false
+    imsAcquiser?.isRecording = false
   }
 
 //  //----------------------------------------------------------------------------
@@ -517,6 +567,15 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
     }
 
     acquisitionDelegate?.didUpdateEEGData(eegPacket)
+  }
+
+  public func didUpdateImsData(_ data: Data) {
+    // Move acquiser / recorder / processor inside DAS (Digital Acquisition Signal) class
+    guard let imsPacket = imsAcquiser?.processIms(from: data) else {
+      return
+    }
+
+    acquisitionDelegate?.didUpdateImsData(imsPacket)
   }
 
 }

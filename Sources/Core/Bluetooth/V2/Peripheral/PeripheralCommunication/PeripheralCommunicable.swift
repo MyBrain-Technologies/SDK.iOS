@@ -44,4 +44,6 @@ protocol PeripheralCommunicable {
 
   func notifyHeadsetStatus(value: Bool)
 
+  func notifyAccelerometerMeasurement(value: Bool)
+
 }

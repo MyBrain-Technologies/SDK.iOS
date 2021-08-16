@@ -1,10 +1,9 @@
 import Foundation
 
 protocol PeripheralDelegate: AnyObject {
-
-  #warning("TODO: Remove upercases")
-  func didValueUpdate(brainData: Data)
   func didValueUpdate(batteryLevel: Int)
+  func didValueUpdate(brainData: Data)
+  func didValueUpdate(imsData: Data)
   func didValueUpdate(saturationStatus: Int)
 
   func didUpdate(sampleBufferSizeFromMtu: Int)
@@ -18,5 +17,4 @@ protocol PeripheralDelegate: AnyObject {
   func didConnect(deviceInformation: DeviceInformation)
 
   func didFail(error: Error)
-  
 }

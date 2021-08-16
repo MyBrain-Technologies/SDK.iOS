@@ -16,7 +16,7 @@ class EEGAcquisitionBuffer {
 
   private var previousIndex: Int16
 
-  private var packetBuffer: EEGRawPacketBuffer
+  private var packetBuffer: RawPacketBuffer
 
   /******************** Quick access properties ********************/
 
@@ -31,7 +31,7 @@ class EEGAcquisitionBuffer {
   //----------------------------------------------------------------------------
 
   init(bufferSizeMax: Int, lastIndex: Int16 = -1) {
-    self.packetBuffer = EEGRawPacketBuffer(bufferSizeMax: bufferSizeMax)
+    self.packetBuffer = RawPacketBuffer(bufferSizeMax: bufferSizeMax)
     self.previousIndex = lastIndex
   }
 

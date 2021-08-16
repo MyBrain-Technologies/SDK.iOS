@@ -77,11 +77,12 @@ class SDKTestViewController: UIViewController {
 
   @IBAction func changeStreamingEEGState(_ sender: UISwitch) {
     if sender.isOn {
-      sdk.startStream(shouldUseQualityChecker: true)
+      sdk.startImsStreaming()
+//      sdk.startStream(shouldUseQualityChecker: true)
       sdk.batteryLevelRefreshInterval = 0
     } else {
-      sdk.stopStream()
-
+//      sdk.stopStream()
+      sdk.stopImsStreaming()
       sdk.batteryLevelRefreshInterval = 2
     }
   }
@@ -168,9 +169,9 @@ extension SDKTestViewController: MBTA2DPBluetoothDelegate {
 
 extension SDKTestViewController: MBTAcquisitionDelegate {
 
-  func didUpdateBatteryLevel(_ levelBattery: Int) {
-    print("Battery level: \(levelBattery) %")
-    batteryLevelLabel.text = String("\(levelBattery) %")
+  func didUpdateBatteryLevel(_ batteryLevel: Int) {
+    print("Battery level: \(batteryLevel) %")
+    batteryLevelLabel.text = String("\(batteryLevel) %")
   }
 
   func didUpdateSaturationStatus(_ status: Int) {
@@ -185,6 +186,10 @@ extension SDKTestViewController: MBTAcquisitionDelegate {
     print("EEg raw data: \(data)")
     let text = String(data: data, encoding: .ascii)
     eegRawDataLabel.text = text
+  }
+
+  func didUpdateImsData(_ imsPacket: MbtImsPacket) {
+    print(imsPacket.coordinates.first)
   }
 
 }

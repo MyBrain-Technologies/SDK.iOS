@@ -144,4 +144,11 @@ class PostIndus5PeripheralCommunicator: PeripheralCommunicable {
     /// Not used for post indus5
   }
 
+  func notifyAccelerometerMeasurement(value: Bool) {
+    let bytes = value == true ?
+      [MailboxCommand.startImsAcquisition.rawValue]
+    : [MailboxCommand.stopImsAcquisition.rawValue]
+    sendMailBoxCommand(bytes: bytes)
+  }
+
 }

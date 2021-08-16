@@ -17,7 +17,7 @@ public class MBTEEGPacket {
   /// should be equal to the number of channels if there is
   /// a status channel. It's calculated by the Quality Checker
   /// and it indicates if the EEG datas are relevant or not.
-  public var qualities = [Float]()
+  public private(set) var qualities = [Float]()
 
   /// The timestamp in milliseconds when this packet is created.
   let timestamp = Int(Date().timeIntervalSince1970 * 1000)
@@ -33,6 +33,8 @@ public class MBTEEGPacket {
     return modifiedChannelsData.flattened
   }
 
+  public let electrodeToChannelIndex: [ElectrodeLocation: Int]
+
   //----------------------------------------------------------------------------
   // MARK: - EEGPackets Methods
   //----------------------------------------------------------------------------
@@ -42,9 +44,11 @@ public class MBTEEGPacket {
   /// (first channel) [0]: [values for a channel]
   /// (second channel) [1]: [values for a second channel]
   /// ...
-  public convenience init(buffer: Buffer) {
-    self.init()
+  public init?(buffer: Buffer,
+               electrodeToChannelIndex: [ElectrodeLocation: Int]) {
+    guard buffer.count == electrodeToChannelIndex.count else { return nil }
     self.channelsData = buffer
+    self.electrodeToChannelIndex = electrodeToChannelIndex
   }
 
   /// Add *Quality* values, calculated by the Quality Checker, to a *MBTEEGPacket*.
@@ -61,9 +65,22 @@ public class MBTEEGPacket {
       return channel
     }
 
-
     modifiedChannelsData.removeAll()
     modifiedChannelsData.append(contentsOf: buffer)
+  }
+
+  func getChannel(of electrode: ElectrodeLocation) -> [Float]? {
+    guard let channelIndex = electrodeToChannelIndex[electrode] else {
+      return nil
+    }
+    return channelsData[channelIndex]
+  }
+
+  func getModifiedChannel(of electrode: ElectrodeLocation) -> [Float]? {
+    guard let channelIndex = electrodeToChannelIndex[electrode] else {
+      return nil
+    }
+    return modifiedChannelsData[channelIndex]
   }
 
 }

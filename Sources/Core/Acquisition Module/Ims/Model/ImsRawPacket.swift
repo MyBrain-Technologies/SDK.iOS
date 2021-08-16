@@ -1,6 +1,6 @@
 import Foundation
-// Good
-struct EEGRawPacket {
+
+struct ImsRawPacket: RawPacketProtocol {
 
   //----------------------------------------------------------------------------
   // MARK: - Properties
@@ -36,7 +36,7 @@ struct EEGRawPacket {
   }
 
   init(data: Data) {
-    self.rawValue = data.toUint8Array
+    self.rawValue = Array(data)
   }
 
 }
@@ -45,7 +45,7 @@ struct EEGRawPacket {
 // MARK: - CustomStringConvertible
 //==============================================================================
 
-extension EEGRawPacket: CustomStringConvertible {
+extension ImsRawPacket: CustomStringConvertible {
 
   var description: String {
     return """
@@ -55,3 +55,4 @@ extension EEGRawPacket: CustomStringConvertible {
     """
   }
 }
+

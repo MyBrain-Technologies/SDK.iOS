@@ -152,9 +152,9 @@ class EEGAcquisitionSaverV2 {
       sampRate: deviceInformation.acquisitionInformation.sampleRate,
       eegPacketLength: deviceInformation.acquisitionInformation.eegPacketSize,
       nbChannels: deviceInformation.acquisitionInformation.channelCount,
-      acquisitionLocation: electrodes.acquisitions.map { $0.stringValue },
-      referencesLocation: electrodes.references.map { $0.stringValue },
-      groundsLocation: electrodes.grounds.map { $0.stringValue }
+      acquisitionLocation: electrodes.acquisitions.map { $0.rawValue },
+      referencesLocation: electrodes.references.map { $0.rawValue },
+      groundsLocation: electrodes.grounds.map { $0.rawValue }
     )
   }
 

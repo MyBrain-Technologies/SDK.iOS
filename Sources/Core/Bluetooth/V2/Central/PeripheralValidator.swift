@@ -22,7 +22,7 @@ class PeripheralValidator {
     let melomindService = MBTService.PreIndus5.myBrain.uuid
     let hasMelomindService = services.contains(melomindService)
 
-    let blePrefix = Constants.DeviceName.blePrefix
+    let blePrefix = Constants.DeviceName.melomindBlePrefix
     let nameContainMelomindPrefix =
       deviceName.lowercased().starts(with: blePrefix)
 
@@ -46,7 +46,7 @@ class PeripheralValidator {
   }
 
   func isQplusPeripheral(deviceName: String) -> Bool {
-    let blePrefix =  Constants.DeviceName.blePrefix
+    let blePrefix = Constants.DeviceName.qpBlePrefix
     let nameHasQplusPrefix = deviceName.lowercased().starts(with: blePrefix)
     return nameHasQplusPrefix
   }

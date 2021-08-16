@@ -7,6 +7,8 @@ class MBTPeripheralA2DPConnector {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  private let devicePrefix: String
+
   /******************** AVAuddioSession ********************/
 
   private var session: AVAudioSession {
@@ -40,7 +42,9 @@ class MBTPeripheralA2DPConnector {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init() {
+  #warning("TO CHANGE QUICKLY")
+  init(devicePrefix: String = Constants.DeviceName.qpBlePrefix) {
+    self.devicePrefix = devicePrefix
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(audioRouteDidChange(_:)),
@@ -106,7 +110,7 @@ class MBTPeripheralA2DPConnector {
       return
     }
 
-    let audioOutputName = Constants.DeviceName.blePrefix + serialNumber
+    let audioOutputName = devicePrefix + serialNumber
     log.info("📲 New output port name", context: audioOutputName)
 
     // A2DP Audio is connected
@@ -141,12 +145,11 @@ class MBTPeripheralA2DPConnector {
       let serialNumber = "1010300431"
       //melomindOutput?.portName.serialNumberFromDeviceName else { return nil }
 
-    let melomindAudioOutputName =
-      Constants.DeviceName.blePrefix + serialNumber
+    let deviceAudioOutputName = devicePrefix + serialNumber
 
-    log.info("📲 New output audio port name", context: melomindAudioOutputName)
+    log.info("📲 New output audio port name", context: deviceAudioOutputName)
 
-    return melomindAudioOutputName
+    return deviceAudioOutputName
   }
 
 //  private func isDeviceFirmwareVersionUpToDate() -> Bool {
