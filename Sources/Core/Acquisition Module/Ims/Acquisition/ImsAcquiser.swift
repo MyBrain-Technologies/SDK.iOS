@@ -43,20 +43,10 @@ internal class ImsAcquiser {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  init(bufferSizeMax: Int,
-       packetLength: Int,
-       channelCount: Int = 3,
-       sampleRate: Int,
-       electrodeToChannelIndex: [ElectrodeLocation: Int]) {
-
-    acquisitionProcessor =
-      ImsAcquisitionProcessor(
-        bufferSizeMax: bufferSizeMax,
-        packetLength: packetLength,
-        channelCount: channelCount,
-        sampleRate: sampleRate,
-        electrodeToChannelIndex: electrodeToChannelIndex
-      )
+  init(bufferSizeMax: Int, channelCount: Int, sampleRate: Int) {
+    acquisitionProcessor = ImsAcquisitionProcessor(bufferSizeMax: bufferSizeMax,
+                                                   channelCount: channelCount,
+                                                   sampleRate: sampleRate)
   }
 
   //==============================================================================

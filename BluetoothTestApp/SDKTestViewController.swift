@@ -189,7 +189,7 @@ extension SDKTestViewController: MBTAcquisitionDelegate {
   }
 
   func didUpdateImsData(_ imsPacket: MbtImsPacket) {
-
+    print(imsPacket.coordinates.first)
   }
 
 }

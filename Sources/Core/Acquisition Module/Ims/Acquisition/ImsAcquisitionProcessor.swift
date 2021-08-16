@@ -12,13 +12,9 @@ class ImsAcquisitionProcessor {
 
   private let bufferSizeMax: Int
 
-  private let packetLength: Int
-
   private let channelCount: Int
 
   private let sampleRate: Int
-
-  private let electrodeToChannelIndex: [ElectrodeLocation: Int]
 
   var fullScaleMode: ImsFullScaleMode = ._2
 
@@ -27,18 +23,14 @@ class ImsAcquisitionProcessor {
   //----------------------------------------------------------------------------
 
   init(bufferSizeMax: Int,
-       packetLength: Int,
-       channelCount: Int = 3,
-       sampleRate: Int,
-       electrodeToChannelIndex: [ElectrodeLocation: Int]) {
+       channelCount: Int,
+       sampleRate: Int) {
     let bufferSize = 100 * 3 // 100Hz, 3 samples (x,y,z)
     self.acquisitionBuffer =
-      ImsAcquisitionBuffer<ImsRawPacket>(bufferSizeMax: bufferSize)// bufferSizeMax)
-    self.bufferSizeMax = 100 // bufferSizeMax
-    self.packetLength = packetLength
+      ImsAcquisitionBuffer<ImsRawPacket>(bufferSizeMax: bufferSizeMax)
+    self.bufferSizeMax = bufferSizeMax
     self.channelCount = channelCount
     self.sampleRate = sampleRate
-    self.electrodeToChannelIndex = electrodeToChannelIndex
   }
 
   //----------------------------------------------------------------------------

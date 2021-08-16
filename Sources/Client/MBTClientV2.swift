@@ -211,18 +211,17 @@ public class MBTClientV2 {
     eegAcquiser = EegAcquiser(
       bufferSizeMax: acquisitionInformation.eegPacketMaxSize,
       packetLength: acquisitionInformation.eegPacketSize,
-      channelCount: deviceInformation.acquisitionInformation.channelCount,
-      sampleRate: deviceInformation.acquisitionInformation.sampleRate,
+      channelCount: acquisitionInformation.channelCount,
+      sampleRate: acquisitionInformation.sampleRate,
       electrodeToChannelIndex: electrodeToChannelIndex,
       signalProcessor: signalProcessingManager
     )
 
     imsAcquiser = ImsAcquiser(
-      bufferSizeMax: acquisitionInformation.eegPacketMaxSize,
-      packetLength: acquisitionInformation.eegPacketSize,
-      channelCount: deviceInformation.acquisitionInformation.channelCount,
-      sampleRate: deviceInformation.acquisitionInformation.sampleRate,
-      electrodeToChannelIndex: electrodeToChannelIndex)
+      bufferSizeMax: acquisitionInformation.imsPacketMaxSize,
+      channelCount: acquisitionInformation.imsAxisCount,
+      sampleRate: acquisitionInformation.imsSampleRate
+    )
   }
 
   //----------------------------------------------------------------------------
@@ -571,18 +570,12 @@ extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
   }
 
   public func didUpdateImsData(_ data: Data) {
-    print("UPDATE IMS DATA")
-    let textData = String(data: data, encoding: .utf8)
-    let imsRawPacket = ImsRawPacket(data: data)
-
     // Move acquiser / recorder / processor inside DAS (Digital Acquisition Signal) class
     guard let imsPacket = imsAcquiser?.processIms(from: data) else {
       return
     }
 
-    
-
-    print(data)
+    acquisitionDelegate?.didUpdateImsData(imsPacket)
   }
 
 }

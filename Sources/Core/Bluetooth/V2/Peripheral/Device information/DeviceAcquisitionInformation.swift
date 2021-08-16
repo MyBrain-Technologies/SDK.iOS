@@ -16,6 +16,13 @@ public struct DeviceAcquisitionInformation: Equatable, Codable {
 
   public let eegPacketMaxSize: Int
 
+  /// Sample rate of the ims
+  public let imsSampleRate: Int
+
+  public let imsPacketMaxSize: Int
+
+  public let imsAxisCount: Int
+
   public let electrodes: Electrodes
 
   //----------------------------------------------------------------------------
@@ -23,13 +30,16 @@ public struct DeviceAcquisitionInformation: Equatable, Codable {
   //----------------------------------------------------------------------------
 
   init(from indusVersion: IndusVersion) {
-    let byteSize = 2
+    let sampleByteSize = 2 // sample size
     switch indusVersion {
       case .indus2, .indus3:
         self.channelCount = 2
         self.sampleRate = 250
         self.eegPacketSize = 250
-        self.eegPacketMaxSize = eegPacketSize * channelCount * byteSize
+        self.eegPacketMaxSize = eegPacketSize * channelCount * sampleByteSize
+        self.imsSampleRate = 100
+        self.imsAxisCount = 3
+        self.imsPacketMaxSize = imsSampleRate * imsAxisCount
         self.electrodes = Electrodes(acquisitions: [.p3, .p4],
                                      references: [.m1],
                                      grounds: [.m2])
@@ -38,7 +48,10 @@ public struct DeviceAcquisitionInformation: Equatable, Codable {
         self.channelCount = 4
         self.sampleRate = 250
         self.eegPacketSize = 250
-        self.eegPacketMaxSize = eegPacketSize * channelCount * byteSize
+        self.eegPacketMaxSize = eegPacketSize * channelCount * sampleByteSize
+        self.imsSampleRate = 100
+        self.imsAxisCount = 3
+        self.imsPacketMaxSize = imsSampleRate * imsAxisCount
         #warning("TODO: Check channel order")
         self.electrodes = Electrodes(acquisitions: [.p3, .p4, .af3, .af4],
                                      references: [.m1],
