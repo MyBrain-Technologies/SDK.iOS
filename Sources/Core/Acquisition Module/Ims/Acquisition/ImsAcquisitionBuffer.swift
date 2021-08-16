@@ -22,7 +22,7 @@ class ImsAcquisitionBuffer<RawPacketType: RawPacketProtocol> {
 
   /******************** Quick access properties ********************/
 
-  var bufferSizeMax: Int = 250 {
+  var bufferSizeMax: Int = 300 {
     didSet {
       packetBuffer.bufferSizeMax = bufferSizeMax
     }
@@ -57,7 +57,7 @@ class ImsAcquisitionBuffer<RawPacketType: RawPacketProtocol> {
 
   /// Add a packet to the buffer. Missing packets are filled with 0xFF.
   func add(rawPacket: RawPacketProtocol) {
-    log.verbose(rawPacket)
+    //log.verbose(rawPacket)
     addMissingPackets(before: rawPacket)
     packetBuffer.add(bytes: rawPacket.packetValues)
   }

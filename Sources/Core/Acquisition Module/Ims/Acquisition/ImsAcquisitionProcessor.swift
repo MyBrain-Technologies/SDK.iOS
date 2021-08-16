@@ -31,9 +31,10 @@ class ImsAcquisitionProcessor {
        channelCount: Int = 3,
        sampleRate: Int,
        electrodeToChannelIndex: [ElectrodeLocation: Int]) {
+    let bufferSize = 100 * 3 // 100Hz, 3 samples (x,y,z)
     self.acquisitionBuffer =
-      ImsAcquisitionBuffer<ImsRawPacket>(bufferSizeMax: bufferSizeMax)
-    self.bufferSizeMax = bufferSizeMax
+      ImsAcquisitionBuffer<ImsRawPacket>(bufferSizeMax: bufferSize)// bufferSizeMax)
+    self.bufferSizeMax = 100 // bufferSizeMax
     self.packetLength = packetLength
     self.channelCount = channelCount
     self.sampleRate = sampleRate
