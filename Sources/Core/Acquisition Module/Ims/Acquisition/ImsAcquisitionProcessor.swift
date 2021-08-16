@@ -52,14 +52,10 @@ class ImsAcquisitionProcessor {
       return nil
     }
 
-    print(fullScaleMode.rawValue)
-    let coordinateBytes = deserializer.deserializeToXYZ(bytes: packet)
-    let mbtImsPacket = converter.convert(from: coordinateBytes)
-    return mbtImsPacket
-  }
-
-  private func generateCoordinateValue(from bytes: [UInt8]) -> Float {
-    return 0.0
+    let scaleValue = fullScaleMode.rawValue
+    let imsPacket = deserializer.deserialize(bytes: packet,
+                                                   scaleValue: scaleValue)
+    return imsPacket
   }
 
 

@@ -11,6 +11,9 @@ public class MbtImsPacket {
   /// The timestamp in milliseconds when this packet is created.
   public let timestamp = Int(Date().timeIntervalSince1970 * 1000)
 
+  /// Scale value used during the acquisition.
+  public let scaleValue: Float
+
   /******************** Coordinate ********************/
 
   public let coordinates: [Coordinate]
@@ -19,7 +22,7 @@ public class MbtImsPacket {
   // MARK: - Initialization
   //----------------------------------------------------------------------------
 
-  public init?(with rawCordinates: [[Float]]) {
+  public init?(with rawCordinates: [[Float]], scaleValue: Float) {
     var coordinates = [Coordinate]()
     for rawCoordinate in rawCordinates {
       guard rawCoordinate.count == 3 else { return nil }
@@ -30,10 +33,12 @@ public class MbtImsPacket {
       coordinates.append(coordinate)
     }
     self.coordinates = coordinates
+    self.scaleValue = scaleValue
   }
 
-  public init(with coordinates: [Coordinate]) {
+  public init(coordinates: [Coordinate], scaleValue: Float) {
     self.coordinates = coordinates
+    self.scaleValue = scaleValue
   }
 
 }
