@@ -126,7 +126,6 @@
 		4DF9DD3026CA94B3007AEA94 /* MBTRelaxIndexAlgorithmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */; };
 		4DF9DD3126CA94B3007AEA94 /* FormatedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */; };
 		4DF9DD3226CA94B3007AEA94 /* RecordFileSaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96BF12924698F3400582DB1 /* RecordFileSaverTests.swift */; };
-		4DF9DD3326CA94B5007AEA94 /* MyBrainTechnologiesSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */; };
 		A90A1D6222C373360097C1BE /* libfftw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5922C373350097C1BE /* libfftw3.a */; };
 		A90A1D6322C373360097C1BE /* libQualityChecker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5A22C373360097C1BE /* libQualityChecker.a */; };
 		A90A1D6422C373360097C1BE /* libAlgebra.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A90A1D5B22C373360097C1BE /* libAlgebra.a */; };
@@ -436,7 +435,6 @@
 		A9B252CA2488040000867289 /* EEGAcquisitionSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGAcquisitionSaver.swift; sourceTree = "<group>"; };
 		A9D3B5DD23F40740006138E5 /* BluetoothState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothState.swift; sourceTree = "<group>"; };
 		A9E3A7B724643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyBrainTechnologiesSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBrainTechnologiesSDKTests.swift; sourceTree = "<group>"; };
 		A9E3A7BB24643B7700E6A4B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E3A7CE2464411500E6A4B9 /* MBTRelaxIndexAlgorithmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTRelaxIndexAlgorithmTests.swift; sourceTree = "<group>"; };
 		A9E3A7D02464432900E6A4B9 /* FormatedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatedVersionTests.swift; sourceTree = "<group>"; };
@@ -1263,7 +1261,6 @@
 				A91BD900247D1EAB00603C42 /* Bluetooth */,
 				A92FCD59246AC70200D7DB51 /* TestsResources */,
 				A9E3A7CD246440D500E6A4B9 /* Shared */,
-				A9E3A7B924643B7700E6A4B9 /* MyBrainTechnologiesSDKTests.swift */,
 				A9E3A7BB24643B7700E6A4B9 /* Info.plist */,
 			);
 			path = MyBrainTechnologiesSDKTests;
@@ -1655,7 +1652,6 @@
 				4DF9DD2126CA948A007AEA94 /* EEGAcquisitionBufferTests.swift in Sources */,
 				4DF9DD2C26CA94AD007AEA94 /* String+FilenameTests.swift in Sources */,
 				4DF9DD2B26CA94A3007AEA94 /* EEGAcquitionRawPacketsDeserializable.swift in Sources */,
-				4DF9DD3326CA94B5007AEA94 /* MyBrainTechnologiesSDKTests.swift in Sources */,
 				4DF9DD2526CA948A007AEA94 /* EEGCalibrationProcessorTests.swift in Sources */,
 				4DF9DD1B26CA9472007AEA94 /* ImsDeserializer.swift in Sources */,
 				4DF9DD1F26CA948A007AEA94 /* FlattenModifiedChannelDataTests.swift in Sources */,
