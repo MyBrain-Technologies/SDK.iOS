@@ -274,6 +274,10 @@ public class MBTClientV2 {
     bluetoothManager.disconnect()
   }
 
+  public func disconnect() {
+    bluetoothManager.disconnect()
+  }
+
   //----------------------------------------------------------------------------
   // MARK: - Bluetooth commands
   //----------------------------------------------------------------------------
