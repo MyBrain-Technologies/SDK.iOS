@@ -69,7 +69,7 @@ public class MBTBluetoothManagerV2 {
     }
   }
 
-  private(set) var lastBatteryLevel: Int = -1
+  private(set) var lastBatteryLevel: Float = -1
 
   /******************** Delegate ********************/
 
@@ -216,7 +216,7 @@ extension MBTBluetoothManagerV2: PeripheralDelegate {
     acquisitionDelegate?.didUpdateImsData(imsData)
   }
 
-  func didValueUpdate(batteryLevel: Int) {
+  func didValueUpdate(batteryLevel: Float) {
     lastBatteryLevel = batteryLevel
     acquisitionDelegate?.didUpdateBatteryLevel(batteryLevel)
   }

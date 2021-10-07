@@ -208,7 +208,7 @@ class PeripheralGatewayPostIndus5: PeripheralGatewayProtocol {
 
 extension PeripheralGatewayPostIndus5: PeripheralValueReceiverDelegate {
 
-  func didUpdate(batteryLevel: Int) {
+  func didUpdate(batteryLevel: Float) {
     delegate?.didValueUpdate(batteryLevel: batteryLevel)
 
     if state == .batteryLevelRequesting {

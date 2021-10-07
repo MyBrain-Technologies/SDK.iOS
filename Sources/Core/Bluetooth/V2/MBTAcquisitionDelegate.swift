@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol MBTAcquisitionDelegate: AnyObject {
-  func didUpdateBatteryLevel(_ batteryLevel: Int)
+  func didUpdateBatteryLevel(_ batteryLevel: Float)
 
   /// Called when
   ///
@@ -24,7 +24,7 @@ public protocol MBTAcquisitionDelegate: AnyObject {
 
 extension MBTAcquisitionDelegate {
 
-  func didUpdateBatteryLevel(_ batteryLevel: Int) { }
+  func didUpdateBatteryLevel(_ batteryLevel: Float) { }
 
   func didUpdateSaturationStatus(_ status: Int) { }
 

@@ -179,7 +179,7 @@ extension PeripheralGatewayPreIndus5: PeripheralValueReceiverDelegate {
 
   // START: Move to extension for default implementation
 
-  func didUpdate(batteryLevel: Int) {
+  func didUpdate(batteryLevel: Float) {
     delegate?.didValueUpdate(batteryLevel: batteryLevel)
   }
 
