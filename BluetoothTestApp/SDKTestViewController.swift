@@ -169,7 +169,7 @@ extension SDKTestViewController: MBTA2DPBluetoothDelegate {
 
 extension SDKTestViewController: MBTAcquisitionDelegate {
 
-  func didUpdateBatteryLevel(_ batteryLevel: Int) {
+  func didUpdateBatteryLevel(_ batteryLevel: Float) {
     print("Battery level: \(batteryLevel) %")
     batteryLevelLabel.text = String("\(batteryLevel) %")
   }
