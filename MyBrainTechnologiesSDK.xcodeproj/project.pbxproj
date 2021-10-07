@@ -66,6 +66,9 @@
 		4D5383B626C6DDE100276769 /* ImsExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B526C6DDE100276769 /* ImsExporter.swift */; };
 		4D5383B926C724D000276769 /* ImsAcquisitionBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383B826C724D000276769 /* ImsAcquisitionBuffer.swift */; };
 		4D5383BF26C7266300276769 /* RawPacketProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5383BE26C7266300276769 /* RawPacketProtocol.swift */; };
+		4D7973D5270F03A800329CC5 /* BatteryLevelDecoderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7973D4270F03A800329CC5 /* BatteryLevelDecoderProtocol.swift */; };
+		4D7973D7270F03E300329CC5 /* PreIndus5BatteryLevelDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7973D6270F03E300329CC5 /* PreIndus5BatteryLevelDecoder.swift */; };
+		4D7973D9270F03EE00329CC5 /* PostIndus5BatteryLevelDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7973D8270F03EE00329CC5 /* PostIndus5BatteryLevelDecoder.swift */; };
 		4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551472682834000F43597 /* MBTEEGPacketV2.swift */; };
 		4D85514F2682845300F43597 /* MBTEEGPacketManagerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D85514E2682845300F43597 /* MBTEEGPacketManagerV2.swift */; };
 		4D8551532682852D00F43597 /* EegAcquiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8551522682852D00F43597 /* EegAcquiser.swift */; };
@@ -299,6 +302,9 @@
 		4D5EE9DC234E096D00B36DF0 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		4D73CFFC2272FF9500F6D47C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		4D73CFFD2272FF9500F6D47C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		4D7973D4270F03A800329CC5 /* BatteryLevelDecoderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryLevelDecoderProtocol.swift; sourceTree = "<group>"; };
+		4D7973D6270F03E300329CC5 /* PreIndus5BatteryLevelDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreIndus5BatteryLevelDecoder.swift; sourceTree = "<group>"; };
+		4D7973D8270F03EE00329CC5 /* PostIndus5BatteryLevelDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIndus5BatteryLevelDecoder.swift; sourceTree = "<group>"; };
 		4D8551472682834000F43597 /* MBTEEGPacketV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTEEGPacketV2.swift; sourceTree = "<group>"; };
 		4D85514E2682845300F43597 /* MBTEEGPacketManagerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTEEGPacketManagerV2.swift; sourceTree = "<group>"; };
 		4D8551522682852D00F43597 /* EegAcquiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EegAcquiser.swift; sourceTree = "<group>"; };
@@ -604,6 +610,7 @@
 		4D08CB5F26820192004ED097 /* PeripheralValueReceiver */ = {
 			isa = PBXGroup;
 			children = (
+				4D7973D3270F038600329CC5 /* BatteryLevel */,
 				4D08CB60268201A0004ED097 /* PeripheralValueReceiverProtocol.swift */,
 				4D08CB632682022D004ED097 /* PeripheralValueReceiverDelegate.swift */,
 				4D08CB6626820285004ED097 /* PreIndus5PeripheralValueReceiver.swift */,
@@ -770,6 +777,16 @@
 				4D5383B526C6DDE100276769 /* ImsExporter.swift */,
 			);
 			path = Exporter;
+			sourceTree = "<group>";
+		};
+		4D7973D3270F038600329CC5 /* BatteryLevel */ = {
+			isa = PBXGroup;
+			children = (
+				4D7973D4270F03A800329CC5 /* BatteryLevelDecoderProtocol.swift */,
+				4D7973D6270F03E300329CC5 /* PreIndus5BatteryLevelDecoder.swift */,
+				4D7973D8270F03EE00329CC5 /* PostIndus5BatteryLevelDecoder.swift */,
+			);
+			path = BatteryLevel;
 			sourceTree = "<group>";
 		};
 		4D8551422682773000F43597 /* Legacy */ = {
@@ -1527,6 +1544,7 @@
 				A974EFB923CE0CB200B9F9BE /* OADProgress.swift in Sources */,
 				A92D7A3D2481258C000DF7C3 /* Data+extension.swift in Sources */,
 				4DCD3D002671F441000B53C1 /* MBTRecordType.swift in Sources */,
+				4D7973D9270F03EE00329CC5 /* PostIndus5BatteryLevelDecoder.swift in Sources */,
 				4D91E363266BACEC00FFE4D9 /* Buffer.swift in Sources */,
 				A918D29024619A8D00026F1D /* BluetoothLowEnergyError.swift in Sources */,
 				4D2891822676224D00B9DEE4 /* Analyzer.swift in Sources */,
@@ -1561,6 +1579,7 @@
 				A92D7A3B248118CF000DF7C3 /* Array+extension.swift in Sources */,
 				2B631ED320E0E85F00880B8E /* MBTOADManager.swift in Sources */,
 				A918242E248951E50069D0AB /* EEGToRelaxIndexProcessor.swift in Sources */,
+				4D7973D5270F03A800329CC5 /* BatteryLevelDecoderProtocol.swift in Sources */,
 				4D356012266270360008412C /* DeviceInformationBuilder.swift in Sources */,
 				4D0CEFC126711391001EEA2C /* ElectrodeType.swift in Sources */,
 				A918D29624619D2800026F1D /* OADError.swift in Sources */,
@@ -1581,6 +1600,7 @@
 				4D9FFA99265FBA01000952E1 /* MBTService.swift in Sources */,
 				4D87EECE26681752003C35E1 /* PeripheralValidator.swift in Sources */,
 				A91F89FA23F31080007F4D9A /* BluetoothAuthorization.swift in Sources */,
+				4D7973D7270F03E300329CC5 /* PreIndus5BatteryLevelDecoder.swift in Sources */,
 				4D19FB40266143120064FF6F /* PreIndus5PeripheralCommunicator.swift in Sources */,
 				4D85515D268285EF00F43597 /* SignalProcessingManager.swift in Sources */,
 				4D8551482682834000F43597 /* MBTEEGPacketV2.swift in Sources */,
