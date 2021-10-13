@@ -8,8 +8,12 @@ public enum MBTRecordType: String, Codable {
 
   case session = "SESSION"
 
-  case rawdata = "RAWDATA"
+  case acquisition = "ACQUISITION"
 
+  /// Deprecated
+  case rawdata = "RAWDATA" 
+
+  /// Deprecated
   case study = "STUDY"
 
   case restingStatePreSessionEyesClosed = "RESTING_STATE_PRE_SESSION_EYES_CLOSED"
