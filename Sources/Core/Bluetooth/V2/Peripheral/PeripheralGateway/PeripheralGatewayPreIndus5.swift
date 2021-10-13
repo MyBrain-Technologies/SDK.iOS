@@ -179,9 +179,7 @@ extension PeripheralGatewayPreIndus5: PeripheralValueReceiverDelegate {
 
   // START: Move to extension for default implementation
 
-  func didUpdate(batteryLevel: Int) {
-    print(batteryLevel)
-//    didUpdateBatteryLevel?(batteryLevel)
+  func didUpdate(batteryLevel: Float) {
     delegate?.didValueUpdate(batteryLevel: batteryLevel)
   }
 
@@ -190,14 +188,10 @@ extension PeripheralGatewayPreIndus5: PeripheralValueReceiverDelegate {
   }
 
   func didUpdate(brainData: Data) {
-    print(brainData)
-//    didUpdateBrainData?(brainData)
     delegate?.didValueUpdate(brainData: brainData)
   }
 
   func didUpdate(saturationStatus: Int) {
-    print(saturationStatus)
-//    didUpdateSaturationStatus?(saturationStatus)
     delegate?.didValueUpdate(saturationStatus: saturationStatus)
   }
 

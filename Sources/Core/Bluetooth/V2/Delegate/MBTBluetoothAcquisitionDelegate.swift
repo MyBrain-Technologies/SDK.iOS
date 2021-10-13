@@ -2,7 +2,7 @@ import Foundation
 
 public protocol MBTBluetoothAcquisitionDelegate: AnyObject {
 
-  func didUpdateBatteryLevel(_ levelBattery: Int)
+  func didUpdateBatteryLevel(_ levelBattery: Float)
 
   /// Called when
   ///
@@ -22,7 +22,7 @@ public protocol MBTBluetoothAcquisitionDelegate: AnyObject {
 
 public extension MBTBluetoothAcquisitionDelegate {
 
-  func didUpdateBatteryLevel(_ levelBattery: Int) { }
+  func didUpdateBatteryLevel(_ levelBattery: Float) { }
 
   func didUpdateSaturationStatus(_ status: Int)  { }
 

@@ -19,8 +19,9 @@ struct EEGQualityProcessor {
     let flattenedBuffer = buffer.flattened
 
     let nanCount = flattenedBuffer.filter() { $0.isNaN }.count
-    log.verbose("Compute quality value. Number of NaN values",
-                context: nanCount)
+    if nanCount > 0 {
+      log.verbose("Compute quality value. Number of NaN values \(nanCount)")
+    }
 
     // Perform the computation.
     let qualities =

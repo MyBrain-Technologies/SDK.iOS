@@ -15,6 +15,10 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  /******************** Decoder ********************/
+
+  private let batteryLevelDecoder = PostIndus5BatteryLevelDecoder()
+
   /******************** Callbacks ********************/
 
   weak var delegate: PeripheralValueReceiverDelegate?
@@ -163,11 +167,13 @@ class PostIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   /******************** Battery ********************/
 
   private func handleBatteryUpdate(for bytes: Bytes) {
-    guard bytes.count > 0 else {
-      #warning("TODO: Handle error")
+    guard bytes.count > 0,
+          let batteryLevel =
+            batteryLevelDecoder.decode(headsetBatteryValue: bytes[0]) else {
+      #warning("TODO: Handle postIndus5 battery error")
       return
     }
-    let batteryLevel = Int(bytes[0])
+
     delegate?.didUpdate(batteryLevel: batteryLevel)
   }
 

@@ -1,7 +1,7 @@
 import Foundation
 
 protocol PeripheralValueReceiverDelegate: AnyObject {
-  func didUpdate(batteryLevel: Int)
+  func didUpdate(batteryLevel: Float)
   func didUpdate(brainData: Data)
   func didUpdate(imsData: Data)
   func didUpdate(saturationStatus: Int)

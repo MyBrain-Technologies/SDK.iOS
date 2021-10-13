@@ -113,7 +113,7 @@ public class MBTClientV2 {
     return deviceInformation?.productName
   }
 
-  public var lastBatteryLevel: Int {
+  public var lastBatteryLevel: Float {
     return bluetoothManager.lastBatteryLevel
   }
 
@@ -271,6 +271,10 @@ public class MBTClientV2 {
   /// Disconnect the iDevice from the headset
   /// - Remark: The audio can't be disconnect from code.
   public func cancelConnection() {
+    bluetoothManager.disconnect()
+  }
+
+  public func disconnect() {
     bluetoothManager.disconnect()
   }
 
@@ -550,7 +554,7 @@ public class MBTClientV2 {
 
 extension MBTClientV2: MBTBluetoothAcquisitionDelegate {
 
-  public func didUpdateBatteryLevel(_ levelBattery: Int) {
+  public func didUpdateBatteryLevel(_ levelBattery: Float) {
     acquisitionDelegate?.didUpdateBatteryLevel(levelBattery)
   }
 

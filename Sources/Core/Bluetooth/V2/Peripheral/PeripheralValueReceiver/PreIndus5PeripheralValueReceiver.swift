@@ -7,6 +7,10 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
   // MARK: - Properties
   //----------------------------------------------------------------------------
 
+  /******************** Decoder ********************/
+
+  private let batteryLevelDecoder = PreIndus5BatteryLevelDecoder()
+
   /******************** Callbacks ********************/
 
   weak var delegate: PeripheralValueReceiverDelegate?
@@ -120,8 +124,13 @@ class PreIndus5PeripheralValueReceiver: PeripheralValueReceiverProtocol {
 
   private func handleBatteryUpdate(for data: Data) {
     let bytes = Bytes(data)
-    guard bytes.count > 0 else { return }
-    let batteryLevel = Int(bytes[0])
+    guard bytes.count > 0,
+          let batteryLevel =
+            batteryLevelDecoder.decode(headsetBatteryValue: bytes[0]) else {
+      #warning("TODO: Handle preIndus5 battery error")
+      return
+    }
+
     delegate?.didUpdate(batteryLevel: batteryLevel)
   }
 
