@@ -20,14 +20,18 @@ Swift iOS SDK for MyBrainTechnologies Headset
 
 ## <a name="requirements"></a> Requirements
 
-- iOS 8.0+
-- Xcode 8.0+
-- Swift 3.0, 3.1, 3.2, and 4.0
+- iOS 13.6+
+- Xcode 12.0+
+- Swift 5.5
 
 
 ## <a name="installation"></a> Installation
 
 ### Manually
+
+#### Compile Binaries
+
+Run the target `fastlane` in the Xcode project. It will generate a `MyBrainTechnologiesSDK.xcframework` in the root/build folder.
 
 #### Embeded Binaries
 
@@ -35,79 +39,92 @@ Swift iOS SDK for MyBrainTechnologies Headset
 - Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the `+` button under the "Embedded Binaries" section.
-- Add the downloaded `MyBrainTechnologiesSDK.framework`.
-- **Add dependencies** : <a href="https://github.com/Alamofire/Alamofire" target="_blank">Alamofire</a> & <a href="https://realm.io/docs/swift/latest/" target="_blank">Realm Swift</a> 
+- Add the downloaded `MyBrainTechnologiesSDK.xcframework`.
 - And that's it!
 
 <br />
+
 ## <a name="usage"></a> Usage
 
 ### Headset connection / disconnection
 
-#### Connect Bluetooth LE (EEG) and A2DP (audio)
-
 ```swift
 import MyBrainTechnologiesSDK
 
-class VC: UIViewController, MelomindEngineDelegate {
-
-    ...
- 
- MelomindEngine.connectEEGAndA2DP(_ deviceName: String, withDelegate: self)
- 
-    ...
-}
-```
-
-#### Only Connect Bluetooth LE (EEG)
-
-```swift
-import MyBrainTechnologiesSDK
-
-class VC: UIViewController, MBTBluetoothEventDelegate {
+class MyClass: , MelomindEngineDelegate {
 
     ...
 
-    MelomindEngine.connectEEG(_ deviceName: String, withDelegate: self)
+  func connectToHeadset() {
+    MBTClientV2.shared.connectToBlueetooth()
+  }
+
+  func disconnectFromHeadset() {
+    MBTClientV2.shared.disconnect()
+  }
 
     ...
 }
-```
-
-#### Disconnection of the headset
-
-```swift
-MelomindEngine.disconnect()
 ```
 
 <br />
+
+### Notification
+
+The SDK is based on asynchronus communication. Hence a lot of information will be passed using the delagate pattern. 3 delegate are available
+
+```swift
+// Information about the ble state (connection or disconnection)
+public weak var bleDelegate: MBTBLEBluetoothDelegate?
+
+// Information about the A2DP state (connection or disconnection)
+public weak var a2dpDelegate: MBTA2DPBluetoothDelegate?
+
+// Information about the data acquisition like battery level or eeg/ims value handling
+public weak var acquisitionDelegate: MBTAcquisitionDelegate?
+```
+
+<br />
+
 ### Getting EEG data
 
 #### Start listening to EEG stream
 
 ```swift
-MelomindEngine.startStream()
+class MyClass {
+    func startEegStream() {
+        MBTClientV2.shared.startStream()
+    }
+
+    func startEegStream() {
+        MBTClientV2.shared.stopStream()
+    }
+}
+
+extension MyClass: MBTAcquisitionDelegate {
+    func didUpdateEEGData(_ eegPacket: MBTEEGPacket) {
+        // use eegPacket.
+    }
+}
 ```
 
-#### Stop listening to EEG stream
-```swift
-MelomindEngine.stopStream()
-```
 
 <br />
+
 ### Getters
 
-#### Device Informations getter (as *MBTDeviceInformations* instance)
+Multiple getters are available.
+
 ```swift
-MelomindEngine.getDeviceInformations()
-```
- 
-#### Session results getter (as JSON in *kwak* scheme)
-```swift
-MelomindEngine.getSessionJSON()
+// The information of the connected headset
+MBTClientV2.shared.deviceInformation
+
+// The most recent battery value.
+MBTClientV2.shared.lastBatteryLevel
 ```
 
 <br />
+
 ## <a name="license"></a> License
 
 MyBrainTechnologiesSDK is released under the MIT license. See [LICENSE](https://github.com/MyBrainTechnologies/MyBrainTechnologiesSDK/blob/master/LICENSE) for details.
